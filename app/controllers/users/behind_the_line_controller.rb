@@ -32,7 +32,8 @@ class Users::BehindTheLineController < ApplicationController
 
   def chapter
     @chapter = Chapter.find(params[:id])
-
+    @keywordable_id = params[:id]
+    @keywordable_type = 'Chapter'
     is_self = can? :manage, @user
     @previous = @chapter.previous_for_user(@user, is_self)
     @next = @chapter.next_for_user(@user, is_self)

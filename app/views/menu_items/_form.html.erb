@@ -157,11 +157,6 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
-    $('#form-tabs').tabs({
-      panelTemplate: '<section></section>',
-      fx: { duration: 'fast', opacity: 'toggle' }
-    });
-
     $('#social-tabs').tabs({
       panelTemplate: '<section></section>',
       fx: { duration: 'fast', opacity: 'toggle' }
@@ -180,7 +175,7 @@
     });
 
     $('#ui-datepicker-div').wrap('<div class="smoothness"></div>');
-    
+
     $(".tweet").charCount({
       allowed: 140,
       minChar: 5,

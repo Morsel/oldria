@@ -46,9 +46,9 @@ class User < ActiveRecord::Base
   include TwitterAuthorization
   include FacebookPageConnect
   include UserMessaging
-
+  
+  has_many :trace_keywords, :as => :keywordable
   has_many :statuses, :dependent => :destroy
-
   has_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
   has_many :friends, :through => :followings
   has_many :inverse_followings, :class_name => "Following", :foreign_key => 'friend_id', :dependent => :destroy
@@ -98,13 +98,18 @@ class User < ActiveRecord::Base
 
   has_one :featured_profile, :as => :feature
 
+  has_one :push_notification_user
+
   has_many :restaurant_employee_requests ,:foreign_key=>"employee_id"
   has_many :requested_restaurants, :through => :restaurant_employee_requests ,:source=> :restaurant
+
 
   has_one :push_notification_user
   has_many :user_restaurant_visitors
   
   validates_presence_of :email
+  validates_presence_of :publication, :unless => Proc.new { |user| user.role !="media" }
+
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
 
   has_and_belongs_to_many :metropolitan_areas
@@ -154,11 +159,24 @@ class User < ActiveRecord::Base
   named_scope :visible, :conditions => ['visible = ? AND (role != ? OR role IS NULL)', true, 'media']
   named_scope :with_published_profile, :conditions => ["publish_profile = ?", true]
 
+
+  has_and_belongs_to_many  :newsfeed_metropolitan_areas ,:class_name =>"MetropolitanArea"
+  accepts_nested_attributes_for :newsfeed_metropolitan_areas
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => true
   preference :publish_profile, :default => true # TODO - remove this after changes are on production
 
+  belongs_to :newsfeed_writer
+  belongs_to :digest_writer
+  has_many :metropolitan_areas_writers
+  has_many :promotion_types_writers
+  has_many :regional_writers  
+  has_many :newsfeed_regional_promotion_types
+  has_many :promotion_types,  :through => :newsfeed_regional_promotion_types
+
+  
+  
 
 ### Roles ###
   def admin?
@@ -610,4 +628,31 @@ class User < ActiveRecord::Base
   def restaurant_newsletter_subscription restaurant    
     media_newsletter_subscriptions.find_by_restaurant_id(restaurant.id)
   end  
+  #1 = National, 2 = Regional, 3 = Local
+  def delete_other_writers    
+    if newsfeed_writer_id == 1
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'NewsfeedWriter'").map(&:destroy)      
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'NewsfeedWriter'").map(&:destroy)
+      newsfeed_regional_promotion_types.destroy_all
+    elsif  newsfeed_writer_id == 2
+      promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'NewsfeedWriter'").map(&:destroy)
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'NewsfeedWriter'").map(&:destroy)      
+    elsif  newsfeed_writer_id == 3
+      newsfeed_regional_promotion_types.destroy_all
+      promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'NewsfeedWriter'").map(&:destroy)
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'NewsfeedWriter'").map(&:destroy)
+    end 
+
+    if digest_writer_id == 1
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'DigestWriter'").map(&:destroy)      
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'DigestWriter'").map(&:destroy)
+    elsif  digest_writer_id == 2
+      promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'DigestWriter'").map(&:destroy)
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'DigestWriter'").map(&:destroy)      
+    elsif  digest_writer_id == 3
+      promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'DigestWriter'").map(&:destroy)
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'DigestWriter'").map(&:destroy)
+    end 
+
+  end
 end
