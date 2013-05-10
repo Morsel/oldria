@@ -12,10 +12,12 @@ class UsersController < ApplicationController
 
   def show
     get_user
+    @keywordable_id = @user.id
+    @keywordable_type = 'User'
   end
 
   def resume
-    get_user
+    get_user redirect_to root_path if @user.media?
   end
 
   def edit
@@ -65,6 +67,7 @@ class UsersController < ApplicationController
 
   def confirm
     @user = User.find_by_perishable_token(params[:id])
+    self.get_newsletter_data    
     if @user
       # render the page
     elsif current_user
@@ -77,10 +80,15 @@ class UsersController < ApplicationController
   end
 
   def save_confirmation
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:user_id])  
     # Force password reset
     @user.crypted_password = nil
-    if @user.update_attributes(params[:user])
+    @user.newsfeed_regional_promotion_types.destroy_all
+
+
+    if @user.update_attributes(params[:user]) 
+      update_newsletter_data(params[:user_id])
+
       @user.reset_perishable_token!
       @user.confirmed_at = Time.now
       @user_session = UserSession.new(@user)
@@ -91,6 +99,7 @@ class UsersController < ApplicationController
         flash[:error] = "Could not log you in. Please contact us for assistance."
       end
     else
+      self.get_newsletter_data
       render :action => "confirm"
     end
   end
@@ -198,17 +207,40 @@ class UsersController < ApplicationController
     redirect_to edit_user_profile_path(:user_id => @user.id)
   end
 
+
   def upload
       if @user.update_attributes(params[:user])
         render :json=>{:status=>true}
       else
         render :json=>{:status=>false,:errors =>  @user.errors.as_json.uniq}
       end  
-  end  
+
+  end
+
 
   def edit_newsletters
     @user = current_user
     @subscriber = current_user.newsletter_subscriber
+  end
+
+  def add_region
+    @james_beard_region = JamesBeardRegion.new 
+    @user = User.find(params[:id])   
+    render :layout => false if request.xhr?
+  end 
+
+  def new_james_beard_region
+    @user = User.find(params[:user_id])
+    @james_beard_region = JamesBeardRegion.new(params[:james_beard_region])
+    respond_to do |wants|
+      if @james_beard_region.valid? 
+        UserMailer.deliver_send_james_bear_region_request(@james_beard_region,@user)
+
+        wants.json do render :json => {:html => "<li id='msg'><h3>Sent request to admin, will look into this.<h3></li>" }  end      
+      else   
+        wants.json { render :json => render_to_string(:file => "users/add_region.html.erb"), :status => :unprocessable_entity }
+      end
+    end
   end
 
   private

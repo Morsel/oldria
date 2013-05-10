@@ -50,6 +50,7 @@ class Employment < ActiveRecord::Base
 
 
   validates_presence_of :restaurant_role, :message => "Role is required field",:on => :update
+  validates_presence_of :restaurant_role, :message => "Role is required field",:if => Proc.new { |e| e.type == "DefaultEmployment" }
 
   before_save :set_subject_matters_for_managers, :if => Proc.new { |e| e.omniscient }
 

@@ -13,6 +13,7 @@ class Cuisine < ActiveRecord::Base
   has_many :restaurants
   has_many :profile_cuisines
   has_many :profiles, :through => :profile_cuisines
+  has_many :trace_keywords, :as => :keywordable
   
   validates_presence_of :name
   default_scope :order => "#{table_name}.name ASC"

@@ -1,0 +1,2 @@
+module TraceKeywordsHelper
+end

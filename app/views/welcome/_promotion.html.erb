@@ -1,0 +1,20 @@
+<% div_for promotion ,:class=>"menu_item" do %>
+     <div class="activity_header annoucement">
+        <% if !promotion.attachment_file_name.nil? && !promotion.attachment_file_name.blank? %>        
+            <%= image_tag promotion.attachment.url(:thumbnail) %>
+        <% else %>
+            <%=image_tag('avatar_restaurant.gif') %>
+        <%end%>
+         <h3>Newsfeed</h3>
+         <div class="content">
+            <p class="name">
+               <%= promotion.title %>
+            </p>
+            <p class="name">
+               <%=promotion.start_date.to_formatted_s(:long)%>
+            </p>
+          </div>  
+           <div class="clear"></div>
+    </div>
+
+<% end %>

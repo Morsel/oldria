@@ -21,15 +21,21 @@ class UserRestaurantVisitor < ActiveRecord::Base
 	 end 	
 
 
-	def send_notification      
-      userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",1.day.ago.beginning_of_day],:group => "restaurant_id")
 
+	def send_notification   
+     
+      userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",1.day.ago.beginning_of_day],:group => "restaurant_id")
       userrestaurantvisitor.each do |visitor|
+ 
+        @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
+
         visitors = visitor.restaurant.newsletter_subscribers 
+
         media_visitors = visitor.restaurant.restaurant_visitors  
+
         counter  = 0
-        menu = visitor.restaurant.menus.find(:first,:order =>"updated_at desc")
-        
+
+        menu = visitor.restaurant.menus.find(:first,:order =>"updated_at desc")        
         if menu.blank? || (!menu.blank? && menu.updated_at < 30.day.ago)
           @menu_message = "Your restaurant's menus have not been updated for a month, please update your <a href='#{restaurant_menus_url(visitor.restaurant)}'>current menus</a>."
           counter +=1
@@ -43,7 +49,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
         @menu_item = visitor.restaurant.menu_items.find(:first,:order =>"updated_at desc")
         unless @menu_item.blank?
           if @menu_item.created_at < 7.day.ago
-            @menu_item_message = "You've never used On The Menu, a powerful tool for connecting with media. You can ,<a href='#{restaurant_menus_url(visitor.restaurant)}'>check it out here</a>"
+            @menu_item_message = "You've never used On The Menu, a powerful tool for connecting with media. You can <a href='#{restaurant_menus_url(visitor.restaurant)}'>check it out here</a>"
             counter +=1
           end  
         else
@@ -68,7 +74,36 @@ class UserRestaurantVisitor < ActiveRecord::Base
           @newsfeed_message ="Newsfeed posts are emailed directly to media as press releases from your restaurant and can feature everything from new menu items to events to promos. Don't forget to get news to the ,<a href='#{new_restaurant_promotion_url(visitor.restaurant)}'>media</a> so they can report it."
         end
 
-      UserMailer.deliver_send_mail_visitor(visitor,visitors,media_visitors,@fact_message,@menu_message,@menu_item_message,@a_la_minute_message,@newsfeed_message)
+        keywords = TraceKeyword.all(:conditions => ["DATE(created_at) >= ?", 1.day.ago]).group_by(&:keywordable_type)
+        @specialties = @cuisines =  @chapters = @otmkeywords = @restaurantfeatures = nil
+
+        keywords.keys.each do |key|
+            instance_variable_set("@#{key.to_s.downcase.pluralize}", keywords[key].map(&:keywordable).map(&:name).to_sentence)
+        end
+
+        visitor.restaurant.employees.each do |employee|
+
+            employee_visitors = employee.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 1.day.ago]).map(&:user)
+
+            restaurant_visitors = { 
+              "visitor_obj" =>visitor,
+              "userrestaurantvisitor" => visitors,
+              "media_visitors" => media_visitors,
+              "fact_message" =>@fact_message,
+              "menu_message" => @menu_message,
+              "menu_item_message" => @menu_item_message,
+              "a_la_minute_message" =>@a_la_minute_message,
+              "newsfeed_message" => @newsfeed_message,
+              "employee" => employee,
+              "specialty_names" => @specialties,
+              "cuisine_names" => @cuisines,
+              "chapter_names" => @chapters,
+              "otm_keywords" => @otmkeywords,
+              "restaurant_features" => @restaurantfeatures,
+              "employee_visitors" => employee_visitors 
+            }  
+            UserMailer.deliver_send_mail_visitor(restaurant_visitors)                      
+      end 
    end
   end  
 end
