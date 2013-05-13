@@ -117,7 +117,7 @@ class Restaurant < ActiveRecord::Base
 
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
-      :metropolitan_area, :website, :media_contact, :cuisine, :opening_date, :manager
+      :metropolitan_area, :website, :media_contact, :cuisine, :opening_date, :manager,:james_beard_region
   validates_presence_of :restaurant_role_virtual ,:on=> :create
 
   validates_format_of :management_company_website,
