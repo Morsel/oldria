@@ -12,11 +12,11 @@
         <% end %>
     </h2>
 
-    <h3><%= promotion.headline %></h3>
     <div class="menu_item_main">
        <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
     </div>
     <div class="fix-nesfeed-details">
+        <p><%= promotion.headline %></p>
         <div class="details" >
              <%=truncate(Loofah::Helpers.sanitize(promotion.details), :length => 240, :omission => (link_to(" more &raquo;", details_restaurant_promotion_path(promotion.restaurant,promotion)).to_s)) %>
         </div>
