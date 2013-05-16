@@ -96,6 +96,24 @@
 		<%end%>
 
 	<hr />
+
+
+	<p>Media love trends and ALM is a killer way to make sure the media know you are making them. Use ALM to post your daily news like the killer pairing of the day or the newest wine you're excited about. </p>
+  
+<ul>
+		<%@a_la_minute_visitors.each do |a_la_minute_visitor| %>
+				<% unless a_la_minute_visitor.publication.blank? %>
+				  <li>
+				  	<%= a_la_minute_visitor.publication %>			  					  		
+				  </li>
+				<%else%>
+			  	<li>Freelance Writer</li>
+			  	<%end%>
+			<%end%>
+</ul>
+		<hr />
+
+
 <% end %>	
 	<p>Keep the media engaged! If you update your profile, we'll let these media folks know! Here's a few ideas:</p>
 <ul>	

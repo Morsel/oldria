@@ -23,7 +23,6 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
 
 	def send_notification   
-     
       userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",1.day.ago.beginning_of_day],:group => "restaurant_id")
       userrestaurantvisitor.each do |visitor|
  
@@ -75,16 +74,22 @@ class UserRestaurantVisitor < ActiveRecord::Base
         end
 
         keywords = TraceKeyword.all(:conditions => ["DATE(created_at) >= ?", 1.day.ago]).group_by(&:keywordable_type)
-        @specialties = @cuisines =  @chapters = @otmkeywords = @restaurantfeatures = nil
+        @specialties = @cuisines =  @chapters = @otmkeywords = @restaurantfeatures  = nil
 
         keywords.keys.each do |key|
+          if (key == "ALaMinuteAnswer")||(key == "ALaMinuteQuestion")
+             @users = keywords[key].map(&:user_id)
+             @_la_minute_visitors = UserRestaurantVisitor.find_all_by_user_id(@users)
+             @_la_minute_visitors.each do |a_la_minute_visitor|
+               @a_la_minute_visitors = a_la_minute_visitor.restaurant.restaurant_visitors  
+             end 
+          else  
             instance_variable_set("@#{key.to_s.downcase.pluralize}", keywords[key].map(&:keywordable).map(&:name).to_sentence)
+          end 
         end
 
         visitor.restaurant.employees.each do |employee|
-
-            employee_visitors = employee.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 1.day.ago]).map(&:user)
-
+          employee_visitors = employee.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 19.day.ago]).map(&:user)
             restaurant_visitors = { 
               "visitor_obj" =>visitor,
               "userrestaurantvisitor" => visitors,
@@ -100,7 +105,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "chapter_names" => @chapters,
               "otm_keywords" => @otmkeywords,
               "restaurant_features" => @restaurantfeatures,
-              "employee_visitors" => employee_visitors 
+              "employee_visitors" => employee_visitors, 
+              "alaminutequestions" => @alaminutequestions,
+              "a_la_minute_visitors" => @a_la_minute_visitors
             }  
             UserMailer.deliver_send_mail_visitor(restaurant_visitors)                      
       end 
