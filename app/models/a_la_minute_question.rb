@@ -15,6 +15,7 @@ class ALaMinuteQuestion < ActiveRecord::Base
 
   KINDS = %w(restaurant user)
 
+  has_many :trace_keywords, :as => :keywordable
   has_many :a_la_minute_answers, :dependent => :destroy
 
   validates_presence_of :question
@@ -60,4 +61,5 @@ class ALaMinuteQuestion < ActiveRecord::Base
     self.a_la_minute_answers.find(:all,:conditions => range)
   end
   
+
 end

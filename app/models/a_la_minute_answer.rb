@@ -27,7 +27,8 @@ class ALaMinuteAnswer < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   include ActionController::UrlWriter
   default_url_options[:host] = DEFAULT_HOST
-
+  
+  has_many :trace_keywords, :as => :keywordable
   belongs_to :a_la_minute_question
   belongs_to :responder, :polymorphic => true
 
@@ -190,5 +191,6 @@ class ALaMinuteAnswer < ActiveRecord::Base
   def edit_path(options={})
     edit_restaurant_a_la_minute_answer_url(restaurant, self, options)
   end
+
 
 end
