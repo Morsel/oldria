@@ -22,8 +22,8 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
 
 
-	def send_notification      
-      userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",1.day.ago.beginning_of_day],:group => "restaurant_id")
+	def send_notification   
+      userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",111.day.ago.beginning_of_day],:group => "restaurant_id")
       userrestaurantvisitor.each do |visitor|
         @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
 
@@ -72,17 +72,23 @@ class UserRestaurantVisitor < ActiveRecord::Base
           @newsfeed_message ="Newsfeed posts are emailed directly to media as press releases from your restaurant and can feature everything from new menu items to events to promos. Don't forget to get news to the ,<a href='#{new_restaurant_promotion_url(visitor.restaurant)}'>media</a> so they can report it."
         end
 
-        keywords = TraceKeyword.all(:conditions => ["DATE(created_at) >= ?", 1.day.ago]).group_by(&:keywordable_type)
-        @specialties = @cuisines =  @chapters = @otmkeywords = @restaurantfeatures = nil
+        keywords = TraceKeyword.all(:conditions => ["DATE(created_at) >= ?", 90.day.ago]).group_by(&:keywordable_type)
+        @specialties = @cuisines =  @chapters = @otmkeywords = @restaurantfeatures  = nil
 
         keywords.keys.each do |key|
+          if (key == "ALaMinuteAnswer")||(key == "ALaMinuteQuestion")
+             @users = keywords[key].map(&:user_id)
+             @_la_minute_visitors = UserRestaurantVisitor.find_all_by_user_id(@users)
+             @_la_minute_visitors.each do |a_la_minute_visitor|
+               @a_la_minute_visitors = a_la_minute_visitor.restaurant.restaurant_visitors  
+             end 
+          else  
             instance_variable_set("@#{key.to_s.downcase.pluralize}", keywords[key].map(&:keywordable).map(&:name).to_sentence)
+          end 
         end
 
         visitor.restaurant.employees.each do |employee|
-
-            employee_visitors = employee.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 1.day.ago]).map(&:user)
-
+          employee_visitors = employee.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 19.day.ago]).map(&:user)
             restaurant_visitors = { 
               "visitor_obj" =>visitor,
               "userrestaurantvisitor" => visitors,
@@ -98,7 +104,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "chapter_names" => @chapters,
               "otm_keywords" => @otmkeywords,
               "restaurant_features" => @restaurantfeatures,
-              "employee_visitors" => employee_visitors 
+              "employee_visitors" => employee_visitors, 
+              "alaminutequestions" => @alaminutequestions,
+              "a_la_minute_visitors" => @a_la_minute_visitors
             }  
             UserMailer.deliver_send_mail_visitor(restaurant_visitors)                      
       end 
