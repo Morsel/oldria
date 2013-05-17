@@ -23,7 +23,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
 
 	def send_notification   
-      userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",1.day.ago.beginning_of_day],:group => "restaurant_id")
+      userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",111.day.ago.beginning_of_day],:group => "restaurant_id")
       userrestaurantvisitor.each do |visitor|
         @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
 
@@ -88,7 +88,8 @@ class UserRestaurantVisitor < ActiveRecord::Base
         end
 
         visitor.restaurant.employees.each do |employee|
-          employee_visitors = employee.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 19.day.ago]).map(&:user)
+         employee_visitors = employee.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 1.day.ago]).map(&:user)
+
             restaurant_visitors = { 
               "visitor_obj" =>visitor,
               "userrestaurantvisitor" => visitors,
@@ -106,7 +107,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "restaurant_features" => @restaurantfeatures,
               "employee_visitors" => employee_visitors, 
               "alaminutequestions" => @alaminutequestions,
-              "a_la_minute_visitors" => @a_la_minute_visitors
+              "a_la_minute_visitors" => @a_la_minute_visitors,
+              "restaurant" =>  visitor.restaurant,
+              "current_user" => visitor.user
             }  
             UserMailer.deliver_send_mail_visitor(restaurant_visitors)                      
       end 
