@@ -52,24 +52,25 @@
 	  <%unless @specialty_names.blank?%>
 		  <ul>
 		  	<li>
-		  		Personal Profile Specialties <br>
+		  		<%=link_to 'Personal Profile Specialties',edit_user_profile_url(@current_user) %> <br>
 		  		<%= @specialty_names %>
 		  	</li>
 		  </ul>  	    
   	<%end%>
   
- 
-		<%unless @cuisine_names.blank?%>
-		  <ul>
-		  	<li>Cuisine <br><%= @cuisine_names %> </li>
-			</ul>
-		<%end%>
+  <!-- cuisine will be remove as per client requirement 16 May 13 -->
+		<%#unless @cuisine_names.blank?%>
+		  <!-- <ul>
+		  	<li>Cuisine <br><%#= @cuisine_names %> </li>
+			</ul> -->
+		<%#end%>
   
 
 
 
 		<%unless @otm_keywords.blank? %>
-			<ul><li>On the Menu Keywords <br>
+			<ul><li><%=link_to 'On the Menu Keywords' ,new_restaurant_menu_item_url(@visitor_obj.restaurant) %> 
+				<br>
 				<%= @otm_keywords %>
 			</li>
 		</ul>
@@ -88,7 +89,7 @@
 		<%unless @restaurant_features.blank?%>
 			<ul>
 			<li>
-				Restaurant features <br>
+				<%=link_to 'Restaurant features' ,new_restaurant_feature_url(@visitor_obj.restaurant) %> <br>
 				<%= @restaurant_features %>
 			</li>
 			 
@@ -96,6 +97,23 @@
 		<%end%>
 
 	<hr />
+
+<!-- this post was removed as per client req -->
+  <p>Media need news everyday. A La Minute is designed to share the news you make everyday. Log onto <%=link_to "A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj.restaurant)%> today and stay in front of the media.</p>
+<ul>
+		<%@a_la_minute_visitors.each do |a_la_minute_visitor| %>
+				<% unless a_la_minute_visitor.publication.blank? %>
+				  <li>
+				  	<%= a_la_minute_visitor.publication %>			  					  		
+				  </li>
+				<%else%>
+			  	<li>Freelance Writer</li>
+			  	<%end%>
+			<%end%>
+</ul>
+		<hr />
+
+
 <% end %>	
 	<p>Keep the media engaged! If you update your profile, we'll let these media folks know! Here's a few ideas:</p>
 <ul>	
@@ -129,7 +147,8 @@
 
 	<% unless @a_la_minute_message.blank?%>
 		<li>
-			<p><%=link_to"A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj.restaurant)%> </p>
+ 		<p><%=link_to"A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj.restaurant)%> </p> 
+					
 			<p><%=  @a_la_minute_message %></p>
 		</li>	
 	<% end %>
