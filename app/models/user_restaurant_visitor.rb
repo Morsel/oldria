@@ -89,7 +89,8 @@ class UserRestaurantVisitor < ActiveRecord::Base
         end
 
         visitor.restaurant.employees.each do |employee|
-          employee_visitors = employee.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 19.day.ago]).map(&:user)
+          employee_visitors = employee.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 1.day.ago]).map(&:user)
+
             restaurant_visitors = { 
               "visitor_obj" =>visitor,
               "userrestaurantvisitor" => visitors,
@@ -107,7 +108,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "restaurant_features" => @restaurantfeatures,
               "employee_visitors" => employee_visitors, 
               "alaminutequestions" => @alaminutequestions,
-              "a_la_minute_visitors" => @a_la_minute_visitors
+              "a_la_minute_visitors" => @a_la_minute_visitors,
+              "restaurant" =>  visitor.restaurant,
+              "current_user" => visitor.user
             }  
             UserMailer.deliver_send_mail_visitor(restaurant_visitors)                      
       end 
