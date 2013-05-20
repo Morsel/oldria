@@ -27,9 +27,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
       userrestaurantvisitor.each do |visitor|
  
         @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
-
+      if !visitor.restaurant.nil?
         visitors = visitor.restaurant.newsletter_subscribers 
-
+      
         media_visitors = visitor.restaurant.restaurant_visitors  
 
         counter  = 0
@@ -81,7 +81,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
              @users = keywords[key].map(&:user_id)
              @_la_minute_visitors = UserRestaurantVisitor.find_all_by_user_id(@users)
              @_la_minute_visitors.each do |a_la_minute_visitor|
+              if !a_la_minute_visitor.restaurant.nil?
                @a_la_minute_visitors = a_la_minute_visitor.restaurant.restaurant_visitors  
+              end 
              end 
           else  
             instance_variable_set("@#{key.to_s.downcase.pluralize}", keywords[key].map(&:keywordable).map(&:name).to_sentence)
@@ -89,7 +91,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
         end
 
         visitor.restaurant.employees.each do |employee|
-          employee_visitors = employee.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 1.day.ago]).map(&:user)
+         employee_visitors = employee.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 1.day.ago]).map(&:user)
 
             restaurant_visitors = { 
               "visitor_obj" =>visitor,
@@ -114,6 +116,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
             }  
             UserMailer.deliver_send_mail_visitor(restaurant_visitors)                      
       end 
+    end  
    end
   end  
 end
