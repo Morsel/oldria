@@ -46,16 +46,18 @@
               
     $.post("/trace_keywords", params);
   </script>
-<% elsif current_user.try(:media?) && !@keywordable_type.blank? && @keywordable_id.blank? %> 
+  <% elsif current_user.try(:media?) && !@keywordable_type.blank? && @keywordable_id.blank? %>
   <script type="text/javascript">
   params = { trace_keyword: {
                       user_id: <%= current_user.try(:id) %>,
                       keywordable_type: '<%= @keywordable_type %>'
               } 
+
             };
               
     $.post("/trace_keywords", params);
   </script>
 <% end %>
+
 </body>
 </html>
