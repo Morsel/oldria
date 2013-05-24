@@ -28,7 +28,6 @@
 <hr />
 
 
-
 <% unless @media_visitors.blank? %>	
   <p id="salutation"> The <b><%=@visitor_obj.restaurant.try(:name)%></b> restaurant profile has been visited by the following media: </p>
 <ul>
@@ -45,20 +44,26 @@
 <hr />
 <%end%>	
 
-<% unless @specialty_names.blank? && @cuisine_names.blank? && @otm_keywords.blank? && @chapter_names.blank? && @restaurant_features.blank? %>	
+
+
+<% unless @specialty_names.blank? && @cuisine_names.blank? && @otm_keywords.blank? && @chapter_names.blank? && @restaurant_features.blank? && @users.blank? %>	
 
 <p> Media are researching the following keywords. If you have any stories/menu items to share pertaining to these topics, now would be the time to share them! </p>
   
-<%unless @specialty_names.blank?%>
+<%unless @specialty_names.blank?  %>
 	<ul>
 	  <li>
 	  <%=link_to 'Personal Profile Specialties',edit_user_profile_url(@current_user) %> <br>
-	  <%= @specialty_names %>
+	  <%= @specialty_names %> <br>
+	  <%= @users %>
 	  </li>
 	</ul>
 <%end%>
   
-  <!-- cuisine will be remove as per client requirement 16 May 13 -->
+
+
+
+ <!-- cuisine will be remove as per client requirement 16 May 13 -->
 <%#unless @cuisine_names.blank?%>
 <!-- <ul>
 <li>Cuisine <br><%#= @cuisine_names %> </li>
@@ -87,7 +92,7 @@
 <%unless @restaurant_features.blank?%>
 <ul>
   <li>
-		<%=link_to 'Restaurant features' ,new_restaurant_feature_url(@visitor_obj.restaurant) %> <br>
+		Restaurant features <br>
 		<%= @restaurant_features %>
   </li>
 </ul>
