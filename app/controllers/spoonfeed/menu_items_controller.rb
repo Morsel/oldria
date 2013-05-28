@@ -4,7 +4,7 @@ class Spoonfeed::MenuItemsController < ApplicationController
   before_filter :verify_restaurant_activation, :only =>[:show]
 
   def index
-
+  UserRestaurantVisitor.new.send_notification
     if params[:keyword].present?
       @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:joins => { :menu_item_keywords => :otm_keyword },
                                  :conditions => ["otm_keywords.name = ?", params[:keyword]],
