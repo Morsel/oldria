@@ -69,17 +69,6 @@
 <%end%>
 
 
-
-<%unless @users.blank?  %>
-<p>The following users profile has been visited <p>
-	<ul>
-	  <li>
-	  	<%= @users %>
-	  </li>
-	</ul>
-<%end%>
-
-
  <!-- cuisine will be remove as per client requirement 16 May 13 -->
 <%#unless @cuisine_names.blank?%>
 <!-- <ul>
@@ -117,6 +106,16 @@
 
 
 
+
+<%unless @users.blank?  %>
+<p>The following users that profile has been visited <p>
+	<ul>
+	  <li>
+	  	<%= @users %>
+	  </li>
+	</ul>
+<%end%>
+
 <%unless @a_la_minute_visitors.blank?%>
 <!-- this post was removed as per client req -->
   <p>Media need news everyday. A La Minute is designed to share the news you make everyday. Log onto <%=link_to "A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj)%> today and stay in front of the media.</p>
@@ -132,9 +131,9 @@
     <%end%>
   <%end%>
 </ul>
-<hr />
 <% end %>
 <hr />
+
 <% else %>
 <p>Just 15 minutes a day helps keeps the media engaged! Yesterday, our active users connected with media from the following publications:</p>
 <ul>
