@@ -23,7 +23,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
 
 	def send_notification   
+
       userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",1.day.ago.beginning_of_day],:group => "restaurant_id")
+
       userrestaurantvisitor.each do |visitor|
  
         @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
@@ -78,14 +80,14 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
         keywords.keys.each do |key|
           if (key == "ALaMinuteAnswer")||(key == "ALaMinuteQuestion")
-             @users = keywords[key].map(&:user_id)
-             @_la_minute_visitors = UserRestaurantVisitor.find_all_by_user_id(@users)
+             @al_users = keywords[key].map(&:user_id)
+             @_la_minute_visitors = UserRestaurantVisitor.find_all_by_user_id(@al_users)
              @_la_minute_visitors.each do |a_la_minute_visitor|
               if !a_la_minute_visitor.restaurant.nil?
                @a_la_minute_visitors = a_la_minute_visitor.restaurant.restaurant_visitors  
               end 
              end 
-          else  
+          else
             instance_variable_set("@#{key.to_s.downcase.pluralize}", keywords[key].map(&:keywordable).map(&:name).to_sentence)
           end 
         end
@@ -115,10 +117,10 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "current_user" => visitor.user,
               "users" => @users
             }  
-            UserMailer.deliver_send_mail_visitor(restaurant_visitors)                      
+            UserMailer.deliver_send_mail_visitor(restaurant_visitors)                
       end 
     end  
-   end
+    end
   end  
 end
 
