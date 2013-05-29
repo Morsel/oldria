@@ -4,68 +4,68 @@
 
 <% unless @employee_visitors.blank? %>
   <p>Your personal profile has been visited by the following media: </p>
-	<ul>
-	  <% @employee_visitors.each do |employe_visitor| %>
-	  <li>
-	    <%= employe_visitor.publication %>
-	  </li>
-	  <%end%>
-	</ul>
+<ul>
+<% @employee_visitors.each do |employe_visitor| %>
+<li>
+<%= employe_visitor.publication %>
+</li>
+<%end%>
+</ul>
 <% end %>
 
 
 
 <% if false %> <!-- Breaking the execution for temparory -->
-	<% unless @userrestaurantvisitor.blank? %>
-	  <p> You have following Diner visitors:</p>
-	<ul>
-	  <%@userrestaurantvisitor.each do |urv| %>
-	  <li><%= urv.try(:first_name).try(:capitalize) %> <%= urv.try(:last_name).try(:capitalize) %> : <%= urv.try(:email) %></li>
-	  <%end%>
-	</ul>
-	<% end %>
+<% unless @userrestaurantvisitor.blank? %>
+<p> You have following Diner visitors:</p>
+<ul>
+<%@userrestaurantvisitor.each do |urv| %>
+<li><%= urv.try(:first_name).try(:capitalize) %> <%= urv.try(:last_name).try(:capitalize) %> : <%= urv.try(:email) %></li>
+<%end%>
+</ul>
+<% end %>
 <% end %>
 <hr />
 
-<% unless @media_visitors.blank? %>	
+<% unless @media_visitors.blank? %>        
   <p id="salutation">media FROM THESE PUBLICATIONS visited your website.
 <ul>
   <%@media_visitors.each do |media_visitor| %>
-	  <% unless media_visitor.publication.blank? %>
-	  <li>
-	    <%= media_visitor.publication %>	
-	  </li>
-	  <%else%>
-	  <li>Freelance Writer</li>
-	  <%end%>
+<% unless media_visitor.publication.blank? %>
+<li>
+<%= media_visitor.publication %>        
+</li>
+<%else%>
+<li>Freelance Writer</li>
+<%end%>
   <%end%>
 </ul>
 <hr />
-<%end%>	
+<%end%>        
 
 
-<% unless @specialty_names.blank? && @otm_keywords.blank? && @chapter_names.blank? && @restaurant_features.blank? && @users.blank? && @a_la_minute_visitors.blank? %>	
+<% unless @specialty_names.blank? && @otm_keywords.blank? && @chapter_names.blank? && @restaurant_features.blank? && @users.blank? && @a_la_minute_visitors.blank? %>        
 
-<p>  looks like media aren't clicking on your posts, we'd love to help you get more engagement! here are a few tips for you. </p>
+<p> looks like media aren't clicking on your posts, we'd love to help you get more engagement! here are a few tips for you. </p>
   
 <ul>
-	  <li> Tell great stories </li>
-	  <li> Stay on trend </li>
-	  <li>Share great pictures </li>
-	 
+<li> Tell great stories </li>
+<li> Stay on trend </li>
+<li>Share great pictures </li>
+
 </ul>
 <hr />
 
 
-<p>  media are searching these keywords </p>
+<p> media are searching these keywords </p>
   
-<%unless @specialty_names.blank?  %>
-	<ul>
-	  <li>
-	  <%=link_to 'Personal Profile Specialties',edit_user_profile_url(@current_user) %> <br>
-	  <%= @specialty_names %> <br>
-	  </li>
-	</ul>
+<%unless @specialty_names.blank? %>
+<ul>
+<li>
+<%=link_to 'Personal Profile Specialties',edit_user_profile_url(@current_user) %> <br>
+<%= @specialty_names %> <br>
+</li>
+</ul>
 <%end%>
 
 
@@ -88,9 +88,9 @@
 
 
 <% unless @chapter_names.blank? %>
-	<ul>
-	  <li> Chapters <br> <%= @chapter_names %></li>
-	</ul>
+<ul>
+<li> Chapters <br> <%= @chapter_names %></li>
+</ul>
 <%end%>
 
 
@@ -98,21 +98,21 @@
 <ul>
   <li>
     <%=link_to 'Restaurant features',bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1) %>
-  	<br>
-		<%= @restaurant_features %>
+   <br>
+<%= @restaurant_features %>
   </li>
 </ul>
 <%end%>
 
 
 
-<%unless @users.blank?  %>
+<%unless @users.blank? %>
 <p>The following users that profile has been visited <p>
-	<ul>
-	  <li>
-	  	<%= @users %>
-	  </li>
-	</ul>
+<ul>
+<li>
+<%= @users %>
+</li>
+</ul>
 <%end%>
 
 
@@ -125,7 +125,7 @@
   <%@a_la_minute_visitors.each do |a_la_minute_visitor| %>
     <% unless a_la_minute_visitor.publication.blank? %>
   <li>
-    <%= a_la_minute_visitor.publication %>	
+    <%= a_la_minute_visitor.publication %>        
   </li>
     <%else%>
   <li>Freelance Writer</li>
@@ -139,30 +139,30 @@
 <p>Just 15 minutes a day helps keeps the media engaged! Yesterday, our active users connected with media from the following publications:</p>
 <ul>
   <%@media_visitors.each do |media_visitor| %>
-	  <% unless media_visitor.publication.blank? %>
-	  <li>
-	    <%= media_visitor.publication %>	
-	  </li>
-	  <%else%>
-	  <li>Freelance Writer</li>
-	  <%end%>
+<% unless media_visitor.publication.blank? %>
+<li>
+<%= media_visitor.publication %>        
+</li>
+<%else%>
+<li>Freelance Writer</li>
+<%end%>
   <%end%>
 </ul>
 <hr />
-<% end %>	
+<% end %>        
 
 
 <p>Here are your tasks </p>
-<ul>	
+<ul>        
   <% unless @menu_message.blank?%>
   <li>
-	  <!-- <p> -->
-	   <%=link_to "Menus",bulk_edit_restaurant_menus_url(@visitor_obj)%>
-	  <!-- </p>
-	   <p> -->
-	   	<br/><%= @menu_message %>
-	   <!-- </p> -->
-  </li>	
+<!-- <p> -->
+<%=link_to "Menus",bulk_edit_restaurant_menus_url(@visitor_obj)%>
+<!-- </p>
+<p> -->
+<br/><%= @menu_message %>
+<!-- </p> -->
+  </li>        
  <% end %>
 
 <% unless @fact_message.blank?%>
@@ -170,46 +170,46 @@
   <!-- <p> -->
     <%=link_to("Fact Sheet",edit_restaurant_fact_sheet_url(@visitor_obj))%>
   <!-- </p>
-  <p>  -->
-  	<br/><%= @fact_message %>
-  <!-- </p>	 -->
+<p> -->
+   <br/><%= @fact_message %>
+  <!-- </p> -->
 </li>
 <% end %>
 
 
 
 <% unless @menu_item_message.blank?%>
-	<li>
-	  <!-- <p> -->
-	  <%=link_to "Menu Items",restaurant_menu_items_url(@visitor_obj)%>
-	<!-- </p>
-	  <p> -->
-	  	<br/><%= @menu_item_message %>
-	  <!-- </p> -->
-	</li>
+<li>
+<!-- <p> -->
+<%=link_to "Menu Items",restaurant_menu_items_url(@visitor_obj)%>
+<!-- </p>
+<p> -->
+<br/><%= @menu_item_message %>
+<!-- </p> -->
+</li>
 <% end %>
 
 <% unless @a_la_minute_message.blank?%>
-	<li>
-	  <!-- <p> -->
-	  	<%=link_to"A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj)%> 
-	  <!-- </p>
+<li>
+<!-- <p> -->
+<%=link_to"A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj)%>
+<!-- </p>
 
-	<p> -->
-		<br/><%= @a_la_minute_message %>
-	<!-- </p> -->
-	</li>	
+<p> -->
+<br/><%= @a_la_minute_message %>
+<!-- </p> -->
+</li>        
 <% end %>
 
 <% unless @newsfeed_message.blank? %>
-	<li>
-	<!-- <p> -->
-	<%=link_to "Newsfeed",restaurant_promotions_url(@visitor_obj)%>
-	<!-- /p>
-	<p> -->
-		<br/><%= @newsfeed_message %>
-	<!-- </p> -->
-	</li>
+<li>
+<!-- <p> -->
+<%=link_to "Newsfeed",restaurant_promotions_url(@visitor_obj)%>
+<!-- /p>
+<p> -->
+<br/><%= @newsfeed_message %>
+<!-- </p> -->
+</li>
 <% end %>
 </ul>
 

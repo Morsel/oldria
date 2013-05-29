@@ -13,6 +13,8 @@
         <% end -%>
         <span><%= link_to "Front Burner", edit_front_burner_user_profile_path(@user), :id => "tab-fb", :title => "profile-front-burner" %></span>
         <span><a href="#profile-account" id="tab-account">Account</a></span>
+        <%#debugger%>
+        <span><a href="#profile-settings" id="tab-account1">Visitor Email</a></span>
     </nav><!-- /profile_options -->
 
     <section id="profile-summary">
@@ -67,7 +69,7 @@
           <% if @user.premium_account? %> 
             <% f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
               <%= user_form.input :publish_profile, :as => :boolean, :label => 'Display my profile on Soapbox' %>
-      		  <% button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
+            <% button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
             <% end %>
           <% else %>
             <fieldset class="inputs">
@@ -96,7 +98,7 @@
                     <% end %>
                 </ul>
 
-				<% button_tag :class => 'positive' do %>Save changes to employment<% end %>
+        <% button_tag :class => 'positive' do %>Save changes to employment<% end %>
             <% end %>
             <% end %>
         <% end %><%# non-basic details %>
@@ -185,17 +187,17 @@
           <% end %>
 
           <% f.inputs :name => "Editing" do %>
-			  <label for="user_editor">Allow another user to edit your account?</label>
-			  <%= text_field_tag "user_editor", "", :name => "user[editor]" %>
+        <label for="user_editor">Allow another user to edit your account?</label>
+        <%= text_field_tag "user_editor", "", :name => "user[editor]" %>
               <p class="inline-hints">Enter the name of the user to add</p>
 
               <% if @user.editors.present? -%>
               <h3>Current Editors:</h3>
-			  <ul>
-				<% for editor in @user.editors %>
-				<li><%= editor.name %> <%= link_to "Remove", remove_editor_user_path(@user, :editor_id => editor.id), :confirm => "Are you sure you want to remove this editor?", :method => :put %></li>
-				<% end %>
-			  </ul>
+        <ul>
+        <% for editor in @user.editors %>
+        <li><%= editor.name %> <%= link_to "Remove", remove_editor_user_path(@user, :editor_id => editor.id), :confirm => "Are you sure you want to remove this editor?", :method => :put %></li>
+        <% end %>
+        </ul>
               <% end -%>
 
               <p><%= button_tag "Save Editing Preferences", :class => 'positive' %></p>
@@ -324,14 +326,44 @@
             <p><%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %></p>
           <%- end -%>
 
-  		  <% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
+        <% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
 
       <% end %><!-- Contact information -->
       <% end %>
   </section><!-- /profile-account -->
 
 </section><!-- /profile-tabs -->
+<section id="profile-settings">
+  <div id="restaurant_profile_view" class="edit clear clearfix">
+    <%#= render 'restaurants/restaurant_editing_header' %>
 
+    <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">                         
+              <div>
+
+                <h1 class="pg_title">User Visitor Email Settings</h1>
+                <p>RIA Visitor email is a unique new way to get update from the restaurnat visitors. You can get the all visitors by email.  </p>                
+              </div>
+              <div id="newsletter_settings" class="clearfix">
+
+        
+        <% semantic_form_for @user, :html => { :multipart => true } do |f| %>          
+          <% @user.build_user_visitor_email_setting if @user.user_visitor_email_setting.blank? %>
+          <% f.semantic_fields_for :user_visitor_email_setting do |u| %>
+              <%= u.input :is_approved %>
+              <%= u.input :email_frequency,  :as => :select,:selected=>"Daily", :collection => ["Daily","Weekly"] %>
+                        <div id='show_hde' style='display: none'>
+                          <%= u.input :email_frequency_day,  :as => :check_boxes, :collection => ["Monday","Wednesday","Friday"],:selected=>"Monday"%>
+                        </div>
+              <%end%>
+          <%=f.submit 'Save settings' %>
+        <%end%>
+
+        </div>
+    </div><!-- /editing_restaurant -->
+</div><!-- /restaurant_profile_view -->
+
+</section>
 <% content_for :javascript do %>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -365,6 +397,26 @@ $(document).ready(function() {
       }
     }
   });
+
+  $('#user_user_visitor_email_setting_attributes_email_frequency').live('change',function(e){
+    e.preventDefault();
+      if($(this).val()=="Daily"||$(this).val()=="")
+        $("#show_hde").hide('slow')
+      else
+        $("#show_hde").show('slow')
+    });
+   // var selected = new Array();
+  $('#show_hde input:checked').live('click',function() {
+    // console.log(selected.length+" "+selected[0]);
+    $('#show_hde input:checked').attr('checked',false);
+      // if (selected.length>0){
+      //    $("#"+selected[0]).prop('checked',false);
+      //    selected[0]='';        
+      // }
+      // selected[0]=$(this).attr('id');
+      $(this).attr('checked',true);
+  });
+
 });
 </script>
 <% end %>
