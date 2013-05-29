@@ -145,7 +145,9 @@ class User < ActiveRecord::Base
   # Newsletter Subscriber
   has_one :newsletter_subscriber
   has_one :media_newsletter_setting
-  accepts_nested_attributes_for :media_newsletter_setting
+  # user visitor setting mail
+  has_one :user_visitor_email_setting
+  accepts_nested_attributes_for :media_newsletter_setting,:user_visitor_email_setting
   after_update :update_newsletter_subscriber, :if => Proc.new { |user| user.newsletter_subscriber.present? }
 
   named_scope :media, :conditions => { :role => 'media' }

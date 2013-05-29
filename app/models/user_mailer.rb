@@ -162,8 +162,7 @@ class UserMailer < ActionMailer::Base
     sent_on     Time.now
     subject     "Keyword Request from RESTAURANT NAME: #{restaurant} REQUESTED ITEM: #{keyword}"
   end
-
-
+  
   def send_mail_visitor(restaurant_visitors)
     from        'notifications@restaurantintelligenceagency.com'
     recipients  ['eric@restaurantintelligenceagency.com',"ellen@restaurantintelligenceagency.com","nishant.n@cisinlabs.com"]#visitor_obj.restaurant.manager.try(:email)
@@ -171,7 +170,7 @@ class UserMailer < ActionMailer::Base
     subject     "You have visitors!"
     body       restaurant_visitors
   end
-
+  
   def send_payment_error(name,message)
     @message = message
     from        'notifications@restaurantintelligenceagency.com'

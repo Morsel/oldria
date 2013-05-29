@@ -142,7 +142,8 @@ class Restaurant < ActiveRecord::Base
   has_one :newsletter_setting 
   accepts_nested_attributes_for :newsletter_setting
 
-
+  has_one  :visitor_email_setting
+  
   after_validation_on_create :add_manager_as_employee
   after_create :update_manager
   after_create :update_restaurant_role

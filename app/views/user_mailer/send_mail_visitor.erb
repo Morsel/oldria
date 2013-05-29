@@ -16,32 +16,47 @@
 
 
 <% if false %> <!-- Breaking the execution for temparory -->
-	<% unless @userrestaurantvisitor.blank? %>
-	  <p> You have following Diner visitors:</p>
-	<ul>
-	  <%@userrestaurantvisitor.each do |urv| %>
-	  <li><%= urv.try(:first_name).try(:capitalize) %> <%= urv.try(:last_name).try(:capitalize) %> : <%= urv.try(:email) %></li>
-	  <%end%>
-	</ul>
-	<% end %>
+<% unless @userrestaurantvisitor.blank? %>
+<p> You have following Diner visitors:</p>
+<ul>
+<%@userrestaurantvisitor.each do |urv| %>
+<li><%= urv.try(:first_name).try(:capitalize) %> <%= urv.try(:last_name).try(:capitalize) %> : <%= urv.try(:email) %></li>
+<%end%>
+</ul>
+<% end %>
 <% end %>
 <hr />
 
-<% unless @media_visitors.blank? %>	
+
+<% unless @media_visitors.blank? %>        
   <p id="salutation">media FROM THESE PUBLICATIONS visited your website.
 <ul>
   <%@media_visitors.each do |media_visitor| %>
-	  <% unless media_visitor.publication.blank? %>
-	  <li>
-	    <%= media_visitor.publication %>	
-	  </li>
-	  <%else%>
-	  <li>Freelance Writer</li>
-	  <%end%>
+<% unless media_visitor.publication.blank? %>
+<li>
+<%= media_visitor.publication %>        
+</li>
+<%else%>
+<li>Freelance Writer</li>
+<%end%>
   <%end%>
 </ul>
 <hr />
-<%end%>	
+<%end%>        
+
+
+<% unless @specialty_names.blank? && @otm_keywords.blank? && @chapter_names.blank? && @restaurant_features.blank? && @users.blank? && @a_la_minute_visitors.blank? %>        
+
+<p> looks like media aren't clicking on your posts, we'd love to help you get more engagement! here are a few tips for you. </p>
+  
+<ul>
+<li> Tell great stories </li>
+<li> Stay on trend </li>
+<li>Share great pictures </li>
+
+</ul>
+<hr />
+
 
 
 <% unless @specialty_names.blank? && @otm_keywords.blank? && @chapter_names.blank? && @restaurant_features.blank? && @users.blank? && @a_la_minute_visitors.blank? %>	
@@ -66,6 +81,7 @@
 	  <%= @specialty_names %> <br>
 	  </li>
 	</ul>
+
 <%end%>
 
 
@@ -88,9 +104,9 @@
 
 
 <% unless @chapter_names.blank? %>
-	<ul>
-	  <li> Chapters <br> <%= @chapter_names %></li>
-	</ul>
+<ul>
+<li> Chapters <br> <%= @chapter_names %></li>
+</ul>
 <%end%>
 
 
@@ -103,7 +119,6 @@
   </li>
 </ul>
 <%end%>
-
 
 
 
@@ -124,7 +139,7 @@
   <%@a_la_minute_visitors.each do |a_la_minute_visitor| %>
     <% unless a_la_minute_visitor.publication.blank? %>
   <li>
-    <%= a_la_minute_visitor.publication %>	
+    <%= a_la_minute_visitor.publication %>        
   </li>
     <%else%>
   <li>Freelance Writer</li>
@@ -138,6 +153,7 @@
 <p>Just 15 minutes a day helps keeps the media engaged! Yesterday, our active users connected with media from the following publications:</p>
 <ul>
   <%@media_visitors.each do |media_visitor| %>
+
 	  <% unless media_visitor.publication.blank? %>
 	  <li>
 	    <%= media_visitor.publication %>	
@@ -162,6 +178,7 @@
 	   	<br/><%= @menu_message %>
 	   <!-- </p> -->
   </li>	
+
  <% end %>
 
 <% unless @fact_message.blank?%>
@@ -178,6 +195,7 @@
 
 
 <% unless @menu_item_message.blank?%>
+
 	<li>
 	  <!-- <p> -->
 	  <%=link_to "Menu Items",restaurant_menu_items_url(@visitor_obj)%>
