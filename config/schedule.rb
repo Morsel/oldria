@@ -36,8 +36,12 @@ every 1.day, :at => '2:30am' do
   rake "subscriptions:purge_expired"
 end
 
+# every 1.day, :at => '2:30am' do
+#   runner 'UserRestaurantVisitor.new.send_notification'
+# end
+
 every 1.day, :at => '2:30am' do
-  runner 'UserRestaurantVisitor.new.send_notification'
+  runner 'UserVisitorEmailSetting.new.send_test'
 end
 
 # every :tuesday, :at => "12:00pm" do
