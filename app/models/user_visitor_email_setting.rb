@@ -38,7 +38,7 @@ class UserVisitorEmailSetting < ActiveRecord::Base
           if @uves.blank?
             @uves=UserVisitorEmailSetting.createUserVisitedEmailSetting(employee)
           end       
-          if UserVisitorEmailSetting.checkEmailFrequency(@uves) 
+          if UserVisitorEmailSetting.checkEmailFrequency(@uves) && @uves.is_approved
             visitor = restaurant.user_restaurant_visitors.find(:first,:conditions=>["updated_at > ?",restaurant.visitor_email_setting.last_email_at])
              
              # visitor = restaurant.user_restaurant_visitors.first
