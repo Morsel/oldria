@@ -177,6 +177,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users do |users|
     users.resources :profile_answers, :only => [:create, :update, :destroy]
+    users.resources  :user_visitor_email_setting
   end
 
   map.resource :search, :controller => 'site_search', :only => ['show']
