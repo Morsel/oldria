@@ -1,6 +1,8 @@
 class TwitterAuthorizationsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   before_filter :require_user
   before_filter :find_twitter_user
+
 
   def new
     clear_request_tokens
@@ -9,7 +11,7 @@ class TwitterAuthorizationsController < ApplicationController
     callback_url = params[:restaurant_id].present? ?
                    TWITTER_CONFIG['callbackurl'] + "?restaurant_id=#{params[:restaurant_id]}" :
                    TWITTER_CONFIG['callbackurl']
-    request_token = oauth_client.get_request_token(:oauth_callback => callback_url)
+    request_token = oauth_client.get_request_token(:oauth_callback => callback_url)    
     session[:request_token] = request_token
 
     redirect_to request_token.authorize_url(:oauth_callback => callback_url)
@@ -17,8 +19,8 @@ class TwitterAuthorizationsController < ApplicationController
 
   def show
     begin
-      access_token = session[:request_token].get_access_token
-
+      
+      access_token = session[:request_token].get_access_token(:oauth_verifier=>params[:oauth_verifier])
       if @twitterer.update_attributes(:atoken => access_token.token, :asecret => access_token.secret)
         clear_request_tokens
         flash[:notice] = "Your Twitter account was successfully linked to SpoonFeed."
