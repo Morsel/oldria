@@ -13,8 +13,9 @@
         <% end -%>
         <span><%= link_to "Front Burner", edit_front_burner_user_profile_path(@user), :id => "tab-fb", :title => "profile-front-burner" %></span>
         <span><a href="#profile-account" id="tab-account">Account</a></span>
-        <%#debugger%>
+
         <span><a href="#profile-settings" id="tab-account1">Visitor Email</a></span>
+
     </nav><!-- /profile_options -->
 
     <section id="profile-summary">
@@ -179,12 +180,35 @@
 
   <section id="profile-account">
       <% semantic_form_for @user do |f| %>
-          <% f.inputs :name => 'Preferences' do %>
-              <%= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
-              <%= f.input :notification_email, :wrapper_html => { :class => "clear bottom" }, :hint => "Send content notifications to another email address" %>
 
-              <p><%= button_tag "Save Messages Preferences", :class => 'positive' %></p>
+          <% f.inputs :name => 'Media Inquiries' do %>
+              <%= f.input :media_inquiries, :as => :boolean, :label => 'I would like to receive media inquiries as they are posted by media' %>
+              <p class="inline-hints"><i>Media post requests for information for stories they are working on, which you can receive and respond to for free.</i></p>
+              <%= f.input :media_notification, :as => :boolean, :label => 'I would like to receive notification if other members of my restaurant respond to media inquiries' %>
+              <p class="inline-hints"><i>In order to help you better engage the media, we send an email detailing media visits to your profile, your restaurant's profile and also information on what topics the media are currently researching.</i></p>
+              <p><%= button_tag "Save Media Inquiries", :class => 'positive' %></p>
           <% end %>
+          <% f.inputs :name => "What's New" do %>
+              <%= f.input :whats_new, :as => :boolean, :label => " Receive What's New Responses via email" %>
+              <p class="inline-hints"><i>You can elect to receive notification of responses posted by your coworkers.</i></p>
+              <%= f.input :whats_new_notification, :as => :boolean, :label => "I would like to receive notification if other members of my restaurant respond to What's New" %>
+             
+              
+              <p><%= button_tag "Save What's New", :class => 'positive' %></p>
+          <% end %>
+          <% f.inputs :name => "Question of the Day" do %>
+              <%= f.input :qotd, :as => :boolean, :label => "Receive Question of the Day via email" %> 
+              <p class="inline-hints"><i>Questions about timely news and topics, sent to help you be a part of the online conversation.</i></p>
+              
+              <p><%= button_tag "Save Question of the Day", :class => 'positive' %></p>
+          <% end %>
+
+          <% #f.inputs :name => 'Preferences' do %>
+              <%#= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
+              <%#= f.input :notification_email, :wrapper_html => { :class => "clear bottom" }, :hint => "Send content notifications to another email address" %>
+
+              <!-- <p><%#= button_tag "Save Messages Preferences", :class => 'positive' %></p> -->
+          <%# end %>
 
           <% f.inputs :name => "Editing" do %>
         <label for="user_editor">Allow another user to edit your account?</label>
@@ -398,13 +422,16 @@ $(document).ready(function() {
     }
   });
 
+
   $('#user_user_visitor_email_setting_attributes_email_frequency').live('change',function(e){
+
     e.preventDefault();
       if($(this).val()=="Daily"||$(this).val()=="")
         $("#show_hde").hide('slow')
       else
         $("#show_hde").show('slow')
     });
+
    // var selected = new Array();
   $('#show_hde input:checked').live('click',function() {
     // console.log(selected.length+" "+selected[0]);
