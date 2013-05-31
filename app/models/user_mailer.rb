@@ -84,8 +84,9 @@ class UserMailer < ActionMailer::Base
   ##
   # Generic message: could be one of DirectMessage, etc.
   def message_notification(message, recipient, sender = nil)
+    
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  recipient.email
+    recipients  [recipient.email]
     sent_on     Time.now
     subject     "Spoonfeed: #{message.email_title} notification"
     body        :message => message, :recipient => recipient, :sender => sender
@@ -94,6 +95,7 @@ class UserMailer < ActionMailer::Base
   ##
   # Generic message which can be 'answered': could be one of QOTD, etc.
   def answerable_message_notification(message, recipient)
+
     from        'notifications@restaurantintelligenceagency.com'
     reply_to    recipient.cloudmail_id(message)+"@#{CLOUDMAIL_DOMAIN}"
     recipients  recipient.email_for_content
@@ -114,9 +116,24 @@ class UserMailer < ActionMailer::Base
 
   ##
   # Comment on a generic message: could be one of DirectMessage, etc.
-  def message_comment_notification(message, recipient, commenter = nil)
+  def message_comment_notification(type,message, recipient, commenter = nil)
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  recipient.email_for_content
+    if type == "MediaRequestDiscussion"
+      if commenter.media_notification?
+      recipients  [recipient.email_for_content,commenter.email] 
+      else
+      recipients  [recipient.email_for_content]
+      end
+    end  
+
+    if type == "AdminDiscussion"
+      if commenter.whats_new_notification?
+      recipients  [recipient.email_for_content,commenter.email] 
+      else
+      recipients  [recipient.email_for_content]
+      end
+    end
+
     sent_on     Time.now
     subject     "Spoonfeed: #{message.email_title} comment notification"
     body        :message => message, :recipient => recipient, :commenter => commenter
@@ -130,9 +147,11 @@ class UserMailer < ActionMailer::Base
     body        :subscriber => subscriber
   end
 
-  def admin_notification(message, recipient)
-    from        'notifications@restaurantintelligenceagency.com'   
-    recipients  "admin@restaurantintelligenceagency.com"
+  def admin_notification(message, recipient,email)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  "admin@restaurantintelligenceagency.com"   
+    #will use it after client will test
+    #recipients   [message.sender.email , "admin@restaurantintelligenceagency.com",email]
     sent_on     Time.now
     subject     "An item is posted to Newsfeed notification "
     body        :message => message, :recipient => recipient

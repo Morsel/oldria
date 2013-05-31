@@ -115,9 +115,17 @@ class MediaRequest < ActiveRecord::Base
   def discussions
     media_request_discussions | solo_media_discussions
   end
-  def notify_media_request!      
-      UserMailer.deliver_admin_notification(self, sender)  
+
+  def notify_media_request!   
+    @users = self.employment_search[:conditions][:employee_id_equals_any]
+    @users.each do |user|
+      @user = User.find(user)
+      if @user.media_inquiries == true
+          UserMailer.deliver_admin_notification(self, sender,@user.email) 
+      end   
+    end  
   end  
+  
   private
 
   def from_publication

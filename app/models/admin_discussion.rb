@@ -83,12 +83,13 @@ class AdminDiscussion < ActiveRecord::Base
   ##
   # Should only be called from an external observer.
   def notify_recipients
-    self.send_at(scheduled_at, :send_email_notification_to_each_employee)
+   self.send_at(scheduled_at, :send_email_notification_to_each_employee)
   end
 
   def send_email_notification_to_each_employee
     employments.each do |employment|
-      if employment.employee.prefers_receive_email_notifications && employment.prefers_receive_email_notifications # For employment basis email sending 
+      # if employment.employee.prefers_receive_email_notifications && employment.prefers_receive_email_notifications # For employment basis email sending 
+      if employment.employee.whats_new || employment.employee.whats_new_notification
         UserMailer.send("deliver_#{discussionable.mailer_method}", self, employment.employee)
       end
     end
