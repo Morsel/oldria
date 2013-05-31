@@ -39,14 +39,14 @@ class UserVisitorEmailSetting < ActiveRecord::Base
             @uves=UserVisitorEmailSetting.createUserVisitedEmailSetting(employee)
           end       
           if UserVisitorEmailSetting.checkEmailFrequency(@uves) && @uves.is_approved
-            visitor = restaurant.user_restaurant_visitors.find(:first,:conditions=>["updated_at > ?",restaurant.visitor_email_setting.last_email_at])
+            # visitor = restaurant.user_restaurant_visitors.find(:first,:conditions=>["updated_at > ?",restaurant.visitor_email_setting.last_email_at])
              
-             # visitor = restaurant.user_restaurant_visitors.first
+             visitor = restaurant.user_restaurant_visitors.first
             @menu_message = @fact_message = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
      
             unless visitor.blank?
-              media_visitors = visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.updated_at > ?",restaurant.visitor_email_setting.last_email_at])
-              # media_visitors = visitor.restaurant.restaurant_visitors.find(:all)
+              # media_visitors = visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.updated_at > ?",restaurant.visitor_email_setting.last_email_at])
+              media_visitors = visitor.restaurant.restaurant_visitors.find(:all)
               visitors = visitor.restaurant.newsletter_subscribers  
               counter  = 0
               menu = visitor.restaurant.menus.find(:first,:order =>"updated_at desc")
