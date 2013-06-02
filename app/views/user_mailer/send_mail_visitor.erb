@@ -3,145 +3,143 @@
 <h3>Hello <%=@employee.try(:name)%>,</h3>
 
 <% unless @employee_visitors.blank? %>
-<p>Your personal profile has been visited by the following media: </p>
-<ul>
-<% @employee_visitors.each do |employe_visitor| %>
-<li>
-<%= employe_visitor.name %>
-</li>
-   <%end%>
-</ul>
+  <p>Your personal profile has been visited by the following media: </p>
+  <ul>
+    <% @employee_visitors.each do |employe_visitor| %>
+      <li>
+        <%= employe_visitor.name %>
+      </li>
+    <%end%>
+  </ul>
 <% end %>
 
 
 
 <% if false %> <!-- Breaking the execution for temparory -->
-<% unless @userrestaurantvisitor.blank? %>
-<p> You have following Diner visitors:</p>
-<ul>
-<%@userrestaurantvisitor.each do |urv| %>
-<li><%= urv.try(:first_name).try(:capitalize) %> <%= urv.try(:last_name).try(:capitalize) %> : <%= urv.try(:email) %></li>
-<%end%>
-</ul>
-<% end %>
+  <% unless @userrestaurantvisitor.blank? %>
+    <p> You have following Diner visitors:</p>
+    <ul>
+      <%@userrestaurantvisitor.each do |urv| %>
+        <li><%= urv.try(:first_name).try(:capitalize) %> <%= urv.try(:last_name).try(:capitalize) %> : <%= urv.try(:email) %></li>
+      <%end%>
+    </ul>
+  <% end %>
 <% end %>
 <hr />
 
 
 
-<% unless @media_visitors.blank? %>
-<p id="salutation"> The <b><%=@visitor_obj.restaurant.try(:name)%></b> restaurant profile has been visited by the following media: </p>
-<ul>
-<%@media_visitors.each do |media_visitor| %>
-<% unless media_visitor.publication.blank? %>
-<li>
-<%= media_visitor.publication %>
-</li>
-<%else%>
-<li>Freelance Writer</li>
-<%end%>
-<%end%>
-</ul>
-<hr />
-<%end%>
-
-<% unless @specialty_names.blank? && @cuisine_names.blank? && @otm_keywords.blank? && @chapter_names.blank? && @restaurant_features.blank? %>
-
-<p> Media are researching the following keywords. If you have any stories/menu items to share pertaining to these topics, now would be the time to share them! </p>
-  
-<%unless @specialty_names.blank?%>
-<ul>
-<li>
-Personal Profile Specialties <br>
-<%= @specialty_names %>
-</li>
-</ul>
-   <%end%>
-  
- 
-<%unless @cuisine_names.blank?%>
-<ul>
-<li>Cuisine <br><%= @cuisine_names %> </li>
-</ul>
-<%end%>
-  
-
-
-
-<%unless @otm_keywords.blank? %>
-<ul><li>On the Menu Keywords <br>
-<%= @otm_keywords %>
-</li>
-</ul>
+<% unless @media_visitors.blank? %> 
+  <p id="salutation"> The <b><%=@visitor_obj.restaurant.try(:name)%></b> restaurant profile has been visited by the following media: </p>
+    <ul>
+      <%@media_visitors.each do |media_visitor| %>
+        <% unless media_visitor.publication.blank? %>
+          <li>
+            <%= media_visitor.publication %>  
+          </li>
+        <%else%>
+          <li>Freelance Writer</li>
+        <%end%>
+      <%end%>
+    </ul>
+  <hr />
 <%end%>
 
+<% unless @specialty_names.blank? && @cuisine_names.blank? && @otm_keywords.blank? && @chapter_names.blank? && @restaurant_features.blank? %> 
 
-<% unless @chapter_names.blank? %>
-<ul>
-<li> Chapters <br> <%= @chapter_names %></li>
-</ul>
+  <p> Media are researching the following keywords. If you have any stories/menu items to share pertaining to these topics, now would be the time to share them! </p>
+    
+  <%unless @specialty_names.blank?%>
+    <ul>
+      <li>
+        <%=link_to 'Personal Profile Specialties',edit_user_profile_url(@current_user) %> <br>
+        <%= @specialty_names %>
+      </li>
+    </ul>
+  <%end%>
+    
 
-<%end%>
+  <%unless @otm_keywords.blank? %>
+    <ul>
+      <li><%=link_to 'On the Menu Keywords' ,new_restaurant_menu_item_url(@visitor_obj) %> <br>
+        <%= @otm_keywords %>
+      </li>
+    </ul>
+  <%end%>
 
 
+  <%unless @restaurant_features.blank?%>
+    <ul>
+      <li>
+        <%=link_to 'Restaurant features',bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1) %> <br>
+        <%= @restaurant_features %>
+      </li>
+    </ul>
+  <%end%>
 
-<%unless @restaurant_features.blank?%>
-<ul>
-<li>
-Restaurant features <br>
-<%= @restaurant_features %>
-</li>
 
-</ul>
-<%end%>
+<!--   <%#unless @users.blank? %>
+    <p>The following users that profile has been visited: <p>
+    <ul>
+      <li>
+        <%#= @users %>
+      </li>
+    </ul>
+  <%#end%>
+ -->
 
-<hr />
-<% end %>
+  <hr />
+<% end %> 
+
+
 <p>Keep the media engaged! If you update your profile, we'll let these media folks know! Here's a few ideas:</p>
-<ul>
-<% unless @menu_message.blank?%>
-<li>
-<p>
-<%=link_to "Menus",bulk_edit_restaurant_menus_url(@visitor_obj.restaurant)%>
-</p>
-<p><%= @menu_message %></p>
-</li>
-<% end %>
+<ul>  
+  <% unless @menu_message.blank?%>
+    <li>
+      <p>
+        <%=link_to "Menus",bulk_edit_restaurant_menus_url(@visitor_obj.restaurant)%><br/>
+        <%= @menu_message %>
+      </p>
+    </li> 
+  <% end %>
 
-<% unless @fact_message.blank?%>
-<li>
-<p>
-<%=link_to("Fact Sheet",edit_restaurant_fact_sheet_url(@visitor_obj.restaurant))%>
-</p>
-<p> <%= @fact_message %></p>
-</li>
-<% end %>
+  <% unless @fact_message.blank?%>
+    <li>
+      <p>
+        <%=link_to("Fact Sheet",edit_restaurant_fact_sheet_url(@visitor_obj.restaurant))%><br/>
+        <%= @fact_message %>
+      </p>  
+    </li>
+  <% end %>
 
 
 
-<% unless @menu_item_message.blank?%>
-<li>
-<p>
-<%=link_to "Menu Items",restaurant_menu_items_url(@visitor_obj.restaurant)%></p>
-<p><%= @menu_item_message %></p>
-</li>
-<% end %>
+  <% unless @menu_item_message.blank?%>
+    <li>
+      <p>
+        <%=link_to "Menu Items",new_restaurant_menu_item_url(@visitor_obj.restaurant)%><br/>
+        <%= @menu_item_message %>
+      </p>
+    </li>
+  <% end %>
 
-<% unless @a_la_minute_message.blank?%>
-<li>
-<p><%=link_to"A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj.restaurant)%> </p>
-<p><%= @a_la_minute_message %></p>
-</li>
-<% end %>
+  <% unless @a_la_minute_message.blank?%>
+    <li>
+      <p>
+        <%=link_to"A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj.restaurant)%> <br/>
+        <%= @a_la_minute_message %>
+      </p>
+    </li> 
+  <% end %>
 
-<% unless @newsfeed_message.blank? %>
-<li>
-<p>
-<%=link_to "Newsfeed",restaurant_promotions_url(@visitor_obj.restaurant)%>
-</p>
-<p><%= @newsfeed_message %></p>
-</li>
-<% end %>
+  <% unless @newsfeed_message.blank? %>
+    <li>
+      <p>
+        <%=link_to "Newsfeed",restaurant_promotions_url(@visitor_obj.restaurant)%><br/>
+        <%= @newsfeed_message %>
+      </p>
+    </li>
+  <% end %>
 </ul>
 
 <%= render :partial => 'email_footer' %>
