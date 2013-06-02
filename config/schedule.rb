@@ -37,7 +37,7 @@ every 1.day, :at => '2:30am' do
 end
 
 every 1.day, :at => '2:30am' do
-  runner 'UserRestaurantVisitor.new.send_notification'
+  runner 'UserRestaurantVisitor.new.send_notification' 
 end
 
 # every :tuesday, :at => "12:00pm" do
