@@ -334,29 +334,7 @@
 </section><!-- /profile-tabs -->
 <section id="profile-settings">
   <div id="restaurant_profile_view" class="edit clear clearfix">
-    <%#= render 'restaurants/restaurant_editing_header' %>
-
-    <div id="editing_restaurant">
-        <div id="restaurant_pages" class="clearfix">                         
-              <div>
-
-                <h1 class="pg_title">User Visitor Email Settings</h1>
-                <p>RIA Visitor email is a unique new way to get update from the restaurnat visitors. You can get the all visitors by email.  </p>                
-              </div>
-              <div id="newsletter_settings" class="clearfix">
-
-        
-        <% semantic_form_for @user, :html => { :multipart => true } do |f| %>          
-          <% @user.build_user_visitor_email_setting if @user.user_visitor_email_setting.blank? %>
-          <% f.semantic_fields_for :user_visitor_email_setting do |u| %>
-              <%= u.input :is_approved %>
-              <%= u.input :email_frequency,  :as => :select,:selected=>"Daily", :collection => ["Daily","Weekly"] %>
-                        <div id='show_hde' style='display: none'>
-                          <%= u.input :email_frequency_day,  :as => :check_boxes, :collection => ["Monday","Wednesday","Friday"],:selected=>"Monday"%>
-                        </div>
-              <%end%>
-          <%=f.submit 'Save settings' %>
-        <%end%>
+    
 
         </div>
     </div><!-- /editing_restaurant -->
