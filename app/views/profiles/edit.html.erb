@@ -5,16 +5,16 @@
 <% end -%>
 
 <section id="profile-tabs">
-    <nav id="profile-options">
-        <span><a href="#profile-summary" id="tab-summary">Summary</a></span>
-        <span><a href="#profile-extended" id="tab-resume">Résumé</a></span>
-        <% if @user.btl_enabled? -%>
-        <span><%= link_to "Behind the Line", edit_btl_user_profile_path(@user), :id => "tab-btl", :title => "profile-btl" %></span>
-        <% end -%>
-        <span><%= link_to "Front Burner", edit_front_burner_user_profile_path(@user), :id => "tab-fb", :title => "profile-front-burner" %></span>
-        <span><a href="#profile-account" id="tab-account">Account</a></span>
-     
-    </nav><!-- /profile_options -->
+  <nav id="profile-options">
+      <span><a href="#profile-summary" id="tab-summary">Summary</a></span>
+      <span><a href="#profile-extended" id="tab-resume">Résumé</a></span>
+      <% if @user.btl_enabled? -%>
+      <span><%= link_to "Behind the Line", edit_btl_user_profile_path(@user), :id => "tab-btl", :title => "profile-btl" %></span>
+      <% end -%>
+      <span><%= link_to "Front Burner", edit_front_burner_user_profile_path(@user), :id => "tab-fb", :title => "profile-front-burner" %></span>
+      <span><a href="#profile-account" id="tab-account">Account</a></span>
+   
+  </nav><!-- /profile_options -->
 
     <section id="profile-summary">
         <% semantic_form_for @user, :html => { :multipart => true } do |f| %>
