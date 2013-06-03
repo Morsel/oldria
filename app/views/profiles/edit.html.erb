@@ -13,6 +13,7 @@
         <% end -%>
         <span><%= link_to "Front Burner", edit_front_burner_user_profile_path(@user), :id => "tab-fb", :title => "profile-front-burner" %></span>
         <span><a href="#profile-account" id="tab-account">Account</a></span>
+     
     </nav><!-- /profile_options -->
 
     <section id="profile-summary">
@@ -28,7 +29,7 @@
                         <strong><%= f.errors_on :avatar_content_type %></strong>
                         <p class="clearfix">
                             <%= button_tag "Upload Headshot", :class => 'positive' %>
-                            <span class="button-separator"></span> 
+                            <span class="button-separator"></span>
                             <%= link_to "Remove my headshot", remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back" %>
                         </p>
                     </div>
@@ -46,9 +47,9 @@
 
             <% f.inputs :name => "Cuisines and Specialties" do %>
             <div>
-                <%= f.input :specialties, 
-                            :as => :check_boxes, 
-                            :collection => Specialty.all, 
+                <%= f.input :specialties,
+                            :as => :check_boxes,
+                            :collection => Specialty.all,
                             :label => "What are your specialties?" %>
                 <% button_tag :class => 'positive' do %>Save changes to specialties<% end %>
             </div>
@@ -64,10 +65,10 @@
             </div>
             <% end %><!-- Cuisines and specialties -->
 
-          <% if @user.premium_account? %> 
+          <% if @user.premium_account? %>
             <% f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
               <%= user_form.input :publish_profile, :as => :boolean, :label => 'Display my profile on Soapbox' %>
-      		  <% button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
+            <% button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
             <% end %>
           <% else %>
             <fieldset class="inputs">
@@ -96,7 +97,7 @@
                     <% end %>
                 </ul>
 
-				<% button_tag :class => 'positive' do %>Save changes to employment<% end %>
+        <% button_tag :class => 'positive' do %>Save changes to employment<% end %>
             <% end %>
             <% end %>
         <% end %><%# non-basic details %>
@@ -177,25 +178,47 @@
 
   <section id="profile-account">
       <% semantic_form_for @user do |f| %>
-          <% f.inputs :name => 'Preferences' do %>
-              <%= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
-              <%= f.input :notification_email, :wrapper_html => { :class => "clear bottom" }, :hint => "Send content notifications to another email address" %>
 
-              <p><%= button_tag "Save Messages Preferences", :class => 'positive' %></p>
+          <% f.inputs :name => 'Media Inquiries' do %>
+              <%= f.input :media_inquiries, :as => :boolean, :label => ' I would like to receive media inquiries as they are posted by media' %>
+              <p class="inline-hints"><i>Media post requests for information for stories they are working on, which you can receive and respond to for free.</i></p>
+              <%= f.input :media_notification, :as => :boolean, :label => ' I would like to receive notification if other members of my restaurant respond to media inquiries' %>
+              <p class="inline-hints"><i>In order to help you better engage the media, we send an email detailing media visits to your profile, your restaurant's profile and <br />also information on what topics the media are currently researching.</i></p>
+              <p><%= button_tag "Save Media Inquiries", :class => 'positive' %></p>
+          <% end %>
+          <% f.inputs :name => "What's New" do %>
+              <%= f.input :whats_new, :as => :boolean, :label => " I would like to receive What's New questions via email" %>
+              <p class="inline-hints"><i>What's New questions pertain to trends and by participating in this forum, media will know to include you in research about a topic.</i></p>
+              <%= f.input :whats_new_notification, :as => :boolean, :label => " I would like to receive notification when other members of my restaurant respond to What's New" %>
+               <p class="inline-hints"><i>You can elect to receive notification of responses posted by your coworkers.</i></p>
+              <p><%= button_tag "Save What's New", :class => 'positive' %></p>
+          <% end %>
+          <% f.inputs :name => "Question of the Day" do %>
+              <%= f.input :qotd, :as => :boolean, :label => " Receive Question of the Day via email" %>
+              <p class="inline-hints"><i>Questions about timely news and topics, sent to help you be a part of the online conversation.</i></p>
+              
+              <p><%= button_tag "Save Question of the Day", :class => 'positive' %></p>
           <% end %>
 
+          <% #f.inputs :name => 'Preferences' do %>
+              <%#= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
+              <%#= f.input :notification_email, :wrapper_html => { :class => "clear bottom" }, :hint => "Send content notifications to another email address" %>
+
+              <!-- <p><%#= button_tag "Save Messages Preferences", :class => 'positive' %></p> -->
+          <%# end %>
+
           <% f.inputs :name => "Editing" do %>
-			  <label for="user_editor">Allow another user to edit your account?</label>
-			  <%= text_field_tag "user_editor", "", :name => "user[editor]" %>
+        <label for="user_editor">Allow another user to edit your account?</label>
+        <%= text_field_tag "user_editor", "", :name => "user[editor]" %>
               <p class="inline-hints">Enter the name of the user to add</p>
 
               <% if @user.editors.present? -%>
               <h3>Current Editors:</h3>
-			  <ul>
-				<% for editor in @user.editors %>
-				<li><%= editor.name %> <%= link_to "Remove", remove_editor_user_path(@user, :editor_id => editor.id), :confirm => "Are you sure you want to remove this editor?", :method => :put %></li>
-				<% end %>
-			  </ul>
+        <ul>
+        <% for editor in @user.editors %>
+        <li><%= editor.name %> <%= link_to "Remove", remove_editor_user_path(@user, :editor_id => editor.id), :confirm => "Are you sure you want to remove this editor?", :method => :put %></li>
+        <% end %>
+        </ul>
               <% end -%>
 
               <p><%= button_tag "Save Editing Preferences", :class => 'positive' %></p>
@@ -239,13 +262,13 @@
 
           <% if @user.twitter_authorized? -%>
           <p>You currently have your Twitter account set up as <em><%= @user.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
-              <%= link_to "Disconnect Twitter", remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? Once disconnected you will have to reconnect in order to share on Twitter. If you have any scheduled posts, they will no longer post to Twitter until reconnected.", :class => 'sf-button', :method => :put %>
+              <%= link_to "Disconnect Twitter", remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :class => 'sf-button', :method => :put %>
               <%= link_to 'Read Twitter Timeline', twitter_timelines_path, :class=>'read_twitter' %>
           </p>
           <% elsif @user.twitter_allowed? -%>
           <%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %>
           <% end -%>
-          <p><%= link_to "Need Help?  Read our Twitter 101 introduction in the Marketing Manual.", public_page_path('twitter_101_introduction') %></p>
+          <p><%= link_to "Need Help? Read our Twitter 101 introduction in the Marketing Manual.", public_page_path('twitter_101_introduction') %></p>
       </fieldset>
 
       <fieldset id="facebook-fieldset" class="inputs">
@@ -268,10 +291,10 @@
 
           <%- else -%>
 
-            <%  if @profile.user.facebook_authorized? %>
+            <% if @profile.user.facebook_authorized? %>
                 <% begin %>
                     <p>Current Facebook page for <%= current_user.name %>: <em>"<%= @profile.user.facebook_page.fetch.name %>"</em>
-                     </p> 
+                     </p>
                       <%= link_to "Disconnect Facebook", fb_deauth_user_path(@profile.user), :class => 'sf-button negative' %>
                   <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception =>e%>
                     <p>Access to your Facebook page has expired. Please select the page again.</p>
@@ -280,7 +303,7 @@
               <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %>
               <% end %>
           <%- end -%>
-          <p><%= link_to "Need Help?  Read everything you need to know about Facebook in the Marketing Manual.", public_page_path('facebook_101_introduction') %></p>
+          <p><%= link_to "Need Help? Read everything you need to know about Facebook in the Marketing Manual.", public_page_path('facebook_101_introduction') %></p>
       </fieldset>
       <div class="clear"></div>
       <hr class="edit_block" />
@@ -290,13 +313,13 @@
       <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
       <% f.inputs :name => "Contact Information" do %>
           <div class="clear">
-              <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, 
+              <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options,
                   :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
               <%= f.input :cellnumber, :label => "Cellphone", :wrapper_html => { :class => "span-6 last" } %>
           </div>
 
           <div class="clear">
-              <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, 
+              <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options,
                   :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
               <% f.semantic_fields_for :user do |user| %>
                   <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
@@ -324,14 +347,22 @@
             <p><%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %></p>
           <%- end -%>
 
-  		  <% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
+        <% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
 
       <% end %><!-- Contact information -->
       <% end %>
   </section><!-- /profile-account -->
 
 </section><!-- /profile-tabs -->
+<section id="profile-settings">
+  <div id="restaurant_profile_view" class="edit clear clearfix">
+    
 
+        </div>
+    </div><!-- /editing_restaurant -->
+</div><!-- /restaurant_profile_view -->
+
+</section>
 <% content_for :javascript do %>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -349,7 +380,7 @@ $(document).ready(function() {
   $('#profile-tabs').tabs({
     panelTemplate: '<section></section>',
     fx: { duration: 'fast', opacity: 'toggle' },
-    show: function(event, ui) { 
+    show: function(event, ui) {
       if(ui.panel.id == 'profile-extended' && !already_equalized){
         already_equalized = true;
         $('.culinary_job').equalHeights();
@@ -365,6 +396,26 @@ $(document).ready(function() {
       }
     }
   });
+
+  $('#user_user_visitor_email_setting_attributes_email_frequency').live('change',function(e){
+    e.preventDefault();
+      if($(this).val()=="Daily"||$(this).val()=="")
+        $("#show_hde").hide('slow')
+      else
+        $("#show_hde").show('slow')
+    });
+   // var selected = new Array();
+  $('#show_hde input:checked').live('click',function() {
+    // console.log(selected.length+" "+selected[0]);
+    $('#show_hde input:checked').attr('checked',false);
+      // if (selected.length>0){
+      // $("#"+selected[0]).prop('checked',false);
+      // selected[0]='';
+      // }
+      // selected[0]=$(this).attr('id');
+      $(this).attr('checked',true);
+  });
+
 });
 </script>
 <% end %>
