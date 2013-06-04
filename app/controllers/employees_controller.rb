@@ -4,12 +4,13 @@ class EmployeesController < ApplicationController
   before_filter :require_email, :only => :new
 
   def bulk_edit
-    @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant = Restaurant.find(params[:restaurant_id])    
     @employments = @restaurant.employments.by_position.all(
-        :include => [:subject_matters, :restaurant_role, :employee])
+        :include => [:subject_matters, :restaurant_role, :employee],:order => "created_at")
   end
 
-  def new    
+  def new   
+    new_employee if params[:blank]=="blank"
     @employment = @restaurant.employments.build(params[:employment])
     find_or_initialize_employee if params[:employment]
   end
@@ -95,7 +96,6 @@ class EmployeesController < ApplicationController
       identifier = email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) ?
         { :email => email } : 
         { :first_name => email.split(" ").first, :last_name => email.split(" ").last }
-
       if current_user.admin?
         flash.now[:notice] = "We couldn't find them in our system. You can add this person."
         @employee = @restaurant.employees.build(identifier)
@@ -152,4 +152,9 @@ class EmployeesController < ApplicationController
         redirect_to :new_restaurant_employee 
       end
   end
+
+  def no_choice
+  end
+
+ 
 end
