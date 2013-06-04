@@ -22,6 +22,9 @@
             <div class="left welcome">
                 <h3>Welcome, <%= current_user.first_name %></h3>
                 <p class="right"><%= link_to "Help + Questions", "http://spoonfeed.restaurantintelligenceagency.com/spoonfeed_welcome" %> / <%= link_to "logout", logout_path %></p>
+                <br/>
+                <p><%#= link_to "Export press kit", new_restaurant_export_press_kit_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %></p>
+                
             </div>
             <div class="right avatar">
                 <%= image_tag current_user.avatar(:thumb), :size => "32x32" %>

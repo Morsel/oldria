@@ -36,6 +36,10 @@
                   <%= link_to "Edit A la Minute", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %>&nbsp;&nbsp;&nbsp;
                   <%= link_to "Edit Newsfeed", new_restaurant_promotion_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %>&nbsp;&nbsp;&nbsp;
                   <%= link_to "New On the Menu", new_restaurant_menu_item_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %>
+                  <%#= link_to "Export press kit", new_restaurant_export_press_kit_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %>
+                   <p>
+                    <%= link_to "Export press kit", new_user_export_press_kit_path(current_user) %>
+                </p>
               </p>
               <% else -%>
               <p><%= link_to "#{employment.restaurant_name}", employment.restaurant, :class => "restaurant" %></p>

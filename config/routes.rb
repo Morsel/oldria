@@ -166,7 +166,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
-
+    users.resources :export_press_kits
     users.behind_the_line 'behind_the_line', :controller => 'users/behind_the_line', :action => 'index'
     users.btl_topic 'behind_the_line/topic/:id', :controller => 'users/behind_the_line', :action => 'topic'
     users.btl_chapter 'behind_the_line/chapter/:id', :controller => 'users/behind_the_line', :action => 'chapter'
@@ -181,6 +181,7 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :profile_answers, :only => [:create, :update, :destroy]
     users.resources  :user_visitor_email_setting
   end
+
 
   map.resource :search, :controller => 'site_search', :only => ['show']
 
@@ -233,9 +234,9 @@ ActionController::Routing::Routes.draw do |map|
                                        :controller => 'subscriptions'
 
 
+
     restaurant.resources :promotions, :member => { :delete_attachment => :post, :facebook_post => :post ,:details => :get}
     restaurant.resources :menu_items, :member => { :facebook_post => :post , :details => :get}
-
 
 
     restaurant.resources :press_releases, :collection => { :archive => :get }
@@ -422,7 +423,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :ria_webservices, :collection => {:register => :post,:create => :post,:create_psw_rst => :post,:get_join_us_value=>:get,:soap_box_index =>:get,:a_la_minute_answers =>:get,:menu_items =>:get,:bulk_update => :post,:create_menu=>:post,:create_promotions =>:post,:get_promotion_type=>:get,:new_menu_item=>:get,:bulk_edit_photo=>:get,:create_photo =>:post,:create_comments =>:post,:show_comments =>:get,:get_qotds=>:get,:get_newsfeed=>:get,:push_notification_user=>:post,:get_admin_conversation_discussions=>:get,:get_media_request=>:get}, :controller => "ria_webservices"
   map.resources :ria_production_webservices, :collection => {:register => :post,:create => :post,:create_psw_rst => :post,:get_join_us_value=>:get,:soap_box_index =>:get,:a_la_minute_answers =>:get,:menu_items =>:get,:bulk_update => :post,:create_menu=>:post,:create_promotions =>:post,:get_promotion_type=>:get,:new_menu_item=>:get,:bulk_edit_photo=>:get,:create_photo =>:post,:create_comments =>:post,:show_comments =>:get,:get_qotds=>:get,:get_newsfeed=>:get,:push_notification_user=>:post,:get_admin_conversation_discussions=>:get,:get_media_request=>:get,:api_register=>:post}, :controller => "ria_production_webservices"
 
+
   # for restaurant employee no condition
   map.no_choice '/restaurants/:restaurant_id/employees/no_choice', :controller => "employees", :action => "no_choice"
   map.new_employee 'restaurants/:restaurant_id/employees/new_employee', :controller => "employees", :action => "new_employee"  
 end
+
+
+
