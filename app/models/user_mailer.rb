@@ -190,6 +190,14 @@ class UserMailer < ActionMailer::Base
     body       restaurant_visitors
   end
   
+  def send_chef_user(restaurant_visitors)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  ['eric@restaurantintelligenceagency.com',"ellen@restaurantintelligenceagency.com","nishant.n@cisinlabs.com"]#visitor_obj.restaurant.manager.try(:email)
+    sent_on     Time.now
+    subject     "You have visitors!"
+    body       restaurant_visitors
+  end
+
   def send_payment_error(name,message)
     @message = message
     from        'notifications@restaurantintelligenceagency.com'

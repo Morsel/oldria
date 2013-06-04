@@ -11,6 +11,7 @@
       </li>
     <%end%>
   </ul>
+  <hr/>
 <% end %>
 
 
@@ -24,8 +25,9 @@
       <%end%>
     </ul>
   <% end %>
+  <hr />
 <% end %>
-<hr />
+
 
 
 
@@ -38,22 +40,30 @@
             <%= media_visitor.publication %>  
           </li>
         <%else%>
-          <li>Freelance Writer</li>
+          <li>Freelance</li>
         <%end%>
       <%end%>
     </ul>
   <hr />
 <%end%>
 
-<% unless @specialty_names.blank? && @cuisine_names.blank? && @otm_keywords.blank? && @chapter_names.blank? && @restaurant_features.blank? %> 
+<%if @employee.restaurants.blank? %>
+  Hello, <%=current_user %> </br>
+  <p>Journalists are researching restaurant profiles on RIA every day. To connect with media and share your news with them for free, create a profile for your restaurant today! <%=link_to "create a profile",restaurants_url %> </p> 
+ <hr />
+<% end %>
+
+
+
+<% unless @specialty_names.blank? &&  @otm_keywords.blank? &&  @restaurant_features.blank? && @users.blank? %> 
 
   <p> Media are researching the following keywords. If you have any stories/menu items to share pertaining to these topics, now would be the time to share them! </p>
     
   <%unless @specialty_names.blank?%>
     <ul>
       <li>
-        <%=link_to 'Personal Profile Specialties',edit_user_profile_url(@current_user) %> <br>
-        <%= @specialty_names %>
+        Personal Profile Specialties <br>
+        <%= link_to @specialty_names,edit_user_profile_url(@current_user) %> <br>
       </li>
     </ul>
   <%end%>
@@ -61,8 +71,9 @@
 
   <%unless @otm_keywords.blank? %>
     <ul>
-      <li><%=link_to 'On the Menu Keywords' ,new_restaurant_menu_item_url(@visitor_obj) %> <br>
-        <%= @otm_keywords %>
+      <li>
+      On the Menu Keywords <br>
+      <%= link_to @otm_keywords,new_restaurant_menu_item_url(@visitor_obj) %> <br>
       </li>
     </ul>
   <%end%>
@@ -71,11 +82,44 @@
   <%unless @restaurant_features.blank?%>
     <ul>
       <li>
-        <%=link_to 'Restaurant features',bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1) %> <br>
-        <%= @restaurant_features %>
+        Restaurant features <br>
+        <%= link_to @restaurant_features,bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1) %> <br>
       </li>
     </ul>
   <%end%>
+
+    <%unless @users.blank?%>
+    <ul>
+      <li>
+        Users whose profile is visited <br>
+        <%= @users %>
+      </li>
+    </ul>
+  <%end%>
+
+
+  <hr />
+<% end %> 
+
+
+<%unless @a_la_minute_visitors.blank? %>
+  <p>Media love trends and ALM is a killer way to make sure the media know you are making them. Use ALM to post your daily news like the killer pairing of the day or the newest wine you're excited about.</p>
+  <!-- this post was removed as per client req -->
+  <!--<p>Media need news everyday. A La Minute is designed to share the news you make everyday. Log onto <%#=link_to "A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj)%> today and stay in front of the media.</p>-->
+
+  <ul>
+    <%@a_la_minute_visitors.each do |a_la_minute_visitor| %>
+      <% unless a_la_minute_visitor.publication.blank? %>
+    <li>
+      <%= a_la_minute_visitor.publication %>        
+    </li>
+      <%else%>
+    <li>Freelance</li>
+      <%end%>
+    <%end%>
+  </ul>
+  <hr />
+<% end %>
 
 
 <!--   <%#unless @users.blank? %>
@@ -88,8 +132,7 @@
   <%#end%>
  -->
 
-  <hr />
-<% end %> 
+
 
 
 <p>Keep the media engaged! If you update your profile, we'll let these media folks know! Here's a few ideas:</p>
