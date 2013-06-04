@@ -195,7 +195,15 @@ class UserMailer < ActionMailer::Base
     sent_on     Time.now
     subject     "#{subject} Media Request via RIA" 
     body        :detail => detail,:title => title,:user =>user,:comment=>comment
-
   end  
+
+  def export_press_kit(email,user,restaurant)
+    from        user.email
+    recipients  email   
+    sent_on     Time.now
+    subject     "#{user.username} sent you a link to their restaurant profile." 
+    body        :user => user,:restaurant=> restaurant
+  end  
+
 
 end

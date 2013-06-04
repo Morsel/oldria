@@ -164,7 +164,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
-
+    users.resources :export_press_kits
     users.behind_the_line 'behind_the_line', :controller => 'users/behind_the_line', :action => 'index'
     users.btl_topic 'behind_the_line/topic/:id', :controller => 'users/behind_the_line', :action => 'topic'
     users.btl_chapter 'behind_the_line/chapter/:id', :controller => 'users/behind_the_line', :action => 'chapter'
@@ -179,6 +179,7 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :profile_answers, :only => [:create, :update, :destroy]
     users.resources  :user_visitor_email_setting
   end
+
 
   map.resource :search, :controller => 'site_search', :only => ['show']
 
@@ -230,8 +231,7 @@ ActionController::Routing::Routes.draw do |map|
                                        :controller => 'subscriptions'
 
     restaurant.resources :promotions, :member => { :delete_attachment => :post ,:details => :get}
-    restaurant.resources :menu_items, :member => { :facebook_post => :post, :details => :get}
-
+    restaurant.resources :menu_items, :member => { :facebook_post => :post, :details => :get}    
     restaurant.resources :press_releases, :collection => { :archive => :get }
 
     restaurant.behind_the_line 'behind_the_line', :controller => 'restaurants/behind_the_line', :action => 'index'
