@@ -3,4 +3,6 @@
 <p>
 	 <%=@employee.try(:name)%> has not claimed the <%=@restaurant.try(:name)%> in 24 hours.
 </p>
+<br>
+<%= link_to "Resend Confirmation Email", resend_confirmation_users_url %>
 <%= render :partial => 'email_footer' %>
