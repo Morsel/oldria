@@ -155,6 +155,16 @@ class EmployeesController < ApplicationController
 
   def no_choice
   end
-
+ def new_employee
+  @employment = @restaurant.employments.build
+  if current_user.admin?
+      flash.now[:notice] = "We couldn't find them in our system. You can add this person."
+      @employee = @restaurant.employees.build
+      render :new_employee
+  else
+      flash[:notice] = "We couldn't find them in our system. You can invite this person."
+      redirect_to recommend_invitations_path(:emails => "test@test.com")
+   end
+ end
  
 end
