@@ -612,5 +612,22 @@ class User < ActiveRecord::Base
   end
   def restaurant_newsletter_subscription restaurant    
     media_newsletter_subscriptions.find_by_restaurant_id(restaurant.id)
-  end  
+  end 
+
+  def send_employee_claim_notification_mail
+    # @res.employees.find(:all,:conditions=>["role=?",'admin'])  
+    User.find(:all,:conditions=>["role=?",'admin']).each do |user|
+    user.restaurants.each do |restaurant|
+        restaurant.employees.find(:all,:conditions=>["role != 'admin' || role IS NULL AND confirmed_at IS NULL"]).each do |employee|
+          if employee.claim_count <= 3
+            employee.claim_count+=1
+            employee.publication= "NULL" if employee.publication.blank?
+            employee.save!
+            UserMailer.deliver_send_employee_claim_notification_mail(user,employee,restaurant)
+          end
+        end
+      end
+    end
+  end
+
 end

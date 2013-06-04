@@ -22,7 +22,10 @@
 				<% end -%>
 			<% end -%>
 
-					<p><%= button_tag "Yes", :class => 'nofloat positive',:id=>"confirm_yes_id"  %> or <%= link_to "No", :action => :new %></p>
+					<p><%= button_tag "Yes", :class => 'nofloat positive',:id=>"confirm_yes_id"  %> or 
+						<%#= link_to "No", :action => :new %>
+						<%= link_to "No", no_choice_path(@restaurant) %>
+					</p>
 	<% else %>
 		<p>We couldn't find that person</p>
 	<% end %>
