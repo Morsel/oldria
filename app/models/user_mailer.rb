@@ -203,7 +203,14 @@ class UserMailer < ActionMailer::Base
     sent_on     Time.now
     subject     "#{subject} Media Request via RIA" 
     body        :detail => detail,:title => title,:user =>user,:comment=>comment
-
   end  
 
+  def send_employee_claim_notification_mail(user,employee,restaurant)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  user.email   
+    cc restaurant.manager.try(:email) unless user.email == restaurant.manager.try(:email) 
+    sent_on     Time.now
+    subject     "#{subject} Employee Claim Notification Mail via RIA" 
+    body        :employee=>employee,:user=>user,:restaurant=>restaurant
+  end
 end
