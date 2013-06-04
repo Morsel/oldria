@@ -8,7 +8,9 @@
  <hr />
 <%# end %>
 
+
 <% unless @specialty_names.blank? &&  @otm_keywords.blank? &&  @restaurant_features.blank? &&  @users.blank? %> 
+
 
   <p> Media are researching the following keywords. If you have any stories/menu items to share pertaining to these topics, now would be the time to share them! </p>
     
@@ -40,7 +42,6 @@
     </ul>
   <%end%>
 
-
    <%unless @users.blank?%>
     <ul>
       <li>
@@ -49,7 +50,6 @@
       </li>
     </ul>
   <%end%>
-
 
   <hr />
 <% end %> 
@@ -71,7 +71,6 @@
   </ul>
   <hr />
 <% end %>
-
 
 
 <%= render :partial => 'email_footer' %>

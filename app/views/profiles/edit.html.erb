@@ -177,6 +177,30 @@
   </section><!-- /profile-extended -->
 
   <section id="profile-account">
+
+  
+    <div id="restaurant_profile_view" class="edit clear clearfix"> 
+      <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">                         
+          <div>
+            <h1 class="pg_title">Media Traffic Report</h1>
+            <p>The Media Traffic Reports lets you know what media have visited your restaurant profile and what they are researching. You receive this report via email in the frequency you select./p>                
+          </div>
+          <div id="newsletter_settings" class="clearfix">
+            <% semantic_form_for @user, :html => { :multipart => true } do |f| %>          
+              <% @user.build_user_visitor_email_setting if @user.user_visitor_email_setting.blank? %>
+              <% f.semantic_fields_for :user_visitor_email_setting do |u| %>
+                  
+                  <%= u.input :email_frequency,  :as => :select,:selected=>"Daily", :collection => ["Daily","Weekly","Monday Wednesday Friday"] %>
+                  <%= u.input :is_approved,:label => " I do not want to get any traffic regarding to my " %>
+                  <%end%>
+              <%=f.submit 'Save settings' %>
+            <%end%>
+          </div>
+        </div><!-- /editing_restaurant -->
+      <div>
+    <div><hr/>
+
       <% semantic_form_for @user do |f| %>
 
           <% f.inputs :name => 'Media Inquiries' do %>
@@ -224,7 +248,8 @@
               <p><%= button_tag "Save Editing Preferences", :class => 'positive' %></p>
           <% end %>
 
-      <% end %>
+      <% end %> 
+
 
       <fieldset class="inputs">
           <legend><span>Account Status</span></legend>
@@ -396,26 +421,6 @@ $(document).ready(function() {
       }
     }
   });
-
-  $('#user_user_visitor_email_setting_attributes_email_frequency').live('change',function(e){
-    e.preventDefault();
-      if($(this).val()=="Daily"||$(this).val()=="")
-        $("#show_hde").hide('slow')
-      else
-        $("#show_hde").show('slow')
-    });
-   // var selected = new Array();
-  $('#show_hde input:checked').live('click',function() {
-    // console.log(selected.length+" "+selected[0]);
-    $('#show_hde input:checked').attr('checked',false);
-      // if (selected.length>0){
-      // $("#"+selected[0]).prop('checked',false);
-      // selected[0]='';
-      // }
-      // selected[0]=$(this).attr('id');
-      $(this).attr('checked',true);
-  });
-
 });
 </script>
 <% end %>

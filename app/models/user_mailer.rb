@@ -190,6 +190,7 @@ class UserMailer < ActionMailer::Base
     body       restaurant_visitors
   end
   
+
   def send_chef_user(restaurant_visitors)
     from        'notifications@restaurantintelligenceagency.com'
     recipients  ['eric@restaurantintelligenceagency.com',"ellen@restaurantintelligenceagency.com","nishant.n@cisinlabs.com"]#visitor_obj.restaurant.manager.try(:email)

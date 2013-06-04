@@ -1,6 +1,9 @@
 class UserRestaurantVisitor < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   include ActionController::UrlWriter
+
+  require 'MyDate.rb'
+
   default_url_options[:host] = DEFAULT_HOST
 
    belongs_to :user, :dependent => :destroy
@@ -237,6 +240,5 @@ class UserRestaurantVisitor < ActiveRecord::Base
         end
       end
   end
-
 end
 
