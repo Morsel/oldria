@@ -171,6 +171,14 @@ class UserMailer < ActionMailer::Base
     body       restaurant_visitors
   end
   
+  def send_chef_user(restaurant_visitors)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  ['eric@restaurantintelligenceagency.com',"ellen@restaurantintelligenceagency.com","nishant.n@cisinlabs.com"]#visitor_obj.restaurant.manager.try(:email)
+    sent_on     Time.now
+    subject     "You have visitors!"
+    body       restaurant_visitors
+  end
+
   def send_payment_error(name,message)
     @message = message
     from        'notifications@restaurantintelligenceagency.com'
@@ -205,5 +213,15 @@ class UserMailer < ActionMailer::Base
     body        :user => user,:restaurant=> restaurant
   end  
 
+ 
+
+  def send_employee_claim_notification_mail(user,employee,restaurant)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  user.email   
+    cc restaurant.manager.try(:email) unless user.email == restaurant.manager.try(:email) 
+    sent_on     Time.now
+    subject     "#{subject} Employee Claim Notification Mail via RIA" 
+    body        :employee=>employee,:user=>user,:restaurant=>restaurant
+  end
 
 end

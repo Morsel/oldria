@@ -405,4 +405,10 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
   map.resources :ria_webservices, :collection => {:register => :post,:create => :post,:create_psw_rst => :post,:get_join_us_value=>:get,:soap_box_index =>:get,:a_la_minute_answers =>:get,:menu_items =>:get,:bulk_update => :post,:create_menu=>:post,:create_promotions =>:post,:get_promotion_type=>:get,:new_menu_item=>:get,:bulk_edit_photo=>:get,:create_photo =>:post,:create_comments =>:post,:show_comments =>:get,:get_qotds=>:get,:get_newsfeed=>:get,:push_notification_user=>:post,:get_admin_conversation_discussions=>:get,:get_media_request=>:get}, :controller => "ria_webservices"
   map.resources :ria_production_webservices, :collection => {:register => :post,:create => :post,:create_psw_rst => :post,:get_join_us_value=>:get,:soap_box_index =>:get,:a_la_minute_answers =>:get,:menu_items =>:get,:bulk_update => :post,:create_menu=>:post,:create_promotions =>:post,:get_promotion_type=>:get,:new_menu_item=>:get,:bulk_edit_photo=>:get,:create_photo =>:post,:create_comments =>:post,:show_comments =>:get,:get_qotds=>:get,:get_newsfeed=>:get,:push_notification_user=>:post,:get_admin_conversation_discussions=>:get,:get_media_request=>:get,:api_register=>:post}, :controller => "ria_production_webservices"
+
+
+  # for restaurant employee no condition
+  map.no_choice '/restaurants/:restaurant_id/employees/no_choice', :controller => "employees", :action => "no_choice"
+  map.new_employee 'restaurants/:restaurant_id/employees/new_employee', :controller => "employees", :action => "new_employee"  
 end
+
