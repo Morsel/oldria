@@ -192,7 +192,7 @@
               <% f.semantic_fields_for :user_visitor_email_setting do |u| %>
                   
                   <%= u.input :email_frequency,  :as => :select,:selected=>"Daily", :collection => ["Daily","Weekly","Monday Wednesday Friday"] %>
-                  <%= u.input :is_approved,:label => " I do not want to get any traffic regarding to my " %>
+                  <%= u.input :is_approved,:label => " I do not want to receive any emails regarding media traffic to my restaurant profile. " %>
                   <%end%>
               <%=f.submit 'Save settings' %>
             <%end%>
