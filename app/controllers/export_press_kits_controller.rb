@@ -7,9 +7,11 @@ class ExportPressKitsController < ApplicationController
   def create
     if params[:export_type] == "Diner" || params[:export_type] == "Media"
       @restaurant =  Restaurant.find(params[:restaurant])
-	    UserMailer.deliver_export_press_kit(params[:email],current_user,@restaurant)
+      if !params[:email].blank? && !current_user.blank?
+	      UserMailer.deliver_export_press_kit(params[:email],current_user,@restaurant)
+      end
 	  end	
-	  flash[:notice] = "Your information has been send successfully"
+	  flash[:notice] = "Your press kit has been sent successfully!"
 	  redirect_to :action => "new"  
   end
 

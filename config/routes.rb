@@ -429,5 +429,3 @@ ActionController::Routing::Routes.draw do |map|
   map.new_employee 'restaurants/:restaurant_id/employees/new_employee', :controller => "employees", :action => "new_employee"  
 end
 
-
-
