@@ -136,29 +136,6 @@
     </ul>
   <%end%>
 
-    <%unless @users.blank?%>
-    <ul>
-      <li>
-        Users whose profile is visited <br>
-        <%
-          length=@users.size
-          i=1
-        %>
-        <% @users.each do |users|%>
-          <%if i==1 %>
-            <%= users %>
-            <% i+=1 %>
-          <% elsif i==length %>
-            and <%= users %>
-          <% else 
-                i+=1
-          %>
-            ,<%=users %>
-          <%end%>
-        <%end%>
-      </li>
-    </ul>
-  <%end%>
 
 
   <hr />
