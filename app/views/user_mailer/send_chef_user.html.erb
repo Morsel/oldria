@@ -1,4 +1,4 @@
-<%= render :partial => 'email_header' %>
+otm<%= render :partial => 'email_header' %>
 
 <h3>Hello <%=@current_user.try(:name)%>,</h3>
 
@@ -11,8 +11,8 @@
 
 <% unless @specialty_names.blank? &&  @otm_keywords.blank? &&  @restaurant_features.blank? &&  @users.blank? %> 
 
+  <p> Media are researching the following keywords on RIA. If you have any stories or menu items pertaining to these topics you can share them on RIA and we will let the media know!</p>
 
-  <p> Media are researching the following keywords. If you have any stories/menu items to share pertaining to these topics, now would be the time to share them! </p>
     
   <%unless @specialty_names.blank?%>
     <ul>
@@ -56,7 +56,8 @@
 
 
 <%unless @a_la_minute_visitors.blank? %>
-<p>Media love trends and ALM is a killer way to make sure the media know you are making them. Use ALM to post your daily news like the killer pairing of the day or the newest wine you're excited about.</p>
+  <p>Once you create a restaurant profile, you can use our A la Minute feature to keep media  informed of your daily news.  </p>
+  <p>The following media visited our A la Minute section yesterday.</p>
 
   <ul>
     <%@a_la_minute_visitors.each do |a_la_minute_visitor| %>
