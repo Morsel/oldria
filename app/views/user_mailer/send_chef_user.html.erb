@@ -41,6 +41,15 @@ otm<%= render :partial => 'email_header' %>
       </li>
     </ul>
   <%end%>
+<!-- 
+   <%#unless @users.blank?%>
+    <ul>
+      <li>
+        Users whose profile is visited <br>
+        <%#= @users %>
+      </li>
+    </ul>
+  <%#end%> -->
 
    <%unless @users.blank?%>
     <ul>
@@ -51,12 +60,14 @@ otm<%= render :partial => 'email_header' %>
     </ul>
   <%end%>
 
+
   <hr />
 <% end %> 
 
 
 <%unless @a_la_minute_visitors.blank? %>
   <p>Once you create a restaurant profile, you can use our A la Minute feature to keep media  informed of your daily news.  </p>
+
   <p>The following media visited our A la Minute section yesterday.</p>
 
   <ul>

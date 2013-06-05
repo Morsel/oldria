@@ -40,12 +40,9 @@ class UsersController < ApplicationController
           redirect_to edit_user_profile_path(:user_id => @user.id) and return
         end
       end
-      # if params[:user][:user_visitor_email_setting_attributes].present?
-      #   str = params[:user][:user_visitor_email_setting_attributes][:email_frequency_day]
-      #   str.delete("")
-      #   params[:user][:user_visitor_email_setting_attributes][:email_frequency_day] = str.join('')
-      #   params[:user][:user_visitor_email_setting_attributes][:email_frequency_day]="Monday" if params[:user][:user_visitor_email_setting_attributes][:email_frequency_day]==""
-      # end
+      if params[:user][:user_visitor_email_setting_attributes].present?
+        params[:user][:user_visitor_email_setting_attributes][:email_frequency]="M" if params[:user][:user_visitor_email_setting_attributes][:email_frequency]=="Weekly"
+      end
 
       if @user.update_attributes(params[:user])
 
