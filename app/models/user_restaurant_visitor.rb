@@ -159,7 +159,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
           UserMailer.deliver_send_chef_user(restaurant_visitors)
         end
         else         
-          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",1.day.ago.beginning_of_day],:group => "restaurant_id")
+          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["user_id=? AND updated_at > ?",user.id,1.day.ago.beginning_of_day],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
             @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
         
