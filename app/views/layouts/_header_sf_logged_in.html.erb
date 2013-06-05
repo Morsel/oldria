@@ -49,6 +49,11 @@
                 <p>
                     <%=link_to "Create a new restaurant",new_restaurant_path%>
                 </p>
+                <p>
+                  <% if  current_user.has_chef_role?  %>  
+                    <%= link_to "Export press kit", new_user_export_press_kit_path(current_user) %>
+                  <% end %>
+                </p>
             </div>
             <div class="right invite">
                 <%= image_tag current_user.avatar(:thumb), :size => "32x32" %>

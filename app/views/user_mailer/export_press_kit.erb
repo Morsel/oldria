@@ -1,0 +1,21 @@
+<%= render :partial => 'email_header' %>
+
+<p>Hello <%=  @user.first_name+ ' ' +@user.last_name  %>, wants to share their restaurant profile on Soapbox. </p> 
+
+<p>A backstage pass to their restaurant, Soapbox gives you real time updates on Restaurant Name's menu, news and updates of the day, and exclusive information you can customize to help you become a VIP!</p>
+
+<br />
+
+<p> <a href="<%= new_invitation_url %>" > Sign Up</a> and start leveling up your dining experience!</p>
+
+ <br>
+
+
+<%= link_to 'My Soapbox Restaurant',soapbox_restaurant_url(@restaurant) %>
+
+<!-- partial of restaurant side bar closed -->
+
+
+<%= render :partial => 'email_footer' %>
+
+
