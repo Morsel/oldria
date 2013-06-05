@@ -162,7 +162,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
   end
 def send_notification_to_chef_user
   
-    User.all.first(50).each do |user|
+    User.all.each do |user|
       @uves=user.user_visitor_email_setting
         if @uves.blank?
             @uves=createUserVisitedEmailSetting(user)
@@ -203,7 +203,7 @@ def send_notification_to_chef_user
           end
         else
           
-          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",111.day.ago.beginning_of_day],:group => "restaurant_id")
+          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",1.day.ago.beginning_of_day],:group => "restaurant_id")
           
           userrestaurantvisitor.each do |visitor|
             
