@@ -125,15 +125,27 @@ class UserRestaurantVisitor < ActiveRecord::Base
    end
   end  
 
+  def getFullDayName(shortName)
+    if shortName=="M"
+       return "Monday"
+    elsif shortName=="W"
+      return "Wednesday"
+    elsif shortName=="F"
+      return "Friday"
+    end  
+  end
+
   def checkEmailFrequency(rest)
-    days=rest.email_frequency.split(" ")
+    days=rest.email_frequency.split("/")
     days.each do |day|
-      if day==getdayname
-        rest.update_attributes(:next_email_at=>Time.now+7.days)
-        return true
-      elsif day=="Daily"
+      if day=="Daily"
         rest.update_attributes(:email_frequency=>'Daily',:next_email_at=>Time.now)
         return true
+      end
+      day=getFullDayName(day)
+      if day==getdayname
+        rest.update_attributes(:next_email_at=>Time.now+7.days)
+        return true      
       end
     end
     return false        
@@ -166,7 +178,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
                @_la_minute_visitors = UserRestaurantVisitor.find_all_by_user_id(@al_users)
                @_la_minute_visitors.each do |a_la_minute_visitor|
                 if !a_la_minute_visitor.restaurant.nil?
-                 @a_la_minute_visitors = a_la_minute_visitor.restaurant.restaurant_visitors  
+                 @a_la_minute_visitors = a_la_minute_visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.created_at > ?",1.day.ago.beginning_of_day]) 
                 end 
                end 
             else  
@@ -188,14 +200,14 @@ class UserRestaurantVisitor < ActiveRecord::Base
             UserMailer.deliver_send_chef_user(restaurant_visitors)
           end
           else         
-            userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",111.day.ago.beginning_of_day],:group => "restaurant_id")
+            userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["user_id=? and updated_at > ?",user.id,1.day.ago.beginning_of_day],:group => "restaurant_id")
             userrestaurantvisitor.each do |visitor|
               @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
           
               if !visitor.restaurant.nil?
                 visitors = visitor.restaurant.newsletter_subscribers 
               
-                media_visitors = visitor.restaurant.restaurant_visitors  
+                media_visitors = visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.created_at > ?",1.day.ago.beginning_of_day]) 
 
                 counter  = 0
 

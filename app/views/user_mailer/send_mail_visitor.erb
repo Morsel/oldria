@@ -11,6 +11,7 @@
       </li>
     <%end%>
   </ul>
+  <hr/>
 <% end %>
 
 
@@ -24,8 +25,9 @@
       <%end%>
     </ul>
   <% end %>
+  <hr />
 <% end %>
-<hr />
+
 
 
 
@@ -38,22 +40,48 @@
             <%= media_visitor.publication %>  
           </li>
         <%else%>
-          <li>Freelance Writer</li>
+          <li>Freelance</li>
         <%end%>
       <%end%>
     </ul>
   <hr />
 <%end%>
 
-<% unless @specialty_names.blank? && @cuisine_names.blank? && @otm_keywords.blank? && @chapter_names.blank? && @restaurant_features.blank? %> 
+<%if @employee.restaurants.blank? %>
+  Hello, <%=current_user %> </br>
+  <p>Journalists are researching restaurant profiles on RIA every day. To connect with media and share your news with them for free, create a profile for your restaurant today!<br/>
 
-  <p> Media are researching the following keywords. If you have any stories/menu items to share pertaining to these topics, now would be the time to share them! </p>
+  <%=link_to "create a profile",restaurants_url %> </p> 
+ <hr />
+<% end %>
+
+
+
+<% unless @specialty_names.blank? &&  @otm_keywords.blank? &&  @restaurant_features.blank? && @users.blank? %> 
+
+  <p> Media are researching the following keywords on RIA. If you have any stories or menu items pertaining to these topics you can share them on RIA and we will let the media know!</p>
     
   <%unless @specialty_names.blank?%>
     <ul>
       <li>
-        <%=link_to 'Personal Profile Specialties',edit_user_profile_url(@current_user) %> <br>
-        <%= @specialty_names %>
+        Personal Profile Specialties <br>
+        <%
+          length=@specialty_names.size
+          i=1
+        %>
+        <% @specialty_names.each do |specialty_names|%>
+          <%if i==1 %>
+            <%= link_to specialty_names,edit_user_profile_url(@current_user) %>
+            <% i+=1 %>
+          <% elsif i==length %>
+            and <%= link_to specialty_names,edit_user_profile_url(@current_user) %>
+          <% else 
+                i+=1
+          %>
+            ,<%= link_to specialty_names,edit_user_profile_url(@current_user) %>
+          <%end%>
+        <%end%>
+         <br>
       </li>
     </ul>
   <%end%>
@@ -61,21 +89,101 @@
 
   <%unless @otm_keywords.blank? %>
     <ul>
-      <li><%=link_to 'On the Menu Keywords' ,new_restaurant_menu_item_url(@visitor_obj) %> <br>
-        <%= @otm_keywords %>
+      <li>
+      On the Menu Keywords <br>
+      <%
+        length=@otm_keywords.size
+        i=1
+      %>
+      <% @otm_keywords.each do |otm_keywords|%>
+        <%if i==1 %>
+          <%= link_to otm_keywords,new_restaurant_menu_item_url(@visitor_obj) %>
+          <% i+=1 %>
+        <% elsif i==length %>
+          and <%= link_to otm_keywords,new_restaurant_menu_item_url(@visitor_obj) %>
+        <% else 
+              i+=1
+        %>
+          ,<%= link_to otm_keywords,new_restaurant_menu_item_url(@visitor_obj) %>
+        <%end%>        
+      <%end%>
       </li>
     </ul>
   <%end%>
-
 
   <%unless @restaurant_features.blank?%>
     <ul>
       <li>
-        <%=link_to 'Restaurant features',bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1) %> <br>
-        <%= @restaurant_features %>
+        Restaurant features <br>
+        <%
+          length=@restaurant_features.size
+          i=1
+        %>
+        <% @restaurant_features.each do |restaurant_features|%>
+          <%if i==1 %>
+            <%= link_to restaurant_features,bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1) %>
+            <% i+=1 %>
+          <% elsif i==length %>
+            and <%= link_to restaurant_features,bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1) %>
+          <% else 
+                i+=1
+          %>
+            ,<%= link_to restaurant_features,bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1) %>
+          <%end%>
+        <%end%>
+         <br>
       </li>
     </ul>
   <%end%>
+
+    <%unless @users.blank?%>
+    <ul>
+      <li>
+        Users whose profile is visited <br>
+        <%
+          length=@users.size
+          i=1
+        %>
+        <% @users.each do |users|%>
+          <%if i==1 %>
+            <%= users %>
+            <% i+=1 %>
+          <% elsif i==length %>
+            and <%= users %>
+          <% else 
+                i+=1
+          %>
+            ,<%=users %>
+          <%end%>
+        <%end%>
+      </li>
+    </ul>
+  <%end%>
+
+
+  <hr />
+<% end %> 
+
+
+<%unless @a_la_minute_visitors.blank? %>
+  <p>Once you create a restaurant profile, you can use our A la Minute feature to keep media informed of your daily news.  </p><br/>
+  <p>The following media visited our A la Minute section yesterday.</p>
+  <!-- this post was removed as per client req -->
+  <!--<p>Media need news everyday. A La Minute is designed to share the news you make everyday. Log onto <%#=link_to "A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj)%> today and stay in front of the media.</p>-->
+
+  <ul>
+    <%@a_la_minute_visitors.each do |a_la_minute_visitor| %>
+      <% unless a_la_minute_visitor.publication.blank? %>
+    <li>
+      <%= a_la_minute_visitor.publication %>        
+    </li>
+      <%else%>
+    <li>Freelance</li>
+      <%end%>
+    <%end%>
+  </ul>
+  <hr />
+<% end %>
 
 
 <!--   <%#unless @users.blank? %>
@@ -88,8 +196,7 @@
   <%#end%>
  -->
 
-  <hr />
-<% end %> 
+
 
 
 <p>Keep the media engaged! If you update your profile, we'll let these media folks know! Here's a few ideas:</p>
