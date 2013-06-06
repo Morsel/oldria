@@ -177,13 +177,36 @@
   </section><!-- /profile-extended -->
 
   <section id="profile-account">
+
+  
+    <div id="restaurant_profile_view" class="edit clear clearfix"> 
+      <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">                         
+          <div>
+            <h1 class="pg_title">Media Traffic Report</h1>
+            <p>The Media Traffic Reports let you know what media have visited your restaurant profile and what they are researching. You receive this report via email in the frequency you select.</p>                
+          </div>
+          <div id="newsletter_settings" class="clearfix">
+            <% semantic_form_for @user, :html => { :multipart => true } do |f| %>          
+              <% @user.build_user_visitor_email_setting if @user.user_visitor_email_setting.blank? %>
+              <% f.semantic_fields_for :user_visitor_email_setting do |u| %>
+                  <%= u.input :email_frequency,  :as => :select,:selected=>"Daily", :collection => ["Daily","Weekly","M/W/F"] %>
+                  <%= u.input :do_not_receive_email,:label => " I do not want to receive any emails regarding media traffic to my restaurant profile. " %>
+                  <%end%>
+              <%=f.submit 'Save settings' %>
+            <%end%>
+          </div>
+        </div><!-- /editing_restaurant -->
+      <div>
+    <div><hr/>
+
       <% semantic_form_for @user do |f| %>
 
           <% f.inputs :name => 'Media Inquiries' do %>
               <%= f.input :media_inquiries, :as => :boolean, :label => ' I would like to receive media inquiries as they are posted by media' %>
-              <p class="inline-hints"><i>Media post requests for information for stories they are working on, which you can receive and respond to for free.</i></p>
+              <p class="inline-hints"><i>Journalists post requests for information for stories they are working on, which you can receive and respond to for free.</i></p>
               <%= f.input :media_notification, :as => :boolean, :label => ' I would like to receive notification if other members of my restaurant respond to media inquiries' %>
-              <p class="inline-hints"><i>In order to help you better engage the media, we send an email detailing media visits to your profile, your restaurant's profile and <br />also information on what topics the media are currently researching.</i></p>
+              <p class="inline-hints"><i>If you need to know when your coworkers respond to media inquires, please check this preference. You will receive a lot of emails!!.</i></p>
               <p><%= button_tag "Save Media Inquiries", :class => 'positive' %></p>
           <% end %>
           <% f.inputs :name => "What's New" do %>
@@ -224,7 +247,8 @@
               <p><%= button_tag "Save Editing Preferences", :class => 'positive' %></p>
           <% end %>
 
-      <% end %>
+      <% end %> 
+
 
       <fieldset class="inputs">
           <legend><span>Account Status</span></legend>
@@ -366,6 +390,12 @@
 <% content_for :javascript do %>
 <script type="text/javascript">
 $(document).ready(function() {
+  if ($('#user_user_visitor_email_setting_attributes_do_not_receive_email').is(':checked')) {
+      $("#user_user_visitor_email_setting_attributes_email_frequency_input").hide();
+    } else {
+      $("#user_user_visitor_email_setting_attributes_email_frequency_input").show();
+    } 
+    
   $('a[href$="school_fields"]').live('click',function(e){
         e.preventDefault();
         $('#nonculinary_enrollment_nonculinary_school_input').toggle()
@@ -397,25 +427,14 @@ $(document).ready(function() {
     }
   });
 
-  $('#user_user_visitor_email_setting_attributes_email_frequency').live('change',function(e){
-    e.preventDefault();
-      if($(this).val()=="Daily"||$(this).val()=="")
-        $("#show_hde").hide('slow')
-      else
-        $("#show_hde").show('slow')
-    });
-   // var selected = new Array();
-  $('#show_hde input:checked').live('click',function() {
-    // console.log(selected.length+" "+selected[0]);
-    $('#show_hde input:checked').attr('checked',false);
-      // if (selected.length>0){
-      //    $("#"+selected[0]).prop('checked',false);
-      //    selected[0]='';        
-      // }
-      // selected[0]=$(this).attr('id');
-      $(this).attr('checked',true);
+  $('#user_user_visitor_email_setting_attributes_do_not_receive_email').live('change',function(){
+    if ($('#user_user_visitor_email_setting_attributes_do_not_receive_email').is(':checked')) {
+      $("#user_user_visitor_email_setting_attributes_email_frequency_input").hide();
+    } else {
+      $("#user_user_visitor_email_setting_attributes_email_frequency_input").show();
+    } 
   });
-
+  
 });
 </script>
 <% end %>
