@@ -13,24 +13,6 @@ class UserRestaurantVisitor < ActiveRecord::Base
           { :conditions => ["restaurant_id = #{restaurant_id} and updated_at > '#{1.day.ago.beginning_of_day}'"]
          }
       }
-
-   def self.profile_visitor(user,restaurant_id)
-      urv = UserRestaurantVisitor.find(:first,:conditions=>["user_id = ? and restaurant_id = ? ",user.id,restaurant_id])
-      if urv.blank?
-           user.user_restaurant_visitors.create(:restaurant_id=>restaurant_id,:visitor_count=>1)
-      else
-        urv.update_attributes(:visitor_count=>"#{urv.visitor_count+1}")
-      end
-   end
-
-# Commented as done by Nishant and not used anymore
-
-  # def send_notification
-
-  # userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",1.day.ago.beginning_of_day],:group => "restaurant_id")
-  # userrestaurantvisitor.each do |visitor|
-  # @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
-  # if !visitor.restaurant.nil?
   # visitors = visitor.restaurant.newsletter_subscribers
       
   # media_visitors = visitor.restaurant.restaurant_visitors
@@ -203,7 +185,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
             UserMailer.deliver_send_chef_user(restaurant_visitors)
           end
         else
-          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["user_id=? and updated_at > ?",user.id,111.day.ago.beginning_of_day],:group => "restaurant_id")
+          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["user_id=? and updated_at > ?",user.id,1.day.ago.beginning_of_day],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
             @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
             if !visitor.restaurant.nil?
