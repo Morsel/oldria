@@ -13,6 +13,14 @@ class UserRestaurantVisitor < ActiveRecord::Base
           { :conditions => ["restaurant_id = #{restaurant_id} and updated_at > '#{1.day.ago.beginning_of_day}'"]
          }
       }
+  def self.profile_visitor(user,restaurant_id)
+      urv = UserRestaurantVisitor.find(:first,:conditions=>["user_id = ? and restaurant_id = ? ",user.id,restaurant_id])
+      if urv.blank?          
+           user.user_restaurant_visitors.create(:restaurant_id=>restaurant_id,:visitor_count=>1)
+      else                
+        urv.update_attributes(:visitor_count=>"#{urv.visitor_count+1}") 
+      end 
+   end    
   # visitors = visitor.restaurant.newsletter_subscribers
       
   # media_visitors = visitor.restaurant.restaurant_visitors
