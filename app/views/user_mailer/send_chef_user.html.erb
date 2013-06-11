@@ -4,9 +4,9 @@
 
 <%#if @employee.restaurants.blank? %>
   <!-- Hello, <%#=@current_user %> </br> -->
-  <p>Journalists are researching restaurant profiles on RIA every day. To connect with media and share your news with them for free, create a profile for your restaurant today!<br/>
-
-  <%=link_to "Create A profile",restaurants_url %> </p> 
+  <p>Journalists are researching restaurant profiles on RIA every day. To connect with media and share your news with them for free, create a profile for your restaurant today!
+  <br/><br/>
+  <%=link_to "Create a profile",restaurants_url %> </p> 
  <hr />
 <%# end %>
 
@@ -20,7 +20,7 @@
     <ul>
       <li>
         Personal Profile Specialties<br>
-        <%= @specialty_names %>
+        <%= @specialty_names.map{|a| link_to a.name,edit_user_profile_url(@current_user)}.to_sentence(:last_word_connector => ' and ') %>
       </li>
     </ul>
   <%end%>
@@ -29,7 +29,7 @@
   <%unless @otm_keywords.blank? %>
     <ul>
       <li>On the Menu Keywords<br>
-        <%= @otm_keywords %>
+        <%= @otm_keywords.map{ |k| link_to k.name, menu_items_url(:keyword => k.name,:id=>k.id) }.to_sentence(:last_word_connector => ' and ') %>
       </li>
     </ul>
   <%end%>
@@ -39,7 +39,7 @@
     <ul>
       <li>
         Restaurant features<br>
-        <%= @restaurant_features %>
+        <%= @restaurant_features.map{ |k| link_to k.name, feature_url(:id=>k.id) }.to_sentence(:last_word_connector => ' and ')  %>
       </li>
     </ul>
   <%end%>

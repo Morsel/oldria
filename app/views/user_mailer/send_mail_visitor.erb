@@ -56,20 +56,7 @@
   <%unless @specialty_names.blank?%>
     <ul>
       <li>Personal Profile Specialties <br>
-        <%
-          length=@specialty_names.size
-          i=1
-        %>
-        <%@specialty_names.each do |specialty_names|%>
-          <%if i>=1 && i+1!=length && i!=length %>
-            <%=link_to specialty_names,edit_user_profile_url(@current_user)%>,            
-          <%elsif i+1==length %>
-            <%=link_to specialty_names,edit_user_profile_url(@current_user)%> and&nbsp;
-          <% else %>
-            <%=link_to specialty_names,edit_user_profile_url(@current_user)%>          
-          <%end%>
-         <% i+=1 %>  
-        <%end%>
+        <%= @specialty_names.map{|a| link_to a.name,edit_user_profile_url(@current_user)}.to_sentence(:last_word_connector => ' and ') %>
          <br>
       </li>
     </ul>
@@ -78,58 +65,27 @@
 
   <%unless @otm_keywords.blank? %>
     <ul>
-      <li>On the Menu Keywords <br>
-      <%
-        length=@otm_keywords.size
-        i=1
-      %>
-      <%@otm_keywords.each do |otm_keywords|%>
-        <%if i>=1 && i+1!=length && i!=length %>
-          <%=link_to otm_keywords,new_restaurant_menu_item_url(@visitor_obj)%>,            
-        <%elsif i+1==length %>
-          <%=link_to otm_keywords,new_restaurant_menu_item_url(@visitor_obj)%> and&nbsp;
-        <% else %>
-          <%=link_to otm_keywords,new_restaurant_menu_item_url(@visitor_obj)%>          
-        <%end%>
-        <% i+=1 %>   
-      <%end%>
+      <li>On the Menu Keywords<br>
+        <%= @otm_keywords.map{ |k| link_to k.name, menu_items_url(:keyword => k.name,:id=>k.id) }.to_sentence(:last_word_connector => ' and ') %>
       </li>
     </ul>
   <%end%>
   <%unless @restaurant_features.blank?%>
     <ul>
       <li>
-        Restaurant features <br>
-        <%
-          length=@restaurant_features.size
-          i=1
-        %>
-        <%@restaurant_features.each do |restaurant_features|%>
-          <%if i>=1 && i+1!=length && i!=length %>
-            <%=link_to restaurant_features,bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1)%>,            
-          <%elsif i+1==length %>
-           <%= link_to restaurant_features,bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1)%> and&nbsp;
-          <% else %>
-            <%= link_to restaurant_features,bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1)%>          
-          <%end%>
-          <% i+=1 %>
-        <%end%>
-         <br>
+        Restaurant features<br>
+        <%= @restaurant_features.map{ |k| link_to k.name, bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1) }.to_sentence(:last_word_connector => ' and ') %>
       </li>
     </ul>
   <%end%>
+
 
   <hr />
 <% end %> 
 
 <%unless @a_la_minute_visitors.blank? %>
-
-  <p>Once you create a restaurant profile, you can use our A la Minute feature to keep media informed of your daily news.  </p>
-
   <p>The following media visited our A la Minute section yesterday.</p>
-  <!-- this post was removed as per client req -->
-  <!--<p>Media need news everyday. A La Minute is designed to share the news you make everyday. Log onto <%#=link_to "A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj)%> today and stay in front of the media.</p>-->
-  <ul>
+   <ul>
     <%@a_la_minute_visitors.each do |a_la_minute_visitor| %>
       <% unless a_la_minute_visitor.publication.blank? %>
     <li>
@@ -142,19 +98,6 @@
   </ul>
   <hr />
 <% end %>
-
-
-<!--   <%#unless @users.blank? %>
-    <p>The following users that profile has been visited: <p>
-    <ul>
-      <li>
-        <%#= @users %>
-      </li>
-    </ul>
-  <%#end%>
- -->
-
-
 
 <p>Keep the media engaged! If you update your profile, we'll let these media folks know! Here's a few ideas:</p>
 <ul>  
