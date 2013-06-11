@@ -91,7 +91,7 @@
 
             </li>
 
-                <% f.inputs :name => 'Regional promotion types', :id => 'local_newsfeed_promotion_type', :class=>("display-none" if @user.newsfeed_local_promotion_types.blank?) do %>
+                <% f.inputs :name => 'Regional promotion types', :id => 'local_newsfeed_promotion_type' do %>
                 <%= f.input :local_promotion_types,:label=>false, :as => :check_boxes ,:collection=>@promotionTypes%>
                  <%end%>
 

@@ -31,6 +31,7 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
       flash[:notice] = "Successfully updated your profile."
       redirect_to edit_mediafeed_media_user_path(@user)
     else
+      get_newsletter_data
       render :edit
     end
   end
