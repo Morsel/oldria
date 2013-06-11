@@ -67,7 +67,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
         #keyword trace if user chef is not associate to resturants or not
         keywords = TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , 1.day.ago.to_formatted_s(:db),1.day.ago.to_formatted_s(:db)]).group_by(&:keywordable_type)
       
-        if keywords.present?  
+         
           @specialties = @cuisines = @chapters = @otmkeywords = @restaurantfeatures = nil
         
           keywords.keys.each do |key|
@@ -95,7 +95,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "a_la_minute_visitors" => @a_la_minute_visitors,
                 "current_user" => user
               }
-              UserMailer.deliver_send_chef_user(restaurant_visitors)
+              UserMailer.deliver_send_chef_user(restaurant_visitors)  if keywords.present?
             end
           else
             userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),1.day.ago.beginning_of_day],:group => "restaurant_id")
@@ -180,4 +180,3 @@ class UserRestaurantVisitor < ActiveRecord::Base
       end
     end
   end
-end
