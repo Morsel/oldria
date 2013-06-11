@@ -257,12 +257,13 @@ class UserMailer < ActionMailer::Base
   end
 
 
-  def export_press_kit(email,user,restaurant)
+
+  def export_press_kit_for_media(email,user,restaurant,employments,menu_items,promotions)
     from        user.email
     recipients  email   
     sent_on     Time.now
     subject     "#{user.username} sent you a link to their restaurant profile." 
-    body        :user => user,:restaurant=> restaurant
+    body        :user => user,:restaurant=> restaurant,:employments=>employments,:menu_items=>menu_items,:promotions=>promotions
   end  
 
 
