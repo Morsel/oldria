@@ -7,11 +7,7 @@
 	or
 </p>
 <p>	
-	<%
-		@employemen=Hash.new
-		@employemen[:blank]="blank"
-	%>
 	<p>Would you like to invite a new user?</p>
-	<%= link_to "<button>Invite a new user?</button>",new_restaurant_employee_path(@restaurant,@employemen) %>
+	<%= link_to "<button>Invite a new user?</button>",new_employee_path(@restaurant) %>
 </p>
  <p class="inline-hints"><i>Please check married name or other variations before trying again.</i></p>
