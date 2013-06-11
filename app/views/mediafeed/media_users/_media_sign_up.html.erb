@@ -63,7 +63,7 @@
                 <% end %>
             </ol>
              <% f.inputs :name => 'Regional promotion types', :id => 'regional_newsfeed_promotion_type', :class=>("display-none" if @user.newsfeed_regional_promotion_types.blank?) do %>
-                <%= f.input :promotion_types,:label=>false, :as => :check_boxes%>
+                <%= f.input :promotion_types,:label=>false, :as => :check_boxes ,:collection=>@promotionTypes%>
             <% end %>
         </div>
         <div id="newsfeed_option_locals" class="<%=get_css_class(@user.newsfeed_writer.try(:id),3)%>"> 
@@ -88,7 +88,12 @@
                 <% end %>
 
                 </ol>
+
             </li>
+
+                <% f.inputs :name => 'Regional promotion types', :id => 'local_newsfeed_promotion_type', :class=>("display-none" if @user.newsfeed_local_promotion_types.blank?) do %>
+                <%= f.input :local_promotion_types,:label=>false, :as => :check_boxes ,:collection=>@promotionTypes%>
+                 <%end%>
 
             <% %>
             <div id="metropolitan_areas_state_cities">
