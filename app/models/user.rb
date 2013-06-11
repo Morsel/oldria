@@ -177,6 +177,9 @@ class User < ActiveRecord::Base
   has_many :newsfeed_regional_promotion_types
   has_many :promotion_types,  :through => :newsfeed_regional_promotion_types
 
+  has_many :newsfeed_local_promotion_types
+  has_many :local_promotion_types,  :through => :newsfeed_local_promotion_types,:source=>:promotion_type
+
   
   
 
@@ -636,9 +639,11 @@ class User < ActiveRecord::Base
       metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'NewsfeedWriter'").map(&:destroy)      
       regional_writers.find(:all,:conditions=>"regional_writer_type = 'NewsfeedWriter'").map(&:destroy)
       newsfeed_regional_promotion_types.destroy_all
+      local_promotion_types.destroy_all
     elsif  newsfeed_writer_id == 2
       promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'NewsfeedWriter'").map(&:destroy)
       metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'NewsfeedWriter'").map(&:destroy)      
+      local_promotion_types.destroy_all
     elsif  newsfeed_writer_id == 3
       newsfeed_regional_promotion_types.destroy_all
       promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'NewsfeedWriter'").map(&:destroy)
