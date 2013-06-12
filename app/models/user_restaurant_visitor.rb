@@ -84,7 +84,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
         end
         if user.restaurants.blank? 
           # check the chef is associated restaurants or not
-          unless user.has_chef_role?
+          if user.has_chef_role?
             restaurant_visitors = {
               "specialty_names" => @specialties,
               "cuisine_names" => @cuisines,
