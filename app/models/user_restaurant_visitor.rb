@@ -65,10 +65,8 @@ class UserRestaurantVisitor < ActiveRecord::Base
         end
       if check_email_frequency(@uves) && !@uves.do_not_receive_email
         #keyword trace if user chef is not associate to resturants or not
-        keywords = TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , 1.day.ago.to_formatted_s(:db),1.day.ago.to_formatted_s(:db)]).group_by(&:keywordable_type)
-      
+        keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , 1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s]).group_by(&:keywordable_type)
         @specialties = @cuisines = @chapters = @otmkeywords = @restaurantfeatures = nil
-      
         keywords.keys.each do |key|
           if (key == "ALaMinuteAnswer")||(key == "ALaMinuteQuestion")
              @al_users = keywords[key].map(&:user_id)
