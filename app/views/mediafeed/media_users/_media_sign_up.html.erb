@@ -62,7 +62,7 @@
                     </li>
                 <% end %>
             </ol>
-             <% f.inputs :name => 'Regional promotion types', :id => 'regional_newsfeed_promotion_type', :class=>("display-none" if @user.newsfeed_regional_promotion_types.blank?) do %>
+             <% f.inputs :name => 'Please select which types of news you would like to receive:', :id => 'regional_newsfeed_promotion_type', :class=>("display-none" if @newsfeed_regional_areas.blank?) do %>
                 <%= f.input :promotion_types,:label=>false, :as => :check_boxes ,:collection=>@promotionTypes%>
             <% end %>
         </div>
@@ -91,7 +91,7 @@
 
             </li>
 
-                <% f.inputs :name => 'Regional promotion types', :id => 'local_newsfeed_promotion_type' do %>
+                <% f.inputs :name => 'Please select which types of news you would like to receive:', :id => 'local_newsfeed_promotion_type' do %>
                 <%= f.input :local_promotion_types,:label=>false, :as => :check_boxes ,:collection=>@promotionTypes%>
                  <%end%>
 
