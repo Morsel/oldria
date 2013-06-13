@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
       subject    'Welcome to Spoonfeed! Please confirm your account'
       body       :user => user
     end
-  end@
+  end
 
   def password_reset_instructions(user)
     from          'accounts@restaurantintelligenceagency.com'
