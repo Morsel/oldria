@@ -65,17 +65,15 @@ class UserRestaurantVisitor < ActiveRecord::Base
         end
       if check_email_frequency(@uves) && !@uves.do_not_receive_email
         #keyword trace if user chef is not associate to resturants or not
-        keywords = TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , 1.day.ago.to_formatted_s(:db),1.day.ago.to_formatted_s(:db)]).group_by(&:keywordable_type)
-      
+        keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , 1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s]).group_by(&:keywordable_type)
         @specialties = @cuisines = @chapters = @otmkeywords = @restaurantfeatures = nil
-      
         keywords.keys.each do |key|
           if (key == "ALaMinuteAnswer")||(key == "ALaMinuteQuestion")
              @al_users = keywords[key].map(&:user_id)
              @_la_minute_visitors = UserRestaurantVisitor.find_all_by_user_id(@al_users)
               @_la_minute_visitors.each do |a_la_minute_visitor|
                 if !a_la_minute_visitor.restaurant.nil?
-                  @a_la_minute_visitors = a_la_minute_visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.created_at > ? OR user_restaurant_visitors.updated_at > ?",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day])
+                  @a_la_minute_visitors = a_la_minute_visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.created_at > ? OR user_restaurant_visitors.updated_at > ?",1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s])
                 end
               end
           else
@@ -97,14 +95,14 @@ class UserRestaurantVisitor < ActiveRecord::Base
             UserMailer.deliver_send_chef_user(restaurant_visitors)  if keywords.present?
           end
         else
-          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),1.day.ago.beginning_of_day],:group => "restaurant_id")
+          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),1.day.ago.beginning_of_day.to_formatted_s],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
             @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
             
             if !visitor.restaurant.nil?
               visitors = visitor.restaurant.newsletter_subscribers
             
-              media_visitors = visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.created_at > ? OR user_restaurant_visitors.updated_at > ?",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day])
+              media_visitors = visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.created_at > ? OR user_restaurant_visitors.updated_at > ?",1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s])
 
               counter = 0
 

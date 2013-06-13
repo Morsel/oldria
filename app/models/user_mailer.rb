@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
       subject    'Welcome to Spoonfeed! Please confirm your account'
       body       :user => user
     end
-  end
+  end@
 
   def password_reset_instructions(user)
     from          'accounts@restaurantintelligenceagency.com'
@@ -164,7 +164,7 @@ class UserMailer < ActionMailer::Base
   end
   
   def send_mail_visitor(restaurant_visitors)
-    from        'notifications@restaurantintelligenceagency.com'
+    from        'hal@restaurantintelligenceagency.com'
     recipients  ['eric@restaurantintelligenceagency.com',"ellen@restaurantintelligenceagency.com","nishant.n@cisinlabs.com"]#visitor_obj.restaurant.manager.try(:email)
     sent_on     Time.now
     subject     "You have visitors!"
@@ -172,7 +172,7 @@ class UserMailer < ActionMailer::Base
   end
   
   def send_chef_user(restaurant_visitors)
-    from        'notifications@restaurantintelligenceagency.com'
+    from        'hal@restaurantintelligenceagency.com'
     recipients  ['eric@restaurantintelligenceagency.com',"ellen@restaurantintelligenceagency.com","nishant.n@cisinlabs.com"]#visitor_obj.restaurant.manager.try(:email)
     sent_on     Time.now
     subject     "You have visitors!"
