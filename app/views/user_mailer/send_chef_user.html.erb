@@ -18,7 +18,7 @@
     <ul>
       <li>
         Personal Profile Specialties<br>
-        <%= @specialty_names.uniq.map{|a| link_to a.name,edit_user_profile_url(@current_user)}.to_sentence(:last_word_connector => ' and ') %>
+        <%= @specialty_names.compact.uniq.map{|a| link_to a.name,edit_user_profile_url(@current_user)}.to_sentence(:last_word_connector => ' and ') %>
       </li>
     </ul>
   <%end%>
@@ -27,7 +27,7 @@
   <%unless @otm_keywords.blank? %>
     <ul>
       <li>On the Menu Keywords<br>
-        <%= @otm_keywords.uniq.map{ |k| link_to k.name, menu_items_url(:keyword => k.name,:id=>k.id) }.to_sentence(:last_word_connector => ' and ') %>
+        <%= @otm_keywords.compact.uniq.map{ |k| link_to k.name, menu_items_url(:keyword => k.name,:id=>k.id) }.to_sentence(:last_word_connector => ' and ') %>
       </li>
     </ul>
   <%end%>
@@ -37,7 +37,7 @@
     <ul>
       <li>
         Restaurant features<br>
-        <%= @restaurant_features.uniq.map{ |k| link_to k.name, feature_url(:id=>k.id) }.to_sentence(:last_word_connector => ' and ')  %>
+        <%= @restaurant_features.compact.uniq.map{ |k| link_to k.name, feature_url(:id=>k.id) }.to_sentence(:last_word_connector => ' and ')  %>
       </li>
     </ul>
   <%end%>
@@ -69,4 +69,4 @@
 
 
 
-<%= render :partial => 'email_footer' %>
+<%= render :partial => 'email_footer' ,:locals => {:user => @current_user} %>
