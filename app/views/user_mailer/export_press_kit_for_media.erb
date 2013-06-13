@@ -49,7 +49,7 @@
 <hr />
  <p style="margin-bottom: -17px;"><b>TAGS </b></p>
   <% for tag in @restaurant.top_tags %>
-    <%= link_to h(tag.value), feature_path(tag) %>
+    <%= link_to h(tag.value), feature_url(tag) %>
   <% end %>
  <% end -%>
 
