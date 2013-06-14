@@ -75,7 +75,11 @@ class UserRestaurantVisitor < ActiveRecord::Base
             instance_variable_set("@#{key.to_s.downcase.pluralize}", keywords[key].map(&:keywordable))
           end
         end
+<<<<<<< HEAD
         @a_la_minute_visitors = User.find(@al_users.flatten.uniq)
+=======
+        @a_la_minute_visitors = User.find(@al_users.flatten.compact.uniq)
+>>>>>>> origin/text-change-for-chef-user-email
         if user.restaurants.blank? 
           # check the chef is associated restaurants or not
           if user.has_chef_role?
