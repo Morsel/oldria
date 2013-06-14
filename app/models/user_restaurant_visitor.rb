@@ -170,6 +170,6 @@ class UserRestaurantVisitor < ActiveRecord::Base
           end
         end
       end
-    # end
+    end
   end
 end
