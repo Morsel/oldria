@@ -205,6 +205,16 @@ class UserMailer < ActionMailer::Base
     body        :detail => detail,:title => title,:user =>user,:comment=>comment
   end  
 
+  def export_press_kit(email,user,restaurant)
+    from        user.email
+    recipients  email   
+    sent_on     Time.now
+    subject     "#{user.username} sent you a link to their restaurant profile." 
+    body        :user => user,:restaurant=> restaurant
+  end  
+
+ 
+
   def send_employee_claim_notification_mail(user,employee,restaurant)
     from        'notifications@restaurantintelligenceagency.com'
     recipients  user.email   
@@ -213,4 +223,14 @@ class UserMailer < ActionMailer::Base
     subject     "#{subject} Employee Claim Notification Mail via RIA" 
     body        :employee=>employee,:user=>user,:restaurant=>restaurant
   end
+
+
+  def export_press_kit_for_media(email,user,restaurant)
+    from        user.email
+    recipients  email   
+    sent_on     Time.now
+    subject     "#{user.username} sent you a link to their restaurant profile." 
+    body        :user => user,:restaurant=> restaurant
+  end  
+
 end
