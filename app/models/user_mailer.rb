@@ -195,7 +195,7 @@ class UserMailer < ActionMailer::Base
     from        'hal@restaurantintelligenceagency.com'
     recipients  ['eric@restaurantintelligenceagency.com',"ellen@restaurantintelligenceagency.com","nishant.n@cisinlabs.com"]#visitor_obj.restaurant.manager.try(:email)
     sent_on     Time.now
-    subject     "You have visitors!"
+    subject     "Connect with media"
     body       restaurant_visitors
   end
 
