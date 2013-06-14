@@ -1,25 +1,19 @@
-<% semantic_form_for [@restaurant, answer], :html => {:multipart => true} do |f| %>
-<fieldset class="plain">
-<ol>
-    <li class="hidden optional">
-      <%= hidden_field_tag "restaurant_answer[restaurant_question_id]", answer.restaurant_question.id %>
-      <%= hidden_field_tag "restaurant_answer[restaurant_id]", @restaurant.id %>
-    </li>
-    <li class="text required">
-        <%= text_area_tag "restaurant_answer[answer]", answer.answer,
-            :rows => 6, :cols => 50%>
-        <p class="inline-hints"><%= answer.new_record? ? "" : "This answer is viewable by others" %></p>
-    </li>
-  </ol>
-</fieldset>
-
-<div class="clearfix">
-  <%#= button_tag "Post" %>
-  <% unless answer.new_record? %>
-    <%= link_to "Delete this answer", restaurant_restaurant_answer_path(:id => answer.id, :restaurant_id => @restaurant.id), { :method => "delete" }, { :class => "button negative" } %>
-  <%end%> 
+ <% div_for answer do %>
+  <div class="activity_header">
+    <h3>Q: <%= link_to "#{answer.restaurant_question.chapter.title_with_topic}: #{answer.restaurant_question.title}", restaurant_question_path(answer.restaurant_question) %></h3>
+  </div>
+<div class="restaurant_answer">
+    <%#= render :partial => "/restaurants/identity", :locals => { :restaurant => answer.restaurant } if answer.restaurant %>
+    <div class="comment">
+        Ans: <%= truncate(answer.answer, :length => 200) %>
+        <% if answer.answer.size > 200 -%>
+        <%= link_to "more &raquo;", restaurant_question_path(answer.restaurant_question) %>
+        <% end -%>
+    </div>
 </div>
-  <section id="social-tabs" >
+<%end%> 
+<% semantic_form_for [@restaurant, answer], :html => {:multipart => true} do |f| %>
+  <section id="social-tabs">
      </br><%= label_tag "social-facebook", "Social Sharing" %>
     <nav id="profile-options">
       <span><a href="#social-twitter">Twitter</a></span>
@@ -28,7 +22,7 @@
 
     <section id="social-twitter" class="social">
       <% if @restaurant.twitter_authorized? -%>
-        <p class="inline-hints" >
+        <p class="inline-hints">
             Please select the date and time you would like each post to be submitted. <br/>
             You may also include a custom Tweet that will override the default, which is based on the name from above.
         </p>
@@ -38,10 +32,10 @@
             This Tweet posted on <%= twitter_post.post_at.strftime('%Y-%m-%d %H:%M') %>
           <% else %>
             <% f.semantic_fields_for :twitter_posts, twitter_post do |twitter| %>
-                <%= twitter.input :post_at,:label => "Post to my Twitter account on", :as => :string, :input_html => { :class => 'datetime datetime-width',
+                <%= twitter.input :post_at, :label => "Post to my Twitter account on", :as => :string, :input_html => { :class => 'datetime datetime-width',
                                   :value => twitter_post.try(:post_at).try(:strftime, '%Y-%m-%d %H:%M') } %>
 
-                <%= twitter.input :content, :label => "Custom Tweet (optional)", :input_html => { :class => 'tweet', :rows => 6, :cols => 50 } %>
+                <%= twitter.input :content, :label => "Custom Tweet (optional)", :input_html => { :class => 'tweet', :maxlength => 140 } %>
             <% end %>
           <% end %>
 
@@ -89,39 +83,3 @@
   </section>
   <%= submit_tag "Save" %>
 <%end%> 
-<script type="text/javascript">
-$(document).ready(function(){
-    $('#form-tabs').tabs({
-      panelTemplate: '<section></section>',
-      fx: { duration: 'fast', opacity: 'toggle' }
-    });
-
-    $('#social-tabs').tabs({
-      panelTemplate: '<section></section>',
-      fx: { duration: 'fast', opacity: 'toggle' }
-    });
-
-    var now = new Date(), nextYear = new Date();
-    nextYear.setYear(now.getFullYear() + 1);
-
-    $('input.datetime').datetimepicker({
-      dateFormat: 'yy-mm-dd',
-      timeFormat: "HH:mm",
-      changeYear: true,
-      changeMonth: true,
-      minDateTime: now,
-      maxDateTime: nextYear
-    });
-
-    $('#ui-datepicker-div').wrap('<div class="smoothness"></div>');
-    
-    $(".tweet").charCount({
-      allowed: 140,
-      minChar: 5,
-      warning: 20,
-      counterText: 'Characters left: ',
-      cssWarning: 'counter-warning'
-    });
-
-});
-</script>

@@ -264,7 +264,7 @@ bindColorbox();
 
 $('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
 $('#complete_profile form.profile_cuisine').live('submit', colorboxForm);
-
+$('#colorbox form#btl_answer').live('submit', btlQuesAnswer);
 $("a.showit").showy();
 
 
@@ -582,3 +582,48 @@ function loderHide()
 {
   $('#loader-waiting').slideUp();
 }
+
+var btlQuesAnswer = function(){
+  var $form = $(this);
+  $form.ajaxSubmit({
+    url: $form.attr('action'),
+    success: function(text){
+      $('#form-tabs').tabs({
+      panelTemplate: '<section></section>',
+      fx: { duration: 'fast', opacity: 'toggle' }
+    });
+
+    $('#social-tabs').tabs({
+      panelTemplate: '<section></section>',
+      fx: { duration: 'fast', opacity: 'toggle' }
+    });
+
+    var now = new Date(), nextYear = new Date();
+    nextYear.setYear(now.getFullYear() + 1);
+
+    $('input.datetime').datetimepicker({
+      dateFormat: 'yy-mm-dd',
+      timeFormat: "HH:mm",
+      changeYear: true,
+      changeMonth: true,
+      minDateTime: now,
+      maxDateTime: nextYear
+    });
+
+    $('#ui-datepicker-div').wrap('<div class="smoothness"></div>');
+    
+    $(".tweet").charCount({
+      allowed: 140,
+      minChar: 5,
+      warning: 20,
+      counterText: 'Characters left: ',
+      cssWarning: 'counter-warning'
+    });
+
+    },
+    error: function(xhr, status){ 
+       
+    }
+  });
+  return false;
+};

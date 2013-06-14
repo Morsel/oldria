@@ -35,7 +35,12 @@
                               <td><%= social_post.source.activity_name %></td>
                               <td><%= social_post.message %></td>
                               <td><%= social_post.post_at.to_s(:short) %></td>
-                              <td><%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to 'Sent','#') %> &nbsp;</td>
+                              <td>
+                              <% if social_post.source.edit_path(:social => true).nil? %>
+                                <%=link_to 'Edit Item',restaurant_btl_question_ans_post_path(@restaurant,social_post.source.restaurant_question_id),:class=>"edit colorbox cboxElement edit-button-adjust"%>
+                              <%else%>
+                                <%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to 'Sent','#') %> &nbsp;</td>
+                              <%end%>
                             </tr>
                           <% end %>
                         </tbody>

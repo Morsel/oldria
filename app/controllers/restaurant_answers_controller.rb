@@ -2,6 +2,7 @@ class RestaurantAnswersController < ApplicationController
 
   before_filter :require_user
   before_filter :find_and_authorize_restaurant, :except => [:show]
+  # before_filter :social_redirect, :only => [:update]
 
   def show
     @answer = RestaurantAnswer.find(params[:id])
@@ -11,24 +12,25 @@ class RestaurantAnswersController < ApplicationController
 
   def create
     # the form submits a hash of question ids with their answers
-    if params[:restaurant_question]
-      params[:restaurant_question].each do |id, answer_params|
-        @question = RestaurantQuestion.find(id)
-        answer = @question.find_or_build_answer_for(@restaurant)
-
-        # Only update answers that are new or changed
-        if answer.answer != answer_params[:answer]
-          answer.answer = answer_params[:answer]
-
-          unless answer.save # if it doesn't save, the answer was blank, and we can ignore it
-            Rails.logger.error answer.errors.full_messages
-          end
-        end
-      end
-    end
-
+    @answer = RestaurantAnswer.new(params[:restaurant_answer])
+    @answer.save
     flash[:notice] = "Your answers have been saved"
-    redirect_to restaurant_questions_path(@restaurant, :chapter_id => @question.chapter.id)
+    # respond_to do |wants|
+    #     wants.js { render :js => render_to_string(:partial => "create")}
+    # end
+    # render(:layout=>false)
+    redirect_to restaurant_social_posts_path(@restaurant)
+  end
+  def update
+    @answer = RestaurantAnswer.find_by_restaurant_question_id(params[:restaurant_answer][:restaurant_question_id])
+    @answer.save
+    redirect_to restaurant_social_posts_path(@restaurant)
+  end
+
+  def social_redirect
+    if params[:social]
+      session[:redirect_to_social_posts] = restaurant_social_posts_page_path(@restaurant, 'restaurant_answer')
+    end
   end
 
   def destroy
