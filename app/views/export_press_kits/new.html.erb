@@ -1,0 +1,15 @@
+<h2>Export your press kit</h2>
+
+<% form_tag user_export_press_kits_path do %>
+	<% if @restaurants.size == 1%>
+		<p> Restaurant Name: <%= @restaurants.first.name %> </p>
+		<%= hidden_field_tag "restaurant", @restaurants.first.id %>
+	<%else%>
+ 	  <p>Select restaurant <%= select_tag "restaurant", options_from_collection_for_select(@restaurants, "id", "name") %></p>
+ 	<% end %>
+
+	  <p> Select user type <%= select_tag "export_type", "<option>Media</option><option>Diner</option>".html_safe %></p>
+    <p> Enter email address <%= text_field_tag "email", params[:email], :size => "40x5" %></p>
+    <p><%= submit_tag "Send now" %></p>
+<% end %>
+
