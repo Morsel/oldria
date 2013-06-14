@@ -58,28 +58,25 @@ class UserRestaurantVisitor < ActiveRecord::Base
   end
 
   def send_notification_to_chef_user
-    User.all.each do |user|
+    # User.all.each do |user|
+    user=User.find(9)
       @uves=user.user_visitor_email_setting
         if @uves.blank?
           @uves=create_user_visited_email_setting(user)
         end
       if check_email_frequency(@uves) && !@uves.do_not_receive_email
         #keyword trace if user chef is not associate to resturants or not
+        @al_users= Array.new
         keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , 1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s]).group_by(&:keywordable_type)
         @specialties = @cuisines = @chapters = @otmkeywords = @restaurantfeatures = nil
         keywords.keys.each do |key|
           if (key == "ALaMinuteAnswer")||(key == "ALaMinuteQuestion")
-             @al_users = keywords[key].map(&:user_id)
-             @_la_minute_visitors = UserRestaurantVisitor.find_all_by_user_id(@al_users)
-              @_la_minute_visitors.each do |a_la_minute_visitor|
-                if !a_la_minute_visitor.restaurant.nil?
-                  @a_la_minute_visitors = a_la_minute_visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.created_at > ? OR user_restaurant_visitors.updated_at > ?",1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s])
-                end
-              end
+             @al_users.push(keywords[key].map(&:user_id))
           else
             instance_variable_set("@#{key.to_s.downcase.pluralize}", keywords[key].map(&:keywordable))
           end
         end
+        @a_la_minute_visitors = User.find(@al_users.flatten.uniq)
         if user.restaurants.blank? 
           # check the chef is associated restaurants or not
           if user.has_chef_role?
@@ -174,6 +171,6 @@ class UserRestaurantVisitor < ActiveRecord::Base
           end
         end
       end
-    end
+    # end
   end
 end
