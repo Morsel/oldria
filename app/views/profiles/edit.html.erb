@@ -5,6 +5,7 @@
 <% end -%>
 
 <section id="profile-tabs">
+
   <nav id="profile-options">
       <span><a href="#profile-summary" id="tab-summary">Summary</a></span>
       <span><a href="#profile-extended" id="tab-resume">Résumé</a></span>
@@ -15,6 +16,7 @@
       <span><a href="#profile-account" id="tab-account">Account</a></span>
    
   </nav><!-- /profile_options -->
+
 
     <section id="profile-summary">
         <% semantic_form_for @user, :html => { :multipart => true } do |f| %>
@@ -426,6 +428,8 @@ $(document).ready(function() {
       }
     }
   });
+
+  $('#profile-tabs').tabs('select', 'profile-account');
 
   $('#user_user_visitor_email_setting_attributes_do_not_receive_email').live('change',function(){
     if ($('#user_user_visitor_email_setting_attributes_do_not_receive_email').is(':checked')) {
