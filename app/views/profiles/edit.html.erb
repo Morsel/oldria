@@ -12,7 +12,7 @@
         <span><%= link_to "Behind the Line", edit_btl_user_profile_path(@user), :id => "tab-btl", :title => "profile-btl" %></span>
         <% end -%>
         <span><%= link_to "Front Burner", edit_front_burner_user_profile_path(@user), :id => "tab-fb", :title => "profile-front-burner" %></span>
-        <span><a href="#profile-account" id="tab-account">Account</a></span>
+        <span> <li class="active"><a href="#profile-account" id="tab-account">Account</a></li></span>
      
     </nav><!-- /profile_options -->
 
@@ -426,6 +426,8 @@ $(document).ready(function() {
       }
     }
   });
+
+  $('#profile-tabs').tabs('select', 'profile-account');
 
   $('#user_user_visitor_email_setting_attributes_do_not_receive_email').live('change',function(){
     if ($('#user_user_visitor_email_setting_attributes_do_not_receive_email').is(':checked')) {
