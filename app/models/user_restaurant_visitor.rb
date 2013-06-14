@@ -58,8 +58,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
   end
 
   def send_notification_to_chef_user
-    # User.all.each do |user|
-    user=User.find(9)
+     User.all.each do |user|
       @uves=user.user_visitor_email_setting
         if @uves.blank?
           @uves=create_user_visited_email_setting(user)
