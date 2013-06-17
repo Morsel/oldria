@@ -10,27 +10,23 @@ class RestaurantAnswersController < ApplicationController
   end
 
   def create
-    # the form submits a hash of question ids with their answers
-    if params[:restaurant_question]
-      params[:restaurant_question].each do |id, answer_params|
-        @question = RestaurantQuestion.find(id)
-        answer = @question.find_or_build_answer_for(@restaurant)
-
-        # Only update answers that are new or changed
-        if answer.answer != answer_params[:answer]
-          answer.answer = answer_params[:answer]
-
-          unless answer.save # if it doesn't save, the answer was blank, and we can ignore it
-            Rails.logger.error answer.errors.full_messages
-          end
-        end
-      end
-    end
-
+     # the form submits a hash of question ids with their answers
+    @answer = RestaurantAnswer.new(params[:restaurant_answer])
+    @answer.save
     flash[:notice] = "Your answers have been saved"
-    redirect_to restaurant_questions_path(@restaurant, :chapter_id => @question.chapter.id)
+    # respond_to do |wants|
+    # wants.js { render :js => render_to_string(:partial => "create")}
+    # end
+    # render(:layout=>false)
+    redirect_to restaurant_social_posts_path(@restaurant)
   end
 
+  def update
+    @answer = RestaurantAnswer.find_by_restaurant_question_id(params[:restaurant_answer][:restaurant_question_id])
+    @answer.save
+    redirect_to restaurant_social_posts_path(@restaurant)
+  end
+  
   def destroy
     @answer = RestaurantAnswer.find(params[:id])
     @question = @answer.restaurant_question
