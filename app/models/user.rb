@@ -47,8 +47,8 @@ class User < ActiveRecord::Base
   include FacebookPageConnect
   include UserMessaging
 
+  has_many :trace_keywords, :as => :keywordable
   has_many :statuses, :dependent => :destroy
-
   has_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
   has_many :friends, :through => :followings
   has_many :inverse_followings, :class_name => "Following", :foreign_key => 'friend_id', :dependent => :destroy
@@ -140,7 +140,9 @@ class User < ActiveRecord::Base
   # Newsletter Subscriber
   has_one :newsletter_subscriber
   has_one :media_newsletter_setting
-  accepts_nested_attributes_for :media_newsletter_setting
+  # user visitor setting mail
+  has_one :user_visitor_email_setting
+  accepts_nested_attributes_for :media_newsletter_setting,:user_visitor_email_setting
   after_update :update_newsletter_subscriber, :if => Proc.new { |user| user.newsletter_subscriber.present? }
 
   named_scope :media, :conditions => { :role => 'media' }
@@ -609,5 +611,22 @@ class User < ActiveRecord::Base
   end
   def restaurant_newsletter_subscription restaurant    
     media_newsletter_subscriptions.find_by_restaurant_id(restaurant.id)
-  end  
+  end 
+
+  def send_employee_claim_notification_mail
+    # @res.employees.find(:all,:conditions=>["role=?",'admin'])  
+    User.find(:all,:conditions=>["role=?",'admin']).each do |user|
+    user.restaurants.each do |restaurant|
+        restaurant.employees.find(:all,:conditions=>["role != 'admin' || role IS NULL AND confirmed_at IS NULL"]).each do |employee|
+          if employee.claim_count <= 3
+            employee.claim_count+=1
+            employee.publication= "NULL" if employee.publication.blank?
+            employee.save!
+            UserMailer.deliver_send_employee_claim_notification_mail(user,employee,restaurant)
+          end
+        end
+      end
+    end
+  end
+
 end

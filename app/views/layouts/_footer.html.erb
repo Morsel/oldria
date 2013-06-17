@@ -24,15 +24,37 @@
                         user_id: <%= current_user.id %>,
               title: "<%= @content_for_title %>",
               page_owner_id: <%= @restaurant.try(:id) || @user.try(:id) %>,
-              page_owner_type: "<%= @restaurant.try(:class) || @user.try(:class) %>" } 
+              page_owner_type: "<%= @restaurant.try(:class) || @user.try(:class) %>" }
             };
               if("<%=@menu_item.try(:class)%>" == "MenuItem" || <%=@promotions.present?%>)
               {
                 params.page_view.page_type = "<%=@menu_item.try(:class) || 'Promotion' %>"
-                params.page_view.page_id   = "<%=@menu_item.try(:id)|| 0 %>"
+                params.page_view.page_id = "<%=@menu_item.try(:id)|| 0 %>"
               }
     $.post("/page_views", params);
   </script>
   <% end -%>
-</body>
-</html>
+
+<% if current_user.try(:media?) && !@keywordable_id.blank? %>
+  <script type="text/javascript">
+  params = { trace_keyword: {
+                      user_id: <%= current_user.try(:id) %>,
+                      keywordable_id: <%= @keywordable_id %>,
+                      keywordable_type: '<%= @keywordable_type %>'
+              }
+            };
+              
+    $.post("/trace_keywords", params);
+  </script>
+  <% elsif current_user.try(:media?) && !@keywordable_type.blank? && @keywordable_id.blank? %>
+  <script type="text/javascript">
+  params = { trace_keyword: {
+                      user_id: <%= current_user.try(:id) %>,
+                      keywordable_type: '<%= @keywordable_type %>'
+              }
+
+            };
+              
+    $.post("/trace_keywords", params);
+  </script>
+<% end %>

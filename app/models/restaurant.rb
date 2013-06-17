@@ -114,7 +114,7 @@ class Restaurant < ActiveRecord::Base
   accepts_nested_attributes_for :logo
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
-      :metropolitan_area, :website, :media_contact, :cuisine, :opening_date, :manager
+      :metropolitan_area, :website, :media_contact, :cuisine, :opening_date, :manager,:james_beard_region
 
   validates_format_of :management_company_website,
       :with => URI::regexp(%w(http https)),
@@ -134,7 +134,8 @@ class Restaurant < ActiveRecord::Base
   has_one :newsletter_setting 
   accepts_nested_attributes_for :newsletter_setting
 
-
+  has_one  :visitor_email_setting
+  
   after_validation_on_create :add_manager_as_employee
   after_create :update_manager
   before_destroy :migrate_employees_to_default_employment

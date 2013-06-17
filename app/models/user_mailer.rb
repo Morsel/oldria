@@ -163,13 +163,21 @@ class UserMailer < ActionMailer::Base
     subject     "Keyword Request from RESTAURANT NAME: #{restaurant} REQUESTED ITEM: #{keyword}"
   end
 
-  def send_mail_visitor(visitor_obj , userrestaurantvisitor,media_visitors,fact_message,menu_message,menu_item_message,a_la_minute_message ,newsfeed_message)
-
-    from        'notifications@restaurantintelligenceagency.com'
+  
+  def send_mail_visitor(restaurant_visitors)
+    from        'hal@restaurantintelligenceagency.com'
     recipients  ['eric@restaurantintelligenceagency.com',"ellen@restaurantintelligenceagency.com","nishant.n@cisinlabs.com"]#visitor_obj.restaurant.manager.try(:email)
     sent_on     Time.now
     subject     "You have visitors!"
-    body        :userrestaurantvisitor => userrestaurantvisitor, :media_visitors => media_visitors,:visitor_obj => visitor_obj,:fact_message => fact_message, :menu_message => menu_message,:menu_item_message => menu_item_message,:a_la_minute_message => a_la_minute_message, :newsfeed_message => newsfeed_message
+    body        restaurant_visitors
+  end
+  
+  def send_chef_user(restaurant_visitors)
+    from        'hal@restaurantintelligenceagency.com'
+    recipients  ['eric@restaurantintelligenceagency.com',"ellen@restaurantintelligenceagency.com","nishant.n@cisinlabs.com"]#visitor_obj.restaurant.manager.try(:email)
+    sent_on     Time.now
+    subject     "Connect with media"
+    body       restaurant_visitors
   end
 
   def send_payment_error(name,message)
@@ -196,7 +204,34 @@ class UserMailer < ActionMailer::Base
     sent_on     Time.now
     subject     "#{subject} Media Request via RIA" 
     body        :detail => detail,:title => title,:user =>user,:comment=>comment
+  end  
 
+  def export_press_kit(email,user,restaurant)
+    from        user.email
+    recipients  email   
+    sent_on     Time.now
+    subject     "#{user.username} sent you a link to their restaurant profile." 
+    body        :user => user,:restaurant=> restaurant
+  end  
+
+ 
+
+  def send_employee_claim_notification_mail(user,employee,restaurant)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  user.email   
+    cc restaurant.manager.try(:email) unless user.email == restaurant.manager.try(:email) 
+    sent_on     Time.now
+    subject     "#{subject} Employee Claim Notification Mail via RIA" 
+    body        :employee=>employee,:user=>user,:restaurant=>restaurant
+  end
+
+
+  def export_press_kit_for_media(email,user,restaurant)
+    from        user.email
+    recipients  email   
+    sent_on     Time.now
+    subject     "#{user.username} sent you a link to their restaurant profile." 
+    body        :user => user,:restaurant=> restaurant
   end  
 
 end

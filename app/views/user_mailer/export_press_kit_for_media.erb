@@ -1,0 +1,58 @@
+<%= render :partial => 'email_header' %>
+
+<p style="margin-bottom: -15px;"> <%= link_to @restaurant.name,restaurant_url(@restaurant) %></p>
+<p> <%= @restaurant.address_parts.join("<br />") %></p>
+
+<p style="margin-bottom: -15px;">Phone Number: </p>
+<p><%= @restaurant.phone_number %></p>
+
+<p  style="margin-bottom: -15px;">Website: </p>
+<p><%= link_to @restaurant.name, "http://" + @restaurant.website.gsub(/.*?:\/\//,"") %></p>
+
+<% if !@restaurant.twitter_username.blank? %>
+<p  style="margin-bottom: -15px;">Twitter: </p>
+  <p><%= link_to "@#{@restaurant.twitter_username}", "http://twitter.com/#{@restaurant.twitter_username}" %></p>
+<% end %>
+<hr />
+
+<p style="margin-bottom: -15px;"><b>THE DETAILS </b></p>
+<% staffs = @restaurant.public_employments.all(:include => [ :restaurant_role, :employee]) %>
+ <% unless staffs.blank? %>
+ <p style="margin-bottom: -15px;">Restaurant Staff: </p>
+  <% staffs.each do |employment| %>
+    <p style="margin-bottom: -15px;"><%=h (employment.restaurant_role.nil? ? "No Role" : employment.restaurant_role.try(:name)) %>: <%=h employment.employee.try(:name) %></p>
+  <% end %>  
+ <% end %>
+
+
+<p style="margin-bottom: -15px; margin-top: 34px;">Cuisine: <%= @restaurant.cuisine.try(:name) %> </p>
+<p style="margin-bottom: -15px;">Metropolitan Area: <%= @restaurant.metropolitan_area.try(:name)%></p>
+<p style="margin-bottom: -15px;">Region: <%= @restaurant.james_beard_region.try(:name)%></p>
+<p>Opening Date: <%=@restaurant.opening_date.to_s(:medium)%></p>
+<hr />
+                               
+<p style="margin-bottom: -17px;"><b>THE FACTS </b></p>
+
+<p  style="margin-bottom: -15px;"> <%= link_to "Fact Sheet", restaurant_fact_sheet_url(@restaurant) %>  </p>  
+<p  style="margin-bottom: -15px;"> <%= link_to "Menus", restaurant_menus_url(@restaurant)  %></p>
+<p> <%= link_to "Press Photos", restaurant_photos_url(@restaurant) %></p>
+<hr />
+
+<p style="margin-bottom: -17px;"><b>THE NEWS </b></p>
+
+<p  style="margin-bottom: -15px;"> <%= link_to "On The Menu", restaurant_menu_items_url(@restaurant) %></p> 
+<p  style="margin-bottom: -15px;"> <%= link_to "A La Minute", restaurant_a_la_minute_answers_url(@restaurant) %></p>
+<p> <%= link_to "Newsfeed", restaurant_promotions_url(@restaurant) %></p>  
+
+
+<% if @restaurant.top_tags.any? -%>
+<hr />
+ <p style="margin-bottom: -17px;"><b>TAGS </b></p>
+  <% for tag in @restaurant.top_tags %>
+    <%= link_to h(tag.value), feature_url(tag) %>
+  <% end %>
+ <% end -%>
+
+
+<%= render :partial => 'email_footer' %>
+

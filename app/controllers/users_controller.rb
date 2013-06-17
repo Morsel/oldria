@@ -12,6 +12,8 @@ class UsersController < ApplicationController
 
   def show
     get_user
+    @keywordable_id = @user.id
+    @keywordable_type = 'User'
   end
 
   def resume
@@ -22,14 +24,14 @@ class UsersController < ApplicationController
     redirect_to edit_user_profile_path(:user_id => @user.id)
   end
 
-  def update
+  def update     
     if params[:user]
-      employment_params = params[:user].delete(:default_employment)
-      editor_name = params[:user].delete(:editor)
+      @employment_params = params[:user].delete(:default_employment)
+      @editor_name = params[:user].delete(:editor)
     end
 
     respond_to do |format|
-      if editor_name.present?
+      if @editor_name.present?
         editor = User.find_by_name(editor_name)
         if editor.present?
           @user.editors << editor
@@ -38,15 +40,18 @@ class UsersController < ApplicationController
           redirect_to edit_user_profile_path(:user_id => @user.id) and return
         end
       end
+      if params[:user][:user_visitor_email_setting_attributes].present?
+        params[:user][:user_visitor_email_setting_attributes][:email_frequency]="M" if params[:user][:user_visitor_email_setting_attributes][:email_frequency]=="Weekly"
+      end
 
       if @user.update_attributes(params[:user])
 
         # update default employment
-        if employment_params
+        if @employment_params
           if @user.default_employment.present?
-            @user.default_employment.update_attributes(employment_params)
+            @user.default_employment.update_attributes(@employment_params)
           else
-            @user.create_default_employment(employment_params)
+            @user.create_default_employment(@employment_params)
           end
         end
 
