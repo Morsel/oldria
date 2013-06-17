@@ -53,6 +53,12 @@ class Restaurants::BehindTheLineController < ApplicationController
             RestaurantQuestion.answered_for_restaurant(@restaurant).for_chapter(params[:id])
   end
 
+  def question_ans_post
+    @question=RestaurantQuestion.find(params[:id])
+    @answer=@question.find_or_build_answer_for(@restaurant)
+    render(:layout=>false)
+  end
+  
   protected
 
   def find_restaurant_and_page
