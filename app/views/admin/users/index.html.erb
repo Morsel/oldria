@@ -39,8 +39,10 @@
             <td class="user_account_type"><%= h user.account_type %></td>
             <td><%= link_to user.username, profile_path(user.username) %></td>
             <td><%= user.publication %></td>
-            <td><%= h user.email %></td>			
-            <td><%= user.last_request_at.try(:to_s,:long) %></td>
+            <td><%= h user.email %></td>		
+            <% unless user.last_request_at.blank? %>
+              <td><%= user.last_request_at.gmtime.to_formatted_s(:long)	%></td>
+            <% end %>
             <td class="<%= user.recently_upgraded? ? "highlight" : "plain" %>">
                 <%= user.subscription.try(:start_date).try(:to_s, :long) %>
             </td>
