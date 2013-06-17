@@ -103,8 +103,7 @@ form, #main form{
 	}
 	fieldset {
 		margin:10px 0;
-		/*width:100%;*/
-		width: 840px;
+		width:100%;
 	}
 	.error {
 		padding:5px;
@@ -4598,3 +4597,7 @@ a.subscribe_btn {
 { 
   border-bottom: 1px solid #DDDDDD; 
 }
+
+.menu_form {
+	width: 840px !important; 
+	}
