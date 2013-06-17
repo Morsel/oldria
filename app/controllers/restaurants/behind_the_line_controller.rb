@@ -58,7 +58,7 @@ class Restaurants::BehindTheLineController < ApplicationController
     @answer=@question.find_or_build_answer_for(@restaurant)
     render(:layout=>false)
   end
-  
+
   protected
 
   def find_restaurant_and_page

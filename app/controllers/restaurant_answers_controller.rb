@@ -19,13 +19,16 @@ class RestaurantAnswersController < ApplicationController
     # end
     # render(:layout=>false)
     redirect_to restaurant_social_posts_path(@restaurant)
+
   end
 
   def update
-    @answer = RestaurantAnswer.find_by_restaurant_question_id(params[:restaurant_answer][:restaurant_question_id])
-    @answer.save
+    # @answer = RestaurantAnswer.find_by_restaurant_question_id(params[:restaurant_answer][:restaurant_question_id])
+    @answer = RestaurantAnswer.find(params[:restaurant_answer][:id])    
+    @answer.update_attributes(params[:restaurant_answer])
     redirect_to restaurant_social_posts_path(@restaurant)
   end
+
   
   def destroy
     @answer = RestaurantAnswer.find(params[:id])

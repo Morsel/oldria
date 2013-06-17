@@ -2,7 +2,9 @@
 <fieldset class="plain">
 <ol>
     <li class="hidden optional">
-      <%= hidden_field_tag "restaurant_answer[restaurant_question_id]", answer.restaurant_question.id %>
+      <%= hidden_field_tag "restaurant_answer[restaurant_question_id]", answer.restaurant_question_id %>
+
+      <%= hidden_field_tag "restaurant_answer[id]", answer.id %>
       <%= hidden_field_tag "restaurant_answer[restaurant_id]", @restaurant.id %>
     </li>
     <li class="text required">
