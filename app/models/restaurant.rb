@@ -448,7 +448,7 @@ class Restaurant < ActiveRecord::Base
     end 
     path 
   end
-    
+
   private
 
   def add_manager_as_employee

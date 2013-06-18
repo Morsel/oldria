@@ -260,6 +260,7 @@ ActionController::Routing::Routes.draw do |map|
 
     restaurant.resources :visitor_emails
 
+    restaurant.show_notice 'show_notice', :controller => "restaurants", :action => "show_notice"
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages
