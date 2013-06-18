@@ -1,0 +1,17 @@
+<div class="question-popup"> The Restaurant <span style="color:green;font-size:20px; text-transform: uppercase;"><%= @restaurant.name%></span> has been suspended as per new policy.
+
+	Please add atleast one of the staff with the following roles:</div>
+	<p>
+	<li>Chef/Partner</li>
+	<li>Executive Chef</li>
+	<li>Executive Chef/Owner</li>
+	<li>Director of Operations</li>
+	<li>Owner</li>
+	<li>Operations Director</li>
+	<li>Partner</li>
+	<li>Pastry Chef/Owner</li>
+	<li>Wine Director/Owner</li>
+	<br/>
+	<%= link_to "Edit Staff",bulk_edit_restaurant_employees_path(@restaurant)%>
+
+</p>
