@@ -15,7 +15,6 @@
   <% fb_connect_async_js do %>
     <%= yield :facebook_js %>
   <% end %>
-
   <%= yield(:javascript) %>
 
   <% if current_user.try(:media?) && (@user.present? || @restaurant.present? || @menu_item.present?) -%>
@@ -34,7 +33,53 @@
               }
     $.post("/page_views", params);
   </script>
-  <% end -%>
+
+
+ <% elsif  current_user.try(:media?) && (@question.present? || @feature.present? ||  @answers.present? ||
+  params[:controller] == "welcome" ) %>
+
+  <script type="text/javascript">
+
+  params = { page_view: { url: window.location.toString(),
+                        user_id: <%= current_user.id %>,
+              title: "<%= @content_for_title %>",
+              page_owner_id: <%= current_user.try(:id) %>,
+              page_owner_type: "<%= current_user.try(:class) %>" } 
+            };
+
+            if( <%= @feature.present? %>)
+            {
+              params.page_view.page_type = "<%=  @feature.try(:class) %>"
+              params.page_view.page_id   = "<%= @feature.try(:id)  %>"
+              
+            }  
+
+            if( <%= @question.present? %>)
+            {
+              params.page_view.page_type = "<%=  @question.try(:class) %>"
+              params.page_view.page_id   = "<%= @question.try(:id)  %>"
+              
+            }  
+
+            if ( <%= params[:controller] == "spoonfeed/a_la_minute" && @answers.present? %>)
+            {
+              params.page_view.page_type = "<%=  'ALaMinuteAnswer' %>"
+              params.page_view.page_id   = "<%= 0  %>"
+             
+            }  
+
+            if ( <%= params[:controller] == "welcome" %>)
+            {
+              params.page_view.page_type = "<%= 'welcome' %>"
+              params.page_view.page_id   = "<%= 0  %>"
+             
+            }  
+
+  $.post("/page_views", params);
+   
+   
+  </script>
+<% end -%>
 
 <% if current_user.try(:media?) && !@keywordable_id.blank? %>
   <script type="text/javascript">
