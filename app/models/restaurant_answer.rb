@@ -3,12 +3,12 @@
 #
 # Table name: restaurant_answers
 #
-#  id                     :integer         not null, primary key
-#  restaurant_question_id :integer
-#  answer                 :text
-#  restaurant_id          :integer
-#  created_at             :datetime
-#  updated_at             :datetime
+# id :integer not null, primary key
+# restaurant_question_id :integer
+# answer :text
+# restaurant_id :integer
+# created_at :datetime
+# updated_at :datetime
 #
 
 class RestaurantAnswer < ActiveRecord::Base
@@ -32,7 +32,7 @@ class RestaurantAnswer < ActiveRecord::Base
   named_scope :activated_restaurants, lambda {
     {
       :joins => 'INNER JOIN restaurants as res ON `res`.id = restaurant_id ',
-      :conditions => ["(res.is_activated = ?)",          true]
+      :conditions => ["(res.is_activated = ?)", true]
     }
   }
 
@@ -77,5 +77,6 @@ class RestaurantAnswer < ActiveRecord::Base
   def edit_path(options={})
     # edit_restaurant_menu_item_path(restaurant, self, options)
   end
-  
+
 end
+

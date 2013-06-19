@@ -7,14 +7,30 @@
 <%= render :partial => 'restaurant_questions/topic_nav', :locals => { :next_topic => @next, :prev_topic => @previous } %>
 
 <div class="clear"></div>
-
-<% for chapter in @questions_by_chapter.keys %>
   <%- if can?(:manage, @restaurant) || chapter.published_for_restaurant?(@restaurant, @page) -%>
     <%@questions_by_chapter.each do |questions_by_chapter| %>
+
       <%questions_by_chapter[1].each do |question| %>
         <h4>Q: <%= question.title %></h4>
-        <a class="colorbox cboxElement" href="<%=restaurant_btl_question_ans_post_path(@restaurant,question.id)%>">answer and share</a>
+       <!--  <a class="colorbox cboxElement" href="<%#=restaurant_btl_question_ans_post_path(@restaurant,question.id)%>">answer and share</a> -->
+         <div class="add_answer" id="<%=question.id%>">answer and share</div>
       <%end%>
     <% end %>
   <%end%>
-<% end if @questions_by_chapter.present? %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('div.add_answer').on('click',function(){    
+    $('div[id=restaurant_answer]').remove();
+    id=$(this).attr('id'); 
+    $.ajax({
+      type: 'POST',
+      url: "/restaurants/<%=@restaurant.id%>/behind_the_line/question_ans_post/"+id,
+      success:function(data){
+        $('#'+id).after(data);
+      },
+    });
+  });
+});
+</script>
+
