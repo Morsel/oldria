@@ -165,7 +165,8 @@ class UserMailer < ActionMailer::Base
   
   def send_mail_visitor(restaurant_visitors)
     from        'hal@restaurantintelligenceagency.com'
-    recipients  ['eric@restaurantintelligenceagency.com',"ellen@restaurantintelligenceagency.com","nishant.n@cisinlabs.com"]#visitor_obj.restaurant.manager.try(:email)
+    recipients  restaurant_visitors["employee"].email
+    bcc         'ellen@restaurantintelligenceagency.com'
     sent_on     Time.now
     subject     "You have visitors!"
     body       restaurant_visitors
@@ -173,7 +174,8 @@ class UserMailer < ActionMailer::Base
   
   def send_chef_user(restaurant_visitors)
     from        'hal@restaurantintelligenceagency.com'
-    recipients  ['eric@restaurantintelligenceagency.com',"ellen@restaurantintelligenceagency.com","nishant.n@cisinlabs.com"]#visitor_obj.restaurant.manager.try(:email)
+    recipients  restaurant_visitors["current_user"].email
+    bcc         'ellen@restaurantintelligenceagency.com'
     sent_on     Time.now
     subject     "Connect with media"
     body       restaurant_visitors
