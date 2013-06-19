@@ -7,7 +7,7 @@
       <%= hidden_field_tag "restaurant_answer[restaurant_id]", @restaurant.id %>
     </li>
     <li class="text required">
-        Ans: <%= text_area_tag "restaurant_answer[answer]", answer.answer,
+        Answer: <%= text_area_tag "restaurant_answer[answer]", answer.answer,
             :rows => 6, :cols => 50%>
         <p class="inline-hints"><%= answer.new_record? ? "" : "This answer is viewable by others" %></p>
     </li>
