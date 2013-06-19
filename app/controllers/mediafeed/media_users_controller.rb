@@ -13,6 +13,7 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
       UserMailer.deliver_signup(@user)
       redirect_to confirm_mediafeed_media_user_path(@user)
     else
+      get_newsletter_data
       render :new
     end
   end
