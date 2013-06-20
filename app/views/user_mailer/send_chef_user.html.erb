@@ -11,8 +11,10 @@
 <%# end %>
 
 
+
 <% unless @specialty_names.blank? &&  @otm_keywords.blank? &&  @restaurant_features.blank? &&  @users.blank? %> 
-  <p>Spoonfeed helps you connect with media researching stories. With a Spoonfeed restaurant profile, you'll know what the media are looking for so you can share information they need for stories.</p>
+  <p>With a Spoonfeed restaurant profile, you'll know what the media are looking for so you can share information they need for stories.</p>
+
     
   <%unless @specialty_names.blank?%>
     <ul>
@@ -61,7 +63,7 @@
 
   <p>Once you create a restaurant profile, you can use our A la Minute feature to keep media  informed of your daily news.  </p>
 
-  <p>The following media visited our A la Minute section yesterday.</p>
+  <p>The following media visited our A la Minute section yesterday:</p>
 
   <ul>
     <%@a_la_minute_visitors.each do |a_la_minute_visitor| %>
