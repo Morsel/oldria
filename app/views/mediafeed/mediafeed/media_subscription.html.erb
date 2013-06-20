@@ -6,19 +6,23 @@
 
               <div id="restaurant_features_content" style="width:100%">
                 <h1 class="pg_title">Subscriptions</h1>
-                <% semantic_form_for(@user, :url => mediafeed_media_opt_update_path, :html => { :method => :put }) do |f| %>
-                  <% f.semantic_fields_for :media_newsletter_setting do |mns| -%>
-                      <%= mns.input :opt_out,:as =>:boolean,:label=>" Do not send me newsletters at this time"%>
-                    <%= submit_tag "Save" %>
-                  <% end %>
-                <% end %>    
-                <br /> <br />            
+                                                            
                 <!-- <div id="read_messages" style="width:670px;margin:0;"> -->
                   <div class="editing clearfix clear">
                     <% @subscriptions.each do |subscription| %>
                       <%= render :partial => 'restaurants/identity_all', :locals => { :user => subscription.restaurant } %>
                       <% end %>
-                  </div>
+                  <br>
+                  <div class=" clearfix clear">
+                      <% semantic_form_for(@user, :url => mediafeed_media_opt_update_path, :html => { :method => :put }) do |f| %>
+                      <% f.semantic_fields_for :media_newsletter_setting do |mns| -%>
+                          <%= mns.input :opt_out,:as =>:boolean,:label=>" Do not send me newsletters at this time"%>
+                        <%= submit_tag "Save" %>
+                      <% end %>
+
+                    <% end %>
+                  </div>   
+                </div> 
               </div>
                 <!-- </div> -->
         </div>
