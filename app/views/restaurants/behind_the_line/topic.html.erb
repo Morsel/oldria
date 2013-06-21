@@ -15,23 +15,11 @@
       <%questions_by_chapter[1].each do |question| %>
         <h4>Q: <%= question.title %></h4>
        <!--  <a class="colorbox cboxElement" href="<%#=restaurant_btl_question_ans_post_path(@restaurant,question.id)%>">answer and share</a> -->
-         <div class="add_answer" id="<%=question.id%>">answer and share</div>
+         <div class="add_answer" >answer and share</div>
+        <div id="<%=question.id%>" class="restaurant_answers">
+         <%= render :partial => "question_ans_post", :locals => { :question=>question } %>
+        </div>
       <%end%>
     <% end %>
   <%end%>
-
-<script type="text/javascript">
-$(document).ready(function(){
-  $('div.add_answer').on('click',function(){    
-    $('div[id=restaurant_answer]').remove();
-    id=$(this).attr('id'); 
-    $.ajax({
-      type: 'POST',
-      url: "/restaurants/<%=@restaurant.id%>/behind_the_line/question_ans_post/"+id,
-      success:function(data){
-        $('#'+id).after(data);
-      },
-    });
-  });
-});
-</script>
+  

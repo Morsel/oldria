@@ -1,5 +1,14 @@
 $(document).ready(function(){
 
+
+  $('div.add_answer').on('click',function(e){    
+    $(this).next().slideToggle('slow',function(){
+      $(".restaurant_answers").not(this).hide()
+      $('html, body').animate({scrollTop: $(this).prev().offset().top-80}, 400)
+    })
+
+  });
+
 $('<span class="down-arrow"></span>').appendTo('a.selected');
 
 $('.footerBox').equalHeights();
