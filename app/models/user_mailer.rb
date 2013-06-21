@@ -147,7 +147,7 @@ class UserMailer < ActionMailer::Base
     body        :subscriber => subscriber
   end
 
-  def admin_notification(message, recipient,email)
+  def admin_notification(message, recipient)
     from        'notifications@restaurantintelligenceagency.com'
     recipients  "admin@restaurantintelligenceagency.com"   
     #will use it after client will test
