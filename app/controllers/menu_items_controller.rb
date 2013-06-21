@@ -85,6 +85,9 @@ class MenuItemsController < ApplicationController
   def details
     @menu_item = MenuItem.find(:first,:conditions=>["menu_items.id= ?",params[:id]])     
     @restaurant = @menu_item.restaurant
+    if current_user.media?
+      UserRestaurantVisitor.profile_visitor(current_user,@restaurant.id)
+    end 
   end
 
   private

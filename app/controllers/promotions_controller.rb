@@ -61,7 +61,6 @@ class PromotionsController < ApplicationController
     redirect_to edit_restaurant_promotion_path(@restaurant, @promotion)
   end
 
-
   def facebook_post
     @promotions = @restaurant.promotions.find(params[:id])
     social_post = SocialPost.find(params[:social_id])
@@ -70,9 +69,13 @@ class PromotionsController < ApplicationController
     redirect_to restaurant_social_posts_path(@restaurant)
   end
 
-  def details     
+
+  def details    
     @promotion = Promotion.find(params[:id]) 
-    @restaurant = @promotion.restaurant     
+    @restaurant = @promotion.restaurant
+    if current_user.media?
+      UserRestaurantVisitor.profile_visitor(current_user,@restaurant.id)
+    end     
   end  
 
 
