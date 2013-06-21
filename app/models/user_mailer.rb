@@ -235,4 +235,7 @@ class UserMailer < ActionMailer::Base
     body        :user => user,:restaurant=> restaurant
   end  
 
+
 end
+
+
