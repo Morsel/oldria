@@ -5,6 +5,9 @@ class MediaRequestDiscussionsController < ApplicationController
   before_filter :authorize_or_redirect, :only => :show
 
   def show
+    if !MediaRequestDiscussion.find(params[:id]).restaurant.blank?
+      @restaurant=MediaRequestDiscussion.find(params[:id]).restaurant
+    end
     @comments = @media_request_discussion.comments.all(:include => [:user, :attachments], :order => 'created_at DESC').reject(&:new_record?)
     build_comment
   end
