@@ -21,7 +21,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
    end
 
   def get_full_day_name(shortName)
-    if shortName=="M"
+    if shortName=="M" || shortName=="Weekly" 
        return "Monday"
     elsif shortName=="W"
       return "Wednesday"
@@ -107,7 +107,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
               menu = visitor.restaurant.menus.find(:first,:order =>"updated_at desc")
 
               if menu.blank? || (!menu.blank? && menu.updated_at < 30.day.ago)
-                @menu_message = "Your restaurant's menus have not been updated for a month, please update your <a href='#{restaurant_menus_url(visitor.restaurant)}'>current menus</a>."
+                @menu_message = "Your restaurant's menus have not been updated for more than a month, please update your <a href='#{restaurant_menus_url(visitor.restaurant)}'>current menus</a>."
                 counter+=1
               end
 
