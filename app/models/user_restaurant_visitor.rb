@@ -21,7 +21,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
    end
 
   def get_full_day_name(shortName)
-    if shortName=="M"
+    if shortName=="M" || shortName=="Weekly" 
        return "Monday"
     elsif shortName=="W"
       return "Wednesday"
