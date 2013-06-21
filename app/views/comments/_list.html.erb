@@ -10,8 +10,9 @@
 <p>No comments yet</p>
 <% end -%>
 
+<%unless (["Chef/Partner","Executive Chef","Executive Chef/Owner","Director of Operations","Owner","Operations Director","Partner","Pastry Chef/Owner","Wine Director/Owner"] &  @restaurant.employments.map(&:restaurant_role).compact.map(&:name)).blank? %>
 <h2>Leave a Comment</h2>
-
 <%= render :partial => 'comments/form' %>
+<% end %>
 
 </div>

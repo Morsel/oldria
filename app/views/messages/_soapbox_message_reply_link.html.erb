@@ -1,8 +1,14 @@
 <div class="clearfix" style="padding: .5em 0">
-    <% if message.comments_count == 0 %>
-      <%= link_to 'Post', link_for_message(message), :class => 'button utility round' %>
-    <% else %>
+  <% if message.comments_count == 0 %>
+    	<% unless (["Chef/Partner","Executive Chef","Executive Chef/Owner","Director of Operations","Owner","Operations Director","Partner","Pastry Chef/Owner","Wine Director/Owner"] &  restaurant(message).employments.map(&:restaurant_role).compact.map(&:name)).blank?%>  
+      		<%= link_to 'Post', link_for_message(message), :class => 'button utility round' %>
+      		&nbsp;&nbsp;for <%= restaurant_link(restaurant(message)) %>
+      <%end%>
+  <% else %>
       <%= link_to 'View your post', link_for_message(message), :class => 'button utility round' %>
-    <% end %>
-    &nbsp;&nbsp;for <%= restaurant_link(restaurant(message)) %>
+      &nbsp;&nbsp;for <%= restaurant_link(restaurant(message)) %>
+  <% end %>
+
 </div>
+
+
