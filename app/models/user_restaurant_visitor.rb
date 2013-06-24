@@ -20,12 +20,15 @@ class UserRestaurantVisitor < ActiveRecord::Base
       end 
    end
 
-  def get_full_day_name(shortName)
-    if shortName=="M" || shortName=="Weekly" 
+  def get_full_day_name(shortName,rest)
+    if shortName=="M" || shortName=="Weekly"
+      rest.update_attributes(:next_email_at=>Time.now+2.days,:last_email_at=>Time.now)
        return "Monday"
     elsif shortName=="W"
+      rest.update_attributes(:next_email_at=>Time.now+2.days,:last_email_at=>Time.now)
       return "Wednesday"
     elsif shortName=="F"
+      rest.update_attributes(:next_email_at=>Time.now+3.days,:last_email_at=>Time.now)
       return "Friday"
     end
   end
@@ -34,12 +37,11 @@ class UserRestaurantVisitor < ActiveRecord::Base
     days=rest.email_frequency.split("/")
     days.each do |day|
       if day=="Daily"
-        rest.update_attributes(:email_frequency=>'Daily',:next_email_at=>Time.now)
+        rest.update_attributes(:next_email_at=>Time.now+1.days,:last_email_at=>Time.now)
         return true
       end
-      day=get_full_day_name(day)
-      if day==getdayname
-        rest.update_attributes(:next_email_at=>Time.now+7.days)
+      day=get_full_day_name(day,rest)
+      if day==getdayname        
         return true
       end
     end
@@ -52,7 +54,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
   def create_user_visited_email_setting(user)
     user_visitor_email_setting=user.build_user_visitor_email_setting
-    user_visitor_email_setting.email_frequency="Daily"
+    user_visitor_email_setting.email_frequency="Weekly"
     user_visitor_email_setting.save
     user.user_visitor_email_setting
   end
