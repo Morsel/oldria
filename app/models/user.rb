@@ -47,6 +47,10 @@ class User < ActiveRecord::Base
   include FacebookPageConnect
   include UserMessaging
 
+  include ActionView::Helpers::TextHelper
+  include ActionController::UrlWriter
+  default_url_options[:host] = DEFAULT_HOST
+
   has_many :statuses, :dependent => :destroy
 
   has_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
@@ -167,13 +171,12 @@ class User < ActiveRecord::Base
   has_many :metropolitan_areas_writers
   has_many :promotion_types_writers
   has_many :regional_writers  
-  has_many :newsfeed_regional_promotion_types
-  has_many :promotion_types,  :through => :newsfeed_regional_promotion_types
+  has_many :newsfeed_promotion_types
+  has_many :promotion_types,  :through => :newsfeed_promotion_types
 
   has_many :newsfeed_local_promotion_types
   has_many :local_promotion_types,  :through => :newsfeed_local_promotion_types,:source=>:promotion_type
-
-  
+ 
   
 
 ### Roles ###
@@ -631,15 +634,10 @@ class User < ActiveRecord::Base
     if newsfeed_writer_id == 1
       metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'NewsfeedWriter'").map(&:destroy)      
       regional_writers.find(:all,:conditions=>"regional_writer_type = 'NewsfeedWriter'").map(&:destroy)
-      newsfeed_regional_promotion_types.destroy_all
-      local_promotion_types.destroy_all
-    elsif  newsfeed_writer_id == 2
-      promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'NewsfeedWriter'").map(&:destroy)
-      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'NewsfeedWriter'").map(&:destroy)      
-      local_promotion_types.destroy_all
-    elsif  newsfeed_writer_id == 3
-      newsfeed_regional_promotion_types.destroy_all
-      promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'NewsfeedWriter'").map(&:destroy)
+
+    elsif  newsfeed_writer_id == 2       
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'NewsfeedWriter'").map(&:destroy) 
+    elsif  newsfeed_writer_id == 3      
       regional_writers.find(:all,:conditions=>"regional_writer_type = 'NewsfeedWriter'").map(&:destroy)
     end 
 
@@ -655,4 +653,27 @@ class User < ActiveRecord::Base
     end 
 
   end
+
+  def update_media_newsletter_mailchimp
+    if media?
+      mc = MailchimpConnector.new             
+      
+      unless newsfeed_writer.blank?
+        
+        region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq #If user has selected regions, getting metros of regions
+        
+        mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+          :email_address => "neelesh.v@cisinlabs.com",
+          :merge_vars => {:FNAME=>first_name,
+                          :LNAME=>last_name, 
+                          :METROAREAS=>newsfeed_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(region_metro_areas.join(","),:length => 255), 
+                          :WRITERTYPE=>newsfeed_writer.name,           
+                          :groupings => [
+                              {:name=>"Regions",:groups=>newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:name).join(",")},
+                              { :name => "SubscriberType",:groups => "Newsfeed"},
+                              {:name=>"Promotions",:groups=>promotion_types.map(&:name).join(",")}]           
+          },:replace_interests => true,:update_existing=>true)
+      end  
+    end  
+  end  
 end

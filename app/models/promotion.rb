@@ -44,6 +44,8 @@ class Promotion < ActiveRecord::Base
   validate :details_word_count
   validates_length_of :headline, :maximum => 144
 
+  after_create :send_newsfeed_newsletters
+
   # Attachments and validations
   has_attached_file :attachment,
                     :storage        => :s3,
@@ -153,6 +155,42 @@ class Promotion < ActiveRecord::Base
     edit_restaurant_promotion_path(restaurant, self, options)
   end
 
+  def send_newsfeed_newsletters_mailchimp mc,conditions
+    
+      campaign_id = \
+      mc.client.campaign_create(:type => "regular",
+                                :options => { :list_id => mc.media_promotion_list_id,
+                                              :subject => "Restaurant's Prmotion",
+                                              :from_email => "nishant.n@cisinlabs.com",
+                                              :to_name => "*|FNAME|*",
+                                              :from_name => "Restaurant Intelligence Agency",
+                                              :generate_text => true },
+                                 :segment_opts => { :match => "all",
+                                                    :conditions => conditions},
+                                :content => { :url => "http://spoonfeed.restaurantintelligenceagency.com/restaurants/146/newsletters/5" })
+      # send campaign
+    mc.client.campaign_send_now(:cid => campaign_id)
+
+  end  
+  def send_newsfeed_newsletters_later
+
+      mc = MailchimpConnector.new       
+      groups = mc.get_mpl_groups
+
+      with_no_national = [{ :field => "WRITERTYPE",:op => "ne",:value => "National Writer"},  
+        {:field=>"interests-#{groups['Promotions']['id']}",:op=>"one",:value=>self.promotion_type.try(:name)},
+        {:field=>"interests-#{groups['SubscriberType']['id']}",:op=>"one",:value=>"Newsfeed"},
+        {:field=>"METROAREAS",:op=>"like",:value=>self.restaurant.metropolitan_area_id}]
+
+      with_national = [{ :field => "WRITERTYPE",:op => "eq",:value => "National Writer"},  
+        {:field=>"interests-#{groups['Promotions']['id']}",:op=>"one",:value=>self.promotion_type.try(:name)},
+        {:field=>"interests-#{groups['SubscriberType']['id']}",:op=>"one",:value=>"Newsfeed"}
+        ]
+       send_newsfeed_newsletters_mailchimp(mc,with_national) 
+       send_newsfeed_newsletters_mailchimp(mc,with_no_national)
+
+  end
+
   private
 
   def details_word_count
@@ -160,5 +198,12 @@ class Promotion < ActiveRecord::Base
       errors.add(:details, "can't go over 1000 words")
     end
   end
+ 
+  def send_newsfeed_newsletters
+    send_newsfeed_newsletters_later   
+    send_later(:send_newsfeed_newsletters_later)
+  end 
+
+  
 
 end

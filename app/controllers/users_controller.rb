@@ -81,7 +81,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])  
     # Force password reset
     @user.crypted_password = nil
-    @user.newsfeed_regional_promotion_types.destroy_all
+    @user.newsfeed_promotion_types.destroy_all
 
 
     if @user.update_attributes(params[:user]) 

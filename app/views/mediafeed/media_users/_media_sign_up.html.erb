@@ -16,56 +16,44 @@
             </h3> -->
             <%#= f.input :newsfeed_promotion_types,:label=>false, :as => :check_boxes,:collection => @promotionTypes %>
 
-
             <li id="newsfeed_option_national_input">
                 <fieldset>
                     <legend class="label"> 
                         <label for="user_metropolitan_areas">As a national writer, I would like to receive Newsfeed items from all metro areas. Please select which types of news you would like to receive.</label>
                     </legend>                     
                  </fieldset>
-                <ol>
-                <% id = Time.now.to_i %>
-                <% @promotionTypes.each_with_index do |pt,id| %>
-                    <li>
-                        <label for="promotion_types_writers_attribute_id<%=pt.id%>_<%=id%>">
-                        <% checked = @newsfeed_promotions_types.map(&:promotion_type_id).include?(pt.id) %>
-                        <%= hidden_field_tag "newsfeed_writer[promotion_types_writers_attributes][#{id}][user_id]" ,@user.id,:disabled=>!checked %>                
-                        <%= check_box_tag "newsfeed_writer[promotion_types_writers_attributes][#{id}][promotion_type_id]",pt.id,checked,:id=> "promotion_types_writers_attribute_id#{pt.id}_#{id}"%>
-                         <%=pt.name%>
-                                
-                        </label>
-                    </li>
-                <% end %>
-
-                </ol>
             </li>
-
         </div>
 
         <div id="newsfeed_option_regional" class="<%=get_css_class(@user.newsfeed_writer.try(:id),2)%>">
-            <fieldset>
-                <legend class="label"> 
-                    <label for="user_metropolitan_areas">As a regional writer, I would like to receive Newsfeed items from the following regions:</label>
-                </legend>                     
-            </fieldset>
-            <ol id="newsfeed_james_beard_regions_input">
-                <% id = Time.now.to_i %>
-                <% JamesBeardRegion.all.each_with_index do |jbr,id| %>
-                    <li>
-                        <label for="promotion_types_writers_attribute_id<%=jbr.id%>_<%=id%>">
-                        <% checked = @newsfeed_regional_areas.map(&:james_beard_region_id).include?(jbr.id) %>
-                        <%= hidden_field_tag "newsfeed_writer[regional_writers_attributes][#{id}][user_id]" ,@user.id,:disabled=>!checked %>                
-                        <%= check_box_tag "newsfeed_writer[regional_writers_attributes][#{id}][james_beard_region_id]",jbr.id,checked,:id=> "promotion_types_writers_attribute_id#{jbr.id}_#{id}"%>
-                         <%=jbr.name%>
-                                
-                        </label>
-                    </li>
-                <% end %>
-            </ol>
-             <% f.inputs :name => 'Please select which types of news you would like to receive:', :id => 'regional_newsfeed_promotion_type', :class=>("display-none" if @newsfeed_regional_areas.blank?) do %>
-                <%= f.input :promotion_types,:label=>false, :as => :check_boxes ,:collection=>@promotionTypes%>
-            <% end %>
+            <li>
+                <fieldset>
+                    <legend class="label"> 
+                        <label for="user_metropolitan_areas">As a regional writer, I would like to receive Newsfeed items from the following regions:</label>
+                    </legend>                     
+                </fieldset>
+                <ol id="newsfeed_james_beard_regions_input">
+                    <% id = Time.now.to_i %>
+                    <% JamesBeardRegion.all.each_with_index do |jbr,id| %>
+                        <li>
+                            <label for="promotion_types_writers_attribute_id<%=jbr.id%>_<%=id%>">
+                            <% checked = @newsfeed_regional_areas.map(&:james_beard_region_id).include?(jbr.id) %>
+                            <%= hidden_field_tag "newsfeed_writer[regional_writers_attributes][#{id}][user_id]" ,@user.id,:disabled=>!checked %>                
+                            <%= check_box_tag "newsfeed_writer[regional_writers_attributes][#{id}][james_beard_region_id]",jbr.id,checked,:id=> "promotion_types_writers_attribute_id#{jbr.id}_#{id}"%>
+                             <%=jbr.name%>
+                                    
+                            </label>
+                        </li>
+                    <% end %>
+                </ol>
+                <fieldset>
+                    <legend class="label"> 
+                        <label for="user_metropolitan_areas">Please select which types of news you would like to receive:</label>
+                    </legend>                     
+                </fieldset>
+            </li> 
         </div>
+
         <div id="newsfeed_option_locals" class="<%=get_css_class(@user.newsfeed_writer.try(:id),3)%>"> 
            <li id="user_metropolitan_areas_input">
                 <fieldset>
@@ -88,18 +76,23 @@
                 <% end %>
 
                 </ol>
+                <fieldset>
+                    <legend class="label"> 
+                        <label for="user_metropolitan_areas">Please select which types of news you would like to receive:</label>
+                    </legend>                     
+                </fieldset>
 
             </li>
 
-                <% f.inputs :name => 'Please select which types of news you would like to receive:', :id => 'local_newsfeed_promotion_type' do %>
-                <%= f.input :local_promotion_types,:label=>false, :as => :check_boxes ,:collection=>@promotionTypes%>
-                 <%end%>
-
-            <% %>
-            <div id="metropolitan_areas_state_cities">
-            </div>
+            <div id="metropolitan_areas_state_cities"></div>
 
         </div>  
+        <div class="clear"> </div>
+        <div >
+            <% f.inputs :name => nil do %>
+                <%= f.input :promotion_types,:label=>false, :as => :check_boxes ,:collection=>@promotionTypes%>
+            <% end %>
+         </div>   
         <div class="clear"> </div>
         <!-- <h3>Location(s) that I write for:</h3>
         <%#= f.input :national, :label => 'I would like to receive a national newsletter to keep abreast of national trends' %> -->
