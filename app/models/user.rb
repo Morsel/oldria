@@ -108,7 +108,8 @@ class User < ActiveRecord::Base
   has_many :user_restaurant_visitors
   
   validates_presence_of :email
-  validates_presence_of :publication, :unless => Proc.new { |user| user.role !="media" }
+
+  validates_presence_of :publication, :if => Proc.new { |user| user.role =="media" && user.id}
 
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
 
