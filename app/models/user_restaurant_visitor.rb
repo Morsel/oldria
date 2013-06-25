@@ -65,7 +65,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
         if @uves.blank?
           @uves=create_user_visited_email_setting(user)
         end
-      if check_email_frequency(@uves) && !@uves.do_not_receive_email
+      if Time.now > @uves.next_email_at && !@uves.do_not_receive_email
         #keyword trace if user chef is not associate to resturants or not
         @al_users= Array.new
         keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , 1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s]).group_by(&:keywordable_type)
@@ -90,6 +90,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "a_la_minute_visitors" => @a_la_minute_visitors,
               "current_user" => user
             }
+            check_email_frequency(@uves)  if keywords.present?
             UserMailer.deliver_send_chef_user(restaurant_visitors)  if keywords.present?
           end
         else
@@ -166,7 +167,8 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "restaurant" => visitor.restaurant,
                 "current_user" => visitor.user,
                 "users" => @users
-              }                
+              }
+              check_email_frequency(@uves)                
               UserMailer.deliver_send_mail_visitor(restaurant_visitors)   
             end
           end
