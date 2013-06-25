@@ -127,9 +127,9 @@ class User < ActiveRecord::Base
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :avatar_file_name
 
-  validates_exclusion_of :publication,
-                         :in => %w( freelance Freelance ),
-                         :message => "'%{value}' is not allowed"
+  # validates_exclusion_of :publication,
+  #                        :in => %w( freelance Freelance ),
+  #                        :message => "'%{value}' is not allowed"
 
   validates_acceptance_of :agree_to_contract
 
