@@ -7,6 +7,7 @@
 <%= render :partial => 'restaurant_questions/topic_nav', :locals => { :next_topic => @next, :prev_topic => @previous } %>
 
 <div class="clear"></div>
+
   <%- if can?(:manage, @restaurant) || @questions_by_chapter.keys.first.published_for_restaurant?(@restaurant, @page) -%>
     <%@questions_by_chapter.each do |questions_by_chapter| %>
       <%questions_by_chapter[1].each do |question| %>

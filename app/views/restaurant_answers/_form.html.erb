@@ -92,7 +92,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-  
     $('.social-tabs').tabs({
       panelTemplate: '<section></section>',
       fx: { duration: 'fast', opacity: 'toggle' }
@@ -100,6 +99,7 @@ $(document).ready(function(){
 
     var now = new Date(), nextYear = new Date();
     nextYear.setYear(now.getFullYear() + 1);
+    
 	$('input.datetime').each(function(){
 		$(this).datetimepicker({
 	      dateFormat: 'yy-mm-dd',
@@ -120,6 +120,5 @@ $(document).ready(function(){
     //   counterText: 'Characters left: ',
     //   cssWarning: 'counter-warning'
     // });
-
 });
 </script>

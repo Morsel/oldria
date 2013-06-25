@@ -36,6 +36,7 @@
                             <tr>
                               <td><%= social_post.type.to_s[0..-5] %></td>
                               <td><%= social_post.source.activity_name %></td>
+
                               <td><%= social_post.message.to_s[0..18] %></td>
                               <td><%= social_post.post_at.to_s(:short) %></td>
                               
