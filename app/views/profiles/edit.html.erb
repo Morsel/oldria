@@ -190,7 +190,7 @@
             <% semantic_form_for @user, :html => { :multipart => true } do |f| %>          
               <% @user.build_user_visitor_email_setting if @user.user_visitor_email_setting.blank? %>
               <% f.semantic_fields_for :user_visitor_email_setting do |u| %>
-                  <%= u.input :email_frequency,  :as => :select,:selected=>"Daily", :collection => ["Daily","Weekly","M/W/F"] %>
+                  <%= u.input :email_frequency,  :as => :select, :collection => ["Daily","Weekly","M/W/F"] %>
                   <%= u.input :do_not_receive_email,:label => " I do not want to receive any emails regarding media traffic to my restaurant profile. " %>
                   <%end%>
               <%=f.submit 'Save settings' %>
