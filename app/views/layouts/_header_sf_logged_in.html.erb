@@ -46,6 +46,14 @@
             <div class="left welcome">
                 <h3>Welcome, <%= current_user.first_name %></h3>
                 <p class="right"><%= link_to "Help + Questions", "http://spoonfeed.restaurantintelligenceagency.com/spoonfeed_welcome" %> / <%= link_to "logout", logout_path %></p>
+                <p>
+                    <%=link_to "Create a new restaurant",new_restaurant_path%>
+                </p>
+                <p>
+                  <% if current_user.has_chef_role?  %>  
+                    <%= link_to "Export press kit", new_user_export_press_kit_path(current_user) %>
+                  <% end %>
+                </p>
             </div>
             <div class="right invite">
                 <%= image_tag current_user.avatar(:thumb), :size => "32x32" %>

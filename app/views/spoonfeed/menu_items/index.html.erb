@@ -9,7 +9,6 @@
     <h2><%= link_to menu_item.name, menu_item_path(menu_item) %></h2>
     <div class="menu_item_main">
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => menu_item.restaurant } unless @restaurant.present? %>
-     <%= render :partial => 'restaurants/subscribe', :locals => { :menu_item => menu_item } if  menu_item.restaurant.present? %>
     </div>
     <div class="menu_item_details menu_item_details_right">
         <% if menu_item.photo_file_name.present? -%>
@@ -26,13 +25,14 @@
         </p>
 
         <p><%= "Pairing: #{menu_item.pairing}" if menu_item.pairing.present? %></p>
-
-        <p class="keywords"><%= menu_item.otm_keywords.map { |k| link_to k.name, menu_items_path(:keyword => k.name) }.to_sentence %></p>
+        <p class="keywords"><%= menu_item.otm_keywords.map { |k| link_to k.name, menu_items_path(:keyword => k.name,:id=>k.id) }.to_sentence %></p>
 
         <%- if current_user.media? -%>
-        <p class="request"><%= link_to "Request more information", mediafeed_request_information_path(:user_id => menu_item.restaurant.media_contact_id, :request_type => "On the Menu", :request_title => menu_item.name ) %></p>
+        <p class="request">
+          <%= link_to "Request more information", mediafeed_request_information_path(:menu_item_id => menu_item.id),:class => 'colorbox' %></p>
         <%- end -%>
         <p><span class="datestamp"><%= "Posted #{menu_item.created_at.strftime("%D")}" %></span></p>
+       
     </div>
 <% end %>
 <% end -%>

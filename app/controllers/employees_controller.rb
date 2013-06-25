@@ -4,12 +4,12 @@ class EmployeesController < ApplicationController
   before_filter :require_email, :only => :new
 
   def bulk_edit
-    @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant = Restaurant.find(params[:restaurant_id])    
     @employments = @restaurant.employments.by_position.all(
-        :include => [:subject_matters, :restaurant_role, :employee])
+        :include => [:subject_matters, :restaurant_role, :employee],:order => "created_at")
   end
 
-  def new    
+  def new   
     @employment = @restaurant.employments.build(params[:employment])
     find_or_initialize_employee if params[:employment]
   end
@@ -82,6 +82,20 @@ class EmployeesController < ApplicationController
     redirect_to bulk_edit_restaurant_employees_path(@restaurant)
   end
 
+  def options
+  end
+  def new_employee
+  @employment = @restaurant.employments.build
+  if current_user.admin?
+      flash.now[:notice] = "We couldn't find them in our system. You can add this person."
+      @employee = @restaurant.employees.build
+      render :new_employee
+  else
+      flash[:notice] = "We couldn't find them in our system. You can invite this person."
+      redirect_to recommend_invitations_path(:emails => "test@test.com")
+   end
+ end
+
   private
 
   def find_or_initialize_employee
@@ -92,18 +106,17 @@ class EmployeesController < ApplicationController
       @employment.employee_id = @employees.first.id
       render :confirm_employee
     else
-      identifier = email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) ?
-        { :email => email } : 
-        { :first_name => email.split(" ").first, :last_name => email.split(" ").last }
-
-      if current_user.admin?
-        flash.now[:notice] = "We couldn't find them in our system. You can add this person."
-        @employee = @restaurant.employees.build(identifier)
-        render :new_employee
-      else
-        flash[:notice] = "We couldn't find them in our system. You can invite this person."
-        redirect_to recommend_invitations_path(:emails => email)
-      end
+      # identifier = email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) ?
+      #   { :email => email } : 
+      #   { :first_name => email.split(" ").first, :last_name => email.split(" ").last }
+      # if current_user.admin?
+      #   flash.now[:notice] = "We couldn't find them in our system. You can add this person."
+      #   @employee = @restaurant.employees.build(identifier)
+        render :options
+      # else
+      #   flash[:notice] = "We couldn't find them in our system. You can invite this person."
+      #   redirect_to recommend_invitations_path(:emails => email)
+      # end
     end
   end
 
@@ -152,4 +165,5 @@ class EmployeesController < ApplicationController
         redirect_to :new_restaurant_employee 
       end
   end
+  
 end

@@ -99,6 +99,9 @@ ActionController::Routing::Routes.draw do |map|
     mediafeed.connect 'directory_search', :controller => 'mediafeed', :action => 'directory_search'
     mediafeed.discussion 'media_requests/:id/:discussion_type/:discussion_id', :controller => 'media_requests', :action => 'discussion'
     mediafeed.request_information 'request_information', :controller => 'mediafeed', :action => 'request_information'
+
+    mediafeed.request_information_mail 'request_info_mail', :controller => 'mediafeed', :action => 'request_info_mail'
+
     mediafeed.media_subscription 'media_subscription', :controller => 'mediafeed', :action => 'media_subscription'
     mediafeed.media_opt_update 'media_opt_update', :controller => 'mediafeed', :action => 'media_opt_update'
     mediafeed.get_cities_list 'get_cities', :controller => 'media_users', :action => 'get_cities'
@@ -162,7 +165,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
-
+    users.resources :export_press_kits
     users.behind_the_line 'behind_the_line', :controller => 'users/behind_the_line', :action => 'index'
     users.btl_topic 'behind_the_line/topic/:id', :controller => 'users/behind_the_line', :action => 'topic'
     users.btl_chapter 'behind_the_line/chapter/:id', :controller => 'users/behind_the_line', :action => 'chapter'
@@ -175,7 +178,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users do |users|
     users.resources :profile_answers, :only => [:create, :update, :destroy]
+    users.resources  :user_visitor_email_setting
   end
+
 
   map.resource :search, :controller => 'site_search', :only => ['show']
 
@@ -227,8 +232,7 @@ ActionController::Routing::Routes.draw do |map|
                                        :controller => 'subscriptions'
 
     restaurant.resources :promotions, :member => { :delete_attachment => :post ,:details => :get}
-    restaurant.resources :menu_items, :member => { :facebook_post => :post, :details => :get}
-
+    restaurant.resources :menu_items, :member => { :facebook_post => :post, :details => :get}    
     restaurant.resources :press_releases, :collection => { :archive => :get }
 
     restaurant.behind_the_line 'behind_the_line', :controller => 'restaurants/behind_the_line', :action => 'index'
@@ -243,6 +247,7 @@ ActionController::Routing::Routes.draw do |map|
 
     restaurant.add_keywords 'add_keywords', :controller => "menu_items", :action => "add_keywords"
 
+    restaurant.show_notice 'show_notice', :controller => "restaurants", :action => "show_notice"
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages
@@ -307,6 +312,7 @@ ActionController::Routing::Routes.draw do |map|
   
 
   map.resources :page_views, :only => ['create']
+  map.resources :trace_keywords, :only => ['create']
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
@@ -318,7 +324,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :date_ranges, :coached_status_updates, :direct_messages
     admin.resources :cuisines, :subject_matters
     admin.resources :restaurants
-    admin.resources :media_requests, :member => { :approve => :put }
+    admin.resources :media_requests, :member => { :approve => :put,  :media_requests_list => :get}
     admin.resources :restaurant_roles, :except => [:show], :collection => { :update_category => :put }
     admin.resources :holidays
     admin.resources :calendars
@@ -401,4 +407,10 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
   map.resources :ria_webservices, :collection => {:register => :post,:create => :post,:create_psw_rst => :post,:get_join_us_value=>:get,:soap_box_index =>:get,:a_la_minute_answers =>:get,:menu_items =>:get,:bulk_update => :post,:create_menu=>:post,:create_promotions =>:post,:get_promotion_type=>:get,:new_menu_item=>:get,:bulk_edit_photo=>:get,:create_photo =>:post,:create_comments =>:post,:show_comments =>:get,:get_qotds=>:get,:get_newsfeed=>:get,:push_notification_user=>:post,:get_admin_conversation_discussions=>:get,:get_media_request=>:get}, :controller => "ria_webservices"
   map.resources :ria_production_webservices, :collection => {:register => :post,:create => :post,:create_psw_rst => :post,:get_join_us_value=>:get,:soap_box_index =>:get,:a_la_minute_answers =>:get,:menu_items =>:get,:bulk_update => :post,:create_menu=>:post,:create_promotions =>:post,:get_promotion_type=>:get,:new_menu_item=>:get,:bulk_edit_photo=>:get,:create_photo =>:post,:create_comments =>:post,:show_comments =>:get,:get_qotds=>:get,:get_newsfeed=>:get,:push_notification_user=>:post,:get_admin_conversation_discussions=>:get,:get_media_request=>:get,:api_register=>:post}, :controller => "ria_production_webservices"
+
+
+  # for restaurant employee no condition
+  map.no_choice '/restaurants/:restaurant_id/employees/options', :controller => "employees", :action => "options"
+  map.new_employee 'restaurants/:restaurant_id/employees/new_employee', :controller => "employees", :action => "new_employee"  
 end
+

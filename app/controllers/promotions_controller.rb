@@ -1,5 +1,5 @@
 class PromotionsController < ApplicationController
-
+  before_filter :require_user, :only =>[:details]
   before_filter :find_restaurant
   before_filter :require_manager, :except => [:index,:details]
   before_filter :social_redirect, :only => [:edit]
@@ -61,9 +61,12 @@ class PromotionsController < ApplicationController
     redirect_to edit_restaurant_promotion_path(@restaurant, @promotion)
   end
 
-  def details     
+  def details    
     @promotion = Promotion.find(params[:id]) 
-    @restaurant = @promotion.restaurant     
+    @restaurant = @promotion.restaurant
+    if current_user.media?
+      UserRestaurantVisitor.profile_visitor(current_user,@restaurant.id)
+    end     
   end  
 
   private

@@ -16,7 +16,7 @@
         <% f.inputs :name => "Details", :class=> "editing" do %>
             <%= f.input :website %>
             <%= f.input :metropolitan_area, :as => :select, :collection => MetropolitanArea.all %>
-            <%= f.input :james_beard_region, :as => :select, :collection => JamesBeardRegion.all %>
+            <%= f.input :james_beard_region,:label=>"James Beard region", :as => :select, :collection => JamesBeardRegion.all %>
             <%= f.input :cuisine, :as => :select, :collection => Cuisine.all %>
             <%= f.input :opening_date, :start_year => Date.today.year, :end_year => 1960 %>
         <% end %>

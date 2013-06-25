@@ -12,36 +12,19 @@
         <% end %>
     </h2>
 
-    <h3><%= promotion.headline %></h3>
     <div class="menu_item_main">
        <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
-       <% if(current_user.media? ) %>
-
-        <% if current_user.restaurant_newsletter_subscription(promotion.restaurant).blank? %>
-                <div class="meta menu_item_subscribe <% unless promotion.restaurant.logo && promotion.restaurant.logo.attachment? -%> no_avatar_1<% end -%>" >
-                    <%= link_to 'Subscribe', media_subscribe_restaurant_path(promotion.restaurant),:class=>"subscribe" %>
-                </div>
-                
-         <% else %>
-                <div class="meta menu_item_subscribe menu_items_unsubscribe <% unless promotion.restaurant.logo && promotion.restaurant.logo.attachment? -%> no_avatar<% end -%>" >
-                    <%= link_to 'Unsubscribe', media_subscribe_restaurant_path(promotion.restaurant),:class=>"subscribe" %>
-                </div>    
-            <% end %>                    
-        
-    <% end %> 
-        <div class="clear"></div>
     </div>
     <div class="fix-nesfeed-details">
+        <p><%= promotion.headline %></p>
         <div class="details" >
              <%=truncate(Loofah::Helpers.sanitize(promotion.details), :length => 240, :omission => (link_to(" more &raquo;", details_restaurant_promotion_path(promotion.restaurant,promotion)).to_s)) %>
         </div>
-        <p><%= link_to promotion.link, promotion.link %></p>
-        <% if promotion.attachment.file? -%>
-        <p><%= link_to promotion.attachment_file_name, promotion.attachment.url %></p>
-        <% end -%>
+
         <p><%= promotion.date_description %></p>
         <%- if current_user.media? -%>
-        <p class="request"><%= link_to "Request more information", mediafeed_request_information_path(:user_id => promotion.restaurant.media_contact_id, :request_type => "Newsfeed", :request_title => promotion.title ) %></p>
+        <p class="request">
+          <%= link_to "Request more information", mediafeed_request_information_path(:promotion_id => promotion.id),:class => 'colorbox' %></p>
         <%- end -%>
         <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></p>
     </div>

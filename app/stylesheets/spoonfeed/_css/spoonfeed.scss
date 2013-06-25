@@ -246,6 +246,21 @@ form, #main form{
 				text-decoration: none;
 			}
 		}
+		a.unsubscribe,a.subscribe{
+			text-transform:none;
+			font-size: 12px;
+			font-family: Georgia,​serif;	
+			background-image: url("/images/soapbox/share-actions.png");
+	    background-position: 0 8px;
+	    background-repeat: no-repeat;
+	    display: inline;
+	    font-family: 'MuseoSlab700','Helvetica Neue',Helvetica,arial,sans-serif;
+	    font-size: 12px;
+	    font-weight: normal !important;
+	    margin: 0;
+	    padding: 6px 0 4px 18px;
+	    width: 65%;
+		}
 		&#topic_title{
 			font:normal 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
 			margin:0 0 5px;
@@ -879,11 +894,11 @@ footer {
     a {
       display: table-cell;
       vertical-align: middle;
-      width: 91px;
+      width: 74px;
       border-right: 1px solid #c6c1ad;
       color: #a9a29f;
       text-align: center;
-      padding: 0 20px;
+      padding: 0 28px 0 29px;
       font-family: 'Voltaire', sans-serif;
       text-transform: uppercase;
       height: 30px;
@@ -1547,7 +1562,7 @@ aside.dashboard_actions {
     border: 1px solid #ccc;
     @include box-shadow(#eaeaea, 0px, 1px, 1px);
     width: 55%;
-    height: 80px;
+    height: 119px;
   }
   
 	button, input[type="submit"], a.button {
@@ -4509,6 +4524,7 @@ a.subscribe_btn {
 .metro_area .unsubscribe{
 	width: 70% !important;
 }
+
 .subscription-hints-li{
 	list-style:disc !important;
 	margin-left: 18px !important;
@@ -4521,3 +4537,109 @@ fieldset{
 		}
 	}
 }
+
+#dashboard{
+	.unsubscribe{
+		 margin-left: 18px;
+	}
+	.subscribe{
+		 margin-left: 18px;
+	}
+
+}
+
+
+.manager-img{
+	  margin-left: 10px !important;
+}
+.manager{
+	margin-left: 70px;
+ 	margin-top: -55px;
+ 	position: absolute;
+ 	width: 30%;
+}
+
+
+.descr{
+	margin-top: -46px; margin-left: 200px;width:205px;
+}
+
+
+
+.labels{
+	font-weight:bold;
+
+}
+
+
+.menu_name{
+	padding: 5px;
+}
+
+
+
+.table_width{
+	width: 42px;
+}
+.fixed-width-tbl{
+	width:90% !important;
+	textarea{
+		padding-left: 5px;
+	}
+}
+.request_more_information{
+	margin-top:30px;
+	input{
+		&[type="text"]{
+			padding: 5px;
+		}
+	}
+}
+
+#restaurant_profile{
+	 color: #6EB33F;
+    font-family: 'Voltaire',sans-serif;
+    font-size: 42px;
+    font-weight: normal;
+    line-height: 57px;
+    margin: 30px 0 10px;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.promotion h2
+{ 
+  border-bottom: 1px solid #DDDDDD; 
+}
+/* ==|== restaurant answer ====================================================== */
+.restaurant_answers{
+  display: none;
+}
+.restaurant_QA_shares{
+  display: visible;
+}
+
+.question-popup {
+  font-family: serif;
+  font-size: 11px;
+  font-weight: bolder;
+  width: 489px;
+}
+.edit-button-adjust{
+  font-size: 13px !important;
+  height: 16px !important;
+  width: 61px !important;
+}
+.question-ans-datetime-width {
+  background-image: url("/images/calendar-icon.png");
+  background-position: 145px -10px;
+  background-repeat: no-repeat;
+  background-size: 40px auto;
+  width: 35% !important;
+}
+.set-the-width {
+  width: 487px;
+}
+
+/* ==|== restaurant answer ====================================================== */
+

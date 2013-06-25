@@ -19,31 +19,60 @@
         </div>
     </div>
 </header>
-
-<nav id="edit_resto_menu">
-    <%= active_link_to 'Details', edit_restaurant_path(@restaurant),
-        :class => 'promo editor details' %>
-    <%= active_link_to 'Features', restaurant_features_path(@restaurant),
-        :class => 'promo editor features' %>
-    <%= active_link_to "Photos", bulk_edit_restaurant_photos_path(@restaurant),
-        :class => 'promo editor photos' %>
-    <%= active_link_to 'Fact Sheet', edit_restaurant_fact_sheet_path(@restaurant),
-        :class => 'promo editor fact_sheet' %>
-    <%= active_link_to "Menus", bulk_edit_restaurant_menus_path(@restaurant),
-        :class => 'promo editor menus' %>
-    <%= active_link_to 'Top Tags', edit_top_restaurant_features_path(@restaurant),
-        :class => 'promo editor tags' if @restaurant.restaurant_features.any? %>
-    <%= active_link_to 'Staff', bulk_edit_restaurant_employees_path(@restaurant),
-        :class => 'promo editor emp' %>
-    <%= active_link_to "A La Minute", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant),
-        :class => 'promo editor alm' %>
-    <%= active_link_to "Newsfeed", new_restaurant_promotion_path(:restaurant_id => @restaurant),
-        :class => 'promo editor newsfeed' %>
-    <%= active_link_to "On the Menu", restaurant_menu_items_path(:restaurant_id => @restaurant),
-        :class => 'promo editor otm' %>
-    <%= active_link_to "Press Releases", restaurant_press_releases_path(:restaurant_id => @restaurant),
-	    :class => 'promo editor pr' %>
-    <%= active_link_to "Social Posts", restaurant_social_posts_path(@restaurant), :class => 'promo editor social' %>
-    <%= active_link_to "Newsletter", restaurant_newsletters_path(:restaurant_id => @restaurant), :class => "promo editor newsletter" %>
-    <%= active_link_to "Profile Key", api_restaurant_path(@restaurant)%>    
-</nav>
+<%unless (["Chef/Partner","Executive Chef","Executive Chef/Owner","Director of Operations","Owner","Operations Director","Partner","Pastry Chef/Owner","Wine Director/Owner"] &  @restaurant.employments.map(&:restaurant_role).compact.map(&:name)).blank? %>
+    <nav id="edit_resto_menu">
+        <%= active_link_to 'Details', edit_restaurant_path(@restaurant),
+            :class => 'promo editor details' %>
+        <%= active_link_to 'Features', restaurant_features_path(@restaurant),
+            :class => 'promo editor features' %>
+        <%= active_link_to "Photos", bulk_edit_restaurant_photos_path(@restaurant),
+            :class => 'promo editor photos' %>
+        <%= active_link_to 'Fact Sheet', edit_restaurant_fact_sheet_path(@restaurant),
+            :class => 'promo editor fact_sheet' %>
+        <%= active_link_to "Menus", bulk_edit_restaurant_menus_path(@restaurant),
+            :class => 'promo editor menus' %>
+        <%= active_link_to 'Top Tags', edit_top_restaurant_features_path(@restaurant),
+            :class => 'promo editor tags' if @restaurant.restaurant_features.any? %>
+        <%= active_link_to 'Staff', bulk_edit_restaurant_employees_path(@restaurant),
+            :class => 'promo editor emp' %>
+        <%= active_link_to "A La Minute", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant),
+            :class => 'promo editor alm' %>
+        <%= active_link_to "Newsfeed", new_restaurant_promotion_path(:restaurant_id => @restaurant),
+            :class => 'promo editor newsfeed' %>
+        <%= active_link_to "On the Menu", restaurant_menu_items_path(:restaurant_id => @restaurant),
+            :class => 'promo editor otm' %>
+        <%= active_link_to "Press Releases", restaurant_press_releases_path(:restaurant_id => @restaurant),
+            :class => 'promo editor pr' %>
+        <%= active_link_to "Social Posts", restaurant_social_posts_path(@restaurant), :class => 'promo editor social' %>
+        <%= active_link_to "Newsletter", restaurant_newsletters_path(:restaurant_id => @restaurant), :class => "promo editor newsletter" %>
+        <%= active_link_to "Profile Key", api_restaurant_path(@restaurant)%>    
+    </nav>
+<%else%>
+    <nav id="edit_resto_menu">
+        <%= active_link_to 'Details', '#',
+            :class => 'disable_link' %>
+        <%= active_link_to 'Features', '#',
+            :class => 'disable_link' %>
+        <%= active_link_to "Photos", '#',
+            :class => 'disable_link' %>
+        <%= active_link_to 'Fact Sheet', '#',
+            :class => 'disable_link' %>
+        <%= active_link_to "Menus", '#',
+            :class => 'disable_link' %>
+        <%= active_link_to 'Top Tags', '#',
+            :class => 'disable_link' if @restaurant.restaurant_features.any? %>
+        <%= active_link_to 'Staff', bulk_edit_restaurant_employees_path(@restaurant),
+            :class => 'promo editor emp' %>
+        <%= active_link_to "A La Minute",'#',
+            :class => 'disable_link' %>
+        <%= active_link_to "Newsfeed", '#',
+            :class => 'disable_link' %>
+        <%= active_link_to "On the Menu", '#',
+            :class => 'disable_link' %>
+        <%= active_link_to "Press Releases", '#',
+            :class => 'disable_link' %>
+        <%= active_link_to "Social Posts", '#', :class => 'disable_link' %>
+        <%= active_link_to "Newsletter", '#', :class => "disable_link" %>
+        <%= active_link_to "Profile Key", '#' ,:class =>'disable_link'%>    
+    </nav>
+<%end%>

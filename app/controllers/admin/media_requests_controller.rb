@@ -41,4 +41,11 @@ class Admin::MediaRequestsController < Admin::AdminController
       redirect_to admin_media_requests_path
     end
   end
+
+  def media_requests_list
+    @media_request = MediaRequest.find(params[:id])
+    @media_requests_with_replies = @media_request.discussions_with_comments
+    @media_requests_without_replies = @media_request.discussions_without_comments
+  end  
+
 end
