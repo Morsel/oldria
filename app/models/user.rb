@@ -129,7 +129,7 @@ class User < ActiveRecord::Base
 
   # validates_exclusion_of :publication,
   #                        :in => %w( freelance Freelance ),
-  #                        :message => "'%{value}' is not allowed"
+  #                        :message => "'%{value}' is not allowed" #TODo this is remove as per client requirement ticketid:-51966367
 
   validates_acceptance_of :agree_to_contract
 
