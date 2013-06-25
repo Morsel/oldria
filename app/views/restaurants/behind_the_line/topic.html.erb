@@ -7,11 +7,8 @@
 <%= render :partial => 'restaurant_questions/topic_nav', :locals => { :next_topic => @next, :prev_topic => @previous } %>
 
 <div class="clear"></div>
-
-
-  <%- if can?(:manage, @restaurant) || chapter.published_for_restaurant?(@restaurant, @page) -%>
+  <%- if can?(:manage, @restaurant) || @questions_by_chapter.keys.first.published_for_restaurant?(@restaurant, @page) -%>
     <%@questions_by_chapter.each do |questions_by_chapter| %>
-
       <%questions_by_chapter[1].each do |question| %>
         <h4>Q: <%= question.title %></h4>
        <!--  <a class="colorbox cboxElement" href="<%#=restaurant_btl_question_ans_post_path(@restaurant,question.id)%>">answer and share</a> -->
@@ -22,4 +19,3 @@
       <%end%>
     <% end %>
   <%end%>
-  

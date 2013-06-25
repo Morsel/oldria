@@ -76,6 +76,5 @@ class RestaurantAnswer < ActiveRecord::Base
 
   def edit_path(options={})
     # edit_restaurant_menu_item_path(restaurant, self, options)
-  end
-  
+  end  
 end

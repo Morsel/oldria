@@ -28,6 +28,7 @@ class RestaurantAnswersController < ApplicationController
     redirect_to restaurant_social_posts_path(@restaurant)
   end
 
+  
   def destroy
     @answer = RestaurantAnswer.find(params[:id])
     @question = @answer.restaurant_question

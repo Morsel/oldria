@@ -1068,7 +1068,7 @@ form#mediafeed_user {
   abbr[title=required] {
     color: red;
   }
-  li#user_metropolitan_areas_input ol li {
+  li#user_metropolitan_areas_input ol li ,li#user_newsfeed_metropolitan_areas_input ol li,li#user_local_promotion_types_input ol li,li#newsfeed_option_national_input ol li,li#user_promotion_types_input ol li ,div#newsfeed_option_regional ol#newsfeed_james_beard_regions_input li,div#digest_option_regional ol li{
     float: left;
     width: 25%;
     label {
@@ -1565,7 +1565,7 @@ aside.dashboard_actions {
     height: 119px;
   }
   
-	button, input[type="submit"], a.button {
+	button, input[type="submit"] {
 		cursor:pointer;
 		float: left;
 		display: block;
@@ -1578,11 +1578,10 @@ aside.dashboard_actions {
 		padding: 5px 12px;
 		font-weight: bold;
 		text-shadow:0 1px 0 #444;
-		text-transform: none !important;
 		border:0;
 		&:hover {
 			background: #bbb08c;
-			color: #fff !important;
+			color: #fff;
 		}
 		&.positive {
 			margin:0 0 10px;
@@ -2182,7 +2181,7 @@ aside.dashboard_actions {
   }
 }
 
-.menu_item {
+.menu_item , .promotion {
   clear: both;
 	h2 {
 		font-size:18px;
@@ -4464,15 +4463,47 @@ a.subscribe_btn {
 			}
 	}		
 
-
 .fix-nesfeed-details{
 	float: left; padding: 0px 5px; width: 650px;
 }
 
-.menu_items_unsubscribe{
-	right: 32px !important; 
+
+
+#dashboard-right-column
+{
+		border: 5px solid #EFEFEF;
+    float: left;
+    margin-left: 15px;
+    width: 55%;
+}
+#dashboard-left-column
+{
+		border: 5px solid #EFEFEF;
+    float: left;    
+    width: 40%;
+}
+.annoucement{
+	 padding-left: 15px;
+	img{
+		height: 30px;
+		width: 30px;
+	}
+	h3{
+		font-size: 15px !important;
+	}
+	p{
+		 margin: 5px 0 0 ;
+	}
+	.content{
+		float: left;
+	}
+
 }
 
+.menu_items_unsubscribe{
+	right: 32px !important; 
+
+}
 .menu_item_subscribe{
 	
 	position: relative; 
@@ -4510,6 +4541,7 @@ a.subscribe_btn {
  	 text-decoration: underline;
 	}
 }
+
 .menu_item_main{
 	width: 183px; float: left;
 }
@@ -4524,6 +4556,7 @@ a.subscribe_btn {
 .metro_area .unsubscribe{
 	width: 70% !important;
 }
+
 #dashboard{
 	.unsubscribe{
 		 margin-left: 18px;
@@ -4533,6 +4566,12 @@ a.subscribe_btn {
 	}
 
 }
+
+.subscription-hints-li{
+	list-style:disc !important;
+	margin-left: 18px !important;
+}
+
 
 
 .manager-img{
@@ -4582,6 +4621,19 @@ a.subscribe_btn {
 	}
 }
 
+
+fieldset{
+	ol{
+		li.media-signup{
+			list-style:disc !important;
+			margin-left: 18px !important;
+		}
+	}
+}
+
+
+
+
 #restaurant_profile{
 	 color: #6EB33F;
     font-family: 'Voltaire',sans-serif;
@@ -4593,10 +4645,12 @@ a.subscribe_btn {
     text-transform: uppercase;
 }
 
+
 .promotion h2
 { 
   border-bottom: 1px solid #DDDDDD; 
 }
+
 /* ==|== restaurant answer ====================================================== */
 .restaurant_answers{
   display: none;
@@ -4627,6 +4681,10 @@ a.subscribe_btn {
   width: 487px;
 }
 
+.menu_form {
+	width: 840px !important; 
+}
+
 .add_answer{
   cursor: pointer;
   color: #D8531E;
@@ -4634,3 +4692,17 @@ a.subscribe_btn {
 }
 
 /* ==|== restaurant answer ====================================================== */
+
+
+
+.help_text{
+	color: #D8531E !important;
+}
+
+
+.help_text_next{
+	margin-top: -14px !important;
+	color: #D8531E !important;
+}
+
+
