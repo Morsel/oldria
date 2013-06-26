@@ -9,14 +9,27 @@
 <%- else %>
 <p>No comments yet</p>
 <% end -%>
+
 <% if !@restaurant.blank? %>
 	<%unless (["Chef/Partner","Executive Chef","Executive Chef/Owner","Director of Operations","Owner","Operations Director","Partner","Pastry Chef/Owner","Wine Director/Owner"] &  @restaurant.employments.map(&:restaurant_role).compact.map(&:name)).blank? %>
-	<h2>Leave a Comment</h2>
-	<%= render :partial => 'comments/form' %>
-  <% end %>
-<% else %> 
- 	<h2>Leave a Comment</h2>
-	<%= render :partial => 'comments/form' %>
-<% end %>
+				<% if params[:controller] == "solo_media_discussions" %>
+				<h2>Leave a Comment</h2>
+						<p class="help_text"> Please provide the answer to the question below, if you have something to offer.</p>
+						<p class="help_text_next"> Teasing them with highlights is not appreciated and asking them to email you separately just gives them more work todo. </p>
+						<%= render :partial => 'comments/form' %>
+				<% elsif params[:controller] == "media_request_discussions"  %>
+						<%= render :partial => 'comments/form' %> 
+	      <% end %>	
+	<%end%>
 
+<% else %> 
+			<% if params[:controller] == "solo_media_discussions" %>
+				<h2>Leave a Comment</h2>
+				<p class="help_text"> Please provide the answer to the question below, if you have something to offer.</p>
+				<p class="help_text_next"> Teasing them with highlights is not appreciated and asking them to email you separately just gives them more work todo. </p>
+				<%= render :partial => 'comments/form' %> 
+			<% elsif params[:controller] == "media_request_discussions"  %>
+				<%= render :partial => 'comments/form' %> 
+			<% end %>	
+<% end %>
 </div>
