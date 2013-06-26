@@ -21,9 +21,12 @@ class UserRestaurantVisitor < ActiveRecord::Base
    end
 
   def get_full_day_name(shortName,rest)
-    if shortName=="M" || shortName=="Weekly"
+    if shortName=="Weekly"
+      rest.update_attributes(:next_email_at=>Time.now+7.days,:last_email_at=>Time.now)
+      return "Monday"
+    elsif shortName=="M"
       rest.update_attributes(:next_email_at=>Time.now+2.days,:last_email_at=>Time.now)
-       return "Monday"
+      return "Monday"
     elsif shortName=="W"
       rest.update_attributes(:next_email_at=>Time.now+2.days,:last_email_at=>Time.now)
       return "Wednesday"
@@ -53,8 +56,10 @@ class UserRestaurantVisitor < ActiveRecord::Base
   end
 
   def create_user_visited_email_setting(user)
-    user_visitor_email_setting=user.build_user_visitor_email_setting
-    user_visitor_email_setting.email_frequency="Weekly"
+    user_visitor_email_setting = user.build_user_visitor_email_setting
+    user_visitor_email_setting.email_frequency = "Weekly"
+    user_visitor_email_setting.next_email_at = Time.now
+    user_visitor_email_setting.last_email_at = Time.now
     user_visitor_email_setting.save
     user.user_visitor_email_setting
   end
@@ -93,8 +98,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "a_la_minute_visitors" => @a_la_minute_visitors,
               "current_user" => user
             }
-            check_email_frequency(@uves)  if keywords.present?
-            UserMailer.deliver_send_chef_user(restaurant_visitors)  if keywords.present?
+            UserMailer.deliver_send_chef_user(restaurant_visitors)  if keywords.present? && check_email_frequency(@uves)
           end
         else
           userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
@@ -170,9 +174,8 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "restaurant" => visitor.restaurant,
                 "current_user" => visitor.user,
                 "users" => @users
-              }
-              check_email_frequency(@uves)                
-              UserMailer.deliver_send_mail_visitor(restaurant_visitors)   
+              }              
+              UserMailer.deliver_send_mail_visitor(restaurant_visitors) if check_email_frequency(@uves)  
             end
           end
         end
