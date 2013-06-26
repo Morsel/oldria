@@ -165,7 +165,7 @@ class UserMailer < ActionMailer::Base
   
   def send_mail_visitor(restaurant_visitors)
     from        'hal@restaurantintelligenceagency.com'
-    recipients  restaurant_visitors["employee"].email
+    recipients   restaurant_visitors["employee"].email
     bcc         'ellen@restaurantintelligenceagency.com'
     sent_on     Time.now
     subject     "You have visitors!"
@@ -174,8 +174,8 @@ class UserMailer < ActionMailer::Base
   
   def send_chef_user(restaurant_visitors)
     from        'hal@restaurantintelligenceagency.com'
-    recipients  restaurant_visitors["current_user"].email
-    bcc         'ellen@restaurantintelligenceagency.com'
+    recipients  'nishant.n@cisinlabs.com' #restaurant_visitors["current_user"].email
+    bcc         #'ellen@restaurantintelligenceagency.com'
     sent_on     Time.now
     subject     "Connect with media"
     body       restaurant_visitors
@@ -196,16 +196,6 @@ class UserMailer < ActionMailer::Base
     recipients  "eric@restaurantintelligenceagency.com"
     sent_on     Time.now
     subject     "Spoonfeed: We are sorry!"
-  end  
-
-
-  def send_james_bear_region_request(jbrr,requested)
-    @jbrr = jbrr
-    @requested = requested
-    from        requested
-    recipients  "admin@restaurantintelligenceagency.com"
-    sent_on     Time.now
-    subject     "Spoonfeed: James Bear Region Request!"
   end  
 
   def request_info_mail(title,detail,user,restaurant,comment,subject,sender)
@@ -246,5 +236,3 @@ class UserMailer < ActionMailer::Base
   end  
 
 end
-
-
