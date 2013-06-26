@@ -290,7 +290,12 @@ class RestaurantsController < ApplicationController
 
   def api    
   end
-    
+  
+  def show_notice
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    render :layout => false
+  end
+
   private
 
   def find_activated_restaurant    

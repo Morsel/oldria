@@ -1,4 +1,19 @@
 $(document).ready(function(){
+  
+  $('a.disable_link').click(function(e){
+      e.preventDefault();
+      $('#flashes').html("<div id='flash_notice'>Looks like the "+$('#profileDetails h2').text()+" restaurant profile is missing some personnel! Please add all key staff to the staff tab to ensure the restaurant is accurately represented for media so you can proceed. Thank you!</div>");
+      $('html, body').animate({scrollTop: $('#flashes').offset().top -50}, 400)
+  });
+
+
+  $('div.add_answer').on('click',function(e){    
+    $(this).next().slideToggle('slow',function(){
+      $(".restaurant_answers").not(this).hide()
+      $('html, body').animate({scrollTop: $(this).prev().offset().top-80}, 400)
+    })
+
+  });
 
 $('<span class="down-arrow"></span>').appendTo('a.selected');
 

@@ -20,12 +20,15 @@ class UserRestaurantVisitor < ActiveRecord::Base
       end 
   end
 
-  def get_full_day_name(shortName)
-    if shortName=="M"
+  def get_full_day_name(shortName,rest)
+    if shortName=="M" || shortName=="Weekly"
+      rest.update_attributes(:next_email_at=>Time.now+2.days,:last_email_at=>Time.now)
        return "Monday"
     elsif shortName=="W"
+      rest.update_attributes(:next_email_at=>Time.now+2.days,:last_email_at=>Time.now)
       return "Wednesday"
     elsif shortName=="F"
+      rest.update_attributes(:next_email_at=>Time.now+3.days,:last_email_at=>Time.now)
       return "Friday"
     end
   end
@@ -34,12 +37,11 @@ class UserRestaurantVisitor < ActiveRecord::Base
     days=rest.email_frequency.split("/")
     days.each do |day|
       if day=="Daily"
-        rest.update_attributes(:email_frequency=>'Daily',:next_email_at=>Time.now)
+        rest.update_attributes(:next_email_at=>Time.now+1.days,:last_email_at=>Time.now)
         return true
       end
-      day=get_full_day_name(day)
-      if day==getdayname
-        rest.update_attributes(:next_email_at=>Time.now+7.days)
+      day=get_full_day_name(day,rest)
+      if day==getdayname        
         return true
       end
     end
@@ -52,19 +54,20 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
   def create_user_visited_email_setting(user)
     user_visitor_email_setting=user.build_user_visitor_email_setting
-    user_visitor_email_setting.email_frequency="Daily"
+    user_visitor_email_setting.email_frequency="Weekly"
     user_visitor_email_setting.save
     user.user_visitor_email_setting
   end
 
   def send_notification_to_chef_user
+    
      User.all.each do |user|
       @uves=user.user_visitor_email_setting
         if @uves.blank?
           @uves=create_user_visited_email_setting(user)
         end
 
-      if check_email_frequency(@uves) && !@uves.do_not_receive_email
+      if Time.now > @uves.next_email_at && !@uves.do_not_receive_email
         #keyword trace if user chef is not associate to resturants or not
         @al_users= Array.new
         keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , 1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s]).group_by(&:keywordable_type)
@@ -89,10 +92,11 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "a_la_minute_visitors" => @a_la_minute_visitors,
               "current_user" => user
             }
-            UserMailer.deliver_send_chef_user(restaurant_visitors)  if keywords.present?
+            check_email_frequency(@uves)  if keywords.present?
+            #UserMailer.deliver_send_chef_user(restaurant_visitors)  if keywords.present?
           end
         else
-          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),1.day.ago.beginning_of_day.to_formatted_s],:group => "restaurant_id")
+          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
             @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
             
@@ -106,7 +110,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
               menu = visitor.restaurant.menus.find(:first,:order =>"updated_at desc")
 
               if menu.blank? || (!menu.blank? && menu.updated_at < 30.day.ago)
-                @menu_message = "Your restaurant's menus have not been updated for a month, please update your <a href='#{restaurant_menus_url(visitor.restaurant)}'>current menus</a>."
+                @menu_message = "Your restaurant's menus have not been updated for more than a month, please update your <a href='#{restaurant_menus_url(visitor.restaurant)}'>current menus</a>."
                 counter+=1
               end
 
@@ -118,12 +122,12 @@ class UserRestaurantVisitor < ActiveRecord::Base
               @menu_item = visitor.restaurant.menu_items.find(:first,:order =>"updated_at desc")
               unless @menu_item.blank?
                 if @menu_item.created_at < 7.day.ago
-                  @menu_item_message = "You've never used On The Menu, a powerful tool for connecting with media. You can ,<a href='#{restaurant_menus_url(visitor.restaurant)}'>check it out here</a>"
+                  @menu_item_message = "Looks like you haven't uploaded a new dish or drink to On The Menu in quite some time. Let's keep media interested in you, <a href='#{new_restaurant_menu_url(visitor.restaurant)}'>add your newest dish or drink today!</a>"
                   counter+=1
                 end
               else
                 counter+=1
-                @menu_item_message = "Looks like you haven't uploaded a new dish or drink to On The Menu in quite some time. Let's keep media interested in you, <a href='#{new_restaurant_menu_url(visitor.restaurant)}'>add your newest dish or drink today!</a>"
+                @menu_item_message = "You've never used On The Menu, a powerful tool for connecting with media. You can ,<a href='#{restaurant_menus_url(visitor.restaurant)}'>check it out here</a>"
               end
 
               @a_la_minute_answer = visitor.restaurant.a_la_minute_answers.find(:first,:conditions=>["created_at > ?",4.days.ago ],:order =>"created_at desc")
@@ -165,7 +169,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "restaurant" => visitor.restaurant,
                 "current_user" => visitor.user,
                 "users" => @users
-              }            
+              }
+              check_email_frequency(@uves)                
+
               UserMailer.deliver_send_mail_visitor(restaurant_visitors)   
             end
           end
