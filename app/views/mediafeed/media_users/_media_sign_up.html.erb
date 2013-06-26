@@ -38,8 +38,8 @@
                         <li>
                             <label for="promotion_types_writers_attribute_id<%=jbr.id%>_<%=id%>">
                             <% checked = @newsfeed_regional_areas.map(&:james_beard_region_id).include?(jbr.id) %>
-                            <%= hidden_field_tag "newsfeed_writer[regional_writers_attributes][#{id}][user_id]" ,@user.id,:disabled=>!checked %>                
-                            <%= check_box_tag "newsfeed_writer[regional_writers_attributes][#{id}][james_beard_region_id]",jbr.id,checked,:id=> "promotion_types_writers_attribute_id#{jbr.id}_#{id}"%>
+                            <%= hidden_field_tag "newsfeed_writer[regional_writers_attributes][#{jbr.id}][user_id]" ,@user.id,:disabled=>!checked %>                
+                            <%= check_box_tag "newsfeed_writer[regional_writers_attributes][#{jbr.id}][james_beard_region_id]",jbr.id,checked,:id=> "promotion_types_writers_attribute_id#{jbr.id}_#{id}"%>
                              <%=jbr.name%>
                                     
                             </label>
@@ -115,8 +115,8 @@
                     <li>
                         <label for="digest_promotion_types_writers_attribute_id<%=jbr.id%>_<%=id%>">
                         <% checked = @digest_regional_areas.map(&:james_beard_region_id).include?(jbr.id) %>
-                        <%= hidden_field_tag "digest_writer[regional_writers_attributes][#{id}][user_id]" ,@user.id,:disabled=>!checked %>                
-                        <%= check_box_tag "digest_writer[regional_writers_attributes][#{id}][james_beard_region_id]",jbr.id,checked,:id=> "digest_promotion_types_writers_attribute_id#{jbr.id}_#{id}"%>
+                        <%= hidden_field_tag "digest_writer[regional_writers_attributes][#{jbr.id}][user_id]" ,@user.id,:disabled=>!checked %>                
+                        <%= check_box_tag "digest_writer[regional_writers_attributes][#{jbr.id}][james_beard_region_id]",jbr.id,checked,:id=> "digest_promotion_types_writers_attribute_id#{jbr.id}_#{id}"%>
                          <%=jbr.name%>
                                 
                         </label>

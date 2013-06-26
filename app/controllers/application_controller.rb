@@ -36,7 +36,6 @@ class ApplicationController < ActionController::Base
     @newsfeed_metropolitan_areas = @user.newsfeed_writer.find_metropolitan_areas_writers(@user) unless @user.newsfeed_writer.blank?
     @digest_metropolitan_areas = @user.digest_writer.find_metropolitan_areas_writers(@user) unless @user.digest_writer.blank?
     
-    @digest_promotions_types = @user.digest_writer.find_promotions_types_writers(@user) unless @user.digest_writer.blank?
 
     @newsfeed_regional_areas = @user.newsfeed_writer.find_regional_writers(@user) unless @user.newsfeed_writer.blank?
     @digest_regional_areas = @user.digest_writer.find_regional_writers(@user) unless @user.digest_writer.blank?

@@ -62,6 +62,7 @@ class Mediafeed::MediafeedController < ApplicationController
   
   def media_subscription
     @subscriptions = current_user.media_newsletter_subscriptions
+    @digest_subsriptions = current_user.get_digest_subscription
     @user = current_user
     @user.media_newsletter_setting || @user.build_media_newsletter_setting
   end

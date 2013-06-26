@@ -200,8 +200,7 @@ class Promotion < ActiveRecord::Base
   end
  
   def send_newsfeed_newsletters
-    send_newsfeed_newsletters_later   
-    send_later(:send_newsfeed_newsletters_later)
+    send_later(:send_newsfeed_newsletters_later) if false
   end 
 
   

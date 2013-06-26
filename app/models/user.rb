@@ -173,14 +173,12 @@ class User < ActiveRecord::Base
   belongs_to :newsfeed_writer
   belongs_to :digest_writer
   has_many :metropolitan_areas_writers
-  has_many :promotion_types_writers
+  
   has_many :regional_writers  
   has_many :newsfeed_promotion_types
   has_many :promotion_types,  :through => :newsfeed_promotion_types
 
-  has_many :newsfeed_local_promotion_types
-  has_many :local_promotion_types,  :through => :newsfeed_local_promotion_types,:source=>:promotion_type
- 
+
   
 
 ### Roles ###
@@ -650,17 +648,17 @@ class User < ActiveRecord::Base
       metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'DigestWriter'").map(&:destroy)      
       regional_writers.find(:all,:conditions=>"regional_writer_type = 'DigestWriter'").map(&:destroy)
     elsif  digest_writer_id == 2
-      promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'DigestWriter'").map(&:destroy)
+      
       metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'DigestWriter'").map(&:destroy)      
     elsif  digest_writer_id == 3
-      promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'DigestWriter'").map(&:destroy)
+      
       regional_writers.find(:all,:conditions=>"regional_writer_type = 'DigestWriter'").map(&:destroy)
     end 
 
   end
 
   def update_media_newsletter_mailchimp
-    if media?
+    if media? && false
       mc = MailchimpConnector.new             
       
       unless newsfeed_writer.blank?
@@ -682,10 +680,24 @@ class User < ActiveRecord::Base
     end  
   end  
 
+  def get_digest_subscription
+    @restaurants = []
+    
+    if digest_writer.name == "National Writer"
+      @restaurants = Restaurant.all
+    elsif digest_writer.name == "Regional Writer"
+      @restaurants = digest_writer.find_regional_writers(self).map(&:james_beard_region).map(&:restaurants)
+    else
+      @restaurants = digest_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area).map(&:restaurants)
 
+    end unless digest_writer.blank?
+
+    @restaurants
+
+  end  
 
   def send_employee_claim_notification_mail
-    # @res.employees.find(:all,:conditions=>["role=?",'admin'])  
+  
     User.find(:all,:conditions=>["role=?",'admin']).each do |user|
     user.restaurants.each do |restaurant|
         restaurant.employees.find(:all,:conditions=>["role != 'admin' || role IS NULL AND confirmed_at IS NULL"]).each do |employee|
