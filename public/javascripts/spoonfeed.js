@@ -277,7 +277,7 @@ function post_reply_text(){
 // Do it!
 bindColorbox();
 
-$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
+$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship, #colorbox form.james_beard_region').live('submit', colorboxForm);
 $('#complete_profile form.profile_cuisine').live('submit', colorboxForm);
 
 $("a.showit").showy();
@@ -455,15 +455,16 @@ updateRestoDirectoryList = function() {
 $restoSocialInputs.change(updateRestoDirectoryList);
 
 // get cities list by state name : Nishant
-$('#metropolitan_areas_state_state_id').change(function(){
+$('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id').change(function(){
 
-   $('#metropolitan_areas_state_cities').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
-
+   $(this).next().html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
+   $this = $(this)
+   var user_id = $('#user_id').val()
     if($(this).val())
         $.ajax({
-		data:'state_name=' + encodeURIComponent($(this).val()),
+		data:'state_name=' + encodeURIComponent($(this).val()) +(user_id ? ('&user_id=' +user_id) : ''),
 	     	success:function(response){
-			    $('#metropolitan_areas_state_cities').html(response)
+			    $this.next().html(response)
 		    },
 		url:'/mediafeed/get_cities'
 	    });
@@ -556,6 +557,102 @@ $('#metropolitan_areas_state_state_id').change(function(){
       }
 
     });
+  $("#newsfeed_james_beard_regions_input input[type=checkbox]").click(function(){
+    if($("#newsfeed_james_beard_regions_input input:checkbox:checked").length>0)
+
+    {
+      $("#regional_newsfeed_promotion_type").show('slow')
+    }else
+    {
+      $("#regional_newsfeed_promotion_type").hide('slow')
+    }
+
+  })
+
+  $("#user_newsfeed_writer_id").change(function(){
+
+      
+      $("#metropolitan_areas_state_cities").html("")
+      $("#metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");
+      if($(this).val() == "")
+      {
+        $('#newsfeed_option_national').hide('slow')
+        $('#newsfeed_option_regional').hide('slow')
+        $('#newsfeed_option_locals').hide('slow')
+
+        
+
+      }else{
+        if($(this).val()==1)
+        {
+          $('#newsfeed_option_national').show('slow')
+          $('#newsfeed_option_regional').hide('slow')
+          $('#newsfeed_option_locals').hide('slow')
+
+        }        
+        else if($(this).val()==2)
+          {
+            $('#newsfeed_option_regional').show('slow')
+            $('#newsfeed_option_national').hide('slow')
+            $('#newsfeed_option_locals').hide('slow')
+
+          }
+        else if($(this).val()==3)
+        {
+          $('#newsfeed_option_national').hide('slow')          
+          $('#newsfeed_option_regional').hide('slow')
+          $('#newsfeed_option_locals').show('slow')
+        }
+      }
+
+    })
+
+
+    $("#user_digest_writer_id").change(function(e){
+
+      $("#digest_metropolitan_areas_state_cities").html("")
+      $("#digest_metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");
+      if($(this).val() == "")
+      {
+        $('#digest_option_national').hide('slow')
+        $('#digest_option_regional').hide('slow')
+        $('#digest_option_locals').hide('slow')
+
+        
+
+      }else{
+        if($(this).val()==1)
+        {
+          $('#digest_option_national').show('slow')
+          $('#digest_option_regional').hide('slow')
+          $('#digest_option_locals').hide('slow')
+
+
+        }        
+        else if($(this).val()==2)
+          {
+            $('#digest_option_regional').show('slow')
+            $('#digest_option_national').hide('slow')
+            $('#digest_option_locals').hide('slow')
+          }
+        else if($(this).val()==3)
+        {
+          $('#digest_option_national').hide('slow')          
+          $('#digest_option_regional').hide('slow')
+          $('#digest_option_locals').show('slow')
+
+        }
+      }
+
+    })
+
+
+  $('#newsfeed_option_locals input[type=checkbox], #user_metropolitan_areas_input input[type=checkbox], #newsfeed_option_national_input input[type=checkbox], #newsfeed_option_regional input[type=checkbox], #digest_james_beard_regions_input input[type=checkbox]').click(function(){
+    if($(this).prop('checked'))
+      $(this).prev().removeAttr("disabled");
+    else
+      $(this).prev().attr("disabled","disabled");
+  })
   // end $(document).ready
 });
 

@@ -46,6 +46,11 @@ class User < ActiveRecord::Base
   include TwitterAuthorization
   include FacebookPageConnect
   include UserMessaging
+
+
+  include ActionView::Helpers::TextHelper  
+  
+
   
   has_many :trace_keywords, :as => :keywordable
   has_many :statuses, :dependent => :destroy
@@ -157,11 +162,24 @@ class User < ActiveRecord::Base
   named_scope :visible, :conditions => ['visible = ? AND (role != ? OR role IS NULL)', true, 'media']
   named_scope :with_published_profile, :conditions => ["publish_profile = ?", true]
 
+
+  has_and_belongs_to_many  :newsfeed_metropolitan_areas ,:class_name =>"MetropolitanArea"
+  accepts_nested_attributes_for :newsfeed_metropolitan_areas
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => true
   preference :publish_profile, :default => true # TODO - remove this after changes are on production
 
+  belongs_to :newsfeed_writer
+  belongs_to :digest_writer
+  has_many :metropolitan_areas_writers
+  
+  has_many :regional_writers  
+  has_many :newsfeed_promotion_types
+  has_many :promotion_types,  :through => :newsfeed_promotion_types
+
+
+  
 
 ### Roles ###
   def admin?
@@ -612,10 +630,74 @@ class User < ActiveRecord::Base
   end
   def restaurant_newsletter_subscription restaurant    
     media_newsletter_subscriptions.find_by_restaurant_id(restaurant.id)
-  end 
+  end  
+
+  #1 = National, 2 = Regional, 3 = Local
+  def delete_other_writers    
+    if newsfeed_writer_id == 1
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'NewsfeedWriter'").map(&:destroy)      
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'NewsfeedWriter'").map(&:destroy)
+
+    elsif  newsfeed_writer_id == 2       
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'NewsfeedWriter'").map(&:destroy) 
+    elsif  newsfeed_writer_id == 3      
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'NewsfeedWriter'").map(&:destroy)
+    end 
+
+    if digest_writer_id == 1
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'DigestWriter'").map(&:destroy)      
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'DigestWriter'").map(&:destroy)
+    elsif  digest_writer_id == 2
+      
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'DigestWriter'").map(&:destroy)      
+    elsif  digest_writer_id == 3
+      
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'DigestWriter'").map(&:destroy)
+    end 
+
+  end
+
+  def update_media_newsletter_mailchimp
+    if media? && false
+      mc = MailchimpConnector.new             
+      
+      unless newsfeed_writer.blank?
+        
+        region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq #If user has selected regions, getting metros of regions
+        
+        mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+          :email_address => "neelesh.v@cisinlabs.com",
+          :merge_vars => {:FNAME=>first_name,
+                          :LNAME=>last_name, 
+                          :METROAREAS=>newsfeed_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(region_metro_areas.join(","),:length => 255), 
+                          :WRITERTYPE=>newsfeed_writer.name,           
+                          :groupings => [
+                              {:name=>"Regions",:groups=>newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:name).join(",")},
+                              { :name => "SubscriberType",:groups => "Newsfeed"},
+                              {:name=>"Promotions",:groups=>promotion_types.map(&:name).join(",")}]           
+          },:replace_interests => true,:update_existing=>true)
+      end  
+    end  
+  end  
+
+  def get_digest_subscription
+    @restaurants = []
+    
+    if digest_writer.name == "National Writer"
+      @restaurants = Restaurant.all
+    elsif digest_writer.name == "Regional Writer"
+      @restaurants = digest_writer.find_regional_writers(self).map(&:james_beard_region).map(&:restaurants)
+    else
+      @restaurants = digest_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area).map(&:restaurants)
+
+    end unless digest_writer.blank?
+
+    @restaurants
+
+  end  
 
   def send_employee_claim_notification_mail
-    # @res.employees.find(:all,:conditions=>["role=?",'admin'])  
+  
     User.find(:all,:conditions=>["role=?",'admin']).each do |user|
     user.restaurants.each do |restaurant|
         restaurant.employees.find(:all,:conditions=>["role != 'admin' || role IS NULL AND confirmed_at IS NULL"]).each do |employee|
@@ -629,5 +711,6 @@ class User < ActiveRecord::Base
       end
     end
   end
+
 
 end
