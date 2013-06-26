@@ -92,7 +92,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "current_user" => user
             }
             check_email_frequency(@uves)  if keywords.present?
-            UserMailer.deliver_send_chef_user(restaurant_visitors)  if keywords.present?
+            #UserMailer.deliver_send_chef_user(restaurant_visitors)  if keywords.present?
           end
         else
           userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
