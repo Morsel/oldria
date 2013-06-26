@@ -499,10 +499,9 @@ form, #main form{
   }
 	.identity {
     width: 183px;
-    min-height: 85px;
+    min-height: 100px;
     float: left;
-    margin: 0 15px 10px 0;
-    padding-bottom: 4px;
+    margin: 0 15px 10px 0;    
     .avatar {
       float: left;
       width: 50px;
@@ -4557,6 +4556,19 @@ a.subscribe_btn {
 	width: 70% !important;
 }
 
+.subscription-hints-li{
+	list-style:disc !important;
+	margin-left: 18px !important;
+}
+fieldset{
+	ol{
+		li.media-signup{
+			list-style:disc !important;
+			margin-left: 18px !important;
+		}
+	}
+}
+
 #dashboard{
 	.unsubscribe{
 		 margin-left: 18px;
@@ -4681,6 +4693,7 @@ fieldset{
   width: 487px;
 }
 
+/* ==|== restaurant answer ====================================================== */
 
 .menu_form {
 	width: 840px !important; 
@@ -4694,15 +4707,11 @@ fieldset{
 
 /* ==|== restaurant answer ====================================================== */
 
-
-
 .help_text{
 	color: #D8531E !important;
 }
-
 
 .help_text_next{
 	margin-top: -14px !important;
 	color: #D8531E !important;
 }
-
