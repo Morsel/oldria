@@ -4,7 +4,7 @@
         Your name: <%= current_user.name %> <br />
         Email: <%= current_user.email %>
       </li>
-      <%= f.input :publication, :label => "For whom are you writing this?", :input_html => {:value => current_user.publication} %>
+      <%#= f.input :publication, :label => "For whom are you writing this?", :input_html => {:value => current_user.publication} %>
       <li>
         <label>
           <%= check_box_tag 'private' %> I would like to make this media request anonymous.
