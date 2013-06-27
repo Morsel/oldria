@@ -113,11 +113,8 @@ class User < ActiveRecord::Base
   has_many :user_restaurant_visitors
   
   validates_presence_of :email
-
-  validates_presence_of :publication, :if => Proc.new { |user| user.role =="media" && user.id}
-
+  #validates_presence_of :publication, :unless => Proc.new { |user| user.role !="media" }
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
-
   has_and_belongs_to_many :metropolitan_areas
   has_many :media_newsletter_subscriptions, :dependent => :destroy, :foreign_key => "media_newsletter_subscriber_id"
   has_many :page_views, :as => :page_owner, :dependent => :destroy
@@ -137,9 +134,9 @@ class User < ActiveRecord::Base
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :avatar_file_name
 
-  validates_exclusion_of :publication,
-                         :in => %w( freelance Freelance ),
-                         :message => "'%{value}' is not allowed"
+  # validates_exclusion_of :publication,
+  #                        :in => %w( freelance Freelance ),
+  #                        :message => "'%{value}' is not allowed" #TODo this is remove as per client requirement ticketid:-51966367
 
   validates_acceptance_of :agree_to_contract
 
