@@ -22,16 +22,16 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
   def get_full_day_name(shortName,rest)
     if shortName=="Weekly"
-      rest.update_attributes(:next_email_at=>Time.now+7.days,:last_email_at=>Time.now)
+      rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
       return "Monday"
     elsif shortName=="M"
-      rest.update_attributes(:next_email_at=>Time.now+2.days,:last_email_at=>Time.now)
+      rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
       return "Monday"
     elsif shortName=="W"
-      rest.update_attributes(:next_email_at=>Time.now+2.days,:last_email_at=>Time.now)
+      rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
       return "Wednesday"
     elsif shortName=="F"
-      rest.update_attributes(:next_email_at=>Time.now+3.days,:last_email_at=>Time.now)
+      rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
       return "Friday"
     end
   end
@@ -40,7 +40,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
     days=rest.email_frequency.split("/")
     days.each do |day|
       if day=="Daily"
-        rest.update_attributes(:next_email_at=>Time.now+1.days,:last_email_at=>Time.now)
+        rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         return true
       end
       day=get_full_day_name(day,rest)
@@ -58,14 +58,13 @@ class UserRestaurantVisitor < ActiveRecord::Base
   def create_user_visited_email_setting(user)
     user_visitor_email_setting = user.build_user_visitor_email_setting
     user_visitor_email_setting.email_frequency = "Weekly"
-    user_visitor_email_setting.next_email_at = Time.now
-    user_visitor_email_setting.last_email_at = Time.now
+    user_visitor_email_setting.next_email_at = Chronic.parse("next week Monday 12:00am")
+    user_visitor_email_setting.last_email_at = Chronic.parse("this week Monday 12:00am")
     user_visitor_email_setting.save
     user.user_visitor_email_setting
   end
 
   def send_notification_to_chef_user
-    
      User.all.each do |user|
       @uves=user.user_visitor_email_setting
         if @uves.blank?
