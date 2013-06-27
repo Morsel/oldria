@@ -8,6 +8,11 @@
 
 </p>
 
+<% if params[:controller] == "mediafeed/media_requests" || params[:controller] == "media_request_discussions" %>
+	<p class="help_text">Please help us make this service successful, encourage users to respond on the platform instead of diverting the conversation to email. The traffic ensures RIA will grow, adding more contacts and tools that make your job easier! </p>
+<% end %>
+
+
 <p class="attach">Attach files</p>
 <% f.fields_for :attachments do |child_form| -%>
 	<p class="attachfield"><%= child_form.file_field :attachment %></p>
