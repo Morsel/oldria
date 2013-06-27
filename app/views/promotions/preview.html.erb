@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title><%= @promotion.title%></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style type="text/css">.ExternalClass{width:100% !important;}</style>
+	<style>
+		a{
+		color: #808080;
+		text-decoration: none;
+		}
+	</style>
+</head>
+<body style="margin:0;padding:0; background-image:url(http://s10.postimage.org/nozwc9c21/bg_body.gif);" bgcolor="#ffffff" link="#666666">
+		<table width="50%" border="0" cellspacing="0" cellpadding="0" style="background:url(http://s10.postimage.org/nozwc9c21/bg_body.gif); background-image:url(http://s10.postimage.org/nozwc9c21/bg_body.gif);" align="center">
+			<tr>
+				<td>
+					 <%= image_tag(@restaurant.logo.attachment.url(:thumb)) if @restaurant.logo.present? %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					 <h2 style="color:#202020;display:block;font-family:Arial;font-size:3=
+0px;font-weight:bold;line-height:100%;margin-right:0;margin-bo=
+ttom:10px;margin-left:0;text-align:left"><%=@restaurant.name.capitalize%></h2>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p style="line-height: 20px;font-family: sans-serif; font-size: 14px; padding: 0px 0px 0px 5px;">
+					<%= @restaurant.street1 %> &nbsp; <%= @restaurant.try(:street2) %><br>
+					<%= @restaurant.city_and_state %><br>
+					<%=link_to_if @restaurant.phone_number,@restaurant.phone_number,"tel:#{@restaurant.phone_number}" %></a>
+					<br>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p ><strong>Media Contact:</strong></p>
+					<p style="line-height: 0;"><%=@restaurant.media_contact.try(:name) %></p>
+					<p style="line-height: 0;"><%=link_to_if @restaurant.media_contact,@restaurant.media_contact.try(:email),"mailto:#{@restaurant.media_contact}" %></p>
+				</td>
+			</tr>
+			<tr>
+				<td><h3 style="font-family: sans-serif;"><%= @promotion.headline %></h3></td>
+			</tr>	
+
+			<tr>
+				<td>
+
+					 <% link_to restaurant_path(@restaurant) do %>
+			            <% if @promotion.promotion_type.present? -%>
+			              <%= "#{@promotion.promotion_type.name}: #{@promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{@promotion.end_date.to_formatted_s(:long)}" if @promotion.end_date.present? %>
+			            <% else -%>
+			              <%= "#{@promotion.title}: #{@promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{@promotion.end_date.to_formatted_s(:long)}" if @promotion.end_date.present? %>
+			            <% end -%>
+			        <% end %>
+			        &nbsp; <br>
+				</td>
+			</tr>
+			<tr>
+				<td style=" font-family: sans-serif;font-size: 14px; padding: 10px 0 10px 5px;">
+					<%=truncate(Loofah::Helpers.strip_tags(@promotion.details), :length => 340, :omission => (link_to(" more &raquo;", details_restaurant_promotion_path(@promotion.restaurant,@promotion)).to_s)) %></td>
+			</tr>
+
+
+			
+
+ 		</table>
+
+
+</body>
+</html>
