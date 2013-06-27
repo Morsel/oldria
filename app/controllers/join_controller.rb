@@ -11,6 +11,7 @@ class JoinController < ApplicationController
         UserMailer.deliver_signup(@user)
         redirect_to confirm_mediafeed_media_user_path(@user)
       else
+        get_newsletter_data
         render :template => "mediafeed/media_users/new"
       end
     elsif params[:role] == "restaurant"

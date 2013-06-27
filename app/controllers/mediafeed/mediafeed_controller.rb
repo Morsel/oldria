@@ -25,11 +25,11 @@ class Mediafeed::MediafeedController < ApplicationController
 
   def request_information
     if !params[:menu_item_id].blank?
-      @menu_item = MenuItem.find(params[:menu_item_id])
+      @menu_item  = MenuItem.find(params[:menu_item_id])
       @restaurant = @menu_item.restaurant
       render :layout=>false if request.xhr?
     elsif !params[:promotion_id].blank?
-      @promotion = Promotion.find(params[:promotion_id])
+      @promotion = Promotion.find(params[:promotion_id]) 
       @restaurant = @promotion.restaurant
       render :layout=>false if request.xhr?
     else
@@ -41,8 +41,8 @@ class Mediafeed::MediafeedController < ApplicationController
         redirect_to direct_message_path(@direct_message)
       else
         redirect_to :back
-      end
-    end
+      end  
+    end  
     
   end
 
@@ -62,6 +62,7 @@ class Mediafeed::MediafeedController < ApplicationController
   
   def media_subscription
     @subscriptions = current_user.media_newsletter_subscriptions
+    @digest_subsriptions = current_user.get_digest_subscription
     @user = current_user
     @user.media_newsletter_setting || @user.build_media_newsletter_setting
   end

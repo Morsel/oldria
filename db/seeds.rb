@@ -13,8 +13,25 @@ def model_count_before_and_after(model, &block)
     puts "Added #{number_added} new #{plural_model}; there are now #{new_count} #{plural_model}"
   end
 end
+# = Set up Newsfeed Writers
+model_count_before_and_after(NewsfeedWriter) do
+  rows = YAML.load_file(@seedling_path + '/newsfeed_writers.yml')['newsfeed_writers']  
+    rows.each do |field|     
+        nfs = NewsfeedWriter.find_or_initialize_by_name(field)
+        nfs.save! 
+  end
+end
+# = Set up Digest Writers
+model_count_before_and_after(DigestWriter) do
+  rows = YAML.load_file(@seedling_path + '/digest_writers.yml')['digest_writers']  
+    rows.each do |field|     
+        nfs = DigestWriter.find_or_initialize_by_name(field)
+        nfs.save! 
+  end
+end
 
 # == Set up Menu Item Keywords
+=begin
 model_count_before_and_after(OtmKeyword) do
   rows = FasterCSV.read((@seedling_path + '/menu_item_keywords.csv'), :headers => true)
   rows.each do |row|
@@ -26,6 +43,7 @@ model_count_before_and_after(OtmKeyword) do
     end
   end
 end
+=end
 
 # == Set up Promotion Types ==
 # model_count_before_and_after(PromotionType) do

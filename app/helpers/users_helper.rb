@@ -81,4 +81,8 @@ module UsersHelper
   def directory_search_link(options = {})
     params[:controller].match(/soapbox/) ? soapbox_directory_path(options) : directory_path(options)
   end
+
+  def get_css_class(source,destination,css="display-none")
+    return source == destination ? nil : css 
+  end
 end

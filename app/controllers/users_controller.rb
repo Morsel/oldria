@@ -85,7 +85,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     # Force password reset
     @user.crypted_password = nil
-    if @user.update_attributes(params[:user])
+
+    @user.newsfeed_promotion_types.destroy_all
+    if @user.update_attributes(params[:user]) 
+      update_newsletter_data(params[:user_id])
       @user.reset_perishable_token!
       @user.confirmed_at = Time.now
       @user_session = UserSession.new(@user)
