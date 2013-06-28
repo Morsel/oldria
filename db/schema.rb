@@ -9,6 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20121108160937) do
 
 
@@ -22,6 +23,14 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.datetime "updated_at"
     t.datetime "post_to_twitter_at"
     t.datetime "post_to_facebook_at"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "a_la_minute_questions", :id => false, :force => true do |t|
@@ -270,6 +279,13 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.datetime "updated_at"
   end
 
+  create_table "digest_writers", :id => false, :force => true do |t|
+    t.integer  "id",         :null => false
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "direct_messages", :id => false, :force => true do |t|
     t.integer  "id",                                        :null => false
     t.text     "body"
@@ -338,6 +354,7 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.integer  "position"
     t.string   "type"
     t.string   "solo_restaurant_name"
+    t.boolean  "edit_privilege"
   end
 
   add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"
@@ -372,6 +389,15 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
   end
 
   add_index "events", ["restaurant_id"], :name => "index_events_on_restaurant_id"
+
+  create_table "export_press_kits", :id => false, :force => true do |t|
+    t.integer  "id",            :null => false
+    t.string   "export_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "restaurant_id"
+    t.string   "email"
+  end
 
   create_table "faq_category", :id => false, :force => true do |t|
     t.integer "id",                        :null => false
@@ -528,10 +554,10 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
   add_index "holidays", ["employment_search_id"], :name => "index_holidays_on_employment_search_id"
 
   create_table "hq_pages", :id => false, :force => true do |t|
-    t.integer  "id",         :null => false
+    t.integer  "id",                             :null => false
     t.string   "title"
     t.string   "slug"
-    t.text     "content"
+    t.text     "content",    :limit => 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -607,6 +633,22 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.string   "closed_at_minutes"
     t.string   "closed_at_am_pm"
     t.integer  "restaurant_fact_sheet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "media_newsletter_settings", :id => false, :force => true do |t|
+    t.integer  "id",                            :null => false
+    t.boolean  "opt_out",    :default => false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "media_newsletter_subscriptions", :id => false, :force => true do |t|
+    t.integer  "id",                             :null => false
+    t.integer  "restaurant_id"
+    t.integer  "media_newsletter_subscriber_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -714,6 +756,56 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
   add_index "metropolitan_areas_users", ["metropolitan_area_id"], :name => "index_metropolitan_areas_users_on_metropolitan_area_id"
   add_index "metropolitan_areas_users", ["user_id"], :name => "index_metropolitan_areas_users_on_user_id"
 
+  create_table "metropolitan_areas_writers", :id => false, :force => true do |t|
+    t.integer  "id",                   :null => false
+    t.string   "area_writer_type"
+    t.integer  "area_writer_id"
+    t.integer  "user_id"
+    t.integer  "metropolitan_area_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "newsfeed_promotion_types", :id => false, :force => true do |t|
+    t.integer  "id",                :null => false
+    t.integer  "promotion_type_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "newsfeed_writers", :id => false, :force => true do |t|
+    t.integer  "id",         :null => false
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "newsletter_settings", :id => false, :force => true do |t|
+    t.integer  "id",                                         :null => false
+    t.text     "introduction"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "restaurant_newsletter_id"
+    t.string   "tag_line"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string   "bgimg_file_name"
+    t.string   "bgimg_content_type"
+    t.integer  "bgimg_file_size"
+    t.datetime "bgimg_updated_at"
+    t.string   "bgcolor"
+    t.boolean  "menu_item",                :default => true
+    t.boolean  "restaurant_answer",        :default => true
+    t.boolean  "menu",                     :default => true
+    t.boolean  "promotion",                :default => true
+    t.boolean  "a_la_minute_answer",       :default => true
+    t.integer  "restaurant_id",            :default => 326,  :null => false
+    t.string   "subject"
+  end
+
   create_table "newsletter_subscribers", :id => false, :force => true do |t|
     t.integer  "id",                                      :null => false
     t.string   "email"
@@ -726,6 +818,7 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.boolean  "opt_out",              :default => false
     t.string   "password_hash"
     t.string   "password_salt"
+    t.integer  "user_id"
   end
 
   create_table "newsletter_subscriptions", :id => false, :force => true do |t|
@@ -775,6 +868,10 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.datetime "updated_at"
   end
 
+  create_table "num", :id => false, :force => true do |t|
+    t.integer "i"
+  end
+
   create_table "otm_keywords", :id => false, :force => true do |t|
     t.integer  "id",         :null => false
     t.string   "name"
@@ -792,6 +889,8 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.datetime "updated_at"
     t.integer  "page_owner_id"
     t.string   "page_owner_type"
+    t.integer  "page_id"
+    t.string   "page_type"
   end
 
   create_table "pages", :id => false, :force => true do |t|
@@ -957,6 +1056,16 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.datetime "updated_at"
   end
 
+  create_table "regional_writers", :id => false, :force => true do |t|
+    t.integer  "id",                    :null => false
+    t.string   "regional_writer_type"
+    t.integer  "regional_writer_id"
+    t.integer  "user_id"
+    t.integer  "james_beard_region_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "responsibilities", :id => false, :force => true do |t|
     t.integer  "id",                :null => false
     t.integer  "employment_id"
@@ -1084,7 +1193,7 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
   add_index "restaurant_features", ["restaurant_feature_category_id"], :name => "restaurant_feature_category_id_index"
 
   create_table "restaurant_newsletters", :id => false, :force => true do |t|
-    t.integer  "id",                     :null => false
+    t.integer  "id",                                        :null => false
     t.integer  "restaurant_id"
     t.text     "menu_item_ids"
     t.text     "restaurant_answer_ids"
@@ -1093,6 +1202,10 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.text     "a_la_minute_answer_ids"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "campaign_id"
+    t.text     "introduction"
+    t.boolean  "is_sent",                :default => false
+    t.string   "subject"
   end
 
   create_table "restaurant_questions", :id => false, :force => true do |t|
@@ -1149,10 +1262,14 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.string   "atoken"
     t.string   "asecret"
     t.boolean  "is_activated",               :default => true
+    t.boolean  "newsletter_approved",        :default => false
     t.string   "newsletter_frequency",       :default => "biweekly"
     t.datetime "last_newsletter_at"
     t.datetime "next_newsletter_at"
-    t.boolean  "newsletter_approved",        :default => false
+    t.string   "tag_line"
+    t.string   "newsletter_frequency_day",   :default => "Thursday"
+    t.string   "api_token"
+    t.boolean  "is_testable",                :default => false
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -1176,6 +1293,15 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.string   "name"
     t.integer  "occupancy"
     t.integer  "restaurant_fact_sheet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "shares", :id => false, :force => true do |t|
+    t.integer  "id",               :null => false
+    t.integer  "user_id"
+    t.integer  "sharable_id"
+    t.string   "integerable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1332,7 +1458,7 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
   end
 
   create_table "subscriptions", :id => false, :force => true do |t|
-    t.integer  "id",              :null => false
+    t.integer  "id",                                 :null => false
     t.string   "braintree_id"
     t.date     "start_date"
     t.integer  "subscriber_id"
@@ -1344,6 +1470,7 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.datetime "updated_at"
     t.date     "end_date"
     t.string   "status"
+    t.boolean  "is_testable",     :default => false
   end
 
   create_table "tasting_menus", :id => false, :force => true do |t|
@@ -1380,6 +1507,16 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.string   "type"
   end
 
+  create_table "trace_keywords", :id => false, :force => true do |t|
+    t.integer  "id",               :null => false
+    t.integer  "keywordable_id"
+    t.string   "keywordable_type"
+    t.integer  "user_id"
+    t.integer  "count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "trend_questions", :id => false, :force => true do |t|
     t.integer  "id",                   :null => false
     t.string   "subject"
@@ -1403,20 +1540,40 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.datetime "updated_at"
   end
 
+  create_table "user_restaurant_visitors", :id => false, :force => true do |t|
+    t.integer  "id",                           :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id",       :default => 0
+    t.integer  "restaurant_id", :default => 0
+    t.integer  "visitor_count", :default => 0
+  end
+
   create_table "user_types", :id => false, :force => true do |t|
     t.integer   "id",                        :null => false
     t.string    "name",        :limit => 45
     t.timestamp "create_date",               :null => false
   end
 
+  create_table "user_visitor_email_settings", :id => false, :force => true do |t|
+    t.integer  "id",                                      :null => false
+    t.string   "email_frequency"
+    t.datetime "next_email_at"
+    t.datetime "last_email_at"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "do_not_receive_email", :default => false
+  end
+
   create_table "users", :id => false, :force => true do |t|
-    t.integer  "id",                                          :null => false
+    t.integer  "id",                                           :null => false
     t.string   "username"
     t.string   "email"
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "perishable_token"
-    t.string   "persistence_token",                           :null => false
+    t.string   "persistence_token",                            :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
@@ -1442,10 +1599,32 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.string   "notification_email"
     t.boolean  "publish_profile",           :default => true
     t.datetime "facebook_token_expiration"
+    t.integer  "newsfeed_writer_id"
+    t.integer  "digest_writer_id"
+    t.boolean  "media_inquiries",           :default => true
+    t.boolean  "media_notification"
+    t.boolean  "whats_new"
+    t.boolean  "whats_new_notification"
+    t.boolean  "qotd"
+    t.integer  "claim_count",               :default => 0
+    t.boolean  "is_imported",               :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["id"], :name => "index_users_on_id", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username"
+
+  create_table "visitor_email_settings", :id => false, :force => true do |t|
+    t.integer  "id",                                                     :null => false
+    t.integer  "restaurant_id"
+    t.boolean  "is_approved",         :default => false
+    t.string   "email_frequency",     :default => "Daily"
+    t.string   "email_frequency_day"
+    t.datetime "next_email_at",       :default => '2013-05-02 15:57:25'
+    t.datetime "last_email_at",       :default => '2013-05-01 00:00:00'
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
 
 end

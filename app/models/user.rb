@@ -731,5 +731,19 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.build_media_user(params)
+    new_user = User.new(:first_name => params[:first_name],
+                        :last_name => params[:last_name],
+                        :email => params[:email],
+                        :username =>params[:username],
+                        :publication => params[:publication],
+                        :password => params[:password],
+                        :password_confirmation => params[:password],
+                        :is_imported =>true,
+                        :confirmed_at => Time.now,
+                        :role => "media")
+    return new_user
+  end
+
 end
 
