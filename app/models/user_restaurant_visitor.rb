@@ -21,7 +21,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
   end
 
   def get_full_day_name(shortName,rest)
-    if shortName=="Weekly"
+    if shortName=="Weekly"      
       rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
       return "Monday"
     elsif shortName=="M"
@@ -38,13 +38,13 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
   def check_email_frequency(rest)
     days=rest.email_frequency.split("/")
-    days.each do |day|
-      if day=="Daily"
+    days.each do |day_name|
+      if day_name=="Daily"
         rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         return true
       end
-      day=get_full_day_name(day,rest)
-      if day==getdayname        
+      day_name=get_full_day_name(day_name,rest)
+      if day_name==getdayname        
         return true
       end
     end
@@ -52,7 +52,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
   end
 
   def getdayname
-    day=Date::DAYNAMES[Date.new.day] # get the current day name
+    return Date::DAYNAMES[Time.now.wday] # get the current day name
   end
 
   def create_user_visited_email_setting(user)
@@ -97,7 +97,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "current_user" => user
             }
             UserMailer.deliver_send_chef_user(restaurant_visitors)  if keywords.present? && check_email_frequency(@uves)
-          end
+           end
         else
           userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
