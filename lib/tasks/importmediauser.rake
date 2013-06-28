@@ -17,7 +17,7 @@ namespace :importmediauser do
     
     file.puts "<html><body><H1>Some of the users not saved. Below is the list : </H1><br>"  
    
-      sheet1.each 1900 do |row|
+      sheet1.each do |row|
         params = {:frist_name => (row[1].blank? ? "firstname" : row[1]),
                   :last_name => (row[2].blank? ? "lastname" : row[2]),
                   :email => row[3],
