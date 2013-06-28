@@ -456,7 +456,9 @@ updateRestaurantSignupFields = function() {
 $("#user_editor").autocomplete({
 	source: "/users.js",
 });
-
+$("#otm_keyword_search").autocomplete({
+  source: "/otm_keywords.js",
+});
 // Social updates filtering
 var $restoSocialList   = $("#updates");
 var $restoSocialInputs = $("#restaurant_filters #restaurant_criteria input[type=checkbox]");
