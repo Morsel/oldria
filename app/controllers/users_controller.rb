@@ -40,12 +40,10 @@ class UsersController < ApplicationController
           redirect_to edit_user_profile_path(:user_id => @user.id) and return
         end
       end
-      # if params[:user][:user_visitor_email_setting_attributes].present?
-      #   params[:user][:user_visitor_email_setting_attributes][:email_frequency]="M" if params[:user][:user_visitor_email_setting_attributes][:email_frequency]=="Weekly"
-      # end
 
       if @user.update_attributes(params[:user])
-
+        #TODU update the uservisitoremail setting next_email_at date
+        UserRestaurantVisitor.new.check_email_frequency(@user.user_visitor_email_setting) if params[:user][:user_visitor_email_setting_attributes].present?
         # update default employment
         if @employment_params
           if @user.default_employment.present?
