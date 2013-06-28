@@ -307,6 +307,7 @@ ActionController::Routing::Routes.draw do |map|
   map.a_la_minute 'a_la_minute', :controller => "spoonfeed/a_la_minute", :action => "index"
   map.a_la_minute_answers 'a_la_minute/:question_id/answers', :controller => "spoonfeed/a_la_minute", :action => "answers"
   map.menu_items 'on_the_menu', :controller => "spoonfeed/menu_items", :action => "index"
+  map.menu_items 'menu_items', :controller => "spoonfeed/menu_items", :action => "index"
   map.menu_item 'on_the_menu/:id', :controller => "spoonfeed/menu_items", :action => "show"
   map.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line", :controller => 'spoonfeed/profile_questions'
   map.social 'social', :controller => "spoonfeed/social_updates", :action => "index"
@@ -422,5 +423,6 @@ ActionController::Routing::Routes.draw do |map|
   # for restaurant employee no condition
   map.no_choice '/restaurants/:restaurant_id/employees/options', :controller => "employees", :action => "options"
   map.new_employee 'restaurants/:restaurant_id/employees/new_employee', :controller => "employees", :action => "new_employee"  
+  map.resources :otm_keywords, :only => ["index"]
 end
 
