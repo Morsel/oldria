@@ -1,9 +1,16 @@
 <% title "On the Menu" %>
 <% @is_subscribe = true %>
+<div class="color-box-restaurant">
+    <% form_tag menu_items_path  do %>
+        <label for="otm_keyword_editor">Search</label>
+        <%= text_field_tag "otm_keyword_search", "", :name => "keyword" %>
+        <p class="inline-hints">Enter the name of the Otm Keyword to search</p>
+        <p><%= button_tag "Search", :class => 'positive' %></p>
+    <% end %>
+</div>
 <% if params[:keyword].present? -%>
   <h2 id="otm-tagline">Keyword: <%= params[:keyword] %></h2>
 <% end %>
-
 <% for menu_item in @menu_items -%>
 <% div_for menu_item do %>
     <h2><%= link_to menu_item.name, menu_item_path(menu_item) %></h2>
