@@ -7,6 +7,7 @@
   <tr class="unconfirmed"><td>Unconfirmed</td></tr>
   <tr><td>Non-admin, Confirmed</td></tr>
   <tr class="media"><td>Media</td></tr>
+  <tr class="media-imported"><td>Media Imported</td></tr>
 </table>
 
 <p class="clearfix"><%= link_to 'Sign Up a New User', new_admin_user_path, :class => 'button positive' %></p>
@@ -34,7 +35,7 @@
     </thead>
     <tbody>
       <% @users.each do |user| %>
-        <tr id="<%= dom_id(user) %>" class="user <%= user.role %> <%= users_extra_row_class(user) %>">
+        <tr id="<%= dom_id(user) %>" class="user <%= user.is_imported ? 'media-imported' : user.role %> <%= users_extra_row_class(user) %>">
             <td><%= h user.last_name %>, <%=h user.first_name %></td>
             <td class="user_account_type"><%= h user.account_type %></td>
             <td><%= link_to user.username, profile_path(user.username) %></td>

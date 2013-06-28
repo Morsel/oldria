@@ -3723,6 +3723,10 @@ tr.unconfirmed td {
   background-color: #ff9;
 }
 
+tr.media-imported td {
+  background-color: #C1C1A8;
+}
+
 .box.none {
   border: 0 none;
   background-color: #edfbff;
