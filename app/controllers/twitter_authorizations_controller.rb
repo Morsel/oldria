@@ -19,7 +19,6 @@ class TwitterAuthorizationsController < ApplicationController
 
   def show
     begin
-      
       access_token = session[:request_token].get_access_token(:oauth_verifier=>params[:oauth_verifier])
       if @twitterer.update_attributes(:atoken => access_token.token, :asecret => access_token.secret)
         clear_request_tokens
