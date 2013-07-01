@@ -55,6 +55,10 @@ namespace :importmediauser do
      puts "--------------Done."    
   end
 
+  desc "Remove, imported users with media role"
+  task :delete_imported_users => :environment do 
+    User.find_all_by_is_imported(true).map(&:destroy)
+  end  
 
 end
 
