@@ -194,7 +194,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
   end
   #TODU this method create log file of connect media and visitor email with  
   def write_the_file
-    filename = "public/import/visitor_email_#{Time.now.strftime("%d_%m_%Y")}.html"
+    filename = "public/email_logs/visitor_email_#{Time.now.strftime("%d_%m_%Y")}.html"
     if File.exist?(filename)
      @file = File.open(filename, 'w')
     else
