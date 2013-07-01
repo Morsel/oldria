@@ -65,118 +65,168 @@ class UserRestaurantVisitor < ActiveRecord::Base
   end
 
   def send_notification_to_chef_user
-     User.all.each do |user|
-      @uves=user.user_visitor_email_setting
-        if @uves.blank?
-          @uves=create_user_visited_email_setting(user)
-        end
-      if Time.now > @uves.next_email_at && !@uves.do_not_receive_email
-        #keyword trace if user chef is not associate to resturants or not
-        @al_users= Array.new
-        keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , 1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s]).group_by(&:keywordable_type)
-        @specialties = @cuisines = @chapters = @otmkeywords = @restaurantfeatures = nil
-        keywords.keys.each do |key|
-          if (key == "ALaMinuteAnswer")||(key == "ALaMinuteQuestion")
-             @al_users.push(keywords[key].map(&:user_id))
-          else
-            instance_variable_set("@#{key.to_s.downcase.pluralize}", keywords[key].map(&:keywordable))
+    @connect_media = 0
+    @visitor_mail = 0
+    @visitor_mail_str = @connect_media_str = ""    
+    begin  
+      User.all.each do |user|
+        @uves=user.user_visitor_email_setting
+          if @uves.blank?
+            @uves=create_user_visited_email_setting(user)
           end
-        end
-        @a_la_minute_visitors = User.find(@al_users.flatten.compact.uniq)
-        if user.restaurants.blank? 
-          # check the chef is associated restaurants or not
-          if user.has_chef_role?
-            restaurant_visitors = {
-              "specialty_names" => @specialties,
-              "cuisine_names" => @cuisines,
-              "chapter_names" => @chapters,
-              "otm_keywords" => @otmkeywords,
-              "restaurant_features" => @restaurantfeatures,
-              "a_la_minute_visitors" => @a_la_minute_visitors,
-              "current_user" => user
-            }
-            UserMailer.deliver_send_chef_user(restaurant_visitors)  if keywords.present? && check_email_frequency(@uves)
-           end
-        else
-          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
-          userrestaurantvisitor.each do |visitor|
-            @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
-            
-            if !visitor.restaurant.nil?
-              visitors = visitor.restaurant.newsletter_subscribers
-            
-              media_visitors = visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.created_at > ? OR user_restaurant_visitors.updated_at > ?",1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s])
-
-              counter = 0
-
-              menu = visitor.restaurant.menus.find(:first,:order =>"updated_at desc")
-
-              if menu.blank? || (!menu.blank? && menu.updated_at < 30.day.ago)
-                @menu_message = "Your restaurant's menus have not been updated for more than a month, please update your <a href='#{restaurant_menus_url(visitor.restaurant)}'>current menus</a>."
-                counter+=1
-              end
-
-              if !visitor.restaurant.fact_sheet.blank? && visitor.restaurant.fact_sheet.created_at < 45.day.ago
-                @fact_message = "Your restaurant's fact sheet is not up-to-date, please review this section of your <a href='#{edit_restaurant_fact_sheet_url(visitor.restaurant)}'>profile</a> so media have accurate information."
-                counter+=1
-              end
-
-              @menu_item = visitor.restaurant.menu_items.find(:first,:order =>"updated_at desc")
-              unless @menu_item.blank?
-                if @menu_item.created_at < 7.day.ago
-                  @menu_item_message = "Looks like you haven't uploaded a new dish or drink to On The Menu in quite some time. Let's keep media interested in you, <a href='#{new_restaurant_menu_url(visitor.restaurant)}'>add your newest dish or drink today!</a>"
-                  counter+=1
-                end
-              else
-                counter+=1
-                @menu_item_message = "You've never used On The Menu, a powerful tool for connecting with media. You can ,<a href='#{restaurant_menus_url(visitor.restaurant)}'>check it out here</a>"
-              end
-
-              @a_la_minute_answer = visitor.restaurant.a_la_minute_answers.find(:first,:conditions=>["created_at > ?",4.days.ago ],:order =>"created_at desc")
-              
-              if counter < 3 && @a_la_minute_answer.blank?
-                  @a_la_minute_message = "A la Minute helps you share your daily news directly with media. Keep them interested and up-to-date on what you are doing by filling out one or two items to <a href='#{bulk_edit_restaurant_a_la_minute_answers_url(visitor.restaurant)}'>A la Minute</a> each day!"
-                  counter+=1
-              else
-               if counter < 3 && @a_la_minute_answer.created_at > Time.now.beginning_of_day
-                 @a_la_minute_message = "Keep the media engaged and thinking about you, share your daily news on ,<a href='#{bulk_edit_restaurant_a_la_minute_answers_url(visitor.restaurant)}'>A la Minute</a> today!"
-                 counter+=1
-               end
-              end
-
-              @newsfeeds = visitor.restaurant.promotions.find(:first,:conditions=>["created_at > ?",28.days.ago ],:order =>"created_at desc")
-              if counter < 3 && @newsfeeds.blank?
-                @newsfeed_message ="Newsfeed posts are emailed directly to media as press releases from your restaurant and can feature everything from new menu items to events to promos. Don't forget to get news to the ,<a href='#{new_restaurant_promotion_url(visitor.restaurant)}'>media</a> so they can report it."
-              end
-              
-              employee_visitors = user.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 1.day.ago]).map(&:user)
+        if Time.now > @uves.next_email_at && !@uves.do_not_receive_email
+          #keyword trace if user chef is not associate to resturants or not
+          @al_users= Array.new
+          keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , 1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s]).group_by(&:keywordable_type)
+          @specialties = @cuisines = @chapters = @otmkeywords = @restaurantfeatures = nil
+          keywords.keys.each do |key|
+            if (key == "ALaMinuteAnswer")||(key == "ALaMinuteQuestion")
+               @al_users.push(keywords[key].map(&:user_id))
+            else
+              instance_variable_set("@#{key.to_s.downcase.pluralize}", keywords[key].map(&:keywordable))
+            end
+          end
+          @a_la_minute_visitors = User.find(@al_users.flatten.compact.uniq)
+          if user.restaurants.blank? 
+            # check the chef is associated restaurants or not
+            if user.has_chef_role?
               restaurant_visitors = {
-                "visitor_obj" =>visitor,
-                "userrestaurantvisitor" => visitors,
-                "media_visitors" => media_visitors,
-                "fact_message" =>@fact_message,
-                "menu_message" => @menu_message,
-                "menu_item_message" => @menu_item_message,
-                "a_la_minute_message" =>@a_la_minute_message,
-                "newsfeed_message" => @newsfeed_message,
-                "employee" => user,
                 "specialty_names" => @specialties,
                 "cuisine_names" => @cuisines,
                 "chapter_names" => @chapters,
                 "otm_keywords" => @otmkeywords,
                 "restaurant_features" => @restaurantfeatures,
-                "employee_visitors" => employee_visitors,
-                "alaminutequestions" => @alaminutequestions,
                 "a_la_minute_visitors" => @a_la_minute_visitors,
-                "restaurant" => visitor.restaurant,
-                "current_user" => visitor.user,
-                "users" => @users
-              }              
-              UserMailer.deliver_send_mail_visitor(restaurant_visitors) if check_email_frequency(@uves)  
+                "current_user" => user
+              }
+              @connect_media+=1
+              create_log_file_for_connect_media(user)
+              UserMailer.deliver_send_chef_user(restaurant_visitors)  if keywords.present? && check_email_frequency(@uves)
+             end
+          else
+            userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
+            userrestaurantvisitor.each do |visitor|
+              @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
+              
+              if !visitor.restaurant.nil?
+                visitors = visitor.restaurant.newsletter_subscribers
+              
+                media_visitors = visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.created_at > ? OR user_restaurant_visitors.updated_at > ?",1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s])
+
+                counter = 0
+
+                menu = visitor.restaurant.menus.find(:first,:order =>"updated_at desc")
+
+                if menu.blank? || (!menu.blank? && menu.updated_at < 30.day.ago)
+                  @menu_message = "Your restaurant's menus have not been updated for more than a month, please update your <a href='#{restaurant_menus_url(visitor.restaurant)}'>current menus</a>."
+                  counter+=1
+                end
+
+                if !visitor.restaurant.fact_sheet.blank? && visitor.restaurant.fact_sheet.created_at < 45.day.ago
+                  @fact_message = "Your restaurant's fact sheet is not up-to-date, please review this section of your <a href='#{edit_restaurant_fact_sheet_url(visitor.restaurant)}'>profile</a> so media have accurate information."
+                  counter+=1
+                end
+
+                @menu_item = visitor.restaurant.menu_items.find(:first,:order =>"updated_at desc")
+                unless @menu_item.blank?
+                  if @menu_item.created_at < 7.day.ago
+                    @menu_item_message = "Looks like you haven't uploaded a new dish or drink to On The Menu in quite some time. Let's keep media interested in you, <a href='#{new_restaurant_menu_url(visitor.restaurant)}'>add your newest dish or drink today!</a>"
+                    counter+=1
+                  end
+                else
+                  counter+=1
+                  @menu_item_message = "You've never used On The Menu, a powerful tool for connecting with media. You can ,<a href='#{restaurant_menus_url(visitor.restaurant)}'>check it out here</a>"
+                end
+
+                @a_la_minute_answer = visitor.restaurant.a_la_minute_answers.find(:first,:conditions=>["created_at > ?",4.days.ago ],:order =>"created_at desc")
+                
+                if counter < 3 && @a_la_minute_answer.blank?
+                    @a_la_minute_message = "A la Minute helps you share your daily news directly with media. Keep them interested and up-to-date on what you are doing by filling out one or two items to <a href='#{bulk_edit_restaurant_a_la_minute_answers_url(visitor.restaurant)}'>A la Minute</a> each day!"
+                    counter+=1
+                else
+                 if counter < 3 && @a_la_minute_answer.created_at > Time.now.beginning_of_day
+                   @a_la_minute_message = "Keep the media engaged and thinking about you, share your daily news on ,<a href='#{bulk_edit_restaurant_a_la_minute_answers_url(visitor.restaurant)}'>A la Minute</a> today!"
+                   counter+=1
+                 end
+                end
+
+                @newsfeeds = visitor.restaurant.promotions.find(:first,:conditions=>["created_at > ?",28.days.ago ],:order =>"created_at desc")
+                if counter < 3 && @newsfeeds.blank?
+                  @newsfeed_message ="Newsfeed posts are emailed directly to media as press releases from your restaurant and can feature everything from new menu items to events to promos. Don't forget to get news to the ,<a href='#{new_restaurant_promotion_url(visitor.restaurant)}'>media</a> so they can report it."
+                end
+                
+                employee_visitors = user.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 1.day.ago]).map(&:user)
+                restaurant_visitors = {
+                  "visitor_obj" =>visitor,
+                  "userrestaurantvisitor" => visitors,
+                  "media_visitors" => media_visitors,
+                  "fact_message" =>@fact_message,
+                  "menu_message" => @menu_message,
+                  "menu_item_message" => @menu_item_message,
+                  "a_la_minute_message" =>@a_la_minute_message,
+                  "newsfeed_message" => @newsfeed_message,
+                  "employee" => user,
+                  "specialty_names" => @specialties,
+                  "cuisine_names" => @cuisines,
+                  "chapter_names" => @chapters,
+                  "otm_keywords" => @otmkeywords,
+                  "restaurant_features" => @restaurantfeatures,
+                  "employee_visitors" => employee_visitors,
+                  "alaminutequestions" => @alaminutequestions,
+                  "a_la_minute_visitors" => @a_la_minute_visitors,
+                  "restaurant" => visitor.restaurant,
+                  "current_user" => visitor.user,
+                  "users" => @users
+                }
+                @visitor_mail+=1
+                create_log_file_for_visitor_user(user,visitor.restaurant)            
+                UserMailer.deliver_send_mail_visitor(restaurant_visitors) if check_email_frequency(@uves)  
+              end
             end
           end
-        end
-      end
+        end      
+      end    
+      write_the_file
+    rescue Exception => e
+      add_exception_to_file(e)
+      write_the_file
+    end    
+  end
+  #TODU this method create log file of connect media and visitor email with  
+  def write_the_file
+    filename = "public/import/visitor_email_#{Time.now.strftime("%d_%m_%Y")}.html"
+    if File.exist?(filename)
+     @file = File.open(filename, 'w')
+    else
+     @file = File.new(filename, 'w')       
     end
+    @file.puts "<html><body><H1>Below is the list of all user whoes gone mail today : </H1><br>"
+    @file.puts "<ul>"
+    @file.puts "<strong>Connect Media</strong><br/>" unless @connect_media.blank?
+    @file.puts @connect_media_str
+    @file.puts "<hr/><br/><strong>Visitor Email</strong><br/>" unless @visitor_mail_str.blank?
+    @file.puts @visitor_mail_str
+    @file.puts "</ul>"
+    total_mail = @connect_media+@visitor_mail
+    @file.puts "<h2>Detail of number of mail are</h2>"
+    @file.puts "<ul>"
+      @file.puts "<li>Connect media = #{@connect_media}</li>"
+      @file.puts "<li>Visitor email = #{@visitor_mail}</li>"
+      @file.puts "<li>Total Overall Mail = #{total_mail}</li>"
+    @file.puts "</ul>"
+    @file.close()
+  end 
+  def create_log_file_for_connect_media(user)
+    @connect_media_str = @connect_media_str+"<li>User Id         : #{user.id}</li>"
+    @connect_media_str = @connect_media_str+"<li>User Name       : #{user.name}</li>"   
+  end
+  def create_log_file_for_visitor_user(user,restaurant)
+    @visitor_mail_str = @visitor_mail_str+"<li>Restaurant Id   : #{restaurant.id}</li>"
+    @visitor_mail_str = @visitor_mail_str+"<li>User Id         : #{user.id}</li>"
+    @visitor_mail_str = @visitor_mail_str+"<li>User Name       : #{user.name}</li>"
+  end  
+  def add_exception_to_file(e)
+    @file.puts "<h2><strong>The following exception were found during send the email</strong></h2>"
+    @file.puts "<font color='red'> #{e.message} </font>"
   end
 end
