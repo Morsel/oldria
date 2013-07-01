@@ -75,6 +75,7 @@ namespace :deploy do
   task :symlink_shared do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     #run "ln -nfs #{shared_path}/db/production.sqlite3 #{release_path}/db/production.sqlite3"
+    run "ln -nfs #{shared_path}/email_logs/ #{release_path}/public/email_logs"
   end
 
   desc "Update the crontab file"
