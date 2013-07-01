@@ -2,9 +2,9 @@
 <% @is_subscribe = true %>
 <div class="color-box-restaurant">
     <% form_tag menu_items_path  do %>
-        <label for="otm_keyword_editor">Search</label>
+        <label for="otm_keyword_editor">Keyword Search</label>
         <%= text_field_tag "otm_keyword_search", "", :name => "keyword" %>
-        <p class="inline-hints">Enter the name of the Otm Keyword to search</p>
+        <p class="inline-hints">Enter the name of the On The Menu Keyword to search</p>
         <p><%= button_tag "Search", :class => 'positive' %></p>
     <% end %>
 </div>
