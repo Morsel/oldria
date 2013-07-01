@@ -1,17 +1,17 @@
 class MenuItemsController < ApplicationController
 
   before_filter :require_user
-
-  before_filter :require_manager, :except => [:index,:get_keywords,:add_keywords,:details]
-
+  before_filter :require_manager, :except => [:index,:get_keywords,:add_keywords,:details,:show]
   before_filter :social_redirect, :only => [:edit]
-
+  before_filter :verify_restaurant_activation, :only => [:show]
+  
+  include MenuItemsHelper
 
 
   def index
     find_restaurant
     @menu_items = @restaurant.menu_items.all(:order => "created_at DESC").paginate(:page => params[:page], :per_page => 10)
-    render :template => "soapbox/menu_items/index" if cannot?(:edit, @restaurant)
+    render :template => "menu_items/media_user/index" if cannot?(:edit, @restaurant)
   end
 
   def new
@@ -88,6 +88,23 @@ class MenuItemsController < ApplicationController
     if current_user.media?
       UserRestaurantVisitor.profile_visitor(current_user,@restaurant.id)
     end 
+  end
+
+  def show
+    
+    @more_menu_items = MenuItem.all(:conditions => ["restaurant_id = ? AND id != ?", @menu_item.restaurant_id, @menu_item.id],
+                                    :order => "created_at DESC",
+                                    :limit => 5)
+    @promotions = @menu_item.restaurant.promotions.all(:limit=>3,:order=>"created_at DESC",:conditions=>["DATE(promotions.start_date) >= DATE(?)", Time.now])
+    @answers =  @menu_item.restaurant.a_la_minute_answers.all(:limit=>3,:order => "a_la_minute_answers.created_at DESC",:conditions=>["DATE(a_la_minute_answers.created_at) = DATE(?)", Time.now])
+  end
+
+  def verify_restaurant_activation        
+      @menu_item = MenuItem.find(params[:id])       
+      unless @menu_item.restaurant.is_activated?        
+        flash[:error] = "This on the Menu page is unavailable."
+        redirect_to :soapbox_menu_items   
+      end
   end
 
   private
