@@ -268,7 +268,6 @@ class UserMailer < ActionMailer::Base
     body        :user => user,:restaurant=> restaurant
   end  
 
-
   def send_otm_keyword_notification(user,keyword)
     from        'notifications@restaurantintelligenceagency.com'
     recipients  'ellen@restaurantintelligenceagency.com' 
