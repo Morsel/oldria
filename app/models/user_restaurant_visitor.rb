@@ -22,16 +22,12 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
   def get_full_day_name(shortName,rest)
     if shortName=="Weekly"      
-      rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
-      return "Monday"
+     return "Monday"
     elsif shortName=="M"
-      rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
       return "Monday"
     elsif shortName=="W"
-      rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
       return "Wednesday"
     elsif shortName=="F"
-      rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
       return "Friday"
     end
   end
@@ -43,8 +39,19 @@ class UserRestaurantVisitor < ActiveRecord::Base
         rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         return true
       end
-      day_name=get_full_day_name(day_name,rest)
-      if day_name==getdayname        
+      day_names=get_full_day_name(day_name,rest)
+      if day_names==getdayname
+        # begin update
+        if day_name=="Weekly"      
+          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        elsif day_name=="M"
+          rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        elsif day_name=="W"
+          rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        elsif day_name=="F"
+          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        end
+        # end update 
         return true
       end
     end
