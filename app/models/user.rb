@@ -694,8 +694,22 @@ class User < ActiveRecord::Base
                               { :name => "SubscriberType",:groups => "Newsfeed"},
                               {:name=>"Promotions",:groups=>promotion_types.map(&:name).join(",")}]           
           },:replace_interests => true,:update_existing=>true)
-      end  
-      unless digest_writer.blank?
+      end 
+
+      if digest_writer.blank?        
+        
+        mc.client.list_subscribe(:id => mc.media_promotion_list_id,
+          :email_address => "neelesh.v@cisinlabs.com",
+          :merge_vars => {:FNAME=>first_name,
+                          :LNAME=>last_name,
+                          :D_METROS=>'',
+                          :D_W_TYPE=>'',
+                          :groupings => [
+                              { :name => "SubscriberType",:groups => "Newsfeed"}]
+          },:replace_interests => true,:update_existing=>true)
+
+      else
+            
         digest_region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", digest_writer.find_regional_writers(self).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq #If user has selected regions, getting metros of regions
         
         mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
