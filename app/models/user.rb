@@ -679,7 +679,22 @@ class User < ActiveRecord::Base
                               { :name => "SubscriberType",:groups => "Newsfeed"},
                               {:name=>"Promotions",:groups=>promotion_types.map(&:name).join(",")}]           
           },:replace_interests => true,:update_existing=>true)
+      end 
+
+      if digest_writer.blank?        
+        
+        mc.client.list_subscribe(:id => mc.media_promotion_list_id,
+          :email_address => "neelesh.v@cisinlabs.com",
+          :merge_vars => {:FNAME=>first_name,
+                          :LNAME=>last_name,
+                          :D_METROS=>'',
+                          :D_W_TYPE=>'',
+                          :groupings => [
+                              { :name => "SubscriberType",:groups => "Newsfeed"}]
+          },:replace_interests => true,:update_existing=>true)
+
       end  
+
     end  
   end  
 
