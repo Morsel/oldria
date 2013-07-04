@@ -43,6 +43,7 @@ CLOUDMAIL_DOMAIN = 'staging-mailbot.restaurantintelligenceagency.com'
 CLOUDMAIL_SECRET = '72fa425b1e5c89239639'.freeze
 
 
-ENV['MC_API_KEY'] = '55b09bb8257774874d2c9427532ba067-us6'
+#ENV['MC_API_KEY'] = '55b09bb8257774874d2c9427532ba067-us6'
+ENV['MC_API_KEY'] = 'e741c48b31e7dc460d7b7fa522741d6a-us5'
 DOMAIN_NAME = "restaurantintelligenceagency.com"
 
