@@ -235,4 +235,14 @@ class UserRestaurantVisitor < ActiveRecord::Base
     @file.puts "<h2><strong>The following exception were found during send the email</strong></h2>"
     @file.puts "<font color='red'> #{e.message} </font>"
   end
+
+  #TODU test the write_file method
+  def test_the_write_the_file
+    @connect_media = "Test The Connect Media"
+    @visitor_mail_str = "Visitor Email Testing"
+    @connect_media = 1
+    @visitor_mail = 1
+    write_the_file
+  end
+
 end
