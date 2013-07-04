@@ -14,7 +14,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
 
 
   def send_newsletter_to_media_subscribers subscriber
-    if subscriber.media_newsletter_setting.blank? || (subscriber.media_newsletter_setting.opt_out )
+    if !subscriber.media_newsletter_setting.blank? && (subscriber.media_newsletter_setting.opt_out )
       mc = MailchimpConnector.new("Media Digest List")
       campaign_id = \
       mc.client.campaign_create(:type => "regular",
@@ -30,7 +30,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
                                                                       :value => "eric@restaurantintelligenceagency.com"},
                                                                       { :field => "email",
                                                                       :op => "eq",
-                                                                      :value => "nishant.v@cisinlabs.com"}]},
+                                                                      :value => "nishant.n@cisinlabs.com"}]},
                                 :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
       # send campaign
       mc.client.campaign_send_now(:cid => campaign_id)
