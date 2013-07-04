@@ -61,7 +61,7 @@ class Mediafeed::MediafeedController < ApplicationController
   end 
   
   def media_subscription
-    @subscriptions = current_user.media_newsletter_subscriptions
+    @subscriptions = current_user.media_newsletter_subscriptions.map{|e| e unless e.restaurant.blank?}.compact
     @digest_subsriptions = current_user.get_digest_subscription
     @user = current_user
     @user.media_newsletter_setting || @user.build_media_newsletter_setting
