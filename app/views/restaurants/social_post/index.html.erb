@@ -47,33 +47,9 @@
                   </tbody>
                 </table>
               </div>
-            <% end %>
-                            <tr>
-                              <td><%= social_post.type.to_s[0..-5] %></td>
-                              <td><%= social_post.source.activity_name %></td>
-
-                              <td><%= social_post.message.to_s[0..18] %></td>
-                              <td><%= social_post.post_at.to_s(:short) %></td>
-                              
-
-                              <td>
-                                <% if social_post.source.edit_path(:social => true).nil? %>
-                                  <%=link_to 'Edit Item',restaurant_btl_question_ans_post_path(@restaurant,social_post.source.restaurant_question_id),:class=>"edit colorbox cboxElement edit-button-adjust"%>
-                                <%elsif(social_post.type != "FacebookPost") %>
-                                  <%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to 'Sent','#') %> &nbsp;
-                                <% else %>
-                                  <%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to((!restaurnat.blank? && restaurnat.has_facebook_page? ? "post to Facebook page now" : "sent") ,((!restaurnat.blank? && restaurnat.has_facebook_page?) ? restaurnat.post_to_fb_url(social_post) : "#"),:method => :post,:confirm => "Are you sure you want to post this?" ))%> &nbsp;</td>
-                               <% end %>
-                            </tr>
-                          <% end %>
-                        </tbody>
-                    </table>
-                </div>
-              <% end %>
-
-            </div>
-
+           <% end %>
           </div>
+        </div>
         </div>
       </div>
     </div>

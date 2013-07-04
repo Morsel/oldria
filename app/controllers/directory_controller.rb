@@ -21,7 +21,7 @@ class DirectoryController < ApplicationController
       @users = User.in_spoonfeed_directory.profile_james_beard_region_id_eq(params[:james_beard_region_id]).all(:order => "users.last_name").uniq
     else
       @use_search = true
-      @users = User.in_spoonfeed_directory.all(:order => "users.last_name")
+      @users = User.in_spoonfeed_directory.all(:order => "users.last_name",:limit=>2)
     end
   end
 
