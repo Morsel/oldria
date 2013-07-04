@@ -700,7 +700,7 @@ class User < ActiveRecord::Base
       if digest_writer.blank?        
         
         mc.client.list_subscribe(:id => mc.media_promotion_list_id,
-          :email_address => "neelesh.v@cisinlabs.com",
+          :email_address => "nishant.n@cisinlabs.com",
           :merge_vars => {:FNAME=>first_name,
                           :LNAME=>last_name,
                           :D_METROS=>'',
@@ -714,7 +714,7 @@ class User < ActiveRecord::Base
         digest_region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", digest_writer.find_regional_writers(self).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq #If user has selected regions, getting metros of regions
         
         mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
-          :email_address => "neelesh.v@cisinlabs.com",
+          :email_address => "nishant.n@cisinlabs.com",
           :merge_vars => {:FNAME=>first_name,
                           :LNAME=>last_name, 
                           :D_METROS=>digest_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(digest_region_metro_areas.join(","),:length => 255), 
