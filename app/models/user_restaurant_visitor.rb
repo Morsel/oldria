@@ -199,11 +199,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
     write_the_file       
   end
   #TODU this method create log file of connect media and visitor email with  
-  def write_the_file file_name ="/srv/httpd/spoonfeed.restaurantintelligenceagency.com/shared/email_logs/visitor_email_#{Time.now.strftime("%d_%m_%Y")}.html"
-    UserMailer.deliver_log_file('----Start------')
-    filename = file_name
-     @file = File.open(filename, 'w')
-    UserMailer.deliver_log_file('----Middle------')
+  def write_the_file filename ="/srv/httpd/spoonfeed.restaurantintelligenceagency.com/shared/email_logs/visitor_email_#{Time.now.strftime("%d_%m_%Y")}.html"
+
+    @file = File.open(filename, 'w')
     @file.puts "<html><body><H1>Below is the list of all user whoes gone mail today : </H1><br>"
     @file.puts "<ul>"
     @file.puts "<strong>Connect Media</strong><br/>" unless @connect_media.blank?
@@ -217,8 +215,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
       @file.puts "<li>Connect media = #{@connect_media}</li>"
       @file.puts "<li>Visitor email = #{@visitor_mail}</li>"
       @file.puts "<li>Total Overall Mail = #{total_mail}</li>"
-    @file.puts "</ul>"
-    UserMailer.deliver_log_file('----End------')
+    @file.puts "</ul>"    
     @file.close()
   end 
   def create_log_file_for_connect_media(user)
