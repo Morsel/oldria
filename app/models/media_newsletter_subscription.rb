@@ -1,5 +1,5 @@
 class MediaNewsletterSubscription < ActiveRecord::Base
-  belongs_to :restaurant
+  belongs_to :restaurant 
   belongs_to :media_newsletter_subscriber, :class_name => "User"  ,:foreign_key => "media_newsletter_subscriber_id"
   after_create :add_subscription_to_mailchimp
   after_destroy :remove_subscription_from_mailchimp
@@ -15,7 +15,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
 
   def send_newsletter_to_media_subscribers subscriber
     if subscriber.media_newsletter_setting.blank? || (subscriber.media_newsletter_setting.opt_out )
-      mc = MailchimpConnector.new
+      mc = MailchimpConnector.new("Media Digest List")
       campaign_id = \
       mc.client.campaign_create(:type => "regular",
                                 :options => { :list_id => mc.mailing_list_id,
@@ -85,31 +85,28 @@ class MediaNewsletterSubscription < ActiveRecord::Base
 
   private
 
+  def mailchimp_update
+    #media_newsletter_subscriber.email email id will be replaced by this
+    mc = MailchimpConnector.new("Media Digest List")    
+    mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+        :email_address => "nishant.n@cisinlabs.com",
+        :merge_vars => {:FNAME=>media_newsletter_subscriber.first_name,
+                        :LNAME=>media_newsletter_subscriber.last_name,                        
+                        :MYCHOICE=>media_newsletter_subscriber.media_newsletter_subscriptions.map(&:restaurant_id).uniq.join(","),                                              
+        },:replace_interests => true,:update_existing=>true)
+    mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+        :email_address => "eric@restaurantintelligenceagency.com",
+        :merge_vars => {:FNAME=>media_newsletter_subscriber.first_name,
+                        :LNAME=>media_newsletter_subscriber.last_name,                        
+                        :MYCHOICE=>media_newsletter_subscriber.media_newsletter_subscriptions.map(&:restaurant_id).uniq.join(","),                                              
+        },:replace_interests => true,:update_existing=>true)
+  end  
   def add_subscription_to_mailchimp      
-      mc = MailchimpConnector.new
-      unless mc.client.list_interest_groupings(:id => mc.mailing_list_id).to_s.match(/#{restaurant.mailchimp_group_name_media}/)
-        mc.client.list_interest_group_add(:id => mc.mailing_list_id, :group_name => restaurant.mailchimp_group_name_media)
-      end
-      unless mc.client.listMembers({:id=>mc.mailing_list_id}).to_s.match(/#{media_newsletter_subscriber.email}/)
-        if mc.client.list_subscribe(:id => mc.mailing_list_id, :email_address => media_newsletter_subscriber.email,
-                                :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name_media}] },
-                                :replace_interests => false).to_s.match(/error/)
-          mc.client.list_update_member(:id => mc.mailing_list_id, :email_address => media_newsletter_subscriber.email,
-                                :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name_media}] },
-                                :replace_interests => false)
-
-        end
-      else
-        mc.client.list_update_member(:id => mc.mailing_list_id, :email_address => media_newsletter_subscriber.email,
-                                :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name_media}] },
-                                :replace_interests => false)
-
-      end  
-  
+    mailchimp_update
   end
 
   def remove_subscription_from_mailchimp
-    self.send_later(:remove_subscription_from_mailchimp_delay_job , media_newsletter_subscriber)
+    mailchimp_update
   end
 
 end
