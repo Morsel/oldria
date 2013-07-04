@@ -3,7 +3,6 @@ class DirectoryController < ApplicationController
   before_filter :require_user
 
   def index
-    debugger
     if params[:specialty_id]
       @specialty = Specialty.find(params[:specialty_id])
       @users = User.in_soapbox_directory.profile_specialties_id_eq(params[:specialty_id]).all(:order => "users.last_name").uniq
@@ -28,7 +27,6 @@ class DirectoryController < ApplicationController
 
   def search
     directory_search_setup
-    debugger
     render :partial => "directory/search_results", :locals => { :users => @users }
   end
   
@@ -44,8 +42,7 @@ class DirectoryController < ApplicationController
       @restaurants = Restaurant.activated_restaurant.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
     else      
       @use_search = true
-      #@restaurants = Restaurant.activated_restaurant
-      @restaurants = Restaurant.all :limit=>2 
+      @restaurants = Restaurant.activated_restaurant
     end
   end
   
