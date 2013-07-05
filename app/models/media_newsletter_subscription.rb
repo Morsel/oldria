@@ -6,7 +6,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
   include ActionController::UrlWriter
   default_url_options[:host] = DEFAULT_HOST
 
-  def self.send_newsletters_to_media
+  def send_newsletters_to_media
     UserMailer.deliver_log_file("Start")
     for mediaNewsletterSubscription in MediaNewsletterSubscription.find(:all,:group => "media_newsletter_subscriber_id")
       UserMailer.deliver_log_file("In Loop")
@@ -33,7 +33,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
                                                                       :value => "eric@restaurantintelligenceagency.com"},
                                                                       { :field => "email",
                                                                       :op => "eq",
-                                                                      :value => "nishant.v@cisinlabs.com"}]},
+                                                                      :value => "nishant.n@cisinlabs.com"}]},
                                 :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
       # send campaign
       mc.client.campaign_send_now(:cid => campaign_id)
