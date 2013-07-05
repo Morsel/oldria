@@ -834,7 +834,7 @@ class User < ActiveRecord::Base
         # send campaign
         mc.client.campaign_send_now(:cid => campaign_id)
       rescue Exception => e
-        UserMailer.deliver_log_file("Error: #{e.message}","Exception")
+        UserMailer.deliver_log_file("User : #{subscriber.name} Error: #{e.message}","Exception")
       end  
     end  
   end
