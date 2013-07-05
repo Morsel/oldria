@@ -4692,25 +4692,34 @@ fieldset{
 .set-the-width {
   width: 487px;
 }
-
 /* ==|== restaurant answer ====================================================== */
-
 .menu_form {
 	width: 840px !important; 
 }
-
 .add_answer{
   cursor: pointer;
   color: #D8531E;
   width: 115px;
 }
 /* ==|== restaurant answer ====================================================== */
-
 .help_text{
 	color: #D8531E !important;
 }
-
 .help_text_next{
 	margin-top: -14px !important;
 	color: #D8531E !important;
 }
+/* -----  for restaurant Directory ------------- */
+ul.featuredList{
+    list-style: none;
+}
+.list_item {
+    margin: 5px;
+    padding: 5px;
+    width: 200px;
+    float: left;
+}
+ul.featuredList li:before {
+        content: "\00BB \0020";
+}
+/* -----  end restaurant Directory ------------- */

@@ -10,6 +10,10 @@ class RestaurantsController < ApplicationController
 
   def index
     @employments = current_user.employments
+    respond_to do |format|
+      format.html
+      format.js { auto_complete_restaurantkeywords }
+    end
   end
 
   def new
@@ -344,6 +348,16 @@ class RestaurantsController < ApplicationController
   def show_notice
     @restaurant = Restaurant.find(params[:restaurant_id])
     render :layout => false
+  end
+
+  def auto_complete_restaurantkeywords
+    restaurant_keyword_name = params[:term]
+    @restaurant_keywords = Restaurant.find(:all,:conditions => ["name like ?", "%#{restaurant_keyword_name}%"],:limit => 15)
+    if @restaurant_keywords.present?
+      render :json => @restaurant_keywords.map(&:name)
+    else
+      render :json => @restaurant_keywords.push('This restaurant does not yet exist in our database. Please try another restaurant.')
+    end
   end
 
   private

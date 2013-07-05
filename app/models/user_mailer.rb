@@ -283,5 +283,6 @@ class UserMailer < ActionMailer::Base
     sent_on     Time.now
     subject     "Log File!" 
     body        :msg => msg
-  end  
+  end 
+   
 end
