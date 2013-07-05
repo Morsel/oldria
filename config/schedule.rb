@@ -56,7 +56,7 @@ end
 #   runner 'Restaurant.send_newsletter_preview_reminder'
 # end
 #every 1.day, :at => '2:30am' do
-	#runner 'MediaNewsletterSubscription.send_newsletters_to_media'
+	#runner 'MediaNewsletterSubscription.new.send_newsletters_to_media'
 #end	
 
 every :thursday, :at => "2:00am" do

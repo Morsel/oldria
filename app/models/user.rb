@@ -49,7 +49,8 @@ class User < ActiveRecord::Base
 
 
   include ActionView::Helpers::TextHelper  
-  
+  include ActionController::UrlWriter
+  default_url_options[:host] = DEFAULT_HOST
 
   
   has_many :trace_keywords, :as => :keywordable
@@ -693,52 +694,53 @@ class User < ActiveRecord::Base
                               {:name=>"Promotions",:groups=>promotion_types.map(&:name).join(",")}]           
           },:replace_interests => true,:update_existing=>true)
       end 
+      digest_mailchimp_update
+      if false
+        if digest_writer.blank?        
+          
+          mc.client.list_subscribe(:id => mc.media_promotion_list_id,
+            :email_address => "nishant.n@cisinlabs.com",
+            :merge_vars => {:FNAME=>first_name,
+                            :LNAME=>last_name,
+                            :D_METROS=>'',
+                            :D_W_TYPE=>'',
+                            :groupings => [
+                                { :name => "SubscriberType",:groups => "Newsfeed"}]
+            },:replace_interests => true,:update_existing=>true)
 
-      if digest_writer.blank?        
-        
-        mc.client.list_subscribe(:id => mc.media_promotion_list_id,
-          :email_address => "nishant.n@cisinlabs.com",
-          :merge_vars => {:FNAME=>first_name,
-                          :LNAME=>last_name,
-                          :D_METROS=>'',
-                          :D_W_TYPE=>'',
-                          :groupings => [
-                              { :name => "SubscriberType",:groups => "Newsfeed"}]
-          },:replace_interests => true,:update_existing=>true)
-
-         mc.client.list_subscribe(:id => mc.media_promotion_list_id,
-          :email_address => "eric@restaurantintelligenceagency.com",
-          :merge_vars => {:FNAME=>first_name,
-                          :LNAME=>last_name,
-                          :D_METROS=>'',
-                          :D_W_TYPE=>'',
-                          :groupings => [
-                              { :name => "SubscriberType",:groups => "Newsfeed"}]
-          },:replace_interests => true,:update_existing=>true)
+           mc.client.list_subscribe(:id => mc.media_promotion_list_id,
+            :email_address => "eric@restaurantintelligenceagency.com",
+            :merge_vars => {:FNAME=>first_name,
+                            :LNAME=>last_name,
+                            :D_METROS=>'',
+                            :D_W_TYPE=>'',
+                            :groupings => [
+                                { :name => "SubscriberType",:groups => "Newsfeed"}]
+            },:replace_interests => true,:update_existing=>true)
 
 
-      else
-        digest_region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", digest_writer.find_regional_writers(self).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq #If user has selected regions, getting metros of regions
-        mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
-          :email_address => "nishant.n@cisinlabs.com",
-          :merge_vars => {:FNAME=>first_name,
-                          :LNAME=>last_name, 
-                          :D_METROS=>digest_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(digest_region_metro_areas.join(","),:length => 255), 
-                          :D_W_TYPE=>digest_writer.name,           
-                          :groupings => [                              
-                              { :name => "SubscriberType",:groups => "Digest,Newsfeed"}]           
-          },:replace_interests => true,:update_existing=>true)
-        mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
-          :email_address => "eric@restaurantintelligenceagency.com",
-          :merge_vars => {:FNAME=>first_name,
-                          :LNAME=>last_name, 
-                          :D_METROS=>digest_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(digest_region_metro_areas.join(","),:length => 255), 
-                          :D_W_TYPE=>digest_writer.name,           
-                          :groupings => [                              
-                              { :name => "SubscriberType",:groups => "Digest,Newsfeed"}]           
-          },:replace_interests => true,:update_existing=>true)
+        else
+          digest_region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", digest_writer.find_regional_writers(self).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq #If user has selected regions, getting metros of regions
+          mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+            :email_address => "nishant.n@cisinlabs.com",
+            :merge_vars => {:FNAME=>first_name,
+                            :LNAME=>last_name, 
+                            :D_METROS=>digest_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(digest_region_metro_areas.join(","),:length => 255), 
+                            :D_W_TYPE=>digest_writer.name,           
+                            :groupings => [                              
+                                { :name => "SubscriberType",:groups => "Digest,Newsfeed"}]           
+            },:replace_interests => true,:update_existing=>true)
+          mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+            :email_address => "eric@restaurantintelligenceagency.com",
+            :merge_vars => {:FNAME=>first_name,
+                            :LNAME=>last_name, 
+                            :D_METROS=>digest_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(digest_region_metro_areas.join(","),:length => 255), 
+                            :D_W_TYPE=>digest_writer.name,           
+                            :groupings => [                              
+                                { :name => "SubscriberType",:groups => "Digest,Newsfeed"}]           
+            },:replace_interests => true,:update_existing=>true)
+        end  
       end  
-
     end  
   end  
 
@@ -786,6 +788,52 @@ class User < ActiveRecord::Base
                         :confirmed_at => Time.now,
                         :role => "media")
     return new_user
+  end
+
+  def digest_mailchimp_update
+    #media_newsletter_subscriber.email email id will be replaced by this    
+    signal = if media_newsletter_subscriptions.blank? && digest_writer.blank?
+        "NO"
+      else
+        "YES"
+      end 
+    mc = MailchimpConnector.new("Media Digest List") 
+       
+    mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+        :email_address => "nishant.n@cisinlabs.com",
+        :merge_vars => {:FNAME=>first_name,
+                        :LNAME=>last_name,                        
+                        :MYCHOICE=>signal,                                              
+        },:replace_interests => true,:update_existing=>true)
+    mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+        :email_address => "eric@restaurantintelligenceagency.com",
+        :merge_vars => {:FNAME=>first_name,
+                        :LNAME=>last_name,                        
+                        :MYCHOICE=>signal,                                              
+        },:replace_interests => true,:update_existing=>true)
+  end  
+
+  def send_newsletter_to_media_subscribers subscriber
+
+    if [178,1071,4470].include?(subscriber.id) && !subscriber.media_newsletter_setting.opt_out 
+      
+      mc = MailchimpConnector.new("Media Digest List")
+      campaign_id = \
+      mc.client.campaign_create(:type => "regular",
+                                :options => { :list_id => mc.media_promotion_list_id,
+                                              :subject => "Restaurant's Newsletter",
+                                              :from_email => "info@restaurantintelligenceagency.com",
+                                              :to_name => "*|FNAME|*",
+                                              :from_name => "Restaurant Intelligence Agency",
+                                              :generate_text => true },
+                                 :segment_opts => { :match => "all",
+                                                    :conditions => [{ :field => "MYCHOICE",:op => "eq",:value => 'YES'}]
+                                                    },
+                                :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
+      # send campaign
+      mc.client.campaign_send_now(:cid => campaign_id)
+
+    end  
   end
 
 end
