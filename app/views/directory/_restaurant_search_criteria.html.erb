@@ -1,89 +1,52 @@
-<% cache "#{soapbox? ? "public" : "private"}_restaurant_search_criteria", :expires_in => 8.hours do %>
-<fieldset name="Find Restaurants" id="restaurant_criteria">
-    <h3>Filter Your Search</h3>
+<h3>What are you searching for?</h3>
+<% form_remote_tag :url =>search_restaurant_by_state_path do %>
     <ol>
-        <div id="criteria_accordion">
-            <div class="accordion_box">
-                <%= link_to "<span>Cuisine</span>", "#" %>
-                <div id="cuisine_fields" class="loading" style="display:none;">
-                    <li id="search_cuisine_id_eq_any_input" class="check_boxes optional">
-                        <fieldset>
-                            <legend class="label">
-                                <label for="search_cuisine_id_eq_any">Cuisine id equals any</label>
-                            </legend>
-                            <ol>
-                                <% for cuisine in all_restaurants_for_search.map(&:cuisine).flatten.compact.uniq.sort_by(&:name) %>
-                                <li><label for="search_cuisine_id_eq_any_<%= cuisine.id %>">
-                                    <%= check_box_tag "search[cuisine_id_eq_any][]", cuisine.id, false, :id => "search_cuisine_id_eq_any_#{cuisine.id}" %>
-                                    <%= cuisine.name %>
-                                </label></li>
-                                <% end %>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </div>
-            </div>
-            <div class="accordion_box">
-                <%= link_to "<span>Region</span>", "#" %>
-                <div id="region_fields" class="loading" style="display:none;">
-                    <li id="search_james_beard_region_id_eq_any_input" class="check_boxes optional">
-                        <fieldset>
-                            <legend class="label">
-                                <label for="search_james_beard_region_id_eq_any">Region id equals any</label>
-                            </legend>
-                            <ol>
-                                <% for region in all_restaurants_for_search.map(&:james_beard_region).flatten.compact.uniq.sort_by(&:name) %>
-                                <li><label for="search_james_beard_region_id_eq_any_<%= region.id %>">
-                                    <%= check_box_tag "search[james_beard_region_id_eq_any][]", region.id, false, :id => "search_james_beard_region_id_eq_any_#{region.id}" %>
-                                    <%= region.to_label %>
-                                </label></li>
-                                <% end %>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </div>
-            </div>
-            <div class="accordion_box">
-                <%= link_to "<span>Metro Area</span>", "#" %>
-                <div id="metro_fields" class="loading" style="display:none;">
-                    <li id="search_metropolitan_area_id_eq_any_input" class="check_boxes optional">
-                        <fieldset>
-                            <legend class="label">
-                                <label for="search_metropolitan_area_id_eq_any">Metro area id equals any</label>
-                            </legend>
-                            <ol>
-                                <% for metro in all_restaurants_for_search.map(&:metropolitan_area).flatten.compact.uniq.sort_by(&:name) %>
-                                <li><label for="search_metropolitan_area_id_eq_any_<%= metro.id %>">
-                                    <%= check_box_tag "search[metropolitan_area_id_eq_any][]", metro.id, false, :id => "search_metropolitan_area_id_eq_any_#{metro.id}" %>
-                                    <%= metro.city_and_state %>
-                                </label></li>
-                                <% end %>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </div>
-            </div>
-            <div class="accordion_box">
-                <%= link_to "<span>On The Menu</span>", "#" %>
-                <div id="metro_fields" class="loading" style="display:none;">
-                    <li id="search_menu_items_otm_keywords_id_eq_any_input" class="check_boxes optional">
-                        <fieldset>
-                            <legend class="label">
-                                <label for="search_menu_items_otm_keywords_id_eq_any">Menu items otm keywords id equals any</label>
-                            </legend>
-                            <ol>
-                                <% for keyword in all_restaurants_for_search.map(&:menu_items).flatten.map(&:otm_keywords).flatten.uniq %>
-                                <li><label for="search_menu_items_otm_keywords_id_eq_any_<%= keyword.id %>">
-                                    <%= check_box_tag "search[menu_items_otm_keywords_id_eq_any][]", keyword.id, false, :id => "search_menu_items_otm_keywords_id_eq_any_#{keyword.id}" %>
-                                    <%= keyword.name_with_category %>
-                                </label></li>
-                                <% end %>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </div>
-            </div>
-        </div>
+        <li>
+            <label for="search_restaurant_eq_any_name">Are you looking for a restaurant?</label>
+        </li>
+        <li>
+            <%= text_field_tag "restaurant_search", "", :name => "name",:placeholder=>"Search by Restaurant Name" %> 
+        </li>
+        <p><%= button_tag "Search", :class => 'positive' %></p>  
+    </ol>          
+<%end%>       
+<br/>
+<h3>Find exactly what you're researching:</h3>  
+<label for="search_trend_ingredient_eq_any_name">Researching a trend or ingredient?</label>
+<% form_remote_tag :url =>search_restaurant_by_state_path do %>
+    <ol>
+        <li>
+            <%= text_field_tag "otm_keyword_search", "", :name => "search[menu_items_otm_keywords_name_eq_any][]",:placeholder=>"Search by On the Menu Keyword" %>
+        </li>
+        <p><%= button_tag "Search", :class => 'positive' %></p>
     </ol>
-</fieldset>
-<% end %>
+<%end%>
+<br/><br/>
+<% form_remote_tag :url =>search_restaurant_by_state_path do %>
+    <ol>
+        <li>
+            <label for="search_feature_eq_any_name">Looking for something in particular?</label> 
+        </li>
+        <li>           
+            <%= text_field_tag "feature_search", "", :name => "search[restaurant_features_value_eq_any][]",:placeholder=>"Search by Feature" %>
+        </li>
+        <p><%= button_tag "Search", :class => 'positive' %></p> 
+    </ol>           
+<%end%>
+<br/>
+<div>
+    <h3>Search by State</h3> 
+    <% form_remote_tag :url =>search_restaurant_by_state_path do %>
+        <%= text_field_tag "state_search", "", :name => "state",:placeholder=>"Search by state name" %>
+        <p><%= button_tag "Search", :class => 'positive' %></p>   
+    <%end%>
+</div>
+<br/>   
+<div>
+    <h3>What our chefs are serving up:</h3>
+    <ul class="featuredList">
+        <%@otm_keyword.each do |otm_keyword|%>
+            <li class="list_item"> <%=otm_keyword.name%></li>     
+        <%end%>
+    </ul>
+</div>
