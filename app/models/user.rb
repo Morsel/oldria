@@ -653,15 +653,16 @@ class User < ActiveRecord::Base
   end
 
   def update_media_newsletter_mailchimp
-    if media? && false
-      mc = MailchimpConnector.new             
+
+    if media? && [178,1071,4470].include?(id)      
+      mc = MailchimpConnector.new("Media Newsletter")              
       
       unless newsfeed_writer.blank?
         
         region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq #If user has selected regions, getting metros of regions
         
         mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
-          :email_address => "neelesh.v@cisinlabs.com",
+          :email_address => "nishant.n@cisinlabs.com",
           :merge_vars => {:FNAME=>first_name,
                           :LNAME=>last_name, 
                           :METROAREAS=>newsfeed_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(region_metro_areas.join(","),:length => 255), 
@@ -671,7 +672,65 @@ class User < ActiveRecord::Base
                               { :name => "SubscriberType",:groups => "Newsfeed"},
                               {:name=>"Promotions",:groups=>promotion_types.map(&:name).join(",")}]           
           },:replace_interests => true,:update_existing=>true)
+
+          mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+          :email_address => "eric@restaurantintelligenceagency.com",
+          :merge_vars => {:FNAME=>first_name,
+                          :LNAME=>last_name, 
+                          :METROAREAS=>newsfeed_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(region_metro_areas.join(","),:length => 255), 
+                          :WRITERTYPE=>newsfeed_writer.name,           
+                          :groupings => [
+                              {:name=>"Regions",:groups=>newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:name).join(",")},
+                              { :name => "SubscriberType",:groups => "Newsfeed"},
+                              {:name=>"Promotions",:groups=>promotion_types.map(&:name).join(",")}]           
+          },:replace_interests => true,:update_existing=>true)
+      end 
+
+      if digest_writer.blank?        
+        
+        mc.client.list_subscribe(:id => mc.media_promotion_list_id,
+          :email_address => "nishant.n@cisinlabs.com",
+          :merge_vars => {:FNAME=>first_name,
+                          :LNAME=>last_name,
+                          :D_METROS=>'',
+                          :D_W_TYPE=>'',
+                          :groupings => [
+                              { :name => "SubscriberType",:groups => "Newsfeed"}]
+          },:replace_interests => true,:update_existing=>true)
+
+         mc.client.list_subscribe(:id => mc.media_promotion_list_id,
+          :email_address => "eric@restaurantintelligenceagency.com",
+          :merge_vars => {:FNAME=>first_name,
+                          :LNAME=>last_name,
+                          :D_METROS=>'',
+                          :D_W_TYPE=>'',
+                          :groupings => [
+                              { :name => "SubscriberType",:groups => "Newsfeed"}]
+          },:replace_interests => true,:update_existing=>true)
+
+
+      else
+        digest_region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", digest_writer.find_regional_writers(self).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq #If user has selected regions, getting metros of regions
+        mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+          :email_address => "nishant.n@cisinlabs.com",
+          :merge_vars => {:FNAME=>first_name,
+                          :LNAME=>last_name, 
+                          :D_METROS=>digest_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(digest_region_metro_areas.join(","),:length => 255), 
+                          :D_W_TYPE=>digest_writer.name,           
+                          :groupings => [                              
+                              { :name => "SubscriberType",:groups => "Digest,Newsfeed"}]           
+          },:replace_interests => true,:update_existing=>true)
+        mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+          :email_address => "eric@restaurantintelligenceagency.com",
+          :merge_vars => {:FNAME=>first_name,
+                          :LNAME=>last_name, 
+                          :D_METROS=>digest_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(digest_region_metro_areas.join(","),:length => 255), 
+                          :D_W_TYPE=>digest_writer.name,           
+                          :groupings => [                              
+                              { :name => "SubscriberType",:groups => "Digest,Newsfeed"}]           
+          },:replace_interests => true,:update_existing=>true)
       end  
+
     end  
   end  
 

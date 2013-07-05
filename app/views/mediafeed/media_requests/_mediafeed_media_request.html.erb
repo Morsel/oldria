@@ -3,7 +3,7 @@
         <li>
             <h4><%= mediafeed_media_request.subject_matter.name %></h4>
             Due by <%= mediafeed_media_request.due_date.try(:to_s, :long_ordinal) %>
-            <% unless mediafeed_media_request.publication.empty? || mediafeed_media_request.sender.publication.empty? %>
+            <% unless mediafeed_media_request.try(:publication) || mediafeed_media_request.sender.try(:publication) %>
               (<%= mediafeed_media_request.publication || mediafeed_media_request.sender.publication %>)
             <% end %>
         </li>

@@ -1,7 +1,7 @@
 namespace :mailchmp do
   desc "Add goups in groupings for list Media Prmotion newsletter."
   task :add_in_mpn => :environment do
-    mc = MailchimpConnector.new
+    mc = MailchimpConnector.new("Media Newsletter") 
     puts "Loading.."
       mc.client.list_interest_groupings(:id => mc.media_promotion_list_id).each do |row| 
         if row["name"] == "Regions"
