@@ -814,25 +814,27 @@ class User < ActiveRecord::Base
   end  
 
   def send_newsletter_to_media_subscribers subscriber
-
+    UserMailer.deliver_log_file("User : #{subscriber.name}","MediaNewsletterTest")
     if [178,1071,4470].include?(subscriber.id) && !subscriber.media_newsletter_setting.opt_out 
-      
-      mc = MailchimpConnector.new("Media Digest List")
-      campaign_id = \
-      mc.client.campaign_create(:type => "regular",
-                                :options => { :list_id => mc.media_promotion_list_id,
-                                              :subject => "Restaurant's Newsletter",
-                                              :from_email => "info@restaurantintelligenceagency.com",
-                                              :to_name => "*|FNAME|*",
-                                              :from_name => "Restaurant Intelligence Agency",
-                                              :generate_text => true },
-                                 :segment_opts => { :match => "all",
-                                                    :conditions => [{ :field => "MYCHOICE",:op => "eq",:value => 'YES'}]
-                                                    },
-                                :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
-      # send campaign
-      mc.client.campaign_send_now(:cid => campaign_id)
-
+      begin
+        mc = MailchimpConnector.new("Media Digest List")
+        campaign_id = \
+        mc.client.campaign_create(:type => "regular",
+                                  :options => { :list_id => mc.media_promotion_list_id,
+                                                :subject => "Restaurant's Newsletter",
+                                                :from_email => "info@restaurantintelligenceagency.com",
+                                                :to_name => "*|FNAME|*",
+                                                :from_name => "Restaurant Intelligence Agency",
+                                                :generate_text => true },
+                                   :segment_opts => { :match => "all",
+                                                      :conditions => [{ :field => "MYCHOICE",:op => "eq",:value => 'YES'}]
+                                                      },
+                                  :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
+        # send campaign
+        mc.client.campaign_send_now(:cid => campaign_id)
+      rescue Exception => e
+        UserMailer.deliver_log_file("Error: #{e.message}","Exception")
+      end  
     end  
   end
 
