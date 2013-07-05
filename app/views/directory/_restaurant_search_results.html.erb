@@ -1,6 +1,6 @@
-<%if @restaurants.kind_of?(Array)%>
+<%if @restaurants.blank? %>
 	<div id="flashes">
-		<div id="flash_notice"><%=@restaurants[0].to_s%></div>
+		<div id="flash_notice"><%=flash[:notice]%></div>
 	</div>
 <%else%>
 	<% for restaurant in @restaurants %>
