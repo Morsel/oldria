@@ -71,6 +71,18 @@ class MediaNewsletterSubscription < ActiveRecord::Base
     promotions.flatten.compact
   end
 
+  def remove_subscription_from_mailchimp_delay_job user
+    groups = []
+    groups << "National Newsletter"
+    for subscription in user.media_newsletter_subscriptions
+      groups << "#{subscription.restaurant.mailchimp_group_name_media}" unless subscription == self
+    end
+    mc = MailchimpConnector.new
+    mc.client.list_update_member(:id => mc.mailing_list_id, :email_address => media_newsletter_subscriber.email,
+                                 :merge_vars => { :groupings => [{ :name => "Your Interests", :groups => groups.join(",")}] },
+                                 :replace_interests => true)
+  end 
+
   private
 
   def add_subscription_to_mailchimp      
@@ -97,16 +109,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
   end
 
   def remove_subscription_from_mailchimp
-    groups = []
-    groups << "National Newsletter"
-    for subscription in media_newsletter_subscriber.media_newsletter_subscriptions
-      groups << "#{subscription.restaurant.mailchimp_group_name_media}" unless subscription == self
-    end
-    mc = MailchimpConnector.new
-    mc.client.list_update_member(:id => mc.mailing_list_id, :email_address => media_newsletter_subscriber.email,
-                                 :merge_vars => { :groupings => [{ :name => "Your Interests", :groups => groups.join(",")}] },
-                                 :replace_interests => true)
+    self.send_later(:remove_subscription_from_mailchimp_delay_job , media_newsletter_subscriber)
   end
-
 
 end

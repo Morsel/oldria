@@ -6,7 +6,7 @@
 
               <div id="restaurant_features_content" style="width:100%">
                 <h1 class="pg_title">Subscriptions</h1>
-                                                            
+                 <%= link_to "Unsubscribe All",mediafeed_unsubscribe_path,:confirm => "Are you sure, you want to unsubscribe all restaurants?" %>                                           
                 <!-- <div id="read_messages" style="width:670px;margin:0;"> -->
                   <div class="editing clearfix clear">
                     <% @subscriptions.each do |subscription| %>
