@@ -64,7 +64,7 @@ class Mediafeed::MediafeedController < ApplicationController
     @subscriptions = current_user.media_newsletter_subscriptions.map{|e| e unless e.restaurant.blank?}.compact
     @digest_subsriptions = current_user.get_digest_subscription
     @user = current_user
-    @user.media_newsletter_setting || @user.build_media_newsletter_setting
+    @user.media_newsletter_setting || @user.build_media_newsletter_setting.save
   end
 
   def media_all_unsubscribe     
@@ -73,7 +73,7 @@ class Mediafeed::MediafeedController < ApplicationController
       current_user.metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'DigestWriter'").map(&:destroy)      
       current_user.regional_writers.find(:all,:conditions=>"regional_writer_type = 'DigestWriter'").map(&:destroy)
       current_user.update_attributes({:digest_writer_id => nil})
-      current_user.update_media_newsletter_mailchimp
+      current_user.send_later(:update_media_newsletter_mailchimp)  
       flash[:notice] = "Unsubscribed to all restaurants."                          
     end  
     redirect_to :action =>:media_subscription
