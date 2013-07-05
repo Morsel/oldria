@@ -1,6 +1,9 @@
-<div id="restaurant-results">
-    <h3>Restaurants</h3>
-    <% for restaurant in @restaurants %>
-    <%= render :partial => 'restaurants/identity', :locals => { :user => restaurant } %>
-    <% end %>
-</div>
+<%if @restaurants.blank? %>
+	<div id="flashes">
+		<div id="flash_notice"><%=flash[:notice]%></div>
+	</div>
+<%else%>
+	<% for restaurant in @restaurants %>
+		<%= render :partial => 'restaurants/identity', :locals => { :user => restaurant } %>
+	<% end %>
+<% end %>

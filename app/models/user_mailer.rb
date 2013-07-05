@@ -283,5 +283,6 @@ class UserMailer < ActionMailer::Base
     sent_on     Time.now
     subject     subject 
     body        :msg => msg
-  end  
+  end 
+   
 end
