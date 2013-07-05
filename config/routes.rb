@@ -393,6 +393,7 @@ ActionController::Routing::Routes.draw do |map|
 
 
     admin.invalid_employments 'invalid_employments',:controller => "restaurants", :action => "invalid_employments"
+    admin.resources :runner
 
   end
 
