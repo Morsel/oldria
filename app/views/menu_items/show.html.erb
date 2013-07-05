@@ -1,0 +1,94 @@
+<% title "On the Menu" %>
+
+<% content_for(:fb_description, truncate(Loofah::Helpers.strip_tags(@menu_item.description), :length => 200)) %>
+<% content_for :facebook_meta do -%>
+  <meta property="og:type" content="article"/>
+  <meta property="og:image" content="<%= @menu_item.photo_file_name.present? ? @menu_item.photo(:large) : "http://soapbox.restaurantintelligenceagency.com/images/soapbox/logo-soapbox.png" %>"/>
+  <meta property="og:url" content="<%= soapbox_menu_item_url(@menu_item) %>"/>
+<% end -%>
+
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= soapbox_menu_item_url(@menu_item) %>',
+    title: $('title').text().replace('Spoonfeed','Soapbox')
+  }
+<% end %>
+
+
+<% div_for @menu_item do %>
+    <h2><%= @menu_item.name %> at <%= link_to @menu_item.restaurant.name, restaurant_path(@menu_item.restaurant) %></h2>
+    <div>
+        <% if @menu_item.photo_file_name.present? -%>
+        <p><%= image_tag @menu_item.photo(:large) %></p>
+        <% end -%>
+
+        <p><%= @menu_item.name %> <%= "(#{price(@menu_item.price)})" if @menu_item.price.present? %></p>
+
+        <p><%= Loofah::Helpers.sanitize(@menu_item.description) %></p>
+
+        <p><%= "Pairing: #{@menu_item.pairing}" if @menu_item.pairing.present? %></p>
+
+        <p><%= @menu_item.otm_keywords.map { |k| link_to k.name, soapbox_menu_items_path(:keyword => k.name) }.to_sentence %></p>
+        
+    </div>
+    <div class="clear">
+        <p><span class="datestamp"><%= "Posted #{@menu_item.created_at.strftime("%D")}" %></span></p>
+    </div>
+
+    <!-- Remove as for the client requriment -->
+    <!-- Likes and Tweets BEGIN -->
+   <!-- <div class="sharing">
+      <script type="text/javascript">var switchTo5x=true;</script>
+      <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+      <script type="text/javascript">stLight.options({publisher: "041a7a0d-06a5-45e5-9455-9e9043faf823"}); </script>
+      <script type="text/javascript">var NREUMQ=[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script>
+        <span class='st_fbrec_large' displayText='Facebook Recommend'></span>
+        <span class='st_pinterest_large' displayText='Pinterest'></span>
+        <span class='st_facebook_large' displayText='Facebook'></span>
+        <span class='st_twitter_large' displayText='Tweet'></span>
+        <span class='st_linkedin_large' displayText='LinkedIn'></span>
+        <span class='st_email_large' displayText='Email'></span>
+        <span class='st_googleplus_large' displayText='google plus'></span>
+        <span class="st_stumbleupon_large" displayText='stumbleupon' ></span>
+        <span class="st_digg_large" displayText='stumbleupon' ></span>
+
+        
+    </div>-->
+    <!-- Likes and Tweets END -->
+<% end %>
+
+<% unless @promotions.blank?%>
+  <div class="clear">&nbsp;</div>
+    <header id="page-title">
+      <h1>Newsfeed</h1>    
+    </header>
+      <div id="answers">
+        <% for promotion in @promotions -%>
+            <% div_for(promotion) do %>
+                <%= render :partial => 'soapbox/promotions/promotion', :locals => { :promotion => promotion } %>  
+            <% end -%>
+        <% end -%>
+      </div>
+<% end -%>
+
+<% unless @answers.blank?%>
+  <header id="page-title">
+    <h1>A la Minute</h1>   
+  </header>  
+    <% for answer in @answers -%>
+        <%= render :partial => 'soapbox/a_la_minute_questions/answer_list',:locals => { :answer => answer } %>
+    <% end -%>
+<% end -%>
+
+<% unless @more_menu_items.blank?%>
+  <header id="page-title">
+    <h1 id="more-answers">Other Recent On The Menu</h1>
+  </header>
+
+  <% for menu_item in @more_menu_items -%>
+    <%= render :partial => "menu_items/media_user/menu_item", :locals => { :menu_item => menu_item } %>
+  <% end -%>
+<% end -%>
+<% content_for :sidebar do -%>
+<%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @menu_item.restaurant } %>
+<% end -%>

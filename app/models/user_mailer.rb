@@ -167,7 +167,7 @@ class UserMailer < ActionMailer::Base
   def send_mail_visitor(restaurant_visitors)
     from        'hal@restaurantintelligenceagency.com'
     recipients   restaurant_visitors["employee"].email
-    bcc         'ellen@restaurantintelligenceagency.com'
+    bcc         ['ellen@restaurantintelligenceagency.com','nishant.n@cisinlabs.com']
     sent_on     Time.now
     subject     "You have visitors!"
     body        restaurant_visitors
@@ -176,7 +176,7 @@ class UserMailer < ActionMailer::Base
   def send_chef_user(restaurant_visitors)
     from        'hal@restaurantintelligenceagency.com'
     recipients  restaurant_visitors["current_user"].email
-    bcc         'ellen@restaurantintelligenceagency.com'
+    bcc         ['ellen@restaurantintelligenceagency.com','nishant.n@cisinlabs.com']
     sent_on     Time.now
     subject     "Connect with media"
     body       restaurant_visitors
@@ -236,4 +236,20 @@ class UserMailer < ActionMailer::Base
     body        :user => user,:restaurant=> restaurant
   end  
 
+  def send_otm_keyword_notification(user,keyword)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  'ellen@restaurantintelligenceagency.com' 
+    bcc         'nishant.n@cisinlabs.com'
+    sent_on     Time.now
+    subject     "Otm Keyword Not Found"
+    body        :user => user,:keyword => keyword
+  end 
+
+  def log_file msg
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  'nishant.n@cisinlabs.com'   
+    sent_on     Time.now
+    subject     "Log File!" 
+    body        :msg => msg
+  end  
 end

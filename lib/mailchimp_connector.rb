@@ -2,8 +2,9 @@ class MailchimpConnector
 
   attr_accessor :client
 
-  def initialize
+  def initialize name = 'Media Newsletter'
     @client = Gibbon.new
+    @group_name = name
   end
 
   def mailing_list_id
@@ -16,7 +17,7 @@ class MailchimpConnector
 
   # Code for media sinup 
   def media_promotion_list_id
-    @media_promotion_list_id ||= client.lists({:filters=>{:list_name=>"Media Newsletter"}})['data'].first['id']    
+    @media_promotion_list_id ||= client.lists({:filters=>{:list_name=>@group_name}})['data'].first['id']    
   end 
 
   def get_mpl_groups
