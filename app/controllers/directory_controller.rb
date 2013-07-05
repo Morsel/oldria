@@ -72,7 +72,7 @@ class DirectoryController < ApplicationController
     else
       @restaurants = Restaurant.activated_restaurant.find(:all,:conditions=>['state like ?',"#{params[:state]}"],:order => "name").uniq
       if @restaurants.blank?
-        @restaurants =["I am sorry, we don't have any restaurants for your state yet. Sign up to receive notification when we do!"]
+        flash[:notice] = "I am sorry, we don't have any restaurants for your state yet. Sign up to receive notification when we do!"
       end
     end
     render :layout => false
