@@ -7,9 +7,12 @@ class MediaNewsletterSubscription < ActiveRecord::Base
   default_url_options[:host] = DEFAULT_HOST
 
   def self.send_newsletters_to_media
+    UserMailer.deliver_log_file("Start")
     for mediaNewsletterSubscription in MediaNewsletterSubscription.find(:all,:group => "media_newsletter_subscriber_id")
+      UserMailer.deliver_log_file("In Loop")
       mediaNewsletterSubscription.send_later(:send_newsletter_to_media_subscribers,mediaNewsletterSubscription.media_newsletter_subscriber)
     end
+    UserMailer.deliver_log_file("End")
   end
 
 
@@ -18,9 +21,9 @@ class MediaNewsletterSubscription < ActiveRecord::Base
       mc = MailchimpConnector.new("Media Digest List")
       campaign_id = \
       mc.client.campaign_create(:type => "regular",
-                                :options => { :list_id => mc.mailing_list_id,
+                                :options => { :list_id => mc.media_promotion_list_id,
                                               :subject => "Restaurant's Newsletter",
-                                              :from_email => subscriber.email,
+                                              :from_email => "info@restaurantintelligenceagency.com",
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
