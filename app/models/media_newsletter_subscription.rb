@@ -7,12 +7,11 @@ class MediaNewsletterSubscription < ActiveRecord::Base
   default_url_options[:host] = DEFAULT_HOST
 
   def send_newsletters_to_media
-    UserMailer.deliver_log_file("Start")
+
     for mediaNewsletterSubscription in MediaNewsletterSubscription.find(:all,:group => "media_newsletter_subscriber_id")
-      UserMailer.deliver_log_file("In Loop")
       mediaNewsletterSubscription.send_later(:send_newsletter_to_media_subscribers,mediaNewsletterSubscription.media_newsletter_subscriber)
     end
-    UserMailer.deliver_log_file("End")
+
   end
 
 
@@ -27,7 +26,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
-                                 :segment_opts => { :match => "all",
+                                 :segment_opts => { :match => "any",
                                                     :conditions => [{ :field => "email",
                                                                       :op => "eq",
                                                                       :value => "eric@restaurantintelligenceagency.com"},
