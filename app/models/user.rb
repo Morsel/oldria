@@ -814,9 +814,10 @@ class User < ActiveRecord::Base
   end  
 
   def send_newsletter_to_media_subscribers subscriber
-    UserMailer.deliver_log_file("User : #{subscriber.name}","MediaNewsletterTest")
+    
     if [178,1071,4470].include?(subscriber.id) && !subscriber.media_newsletter_setting.opt_out 
       begin
+        UserMailer.deliver_log_file("User : #{subscriber.name}","MediaNewsletterTest")
         mc = MailchimpConnector.new("Media Digest List")
         campaign_id = \
         mc.client.campaign_create(:type => "regular",
