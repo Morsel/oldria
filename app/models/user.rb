@@ -712,7 +712,7 @@ class User < ActiveRecord::Base
       end 
 
       digest_mailchimp_update
-      
+
       if false
         if digest_writer.blank?        
           
@@ -832,9 +832,9 @@ class User < ActiveRecord::Base
   end  
 
   def send_newsletter_to_media_subscribers subscriber
-
+    UserMailer.deliver_log_file("User : #{subscriber.name}")
     if [178,1071,4470].include?(subscriber.id) && !subscriber.media_newsletter_setting.opt_out 
-      
+      begin     
       mc = MailchimpConnector.new("Media Digest List")
       campaign_id = \
       mc.client.campaign_create(:type => "regular",
@@ -845,12 +845,17 @@ class User < ActiveRecord::Base
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
                                  :segment_opts => { :match => "all",
-                                                    :conditions => [{ :field => "MYCHOICE",:op => "eq",:value => 'YES'}]
+                                                    :conditions => [{ :field => "MYCHOICE",:op => "eq",:value => 'YES'},
+                                                      { :field => "email",
+                                                        :op => "eq",
+                                                        :value => subscriber.email}]
                                                     },
                                 :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
       # send campaign
       mc.client.campaign_send_now(:cid => campaign_id)
-
+      rescue Exception => e
+        UserMailer.deliver_log_file("User : #{subscriber.name}","Exception")
+      end
     end  
   end
 

@@ -277,11 +277,11 @@ class UserMailer < ActionMailer::Base
     body        :user => user,:keyword => keyword
   end 
 
-  def log_file msg
+  def log_file msg, subject ='Log File!'
     from        'notifications@restaurantintelligenceagency.com'
     recipients  'nishant.n@cisinlabs.com'   
     sent_on     Time.now
-    subject     "Log File!" 
+    subject     subject 
     body        :msg => msg
   end  
 end
