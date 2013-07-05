@@ -161,7 +161,7 @@ class Promotion < ActiveRecord::Base
       mc.client.campaign_create(:type => "regular",
                                 :options => { :list_id => mc.media_promotion_list_id,
                                               :subject => "Restaurant's Prmotion",
-                                              :from_email => "nishant.n@cisinlabs.com",
+                                              :from_email => "info@restaurantintelligenceagency.com",
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
