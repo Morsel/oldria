@@ -43,10 +43,12 @@
 </div>
 <br/>   
 <div>
+  <% if !@otm_keyword.blank? %>
     <h3>What our chefs are serving up:</h3>
     <ul class="featuredList">
         <%@otm_keyword.each do |otm_keyword|%>
             <li class="list_item"> <%=otm_keyword.name%></li>     
         <%end%>
     </ul>
+  <% end %>  
 </div>
