@@ -268,6 +268,7 @@ class RestaurantsController < ApplicationController
         mnls.destroy          
         flash[:notice] = "#{current_user.email} is unsubscribed to #{@restaurant.name}'s newsletter."                    
       end
+      current_user.send_later(:update_media_newsletter_mailchimp)
     end  
     redirect_to :action => "show", :id => @restaurant.id
   end
@@ -279,6 +280,8 @@ class RestaurantsController < ApplicationController
     @media_subscription.each do |media_subscription|
       @arrMedia.push(media_subscription.restaurant)
     end  
+    @arrMedia.push(user.get_digest_subscription)
+    @arrMedia.flatten!
     @menu_items = @menus = @restaurantAnswers = @promotions = []
     unless(@arrMedia.blank?)
       @menu_items = MediaNewsletterSubscription.menu_items(@arrMedia)      
