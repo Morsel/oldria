@@ -436,6 +436,18 @@ $("#user_editor").autocomplete({
 $("#otm_keyword_search").autocomplete({
   source: "/otm_keywords.js",
 });
+$("#user_search").autocomplete({
+  source: "/users.js",
+});
+$("#restaurant_search").autocomplete({
+  source: "/restaurants.js",
+});
+$("#feature_search").autocomplete({
+  source: "/features.js",
+});
+$("#state_search").autocomplete({
+  source: "/states.js",
+});
 // Social updates filtering
 var $restoSocialList   = $("#updates");
 var $restoSocialInputs = $("#restaurant_filters #restaurant_criteria input[type=checkbox]");
