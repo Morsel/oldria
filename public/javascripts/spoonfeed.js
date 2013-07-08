@@ -471,6 +471,18 @@ $("#feature_search").autocomplete({
 $("#state_search").autocomplete({
   source: "/states.js",
 });
+$("#specialty_search").autocomplete({
+  source: "/specialties.js",
+});
+$("#region_search").autocomplete({
+  source: "/james_beard_regions.js",
+});
+$("#state_search_for_user").autocomplete({
+  source: "/metropolitan_areas.js",
+});
+$("#cusine_search").autocomplete({
+  source: "/cuisines.js",
+});
 // Social updates filtering
 var $restoSocialList   = $("#updates");
 var $restoSocialInputs = $("#restaurant_filters #restaurant_criteria input[type=checkbox]");
@@ -703,7 +715,10 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     else
       $(this).prev().attr("disabled","disabled");
   })
-
+  $('.search-button').click(function(){
+    var $form=$(this).closest("form");
+    $('#restaurant_criteria input').not($form.find('input:text')).val('');
+  });
   // end $(document).ready
 });
 
@@ -745,3 +760,4 @@ function loderHide()
 {
   $('#loader-waiting').slideUp();
 }
+

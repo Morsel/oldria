@@ -430,7 +430,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :features, :only => ["index"] 
   #for show filter result of restaurant directory
   map.resources :states, :only => ["index"] 
+  map.resources :metropolitan_areas, :only => ["index"] 
+  map.resources :james_beard_regions, :only => ["index"]
+  map.resources :cuisines, :only => ["index"]
   map.search_restaurant_by_state 'directory/search_restaurant_by_state', :controller => 'directory', :action => 'search_restaurant_by_state'
+  map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
   
 end
 
