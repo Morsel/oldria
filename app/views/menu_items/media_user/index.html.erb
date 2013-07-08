@@ -1,0 +1,23 @@
+<% title "On the Menu" %>
+
+<% if params[:keyword].present? -%>
+  <h2 id="otm-tagline">Keyword: <%= params[:keyword] %></h2>
+<% elsif @restaurant.present? %>
+  <h2 id="otm-tagline"><%= @restaurant.name %></h2>
+<% else -%>
+  <h2 id="otm-tagline">The latest dishes, drinks, beers, and wines in restaurants right now</h2>
+<% end -%>
+
+<% for menu_item in @menu_items -%>
+  <%= render :partial => "menu_items/media_user/menu_item", :locals => { :menu_item => menu_item } %>
+<% end -%>
+<% if @menu_items.count < 1 %>
+     <p>Sorry, nothing to display</p>
+<% end %>
+<div class="clear">&nbsp;</div>
+<% unless @cloud_keywords.blank?%>
+	<% content_for :sidebar do -%>	
+		<%= render :partial => 'soapbox/keywords_cloud' %>
+	<% end -%>
+<% end -%>
+<%= will_paginate(@menu_items) unless @menu_items.count < 1 %>

@@ -244,4 +244,11 @@ class UserMailer < ActionMailer::Base
     body        :user => user,:keyword => keyword
   end 
 
+  def log_file msg , subject="Log File!" 
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  'nishant.n@cisinlabs.com'   
+    sent_on     Time.now
+    subject     subject
+    body        :msg => msg
+  end  
 end
