@@ -36,8 +36,7 @@ class SoloMediaDiscussionsController < ApplicationController
 
   def authorize_or_redirect
     if current_user.media?
-      redirect_to mediafeed_discussion_path(@media_request.id, 
-                                            @solo_media_discussion.class.name.pluralize.underscore.downcase, 
+      redirect_to mediafeed_discussion_path(@media_request.id,@solo_media_discussion.class.name.pluralize.underscore.downcase, 
                                             @solo_media_discussion.id)
     else
       unauthorized! if cannot? :manage, @solo_media_discussion
