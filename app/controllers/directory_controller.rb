@@ -43,7 +43,7 @@ class DirectoryController < ApplicationController
     else      
       @use_search = true
       @restaurants = Restaurant.activated_restaurant
-      @otm_keyword = OtmKeyword.all(:limit=>10)
+      @otm_keyword = OtmKeyword.all(:limit=>9)
     end
   end
   
@@ -64,7 +64,7 @@ class DirectoryController < ApplicationController
   end 
 
 
-  def search_restaurant_by_state
+  def search_restaurant_by_name
     if params[:search]
       @restaurants = Restaurant.activated_restaurant.search(params[:search]).all(:order => "name").uniq
     elsif params[:name]
@@ -72,7 +72,7 @@ class DirectoryController < ApplicationController
     else
       @restaurants = Restaurant.activated_restaurant.find(:all,:conditions=>['state like ?',"#{params[:state]}"],:order => "name").uniq
     end
-    if @restaurants.blank?
+    if @restaurants.blank? && params[:name]=="state"
       flash[:notice] = "I am sorry, we don't have any restaurants for your state yet. Sign up to receive notification when we do!"
     end
     render :layout => false

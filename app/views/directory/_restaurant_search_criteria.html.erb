@@ -1,54 +1,65 @@
-<h3>What are you searching for?</h3>
-<% form_remote_tag :url =>search_restaurant_by_state_path do %>
-    <ol>
-        <li>
-            <label for="search_restaurant_eq_any_name">Are you looking for a restaurant?</label>
-        </li>
-        <li>
-            <%= text_field_tag "restaurant_search", "", :name => "name",:placeholder=>"Search by Restaurant Name" %> 
-        </li>
-        <p><%= button_tag "Search", :class => 'positive' %></p>  
-    </ol>          
-<%end%>       
-<br/>
-<h3>Find exactly what you're researching:</h3>  
-<label for="search_trend_ingredient_eq_any_name">Researching a trend or ingredient?</label>
-<% form_remote_tag :url =>search_restaurant_by_state_path do %>
-    <ol>
-        <li>
-            <%= text_field_tag "otm_keyword_search", "", :name => "search[menu_items_otm_keywords_name_eq_any][]",:placeholder=>"Search by On the Menu Keyword" %>
-        </li>
-        <p><%= button_tag "Search", :class => 'positive' %></p>
-    </ol>
-<%end%>
-<br/><br/>
-<% form_remote_tag :url =>search_restaurant_by_state_path do %>
-    <ol>
-        <li>
-            <label for="search_feature_eq_any_name">Looking for something in particular?</label> 
-        </li>
-        <li>           
-            <%= text_field_tag "feature_search", "", :name => "search[restaurant_features_value_eq_any][]",:placeholder=>"Search by Feature" %>
-        </li>
-        <p><%= button_tag "Search", :class => 'positive' %></p> 
-    </ol>           
-<%end%>
-<br/>
-<div>
-    <h3>Search by State</h3> 
-    <% form_remote_tag :url =>search_restaurant_by_state_path do %>
-        <%= text_field_tag "state_search", "", :name => "state",:placeholder=>"Search by state name" %>
-        <p><%= button_tag "Search", :class => 'positive' %></p>   
-    <%end%>
-</div>
-<br/>   
-<div>
-  <% if !@otm_keyword.blank? %>
+<fieldset name="Find Restaurants" id="restaurant_criteria">
     <h3>What our chefs are serving up:</h3>
     <ul class="featuredList">
         <%@otm_keyword.each do |otm_keyword|%>
-            <li class="list_item"> <%=otm_keyword.name%></li>     
+            <li class="list_item"> <%=link_to otm_keyword.name , menu_items_path(:id=>otm_keyword.id,:keyword=>otm_keyword.name)%></li>     
         <%end%>
     </ul>
-  <% end %>  
-</div>
+    <br/><br/><br/><br/><br/><br/><br/>
+    <h3>What are you searching for?</h3>
+    <label for="search_restaurant_eq_any_name">Are you looking for a specific restaurant?</label>
+    <% form_remote_tag :url =>search_restaurant_by_name_path do %>    
+        <ol>
+            <li>
+                <%= text_field_tag "restaurant_search", "", :name => "name",:placeholder=>"Search by Restaurant Name" %> 
+            </li>
+            <p><%= button_tag "Search", :class => 'positive search-button' %></p>  
+        </ol>          
+    <%end%>       
+    <br/>
+    <h3>Find exactly what you're researching:</h3>  
+    <label for="search_trend_ingredient_eq_any_name">Researching a trend or ingredient?</label>
+    <% form_remote_tag :url =>search_restaurant_by_name_path do %>
+        <ol>
+            <li>
+                <%= text_field_tag "otm_keyword_search", "", :name => "search[menu_items_otm_keywords_name_eq_any][]",:placeholder=>"tomatoes" %>
+            </li>
+            <p><%= button_tag "Search", :class => 'positive search-button' %></p>
+        </ol>
+    <%end%>
+    <br/><br/>
+    <h3>Are you looking for restaurants with a specific feature?</h3>
+    <% form_remote_tag :url =>search_restaurant_by_name_path do %>
+        <ol>
+            <li>           
+                <%= text_field_tag "feature_search", "", :name => "search[restaurant_features_value_eq_any][]",:placeholder=>"kid-friendly" %>
+            </li>
+            <p><%= button_tag "Search", :class => 'positive search-button' %></p> 
+        </ol>           
+    <%end%>
+    <br/><br/>
+    <h3>Or go old school:</h3>
+    <div>
+        <label for="search_by_state_name">Search by State</label>
+        <% form_remote_tag :url =>search_restaurant_by_name_path do %>
+            <%= text_field_tag "state_search", "", :name => "state",:placeholder=>"Search by state name" %>
+            <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
+        <%end%>
+    </div>
+    <br/><br/>
+    <div>
+        <label for="search_by_region_name">Search by Region</label>
+        <% form_remote_tag :url =>search_restaurant_by_name_path do %>
+            <%= text_field_tag "region_search", "", :name => "search[james_beard_region_name_eq][]",:placeholder=>"Search by region name" %>
+            <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
+        <%end%>
+    </div>
+    <br/><br/>
+    <div>
+        <label for="search_by_cuisine_name">Search by Cuisine</label>
+        <% form_remote_tag :url =>search_restaurant_by_name_path do %>
+            <%= text_field_tag "cuisine_search", "", :name => "search[cuisine_name_eq][]",:placeholder=>"Search by cuisine name" %>
+            <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
+        <%end%>
+    </div>
+</fieldset>
