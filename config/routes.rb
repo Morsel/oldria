@@ -425,15 +425,13 @@ ActionController::Routing::Routes.draw do |map|
   # for restaurant employee no condition
   map.no_choice '/restaurants/:restaurant_id/employees/options', :controller => "employees", :action => "options"
   map.new_employee 'restaurants/:restaurant_id/employees/new_employee', :controller => "employees", :action => "new_employee"  
-  #for autocomplete
-  map.resources :otm_keywords, :only => ["index"]
-  map.resources :features, :only => ["index"] 
+  #for autocomplete 
+  map.resources :auto_complete, :only => ["index"] 
   #for show filter result of restaurant directory
-  map.resources :states, :only => ["index"] 
   map.resources :metropolitan_areas, :only => ["index"] 
   map.resources :james_beard_regions, :only => ["index"]
   map.resources :cuisines, :only => ["index"]
-  map.search_restaurant_by_state 'directory/search_restaurant_by_state', :controller => 'directory', :action => 'search_restaurant_by_state'
+  map.search_restaurant_by_name 'directory/search_restaurant_by_name', :controller => 'directory', :action => 'search_restaurant_by_name'
   map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
   
 end
