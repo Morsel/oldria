@@ -454,7 +454,7 @@ updateRestaurantSignupFields = function() {
 };
 
 $("#user_editor").autocomplete({
-	source: "/users.js",
+  source: "/users.js",
 });
 $("#user_search").autocomplete({
   source: "/users.js",
@@ -462,13 +462,15 @@ $("#user_search").autocomplete({
 $("#specialty_search").autocomplete({
   source: "/specialties.js",
 });
+$("#region_search").autocomplete({
+  source: "/james_beard_regions.js",
+});
 $("#state_search_for_user").autocomplete({
   source: "/metropolitan_areas.js",
 });
 $("#cusine_search").autocomplete({
   source: "/cuisines.js",
 });
-
  //for autocomplete controller
   $("#otm_keyword_search").autocomplete({
     source: "/auto_complete.js?name=otm",
@@ -482,11 +484,16 @@ $("#cusine_search").autocomplete({
   $("#state_search").autocomplete({
     source: "/auto_complete.js?name=state",
   });
-  $("#region_search").autocomplete({
+  $("#region_search_restaurant").autocomplete({
     source: "/auto_complete.js?name=region",
   });
-  $("#cuisine_search").autocomplete({
+  $("#cuisine_search_restaurant").autocomplete({
     source: "/auto_complete.js?name=cuisine",
+  });
+
+  $('.search-button').click(function(){
+    var $form=$(this).closest("form");
+    $('#restaurant_criteria input').not($form.find('input:text')).val('');
   });
 
 // Social updates filtering

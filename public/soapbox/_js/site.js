@@ -75,12 +75,37 @@ $(document).ready(function(){
 		fx: { duration: 'fast', opacity: 'toggle' }
 	});
 	$('.ui-tabs-panel').equalHeights();
-	$('#trend-comments .comment, #qotd-comments .comment').equalHeights();
-	
+	$('#trend-comments .comment, #qotd-comments .comment').equalHeights();		
 
+ //for autocomplete controller
+  $("#user_search").autocomplete({
+    source: "/users.js",
+  });  
+  //for autocomplete controller
+  $("#otm_keyword_search").autocomplete({
+    source: "/auto_complete.js?name=otm",
+  });
+  $("#restaurant_search").autocomplete({
+    source: "/auto_complete.js?name=restaurant",
+  });
+  $("#feature_search").autocomplete({
+    source: "/auto_complete.js?name=feature",
+  });
+  $("#state_search").autocomplete({
+    source: "/auto_complete.js?name=state",
+  });
+  $("#region_search_restaurant").autocomplete({
+    source: "/auto_complete.js?name=region",
+  });
+  $("#cuisine_search_restaurant").autocomplete({
+    source: "/auto_complete.js?name=cuisine",
+  });
 	
-	
-});
+  $('.search-button').click(function(){
+    var $form=$(this).closest("form");
+    $('#restaurant_criteria input').not($form.find('input:text')).val('');
+  });	
+}); // end document ready
 	
 function buildPager(idx, elem){
 	idx++;
@@ -153,25 +178,7 @@ jQuery(document).ready(function(){
   };
 });
 
-$("#user_editor").autocomplete({
-  source: "/users.js",
-});
-$("#otm_keyword_search").autocomplete({
-  source: "/otm_keywords.js",
-});
 
-$("#user_search").autocomplete({
-  source: "/users.js",
-});
-$("#restaurant_search").autocomplete({
-  source: "/restaurants.js",
-});
-$("#feature_search").autocomplete({
-  source: "/features.js",
-});
-$("#state_search").autocomplete({
-  source: "/states.js",
-});
 $("#specialty_search").autocomplete({
   source: "/specialties.js",
 });

@@ -11,7 +11,7 @@
         <% if params[:controller] == "soapbox/soapbox" %>
           <%= hidden_field_tag :soapbox, "soapbox" %>
         <% end %>  
-        <p><%= button_tag "Search", :class => 'positive' %></p>  
+        <p><%= button_tag "Search", :class => 'positive search-button' %></p>  
     </ol>          
 <%end%>       
 <br/><br/>
@@ -21,11 +21,12 @@
             <label for="search_feature_eq_any_name">Looking for something in particular?</label> 
         </li>
         <li>           
-            <%= text_field_tag "specialty_search", "", :name => "search[profile_specialties_name_eq][]",:placeholder=>"Search by specialty keywords " %>
+          <%= text_field_tag "specialty_search", "", :name => "search[profile_specialties_name_eq][]",:placeholder=>"Search by specialty keywords " %>
         </li>
         <% if params[:controller] == "soapbox/soapbox" %>
           <%= hidden_field_tag :soapbox, "soapbox" %>
         <% end %>  
+        </li>
         <p><%= button_tag "Search", :class => 'positive search-button' %></p> 
     </ol>           
 <%end%>

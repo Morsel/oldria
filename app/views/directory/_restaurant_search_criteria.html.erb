@@ -5,7 +5,7 @@
             <li class="list_item"> <%=link_to otm_keyword.name , menu_items_path(:id=>otm_keyword.id,:keyword=>otm_keyword.name)%></li>     
         <%end%>
     </ul>
-    <br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/>
     <h3>What are you searching for?</h3>
     <label for="search_restaurant_eq_any_name">Are you looking for a specific restaurant?</label>
     <% form_remote_tag :url =>search_restaurant_by_name_path do %>    
@@ -50,7 +50,7 @@
     <div>
         <label for="search_by_region_name">Search by Region</label>
         <% form_remote_tag :url =>search_restaurant_by_name_path do %>
-            <%= text_field_tag "region_search", "", :name => "search[james_beard_region_name_eq][]",:placeholder=>"Search by region name" %>
+            <%= text_field_tag "region_search_restaurant", "", :name => "search[james_beard_region_name_eq][]",:placeholder=>"Search by region name" %>
             <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
         <%end%>
     </div>
@@ -58,7 +58,7 @@
     <div>
         <label for="search_by_cuisine_name">Search by Cuisine</label>
         <% form_remote_tag :url =>search_restaurant_by_name_path do %>
-            <%= text_field_tag "cuisine_search", "", :name => "search[cuisine_name_eq][]",:placeholder=>"Search by cuisine name" %>
+            <%= text_field_tag "cuisine_search_restaurant", "", :name => "search[cuisine_name_eq][]",:placeholder=>"Search by cuisine name" %>
             <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
         <%end%>
     </div>
