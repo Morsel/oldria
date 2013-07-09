@@ -12,7 +12,7 @@ class JamesBeardRegionsController < ApplicationController
     if @james_beard_region.present?
       render :json => @james_beard_region.map(&:name)
     else
-      render :json => @specialty.push('This region does not yet exist in our database. Please try another region.')
+      render :json => @james_beard_region.push('This region does not yet exist in our database. Please try another region.')
     end
   end
 

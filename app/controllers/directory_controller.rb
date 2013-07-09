@@ -42,7 +42,7 @@ class DirectoryController < ApplicationController
       @restaurants = Restaurant.activated_restaurant.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
     else      
       @use_search = true
-      @restaurants = Restaurant.activated_restaurant
+      @restaurants = Restaurant.activated_restaurant(:limit=>10)
       @otm_keyword = OtmKeyword.all(:limit=>10)
     end
   end
@@ -80,16 +80,30 @@ class DirectoryController < ApplicationController
 
 
   def search_user
-    if params[:name]
-      @users = User.in_spoonfeed_directory.find_all_by_name(params[:name])
-    elsif  params[:search][:profile_specialties_name_eq]   
-      @users =  User.in_soapbox_directory.profile_specialties_name_eq(params[:search][:profile_specialties_name_eq]).all(:order => "users.last_name").uniq
-    elsif  params[:search][:profile_metropolitan_area_name_eq]
-      @users = User.in_spoonfeed_directory.profile_metropolitan_area_name_eq(params[:search][:profile_metropolitan_area_name_eq]).all(:order => "users.last_name").uniq
-    elsif params[:search][:profile_james_beard_region_name_eq]
-      @users = User.in_spoonfeed_directory.profile_james_beard_region_name_eq(params[:search][:profile_james_beard_region_name_eq]).all(:order => "users.last_name").uniq
-    elsif params[:search][:profile_cuisines_name_eq]
-      @users =  User.in_spoonfeed_directory.profile_cuisines_name_eq(params[:search][:profile_cuisines_name_eq]).all(:order => "users.last_name").uniq
+    if params[:soapbox]
+      if params[:name]
+        @users = User.in_soapbox_directory.find_all_by_name(params[:name])
+      elsif  params[:search][:profile_specialties_name_eq]
+        @users =  User.in_soapbox_directory.profile_specialties_name_eq(params[:search][:profile_specialties_name_eq]).all(:order => "users.last_name").uniq
+      elsif  params[:search][:profile_metropolitan_area_name_eq] 
+        @users =User.in_soapbox_directory.profile_metropolitan_area_name_eq(params[:search][:profile_metropolitan_area_name_eq]).all(:order => "users.last_name").uniq
+      elsif params[:search][:profile_james_beard_region_name_eq]
+        @users = User.in_soapbox_directory.profile_james_beard_region_name_eq(params[:search][:profile_james_beard_region_name_eq]).all(:order => "users.last_name").uniq
+      elsif params[:search][:profile_cuisines_name_eq]  
+        @users =  User.in_soapbox_directory.profile_cuisines_name_eq(params[:search][:profile_cuisines_name_eq]).all(:order => "users.last_name").uniq
+      end  
+    else
+      if params[:name]
+        @users = User.in_spoonfeed_directory.find_all_by_name(params[:name])
+      elsif  params[:search][:profile_specialties_name_eq]   
+        @users =  User.in_spoonfeed_directory.profile_specialties_name_eq(params[:search][:profile_specialties_name_eq]).all(:order => "users.last_name").uniq
+      elsif  params[:search][:profile_metropolitan_area_name_eq]
+        @users = User.in_spoonfeed_directory.profile_metropolitan_area_name_eq(params[:search][:profile_metropolitan_area_name_eq]).all(:order => "users.last_name").uniq
+      elsif params[:search][:profile_james_beard_region_name_eq]
+        @users = User.in_spoonfeed_directory.profile_james_beard_region_name_eq(params[:search][:profile_james_beard_region_name_eq]).all(:order => "users.last_name").uniq
+      elsif params[:search][:profile_cuisines_name_eq]
+        @users =  User.in_spoonfeed_directory.profile_cuisines_name_eq(params[:search][:profile_cuisines_name_eq]).all(:order => "users.last_name").uniq
+      end    
     end  
   end  
 
