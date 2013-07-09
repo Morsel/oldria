@@ -17,7 +17,9 @@
 						<%= render :partial => 'comments/form' %>
 			<% elsif params[:controller] == "media_request_discussions"  %>
 						<%= render :partial => 'comments/form' %> 
-	      <% end %>	
+	      <% end %>
+	<% else %>
+		<% flash[:notice] = "you need to add staff to unlock your resto profile"	%>     
 	<%end%>
 
 <% else %> 
