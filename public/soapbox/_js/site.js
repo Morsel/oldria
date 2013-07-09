@@ -75,12 +75,45 @@ $(document).ready(function(){
 		fx: { duration: 'fast', opacity: 'toggle' }
 	});
 	$('.ui-tabs-panel').equalHeights();
-	$('#trend-comments .comment, #qotd-comments .comment').equalHeights();
-	
+	$('#trend-comments .comment, #qotd-comments .comment').equalHeights();		
 
+ //for autocomplete controller
+  $("#user_search").autocomplete({
+    source: "/users.js",
+  });
+  $("#specialty_search").autocomplete({
+    source: "/specialties.js",
+  });
+  $("#state_search_for_user").autocomplete({
+    source: "/metropolitan_areas.js",
+  });
+  $("#cusine_search").autocomplete({
+    source: "/cuisines.js",
+  });
+  $("#otm_keyword_search").autocomplete({
+    source: "/auto_complete.js?name=otm",
+  });
+  $("#restaurant_search").autocomplete({
+    source: "/auto_complete.js?name=restaurant",
+  });
+  $("#feature_search").autocomplete({
+    source: "/auto_complete.js?name=feature",
+  });
+  $("#state_search").autocomplete({
+    source: "/auto_complete.js?name=state",
+  });
+  $("#region_search").autocomplete({
+    source: "/auto_complete.js?name=region",
+  });
+  $("#cuisine_search").autocomplete({
+    source: "/auto_complete.js?name=cuisine",
+  });
 	
-	
-});
+  $('.search-button').click(function(){
+    var $form=$(this).closest("form");
+    $('#restaurant_criteria input').not($form.find('input:text')).val('');
+  });	
+}); // end document ready
 	
 function buildPager(idx, elem){
 	idx++;

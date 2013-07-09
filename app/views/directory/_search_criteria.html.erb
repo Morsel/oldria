@@ -1,93 +1,53 @@
-<% cache "#{soapbox? ? "public" : "private"}_search_criteria", :expires_in => 8.hours do %>
-<fieldset name="Find People" id="employment_criteria">
+<fieldset name="Find Restaurants" id="restaurant_criteria">
+<h3>What are you searching for?</h3>
+<% form_remote_tag :url =>search_user_path do %>
     <ol>
-        <div id="criteria_accordion">
-            <div class="accordion_box">
-                <%= link_to "<span>Cuisine</span>", "#" %>
-                <div id="cuisine_fields" class="loading" style="display:none;">
-                    <li id="search_profile_cuisines_id_eq_any_input" class="check_boxes optional">
-                        <fieldset>
-                            <ol>
-                                <% for cuisine in cuisines_for_search %>
-                                <li><label for="search_profile_cuisines_id_eq_any_<%= cuisine.id %>">
-                                    <%= check_box_tag "search[profile_cuisines_id_eq_any][]", cuisine.id, false, :id => "search_profile_cuisines_id_eq_any_#{cuisine.id}" %>
-                                    <%= cuisine.name %>
-                                </label></li>
-                                <% end %>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </div>
-            </div>
-            <div class="accordion_box">
-                <%= link_to "<span>Specialty</span>", "#" %>
-                <div id="specialty_fields" class="loading" style="display:none;">
-                    <li id="search_profile_specialities_id_eq_any_input" class="check_boxes optional">
-                        <fieldset>
-                            <ol>
-                                <% for specialty in specialties_for_search %>
-                                <li><label for="search_profile_specialties_id_eq_any_<%= specialty.id %>">
-                                    <%= check_box_tag "search[profile_specialties_id_eq_any][]", specialty.id, false, :id => "search_profile_specialties_id_eq_any_#{specialty.id}" %>
-                                    <%= specialty.name %>
-                                </label></li>
-                                <% end %>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </div>
-            </div>
-            <div class="accordion_box">
-                <%= link_to "<span>Role</span>", "#" %>
-                <div id="role_fields" class="loading" style="display:none;">
-                    <li id="search_all_employments_restaurant_role_id_eq_any_input" class="check_boxes optional">
-                        <fieldset>
-                            <ol>
-                                <% for role in roles_for_search %>
-                                <li><label for="search_all_employments_restaurant_role_id_eq_any_<%= role.id %>">
-                                    <%= check_box_tag "search[all_employments_restaurant_role_id_eq_any][]", role.id, false, :id => "search_all_employments_restaurant_role_id_eq_any_#{role.id}" %>
-                                    <%= role.name %>
-                                </label></li>
-                                <% end %>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </div>
-            </div>
-            <div class="accordion_box">
-                <%= link_to "<span>Region</span>", "#" %>
-                <div id="region_fields" class="loading" style="display:none;">
-                    <li id="search_profile_james_beard_region_id_eq_any_input" class="check_boxes optional">
-                        <fieldset>
-                            <ol>
-                                <% for region in regions_for_search %>
-                                <li><label for="search_profile_james_beard_region_id_eq_any_<%= region.id %>">
-                                    <%= check_box_tag "search[profile_james_beard_region_id_eq_any][]", region.id, false, :id => "search_profile_jasmes_beard_region_id_eq_any_#{region.id}" %>
-                                    <%= region.to_label %>
-                                </label></li>
-                                <% end %>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </div>
-            </div>
-            <div class="accordion_box">
-                <%= link_to "<span>Metro Area</span>", "#" %>
-                <div id="metro_fields" class="loading" style="display:none;">
-                    <li id="search_profile_metropolitan_area_id_eq_any_input" class="check_boxes optional">
-                        <fieldset>
-                            <ol>
-                                <% for metro in metros_for_search %>
-                                <li><label for="search_profile_metropolitan_area_id_eq_any_<%= metro.id %>">
-                                    <%= check_box_tag "search[profile_metropolitan_area_id_eq_any][]", metro.id, false, :id => "search_profile_metropolitan_area_id_eq_any_#{metro.id}" %>
-                                    <%= metro.city_and_state %>
-                                </label></li>
-                                <% end %>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </div>
-            </div>
-        </div>
-    </ol>
+        <li>
+            <label for="search_user_eq_any_name">Are you looking for a specific person?</label>
+        </li>
+        <li>
+            <%= text_field_tag "user_search", "", :name => "name",:placeholder=>"Search by user name" %> 
+        </li>
+        <p><%= button_tag "Search", :class => 'positive search-button' %></p>  
+    </ol>          
+<%end%>       
+<br/><br/>
+<% form_remote_tag :url =>search_user_path do %>
+    <ol>
+        <li>
+            <label for="search_feature_eq_any_name">Looking for something in particular?</label> 
+        </li>
+        <li>           
+            <%= text_field_tag "feature_search", "", :name => "search[profile_specialties_name_eq][]",:placeholder=>"Search by specialty keywords " %>
+        </li>
+        <p><%= button_tag "Search", :class => 'positive search-button' %></p> 
+    </ol>           
+<%end%>
+<br/>
+<div>
+    <h3>Or go old school:</h3> 
+    <h3>Search by State</h3> 
+    <% form_remote_tag :url =>search_user_path do %>
+        <%= text_field_tag "state_search_for_user", "", :name => "search[profile_metropolitan_area_name_eq][]",:placeholder=>"Search by state name" %>
+        <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
+    <%end%>
+</div>
+<br/>   
+<div>
+    <h3>Search by Region</h3> 
+    <% form_remote_tag :url =>search_user_path do %>
+        <%= text_field_tag "region_search", "", :name => "search[profile_james_beard_region_name_eq][]",:placeholder=>"Search by region name" %>
+        <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
+    <%end%>
+</div>
+<br/>   
+
+<div>
+    <h3>Search by Cuisine</h3> 
+    <% form_remote_tag :url =>search_user_path do %>
+        <%= text_field_tag "cusine_search", "", :name => "search[profile_cuisines_name_eq][]",:placeholder=>"Search by cusine name" %>
+        <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
+    <%end%>
+</div>
+<br/>   
 </fieldset>
-<% end %>

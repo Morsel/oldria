@@ -2,26 +2,26 @@ class DirectoryController < ApplicationController
   include DirectoryHelper
   before_filter :require_user
 
-  def index
+  def index    
     if params[:specialty_id]
-      @specialty = Specialty.find(params[:specialty_id])
-      @users = User.in_soapbox_directory.profile_specialties_id_eq(params[:specialty_id]).all(:order => "users.last_name").uniq
-      @keywordable_id = params[:specialty_id]
+       @specialty = Specialty.find(params[:specialty_id])
+       @users = User.in_soapbox_directory.profile_specialties_id_eq(params[:specialty_id]).all(:order => "users.last_name").uniq
+       @keywordable_id = params[:specialty_id]
       @keywordable_type = 'Specialty'
-    elsif params[:cuisine_id]
+     elsif params[:cuisine_id]
       @cuisine = Cuisine.find(params[:cuisine_id])
-      @users = User.in_spoonfeed_directory.profile_cuisines_id_eq(params[:cuisine_id]).all(:order => "users.last_name").uniq
-      @keywordable_id = params[:cuisine_id]
-      @keywordable_type = 'Cuisine'
-    elsif params[:metropolitan_area_id]
+       @users = User.in_spoonfeed_directory.profile_cuisines_id_eq(params[:cuisine_id]).all(:order => "users.last_name").uniq
+       @keywordable_id = params[:cuisine_id]
+       @keywordable_type = 'Cuisine'
+     elsif params[:metropolitan_area_id]
       @metro_area = MetropolitanArea.find(params[:metropolitan_area_id])
-      @users = User.in_spoonfeed_directory.profile_metropolitan_area_id_eq(params[:metropolitan_area_id]).all(:order => "users.last_name").uniq
-    elsif params[:james_beard_region_id]
-      @region = JamesBeardRegion.find(params[:james_beard_region_id])
-      @users = User.in_spoonfeed_directory.profile_james_beard_region_id_eq(params[:james_beard_region_id]).all(:order => "users.last_name").uniq
-    else
-      @use_search = true
-      @users = User.in_spoonfeed_directory.all(:order => "users.last_name")
+       @users = User.in_spoonfeed_directory.profile_metropolitan_area_id_eq(params[:metropolitan_area_id]).all(:order => "users.last_name").uniq
+     elsif params[:james_beard_region_id]
+       @region = JamesBeardRegion.find(params[:james_beard_region_id])
+       @users = User.in_spoonfeed_directory.profile_james_beard_region_id_eq(params[:james_beard_region_id]).all(:order => "users.last_name").uniq
+     else
+       @use_search = true
+      @users = User.in_spoonfeed_directory.all(:order => "users.last_name",:limit=>1)
     end
   end
 
@@ -43,6 +43,7 @@ class DirectoryController < ApplicationController
     else      
       @use_search = true
       @restaurants = Restaurant.activated_restaurant
+      @otm_keyword = OtmKeyword.all(:limit=>9)
     end
   end
   
@@ -61,4 +62,37 @@ class DirectoryController < ApplicationController
     @url = get_url_by_request params[:clicked_page]
     render :json =>{:url=>@url}
   end 
+
+
+  def search_restaurant_by_name
+    if params[:search]
+      @restaurants = Restaurant.activated_restaurant.search(params[:search]).all(:order => "name").uniq
+    elsif params[:name]
+      @restaurants = Restaurant.find(:all,:conditions=>['name = ?',params[:name]])
+    else
+      @restaurants = Restaurant.activated_restaurant.find(:all,:conditions=>['state like ?',"#{params[:state]}"],:order => "name").uniq
+    end
+    if @restaurants.blank? && params[:name]=="state"
+      flash[:notice] = "I am sorry, we don't have any restaurants for your state yet. Sign up to receive notification when we do!"
+    end
+    render :layout => false
+  end
+
+
+  def search_user
+    if params[:name]
+      @users = User.in_spoonfeed_directory.find_all_by_name(params[:name])
+    elsif  params[:search][:profile_specialties_name_eq]   
+      @users =  User.in_soapbox_directory.profile_specialties_name_eq(params[:search][:profile_specialties_name_eq]).all(:order => "users.last_name").uniq
+    elsif  params[:search][:profile_metropolitan_area_name_eq]
+      @users = User.in_spoonfeed_directory.profile_metropolitan_area_name_eq(params[:search][:profile_metropolitan_area_name_eq]).all(:order => "users.last_name").uniq
+    elsif params[:search][:profile_james_beard_region_name_eq]
+      @users = User.in_spoonfeed_directory.profile_james_beard_region_name_eq(params[:search][:profile_james_beard_region_name_eq]).all(:order => "users.last_name").uniq
+    elsif params[:search][:profile_cuisines_name_eq]
+      @users =  User.in_spoonfeed_directory.profile_cuisines_name_eq(params[:search][:profile_cuisines_name_eq]).all(:order => "users.last_name").uniq
+    end  
+  end  
+
 end
+
+

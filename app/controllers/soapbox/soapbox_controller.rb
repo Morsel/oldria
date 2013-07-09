@@ -42,9 +42,10 @@ class Soapbox::SoapboxController < ApplicationController
       @region = JamesBeardRegion.find(params[:james_beard_region_id])
       @restaurants = Restaurant.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
     else      
-      @restaurants = Restaurant.all
+      #@restaurants = Restaurant.all
     end
     @use_search = true
+    @otm_keyword = OtmKeyword.all(:limit=>9)
     @no_sidebar = true
     render :template => "directory/restaurants"
   end

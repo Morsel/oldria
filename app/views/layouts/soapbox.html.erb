@@ -18,6 +18,9 @@
   <%= stylesheet_link_tag "/soapbox/_css/soapbox.css", "colorbox.css", :media => "screen" %>
   <%= stylesheet_link_tag "/soapbox/_css/print.css", :media => "print" %>
   <%= stylesheet_link_tag "/soapbox/_css/museoslab/stylesheet.css", "/soapbox/_css/knockout/stylesheet.css" %>
+  <% if params[:controller].split('/')[0]=="soapbox" && params[:action]=="restaurant_directory"%>
+    <%= stylesheet_link_tag "/soapbox/_css/restaurant_directory.css" %>
+  <%end%>
   <%= yield(:head) %>
 </head>
   <!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
@@ -33,14 +36,14 @@
         <img src="/images/soapbox/logo-soapbox.png" id="printlogo">
         <h2 id="tagline">A digital magazine written by chefs</h2>
       </hgroup>
-	  <nav id="nav">
-		<%= link_to 'Home', soapbox_root_path, :id => "nav-home", :class => active_page?('/soapbox') %>
-		<%= link_to 'A La Minute', '/soapbox/a_la_minute_questions', :id => "nav-alm", :class => active_page?('/soapbox/a_la_minute_questions') %>
-		<%= link_to 'On the Menu', soapbox_menu_items_path, :id => "nav-otm", :class => active_page?('/soapbox/on_the_menu') %>
-		<%= link_to 'Personal Profiles', '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %>
-		<%= link_to 'Restaurant Profiles', '/soapbox/directory/restaurants', :id => "nav-restaurant-directory", :class => active_page?('/soapbox/directory/restaurants') %>
-		<%= link_to 'Join', soapbox_join_url, :id => "nav-join", :class => "last" %>
-	  </nav>
+    <nav id="nav">
+    <%= link_to 'Home', soapbox_root_path, :id => "nav-home", :class => active_page?('/soapbox') %>
+    <%= link_to 'A La Minute', '/soapbox/a_la_minute_questions', :id => "nav-alm", :class => active_page?('/soapbox/a_la_minute_questions') %>
+    <%= link_to 'On the Menu', soapbox_menu_items_path, :id => "nav-otm", :class => active_page?('/soapbox/on_the_menu') %>
+    <%= link_to 'Personal Profiles', '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %>
+    <%= link_to 'Restaurant Profiles', '/soapbox/directory/restaurants', :id => "nav-restaurant-directory", :class => active_page?('/soapbox/directory/restaurants') %>
+    <%= link_to 'Join', soapbox_join_url, :id => "nav-join", :class => "last" %>
+    </nav>
     </header>
   
     <nav id="utilities">
@@ -83,8 +86,12 @@
    </footer>
 
 
+<% if params[:controller].split('/')[0]=="soapbox" && params[:action]=="restaurant_directory"%>
+  <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js' %>
 
+<% else %>
   <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js' %>
+<% end %>
   <%= javascript_include_tag '/soapbox/_js/jquery-ui-1.8.5.tabs-customized.min.js', 'jquery.ui.accordion', 'http://cachedcommons.org/cache/jquery-cycle/2.8.6/javascripts/jquery-cycle.js', 'showy', '/soapbox/_js/jquery.equalheights.js', 'jquery-colorbox-min.js', 'jquery.masonry.js', 'filler.js','/soapbox/_js/site' %>
   <!--[if lt IE 7 ]>
     <script src="/soapbox/_js/dd_belatedpng.js?v=1"></script>
