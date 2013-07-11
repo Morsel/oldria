@@ -9,13 +9,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
 
-ActiveRecord::Schema.define(:version => 20121108160937) do
-
-=======
 ActiveRecord::Schema.define(:version => 20130710083348) do
->>>>>>> origin/Capture-invite-friends-requests-52951641
 
   create_table "a_la_minute_answers", :id => false, :force => true do |t|
     t.integer  "id",                      :null => false
