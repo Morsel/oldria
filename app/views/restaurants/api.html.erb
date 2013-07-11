@@ -30,9 +30,10 @@
                  <div id="html-div" class="display-none">
                   <h1 class="pg_title">Diner signup Html</h1>
                     <p>
-                      Use this form to allow a diner to subscribe to your email list on Spoonfeed. Just copy the html below and add anywhere to your website. You can modify the text how ever you would like.</p>
+                      Diners can subscribe directly to your email list on Spoonfeed!  To get started, place the following html anywhere in your website. This form will automatically subscribe the diner to your email list.   If you have web development experience, you can modify the layout or text within the html - you just need to keep the form input fields and there associated names.</p>
                     <p>
-                      NOTE: Please add a return url in the form input field to the thank you page on your website. 
+                      IMPORTANT NOTE: Please add the full link to your thank you page in the value portion of the html field named "url", &lt;input type=&quot;hidden&quot; name=&quot;url&quot; value=&quot;YOUR URL HERE&quot;&gt;
+
                     </p>  
                     <p>Ex: www.example.com/thankyou.php</p>
                   <!-- <div id="read_messages" style="width:670px;margin:0;"> -->
@@ -56,6 +57,7 @@
 <script type="text/javascript">
   $(".api-a").click(function(e){
     e.preventDefault();
+    $('#profile-tabs').tabs('select', 'profile-account');
     $(".api-a").removeClass("selected");
     $(this).addClass("selected");
     if($(this).attr('href')=="#html-div")
@@ -75,4 +77,13 @@
       }
   })
 </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#restaurant_feature_nav').tabs('select', 'html-div');
+      $('a[href$="#api-div"]').removeClass("selected");
+      $('a[href$="#html-div"]').addClass("selected");
+      $("#key-div").hide();
+      $("#html-div").show();
+    });
+  </script>
 <% end %>
