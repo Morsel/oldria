@@ -75,7 +75,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
     @connect_media = 0
     @visitor_mail = 0
     @visitor_mail_str = @connect_media_str = "" 
-    User.all.each do |user|
+    User.all(:limit=>20).each do |user|
       @uves=user.user_visitor_email_setting
         if @uves.blank?
           @uves=create_user_visited_email_setting(user)
@@ -112,14 +112,14 @@ class UserRestaurantVisitor < ActiveRecord::Base
             end
           end
         else
-          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
+          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),111.day.ago],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
             @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
             
             if !visitor.restaurant.nil?
               visitors = visitor.restaurant.newsletter_subscribers
             
-              media_visitors = visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.created_at > ? OR user_restaurant_visitors.updated_at > ?",1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s])
+              media_visitors = visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.created_at > ? OR user_restaurant_visitors.updated_at > ?",111.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s])
 
               counter = 0
 
@@ -137,10 +137,13 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
               @menu_item = visitor.restaurant.menu_items.find(:first,:order =>"updated_at desc")
               unless @menu_item.blank?
-                if @menu_item.created_at < 7.day.ago
+                if @menu_item.created_at > 7.day.ago
                   @menu_item_message = "Looks like you haven't uploaded a new dish or drink to On The Menu in quite some time. Let's keep media interested in you, <a href='#{new_restaurant_menu_url(visitor.restaurant)}'>add your newest dish or drink today!</a>"
                   counter+=1
-                end
+                elsif @menu_item.created_at < 7.day.ago
+                  @menu_item_message = "Looks like you've been working with On the Menu, keep at it!"
+                  counter+=1
+                end 
               else
                 counter+=1
                 @menu_item_message = "You've never used On The Menu, a powerful tool for connecting with media. You can ,<a href='#{restaurant_menus_url(visitor.restaurant)}'>check it out here</a>"
