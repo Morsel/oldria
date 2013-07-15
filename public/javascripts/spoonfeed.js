@@ -754,22 +754,22 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
   })
 
  $('#add_more').click(function(e){
-  e.preventDefault();
-  more_people = $('#more_people').clone();
-  $('#more_people').show();
-  $(".recommendation_invitations .name").each(function() {
-      $(this).removeClass('name');
-      $(this).addClass('first_name');
-  });
-  $(".recommendation_invitations .last").each(function() {
-      $(this).removeClass('last');
-      $(this).addClass('last_name');
-  });
-  $(".recommendation_invitations .email").each(function() {
-      $(this).removeClass('email');
-      $(this).addClass('email_id');
-  });
-  more_people.insertAfter('#more_people');
+    e.preventDefault();
+    more_people = $('#more_people').clone();
+    $('#more_people').show();
+    $(".recommendation_invitations .name").each(function() {
+        $(this).removeClass('name');
+        $(this).addClass('first_name');
+    });
+    $(".recommendation_invitations .last").each(function() {
+        $(this).removeClass('last');
+        $(this).addClass('last_name');
+    });
+    $(".recommendation_invitations .email").each(function() {
+        $(this).removeClass('email');
+        $(this).addClass('email_id');
+    });
+    more_people.insertAfter('#more_people');
   });
   $('#recommendation_invitations').click(function(e){
     e.preventDefault(); 
@@ -798,6 +798,8 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     }else{
       $('#flashes').html('<div id="flash_error">'+ret_val+'</div>');
     }
+  });
+
   $('.search-button').click(function(){
     var $form=$(this).parent().find("input:text");
     $('#restaurant_criteria input').not($form).val('');
@@ -843,4 +845,3 @@ function loderHide()
 {
   $('#loader-waiting').slideUp();
 }
-
