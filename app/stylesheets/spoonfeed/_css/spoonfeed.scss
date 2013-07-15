@@ -4709,6 +4709,7 @@ fieldset{
 	margin-top: -14px !important;
 	color: #D8531E !important;
 }
+
 /* -----  for restaurant Directory ------------- */
 ul.featuredList{
     list-style: none;
@@ -4723,3 +4724,8 @@ ul.featuredList li:before {
         content: "\00BB \0020";
 }
 /* -----  end restaurant Directory ------------- */
+
+.menu_form {
+	width: 840px !important; 
+	}
+
