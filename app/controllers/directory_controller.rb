@@ -75,7 +75,7 @@ class DirectoryController < ApplicationController
     if @restaurants.blank? && params[:name]=="state"
       flash[:notice] = "I am sorry, we don't have any restaurants for your state yet. Sign up to receive notification when we do!"
     end
-    render :layout => false
+    render :partial => "restaurant_search_results"
   end
 
 

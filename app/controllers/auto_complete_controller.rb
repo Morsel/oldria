@@ -33,7 +33,7 @@ class AutoCompleteController < ApplicationController
 	      UserMailer.deliver_send_otm_keyword_notification(current_user,keyword_name) 
 	      render :json => @keywords.push('This keyword does not yet exist in our database. Please try another keyword.')
     	else
-    	  render :json => @keywords.push('This #{params[:name]} does not yet exist in our database. Please try another name.')
+    	  render :json => @keywords.push('This '+params[:name]+' does not yet exist in our database. Please try another name.')
     	end
     end
   end
