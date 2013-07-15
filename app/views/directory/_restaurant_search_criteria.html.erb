@@ -1,6 +1,6 @@
 <fieldset name="Find Restaurants" id="restaurant_criteria">
     <h3>What our chefs are serving up:</h3>
-    <div class="featuredList">
+    <div class="setlistwidth">
     <ul>
         <%@otm_keyword.each do |otm_keyword|%>
             <li class="list_item"> <%=link_to otm_keyword.name , menu_items_path(:id=>otm_keyword.id,:keyword=>otm_keyword.name)%></li>     
@@ -14,8 +14,7 @@
         <%= text_field_tag "restaurant_search", "", :name => "name",:placeholder=>"Search by Restaurant Name" %> 
     </p>
     <%= button_tag "Search",:id=>"restaurant_by_name", :class => 'positive search-button' %> 
-    <br/><br/>
-    <h3>Find exactly what you're researching:</h3>  
+    <br/><br/> <br/>  
     <label for="search_trend_ingredient_eq_any_name">Researching a trend or ingredient?</label>
     <p>
         <%= text_field_tag "otm_keyword_search", "", :name => "search[menu_items_otm_keywords_name_eq_any][]",:placeholder=>"tomatoes" %>
