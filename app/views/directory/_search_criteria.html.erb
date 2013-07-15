@@ -8,7 +8,10 @@
         <li>
             <%= text_field_tag "user_search", "", :name => "name",:placeholder=>"Search by user name" %> 
         </li>
-        <p><%= button_tag "Search", :class => 'positive search-button' %></p>  
+        <% if params[:controller] == "soapbox/soapbox" %>
+          <%= hidden_field_tag :soapbox, "soapbox" %>
+        <% end %>  
+        <p><%= button_tag "Search", :class => 'positive' %></p>  
     </ol>          
 <%end%>       
 <br/><br/>
@@ -18,8 +21,11 @@
             <label for="search_feature_eq_any_name">Looking for something in particular?</label> 
         </li>
         <li>           
-            <%= text_field_tag "feature_search", "", :name => "search[profile_specialties_name_eq][]",:placeholder=>"Search by specialty keywords " %>
+            <%= text_field_tag "specialty_search", "", :name => "search[profile_specialties_name_eq][]",:placeholder=>"Search by specialty keywords " %>
         </li>
+        <% if params[:controller] == "soapbox/soapbox" %>
+          <%= hidden_field_tag :soapbox, "soapbox" %>
+        <% end %>  
         <p><%= button_tag "Search", :class => 'positive search-button' %></p> 
     </ol>           
 <%end%>
@@ -29,6 +35,9 @@
     <h3>Search by State</h3> 
     <% form_remote_tag :url =>search_user_path do %>
         <%= text_field_tag "state_search_for_user", "", :name => "search[profile_metropolitan_area_name_eq][]",:placeholder=>"Search by state name" %>
+        <% if params[:controller] == "soapbox/soapbox" %>
+          <%= hidden_field_tag :soapbox, "soapbox" %>
+        <% end %>  
         <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
     <%end%>
 </div>
@@ -37,6 +46,9 @@
     <h3>Search by Region</h3> 
     <% form_remote_tag :url =>search_user_path do %>
         <%= text_field_tag "region_search", "", :name => "search[profile_james_beard_region_name_eq][]",:placeholder=>"Search by region name" %>
+        <% if params[:controller] == "soapbox/soapbox" %>
+          <%= hidden_field_tag :soapbox, "soapbox" %>
+        <% end %>  
         <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
     <%end%>
 </div>
@@ -46,6 +58,9 @@
     <h3>Search by Cuisine</h3> 
     <% form_remote_tag :url =>search_user_path do %>
         <%= text_field_tag "cusine_search", "", :name => "search[profile_cuisines_name_eq][]",:placeholder=>"Search by cusine name" %>
+        <% if params[:controller] == "soapbox/soapbox" %>
+          <%= hidden_field_tag :soapbox, "soapbox" %>
+        <% end %>  
         <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
     <%end%>
 </div>
