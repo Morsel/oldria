@@ -1,7 +1,6 @@
 
 <div class="comments">
 <h2>Comment <span>(note: most recent listed first)</span></h2>
-
 <% if !@comments.blank? %>
 
 <%= render @comments %>
@@ -19,8 +18,9 @@
 						<%= render :partial => 'comments/form' %> 
 	      <% end %>
 	<% else %>
-		<% flash[:notice] = "you need to add staff to unlock your resto profile"	%>     
+		<% flash[:notice] = "Looks like the #{@restaurant.name} restaurant profile is missing some personnel! Please add all key staff to the staff tab to ensure the restaurant is accurately represented for media so you can proceed. Thank you!" %>     
 	<%end%>
+
 
 <% else %> 
 			<% if !current_user.media? && (params[:controller] == "solo_media_discussions") %>
