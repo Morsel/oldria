@@ -511,7 +511,7 @@ $("#cusine_search").autocomplete({
   $("#region_search_restaurant").autocomplete({
     source: "/auto_complete.js?name=region",
   });
-  $("#cuisine_search_restaurant").autocomplete({
+  $("#cuisine_search").autocomplete({
     source: "/auto_complete.js?name=cuisine",
   });
 
