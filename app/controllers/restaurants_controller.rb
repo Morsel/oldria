@@ -325,19 +325,26 @@ class RestaurantsController < ApplicationController
   end
 
   def media_user_newsletter_subscription        
-    user = User.find(params[:id])    
+    @user = User.find(params[:id])    
     @arrMedia=[]    
-    @media_subscription = user.media_newsletter_subscriptions
-    @media_subscription.each do |media_subscription|
-      @arrMedia.push(media_subscription.restaurant)
-    end  
-    @arrMedia.push(user.get_digest_subscription)
+    @basic_restarurants = []
+
+    @arrMedia.push(@user.media_newsletter_subscriptions.map(&:restaurant))
+    
+    #@arrMedia.push(@user.get_digest_subscription)
+
     @arrMedia.flatten!
     @menu_items = @menus = @restaurantAnswers = @promotions = []
     unless(@arrMedia.blank?)
+      @arrMedia.each do |restaurant|
+        @basic_restarurants << restaurant unless restaurant.premium_account?
+      end  
+      @arrMedia = @arrMedia - @basic_restarurants
       @menu_items = MediaNewsletterSubscription.menu_items(@arrMedia)      
       @alaminute_answers = MediaNewsletterSubscription.restaurant_answers(@arrMedia)
       @promotions = MediaNewsletterSubscription.promotions(@arrMedia)
+
+      
     end
     render :layout => false
   end
