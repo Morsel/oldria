@@ -331,7 +331,7 @@ class RestaurantsController < ApplicationController
 
     @arrMedia.push(@user.media_newsletter_subscriptions.map(&:restaurant))
     
-    #@arrMedia.push(@user.get_digest_subscription)
+    @arrMedia.push(@user.get_digest_subscription)
 
     @arrMedia.flatten!
     @menu_items = @menus = @restaurantAnswers = @promotions = []
