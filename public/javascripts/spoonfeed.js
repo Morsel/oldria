@@ -228,23 +228,46 @@ var colorboxForm = function(){
   $form.ajaxSubmit({
     dataType: 'json',
     url: $form.attr('action') + '.json',
+    beforeSubmit:function(){
+      $form.hide();
+      $('#cboxLoadingGraphic').show(); 
+    },
     success: function(text){
-      var $html = $(text.html);
-      var $id   = $html.attr('id');
-      var singularName = $id.replace(/^new_/, "").replace(/_\d+$/, "");
-      var existingElement = $('#'+ $id);
-      if (existingElement.length) {
-        existingElement.html($html.html());
-      } else {
-        $("#" + singularName + "s").append($html);
-      }
-      $.fn.colorbox.close();
-      showResponse(text)
+      $('#cboxLoadingGraphic').hide(); 
+      if($form.attr('id')== "create_employment_form")
+      {
+       
+        $.fn.colorbox.close();
+        $(location).attr('href',text.url);
+      }  
+        var $html = $(text.html);
+        var $id   = $html.attr('id');
+        var singularName = $id.replace(/^new_/, "").replace(/_\d+$/, "");
+        var existingElement = $('#'+ $id);
+        if (existingElement.length) {
+          existingElement.html($html.html());
+        } else {
+          $("#" + singularName + "s").append($html);
+        }
+        showResponse(text)      
+        $.fn.colorbox.close();
     },
     error: function(xhr, status){
       var response;
       try { response = $(xhr.responseText); } catch(e) { response = xhr.responseText; }
-      $.colorbox({html: response});
+
+      $.colorbox({html: response,onClosed:function(){
+        if($form.attr('id')=="new_profile_cuisine")
+        {
+          $('#step3').slideDown();
+          loderHide()
+        }
+      }});
+      if($form.attr('id')=="create_employment_form")
+        $.colorbox({html: response,overlayClose: false,escKey:false});
+      else  
+        $.colorbox({html: response});
+
     }
   });
   // button.enable();
@@ -279,7 +302,7 @@ bindColorbox();
 
 $('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship, #colorbox form.james_beard_region').live('submit', colorboxForm);
 $('#complete_profile form.profile_cuisine').live('submit', colorboxForm);
-
+$("#create_employment_form").live('submit', colorboxForm);
 $("a.showit").showy();
 
 
@@ -463,13 +486,15 @@ $("#user_search").autocomplete({
 $("#specialty_search").autocomplete({
   source: "/specialties.js",
 });
+$("#region_search").autocomplete({
+  source: "/james_beard_regions.js",
+});
 $("#state_search_for_user").autocomplete({
   source: "/metropolitan_areas.js",
 });
 $("#cusine_search").autocomplete({
   source: "/cuisines.js",
 });
-
  //for autocomplete controller
   $("#otm_keyword_search").autocomplete({
     source: "/auto_complete.js?name=otm",
@@ -483,11 +508,16 @@ $("#cusine_search").autocomplete({
   $("#state_search").autocomplete({
     source: "/auto_complete.js?name=state",
   });
-  $("#region_search").autocomplete({
+  $("#region_search_restaurant").autocomplete({
     source: "/auto_complete.js?name=region",
   });
   $("#cuisine_search").autocomplete({
     source: "/auto_complete.js?name=cuisine",
+  });
+
+  $('.search-button').click(function(){
+    var $form=$(this).closest("form");
+    $('#restaurant_criteria input').not($form.find('input:text')).val('');
   });
 
 // Social updates filtering
@@ -594,7 +624,16 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
        
         return false; 
     });
+     $('#cuisine_form').submit(function(e) { 
 
+        e.preventDefault();
+        current_page_id =  $(this).parent().attr('id')   
+        next_page_id    =  $(this).parent().next().attr('id') 
+        loderShow()
+
+        $(this).ajaxSubmit(options); 
+        return false; 
+    });
 
    $('.add-btl').colorbox({rel:'gal'});
   var cache = {};
@@ -613,8 +652,10 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       }
 
     });
+
   $("#newsfeed_james_beard_regions_input input[type=checkbox]").click(function(){
     if($("#newsfeed_james_beard_regions_input input:checkbox:checked").length>0)
+
 
     {
       $("#regional_newsfeed_promotion_type").show('slow')
@@ -664,7 +705,9 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     })
 
 
+
     $("#user_digest_writer_id").change(function(e){
+
 
       $("#digest_metropolitan_areas_state_cities").html("")
       $("#digest_metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");
@@ -709,6 +752,53 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     else
       $(this).prev().attr("disabled","disabled");
   })
+
+ $('#add_more').click(function(e){
+    e.preventDefault();
+    more_people = $('#more_people').clone();
+    $('#more_people').show();
+    $(".recommendation_invitations .name").each(function() {
+        $(this).removeClass('name');
+        $(this).addClass('first_name');
+    });
+    $(".recommendation_invitations .last").each(function() {
+        $(this).removeClass('last');
+        $(this).addClass('last_name');
+    });
+    $(".recommendation_invitations .email").each(function() {
+        $(this).removeClass('email');
+        $(this).addClass('email_id');
+    });
+    more_people.insertAfter('#more_people');
+  });
+  $('#recommendation_invitations').click(function(e){
+    e.preventDefault(); 
+    var ret_val=""
+    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+    $(".recommendation_invitations .first_name").each(function() {
+      if($(this).val()==""){
+        ret_val='Please enter the first name<br/>';
+        return false
+      }
+    });
+    $(".recommendation_invitations .last_name").each(function() {
+        if($(this).val()==""){
+        ret_val=ret_val+'Please enter the last name<br/>';
+        return false
+      }
+    });
+    $(".recommendation_invitations .email_id").each(function() {
+       if($(this).val()=="" || !pattern.test($(this).val()) ){
+        ret_val=ret_val+'Please enter the valid email id<br/>';
+        return false
+      }
+    });    
+    if (ret_val.length==0){
+      $("#form_invitation").submit();
+    }else{
+      $('#flashes').html('<div id="flash_error">'+ret_val+'</div>');
+    }
+  });
   $('.search-button').click(function(){
     var $form=$(this).parent().find("input:text");
     $('#restaurant_criteria input').not($form).val('');
@@ -754,4 +844,3 @@ function loderHide()
 {
   $('#loader-waiting').slideUp();
 }
-
