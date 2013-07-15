@@ -516,8 +516,8 @@ $("#cusine_search").autocomplete({
   });
 
   $('.search-button').click(function(){
-    var $form=$(this).closest("form");
-    $('#restaurant_criteria input').not($form.find('input:text')).val('');
+   var $form=$(this).parent().find("input:text");
+    $('#restaurant_criteria input').not($form).val('');
   });
 
 // Social updates filtering
@@ -799,6 +799,7 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       $('#flashes').html('<div id="flash_error">'+ret_val+'</div>');
     }
   });
+
   $('.search-button').click(function(){
     var $form=$(this).parent().find("input:text");
     $('#restaurant_criteria input').not($form).val('');
