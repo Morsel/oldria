@@ -85,24 +85,24 @@ $('.direct_message .readit').click(function(){
 });
 
 $('#profile_user_attributes_publish_profile').live('click',function(){
-	if(!$(this).is(':checked')){
-		return;
-	}
-	answer = confirm('Are you sure? Is your profile filled out yet?\n\nMake sure your profile is filled out a good amount before sharing it with the public!');
-	if (answer){
-		$(this).attr('checked','checked');
-	}	else{
-		$(this).removeAttr('checked');
-	}
+  if(!$(this).is(':checked')){
+    return;
+  }
+  answer = confirm('Are you sure? Is your profile filled out yet?\n\nMake sure your profile is filled out a good amount before sharing it with the public!');
+  if (answer){
+    $(this).attr('checked','checked');
+  } else{
+    $(this).removeAttr('checked');
+  }
 })
 
 $('#open-profile-summary').click(function(){
-	$('#profile-tabs').tabs('select',1);
+  $('#profile-tabs').tabs('select',1);
 })
 
 $('.tabable').tabs({
-	panelTemplate: '<section></section>',
-	fx: { duration: 'fast', opacity: 'toggle' }
+  panelTemplate: '<section></section>',
+  fx: { duration: 'fast', opacity: 'toggle' }
 });
 
 
@@ -122,23 +122,23 @@ if (window.current_user_id) {
 
 $('.new_question').live('click', function(){
     $(this).css({
-		backgroundRepeat: 'no-repeat',
-		backgroundPosition: 'center center',
-		backgroundImage: 'url(/images/redesign/ajax-loader.gif)'
-	});
-	$.ajax({
-		data:'authenticity_token=' + encodeURIComponent($(this).attr('data-auth')),
-	 	success:function(request){
-			$('#btl_game_content').html(request);
-			$('.new_question').css({
-				backgroundImage: 'url(/images/redesign/icon-refresh.png)',
-				backgroundPosition: '0 0'
-			})
-		},
-		type:'post',
-		url:'/users/'+$(this).attr('data-user-id')+'/questions/refresh'
-	});
-	return false;
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center center',
+    backgroundImage: 'url(/images/redesign/ajax-loader.gif)'
+  });
+  $.ajax({
+    data:'authenticity_token=' + encodeURIComponent($(this).attr('data-auth')),
+    success:function(request){
+      $('#btl_game_content').html(request);
+      $('.new_question').css({
+        backgroundImage: 'url(/images/redesign/icon-refresh.png)',
+        backgroundPosition: '0 0'
+      })
+    },
+    type:'post',
+    url:'/users/'+$(this).attr('data-user-id')+'/questions/refresh'
+  });
+  return false;
 });
 
 $('#profile_answer_submit').live('click', function(){
@@ -149,12 +149,12 @@ $('#profile_answer_submit').live('click', function(){
 });
 
 $('#new_quick_reply button').live('click', function(){
-	$(this).text('posting...').attr('disabled','disabled');
+  $(this).text('posting...').attr('disabled','disabled');
 });
 
 function jumbotronController(idx, elem){
-	idx++;
-	return html+='<a href="#">'+idx+'</a>';
+  idx++;
+  return html+='<a href="#">'+idx+'</a>';
 }
 
 var colorboxOnComplete = function(){
@@ -310,7 +310,7 @@ $('#restaurant_tags form').submit(function() {
 });
 
 // == Dynamic Updates for Employment Searching
-var	$employmentsList  = $("#employment_list");
+var $employmentsList  = $("#employment_list");
 var $employmentInputs = $("#employment_criteria input[type=checkbox]");
 var $loaderImg        = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
 
@@ -332,7 +332,7 @@ $employmentInputs.change(updateEmploymentsList);
 
 
 // Directory search
-var	$directoryList  = $("#directory_list");
+var $directoryList  = $("#directory_list");
 var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
 
 $directoryList.before($loaderImg);
@@ -352,24 +352,48 @@ $directoryInputs.change(updateDirectoryList);
 
 
 // Restaurant directory search
-var	$restoDirectoryList  = $("#restaurant_directory_list");
-var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type=checkbox]");
-
+var $restoDirectoryList  = $("#restaurant_directory_list");
+// var $restoDirectoryInputs = $("#directory_search #restaurant_criteria #restaurant_search");
+var $restoDirectoryInputs;
 $restoDirectoryList.before($loaderImg);
 
-updateRestoDirectoryList = function() {
+$.fn.updateRestoDirectoryList = function() {  
+  $('html, body').animate({scrollTop: $('#restaurant_directory_list').offset().top -50}, 400);
   input_string = $restoDirectoryInputs.serialize();
   $loaderImg.show();
   $restoDirectoryList.hide();
-  $restoDirectoryList.load('/directory/restaurant_search', input_string, function(responseText, textStatus){
+  $restoDirectoryList.load('/directory/search_restaurant_by_name', input_string, function(responseText, textStatus){
     $loaderImg.hide();
     $restoDirectoryList.fadeIn(300);
   });
   // return true;
 };
 
-$restoDirectoryInputs.change(updateRestoDirectoryList);
-
+// Restaurant directory search button event
+$("#restaurant_by_name").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #restaurant_search");
+  $.fn.updateRestoDirectoryList();
+});
+$("#restaurant_by_otm").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #otm_keyword_search");
+  $.fn.updateRestoDirectoryList();
+});
+$("#restaurant_by_feature").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #feature_search");
+  $.fn.updateRestoDirectoryList();
+});
+$("#restaurant_by_state").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #state_search");
+  $.fn.updateRestoDirectoryList();
+});
+$("#restaurant_by_region").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #region_search");
+  $.fn.updateRestoDirectoryList();
+});
+$("#restaurant_by_cuisine").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #cuisine_search");
+  $.fn.updateRestoDirectoryList();
+});
 
 //
 // Managing subject matters for restaurant managers
@@ -410,11 +434,11 @@ $("#media_request_request_types").bind('change', function(){
 
 // Media request recipient list
 $('.show_more').click(function(){
-	toggle_me_first = $(this).attr('href');
-	toggle_me_next = $(this).attr('data-show');
-	$(toggle_me_first).toggle();
-	$(toggle_me_next).toggle();
-	return false;
+  toggle_me_first = $(this).attr('href');
+  toggle_me_next = $(this).attr('data-show');
+  $(toggle_me_first).toggle();
+  $(toggle_me_next).toggle();
+  return false;
 })
 
 $('div#photos').masonry({
@@ -431,7 +455,7 @@ updateRestaurantSignupFields = function() {
 };
 
 $("#user_editor").autocomplete({
-	source: "/users.js",
+  source: "/users.js",
 });
 $("#user_search").autocomplete({
   source: "/users.js",
@@ -494,12 +518,12 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
    var user_id = $('#user_id').val()
     if($(this).val())
         $.ajax({
-		data:'state_name=' + encodeURIComponent($(this).val()) +(user_id ? ('&user_id=' +user_id) : ''),
-	     	success:function(response){
-			    $this.next().html(response)
-		    },
-		url:'/mediafeed/get_cities'
-	    });
+    data:'state_name=' + encodeURIComponent($(this).val()) +(user_id ? ('&user_id=' +user_id) : ''),
+        success:function(response){
+          $this.next().html(response)
+        },
+    url:'/mediafeed/get_cities'
+      });
 
 
 })
@@ -686,8 +710,8 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       $(this).prev().attr("disabled","disabled");
   })
   $('.search-button').click(function(){
-    var $form=$(this).closest("form");
-    $('#restaurant_criteria input').not($form.find('input:text')).val('');
+    var $form=$(this).parent().find("input:text");
+    $('#restaurant_criteria input').not($form).val('');
   });
   // end $(document).ready
 });
