@@ -1,10 +1,8 @@
 <fieldset name="Find Restaurants" id="restaurant_criteria">
 <h3>What are you searching for?</h3>
+<label for="search_user_eq_any_name">Are you looking for a specific person?</label>
 <% form_remote_tag :url =>search_user_path do %>
     <ol>
-        <li>
-            <label for="search_user_eq_any_name">Are you looking for a specific person?</label>
-        </li>
         <li>
             <%= text_field_tag "user_search", "", :name => "name",:placeholder=>"Search by user name" %> 
         </li>
@@ -15,13 +13,11 @@
     </ol>          
 <%end%>       
 <br/><br/>
+<label for="search_feature_eq_any_name">Looking for someone with a particular specialty?</label>
 <% form_remote_tag :url =>search_user_path do %>
     <ol>
-        <li>
-            <label for="search_feature_eq_any_name">Looking for something in particular?</label> 
-        </li>
         <li>           
-            <%= text_field_tag "specialty_search", "", :name => "search[profile_specialties_name_eq][]",:placeholder=>"Search by specialty keywords " %>
+            <%= text_field_tag "specialty_search", "", :name => "search[profile_specialties_name_eq][]",:placeholder=>"house made charcuterie, biodynamic wines" %>
         </li>
         <% if params[:controller] == "soapbox/soapbox" %>
           <%= hidden_field_tag :soapbox, "soapbox" %>
@@ -32,7 +28,7 @@
 <br/>
 <div>
     <h3>Or go old school:</h3> 
-    <h3>Search by State</h3> 
+     <label for="search_by_state_name">Search by State</label>
     <% form_remote_tag :url =>search_user_path do %>
         <%= text_field_tag "state_search_for_user", "", :name => "search[profile_metropolitan_area_name_eq][]",:placeholder=>"Search by state name" %>
         <% if params[:controller] == "soapbox/soapbox" %>
@@ -41,9 +37,9 @@
         <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
     <%end%>
 </div>
-<br/>   
+<br/>   <br/>
 <div>
-    <h3>Search by Region</h3> 
+    <label for="search_by_region_name">Search by Region</label>
     <% form_remote_tag :url =>search_user_path do %>
         <%= text_field_tag "region_search", "", :name => "search[profile_james_beard_region_name_eq][]",:placeholder=>"Search by region name" %>
         <% if params[:controller] == "soapbox/soapbox" %>
@@ -52,10 +48,10 @@
         <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
     <%end%>
 </div>
-<br/>   
+<br/><br/>   
 
 <div>
-    <h3>Search by Cuisine</h3> 
+    <label for="search_by_cuisine_name">Search by Cuisine</label>
     <% form_remote_tag :url =>search_user_path do %>
         <%= text_field_tag "cusine_search", "", :name => "search[profile_cuisines_name_eq][]",:placeholder=>"Search by cusine name" %>
         <% if params[:controller] == "soapbox/soapbox" %>
