@@ -77,7 +77,7 @@ class DirectoryController < ApplicationController
     else
       flash[:notice] = "No matching results"
     end
-    render :layout => false
+    render :partial => "restaurant_search_results"
   end
 
 
