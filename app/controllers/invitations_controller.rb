@@ -68,7 +68,7 @@ class InvitationsController < ApplicationController
     for i in params[:invitedemployee][:first_name]
       unless params[:invitedemployee][:last_name][j].blank?
         @invitedemployee = InvitedEmployee.new
-        @invitedemployee.first_name = params[:invitedemployee][:last_name][j]
+        @invitedemployee.first_name = params[:invitedemployee][:first_name][j]
         @invitedemployee.last_name = params[:invitedemployee][:last_name][j]
         @invitedemployee.email = params[:invitedemployee][:email][j]
         
