@@ -78,9 +78,9 @@ $(document).ready(function(){
 	$('#trend-comments .comment, #qotd-comments .comment').equalHeights();		
 
  //for autocomplete controller
-  $("#user_search").autocomplete({
-    source: "/users.js",
-  });  
+	$("#user_search").autocomplete({
+	  source: "/users.js",
+	});  
   //for autocomplete controller
   $("#otm_keyword_search").autocomplete({
     source: "/auto_complete.js?name=otm",
@@ -102,8 +102,11 @@ $(document).ready(function(){
   });
 	
   $('.search-button').click(function(){
-    var $form=$(this).closest("form");
-    $('#restaurant_criteria input').not($form.find('input:text')).val('');
+    var $form=$(this).prev().find('input:text')
+    $('#restaurant_criteria input:text').each(function(){
+		if ($(this).val()!=$form.val())
+			$(this).val('');
+	});    	
   });	
 }); // end document ready
 	
@@ -150,23 +153,51 @@ function show_all_questions_linker() {
 }
 
 // Restaurant directory search
-var	$restoDirectoryList  = $("#restaurant_directory_list");
-var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type=checkbox]");
-
+var $restoDirectoryList = $("#restaurant_directory_list");
+// var $restoDirectoryInputs = $("#directory_search #restaurant_criteria #restaurant_search");
+var $restoDirectoryInputs;
 $restoDirectoryList.before($loaderImg);
 
-function updateRestoDirectoryList() {
-	input_string = $restoDirectoryInputs.serialize();
-	$loaderImg.show();
-	$restoDirectoryList.hide();
-	$restoDirectoryList.load('/soapbox/restaurant_search', input_string, function(responseText, textStatus){
-	  $loaderImg.hide();
-	  $restoDirectoryList.fadeIn(300);
-	});
-	// return true;
-}
+$.fn.updateRestoDirectoryList = function() {
+  $('html, body').animate({scrollTop: $('#restaurant_directory_list').offset().top -50}, 400);
+  input_string = $restoDirectoryInputs.serialize();
+  $loaderImg.show();
+  $restoDirectoryList.hide();
+  $restoDirectoryList.load('/directory/search_restaurant_by_name', input_string, function(responseText, textStatus){
+    $loaderImg.hide();
+    $restoDirectoryList.fadeIn(300);
+  });
+  // return true;
+};
 
-$restoDirectoryInputs.change(updateRestoDirectoryList);
+// Restaurant directory search button event
+$("#restaurant_by_name").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #restaurant_search");
+  $.fn.updateRestoDirectoryList();
+});
+$("#restaurant_by_otm").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #otm_keyword_search");
+  $.fn.updateRestoDirectoryList();
+});
+$("#restaurant_by_feature").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #feature_search");
+  $.fn.updateRestoDirectoryList();
+});
+$("#restaurant_by_state").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #state_search");
+  $.fn.updateRestoDirectoryList();
+});
+$("#restaurant_by_region").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #region_search");
+  $.fn.updateRestoDirectoryList();
+});
+$("#restaurant_by_cuisine").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #cuisine_search");
+  $.fn.updateRestoDirectoryList();
+});
+
+//
+
 jQuery(document).ready(function(){
 		jQuery('.standard-filler').formFiller();
     updateRestaurantSignupFields = function() {

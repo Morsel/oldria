@@ -516,8 +516,11 @@ $("#cusine_search").autocomplete({
   });
 
   $('.search-button').click(function(){
-   var $form=$(this).parent().find("input:text");
-    $('#restaurant_criteria input').not($form).val('');
+    var $form=$(this).prev().find('input:text')
+    $('#restaurant_criteria input:text').each(function(){
+      if ($(this).val()!=$form.val())
+        $(this).val('');
+    });     
   });
 
 // Social updates filtering
