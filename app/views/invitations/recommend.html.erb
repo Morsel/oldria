@@ -4,22 +4,22 @@
 
 <p>Go ahead, get crazy, invite all the chefs, sommeliers and mixologists you admire:</p>
 
-<% form_tag submit_recommendation_invitations_path ,:class=>"recommendation_invitations",:id=>"form_invitation" do %>    
+<% form_tag submit_recommendation_invitations_path ,:class=>"recommendation_invitations color-box-restaurant",:id=>"form_invitation" do %>    
     <label for="first_name">First Name</label>
-    <p><%=text_field_tag "first_name","",:class=>"first_name",:name=>"invitedemployee[first_name][]",:placeholder=>"First Name" %></p>
+    <p class="string optional"><%=text_field_tag "first_name","",:class=>"first_name",:name=>"invitedemployee[first_name][]",:placeholder=>"First Name" %></p>
     <label for="first_name">Last Name</label>
-    <p><%=text_field_tag "last_name","",:class=>"last_name",:name=>"invitedemployee[last_name][]",:placeholder=>"Last Name" %></p>
-    <label for="first_name">Email Id</label>
-    <p><%=text_field_tag "email","",:class=>"email_id",:name=>"invitedemployee[email][]",:placeholder=>"Email Id" %></p>
+    <p class="string optional"><%=text_field_tag "last_name","",:class=>"last_name",:name=>"invitedemployee[last_name][]",:placeholder=>"Last Name" %></p>
+    <label for="first_name">Email</label>
+    <p class="string optional"><%=text_field_tag "email","",:class=>"email_id",:name=>"invitedemployee[email][]",:placeholder=>"Email" %></p>
 
 	<div id="more_people" class="restaurant_answers">
 	  <div class="invite_people">
 	    <label for="first_name">First Name</label>
-	    <p><%=text_field_tag "first_name","",:class=>"name",:name=>"invitedemployee[first_name][]",:placeholder=>"First Name" %></p>
+	    <p class="string optional"><%=text_field_tag "first_name","",:class=>"name",:name=>"invitedemployee[first_name][]",:placeholder=>"First Name" %></p>
 	    <label for="first_name">Last Name</label>
-	    <p><%=text_field_tag "last_name","",:class=>"last",:name=>"invitedemployee[last_name][]",:placeholder=>"Last Name" %></p>
-	    <label for="first_name">Email Id</label>
-	    <p><%=text_field_tag "email","",:class=>"email",:name=>"invitedemployee[email][]",:placeholder=>"Email Id" %></p>
+	    <p class="string optional"><%=text_field_tag "last_name","",:class=>"last",:name=>"invitedemployee[last_name][]",:placeholder=>"Last Name" %></p>
+	    <label for="first_name">Email</label>
+	    <p class="string optional"><%=text_field_tag "email","",:class=>"email",:name=>"invitedemployee[email][]",:placeholder=>"Email" %></p>
 	  </div>
 	</div>
  	<a href="#" id="add_more">Invite more people</a>
