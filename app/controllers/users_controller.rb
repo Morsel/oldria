@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def resume
-    get_user redirect_to root_path if @user.media?
+    get_user redirect_to root_path if @user.media? 
   end
 
   def edit
@@ -138,7 +138,7 @@ class UsersController < ApplicationController
   def remove_avatar
     @user.avatar = nil
     if @user.save
-      flash[:message] = "Got it! We’ve removed your headshot from your account"
+      flash[:message] = "Got it! We've removed your headshot from your account"
       redirect_to edit_user_profile_path(:user_id => @user.id)
     else
       render :edit
@@ -207,7 +207,6 @@ class UsersController < ApplicationController
     flash[:notice] = "Removed #{editor.name} from editing your account"
     redirect_to edit_user_profile_path(:user_id => @user.id)
   end
-
 
   def upload
       if @user.update_attributes(params[:user])
