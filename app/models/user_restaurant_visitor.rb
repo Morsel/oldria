@@ -86,12 +86,11 @@ class UserRestaurantVisitor < ActiveRecord::Base
         keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , user.user_visitor_email_setting.last_email_at,user.user_visitor_email_setting.last_email_at]).group_by(&:keywordable_type)
         @specialties = @cuisines = @chapters = @otmkeywords = @restaurantfeatures = nil
         keywords.keys.each do |key|
-          if (key == "ALaMinuteAnswer")||(key == "ALaMinuteQuestion")
-             @al_users.push(keywords[key].map(&:user_id))
-          else
+          if (key != "ALaMinuteAnswer")||(key != "ALaMinuteQuestion")
             instance_variable_set("@#{key.to_s.downcase.pluralize}", keywords[key].map(&:keywordable))
           end
         end
+        @al_users = TraceKeyword.all(:conditions => ["(keywordable_type='ALaMinuteAnswer' OR keywordable_type='ALaMinuteQuestion') AND (DATE(created_at) >= ? OR DATE(updated_at) >= ?)" ,1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s]).map(&:user_id)
         @a_la_minute_visitors = User.find(:all ,:conditions=>['id in (?)',@al_users.flatten.compact.uniq])
         if user.restaurants.blank? 
           # check the chef is associated restaurants or not
