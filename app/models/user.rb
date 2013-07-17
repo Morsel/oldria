@@ -828,7 +828,7 @@ class User < ActiveRecord::Base
                                                 :from_name => "Restaurant Intelligence Agency",
                                                 :generate_text => true },
                                    :segment_opts => { :match => "all",
-                                                      :conditions => [{ :field => "MYCHOICE",:op => "eq",:value => 'YES'}]
+                                                      :conditions => [{ :field => "MYCHOICE",:op => "eq",:value => 'YES'},{ :field => "email",:op => "eq",:value => email}]
                                                       },
                                   :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
         # send campaign
