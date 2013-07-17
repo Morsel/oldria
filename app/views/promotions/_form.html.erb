@@ -95,7 +95,7 @@
 
     <% end %>
 
-    <%= f.submit "Post" %>
+    <%= f.submit "Post", :onclick => "return confirm('Are you sure you want to send this to media?')" %>
 <% end %>
 
 <% content_for :javascript do %>
