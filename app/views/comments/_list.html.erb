@@ -1,7 +1,6 @@
 
 <div class="comments">
 <h2>Comment <span>(note: most recent listed first)</span></h2>
-
 <% if !@comments.blank? %>
 
 <%= render @comments %>
@@ -11,15 +10,17 @@
 <% end -%>
 <% if !@restaurant.blank? %>
 	<%unless (["Chef/Partner","Executive Chef","Executive Chef/Owner","Director of Operations","Owner","Operations Director","Partner","Pastry Chef/Owner","Wine Director/Owner"] &  @restaurant.employments.map(&:restaurant_role).compact.map(&:name)).blank? %>
-
 				<% if !current_user.media? && (params[:controller] == "solo_media_discussions")  %>
 				<h2>Leave a Comment</h2>
 						<p class="help_text"> If you have something useful to offer, do answer the question fully. Teasing media with highlights that don't fully answer the question is not appreciated and asking them to email you separately just gives them more work todo. </p>
 						<%= render :partial => 'comments/form' %>
 				<% elsif params[:controller] == "media_request_discussions"  %>
 						<%= render :partial => 'comments/form' %> 
-	      <% end %>	
+	      <% end %>
+	<% else %>
+		<% flash[:notice] = "Looks like the #{@restaurant.name} restaurant profile is missing some personnel! Please add all key staff to the staff tab to ensure the restaurant is accurately represented for media so you can proceed. Thank you!" %>     
 	<%end%>
+
 
 <% else %> 
 			<% if !current_user.media? && (params[:controller] == "solo_media_discussions") %>
