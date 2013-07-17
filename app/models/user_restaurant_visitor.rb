@@ -113,7 +113,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
         else
           userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
-            @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
+          @sum = 0
+          @profile_out_of_date = ProfileOutOfDate.all(:conditions => ["restaurant_id = ? AND (DATE(created_at) > ? OR DATE(updated_at) > ?)", visitor.restaurant,user.user_visitor_email_setting.last_email_at ,user.user_visitor_email_setting.last_email_at]).map(&:count).map{|u| @sum=@sum+u}
+          @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
             
             if !visitor.restaurant.nil?
               visitors = visitor.restaurant.newsletter_subscribers
@@ -183,7 +185,8 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "a_la_minute_visitors" => @a_la_minute_visitors,
                 "restaurant" => visitor.restaurant,
                 "current_user" => visitor.user,
-                "users" => @users
+                "users" => @users,
+                "sum" => @sum
               }                          
               if check_email_frequency(@uves)  
                 UserMailer.deliver_send_mail_visitor(restaurant_visitors) 

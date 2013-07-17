@@ -252,9 +252,8 @@ ActionController::Routing::Routes.draw do |map|
 
 
     restaurant.add_keywords 'add_keywords', :controller => "menu_items", :action => "add_keywords"
-
     restaurant.resources :visitor_emails
-
+    restaurant.profile_out_of_date 'profile_out_of_date', :controller => "restaurants", :action => "profile_out_of_date"
     restaurant.show_notice 'show_notice', :controller => "restaurants", :action => "show_notice"
   end
 
