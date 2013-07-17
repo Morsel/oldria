@@ -384,7 +384,7 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.invalid_employments 'invalid_employments',:controller => "restaurants", :action => "invalid_employments"
     admin.resources :runner
-
+    admin.resources :invited_employees, :only => :index, :member =>{:active => :get}
   end
 
   # Not in use?
