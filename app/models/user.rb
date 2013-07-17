@@ -678,7 +678,7 @@ class User < ActiveRecord::Base
 
   def update_media_newsletter_mailchimp
 
-    if media? && [178,1071,4470].include?(id)      
+    if media? && [178,1071,1475].include?(id)      
       mc = MailchimpConnector.new("Media Newsletter")              
       
       unless newsfeed_writer.blank?
@@ -697,8 +697,9 @@ class User < ActiveRecord::Base
                               {:name=>"Promotions",:groups=>promotion_types.map(&:name).join(",")}]
           },:replace_interests => true,:update_existing=>true)
 
-          mc.client.list_subscribe(:id => mc.media_promotion_list_id,
-          :email_address => "eric@restaurantintelligenceagency.com",
+          mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+          :email_address => "ellen@restaurantintelligenceagency.com",
+
           :merge_vars => {:FNAME=>first_name,
                           :LNAME=>last_name,
                           :METROAREAS=>newsfeed_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(region_metro_areas.join(","),:length => 255),
@@ -846,7 +847,7 @@ class User < ActiveRecord::Base
                                                 :from_name => "Restaurant Intelligence Agency",
                                                 :generate_text => true },
                                    :segment_opts => { :match => "all",
-                                                      :conditions => [{ :field => "MYCHOICE",:op => "eq",:value => 'YES'}]
+                                                      :conditions => [{ :field => "MYCHOICE",:op => "eq",:value => 'YES'},{ :field => "email",:op => "eq",:value => email}]
                                                       },
                                   :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
         # send campaign
