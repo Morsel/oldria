@@ -4,7 +4,7 @@ class Mediafeed::MediafeedController < ApplicationController
   before_filter :require_user, :only => [:request_information,:media_subscription]
   
   def initialize
-    @per_page = 10
+    @per_page = 40
   end
 
   def index
