@@ -683,7 +683,7 @@ class User < ActiveRecord::Base
           },:replace_interests => true,:update_existing=>true)
 
           mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
-          :email_address => "eric@restaurantintelligenceagency.com",
+          :email_address => "ellen@restaurantintelligenceagency.com",
           :merge_vars => {:FNAME=>first_name,
                           :LNAME=>last_name, 
                           :METROAREAS=>newsfeed_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(region_metro_areas.join(","),:length => 255), 
