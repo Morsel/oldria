@@ -367,6 +367,17 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def profile_out_of_date
+    @restaurant = Restaurant.find( params[:restaurant_id])
+    UserMailer.deliver_profile_out_of_date(@restaurant)
+    user_id = current_user.id
+    restaurant_id = params[:restaurant_id]
+    @profile_out_of_date = ProfileOutOfDate.find_by_user_id_and_restaurant_id(user_id,restaurant_id)
+    @profile_out_of_date = @profile_out_of_date.nil? ? ProfileOutOfDate.create(:user_id=>current_user.id,:restaurant_id=>params[:restaurant_id]) : @profile_out_of_date.increment!(:count)  
+    flash[:notice] = "Your Profile out of date mail has been sent successfully!"
+    redirect_to restaurant_path(@restaurant) 
+  end  
+
   private
 
   def find_activated_restaurant    
