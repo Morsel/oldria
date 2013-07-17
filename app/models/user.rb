@@ -663,7 +663,7 @@ class User < ActiveRecord::Base
 
   def update_media_newsletter_mailchimp
 
-    if media? && [178,1071,4470].include?(id)      
+    if media? && [178,1071,1475].include?(id)      
       mc = MailchimpConnector.new("Media Newsletter")              
       
       unless newsfeed_writer.blank?
