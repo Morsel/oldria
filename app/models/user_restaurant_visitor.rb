@@ -83,7 +83,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
       if Time.now > @uves.next_email_at && !@uves.do_not_receive_email
         #keyword trace if user chef is not associate to resturants or not
         @al_users= Array.new
-        keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , 1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s]).group_by(&:keywordable_type)
+        keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , user.user_visitor_email_setting.last_email_at,user.user_visitor_email_setting.last_email_at]).group_by(&:keywordable_type)
         @specialties = @cuisines = @chapters = @otmkeywords = @restaurantfeatures = nil
         keywords.keys.each do |key|
           if (key == "ALaMinuteAnswer")||(key == "ALaMinuteQuestion")
@@ -199,7 +199,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
     write_the_file       
   end
   #TODU this method create log file of connect media and visitor email with  
-  def write_the_file filename ="/srv/httpd/spoonfeed.restaurantintelligenceagency.com/shared/email_logs/visitor_email_#{Time.now.strftime("%d_%m_%Y")}.html"
+  def write_the_file filename ="public/email_logs/visitor_email_#{Time.now.strftime("%d_%m_%Y")}.html"
 
     @file = File.open(filename, 'w')
     @file.puts "<html><body><H1>Below is the list of all user whoes gone mail today : </H1><br>"
@@ -238,7 +238,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
     @visitor_mail_str = "Visitor Email Testing"
     @connect_media = 1
     @visitor_mail = 1
-    write_the_file "/srv/httpd/spoonfeed.restaurantintelligenceagency.com/shared/email_logs/visitor_email_test_#{Time.now.strftime("%d_%m_%Y")}.html"
+    write_the_file "public/email_logs/visitor_email_test_#{Time.now.strftime("%d_%m_%Y")}.html"
   end
 
 end
