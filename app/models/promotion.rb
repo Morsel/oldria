@@ -91,7 +91,7 @@ class Promotion < ActiveRecord::Base
   }
 
   def title
-    promotion_type.name
+    promotion_type.try(:name)
   end
 
   def restaurant_name
