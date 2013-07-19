@@ -822,7 +822,7 @@ class User < ActiveRecord::Base
         campaign_id = \
         mc.client.campaign_create(:type => "regular",
                                   :options => { :list_id => mc.media_promotion_list_id,
-                                                :subject => "Restaurant's Newsletter",
+                                                :subject => "RIA's Daily Dineline for #{Date.today.to_formatted_s(:long)}",
                                                 :from_email => "info@restaurantintelligenceagency.com",
                                                 :to_name => "*|FNAME|*",
                                                 :from_name => "Restaurant Intelligence Agency",
