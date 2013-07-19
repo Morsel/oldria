@@ -9,6 +9,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
       if user.media_newsletter_setting.blank?  
         user.build_media_newsletter_setting.save
       end
+      
       user.send_later(:send_newsletter_to_media_subscribers,user) if !user.media_newsletter_setting.opt_out 
     end
   end
@@ -19,7 +20,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
     #MenuItem.find(menu_items.split(",")) unless menu_items.nil? # TODO Need to workon this Query
     menu_items = []
     restaurants.each do |restaurant|      
-      menu_items.push(restaurant.menu_items.all(:order=>"created_at desc" ,:limit=>3))
+      menu_items.push(restaurant.menu_items.all(:conditions=>["created_at >= ? OR updated_at >= ?",1.day.ago,1.day.ago] , :order=>"created_at desc" ,:limit=>3))
     end      
     menu_items.flatten.compact
   end
@@ -43,7 +44,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
   def self.promotions(restaurants)
    promotions = []
     restaurants.each do |restaurant|      
-      promotions.push(restaurant.promotions.all(:order=>"created_at desc" ,:limit=>3))
+      promotions.push(restaurant.promotions.all(:conditions=>["created_at >= ? OR updated_at >= ?",1.day.ago,1.day.ago] , :order=>"created_at desc" ,:limit=>3))
     end      
     promotions.flatten.compact
   end

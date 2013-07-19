@@ -67,5 +67,14 @@ module RestaurantsHelper
       ""
     end
   end
-
+  def filter_res input
+    a = []
+    output = []
+    input.collect do |i|
+      input.delete(i) if !a.include?(i[:restaurant_id])
+      output << i if !a.include?(i[:restaurant_id])
+      a << i[:restaurant_id] if !a.include?(i[:restaurant_id])
+    end
+    return output
+  end
 end
