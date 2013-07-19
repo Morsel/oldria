@@ -160,7 +160,7 @@ class Promotion < ActiveRecord::Base
       campaign_id = \
       mc.client.campaign_create(:type => "regular",
                                 :options => { :list_id => mc.media_promotion_list_id,
-                                              :subject => "Restaurant's Prmotion",
+                                              :subject => "#{self.promotion_type.try(:name)}:Restaurant's Prmotion",
                                               :from_email => "info@restaurantintelligenceagency.com",
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",

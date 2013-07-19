@@ -15,7 +15,7 @@
 }
   </style>
 </head>
-<body style="margin:0;padding:0; background-image:url(http://hq.restaurantintelligenceagency.com/images/hq/top-bg.png);" bgcolor="#ffffff" link="#666666">
+<body style="margin:0;padding:0; background-image:url(http://hq.restaurantintelligenceagency.com/images/hq/top-bg.png);" bgcolor="#ffffff" link="#666666" vlink="green">
 <table width="100%" cellspacing="0" cellpadding="0" style="background:url(http://hq.restaurantintelligenceagency.com/images/hq/top-bg.png); background-image:url(http://hq.restaurantintelligenceagency.com/images/hq/top-bg.png);">
  <tr>
     <td valign="top">
@@ -23,7 +23,24 @@
 
   <tr>
     
-    <td colspan="2" bgcolor="#ea622e"><img src="http://blog.restaurantintelligenceagency.com/images/media-newsletter/menubar.jpg" width="700" height="31" border="0" usemap="#TopMap" style="display: block;border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" alt="RIA Menu"></td>
+    <td colspan="2" bgcolor="#ea622e">
+    <!-- image map menu bar -->
+    <div style="text-align:center; width:700px; margin-left:auto; margin-right:auto;">
+      <img id="Image-Maps_8201307190155205" src="http://blog.restaurantintelligenceagency.com/images/media-newsletter/menubar.jpg" usemap="#Image-Maps_8201307190155205" border="0" width="700" height="31" alt="" />
+      <map id="_Image-Maps_8201307190155205" name="Image-Maps_8201307190155205">
+        <area shape="rect" coords="127,7,154,23" href="http://hq.restaurantintelligenceagency.com/hq" alt="RIA" title="RIA"    />
+        <area shape="rect" coords="161,7,216,23" href="http://soapbox.restaurantintelligenceagency.com/soapbox" alt="SoapBox" title="SoapBox"    />
+        <area shape="rect" coords="225,7,295,23" href="http://spoonfeed.restaurantintelligenceagency.com/" alt="Spoonfeed" title="Spoonfeed"    />
+        <area shape="rect" coords="301,7,358,23" href="http://hq.restaurantintelligenceagency.com/hq/contact" alt="Contact" title="Contact"    />
+        <area shape="rect" coords="363,7,406,23" href="http://spoonfeed.restaurantintelligenceagency.com/login" alt="Login" title="Login"    />
+        <area shape="rect" coords="621,4,635,26" href="https://www.facebook.com/RestaurantIntelligenceAgency" alt="Facebook" title="Facebook"    />
+        <area shape="rect" coords="641,4,655,26" href="http://twitter.com/#!/TeamRIA" alt="Twitter" title="Twitter"    />
+        <area shape="rect" coords="662,4,680,26" href="mailto:ellen@restaurantintelligenceagency.com" alt="Mail" title="EMail"    />
+        <area shape="rect" coords="698,29,700,31" href="http://www.image-maps.com/index.php?aff=mapped_users_8201307190155205" alt="Image Map" title="Image Map" />
+      </map>
+    </div>
+    <!-- image map menu bar end -->
+    </td>
     
   </tr>
 
@@ -39,10 +56,10 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="3">
             <tr>
               <td style="padding-top: 4px;background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/dailydineline_texture.jpg) left;font-family: Georgia, Times New Roman, Times, serif;font-size: 19px;color: #FFF;line-height: 8px;"><center>
-      <p><em><strong>Your daily digest from Restaurant Intelligence Agency</strong></em><br />
+            <p style="margin-left: 29px;position: absolute;top: 132px;"><em><strong>Your daily digest from Restaurant Intelligence Agency</strong></em><br />
 
       <span class="date1" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 12px;color: #ffff99;font-weight: bold;"><!-- DATE GOES HERE! --></span></p>
-      <p><span class="date1" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 12px;color: #ffff99;font-weight: bold;"><%=Date.today.to_formatted_s(:long)%></span></p>
+      <p><span class="date1" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 12px;color: #ffff99;font-weight: bold;margin-left: -90px;position: absolute;top: 173px;"><%=Date.today.to_formatted_s(:long)%></span></p>
               </center></td>
             </tr>
           </table>
@@ -169,16 +186,17 @@
                                   <td height="14" style="font-size:0; line-height:0;" colspan="2"></td>
                                 </tr>
                                 <tr>
-                                  <td height="13" colspan="2"  style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861" >These restaurants have new updates to On The Menu </td>
+                                  <td height="13" colspan="2"  style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861" >These restaurants have also posted items to On the Menu</td>
                                 </tr>
                                 <tr>
                                   <td height="13" style="font-size:0; line-height:0;" colspan="2"></td>
                                 </tr>
                                 <tr>
                                   <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
-                                    <% @basic_restarurants.each do |restaurant| %>
+                                    <%@menu_restaurant=filter_res(@menu_items)%>
+                                    <% @menu_restaurant.each do |menu_item| %>
                                       <li>
-                                        <%= link_to restaurant.name, restaurant_menu_items_path(restaurant) %>
+                                        <%= link_to menu_item.restaurant.name, restaurant_menu_items_path(menu_item.restaurant) %>
                                        </li>
                                     <% end %>
                                     
@@ -207,6 +225,8 @@
                                 <tr>
                                   <td style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">NEWSFEED</td>
                                   </tr>
+                                 <tr><td height="13" colspan="2"  style="background:#e0ddd9;padding-left:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" >&nbsp;To get these items as they are posted, please adjust your account <%= link_to "settings", edit_mediafeed_media_user_path(@user)%>.
+                                  </td></tr>
                                 <tr>
                                   <td style="font-size:0; line-height:0; background:#e0ddd9;" height="6"></td>
                                   </tr>
@@ -220,8 +240,8 @@
                                   <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">&nbsp;</td>
                                   </tr>
                                 <tr>
-                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%="#{promotion.try(:headline).try(:capitalize)
-}: #{promotion.start_date.to_formatted_s(:long)}"%></td>
+                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%="#{promotion.promotion_type.name}: #{promotion.try(:headline).try(:capitalize)
+}"%></td>
                                   </tr>
                                 <tr>
                                   <td style="font-size:0; line-height:0;" height="18"></td>
@@ -282,16 +302,17 @@
                                   <td height="14" style="font-size:0; line-height:0;" colspan="2"></td>
                                 </tr>
                                 <tr>
-                                  <td height="13" colspan="2"  style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861" >These restaurants have new updates to Newsfeed </td>
+                                  <td height="13" colspan="2"  style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861" >These restaurants have also posted items to Newsfeed</td>
                                 </tr>
                                 <tr>
                                   <td height="13" style="font-size:0; line-height:0;" colspan="2"></td>
                                 </tr>
                                 <tr>
                                   <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
-                                    <% @basic_restarurants.each do |restaurant| %>
+                                    <%@promotion_restaurant=filter_res(@promotions)%>
+                                    <% @promotion_restaurant.each do |promotion_restaurant| %>
                                       <li>
-                                        <%= link_to restaurant.name, restaurant_promotions_path(restaurant) %>
+                                        <%= link_to promotion_restaurant.restaurant.name, restaurant_promotions_path(promotion_restaurant.restaurant) %>
                                        </li>
                                     <% end %>
                                     
@@ -307,20 +328,7 @@
                                   <tr>
                                     <td height="13" style="font-size:0; line-height:0;" colspan="2"></td>
                                   </tr>
-                                  <tr>
-                                    <td height="13" colspan="2"  style="padding-left:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" >To get these items as they are posted, please adjust your account <%= link_to "settings", edit_mediafeed_media_user_path(@user)%>. </td>
-                                  </tr>
-                                  <tr>
-                                  <td height="13" style="font-size:0; line-height:0;" colspan="2"></td>
-                                </tr>
-                                <tr>
-                                  <td style="font-size:0; line-height:0;" colspan="2">
-                                    <img width="100%" height="6" alt="image description" src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif">
-                                  </td>
-                                 </tr>
-                                 <tr>
-                                    <td height="13" style="font-size:0; line-height:0;" colspan="2"></td>
-                                  </tr> 
+                                  
                                  <% end %> 
                                 <!-- End Restaurants update block -->
 
