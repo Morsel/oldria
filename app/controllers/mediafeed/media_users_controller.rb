@@ -1,6 +1,6 @@
 class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
   before_filter :require_media_user, :only => [:edit, :update]
-
+   before_filter :authorize, :only => [:edit, :update]
   def new
     @user = User.new(params[:user])
   end
@@ -18,13 +18,11 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
     end
   end
 
-  def edit
-    @user = User.find(params[:id])
+  def edit    
     get_newsletter_data    
   end
 
-  def update
-    @user = User.find(params[:id])    
+  def update      
      
     if @user.update_attributes(params[:user])
       @user.newsfeed_promotion_types.destroy_all if @user.newsfeed_writer.blank? #Deleting regiona promotion if user is not newsfeed regional writer
@@ -55,6 +53,16 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
       @cities = MetropolitanArea.find_all_by_state(params['state_name'])      
       @selected_cities = params[:user_id].blank? ? (current_user.metropolitan_areas if current_user) : (User.find(params[:user_id]).metropolitan_areas)
       render :layout => false
+  end
+
+  private
+
+  def authorize 
+    @user = User.find(params[:id])  
+    if (cannot? :edit, @user) || (cannot? :update, @user)
+      flash[:error] = "You don't have permission to access that page"
+      redirect_to @user and return
+    end
   end
 
 end
