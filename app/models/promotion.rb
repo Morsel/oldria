@@ -165,7 +165,7 @@ class Promotion < ActiveRecord::Base
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
-                                 :segment_opts => { :match => "all",
+                                 :segment_opts => { :match => "any", #in place of all
                                                     :conditions => conditions},
                                 :content => { :url => preview_restaurant_promotion_url(self.restaurant,self) })
       # send campaign
