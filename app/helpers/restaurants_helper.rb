@@ -66,15 +66,5 @@ module RestaurantsHelper
       # No url for non-premium accounts because we shouldn't see them off spoonfeed
       ""
     end
-  end
-  def filter_res input
-    a = []
-    output = []
-    input.collect do |i|
-      input.delete(i) if !a.include?(i[:restaurant_id])
-      output << i if !a.include?(i[:restaurant_id])
-      a << i[:restaurant_id] if !a.include?(i[:restaurant_id])
-    end
-    return output
-  end
+  end  
 end
