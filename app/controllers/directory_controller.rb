@@ -65,14 +65,12 @@ class DirectoryController < ApplicationController
 
 
   def search_restaurant_by_name
-    if params[:search]
-      @restaurants = Restaurant.activated_restaurant.search(params[:search]).all(:order => "name").uniq
-    elsif params[:name]
-      @restaurants = Restaurant.find(:all,:conditions=>['name = ?',params[:name]])
-    else
-      @restaurants = Restaurant.activated_restaurant.find(:all,:conditions=>['state like ?',"#{params[:state]}"],:order => "name").uniq
+    if params[:search_restaurant_eq_any_name]
+      @restaurants = Restaurant.name_or_menu_items_otm_keywords_name_or_restaurant_features_value_or_cuisine_name_equals(params[:search_restaurant_eq_any_name]).uniq
+    elsif 
+      @restaurants = Restaurant.state_or_james_beard_region_name_equals(params[:search_restaurant_by_state_or_region]).uniq
     end
-    if @restaurants.blank? && !params[:state].blank?
+    if @restaurants.blank? && params[:search_restaurant_by_state_or_region].present?
       flash[:notice] = "I am sorry, we don't have any restaurants for your state yet. Sign up to receive notification when we do!"
     else
       flash[:notice] = "No matching results"

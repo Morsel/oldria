@@ -381,40 +381,26 @@ var $restoDirectoryInputs;
 $restoDirectoryList.before($loaderImg);
 
 $.fn.updateRestoDirectoryList = function() {  
-  $('html, body').animate({scrollTop: $('#restaurant_directory_list').offset().top -50}, 400);
   input_string = $restoDirectoryInputs.serialize();
   $loaderImg.show();
   $restoDirectoryList.hide();
   $restoDirectoryList.load('/directory/search_restaurant_by_name', input_string, function(responseText, textStatus){
     $loaderImg.hide();
     $restoDirectoryList.fadeIn(300);
+    $('#jh').removeClass('f');
+    $('#jh').addClass('dd');
+    console.log('ffffffffffff');
   });
   // return true;
 };
 
 // Restaurant directory search button event
-$("#restaurant_by_name").click(function(){
-  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #restaurant_search");
+$("#restaurant_by_any_name").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #search_restaurant_eq_any_name");
   $.fn.updateRestoDirectoryList();
 });
-$("#restaurant_by_otm").click(function(){
-  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #otm_keyword_search");
-  $.fn.updateRestoDirectoryList();
-});
-$("#restaurant_by_feature").click(function(){
-  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #feature_search");
-  $.fn.updateRestoDirectoryList();
-});
-$("#restaurant_by_state").click(function(){
-  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #state_search");
-  $.fn.updateRestoDirectoryList();
-});
-$("#restaurant_by_region").click(function(){
-  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #region_search");
-  $.fn.updateRestoDirectoryList();
-});
-$("#restaurant_by_cuisine").click(function(){
-  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #cuisine_search");
+$("#restaurant_by_state_region").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #search_restaurant_by_state_or_region");
   $.fn.updateRestoDirectoryList();
 });
 

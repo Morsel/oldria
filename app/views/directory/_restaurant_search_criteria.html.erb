@@ -1,49 +1,29 @@
-<fieldset name="Find Restaurants" id="restaurant_criteria">
-    <h3>What our chefs are serving up:</h3>
-    <div class="setlistwidth">
-    <ul>
-        <%@otm_keyword.each do |otm_keyword|%>
-            <li class="list_item"> <%=link_to otm_keyword.name , menu_items_path(:id=>otm_keyword.id,:keyword=>otm_keyword.name)%></li>     
-        <%end%>
-    </ul>
-    </div>
-    <br/><br/><br/><br/><br/>
-    <h3>Find exactly what you're researching:</h3>
-    <label for="search_restaurant_eq_any_name">Are you looking for a specific restaurant?</label>
-    <p>
-        <%= text_field_tag "restaurant_search", "", :name => "name",:placeholder=>"Search by Restaurant Name" %> 
-    </p>
-    <%= button_tag "Search",:id=>"restaurant_by_name", :class => 'positive search-button' %> 
-    <br/><br/> <br/>  
-    <label for="search_trend_ingredient_eq_any_name">Researching a trend or ingredient?</label>
-    <p>
-        <%= text_field_tag "otm_keyword_search", "", :name => "search[menu_items_otm_keywords_name_eq_any][]",:placeholder=>"tomatoes" %>
-    </p>
-    <%= button_tag "Search",:id=>"restaurant_by_otm", :class => 'positive search-button' %>
-    <br/><br/>
-    <h3></h3>
-    <label for="search_restaurant_eq_any_name">Are you looking for restaurants with a specific feature?</label>
-    <p>           
-        <%= text_field_tag "feature_search", "", :name => "search[restaurant_features_value_eq_any][]",:placeholder=>"kid-friendly" %>
-    </p>
-    <%= button_tag "Search", :id=>"restaurant_by_feature",:class => 'positive search-button' %>
-    <br/><br/>
-    <h3>Or go old school:</h3>
-    <div>
-        <label for="search_by_state_name">Search by State</label>
-        <p><%= text_field_tag "state_search", "", :name => "state",:placeholder=>"Search by state name" %></p>
-        <%= button_tag "Search", :id=>"restaurant_by_state",:class => 'positive search-button' %> 
-    </div>
-    <br/><br/><br/>
-    <div>
-        <label for="search_by_region_name">Search by Region</label>
-        <p><%= text_field_tag "region_search", "", :name => "search[james_beard_region_name_eq][]",:placeholder=>"Search by region name" %> </p>
-        <%= button_tag "Search",:id=>"restaurant_by_region", :class => 'positive search-button' %> 
-    </div>
-    <br/><br/><br/>
-    <div>
-        <label for="search_by_cuisine_name">Search by Cuisine</label>
-        <p><%= text_field_tag "cuisine_search", "", :name => "search[cuisine_name_eq][]",:placeholder=>"Search by cuisine name" %> </p>
-        <%= button_tag "Search", :id=>"restaurant_by_cuisine",:class => 'positive search-button' %>
-    </div>
+<div id="restaurant_directory_list" height="auto">
+        <h3>What our chefs are serving up:</h3>
+        <div class="setlistwidth">
+        <ul>
+            <%@otm_keyword.each do |otm_keyword|%>
+                <li class="list_item"> <%=link_to otm_keyword.name , menu_items_path(:id=>otm_keyword.id,:keyword=>otm_keyword.name)%></li>     
+            <%end%>
+        </ul>
+        </div>
+ </div>
+<div class="clear"></div>
+<fieldset name="Find Restaurants" id="restaurant_criteria">   
+    <div style="width:53%;">
+        <h3>Find exactly what you're researching:</h3>
+        <label for="search_restaurant_eq_any_name">Search for restaurant by name, trend, cuisine, ingredient or restaurant feature. You can type in things like tomatoes, steakhouse, or kid-friendly</label>
+        <p class="string optional">
+            <%= text_field_tag "search_restaurant_eq_any_name", "", :name => "search_restaurant_eq_any_name",:style=>"width: 300px;",:class=>""%> 
+        </p>
+        <%= button_tag "Search",:id=>"restaurant_by_any_name", :class => 'positive search-button' ,:style=>"position: relative; top: -48px; left: 323px;"  %>    
+   </div>    
+   <div style="left: 425px;position: relative;top: -127px;width: 67%;">
+        <h3 style="left: -66px;position: relative;">Or go old school:</h3>
+        <label style="left: -66px;position: relative;" for="search_by_state_name">Search by State or Region</label>
+        <p class="string optional">
+            <%= text_field_tag "search_restaurant_by_state_or_region", "", :name => "search_restaurant_by_state_or_region",:style=>"width: 300px;"%>
+        </p>
+        <%= button_tag "Search", :id=>"restaurant_by_state_region",:class => 'positive search-button' ,:style=>"position: relative; left: 323px; top: -50px;"%>
+   </div>  
 </fieldset>
