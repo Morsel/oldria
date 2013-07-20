@@ -182,6 +182,8 @@
                                 </tr>
                                 <% end %>
                                 <!-- Restaurants update block -->
+                                <% unless  @basic_restarurants_menu_items.blank? %>
+
                                 <tr>
                                   <td height="14" style="font-size:0; line-height:0;" colspan="2"></td>
                                 </tr>
@@ -209,7 +211,7 @@
                                     <img width="100%" height="6" alt="image description" src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif">
                                   </td>
 
-
+                                <% end %> <!--unless @basic_restarurants_menu_items end -->
                                
                                 <!-- End Restaurants update block -->
                               </table>
