@@ -847,7 +847,7 @@ class User < ActiveRecord::Base
                                                 :from_name => "Restaurant Intelligence Agency",
                                                 :generate_text => true },
                                    :segment_opts => { :match => "any",
-                                                      :conditions => [{ :field => "email",:op => "eq",:value => 'eric+media@restaurantintelligenceagency.com'},{ :field => "email",:op => "eq",:value => "ellen@restaurantintelligenceagency.com"},{ :field => "email",:op => "eq",:value => 'nishant.n@cisinlabs.comz'}]
+                                                      :conditions => [{ :field => "email",:op => "eq",:value => 'eric+media@restaurantintelligenceagency.com'},{ :field => "email",:op => "eq",:value => "ellen@restaurantintelligenceagency.com"},{ :field => "email",:op => "eq",:value => 'nishant.n@cisinlabs.com'}]
                                                       },
                                   :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
         # send campaign
