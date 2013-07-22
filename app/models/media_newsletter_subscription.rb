@@ -15,9 +15,9 @@ class MediaNewsletterSubscription < ActiveRecord::Base
       arrMedia.flatten!
       unless MediaNewsletterSubscription.menu_items(arrMedia).blank? && MediaNewsletterSubscription.promotions(arrMedia).blank?
 
-        user.send_later(:send_newsletter_to_media_subscribers,user) if !user.media_newsletter_setting.opt_out 
+        user.send_later(:send_newsletter_to_media_subscribers,user) if (!user.media_newsletter_setting.opt_out) && (Date::ABBR_DAYNAMES[Date.today.wday] == "Mon" || Date::ABBR_DAYNAMES[Date.today.wday] == "Tue" || Date::ABBR_DAYNAMES[Date.today.wday] == "Wed" || Date::ABBR_DAYNAMES[Date.today.wday] == "Thu" || Date::ABBR_DAYNAMES[Date.today.wday] == "Fri")
 
-      end
+       end
     end
   end
 
