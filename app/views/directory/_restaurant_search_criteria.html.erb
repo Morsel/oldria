@@ -10,20 +10,24 @@
  </div>
 <div class="clear"></div>
 <fieldset name="Find Restaurants" id="restaurant_criteria">   
-    <div style="width:53%;">
+    <div class="search_resturant">
         <h3>Find exactly what you're researching:</h3>
         <label for="search_restaurant_eq_any_name">Search for restaurant by name, trend, cuisine, ingredient or restaurant feature. You can type in things like tomatoes, steakhouse, or kid-friendly</label>
-        <p class="string optional">
-            <%= text_field_tag "search_restaurant_eq_any_name", "", :name => "search_restaurant_eq_any_name",:style=>"width: 300px;",:class=>""%> 
-        </p>
-        <%= button_tag "Search",:id=>"restaurant_by_any_name", :class => 'positive search-button' ,:style=>"position: relative; top: -48px; left: 323px;"  %>    
+        <%form_tag :url=>"#" do%>
+            <p class="string optional">
+                <%= text_field_tag "search_restaurant_eq_any_name", "", :name => "search_restaurant_eq_any_name"%> 
+            </p>
+            <%= button_tag "Search",:id=>"restaurant_by_any_name", :class => 'positive search-button'  %>   
+        <%end%> 
    </div>    
-   <div style="left: 425px;position: relative;top: -127px;width: 67%;">
-        <h3 style="left: -66px;position: relative;">Or go old school:</h3>
-        <label style="left: -66px;position: relative;" for="search_by_state_name">Search by State or Region</label>
-        <p class="string optional">
-            <%= text_field_tag "search_restaurant_by_state_or_region", "", :name => "search_restaurant_by_state_or_region",:style=>"width: 300px;"%>
-        </p>
-        <%= button_tag "Search", :id=>"restaurant_by_state_region",:class => 'positive search-button' ,:style=>"position: relative; left: 323px; top: -50px;"%>
+   <div class="search_resturant_region" >
+        <h3>Or go old school:</h3>
+        <label for="search_by_state_name">Search by State or Region</label>
+        <%form_tag :url=>"#" do%>
+            <p class="string optional">
+                <%= text_field_tag "search_restaurant_by_state_or_region", "", :name => "search_restaurant_by_state_or_region"%>
+            </p>
+            <%= button_tag "Search", :id=>"restaurant_by_state_region",:class => 'positive search-button' %>
+        <%end%> 
    </div>  
 </fieldset>

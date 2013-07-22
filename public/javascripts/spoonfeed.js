@@ -482,32 +482,39 @@ $("#cusine_search").autocomplete({
   source: "/cuisines.js",
 });
  //for autocomplete controller
-  $("#otm_keyword_search").autocomplete({
-    source: "/auto_complete.js?name=otm",
-  });
-  $("#restaurant_search").autocomplete({
+  $("#search_restaurant_eq_any_name").autocomplete({
     source: "/auto_complete.js?name=restaurant",
-  });
-  $("#feature_search").autocomplete({
-    source: "/auto_complete.js?name=feature",
-  });
-  $("#state_search").autocomplete({
-    source: "/auto_complete.js?name=state",
-  });
-  $("#region_search_restaurant").autocomplete({
+  }).data("autocomplete")._renderItem = function (ul, item) {
+    if(["This keyword does not yet exist in our database.","RESTAURANT BY NAME", "RESTAURANT BY OTM", "RESTAURANT BY FEATURE", "RESTAURANT BY CUISINE"].indexOf(item.label) > -1){
+         return $("<li></li>")
+             .data("item.autocomplete", item)
+             .append("<font color='black'>" + item.label + "</font>")
+             .appendTo(ul);
+           }
+           else{
+              return $("<li></li>")
+             .data("item.autocomplete", item)
+             .append("<a>" + item.label + "</a>")
+             .appendTo(ul);
+           }
+     };
+  
+  $("#search_restaurant_by_state_or_region").autocomplete({
     source: "/auto_complete.js?name=region",
-  });
-  $("#cuisine_search").autocomplete({
-    source: "/auto_complete.js?name=cuisine",
-  });
-
-  $('.search-button').click(function(){
-    var $form=$(this).prev().find('input:text')
-    $('#restaurant_criteria input:text').each(function(){
-      if ($(this).val()!=$form.val())
-        $(this).val('');
-    });     
-  });
+  }).data("autocomplete")._renderItem = function (ul, item) {
+    if(["This keyword does not yet exist in our database.","RESTAURANT BY REGION", "RESTAURANT BY STATE"].indexOf(item.label) > -1){
+         return $("<li></li>")
+             .data("item.autocomplete", item)
+             .append("<font color='black'>" + item.label + "</font>")
+             .appendTo(ul);
+           }
+           else{
+              return $("<li></li>")
+             .data("item.autocomplete", item)
+             .append("<a>" + item.label + "</a>")
+             .appendTo(ul);
+           }
+     };
 
 // Social updates filtering
 var $restoSocialList   = $("#updates");
@@ -789,7 +796,8 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     }
   });
 
-  $('.search-button').click(function(){
+  $('.search-button').click(function(e){
+    e.preventDefault();
     var $form=$(this).parent().find("input:text");
     $('#restaurant_criteria input').not($form).val('');
   });

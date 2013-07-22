@@ -2,39 +2,29 @@ class AutoCompleteController < ApplicationController
 
   def index
   	 respond_to do |format|
-      format.html
       format.js { auto_complete_keywords }
     end
   end
 
   def auto_complete_keywords
-    keyword_name = params[:term]
-    if params[:name]=="otm"
-        @keywords = OtmKeyword.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 15)
-    elsif params[:name]=="restaurant"
-    	@keywords = Restaurant.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 15)
-    elsif params[:name]=="feature"
-    	@keywords = RestaurantFeature.find(:all,:conditions => ["value like ?", "%#{keyword_name}%"],:limit => 15)
-    elsif params[:name]=="state"
-    	@keywords = get_state_name_array.grep(/^#{keyword_name}/i)
-    elsif params[:name]=="region"
-      @keywords = JamesBeardRegion.find(:all,:conditions => ["name like ? or description like ?", "%#{keyword_name}%","%#{keyword_name}%"],:limit => 15)
-    elsif params[:name]=="cuisine"
-      @keywords = Cuisine.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 15)
-    end 	
-    if @keywords.present?
-      if params[:name]=="state"
-      	render :json => @keywords
-      else
-      	render :json => @keywords.map(&:name)
-      end
+    keyword_name = params[:term]    
+    if params[:name]=="restaurant"
+      @keywords = ["RESTAURANT BY OTM"] + OtmKeyword.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANT BY NAME"] + Restaurant.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANT BY FEATURE"] + RestaurantFeature.find(:all,:conditions => ["value like ?", "%#{keyword_name}%"],:limit => 2).map(&:value) + ["RESTAURANT BY CUISINE"]  + Cuisine.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) 
     else
-    	if params[:name]=="otm"
+      @keywords = ["RESTAURANT BY REGION"]  + JamesBeardRegion.find(:all,:conditions => ["name like ? or description like ?", "%#{keyword_name}%","%#{keyword_name}%"],:limit => 5).map(&:name) + ["RESTAURANT BY STATE"] + get_state_name_array.grep(/^#{keyword_name}/i)[0..5]
+    end
+    remove_value = ["RESTAURANT BY CUISINE","RESTAURANT BY STATE","RESTAURANT BY OTM","RESTAURANT BY REGION","RESTAURANT BY FEATURE","RESTAURANT BY NAME"]
+    test_result_search = @keywords.clone
+    remove_value.each do |dels|
+       test_result_search.delete("#{dels}")
+    end
+    unless test_result_search.present?      
+    	if params[:name]=="restaurant"
 	      UserMailer.deliver_send_otm_keyword_notification(current_user,keyword_name) 
-	      render :json => @keywords.push('This keyword does not yet exist in our database. Please try another keyword.')
-    	else
-    	  render :json => @keywords.push('This '+params[:name]+' does not yet exist in our database. Please try another name.')
-    	end
+      end
+      render :json => test_result_search.push('This keyword does not yet exist in our database.')
+    else
+      render :json => @keywords
     end
   end
 
