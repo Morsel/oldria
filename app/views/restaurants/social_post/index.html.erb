@@ -5,49 +5,62 @@
   <%= render 'restaurants/restaurant_editing_header' %>
   
     <div id="editing_restaurant">
-      <div id="restaurant_pages" class="clearfix">   
-      <h1 class="pg_title">Social Posts</h1>
-        <div id="restaurant_features_content">
-          <div id="read_messages" style="width:800px;margin:0;">
-            <% if @social_posts.blank? %>
-              <div id="no-messages" class="clear">
-                  <p>You don't have any items scheduled.</p>
-              </div>
-            <% else %>
-              <div class="editing clearfix clear">
-                <table style="width: 100%">
-                  <thead>
-                      <tr>
-                          <th>Social Network</th>
-                          <th>Item</th>
-                          <th>Message</th>
-                          <th>Post Date</th>
-                          <th>Actions</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                    <% @social_posts.each do |social_post| %>
-                      <% restaurnat = social_post.source.try(:restaurant) %>
+        <div id="restaurant_pages" class="clearfix">
+            
+          <h1 class="pg_title">Social Posts</h1>
 
-                      <tr>
-                        <td><%= social_post.type.to_s[0..-5] %></td>
-                        <td><%= social_post.source.activity_name %></td>
-                        <td><%= social_post.message.to_s[0..18] %></td>
-                        <td><%= social_post.post_at.to_s(:short) %></td>
-                        <td>
-                          <% if social_post.source.edit_path(:social => true).nil? %>
-                            <%=link_to 'Edit Item',restaurant_btl_question_ans_post_path(@restaurant,social_post.source.restaurant_question_id),:class=>"edit colorbox cboxElement edit-button-adjust"%>
-                          <%elsif(social_post.type != "FacebookPost") %>
-                            <%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to 'Sent','#') %> &nbsp;
-                          <% else %>
-                            <%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to((!restaurnat.blank? && restaurnat.has_facebook_page? ? "post to Facebook page now" : "sent") ,((!restaurnat.blank? && restaurnat.has_facebook_page?) ? restaurnat.post_to_fb_url(social_post) : "#"),:method => :post,:confirm => "Are you sure you want to post this?" ))%> &nbsp;</td>
-                         <% end %>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-              </div>
-           <% end %>
+          <div id="restaurant_features_content">
+            <div id="read_messages" style="width:800px;margin:0;">
+
+              <% if @social_posts.blank? %>
+                <div id="no-messages" class="clear">
+                    <p>You don't have any items scheduled.</p>
+                </div>
+              <% else %>
+                <div class="editing clearfix clear">
+                    <table style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Social Network</th>
+                                <th>Item</th>
+                                <th>Message</th>
+                                <th>Post Date</th>
+                                <th>Actions</th>
+                                <th>Last Error </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                          <% @social_posts.each do |social_post| %>
+                           <% restaurnat = social_post.source.try(:restaurant) %>
+
+                            <tr>
+                              <td><%= social_post.type.to_s[0..-5] %></td>
+                              <td><%= social_post.source.activity_name %></td>
+
+                              <td><%= social_post.message.to_s[0..18] %></td>
+                              <td><%= social_post.post_at.to_s(:short) %></td>
+                              
+
+                              <td>
+                                <% if social_post.source.edit_path(:social => true).nil? %>
+                                  <%=link_to 'Edit Item',restaurant_btl_question_ans_post_path(@restaurant,social_post.source.restaurant_question_id),:class=>"edit colorbox cboxElement edit-button-adjust"%>
+                                <%elsif(social_post.type != "FacebookPost") %>
+                                  <%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to 'Sent','#') %> &nbsp;
+                                <% else %>
+                                  <%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to((!restaurnat.blank? && restaurnat.has_facebook_page? ? "post to Facebook page now" : "sent") ,((!restaurnat.blank? && restaurnat.has_facebook_page?) ? restaurnat.post_to_fb_url(social_post) : "#"),:method => :post,:confirm => "Are you sure you want to post this?" ))%> &nbsp;</td>
+                               <% end %>
+                               <% unless social_post.delayed_job.last_error.blank? %>
+                                <td><%= social_post.delayed_job.last_error.split("\n")[0] %></td>
+                               <% else %>
+                                 <td> No Error </td>
+                              <% end %>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                    </table>
+                </div>
+              <% end %>
           </div>
         </div>
         </div>
