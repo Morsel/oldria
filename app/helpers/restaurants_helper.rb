@@ -66,6 +66,5 @@ module RestaurantsHelper
       # No url for non-premium accounts because we shouldn't see them off spoonfeed
       ""
     end
-  end
-
+  end  
 end

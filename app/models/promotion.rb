@@ -160,12 +160,12 @@ class Promotion < ActiveRecord::Base
       campaign_id = \
       mc.client.campaign_create(:type => "regular",
                                 :options => { :list_id => mc.media_promotion_list_id,
-                                              :subject => "Restaurant's Prmotion",
+                                              :subject => "#{self.promotion_type.try(:name)}: #{self.headline}",
                                               :from_email => "info@restaurantintelligenceagency.com",
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
-                                 :segment_opts => { :match => "all",
+                                 :segment_opts => { :match => "any", #in place of all
                                                     :conditions => conditions},
                                 :content => { :url => preview_restaurant_promotion_url(self.restaurant,self) })
       # send campaign
@@ -176,18 +176,22 @@ class Promotion < ActiveRecord::Base
 
       mc = MailchimpConnector.new("Media Newsletter")       
       groups = mc.get_mpl_groups
+=begin
 
       with_no_national = [{ :field => "WRITERTYPE",:op => "ne",:value => "National Writer"},  
         {:field=>"interests-#{groups['Promotions']['id']}",:op=>"one",:value=>self.promotion_type.try(:name)},
         {:field=>"interests-#{groups['SubscriberType']['id']}",:op=>"one",:value=>"Newsfeed"},
-        {:field=>"METROAREAS",:op=>"like",:value=>self.restaurant.metropolitan_area_id}]
+        {:field=>"METROAREAS",:op=>"like",:value=>self.restaurant.metropolitan_area_id},{ :field => "IsTesting",:op => "eq",:value => "Yes"}]
 
       with_national = [{ :field => "WRITERTYPE",:op => "eq",:value => "National Writer"},  
         {:field=>"interests-#{groups['Promotions']['id']}",:op=>"one",:value=>self.promotion_type.try(:name)},
-        {:field=>"interests-#{groups['SubscriberType']['id']}",:op=>"one",:value=>"Newsfeed"}
+        {:field=>"interests-#{groups['SubscriberType']['id']}",:op=>"one",:value=>"Newsfeed"},{ :field => "IsTesting",:op => "eq",:value => "Yes"}
         ]
-       send_newsfeed_newsletters_mailchimp(mc,with_national) 
-       send_newsfeed_newsletters_mailchimp(mc,with_no_national)
+=end
+    test = [{ :field => "email",:op => "eq",:value => 'eric+media@restaurantintelligenceagency.com'},{ :field => "email",:op => "eq",:value => "ellen@restaurantintelligenceagency.com"},{ :field => "email",:op => "eq",:value => 'nishant.n@cisinlabs.com'}]
+    send_newsfeed_newsletters_mailchimp(mc,test) 
+#       send_newsfeed_newsletters_mailchimp(mc,with_national) 
+#       send_newsfeed_newsletters_mailchimp(mc,with_no_national)
 
   end
 

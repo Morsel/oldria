@@ -16,8 +16,11 @@
                     <% @digest_subsriptions.flatten.compact.uniq.each do |restaurant| %>
                       <%= render :partial => 'restaurants/identity_all', :locals => { :user => restaurant } %>
                       <% end %>
-                        
-                  <br>
+                       
+                  
+                  <div class=" clearfix clear"></div>
+                    <p><%=will_paginate(@digest_subsriptions)%> </p>
+                  <div class=" clearfix clear"></div>
                    <p>You can subscribe to follow restaurants on the Account tab. By subscribing, you will be selecting the restaurants whose profile updates will be included in one daily email that arrives in your inbox each morning.
                   </p>
                   <!--<div class=" clearfix clear">

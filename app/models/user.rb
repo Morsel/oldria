@@ -749,7 +749,7 @@ class User < ActiveRecord::Base
 
     end unless digest_writer.blank?
 
-    @restaurants
+    @restaurants.flatten.compact.uniq
 
   end  
 
@@ -814,13 +814,13 @@ class User < ActiveRecord::Base
         campaign_id = \
         mc.client.campaign_create(:type => "regular",
                                   :options => { :list_id => mc.media_promotion_list_id,
-                                                :subject => "Restaurant's Newsletter",
+                                                :subject => "RIA's Daily Dineline for #{Date.today.to_formatted_s(:long)}",
                                                 :from_email => "info@restaurantintelligenceagency.com",
                                                 :to_name => "*|FNAME|*",
                                                 :from_name => "Restaurant Intelligence Agency",
                                                 :generate_text => true },
-                                   :segment_opts => { :match => "all",
-                                                      :conditions => [{ :field => "MYCHOICE",:op => "eq",:value => 'YES'},{ :field => "email",:op => "eq",:value => email}]
+                                   :segment_opts => { :match => "any",
+                                                      :conditions => [{ :field => "email",:op => "eq",:value => 'eric+media@restaurantintelligenceagency.com'},{ :field => "email",:op => "eq",:value => "ellen@restaurantintelligenceagency.com"},{ :field => "email",:op => "eq",:value => 'nishant.n@cisinlabs.com'}]
                                                       },
                                   :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
         # send campaign

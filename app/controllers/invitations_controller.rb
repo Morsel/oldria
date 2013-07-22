@@ -64,12 +64,31 @@ class InvitationsController < ApplicationController
   end
   
   def submit_recommendation
-    for email in params[:emails].split(/\n/)
-      UserMailer.deliver_signup_recommendation(email, current_user)
+    j=0
+    for i in params[:invitedemployee][:first_name]
+      unless params[:invitedemployee][:last_name][j].blank?
+        @invitedemployee = InvitedEmployee.new
+        @invitedemployee.first_name = params[:invitedemployee][:first_name][j]
+        @invitedemployee.last_name = params[:invitedemployee][:last_name][j]
+        @invitedemployee.email = params[:invitedemployee][:email][j]
+        
+        @invitedemployee.save
+        if !@invitedemployee.save
+          flash[:error] = @invitedemployee.errors.full_messages.to_s
+          #redirect_to :action => "recommend"
+        else
+          #todu send email to invited people
+          UserMailer.deliver_signup_recommendation(@invitedemployee.email, current_user)
+        end
+        j+=1
+      end      
     end
-    
-    flash[:notice] = "Thanks for recommending new members!"
-    redirect_to :action => "recommend"
+    respond_to do |format|
+        if !flash[:error].present?
+         flash[:notice] = "Thanks for recommending new members!"
+        end
+        format.html { redirect_to :action => "recommend"}
+    end
   end
 
   private
