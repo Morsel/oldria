@@ -26,6 +26,7 @@
                                 <th>Message</th>
                                 <th>Post Date</th>
                                 <th>Actions</th>
+                                <th>Last Error </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,6 +50,11 @@
                                 <% else %>
                                   <%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to((!restaurnat.blank? && restaurnat.has_facebook_page? ? "post to Facebook page now" : "sent") ,((!restaurnat.blank? && restaurnat.has_facebook_page?) ? restaurnat.post_to_fb_url(social_post) : "#"),:method => :post,:confirm => "Are you sure you want to post this?" ))%> &nbsp;</td>
                                <% end %>
+                               <% unless social_post.delayed_job.last_error.blank? %>
+                                <td><%= social_post.delayed_job.last_error.split("\n")[0] %></td>
+                               <% else %>
+                                 <td> No Error </td>
+                              <% end %>
                             </tr>
                           <% end %>
                         </tbody>
