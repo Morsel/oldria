@@ -160,12 +160,12 @@ class Promotion < ActiveRecord::Base
       campaign_id = \
       mc.client.campaign_create(:type => "regular",
                                 :options => { :list_id => mc.media_promotion_list_id,
-                                              :subject => "#{self.promotion_type.try(:name)}:#{self.headline}",
+                                              :subject => "#{self.promotion_type.try(:name)}: #{self.headline}",
                                               :from_email => "info@restaurantintelligenceagency.com",
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
-                                 :segment_opts => { :match => "all",
+                                 :segment_opts => { :match => "any", #in place of all
                                                     :conditions => conditions},
                                 :content => { :url => preview_restaurant_promotion_url(self.restaurant,self) })
       # send campaign
