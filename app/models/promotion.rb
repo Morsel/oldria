@@ -91,7 +91,7 @@ class Promotion < ActiveRecord::Base
   }
 
   def title
-    promotion_type.name
+    promotion_type.try(:name)
   end
 
   def restaurant_name
@@ -165,7 +165,7 @@ class Promotion < ActiveRecord::Base
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
-                                 :segment_opts => { :match => "any", #in place of all
+                                 :segment_opts => { :match => "all",
                                                     :conditions => conditions},
                                 :content => { :url => preview_restaurant_promotion_url(self.restaurant,self) })
       # send campaign
@@ -176,22 +176,17 @@ class Promotion < ActiveRecord::Base
 
       mc = MailchimpConnector.new("Media Newsletter")       
       groups = mc.get_mpl_groups
-=begin
-
       with_no_national = [{ :field => "WRITERTYPE",:op => "ne",:value => "National Writer"},  
         {:field=>"interests-#{groups['Promotions']['id']}",:op=>"one",:value=>self.promotion_type.try(:name)},
         {:field=>"interests-#{groups['SubscriberType']['id']}",:op=>"one",:value=>"Newsfeed"},
-        {:field=>"METROAREAS",:op=>"like",:value=>self.restaurant.metropolitan_area_id},{ :field => "IsTesting",:op => "eq",:value => "Yes"}]
+        {:field=>"METROAREAS",:op=>"like",:value=>self.restaurant.metropolitan_area_id}]
 
       with_national = [{ :field => "WRITERTYPE",:op => "eq",:value => "National Writer"},  
         {:field=>"interests-#{groups['Promotions']['id']}",:op=>"one",:value=>self.promotion_type.try(:name)},
-        {:field=>"interests-#{groups['SubscriberType']['id']}",:op=>"one",:value=>"Newsfeed"},{ :field => "IsTesting",:op => "eq",:value => "Yes"}
+        {:field=>"interests-#{groups['SubscriberType']['id']}",:op=>"one",:value=>"Newsfeed"}
         ]
-=end
-    test = [{ :field => "email",:op => "eq",:value => 'eric+media@restaurantintelligenceagency.com'},{ :field => "email",:op => "eq",:value => "ellen@restaurantintelligenceagency.com"},{ :field => "email",:op => "eq",:value => 'nishant.n@cisinlabs.com'}]
-    send_newsfeed_newsletters_mailchimp(mc,test) 
-#       send_newsfeed_newsletters_mailchimp(mc,with_national) 
-#       send_newsfeed_newsletters_mailchimp(mc,with_no_national)
+       send_newsfeed_newsletters_mailchimp(mc,with_national) 
+       send_newsfeed_newsletters_mailchimp(mc,with_no_national)
 
   end
 
@@ -204,7 +199,7 @@ class Promotion < ActiveRecord::Base
   end
  
   def send_newsfeed_newsletters
-    send_later(:send_newsfeed_newsletters_later) if false
+    send_later(:send_newsfeed_newsletters_later)
   end 
 
   
