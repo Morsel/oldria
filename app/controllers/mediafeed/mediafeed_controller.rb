@@ -3,6 +3,10 @@ class Mediafeed::MediafeedController < ApplicationController
   before_filter :require_media_user, :only => [:directory, :directory_search]
   before_filter :require_user, :only => [:request_information,:media_subscription]
   
+  def initialize
+    @per_page = 40
+  end
+
   def index
     redirect_to root_url(:subdomain => "spoonfeed")
   end
@@ -61,8 +65,8 @@ class Mediafeed::MediafeedController < ApplicationController
   end 
   
   def media_subscription
-    @subscriptions = current_user.media_newsletter_subscriptions.map{|e| e unless e.restaurant.blank?}.compact
-    @digest_subsriptions = current_user.get_digest_subscription
+    @subscriptions = current_user.media_newsletter_subscriptions.map{|e| e unless e.restaurant.blank?}.compact.paginate({:page => params[:page], :per_page => @per_page})
+    @digest_subsriptions = current_user.get_digest_subscription.paginate({:page => params[:page], :per_page => @per_page})
     @user = current_user
     @user.media_newsletter_setting || @user.build_media_newsletter_setting.save
   end

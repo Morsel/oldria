@@ -756,7 +756,7 @@ class User < ActiveRecord::Base
 
     end unless digest_writer.blank?
 
-    @restaurants
+    @restaurants.flatten.compact.uniq
 
   end  
 
