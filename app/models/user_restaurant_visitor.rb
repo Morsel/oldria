@@ -36,20 +36,20 @@ class UserRestaurantVisitor < ActiveRecord::Base
     days=rest.email_frequency.split("/")
     days.each do |day_name|
       if day_name=="Daily"
-        rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        #rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         return true
       end
       day_names=get_full_day_name(day_name,rest)
       if day_names==getdayname
         # begin update
         if day_name=="Weekly"      
-          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          #rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="M"
-          rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          #rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="W"
-          rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          #rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="F"
-          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          #rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         end
         # end update 
         return true
@@ -80,7 +80,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
         if @uves.blank?
           @uves=create_user_visited_email_setting(user)
         end
-      if Time.now > @uves.next_email_at && !@uves.do_not_receive_email
+      if  !@uves.do_not_receive_email
         #keyword trace if user chef is not associate to resturants or not
         @al_users= Array.new
         keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , user.user_visitor_email_setting.last_email_at,user.user_visitor_email_setting.last_email_at]).group_by(&:keywordable_type)
@@ -104,11 +104,11 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "a_la_minute_visitors" => @a_la_minute_visitors,
               "current_user" => user
             }
-            if keywords.present? && check_email_frequency(@uves)
-              UserMailer.deliver_send_chef_user(restaurant_visitors) 
-              @connect_media+=1
-              create_log_file_for_connect_media(user)
-            end
+            # if keywords.present? && check_email_frequency(@uves)
+            #   UserMailer.deliver_send_chef_user(restaurant_visitors) 
+            #   @connect_media+=1
+            #   create_log_file_for_connect_media(user)
+            # end
           end
         else
           @a_la_minute_visitors = Array.new
@@ -196,17 +196,17 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "current_user" => visitor.user,
                 "users" => @users
               }                          
-              if check_email_frequency(@uves)  
+              #if check_email_frequency(@uves)  
                 UserMailer.deliver_send_mail_visitor(restaurant_visitors) 
                 @visitor_mail+=1
                 create_log_file_for_visitor_user(user,visitor.restaurant)
-              end
+              #end
             end
           end
         end
       end      
     end    
-    write_the_file       
+    #write_the_file       
   end
   #TODU this method create log file of connect media and visitor email with  
   def write_the_file filename ="public/email_logs/visitor_email_#{Time.now.strftime("%d_%m_%Y")}.html"
