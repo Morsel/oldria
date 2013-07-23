@@ -67,6 +67,7 @@ class DirectoryController < ApplicationController
   def search_restaurant_by_name
     if params[:search_restaurant_eq_any_name]
       @restaurants = Restaurant.name_or_menu_items_otm_keywords_name_or_restaurant_features_value_or_cuisine_name_equals(params[:search_restaurant_eq_any_name]).uniq
+      @restaurants = Restaurant.name_equals(params[:search_restaurant_eq_any_name]) if @restaurants.blank?
     elsif
       @restaurants = Restaurant.state_or_james_beard_region_name_equals(params[:search_restaurant_by_state_or_region]).uniq
     end
