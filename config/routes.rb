@@ -234,9 +234,14 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get },
                                        :controller => 'subscriptions'
 
+<<<<<<< HEAD
     restaurant.resources :promotions, :member => { :delete_attachment => :post, :facebook_post => :post ,:details => :get,:preview => :get}
     restaurant.resources :menu_items, :member => { :facebook_post => :post , :details => :get}
 
+=======
+    restaurant.resources :promotions, :member => { :delete_attachment => :post ,:facebook_post => :post, :details => :get ,:preview => :get}
+    restaurant.resources :menu_items, :member => { :facebook_post => :post, :details => :get}    
+>>>>>>> origin/ala-minute-needs-to-filter-for-media-traffic-emails-II
     restaurant.resources :press_releases, :collection => { :archive => :get }
 
     restaurant.behind_the_line 'behind_the_line', :controller => 'restaurants/behind_the_line', :action => 'index'
