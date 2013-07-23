@@ -377,7 +377,7 @@ class RestaurantsController < ApplicationController
     restaurant_id = params[:restaurant_id]
     @profile_out_of_date = ProfileOutOfDate.find_by_user_id_and_restaurant_id(user_id,restaurant_id)
     @profile_out_of_date = @profile_out_of_date.nil? ? ProfileOutOfDate.create(:user_id=>current_user.id,:restaurant_id=>params[:restaurant_id]) : @profile_out_of_date.increment!(:count)  
-    flash[:notice] = "Your Profile out of date mail has been sent successfully!"
+    flash[:notice] = "We've emailed the restaurant to let them know their profile is out of date! As they update their profile, it will be reported on the Daily Dineline."
     redirect_to restaurant_path(@restaurant) 
   end  
 

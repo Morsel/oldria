@@ -290,8 +290,11 @@ class UserMailer < ActionMailer::Base
     from        'notifications@restaurantintelligenceagency.com'
     recipients  restaurant.try(:media_contact).try(:email)
     sent_on     Time.now
-    subject     "journalists are researching your restaurant profile" 
+    subject     "A journalist has requested updates to the #{restaurant.try(:name)} profile"
     body        :restaurant => restaurant
   end 
 
 end
+
+
+
