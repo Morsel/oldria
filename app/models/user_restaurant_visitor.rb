@@ -75,7 +75,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
     @connect_media = 0
     @visitor_mail = 0
     @visitor_mail_str = @connect_media_str = "" 
-    User.all.each do |user|
+    User.all(:limit=>10).each do |user|
       @uves=user.user_visitor_email_setting
         if @uves.blank?
           @uves=create_user_visited_email_setting(user)
@@ -122,7 +122,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
               @a_la_minute_visitors.push(al_users.publication)
             end              
           end
-          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
+          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),2.day.ago],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
             @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
             
