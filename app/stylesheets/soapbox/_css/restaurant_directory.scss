@@ -503,4 +503,41 @@ ul.featuredList{
 .setlistwidth{
   width: 500px;
 }
+.search_resturant{
+	width:46%;
+	#search_restaurant_eq_any_name{
+		 position: relative;
+	     top: 9px;
+	     width: 300px;
+	}
+	button{
+		position: relative;
+		top: -47px;
+		left: 323px;
+	}
+}
+.search_resturant_region{
+	left: 425px;
+	position: relative;
+	top: -122px;
+	width: 67%;
+	h3{
+		left: -66px;
+		position: relative;
+	}
+	label{
+		left: -66px;
+		position: relative;
+	}
+	form input{
+		top: 25px;
+		position: relative;
+		width: 300px;
+	}
+	button{
+		left: 361px;
+		position: relative;
+		top: -31px;
+	}
+} 
 /* -----  end restaurant Directory ------------- */
