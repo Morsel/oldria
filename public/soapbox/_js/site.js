@@ -82,32 +82,45 @@ $(document).ready(function(){
 	  source: "/users.js",
 	});  
   //for autocomplete controller
-  $("#otm_keyword_search").autocomplete({
-    source: "/auto_complete.js?name=otm",
-  });
-  $("#restaurant_search").autocomplete({
+  $("#search_restaurant_eq_any_name").autocomplete({
     source: "/auto_complete.js?name=restaurant",
-  });
-  $("#feature_search").autocomplete({
-    source: "/auto_complete.js?name=feature",
-  });
-  $("#state_search").autocomplete({
-    source: "/auto_complete.js?name=state",
-  });
-  $("#region_search_restaurant").autocomplete({
+  }).data("autocomplete")._renderItem = function (ul, item) {
+    if(["This keyword does not yet exist in our database.","RESTAURANT BY NAME", "RESTAURANT BY OTM", "RESTAURANT BY FEATURE", "RESTAURANT BY CUISINE"].indexOf(item.label) > -1){
+         return $("<li></li>")
+             .data("item.autocomplete", item)
+             .append("<font color='black'>" + item.label + "</font>")
+             .appendTo(ul);
+           }
+           else{
+              return $("<li></li>")
+             .data("item.autocomplete", item)
+             .append("<a>" + item.label + "</a>")
+             .appendTo(ul);
+           }
+     };
+  
+  $("#search_restaurant_by_state_or_region").autocomplete({
     source: "/auto_complete.js?name=region",
+  }).data("autocomplete")._renderItem = function (ul, item) {
+    if(["This keyword does not yet exist in our database.","RESTAURANT BY REGION", "RESTAURANT BY STATE"].indexOf(item.label) > -1){
+         return $("<li></li>")
+             .data("item.autocomplete", item)
+             .append("<font color='black'>" + item.label + "</font>")
+             .appendTo(ul);
+           }
+           else{
+              return $("<li></li>")
+             .data("item.autocomplete", item)
+             .append("<a>" + item.label + "</a>")
+             .appendTo(ul);
+           }
+     };
+
+  $('.search-button').click(function(e){
+   e.preventDefault();
+   var $form=$(this).parent().find("input:text");
+    $('#restaurant_criteria input').not($form).val('');
   });
-  $("#cuisine_search_restaurant").autocomplete({
-    source: "/auto_complete.js?name=cuisine",
-  });
-	
-  $('.search-button').click(function(){
-    var $form=$(this).prev().find('input:text')
-    $('#restaurant_criteria input:text').each(function(){
-		if ($(this).val()!=$form.val())
-			$(this).val('');
-	});    	
-  });	
 }); // end document ready
 	
 function buildPager(idx, elem){
@@ -154,12 +167,10 @@ function show_all_questions_linker() {
 
 // Restaurant directory search
 var $restoDirectoryList = $("#restaurant_directory_list");
-// var $restoDirectoryInputs = $("#directory_search #restaurant_criteria #restaurant_search");
 var $restoDirectoryInputs;
 $restoDirectoryList.before($loaderImg);
 
 $.fn.updateRestoDirectoryList = function() {
-  $('html, body').animate({scrollTop: $('#restaurant_directory_list').offset().top -50}, 400);
   input_string = $restoDirectoryInputs.serialize();
   $loaderImg.show();
   $restoDirectoryList.hide();
@@ -171,31 +182,14 @@ $.fn.updateRestoDirectoryList = function() {
 };
 
 // Restaurant directory search button event
-$("#restaurant_by_name").click(function(){
-  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #restaurant_search");
+$("#restaurant_by_any_name").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #search_restaurant_eq_any_name");
   $.fn.updateRestoDirectoryList();
 });
-$("#restaurant_by_otm").click(function(){
-  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #otm_keyword_search");
+$("#restaurant_by_state_region").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #search_restaurant_by_state_or_region");
   $.fn.updateRestoDirectoryList();
 });
-$("#restaurant_by_feature").click(function(){
-  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #feature_search");
-  $.fn.updateRestoDirectoryList();
-});
-$("#restaurant_by_state").click(function(){
-  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #state_search");
-  $.fn.updateRestoDirectoryList();
-});
-$("#restaurant_by_region").click(function(){
-  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #region_search");
-  $.fn.updateRestoDirectoryList();
-});
-$("#restaurant_by_cuisine").click(function(){
-  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #cuisine_search");
-  $.fn.updateRestoDirectoryList();
-});
-
 //
 
 jQuery(document).ready(function(){

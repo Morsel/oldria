@@ -19,8 +19,8 @@ class AutoCompleteController < ApplicationController
        test_result_search.delete("#{dels}")
     end
     unless test_result_search.present?      
-    	if params[:name]=="restaurant"
-	      UserMailer.deliver_send_otm_keyword_notification(current_user,keyword_name) 
+      if params[:name]=="restaurant"
+        UserMailer.deliver_send_otm_keyword_notification(current_user,keyword_name) 
       end
       render :json => test_result_search.push('This keyword does not yet exist in our database.')
     else
