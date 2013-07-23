@@ -111,6 +111,17 @@ class UserRestaurantVisitor < ActiveRecord::Base
             end
           end
         else
+          @a_la_minute_visitors = Array.new
+          @al_users = User.find(@al_users.flatten.compact.uniq).map{|user| user if user.digest_writer.present?}.compact
+          @al_users.each do |al_users|
+            if al_users.digest_writer.id==3
+              al_users.digest_writer.find_metropolitan_areas_writers(al_users).map(&:metropolitan_area_id).map{|id| @a_la_minute_visitors.push(al_users.publication) if user.restaurants.map(&:metropolitan_area_id).include? id}
+            elsif al_users.digest_writer.id==2
+              al_users.digest_writer.find_regional_writers(al_users).map(&:james_beard_region_id).map{|id| @a_la_minute_visitors.push(al_users.publication) if user.restaurants.map(&:james_beard_region_id).include? id}
+            else
+              @a_la_minute_visitors.push(al_users.publication)
+            end              
+          end
           userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
             @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
