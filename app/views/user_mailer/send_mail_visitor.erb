@@ -92,12 +92,12 @@
   <p>The following media visited our A la Minute section yesterday:</p>
    <ul>
     <%@a_la_minute_visitors.each do |a_la_minute_visitor| %>
-      <% unless a_la_minute_visitor.publication.blank? %>
-    <li>
-      <%= a_la_minute_visitor.publication %>        
-    </li>
+      <% unless a_la_minute_visitor.blank? %>
+        <li>
+          <%= a_la_minute_visitor %>        
+        </li>
       <%else%>
-    <li>Freelance</li>
+        <li>Freelance</li>
       <%end%>
     <%end%>
   </ul>

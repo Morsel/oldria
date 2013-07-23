@@ -167,7 +167,7 @@ class Promotion < ActiveRecord::Base
                                               :generate_text => true },
                                  :segment_opts => { :match => "all",
                                                     :conditions => conditions},
-                                :content => { :url => "http://spoonfeed.restaurantintelligenceagency.com/restaurants/146/newsletters/5" })
+                                :content => { :url => preview_restaurant_promotion_url(self.restaurant,self) })
       # send campaign
     mc.client.campaign_send_now(:cid => campaign_id)
 
