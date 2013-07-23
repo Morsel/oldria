@@ -113,7 +113,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
           end
         else
           @a_la_minute_visitors = Array.new
-          @al_users = User.find(@al_users.flatten.compact.uniq).map{|user| user if user.digest_writer.present?}.compact
+          @al_users = User.find(@al_users.flatten.compact.uniq).map{|usr| usr if usr.digest_writer.present?}.compact
           @al_users.each do |al_users|
             if al_users.digest_writer.id==3
               al_users.digest_writer.find_metropolitan_areas_writers(al_users).map(&:metropolitan_area_id).map{|id| @a_la_minute_visitors.push(al_users.publication) if user.restaurants.map(&:metropolitan_area_id).include? id}
