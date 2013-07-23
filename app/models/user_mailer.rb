@@ -174,7 +174,7 @@ class UserMailer < ActionMailer::Base
   
   def send_chef_user(restaurant_visitors)
     from        'hal@restaurantintelligenceagency.com'
-    recipients  ['ellen@restaurantintelligenceagency.com','nishant.n@cisinlabs.com']#restaurant_visitors["current_user"].email
+    recipients  'nishant.n@cisinlabs.com'
     #bcc         ['ellen@restaurantintelligenceagency.com','nishant.n@cisinlabs.com']
     sent_on     Time.now
     subject     "Connect with media"
