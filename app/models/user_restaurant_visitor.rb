@@ -72,11 +72,11 @@ class UserRestaurantVisitor < ActiveRecord::Base
   end
 
   def send_notification_to_chef_user
+    
     @connect_media = 0
     @visitor_mail = 0
     @visitor_mail_str = @connect_media_str = "" 
-    # User.all(:limit=>10).each do |user|
-    user=User.find_by_name "Mark"
+    User.all(:limit=>100).each do |user|
       @uves=user.user_visitor_email_setting
         if @uves.blank?
           @uves=create_user_visited_email_setting(user)
@@ -123,6 +123,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
               @a_la_minute_visitors.push(al_users.publication)
             end              
           end
+          
           userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),112.day.ago],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
             @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
@@ -196,19 +197,20 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "restaurant" => visitor.restaurant,
                 "current_user" => visitor.user,
                 "users" => @users
-              }                          
+              }  
+                                      
               #if check_email_frequency(@uves)                 
-                UserMailer.deliver_log_file "Start mail"
+                #UserMailer.deliver_log_file "Start mail"
                 UserMailer.deliver_send_mail_visitor(restaurant_visitors)
-                UserMailer.deliver_log_file "Send succcess"
-                @visitor_mail+=1
-                create_log_file_for_visitor_user(user,visitor.restaurant)
+                #UserMailer.deliver_log_file "Send succcess"
+                #@visitor_mail+=1
+                #create_log_file_for_visitor_user(user,visitor.restaurant)
               #end
             end
           end
         end
       end      
-    #end    
+    end    
     #write_the_file       
   end
   #TODU this method create log file of connect media and visitor email with  
