@@ -80,30 +80,24 @@ class DirectoryController < ApplicationController
 
   def search_user
     if params[:soapbox]
-      if params[:name]
-        @users = User.in_soapbox_directory.find_all_by_name(params[:name])
-      elsif  params[:search][:profile_specialties_name_eq]
-        @users =  User.in_soapbox_directory.profile_specialties_name_eq(params[:search][:profile_specialties_name_eq]).all(:order => "users.last_name").uniq
-      elsif  params[:search][:profile_metropolitan_area_name_eq] 
-        @users =User.in_soapbox_directory.profile_metropolitan_area_name_eq(params[:search][:profile_metropolitan_area_name_eq]).all(:order => "users.last_name").uniq
-      elsif params[:search][:profile_james_beard_region_name_eq]
-        @users = User.in_soapbox_directory.profile_james_beard_region_name_eq(params[:search][:profile_james_beard_region_name_eq]).all(:order => "users.last_name").uniq
-      elsif params[:search][:profile_cuisines_name_eq]  
-        @users =  User.in_soapbox_directory.profile_cuisines_name_eq(params[:search][:profile_cuisines_name_eq]).all(:order => "users.last_name").uniq
-      end  
+      if params[:search_person_eq_any_name]
+        @users = User.in_soapbox_directory.profile_specialties_name_or_profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
+        @users = User.in_soapbox_directory.first_name_equals(params[:search_person_eq_any_name].split(" ")[0]) if @users.blank?
+      else
+        @users = User.in_soapbox_directory.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
+      end
     else
-      if params[:name]
-        @users = User.in_spoonfeed_directory.find_all_by_name(params[:name])
-      elsif  params[:search][:profile_specialties_name_eq]   
-        @users =  User.in_spoonfeed_directory.profile_specialties_name_eq(params[:search][:profile_specialties_name_eq]).all(:order => "users.last_name").uniq
-      elsif  params[:search][:profile_metropolitan_area_name_eq]
-        @users = User.in_spoonfeed_directory.profile_metropolitan_area_name_eq(params[:search][:profile_metropolitan_area_name_eq]).all(:order => "users.last_name").uniq
-      elsif params[:search][:profile_james_beard_region_name_eq]
-        @users = User.in_spoonfeed_directory.profile_james_beard_region_name_eq(params[:search][:profile_james_beard_region_name_eq]).all(:order => "users.last_name").uniq
-      elsif params[:search][:profile_cuisines_name_eq]
-        @users =  User.in_spoonfeed_directory.profile_cuisines_name_eq(params[:search][:profile_cuisines_name_eq]).all(:order => "users.last_name").uniq
-      end    
-    end  
+      if params[:search_person_eq_any_name]
+        @users = User.in_spoonfeed_directory.profile_specialties_name_or_profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
+        @users = User.in_spoonfeed_directory.first_name_equals(params[:search_person_eq_any_name].split(" ")[0]) if @users.blank?
+      else
+        @users = User.in_spoonfeed_directory.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
+      end  
+    end 
+    if @users.blank? && params[:search_person_by_state_or_region].present?
+      flash[:notice] = "I am sorry, we don't have any person for your state yet. Sign up to receive notification when we do!"
+    end
+    render :partial => "search_results"
   end  
 
 end
