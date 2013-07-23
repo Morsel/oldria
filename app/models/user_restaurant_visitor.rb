@@ -197,9 +197,10 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "current_user" => visitor.user,
                 "users" => @users
               }                          
-              #if check_email_frequency(@uves)  
-                # UserMailer.deliver_send_mail_visitor(restaurant_visitors) 
-                UserMailer.deliver_log_file "test mail"
+              #if check_email_frequency(@uves)                 
+                UserMailer.deliver_log_file "Start mail"
+                UserMailer.deliver_send_mail_visitor(restaurant_visitors)
+                UserMailer.deliver_log_file "Send succcess"
                 @visitor_mail+=1
                 create_log_file_for_visitor_user(user,visitor.restaurant)
               #end
