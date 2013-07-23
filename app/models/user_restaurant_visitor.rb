@@ -124,7 +124,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
             end              
           end
           
-          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),112.day.ago],:group => "restaurant_id")
+          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),1.day.ago],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
             @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
             
@@ -198,10 +198,8 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "current_user" => user
               }  
                                       
-              #if check_email_frequency(@uves)                 
-                #UserMailer.deliver_log_file "Start mail"
+              #if check_email_frequency(@uves)
                 UserMailer.deliver_send_mail_visitor(restaurant_visitors)
-                #UserMailer.deliver_log_file "Send succcess"
                 #@visitor_mail+=1
                 #create_log_file_for_visitor_user(user,visitor.restaurant)
               #end
