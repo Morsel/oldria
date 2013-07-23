@@ -141,23 +141,32 @@ function displayInfo(currSlideElement, nextSlideElement, options, forwardFlag){
 
 // Directory search
 var $loaderImg       = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
-var	$directoryList   = $("#directory_list");
-var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
+var	$directoryList   = $("#user_directory_list");
+var $directoryInputs;
+//var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
 
 $directoryList.before($loaderImg);
 
-function updateDirectoryList() {
+$.fn.updateDirectoryList = function() {
 	input_string = $directoryInputs.serialize();
 	$loaderImg.show();
 	$directoryList.hide();
-	$directoryList.load('/soapbox/directory_search', input_string, function(responseText, textStatus){
+	$directoryList.load('/directory/search_user?soapbox=soapbox', input_string, function(responseText, textStatus){
 	  $loaderImg.hide();
 	  $directoryList.fadeIn(300);
 	});
 	// return true;	
 }
-
-$directoryInputs.change(updateDirectoryList);
+// Restaurant directory search button event
+$("#person_by_any_name").click(function(){
+  $directoryInputs = $("#directory_search #person_criteria #search_person_eq_any_name");
+  $.fn.updateDirectoryList();
+});
+$("#person_by_state_region").click(function(){
+  $directoryInputs = $("#directory_search #person_criteria #search_person_by_state_or_region");
+  $.fn.updateDirectoryList();
+});
+//$directoryInputs.change(updateDirectoryList);
 
 function show_all_questions_linker() {
 	tabs = $('#sidebar').tabs();
