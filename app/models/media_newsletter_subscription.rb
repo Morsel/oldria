@@ -26,7 +26,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
     #menu_items = MenuItem.find_by_sql("SELECT GROUP_CONCAT(result_view.item SEPARATOR ',') as menu_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3) as item FROM `menu_items` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) result_view").first.menu_ids
     #MenuItem.find(menu_items.split(",")) unless menu_items.nil? # TODO Need to workon this Query
     menu_items = []
-    menu_items = MenuItem.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?) and created_at < ?",restaurants.map(&:id),1.day.ago.beginning_of_day,1.day.ago.beginning_of_day,0.day.ago.beginning_of_day,:order=>"updated_at desc",:limit=>3)      
+    menu_items = MenuItem.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?) and created_at < ?",restaurants.compact.map(&:id),1.day.ago.beginning_of_day,1.day.ago.beginning_of_day,0.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3)      
     menu_items.flatten.compact
   end
 
@@ -48,7 +48,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
 
   def self.promotions(restaurants)
    promotions = []
-    promotions = Promotion.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?) and created_at < ? ",restaurants.map(&:id),1.day.ago.beginning_of_day,1.day.ago.beginning_of_day,0.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3)      
+    promotions = Promotion.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?) and created_at < ? ",restaurants.compact.map(&:id),1.day.ago.beginning_of_day,1.day.ago.beginning_of_day,0.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3)      
     promotions.flatten.compact
     
   end
