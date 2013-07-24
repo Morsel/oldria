@@ -433,6 +433,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :specialties, :only => ["index"]
   map.search_restaurant_by_name 'directory/search_restaurant_by_name', :controller => 'directory', :action => 'search_restaurant_by_name'
   map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
-  
+
+  map.resources :otm_keywords, :only => ["index"]  
+
 end
 
