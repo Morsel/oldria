@@ -454,7 +454,8 @@
 								                    <tr>
 								                      <td style="font:bold 14px Georgia, Times, serif; line-height:18px; color:#fff">Restaurant Staff<br />
 								                        <% staffs.each do |employment| %>
-								                        <p style="font-size:12px"><%=h (employment.restaurant_role.nil? ? "No Role" : employment.restaurant_role.try(:name)) %>:<br /><%=h employment.employee.try(:name) %></p>
+								                        <p style="font-size:12px"><%=h (employment.restaurant_role.nil? ? "No Role" : employment.restaurant_role.try(:name)) %>:<br /><%=h mail_to employment.employee.try(:email),employment.employee.try(:name) %></p>
+
 								                        <% end %></td>
 							                        </tr>
 								                    </table></td>
@@ -500,6 +501,7 @@
 								                <tr>
 								                  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator-3.gif" width="151" height="1" alt="image description" /></td>
 							                    </tr>
+							                	<% if current_user.media? %>
 								                <tr>
 								                  <td style="font-size:0; line-height:0;" height="10"></td>
 							                    </tr>
@@ -514,6 +516,7 @@
 								                <tr>
 								                  <td style="font-size:0; line-height:0;" height="7"></td>
 							                    </tr>
+							                  <% end %>  
 								                <tr style="font-size:0; line-height:0;">
 								                  <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator-3.gif" width="151" height="1" alt="image description" /></td>
 							                    </tr>
