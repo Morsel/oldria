@@ -1,8 +1,14 @@
 class AutoCompleteController < ApplicationController
 
   def index
-  	 respond_to do |format|
-      format.js { auto_complete_keywords }
+    if params[:soapbox] && params[:person]
+      respond_to do |format|
+        format.js { auto_complete_person_keywords }
+      end   
+    else
+      respond_to do |format|
+        format.js { auto_complete_keywords }
+      end
     end
   end
 
@@ -22,6 +28,30 @@ class AutoCompleteController < ApplicationController
       if params[:name]=="restaurant"
         UserMailer.deliver_send_otm_keyword_notification(current_user,keyword_name) 
       end
+      render :json => test_result_search.push('This keyword does not yet exist in our database.')
+    else
+      render :json => @keywords
+    end
+  end
+
+  def auto_complete_person_keywords
+    keyword_name = params[:term]   
+    if params[:soapbox]
+      @keywords = ["PERSON BY NAME"] + User.in_soapbox_directory.for_autocomplete.find_all_by_name(keyword_name).map(&:name)[0..4]
+    else
+      @keywords = ["PERSON BY NAME"] + User.in_spoonfeed_directory.for_autocomplete.find_all_by_name(keyword_name).map(&:name)[0..4]
+    end
+    if params[:person]=="person"
+      @keywords = @keywords + ["PERSON BY SPECIALITY"] + Specialty.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 4).map(&:name) + ["PERSON BY CUISINE"] + Cuisine.find(:all,:conditions => ["name like ?","%#{keyword_name}%"],:limit => 4).map(&:name)
+    else
+      @keywords = ["PERSON BY STATE"] + JamesBeardRegion.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 7).map(&:name) + ["PERSON BY REGION"] + MetropolitanArea.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 7).map(&:name) 
+    end
+    remove_value = ["PERSON BY NAME","PERSON BY SPECIALITY","PERSON BY CUISINE","PERSON BY STATE","PERSON BY REGION"]
+    test_result_search = @keywords.clone
+    remove_value.each do |dels|
+       test_result_search.delete("#{dels}")
+    end
+    unless test_result_search.present?      
       render :json => test_result_search.push('This keyword does not yet exist in our database.')
     else
       render :json => @keywords
