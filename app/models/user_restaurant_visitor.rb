@@ -149,10 +149,13 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
               @menu_item = visitor.restaurant.menu_items.find(:first,:order =>"updated_at desc")
               unless @menu_item.blank?
-                if @menu_item.created_at < 7.day.ago
+                if @menu_item.created_at > 7.day.ago
+                  @menu_item_message = "Looks like you've been working with On the Menu, keep at it!"
+                  counter+=1
+                elsif @menu_item.created_at < 7.day.ago
                   @menu_item_message = "Looks like you haven't uploaded a new dish or drink to On The Menu in quite some time. Let's keep media interested in you, <a href='#{new_restaurant_menu_url(visitor.restaurant)}'>add your newest dish or drink today!</a>"
                   counter+=1
-                end
+                end 
               else
                 counter+=1
                 @menu_item_message = "You've never used On The Menu, a powerful tool for connecting with media. You can ,<a href='#{restaurant_menus_url(visitor.restaurant)}'>check it out here</a>"
