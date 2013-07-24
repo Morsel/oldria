@@ -752,7 +752,7 @@ class User < ActiveRecord::Base
 
   def send_newsletter_to_media_subscribers subscriber
     
-    if [178,1071,4470,1475].include?(subscriber.id) && !subscriber.media_newsletter_setting.opt_out 
+    if !subscriber.media_newsletter_setting.opt_out 
       begin
         mc = MailchimpConnector.new("Media Digest List")
         campaign_id = \
@@ -764,7 +764,7 @@ class User < ActiveRecord::Base
                                                 :from_name => "Restaurant Intelligence Agency",
                                                 :generate_text => true },
                                    :segment_opts => { :match => "all",
-                                                      :conditions => [{ :field => "email",:op => "eq",:value => "nishant.n@cisinlabs.com"},{ :field => "MYCHOICE",:op => "eq",:value => 'YES'}]
+                                                      :conditions => [{ :field => "email",:op => "eq",:value => subscriber.email},{ :field => "MYCHOICE",:op => "eq",:value => 'YES'}]
                                                       },
                                   :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
         # send campaign
