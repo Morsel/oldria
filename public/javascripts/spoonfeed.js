@@ -471,7 +471,11 @@ updateRestaurantSignupFields = function() {
 };
 
 $("#user_editor").autocomplete({
-  source: "/users.js",
+	source: "/users.js",
+});
+
+$("#otm_keyword_search").autocomplete({
+  source: "/otm_keywords.js",
 });
    $('.search-button').click(function(e){
    e.preventDefault();
