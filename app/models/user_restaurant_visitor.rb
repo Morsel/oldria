@@ -72,6 +72,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
   end
 
   def send_notification_to_chef_user
+    
     @connect_media = 0
     @visitor_mail = 0
     @visitor_mail_str = @connect_media_str = "" 
@@ -111,6 +112,18 @@ class UserRestaurantVisitor < ActiveRecord::Base
             end
           end
         else
+          @alm_visitors = Array.new
+          @al_users = @a_la_minute_visitors.map{|usr| usr if usr.digest_writer.present?}.compact
+          @al_users.each do |al_user|
+            if al_user.digest_writer.id==3
+              al_user.digest_writer.find_metropolitan_areas_writers(al_user).map(&:metropolitan_area_id).map{|id| @alm_visitors.push(al_user) if user.restaurants.map(&:metropolitan_area_id).include? id}
+            elsif al_user.digest_writer.id==2
+              al_user.digest_writer.find_regional_writers(al_user).map(&:james_beard_region_id).map{|id| @alm_visitors.push(al_user) if user.restaurants.map(&:james_beard_region_id).include? id}
+            else al_user.digest_writer.id==1
+              @alm_visitors.push(al_user)
+            end              
+          end
+          
           userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
             @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
@@ -180,13 +193,13 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "restaurant_features" => @restaurantfeatures,
                 "employee_visitors" => employee_visitors,
                 "alaminutequestions" => @alaminutequestions,
-                "a_la_minute_visitors" => @a_la_minute_visitors,
+                "a_la_minute_visitors" => @alm_visitors,
                 "restaurant" => visitor.restaurant,
-                "current_user" => visitor.user,
-                "users" => @users
-              }                          
-              if check_email_frequency(@uves)  
-                UserMailer.deliver_send_mail_visitor(restaurant_visitors) 
+                "current_user" => user
+              }  
+                                      
+              if check_email_frequency(@uves)
+                UserMailer.deliver_send_mail_visitor(restaurant_visitors)
                 @visitor_mail+=1
                 create_log_file_for_visitor_user(user,visitor.restaurant)
               end
