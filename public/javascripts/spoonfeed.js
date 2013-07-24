@@ -473,57 +473,8 @@ updateRestaurantSignupFields = function() {
 $("#user_editor").autocomplete({
   source: "/users.js",
 });
-$("#user_search").autocomplete({
-  source: "/users.js",
-});
-$("#specialty_search").autocomplete({
-  source: "/specialties.js",
-});
-$("#region_search").autocomplete({
-  source: "/james_beard_regions.js",
-});
-$("#state_search_for_user").autocomplete({
-  source: "/metropolitan_areas.js",
-});
-$("#cusine_search").autocomplete({
-  source: "/cuisines.js",
-});
- //for autocomplete controller
-  $("#search_restaurant_eq_any_name").autocomplete({
-    source: "/auto_complete.js?name=restaurant",
-  }).data("autocomplete")._renderItem = function (ul, item) {
-    if(["This keyword does not yet exist in our database.","RESTAURANT BY NAME", "RESTAURANT BY OTM", "RESTAURANT BY FEATURE", "RESTAURANT BY CUISINE"].indexOf(item.label) > -1){
-         return $("<li></li>")
-             .data("item.autocomplete", item)
-             .append("<font color='black'>" + item.label + "</font>")
-             .appendTo(ul);
-           }
-           else{
-              return $("<li></li>")
-             .data("item.autocomplete", item)
-             .append("<a>" + item.label + "</a>")
-             .appendTo(ul);
-           }
-     };
-  
-  $("#search_restaurant_by_state_or_region").autocomplete({
-    source: "/auto_complete.js?name=region",
-  }).data("autocomplete")._renderItem = function (ul, item) {
-    if(["This keyword does not yet exist in our database.","RESTAURANT BY REGION", "RESTAURANT BY STATE"].indexOf(item.label) > -1){
-         return $("<li></li>")
-             .data("item.autocomplete", item)
-             .append("<font color='black'>" + item.label + "</font>")
-             .appendTo(ul);
-           }
-           else{
-              return $("<li></li>")
-             .data("item.autocomplete", item)
-             .append("<a>" + item.label + "</a>")
-             .appendTo(ul);
-           }
-     };
-
-  $('.search-button').click(function(e){
+ 
+   $('.search-button').click(function(e){
    e.preventDefault();
    var $form=$(this).parent().find("input:text");
     $('#restaurant_criteria input').not($form).val('');
