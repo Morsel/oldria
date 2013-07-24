@@ -355,23 +355,33 @@ $employmentInputs.change(updateEmploymentsList);
 
 
 // Directory search
-var $directoryList  = $("#directory_list");
-var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
+var $loaderImg = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
+var $directoryList = $("#user_directory_list");
+var $directoryInputs;
+//var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
 
 $directoryList.before($loaderImg);
 
-updateDirectoryList = function() {
+$.fn.updateDirectoryList = function() {
   input_string = $directoryInputs.serialize();
   $loaderImg.show();
   $directoryList.hide();
-  $directoryList.load('/directory/search', input_string, function(responseText, textStatus){
+  $directoryList.load('/directory/search_user', input_string, function(responseText, textStatus){
     $loaderImg.hide();
     $directoryList.fadeIn(300);
   });
-  // return true;
-};
-
-$directoryInputs.change(updateDirectoryList);
+// return true;
+}
+// Restaurant directory search button event
+$("#person_by_any_name").click(function(){
+  $directoryInputs = $("#directory_search #person_criteria #search_person_eq_any_name");
+  $.fn.updateDirectoryList();
+});
+$("#person_by_state_region").click(function(){
+  $directoryInputs = $("#directory_search #person_criteria #search_person_by_state_or_region");
+  $.fn.updateDirectoryList();
+});
+//$directoryInputs.change(updateDirectoryList);
 
 
 // Restaurant directory search
@@ -387,9 +397,6 @@ $.fn.updateRestoDirectoryList = function() {
   $restoDirectoryList.load('/directory/search_restaurant_by_name', input_string, function(responseText, textStatus){
     $loaderImg.hide();
     $restoDirectoryList.fadeIn(300);
-    $('#jh').removeClass('f');
-    $('#jh').addClass('dd');
-    console.log('ffffffffffff');
   });
   // return true;
 };

@@ -4724,21 +4724,23 @@ ul.featuredList{
   width: 500px;
 }
 .search_resturant{
-	width:53%;
-	#search_restaurant_eq_any_name{
-		width: 300px;
+	width:46%;
+	#search_restaurant_eq_any_name, #search_person_eq_any_name{
+		position: relative;
+		top: 9px;
+		width: 318px;
 	}
 	button{
 		position: relative;
-		top: -54px;
-		left: 323px;
+		top: -47px;
+		left: 343px;
 	}
-} 
-.search_resturant_region{
-	left: 425px;
-	position: relative;
-	top: -135px;
-	width: 67%;
+}
+.search_resturant_region {
+    left: 447px;
+    position: relative;
+    top: -136px;
+    width: 62%;
 	h3{
 		left: -66px;
 		position: relative;
@@ -4748,14 +4750,14 @@ ul.featuredList{
 		position: relative;
 	}
 	form input{
-		top: 30px;
+		top: 39px;
 		position: relative;
 		width: 300px;
 	}
 	button{
-	    left: 332px;
-	    position: relative;
-	    top: -24px;
+		left: 311px;
+		position: relative;
+		top: -14px;
 	}
 } 
 /* -----  end restaurant Directory ------------- */

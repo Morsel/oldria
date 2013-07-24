@@ -1,7 +1,7 @@
 class AutoCompleteController < ApplicationController
 
   def index
-    if params[:soapbox] && params[:person]
+    if params[:person]
       respond_to do |format|
         format.js { auto_complete_person_keywords }
       end   
