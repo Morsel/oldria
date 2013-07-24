@@ -1,64 +1,27 @@
-<fieldset name="Find Restaurants" id="restaurant_criteria">
-<h3>What are you searching for?</h3>
-<label for="search_user_eq_any_name">Are you looking for a specific person?</label>
-<% form_remote_tag :url =>search_user_path do %>
-    <ol>
-        <li>
-            <%= text_field_tag "user_search", "", :name => "name",:placeholder=>"Search by user name" %> 
-        </li>
-        <% if params[:controller] == "soapbox/soapbox" %>
-          <%= hidden_field_tag :soapbox, "soapbox" %>
-        <% end %>  
-        <p><%= button_tag "Search", :class => 'positive' %></p>  
-    </ol>          
-<%end%>       
-<br/><br/>
-<label for="search_feature_eq_any_name">Looking for someone with a particular specialty?</label>
-<% form_remote_tag :url =>search_user_path do %>
-    <ol>
-        <li>           
-            <%= text_field_tag "specialty_search", "", :name => "search[profile_specialties_name_eq][]",:placeholder=>"house made charcuterie, biodynamic wines" %>
-        </li>
-        <% if params[:controller] == "soapbox/soapbox" %>
-          <%= hidden_field_tag :soapbox, "soapbox" %>
-        <% end %>  
-        <p><%= button_tag "Search", :class => 'positive search-button' %></p> 
-    </ol>           
-<%end%>
-<br/>
-<div>
-    <h3>Or go old school:</h3> 
-     <label for="search_by_state_name">Search by State</label>
-    <% form_remote_tag :url =>search_user_path do %>
-        <%= text_field_tag "state_search_for_user", "", :name => "search[profile_metropolitan_area_name_eq][]",:placeholder=>"Search by state name" %>
-        <% if params[:controller] == "soapbox/soapbox" %>
-          <%= hidden_field_tag :soapbox, "soapbox" %>
-        <% end %>  
-        <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
-    <%end%>
+<div id="user_directory_list">
 </div>
-<br/>   <br/>
-<div>
-    <label for="search_by_region_name">Search by Region</label>
-    <% form_remote_tag :url =>search_user_path do %>
-        <%= text_field_tag "region_search", "", :name => "search[profile_james_beard_region_name_eq][]",:placeholder=>"Search by region name" %>
-        <% if params[:controller] == "soapbox/soapbox" %>
-          <%= hidden_field_tag :soapbox, "soapbox" %>
-        <% end %>  
-        <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
-    <%end%>
-</div>
-<br/><br/>   
-
-<div>
-    <label for="search_by_cuisine_name">Search by Cuisine</label>
-    <% form_remote_tag :url =>search_user_path do %>
-        <%= text_field_tag "cusine_search", "", :name => "search[profile_cuisines_name_eq][]",:placeholder=>"Search by cusine name" %>
-        <% if params[:controller] == "soapbox/soapbox" %>
-          <%= hidden_field_tag :soapbox, "soapbox" %>
-        <% end %>  
-        <p><%= button_tag "Search", :class => 'positive search-button' %></p>   
-    <%end%>
-</div>
-<br/>   
+<div class="clear"></div>
+<fieldset name="Find Restaurants" id="person_criteria">   
+    <div class="search_resturant">
+        <h3>Find exactly what you're researching:</h3>
+        <label for="search_person_eq_any_name">Search for person by name, cuisine, or person speciality. You can type in things like house made charcuterie, or biodynamic wines</label>
+        <%form_tag :url=>"#" do%>
+            <p class="string optional">
+                <%= text_field_tag "search_person_eq_any_name", "", :name => "search_person_eq_any_name"%>
+                <%= hidden_field_tag "search_restaurant_eq_any_name", "", :name => "search_restaurant_eq_any_name"%>  
+            </p>
+            <%= button_tag "Search",:id=>"person_by_any_name", :class => 'positive search-button'  %>   
+        <%end%> 
+   </div>    
+   <div class="search_resturant_region" >
+        <h3>Or go old school:</h3>
+        <label for="search_by_state_name">Search by State or Region</label>
+        <%form_tag :url=>"#" do%>
+            <p class="string optional">
+                <%= text_field_tag "search_person_by_state_or_region", "", :name => "search_person_by_state_or_region"%>
+                <%= hidden_field_tag "search_restaurant_by_state_or_region", "", :name => "search_restaurant_by_state_or_region"%>
+            </p>
+            <%= button_tag "Search", :id=>"person_by_state_region",:class => 'positive search-button' %>
+        <%end%> 
+   </div>  
 </fieldset>
