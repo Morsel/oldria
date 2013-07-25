@@ -40,6 +40,7 @@ desc "Add goups in groupings for list Media Prmotion newsletter."
         "NO"
       else
         "YES"
+      end      
       mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
         :email_address => user.email,
         :merge_vars => {:FNAME=>user.first_name,
