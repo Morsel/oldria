@@ -99,6 +99,18 @@
   <hr />
 <% end %>
 
+<%if @otm_keyword_notification.present? %>
+  <p>Media are researching the following On The Menu Keyword.</p>
+  <ul>
+    <%@otm_keyword_notification.each do |otm_keyword_notification| %>
+      <li>
+        <%= otm_keyword_notification.name %>
+      </li>
+    <%end%>
+  </ul>
+  <hr />
+<% end %>
+
 <p>Keep the media engaged! If you update your profile, we'll let these media folks know! Here's a few ideas:</p>
 <ul>  
   <% unless @menu_message.blank?%>
