@@ -48,8 +48,8 @@ class MediaNewsletterSubscription < ActiveRecord::Base
 
   def self.promotions(restaurants)
 
-   promotions = []
-    promotions = Promotion.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?) ",restaurants.compact.map(&:id),1.day.ago.beginning_of_day,1.day.ago.
+    promotions = []
+    promotions = Promotion.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?)",restaurants.map(&:id),1.day.ago.beginning_of_day,1.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3)
     promotions.flatten.compact
     
   end
