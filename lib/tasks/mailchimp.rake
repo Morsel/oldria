@@ -31,5 +31,23 @@ namespace :mailchmp do
   end
 
 
+desc "Add goups in groupings for list Media Prmotion newsletter."
+  task :add_user_in_digest => :environment do
+    mc = MailchimpConnector.new("Media Digest List")
+    User.media.all(:limit=>2).each do |user|
+      unless user.digest_writer.blank?
+        signal = if user.media_newsletter_subscriptions.blank? && user.digest_writer.blank?
+        "NO"
+      else
+        "YES"
+      mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+        :email_address => user.email,
+        :merge_vars => {:FNAME=>user.first_name,
+                        :LNAME=>user.last_name,                        
+                        :MYCHOICE=>signal,                                              
+        },:replace_interests => true,:update_existing=>true,:double_optin=>false)
+      end  
+    end 
+  end    
 end
 
