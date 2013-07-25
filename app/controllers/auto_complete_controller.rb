@@ -11,19 +11,13 @@ class AutoCompleteController < ApplicationController
       end
     end
   end
-
+  
   def auto_complete_keywords
     keyword_name = params[:term]
     if params[:name]=="restaurant"
-<<<<<<< HEAD
-      @keywords = ["RESTAURANTS BY KEYWORD"] + OtmKeyword.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANTS BY NAME"] + Restaurant.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANTS BY FEATURE"] + RestaurantFeature.find(:all,:conditions => ["value like ?", "%#{keyword_name}%"],:limit => 2).map(&:value) + ["RESTAURANTS BY CUISINE"]  + Cuisine.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) 
-    else
-      @keywords = ["RESTAURANTS BY REGION"]  + JamesBeardRegion.find(:all,:conditions => ["name like ? or description like ?", "%#{keyword_name}%","%#{keyword_name}%"],:limit => 5).map(&:name) + ["RESTAURANTS BY STATE"] + get_state_name_array.grep(/^#{keyword_name}/i)[0..5]
-=======
       @keywords = ["RESTAURANTS BY KEYWORD"] + OtmKeyword.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANTS BY NAME"] + Restaurant.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANTS BY FEATURE"] + RestaurantFeature.find(:all,:conditions => ["value like ?", "%#{keyword_name}%"],:limit => 2).map(&:value) + ["RESTAURANTS BY CUISINE"] + Cuisine.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name)
     else
       @keywords = ["RESTAURANTS BY REGION"] + JamesBeardRegion.find(:all,:conditions => ["name like ? or description like ?", "%#{keyword_name}%","%#{keyword_name}%"],:limit => 5).map(&:name) + ["RESTAURANTS BY STATE"] + get_state_name_array.grep(/^#{keyword_name}/i)[0..5]
->>>>>>> origin/Soapbox-Directory-51407401
     end
     remove_value = ["RESTAURANTS BY CUISINE","RESTAURANTS BY STATE","RESTAURANTS BY OTM","RESTAURANTS BY REGION","RESTAURANTS BY FEATURE","RESTAURANTS BY NAME"]
     test_result_search = @keywords.clone
@@ -50,11 +44,7 @@ class AutoCompleteController < ApplicationController
     if params[:person]=="person"
       @keywords = @keywords + ["PERSONS BY SPECIALITY"] + Specialty.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 4).map(&:name) + ["PERSONS BY CUISINE"] + Cuisine.find(:all,:conditions => ["name like ?","%#{keyword_name}%"],:limit => 4).map(&:name)
     else
-<<<<<<< HEAD
-      @keywords = ["PERSONS BY STATE"] + JamesBeardRegion.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 7).map(&:name) + ["PERSONS BY REGION"] + MetropolitanArea.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 7).map(&:name) 
-=======
       @keywords = ["PERSONS BY STATE"] + JamesBeardRegion.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 7).map(&:name) + ["PERSONS BY REGION"] + MetropolitanArea.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 7).map(&:name)
->>>>>>> origin/Soapbox-Directory-51407401
     end
     remove_value = ["PERSONS BY NAME","PERSONS BY SPECIALITY","PERSONS BY CUISINE","PERSONS BY STATE","PERSONS BY REGION"]
     test_result_search = @keywords.clone
