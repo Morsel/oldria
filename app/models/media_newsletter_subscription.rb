@@ -68,8 +68,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
   def self.photos(restaurants)
     photos = []
     restaurants.each do |restaurant|  
-     res = Restaurant.find(restaurant)
-      photos.push(res.photos.find(:all,:conditions=>["(created_at >= ? OR updated_at >= ?) ",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3))
+      photos.push(restaurant.photos.find(:all,:conditions=>["(created_at >= ? OR updated_at >= ?) ",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3))
     end      
     photos.flatten.compact
    
