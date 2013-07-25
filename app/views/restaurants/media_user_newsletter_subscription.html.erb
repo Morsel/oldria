@@ -102,7 +102,7 @@
                                       <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
                                        <% @menus.each do |menu| %>
                                       <li>
-                                        <%= link_to menu.restaurant.name, bulk_edit_restaurant_menus_url(menu.restaurant.id) %>
+                                          <%= link_to menu.restaurant.name,restaurant_menus_url(menu.restaurant) %>
                                        </li>
                                     <% end %>    
                                       <tr>
@@ -138,7 +138,8 @@
                                       <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
                                       <% @fact_sheets.each do |fact_sheet| %>
                                       <li>
-                                          <%= link_to fact_sheet.restaurant.name,edit_restaurant_fact_sheet_url(fact_sheet.restaurant) %>
+                                        <%= link_to fact_sheet.restaurant.name,restaurant_fact_sheet_url(fact_sheet.restaurant)
+                                        %>
                                        </li>
                                     <% end %>   
                                       <tr>
@@ -175,7 +176,7 @@
                                       <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
                                       <% @photos.each do |photo| %>
                                       <li>
-                                          <%= link_to photo.restaurant.name,bulk_edit_restaurant_photos_url(photo.restaurant) %>
+                                          <%= link_to photo.restaurant.name, restaurant_photos_url(photo.restaurant) %>
                                        </li> 
                                     <% end %>   
                                       <tr>
