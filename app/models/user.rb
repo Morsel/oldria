@@ -678,15 +678,16 @@ class User < ActiveRecord::Base
 
   def update_media_newsletter_mailchimp
 
-    if media? && [178,1071,4470,1475].include?(id)      
+    if media?      
       mc = MailchimpConnector.new("Media Newsletter")              
       
       unless newsfeed_writer.blank?
 
          region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq #If user has selected regions, getting metros of regions
         
-        mc.client.list_subscribe(:id => mc.media_promotion_list_id,
-          :email_address => "nishant.n@cisinlabs.com",
+
+        mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+          :email_address => email,
           :merge_vars => {:FNAME=>first_name,
                           :LNAME=>last_name,
                           :METROAREAS=>newsfeed_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(region_metro_areas.join(","),:length => 255),
@@ -819,7 +820,7 @@ class User < ActiveRecord::Base
     mc = MailchimpConnector.new("Media Digest List") 
        
     mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
-        :email_address => "nishant.n@cisinlabs.com",
+        :email_address => email,
         :merge_vars => {:FNAME=>first_name,
                         :LNAME=>last_name,                        
                         :MYCHOICE=>signal,                                              
@@ -834,7 +835,7 @@ class User < ActiveRecord::Base
 
   def send_newsletter_to_media_subscribers subscriber
     
-    if [178,1071,4470,1475].include?(subscriber.id) && !subscriber.media_newsletter_setting.opt_out 
+    if !subscriber.media_newsletter_setting.opt_out 
       begin
         UserMailer.deliver_log_file("User : #{subscriber.name}","MediaNewsletterTest")
         mc = MailchimpConnector.new("Media Digest List")
@@ -846,8 +847,8 @@ class User < ActiveRecord::Base
                                                 :to_name => "*|FNAME|*",
                                                 :from_name => "Restaurant Intelligence Agency",
                                                 :generate_text => true },
-                                   :segment_opts => { :match => "any",
-                                                      :conditions => [{ :field => "email",:op => "eq",:value => 'eric+media@restaurantintelligenceagency.com'},{ :field => "email",:op => "eq",:value => "ellen@restaurantintelligenceagency.com"},{ :field => "email",:op => "eq",:value => 'nishant.n@cisinlabs.com'}]
+                                   :segment_opts => { :match => "all",
+                                                      :conditions => [{ :field => "email",:op => "eq",:value => subscriber.email},{ :field => "MYCHOICE",:op => "eq",:value => 'YES'}]
                                                       },
                                   :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
         # send campaign
