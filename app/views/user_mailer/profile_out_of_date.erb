@@ -1,0 +1,18 @@
+<%= render :partial => 'email_header' %>
+<p>Hello, <%= @restaurant.try(:media_contact).try(:name) %>!</p>
+
+<% if !@restaurant.try(:media_contact).publication.blank? %>
+
+	<p style="margin-top: -8px;"> A journalist from <%= @restaurant.try(:media_contact).publication %> is researching  and has requested an update to the <%= @restaurant.name %> profile. As you update the profile, we will let the journalist know! Here's a check list for you:</p>
+	
+<% else %>	
+<p style="margin-top: -8px;">A journalist from A freelancer is researching <%= @restaurant.name %> and has requested an update to 	the <%= @restaurant.name %> profile. As you update the profile, we will let the journalist know! Here's a check list for you:</p>
+<% end %>
+
+<p style="margin-top: -13px;">All menus up-to-date, including drinks, all service periods, and any add-on menus like tastings or happy hour</p>
+<p style="margin-top: -13px;">Up to date fact sheet</p>
+<p style="margin-top: -13px;">All relevant staff added — often media are looking for sous chefs and owners as well as the usual chef, mixologists, sommeliers</p>
+<p style="margin-top: -13px;">All available press photography uploaded</p>
+<%= render :partial => 'email_footer' %>
+
+
