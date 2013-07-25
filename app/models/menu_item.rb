@@ -107,7 +107,7 @@ class MenuItem < ActiveRecord::Base
   end
 
   def twitter_message
-    "#{truncate(self.name, :length => 120)} #{self.bitly_link}"
+    "#{truncate(self.name, :length => 120)}"
   end
 
   def facebook_message
@@ -119,15 +119,15 @@ class MenuItem < ActiveRecord::Base
     picture = nil
     unless picture_url.blank?
       begin
-        picture  = open(picture_url)
+        picture  = open(URI.parse(URI.encode(picture_url.strip)))
       rescue        
       end
     end    
     message = message.blank? ? twitter_message : message
     if(picture.nil?)
-      restaurant.twitter_client.update("#{truncate(message,:length => 120)} #{self.bitly_link}")
+      restaurant.twitter_client.update("#{truncate(message,:length => (135-self.bitly_link.length))} #{self.bitly_link}")
     else
-      restaurant.twitter_client.update_with_media(message,picture)
+      restaurant.twitter_client.update_with_media("#{truncate(message,:length => (135-self.bitly_link.length))} #{self.bitly_link}",picture)
     end  
   end
 
