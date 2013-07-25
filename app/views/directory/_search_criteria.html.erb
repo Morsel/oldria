@@ -1,17 +1,15 @@
-<div id="user_directory_list">
-</div>
-<fieldset name="Find Restaurants" id="person_criteria">   
+<fieldset name="Find Restaurants" id="person_criteria">
     <div class="search_resturant">
         <h3>Find exactly what you're researching:</h3>
         <label for="search_person_eq_any_name">Search for person by name, cuisine, or person speciality. You can type in things like house made charcuterie, or biodynamic wines</label>
         <%form_tag :url=>"#" do%>
             <p class="string optional">
                 <%= text_field_tag "search_person_eq_any_name", "", :name => "search_person_eq_any_name"%>
-                <%= hidden_field_tag "search_restaurant_eq_any_name", "", :name => "search_restaurant_eq_any_name"%>  
+                <%= hidden_field_tag "search_restaurant_eq_any_name", "", :name => "search_restaurant_eq_any_name"%>
             </p>
-            <%= button_tag "Search",:id=>"person_by_any_name", :class => 'positive search-button'  %>   
-        <%end%> 
-   </div>    
+            <%= button_tag "Search",:id=>"person_by_any_name", :class => 'positive search-button' %>
+        <%end%>
+   </div>
    <div class="search_resturant_region" >
         <h3>Or go old school:</h3>
         <label for="search_by_state_name">Search by State or Region</label>
@@ -21,6 +19,9 @@
                 <%= hidden_field_tag "search_restaurant_by_state_or_region", "", :name => "search_restaurant_by_state_or_region"%>
             </p>
             <%= button_tag "Search", :id=>"person_by_state_region",:class => 'positive search-button' %>
-        <%end%> 
-   </div>  
+        <%end%>
+   </div>
+   <div class="clear"></div>
+   <div id="user_directory_list">
+   </div>
 </fieldset>
