@@ -79,256 +79,10 @@
                         <table width="100%" cellspacing="0" cellpadding="0">
                           <tr>
                             <td style="padding-left:21px; padding-right:21px; background:#fff;" valign="top"><br />
-                                <!-- New menu block-->    
-                            <% unless @menus.blank? %>  
-                              <table width="100%" cellspacing="0" cellpadding="0">
-                                <tr>
-                                  <td style="font-size:0; line-height:0; background:#e0ddd9;" height="7"></td>
-                                  </tr>
-                                <tr>
-                                  <td style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">These restaurants have posted New menus </td>
-                                  </tr>
-                                
-                                <tr>
-                                  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" /></td>
-                                  </tr>
-                                <tr>
-                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">&nbsp;</td>
-                                  </tr>
-                                <tr>
 
-                                  <td align="center" style="padding-left:7px; font:normal 14px Georgia, Times, serif; line-height:19px; color:#2f3861">
-                                    <tr>
-                                      <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
-                                       <% @menus.each do |menu| %>
-                                      <li>
-                                          <%= link_to menu.restaurant.name,restaurant_menus_url(menu.restaurant) %>
-                                       </li>
-                                    <% end %>    
-                                      <tr>
-                                         <td height="33" colspan="2" style="font-size:0; line-height:0;"></td>
-                                      </tr>                                
-                                      </td>
-                                    </tr>
-                                   </td>
-                                </tr>
-                             </table>
-                            <% end %>  
-                            <!--  end of new menu-->   
-                            <!--  start fact sheet -->   
-                             <% unless @fact_sheets.blank? %>  
-                              <table width="100%" cellspacing="0" cellpadding="0">
-                                <tr>
-                                  <td style="font-size:0; line-height:0; background:#e0ddd9;" height="7"></td>
-                                  </tr>
-                                <tr>
-                                  <td style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">These restaurants have posted Fact sheet </td>
-                                  </tr>
-                                
-                                <tr>
-                                  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" /></td>
-                                  </tr>
-                                <tr>
-                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">&nbsp;</td>
-                                  </tr>
-                                <tr>
-
-                                  <td align="center" style="padding-left:7px; font:normal 14px Georgia, Times, serif; line-height:19px; color:#2f3861">
-                                    <tr>
-                                      <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
-                                      <% @fact_sheets.each do |fact_sheet| %>
-                                      <li>
-                                        <%= link_to fact_sheet.restaurant.name,restaurant_fact_sheet_url(fact_sheet.restaurant)
-                                        %>
-                                       </li>
-                                    <% end %>   
-                                      <tr>
-                                         <td height="33" colspan="2" style="font-size:0; line-height:0;"></td>
-                                      </tr>                                
-                                      </td>
-                                    </tr>
-                                   </td>
-                                </tr>
-                             </table>
-                            <% end %>  
-                            <!-- End fact sheet -->   
-                            <!--  start Photos  -->   
-
-                             <% unless @photos.blank? %>  
-                              <table width="100%" cellspacing="0" cellpadding="0">
-                                <tr>
-                                  <td style="font-size:0; line-height:0; background:#e0ddd9;" height="7"></td>
-                                  </tr>
-                                <tr>
-                                  <td style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">These restaurants have posted photos </td>
-                                  </tr>
-                                
-                                <tr>
-                                  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" /></td>
-                                  </tr>
-                                <tr>
-                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">&nbsp;</td>
-                                  </tr>
-                                <tr>
-
-                                  <td align="center" style="padding-left:7px; font:normal 14px Georgia, Times, serif; line-height:19px; color:#2f3861">
-                                    <tr>
-                                      <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
-                                      <% @photos.each do |photo| %>
-                                      <li>
-                                          <%= link_to photo.restaurant.name, restaurant_photos_url(photo.restaurant) %>
-                                       </li> 
-                                    <% end %>   
-                                      <tr>
-                                         <td height="33" colspan="2" style="font-size:0; line-height:0;"></td>
-                                      </tr>                                
-                                      </td>
-                                    </tr>
-                                   </td>
-                                </tr>
-                             </table>
-                            <% end %>  
-                            <!-- End Photos  --> 
-
-                              <table width="100%" cellspacing="0" cellpadding="0">
-                                <tr>
-                                  <td style="font-size:0; line-height:0; background:#e0ddd9;" height="7"></td>
-                                  </tr>
-                                <tr>
-                                  <td style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">A LA MINUTE</td>
-                                  </tr>
-                                
-
-
-
-                                <tr>
-                                  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" /></td>
-                                  </tr>
-                                <tr>
-                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">&nbsp;</td>
-                                  </tr>
-                                <tr>
-
-                                  <td align="center" style="padding-left:7px; font:normal 14px Georgia, Times, serif; line-height:19px; color:#2f3861">
-                                    <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/11/answers">Today&#39;s Menu Specials</a> ::: <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/22/answers">Today&#39;s Great Deal</a><br />
-                                    <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/18/answers">Selling Fast</a> ::: <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/16/answers">Coming Events</a><br />
-                                    <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/24/answers">Today&#39;s Inspirations</a> ::: <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/10/answers">New Products</a><br />
-                                    <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/6/answers">Seasonal Ingredients</a> ::: <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/13/answers">Newest Beer</a><br />
-                                    <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/2/answers">Killer Pairings</a> ::: <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/5/answers">Bartender Toys</a><br />
-                                    <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/23/answers">Bartender Projects</a> ::: <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/15/answers">Today&#39;s Soundtrack</a><br />
-                                    <br />
-                                  </td>
-
-                                </tr>
-
-
-
-                              </table><!-- A La minute end -->
-
-                            <% unless @menu_items.blank? && @basic_restarurants_menu_items.blank? %>
-
-                              <table width="100%" cellspacing="0" cellpadding="0">
-                              <tr>
-                                  <td height="7" colspan="2" style="font-size:0; line-height:0; background:#e0ddd9;"></td>
-                                </tr>
-                                <tr>
-                                  <td colspan="2" style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">ON THE MENU</td>
-                                </tr>
-                                <tr>
-                                  <td height="6" colspan="2" style="font-size:0; line-height:0; background:#e0ddd9;"></td>
-                                </tr>
-                                <tr>
-                                  <td colspan="2" style="font-size:0; line-height:0;">
-                                    <img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" />
-                                  </td>
-                                </tr>
-                               <% for menu_item in @menu_items %>
-                                <tr>
-                                  <td height="9" colspan="2" style="font-size:0; line-height:0;"></td>
-                                </tr>
-                                  <tr>
-                                  <td height="14" colspan="2" style="font-size:0; line-height:0;"></td>
-                                </tr>
-
-                                <tr>
-                                  <td colspan="2" style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">
-                                      <%= menu_item.name.capitalize%>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td height="8" colspan="2" style="font-size:0; line-height:0;"></td>
-                                </tr>
-                                <tr>
-                                  <td width="15%" style="padding:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e">
-                                    <div>                                      
-                                      <% unless menu_item.restaurant.logo.blank? %>
-                                        <%= image_tag menu_item.restaurant.logo.attachment.url(:thumb)%>
-                                      <%else%>
-                                        <% menu_item.restaurant.logo ||= Image.new %>
-                                        <%= image_tag menu_item.restaurant.logo.attachment.url(:thumb),:style=>"width:50px;height:50px"%>                                      
-                                      <% end %>
-                                      <br />
-
-                                      <%= link_to menu_item.restaurant.try(:name),restaurant_path(menu_item.restaurant) %><br />
-                                      <%= menu_item.restaurant.try(:city_and_state)%>
-                                    </div>
-                                  </td>
-                                  <td valign="top" width="75%" style="padding:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e"><%= truncate(menu_item.description.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,:length => 210).gsub("...","")  %><%=("...  " + link_to("find out more»", menu_item_url(menu_item),:style=>"text-decoration:underline; color:#bc2021;") ) %>
-                                    <% unless menu_item.otm_keywords.blank? %>
-                                     <p>
-                                        <span class="bottommenu" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;color: #9F9A98;line-height: 16px;font-weight: bold;text-transform: uppercase;text-decoration: none;text-align: left;">
-                                          <%= menu_item.otm_keywords.map { |keyword|  link_to(keyword.name, menu_items_url(:keyword => keyword.name),:style=>"color: #9F9A98;text-decoration: none;font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;line-height: 16px;font-weight: bold;text-transform: uppercase;") }.to_sentence %>
-                                        </span>
-                                     </p>
-                                     <% end %>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td height="13" colspan="2" style="font-size:0; line-height:0;"></td>
-                                </tr>
-                                  <tr>
-                                  <td colspan="2" style="font-size:0; line-height:0;">
-                                    <img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" />
-                                  </td>
-                                </tr>
-                                <% end %>
-                                <!-- Restaurants update block -->
-                                <% unless  @basic_restarurants_menu_items.blank? %>
-
-                                <tr>
-                                  <td height="14" style="font-size:0; line-height:0;" colspan="2"></td>
-                                </tr>
-                                <tr>
-                                  <td height="13" colspan="2"  style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861" >These restaurants have also posted items to On the Menu</td>
-                                </tr>
-                                <tr>
-                                  <td height="13" style="font-size:0; line-height:0;" colspan="2"></td>
-                                </tr>
-                                <tr>
-                                  
-                                  <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
-                                    <% @basic_restarurants_menu_items.each do |restaurant| %>
-                                      <li>
-                                        <%= link_to restaurant.name, restaurant_menu_items_path(restaurant) %>
-                                       </li>
-                                    <% end %>                                    
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td height="13" style="font-size:0; line-height:0;" colspan="2"></td>
-                                </tr>
-                                <tr>
-                                  <td style="font-size:0; line-height:0;" colspan="2">
-                                    <img width="100%" height="6" alt="image description" src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif">
-                                  </td>
-
-                                <% end %> <!--unless @basic_restarurants_menu_items end -->
-                               
-                                <!-- End Restaurants update block -->
-                              </table>
-
-                               <% end %><!-- On The menu end -->
-
+                           
+                           
+                           <!-- Newsfeed start  -->   
                           <% unless @promotions.blank? && @basic_restarurants_promotions.blank? %>
                               <table width="100%" cellspacing="0" cellpadding="0">
                                 <tr>
@@ -455,8 +209,267 @@
 
                               <% end %><!-- On Newsfeed end -->
 
-                             
+                          <!--  ON the menu start -->    
+                           <% unless @menu_items.blank? && @basic_restarurants_menu_items.blank? %>
 
+                              <table width="100%" cellspacing="0" cellpadding="0">
+                              <tr>
+                                  <td height="7" colspan="2" style="font-size:0; line-height:0; background:#e0ddd9;"></td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2" style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">ON THE MENU</td>
+                                </tr>
+                                <tr>
+                                  <td height="6" colspan="2" style="font-size:0; line-height:0; background:#e0ddd9;"></td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2" style="font-size:0; line-height:0;">
+                                    <img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" />
+                                  </td>
+                                </tr>
+                               <% for menu_item in @menu_items %>
+                                <tr>
+                                  <td height="9" colspan="2" style="font-size:0; line-height:0;"></td>
+                                </tr>
+                                  <tr>
+                                  <td height="14" colspan="2" style="font-size:0; line-height:0;"></td>
+                                </tr>
+
+                                <tr>
+                                  <td colspan="2" style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">
+                                      <%= menu_item.name.capitalize%>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td height="8" colspan="2" style="font-size:0; line-height:0;"></td>
+                                </tr>
+                                <tr>
+                                  <td width="15%" style="padding:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e">
+                                    <div>                                      
+                                      <% unless menu_item.restaurant.logo.blank? %>
+                                        <%= image_tag menu_item.restaurant.logo.attachment.url(:thumb)%>
+                                      <%else%>
+                                        <% menu_item.restaurant.logo ||= Image.new %>
+                                        <%= image_tag menu_item.restaurant.logo.attachment.url(:thumb),:style=>"width:50px;height:50px"%>                                      
+                                      <% end %>
+                                      <br />
+
+                                      <%= link_to menu_item.restaurant.try(:name),restaurant_path(menu_item.restaurant) %><br />
+                                      <%= menu_item.restaurant.try(:city_and_state)%>
+                                    </div>
+                                  </td>
+                                  <td valign="top" width="75%" style="padding:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e"><%= truncate(menu_item.description.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,:length => 210).gsub("...","")  %><%=("...  " + link_to("find out more»", menu_item_url(menu_item),:style=>"text-decoration:underline; color:#bc2021;") ) %>
+                                    <% unless menu_item.otm_keywords.blank? %>
+                                     <p>
+                                        <span class="bottommenu" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;color: #9F9A98;line-height: 16px;font-weight: bold;text-transform: uppercase;text-decoration: none;text-align: left;">
+                                          <%= menu_item.otm_keywords.map { |keyword|  link_to(keyword.name, menu_items_url(:keyword => keyword.name),:style=>"color: #9F9A98;text-decoration: none;font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;line-height: 16px;font-weight: bold;text-transform: uppercase;") }.to_sentence %>
+                                        </span>
+                                     </p>
+                                     <% end %>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td height="13" colspan="2" style="font-size:0; line-height:0;"></td>
+                                </tr>
+                                  <tr>
+                                  <td colspan="2" style="font-size:0; line-height:0;">
+                                    <img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" />
+                                  </td>
+                                </tr>
+                                <% end %>
+                                <!-- Restaurants update block -->
+                                <% unless  @basic_restarurants_menu_items.blank? %>
+
+                                <tr>
+                                  <td height="14" style="font-size:0; line-height:0;" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                  <td height="13" colspan="2"  style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861" >These restaurants have also posted items to On the Menu</td>
+                                </tr>
+                                <tr>
+                                  <td height="13" style="font-size:0; line-height:0;" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                  
+                                  <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
+                                    <% @basic_restarurants_menu_items.each do |restaurant| %>
+                                      <li>
+                                        <%= link_to restaurant.name, restaurant_menu_items_path(restaurant) %>
+                                       </li>
+                                    <% end %>                                    
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td height="13" style="font-size:0; line-height:0;" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                  <td style="font-size:0; line-height:0;" colspan="2">
+                                    <img width="100%" height="6" alt="image description" src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif">
+                                  </td>
+
+                                <% end %> <!--unless @basic_restarurants_menu_items end -->
+                               
+                                <!-- End Restaurants update block -->
+                              </table>
+
+                               <% end %><!-- On The menu end -->    
+
+                            <!-- A la minute start -->    
+                              <table width="100%" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td style="font-size:0; line-height:0; background:#e0ddd9;" height="7"></td>
+                                  </tr>
+                                <tr>
+                                  <td style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">A LA MINUTE</td>
+                                  </tr>
+                                
+
+
+
+                                <tr>
+                                  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" /></td>
+                                  </tr>
+                                <tr>
+                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">&nbsp;</td>
+                                  </tr>
+                                <tr>
+
+                                  <td align="center" style="padding-left:7px; font:normal 14px Georgia, Times, serif; line-height:19px; color:#2f3861">
+                                    <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/11/answers">Today&#39;s Menu Specials</a> ::: <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/22/answers">Today&#39;s Great Deal</a><br />
+                                    <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/18/answers">Selling Fast</a> ::: <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/16/answers">Coming Events</a><br />
+                                    <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/24/answers">Today&#39;s Inspirations</a> ::: <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/10/answers">New Products</a><br />
+                                    <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/6/answers">Seasonal Ingredients</a> ::: <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/13/answers">Newest Beer</a><br />
+                                    <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/2/answers">Killer Pairings</a> ::: <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/5/answers">Bartender Toys</a><br />
+                                    <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/23/answers">Bartender Projects</a> ::: <a href="http://spoonfeed.restaurantintelligenceagency.com/a_la_minute/15/answers">Today&#39;s Soundtrack</a><br />
+                                    <br />
+                                  </td>
+
+                                </tr>
+
+
+                              </table><!-- A La minute end -->     
+                              <!--  start of new menu-->  
+                              <% unless @menus.blank? %>  
+                              <table width="100%" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td style="font-size:0; line-height:0; background:#e0ddd9;" height="7"></td>
+                                  </tr>
+                                <tr>
+                                  <% if @menus.count == 1 %>
+                                    <td style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">New menus have been posted by this restaurant </td>
+                                  <% else %>
+                                    <td style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">  New menus have been posted by these restaurants </td>
+                                  <% end %> 
+                                </tr>
+                                <tr>
+                                  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" /></td>
+                                  </tr>
+                                <tr>
+                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">&nbsp;</td>
+                                  </tr>
+                                <tr>
+
+                                  <td align="center" style="padding-left:7px; font:normal 14px Georgia, Times, serif; line-height:19px; color:#2f3861">
+                                    <tr>
+                                      <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
+                                       <% @menus.each do |menu| %>
+                                      <li>
+                                          <%= link_to menu.restaurant.name,restaurant_menus_url(menu.restaurant) %>
+                                       </li>
+                                    <% end %>    
+                                      <tr>
+                                         <td height="33" colspan="2" style="font-size:0; line-height:0;"></td>
+                                      </tr>                                
+                                      </td>
+                                    </tr>
+                                   </td>
+                                </tr>
+                             </table>
+                            <% end %>  
+                            <!--  end of new menu-->   
+                          
+                           <!--  start Photos  -->   
+
+                             <% unless @photos.blank? %>  
+                              <table width="100%" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td style="font-size:0; line-height:0; background:#e0ddd9;" height="7"></td>
+                                  </tr>
+                                <tr>
+                                  <% if @photos.count == 1 %>
+                                    <td style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">New press photos have been posted by this restaurant </td>
+                                  <% else %>
+                                    <td style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px  Georgia, Times, serif; line-height:22px; color:#333c68">New press photos have been posted by these restaurants  </td>
+                                  <% end %>
+                                </tr>
+ 
+                                <tr>
+                                  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" /></td>
+                                  </tr>
+                                <tr>
+                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">&nbsp;</td>
+                                  </tr>
+                                <tr>
+
+                                  <td align="center" style="padding-left:7px; font:normal 14px Georgia, Times, serif; line-height:19px; color:#2f3861">
+                                    <tr>
+                                      <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
+                                      <% @photos.each do |photo| %>
+                                      <li>
+                                          <%= link_to photo.restaurant.name, restaurant_photos_url(photo.restaurant) %>
+                                       </li> 
+                                    <% end %>   
+                                      <tr>
+                                         <td height="33" colspan="2" style="font-size:0; line-height:0;"></td>
+                                      </tr>                                
+                                      </td>
+                                    </tr>
+                                   </td>
+                                </tr>
+                             </table>
+                            <% end %>  
+                            <!-- End Photos  -->   
+                            <!--  start fact sheet -->   
+                             <% unless @fact_sheets.blank? %>  
+                              <table width="100%" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td style="font-size:0; line-height:0; background:#e0ddd9;" height="7"></td>
+                                  </tr>
+                                <tr>
+                                <% if @fact_sheets.count == 1 %>  
+                                  <td style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">The following restaurant has updated their fact sheet </td>
+                                <% else %>  
+                                  <td style="background:#e0ddd9; padding-left:12px; padding-right:12px; font:bold 20px Georgia, Times, serif; line-height:22px; color:#333c68">The following restaurants have updated their fact sheet</td>
+                                <% end %>  
+                                </tr>
+                                      
+                                <tr>
+                                  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" /></td>
+                                  </tr>
+                                <tr>
+                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">&nbsp;</td>
+                                  </tr>
+                                <tr>
+
+                                  <td align="center" style="padding-left:7px; font:normal 14px Georgia, Times, serif; line-height:19px; color:#2f3861">
+                                    <tr>
+                                      <td height="13" style="padding-left: 35px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e" colspan="2">
+                                      <% @fact_sheets.each do |fact_sheet| %>
+                                      <li>
+                                        <%= link_to fact_sheet.restaurant.name,restaurant_fact_sheet_url(fact_sheet.restaurant)
+                                        %>
+                                       </li>
+                                    <% end %>   
+                                      <tr>
+                                         <td height="33" colspan="2" style="font-size:0; line-height:0;"></td>
+                                      </tr>                                
+                                      </td>
+                                    </tr>
+                                   </td>
+                                </tr>
+                             </table>
+                            <% end %>  
+                            <!-- End fact sheet -->     
                                                           
                             </td>
                           </tr>
