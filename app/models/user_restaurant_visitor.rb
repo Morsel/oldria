@@ -200,9 +200,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "restaurant" => visitor.restaurant,
                 "current_user" => user,
                 "sum" => @sum
-              }                                        
-              if check_email_frequency(@uves)
-                UserMailer.deliver_send_mail_visitor(restaurant_visitors)
+              }                          
+              if check_email_frequency(@uves)  
+                UserMailer.deliver_send_mail_visitor(restaurant_visitors) 
                 @visitor_mail+=1
                 create_log_file_for_visitor_user(user,visitor.restaurant)
               end
