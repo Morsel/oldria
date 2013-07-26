@@ -415,6 +415,6 @@ ActionController::Routing::Routes.draw do |map|
   # for restaurant employee no condition
   map.no_choice '/restaurants/:restaurant_id/employees/options', :controller => "employees", :action => "options"
   map.new_employee 'restaurants/:restaurant_id/employees/new_employee', :controller => "employees", :action => "new_employee"  
-  map.resources :otm_keywords, :only => ["index"]
+  map.resources :otm_keywords, :only => ["index"]  
 end
 
