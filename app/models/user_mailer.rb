@@ -237,8 +237,7 @@ class UserMailer < ActionMailer::Base
 
   def send_otm_keyword_notification(current_user,otm_keyword_name)
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  'ellen@restaurantintelligenceagency.com' 
-    cc          'nishant.n@cisinlabs.com'
+    recipients  ['ellen@restaurantintelligenceagency.com' ,'nishant.n@cisinlabs.com']
     sent_on     Time.now
     subject     "Otm Keyword Not Found"
     body        :user => current_user,:keyword => otm_keyword_name
