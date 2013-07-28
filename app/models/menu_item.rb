@@ -146,7 +146,7 @@ class MenuItem < ActiveRecord::Base
       :timeline    => self.photo_file_name.present? ? true : false
     }
     if restaurant.post_to_facebook_page(post_attributes).blank?
-      return "Something went wrong."    
+      "Something went wrong."    
     end  
   end
 
