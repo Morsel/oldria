@@ -145,7 +145,9 @@ class MenuItem < ActiveRecord::Base
       :picture     => picture_url,
       :timeline    => self.photo_file_name.present? ? true : false
     }
-    restaurant.post_to_facebook_page(post_attributes)
+    if restaurant.post_to_facebook_page(post_attributes).blank?
+      return "Something went wrong."    
+    end  
   end
 
   def edit_path(options={})
