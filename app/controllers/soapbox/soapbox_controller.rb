@@ -67,6 +67,8 @@ class Soapbox::SoapboxController < ApplicationController
     end
     if @restaurants.blank? && params[:search_restaurant_by_state_or_region].present?
       flash[:notice] = "I am sorry, we don't have any restaurants for your state yet. Sign up to receive notification when we do!"
+    elsif @restaurants.blank?
+      flash[:notice] = "I am sorry, we don't have any restaurants"
     end
     render :partial => "directory/restaurant_search_results"
   end
