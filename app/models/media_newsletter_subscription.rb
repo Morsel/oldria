@@ -47,11 +47,34 @@ class MediaNewsletterSubscription < ActiveRecord::Base
   end
 
   def self.promotions(restaurants)
-   promotions = []
+    promotions = []
     promotions = Promotion.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?) ",restaurants.compact.map(&:id),get_limit_day.day.ago.beginning_of_day,get_limit_day.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3)      
     promotions.flatten.compact
     
   end
+
+  def self.newsletter_menus(restaurants)
+    menus = []
+    menus = Menu.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?) ",restaurants.map(&:id),1.day.ago.beginning_of_day,1.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3) 
+    menus.flatten.compact
+  end
+
+  def self.fact_sheets(restaurants)
+    fact_sheets = []
+    fact_sheets = RestaurantFactSheet.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?) ",restaurants.map(&:id),1.day.ago.beginning_of_day,1.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3) 
+    fact_sheets.flatten.compact
+  end
+
+  def self.photos(restaurants)
+    photos = []
+    restaurants.each do |restaurant|  
+      photos.push(restaurant.photos.find(:all,:conditions=>["(created_at >= ? OR updated_at >= ?) ",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3))
+    end      
+    photos.flatten.compact
+   
+  end
+
+   
 
   private
 
