@@ -1,7 +1,7 @@
 namespace :mailchmp do
   desc "Add goups in groupings for list Media Prmotion newsletter."
   task :add_in_mpn => :environment do
-    mc = MailchimpConnector.new("Media Newsletter") 
+    mc = MailchimpConnector.new("RIA Newsfeed") 
     puts "Loading.."
       mc.client.list_interest_groupings(:id => mc.media_promotion_list_id).each do |row| 
         if row["name"] == "Regions"
@@ -33,7 +33,7 @@ namespace :mailchmp do
 
 desc "Add goups in groupings for list Media Prmotion newsletter."
   task :add_user_in_digest => :environment do
-    mc = MailchimpConnector.new("Media Digest List")
+    mc = MailchimpConnector.new("RIA Media")
     User.media.each do |user|
       unless user.digest_writer.blank?
         signal = if user.media_newsletter_subscriptions.blank? && user.digest_writer.blank?
