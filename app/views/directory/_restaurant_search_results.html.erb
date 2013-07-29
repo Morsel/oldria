@@ -3,7 +3,7 @@
 		<div id="flash_notice"><%=flash[:notice]%></div>
 	</div>
 <%else%>
-	<h3>Restaurants</h3>
+	<h1>Restaurants</h1>
 	<% for restaurant in @restaurants %>
 		<%= render :partial => 'restaurants/identity', :locals => { :user => restaurant } %>
 	<% end %>
