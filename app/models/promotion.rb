@@ -174,7 +174,7 @@ class Promotion < ActiveRecord::Base
   end  
   def send_newsfeed_newsletters_later
 
-      mc = MailchimpConnector.new("Media Newsletter")       
+      mc = MailchimpConnector.new("RIA Newsfeed")       
       groups = mc.get_mpl_groups
       with_no_national = [{ :field => "WRITERTYPE",:op => "ne",:value => "National Writer"},  
         {:field=>"interests-#{groups['Promotions']['id']}",:op=>"one",:value=>self.promotion_type.try(:name)},
