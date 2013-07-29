@@ -679,7 +679,7 @@ class User < ActiveRecord::Base
   def update_media_newsletter_mailchimp
 
     if media?      
-      mc = MailchimpConnector.new("Media Newsletter")              
+      mc = MailchimpConnector.new("RIA Newsfeed")              
       
       unless newsfeed_writer.blank?
 
@@ -817,7 +817,7 @@ class User < ActiveRecord::Base
       else
         "YES"
       end 
-    mc = MailchimpConnector.new("Media Digest List") 
+    mc = MailchimpConnector.new("RIA Media") 
        
     mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
         :email_address => email,
@@ -837,13 +837,12 @@ class User < ActiveRecord::Base
     
     if !subscriber.media_newsletter_setting.opt_out 
       begin
-        UserMailer.deliver_log_file("User : #{subscriber.name}","MediaNewsletterTest")
-        mc = MailchimpConnector.new("Media Digest List")
+        mc = MailchimpConnector.new("RIA Media")
         campaign_id = \
         mc.client.campaign_create(:type => "regular",
                                   :options => { :list_id => mc.media_promotion_list_id,
                                                 :subject => "RIA's Daily Dineline for #{Date.today.to_formatted_s(:long)}",
-                                                :from_email => "info@restaurantintelligenceagency.com",
+                                                :from_email => "hal@restaurantintelligenceagency.com",
                                                 :to_name => "*|FNAME|*",
                                                 :from_name => "Restaurant Intelligence Agency",
                                                 :generate_text => true },
