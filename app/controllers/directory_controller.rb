@@ -81,14 +81,14 @@ class DirectoryController < ApplicationController
     if params[:soapbox]
       if params[:search_person_eq_any_name]
         @users = User.in_soapbox_directory.profile_specialties_name_or_profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
-        @users.push(User.in_soapbox_directory.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?
+        @users = @users.push(User.in_soapbox_directory.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?
       else
         @users = User.in_soapbox_directory.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
       end
     else
       if params[:search_person_eq_any_name]
         @users = User.in_spoonfeed_directory.profile_specialties_name_or_profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
-        @users.push(User.in_spoonfeed_directory.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?
+        @users = @users.push(User.in_spoonfeed_directory.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?
       else
         @users = User.in_spoonfeed_directory.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
       end  
