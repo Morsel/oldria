@@ -117,7 +117,7 @@ $.fn.updateDirectoryList = function() {
 	input_string = $directoryInputs.serialize();
 	$loaderImg.show();
 	$directoryList.hide();
-	$directoryList.load('/directory/search_user?soapbox=soapbox', input_string, function(responseText, textStatus){
+	$directoryList.load('/soapbox/directory_search?soapbox=soapbox', input_string, function(responseText, textStatus){
 	  $loaderImg.hide();
 	  $directoryList.fadeIn(300);
 	});
@@ -149,7 +149,7 @@ $.fn.updateRestoDirectoryList = function() {
   input_string = $restoDirectoryInputs.serialize();
   $loaderImg.show();
   $restoDirectoryList.hide();
-  $restoDirectoryList.load('/directory/search_restaurant_by_name', input_string, function(responseText, textStatus){
+  $restoDirectoryList.load('/soapbox/restaurant_search', input_string, function(responseText, textStatus){
     $loaderImg.hide();
     $restoDirectoryList.fadeIn(300);
   });
