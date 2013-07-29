@@ -216,17 +216,17 @@ class RestaurantsController < ApplicationController
         if file_type.to_s.downcase =="csv" 
           begin
             file = params[:document]
-            tmp_pwd = 'temp123'               
+            tmp_pwd = 'temp123'         
             FasterCSV.read(params[:document].path,:headers => true,:col_sep => "\t").each do |i|
-               news = NewsletterSubscriber.new(:first_name => i[0],:last_name => i[1],:email => i[2],:password=>tmp_pwd)               
-                unless news.save
-                  @error_arr.push(news.email)
+               @news = NewsletterSubscriber.new(:first_name => i[0],:last_name => i[1],:email => i[2],:password=>tmp_pwd) 
+                unless @news.save
+                  @error_arr.push(@news.email)
                 else
-                  news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
+                  @news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
                 end
             end 
           rescue FasterCSV::MalformedCSVError               
-              news.push("csv file not valid format.")
+              @news.push("csv file not valid format.")
           end
            
           unless @error_arr.compact.blank?
