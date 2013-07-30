@@ -161,7 +161,7 @@ class Promotion < ActiveRecord::Base
       mc.client.campaign_create(:type => "regular",
                                 :options => { :list_id => mc.media_promotion_list_id,
                                               :subject => "#{self.promotion_type.try(:name)}: #{self.headline}",
-                                              :from_email => "info@restaurantintelligenceagency.com",
+                                              :from_email => "hal@restaurantintelligenceagency.com",
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
@@ -174,7 +174,7 @@ class Promotion < ActiveRecord::Base
   end  
   def send_newsfeed_newsletters_later
 
-      mc = MailchimpConnector.new("Media Newsletter")       
+      mc = MailchimpConnector.new("RIA Newsfeed")       
       groups = mc.get_mpl_groups
       with_no_national = [{ :field => "WRITERTYPE",:op => "ne",:value => "National Writer"},  
         {:field=>"interests-#{groups['Promotions']['id']}",:op=>"one",:value=>self.promotion_type.try(:name)},

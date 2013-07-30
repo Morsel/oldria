@@ -2,13 +2,13 @@ class MailchimpConnector
 
   attr_accessor :client
 
-  def initialize name = 'Media Newsletter'
+  def initialize name = 'RIA Diners'
     @client = Gibbon.new
     @group_name = name
   end
 
   def mailing_list_id
-    @mailing_list_id ||= client.lists(:filters => { :name => "Soapbox Newsletter" })['data'].first['id']
+    @mailing_list_id ||= client.lists(:filters => { :list_name => "RIA Diners" })['data'].first['id']
   end
 
   def grouping_id
