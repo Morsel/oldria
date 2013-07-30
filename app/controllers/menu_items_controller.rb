@@ -19,6 +19,7 @@ class MenuItemsController < ApplicationController
     @menu_item = MenuItem.new(:post_to_twitter_at => Time.now, :post_to_facebook_at => Time.now)
     @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
     build_social_posts
+    check_employments
   end
 
   def create

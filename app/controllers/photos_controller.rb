@@ -27,6 +27,7 @@ class PhotosController < ApplicationController
 
   def bulk_edit
     @photos = @restaurant.photos
+    check_employments
   end
 
   def create
@@ -63,4 +64,5 @@ class PhotosController < ApplicationController
   def find_restaurant
     @restaurant = Restaurant.find(params[:restaurant_id], :include => :photos)
   end
+
 end

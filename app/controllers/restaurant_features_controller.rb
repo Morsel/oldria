@@ -3,13 +3,13 @@ class RestaurantFeaturesController < ApplicationController
   before_filter :authenticate
   before_filter :load_pages, :only => [:index, :bulk_edit]
   before_filter :load_page, :only => [:bulk_edit, :add]
-
+  before_filter :check_employments, :only => [:bulk_edit]
+ 
   def index
     redirect_to bulk_edit_restaurant_feature_path(@restaurant, @pages.first)
   end
 
   def bulk_edit
-
   end
 
   def add
@@ -27,6 +27,7 @@ class RestaurantFeaturesController < ApplicationController
   
   def edit_top
     @features = @restaurant.restaurant_features.group_by(&:restaurant_feature_category)
+    check_employments
   end
   
   def update_top
