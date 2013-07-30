@@ -34,6 +34,8 @@ class Soapbox::SoapboxController < ApplicationController
     end
     if @users.blank? && params[:search_person_by_state_or_region].present?
       flash[:notice] = "I am sorry, we don't have any person for your state yet. Sign up to receive notification when we do!"
+    elsif @users.blank?
+      flash[:notice] = "No results found, please try a new search"
     end
     render :partial => "directory/search_results"
   end
@@ -68,7 +70,7 @@ class Soapbox::SoapboxController < ApplicationController
     if @restaurants.blank? && params[:search_restaurant_by_state_or_region].present?
       flash[:notice] = "I am sorry, we don't have any restaurants for your state yet. Sign up to receive notification when we do!"
     elsif @restaurants.blank?
-      flash[:notice] = "I am sorry, we don't have any restaurants"
+      flash[:notice] = "No results found, please try a new search"
     end
     render :partial => "directory/restaurant_search_results"
   end
