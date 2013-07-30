@@ -1,7 +1,6 @@
 class MenuItemsController < ApplicationController
 
   before_filter :require_user
-
   before_filter :require_manager, :except => [:index,:get_keywords,:add_keywords,:details,:show]
   before_filter :social_redirect, :only => [:edit]
   before_filter :verify_restaurant_activation, :only => [:show]
@@ -19,6 +18,7 @@ class MenuItemsController < ApplicationController
     @menu_item = MenuItem.new(:post_to_twitter_at => Time.now, :post_to_facebook_at => Time.now)
     @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
     build_social_posts
+    check_employments
   end
 
   def create

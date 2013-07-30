@@ -2,6 +2,7 @@ class Restaurants::SocialPostController < ApplicationController
 
   before_filter :require_user
   before_filter :authorize
+  before_filter :check_employments, :only => [:index]
 
   def index
     @social_posts = SocialPost.pending.map{|social_post| social_post if (can? :edit, social_post.source.send(:restaurant)) }.compact

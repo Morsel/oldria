@@ -23,6 +23,7 @@ class ALaMinuteAnswersController < ApplicationController
   def bulk_edit
     @questions = ALaMinuteQuestion.restaurants
     @answers = @restaurant.a_la_minute_answers.group_by(&:a_la_minute_question_id)
+    check_employments
   end
 
   def new

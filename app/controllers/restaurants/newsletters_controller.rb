@@ -1,6 +1,7 @@
 class Restaurants::NewslettersController < ApplicationController
 
   before_filter :authorize, :except => "show"
+  before_filter :check_employments, :only => [:index]
 
   def index
     @restaurant.newsletter_setting || @restaurant.build_newsletter_setting
