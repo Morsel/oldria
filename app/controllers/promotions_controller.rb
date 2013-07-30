@@ -14,6 +14,7 @@ class PromotionsController < ApplicationController
     @promotions = @restaurant.promotions.all(:order => "created_at DESC")
     @promotion = Promotion.new(:post_to_twitter_at => Time.now, :post_to_facebook_at => Time.now)
     build_social_posts
+    check_employments
   end
 
   def create

@@ -6,6 +6,7 @@ class PressReleasesController < ApplicationController
   def index
     @press_release = @restaurant.press_releases.build
     @press_release.pdf_remote_attachment = PdfRemoteAttachment.new
+    check_employments
   end
 
   def create

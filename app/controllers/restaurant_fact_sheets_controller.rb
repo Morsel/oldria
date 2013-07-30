@@ -18,6 +18,7 @@ class RestaurantFactSheetsController < ApplicationController
   # GET /restaurant_fact_sheets/1/edit
   def edit
     @fact_sheet = @restaurant.fact_sheet
+    check_employments
   end
 
   # PUT /restaurant_fact_sheets/1
