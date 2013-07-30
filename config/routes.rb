@@ -415,9 +415,9 @@ ActionController::Routing::Routes.draw do |map|
   # for restaurant employee no condition
   map.no_choice '/restaurants/:restaurant_id/employees/options', :controller => "employees", :action => "options"
   map.new_employee 'restaurants/:restaurant_id/employees/new_employee', :controller => "employees", :action => "new_employee"  
-<<<<<<< HEAD
+
   map.resources :otm_keywords, :only => ["index"]  
-=======
+
   #for autocomplete 
   map.resources :auto_complete, :only => ["index"] 
   #for show filter result of restaurant directory
@@ -428,6 +428,5 @@ ActionController::Routing::Routes.draw do |map|
   map.search_restaurant_by_name 'directory/search_restaurant_by_name', :controller => 'directory', :action => 'search_restaurant_by_name'
   map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
   
->>>>>>> origin/spoonfeed-directory-51407673
 end
 
