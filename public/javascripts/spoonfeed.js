@@ -655,6 +655,53 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     else
       $(this).prev().attr("disabled","disabled");
   })
+
+  // //mediafeed user edit 
+  $("#search_state_by_name").autocomplete({
+    source: "/auto_complete.js?metro=metro",
+    select: function( event, ui ) {
+      $('#loader').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
+      var selected_city = new Array();    
+      $("#newsfeed_metropolitan_area_search input[type=checkbox]").each(function(){
+           if ($(this).is(":checked")){
+              selected_city.push($(this).val());            
+          }  
+      })
+      $.ajax({
+        data:'state_name=' +ui.item.value+'&user_id='+$('#user_id').val()+'&checked_city='+selected_city,           
+        url:'/mediafeed/media_users/get_selected_cities?newsfeed=newsfeed',
+        success:function(request,response){
+          $('#search_state_by_name').val('');
+        }
+      });
+    }
+  });
+  $("#search_digest_state_by_name").autocomplete({
+    source: "/auto_complete.js?metro=metro",
+    select: function( event, ui ) {
+      $('#digest_loader').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
+      var selected_city = new Array();    
+      $("#digest_metropolitan_area_search input[type=checkbox]").each(function(){
+           if ($(this).is(":checked")){
+              selected_city.push($(this).val());            
+          }  
+      })
+      $.ajax({
+        data:'state_name=' +ui.item.value+'&user_id='+$('#user_id').val()+'&checked_city='+selected_city,           
+        url:'/mediafeed/media_users/get_selected_cities?test=test',
+        success:function(request,response){
+          $('#search_digest_state_by_name').val('');
+        }
+      });
+    }
+  });
+  $("#newsfeed_metropolitan_area_search input[type=checkbox], #digest_metropolitan_area_search input[type=checkbox]").live('click',function() {
+    if($(this).prop('checked'))
+      $(this).prev().removeAttr("disabled");
+    else
+      $(this).prev().attr("disabled","disabled");
+  });
+  // end mediafeed user edit 
   // end $(document).ready
 });
 
