@@ -3406,3 +3406,15 @@ form#join {
     }
   }
 }
+.ui-autocomplete {
+        position: absolute;
+        cursor: default;
+        background-color: white;
+        border: 1px solid #ccc;
+        li {
+                padding: 3px;
+        }
+}
+.ui-autocomplete-loading {
+   background: white url('/images/ajax-loader.gif') right center no-repeat;
+}

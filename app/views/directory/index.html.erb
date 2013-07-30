@@ -4,12 +4,8 @@
 
 <% if @use_search %>
 <div id="directory_search">
-    <% form_tag do %>
-        <%= render :partial => 'directory/search_criteria' %>
-    <% end %>
+	<div class="color-box-restaurant">
+		<%= render :partial => 'directory/search_criteria' %>		
+	</div>
 </div>
 <% end %>
-
-<div id="directory_list">
-    <%= render :partial => 'directory/search_results', :locals => { :users => @users } %>
-</div>
