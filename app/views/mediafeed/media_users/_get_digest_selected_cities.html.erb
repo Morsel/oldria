@@ -1,0 +1,12 @@
+<p>To add another, type in the abbreviation for your state<p>
+<% @cities.each_with_index do |city,id| %>
+	<li>
+		<label for="digest_user_metropolitan_area_ids_<%=city.id%>_<%=id%>">
+	    <% checked = false %>
+	    <% checked = @checked_city.map(&:name).include? city.name if @checked_city.present? %>
+	    <%= hidden_field_tag "digest_writer[metropolitan_areas_writers_attributes][#{id}][user_id]" ,@user.id, :disabled=>!checked %>                
+	    <%= check_box_tag "digest_writer[metropolitan_areas_writers_attributes][#{id}][metropolitan_area_id]",city.id,checked,:id=> "digest_user_metropolitan_area_ids_#{city.id}_#{id}"%>
+	    <%=city.state%>: <%=city.name%>
+	    </label>                             
+	</li>
+<% end %>

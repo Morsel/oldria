@@ -1,0 +1,2 @@
+module Mediafeed::MediafeedHelper
+end
