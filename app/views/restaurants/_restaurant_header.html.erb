@@ -41,7 +41,7 @@
                 <%# end %> -->
                 <!-- AddThis Button END -->
                 <div class="moreDetails">
-                    <small><%= link_to "facts", restaurant_fact_sheet_path(@restaurant) %> updated on <span><%= @restaurant.updated_at.strftime('%m/%d/%y') %></span></small>
+                    <small><%= link_to "facts", restaurant_fact_sheet_path(@restaurant) %> updated on <span><%= @restaurant.fact_sheet_last_updated %></span></small>
                     <small><%= link_to "menus", restaurant_menus_path(@restaurant) %> updated on <span><%= @restaurant.menus_last_updated %></span></small>
                     <small><%= link_to "photos", restaurant_photos_path(@restaurant) %> updated on <span><%= @restaurant.photos_last_updated %></span></small>
                 </div>

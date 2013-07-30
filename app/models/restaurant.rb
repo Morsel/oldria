@@ -284,6 +284,10 @@ class Restaurant < ActiveRecord::Base
     photos.present? ? photos.first(:order => "updated_at DESC").updated_at.strftime('%m/%d/%y') : ''
   end
 
+  def fact_sheet_last_updated
+     fact_sheet.present? ? fact_sheet(:order => "updated_at DESC").updated_at.strftime('%m/%d/%y') : ''
+  end  
+
   def shareable_newsletter_subscribers
     newsletter_subscribers.all(:conditions => ["newsletter_subscriptions.share_with_restaurant = ?", true])
   end
