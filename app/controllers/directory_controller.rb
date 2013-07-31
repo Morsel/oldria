@@ -6,13 +6,9 @@ class DirectoryController < ApplicationController
     if params[:specialty_id]
       @specialty = Specialty.find(params[:specialty_id])
       @users = User.in_soapbox_directory.profile_specialties_id_eq(params[:specialty_id]).all(:order => "users.last_name").uniq
-      @keywordable_id = params[:specialty_id]
-      @keywordable_type = 'Specialty'
     elsif params[:cuisine_id]
       @cuisine = Cuisine.find(params[:cuisine_id])
       @users = User.in_spoonfeed_directory.profile_cuisines_id_eq(params[:cuisine_id]).all(:order => "users.last_name").uniq
-      @keywordable_id = params[:cuisine_id]
-      @keywordable_type = 'Cuisine'
     elsif params[:metropolitan_area_id]
       @metro_area = MetropolitanArea.find(params[:metropolitan_area_id])
       @users = User.in_spoonfeed_directory.profile_metropolitan_area_id_eq(params[:metropolitan_area_id]).all(:order => "users.last_name").uniq
@@ -40,7 +36,7 @@ class DirectoryController < ApplicationController
     elsif params[:james_beard_region_id]
       @region = JamesBeardRegion.find(params[:james_beard_region_id])
       @restaurants = Restaurant.activated_restaurant.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
-    else      
+    else
       @use_search = true
       @restaurants = Restaurant.activated_restaurant
     end
@@ -52,13 +48,13 @@ class DirectoryController < ApplicationController
   end
 
   def current_user_restaurants
-    @restaurants = current_user.manager_restaurants   
+    @restaurants = current_user.manager_restaurants
     render :layout => false
-  end  
+  end
 
   def get_restaurant_url
     @restaurant = Restaurant.find(params[:restaurant_id])
     @url = get_url_by_request params[:clicked_page]
     render :json =>{:url=>@url}
-  end 
+  end
 end

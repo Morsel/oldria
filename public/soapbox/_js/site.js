@@ -152,3 +152,35 @@ jQuery(document).ready(function(){
     } 
   };
 });
+
+$("#user_editor").autocomplete({
+  source: "/users.js",
+});
+$("#otm_keyword_search").autocomplete({
+  source: "/otm_keywords.js",
+});
+
+$("#user_search").autocomplete({
+  source: "/users.js",
+});
+$("#restaurant_search").autocomplete({
+  source: "/restaurants.js",
+});
+$("#feature_search").autocomplete({
+  source: "/features.js",
+});
+$("#state_search").autocomplete({
+  source: "/states.js",
+});
+$("#specialty_search").autocomplete({
+  source: "/specialties.js",
+});
+$("#region_search").autocomplete({
+  source: "/james_beard_regions.js",
+});
+$("#state_search_for_user").autocomplete({
+  source: "/metropolitan_areas.js",
+});
+$("#cusine_search").autocomplete({
+  source: "/cuisines.js",
+});

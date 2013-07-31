@@ -4534,7 +4534,7 @@ a.subscribe_btn {
 				width: 65%;
 	}
 	a.unsubscribe{
-		width: 80%;
+		width: 75%;
 	}
 	a:hover {
  	 text-decoration: underline;
@@ -4698,7 +4698,6 @@ fieldset{
 .menu_form {
 	width: 840px !important; 
 }
-
 .add_answer{
   cursor: pointer;
   color: #D8531E;
@@ -4708,11 +4707,11 @@ fieldset{
 .help_text{
 	color: #D8531E !important;
 }
-
 .help_text_next{
 	margin-top: -14px !important;
 	color: #D8531E !important;
 }
+
 
 .menu_form {
 	width: 840px !important; 
@@ -4738,4 +4737,7 @@ a.profile-out-of-date {
 	float: left; 
 	line-height: 8px; 
 	top: 15px;
+}
+.set-textarea-width{
+	width: 850px;
 }

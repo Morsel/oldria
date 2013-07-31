@@ -4,7 +4,7 @@
          <%= f.label :name, :label => "Name of Dish/Drink/Wine/Beer" %></br>
          <%= f.input :name, :label => false %>
       </li> 
-      <li>
+      <li class="set-textarea-width">
         <%= label_tag "menu_item_description_editor", "Inspiration/Background" %> 
         <p class="inline-hints">Share what makes you excited. Basic HTML formatting is allowed.</p>
         <%= f.cktext_area :description, :input_html => { :rows => 4 }, :toolbar => 'Basic' %></br>

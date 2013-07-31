@@ -324,27 +324,30 @@ class RestaurantsController < ApplicationController
   end
 
   def media_user_newsletter_subscription        
+
     @user = User.find(params[:id])    
     @arrMedia=[]    
     @basic_restarurants_menu_items = []
     @basic_restarurants_promotions = []
-
     @arrMedia.push(@user.media_newsletter_subscriptions.map(&:restaurant))
-    
     @arrMedia.push(@user.get_digest_subscription)
 
     @arrMedia.flatten!
     @menu_items = @menus = @restaurantAnswers = @promotions = []
     unless(@arrMedia.blank?)
-      @arrMedia.each do |restaurant|
-        @basic_restarurants_menu_items << restaurant if !restaurant.premium_account? && !restaurant.menu_items.find(:all,:conditions=>["created_at >= ? OR updated_at >= ?",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day]).blank?
-      end
-      @arrMedia.each do |restaurant|
-        @basic_restarurants_promotions << restaurant if !restaurant.premium_account? && !restaurant.promotions.find(:all,:conditions=>["created_at >= ? OR updated_at >= ?",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day]).blank?
-      end
+       @arrMedia.each do |restaurant|
+         @basic_restarurants_menu_items << restaurant if !restaurant.premium_account? && !restaurant.menu_items.find(:all,:conditions=>["created_at >= ? OR updated_at >= ?",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day]).blank?
+       end
+       @arrMedia.each do |restaurant|
+         @basic_restarurants_promotions << restaurant if !restaurant.premium_account? && !restaurant.promotions.find(:all,:conditions=>["created_at >= ? OR updated_at >= ?",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day]).blank?
+       end
 
       @arrMedia = @arrMedia - @basic_restarurants_menu_items - @basic_restarurants_promotions
-      @menu_items = MediaNewsletterSubscription.menu_items(@arrMedia)      
+
+      @menu_items = MediaNewsletterSubscription.menu_items(@arrMedia)   
+      @menus = MediaNewsletterSubscription.newsletter_menus(@arrMedia)  
+      @fact_sheets = MediaNewsletterSubscription.fact_sheets(@arrMedia)  
+      @photos = MediaNewsletterSubscription.photos(@arrMedia)  
       #@alaminute_answers = MediaNewsletterSubscription.restaurant_answers(@arrMedia)
       @promotions = MediaNewsletterSubscription.promotions(@arrMedia)
     end

@@ -85,24 +85,24 @@ $('.direct_message .readit').click(function(){
 });
 
 $('#profile_user_attributes_publish_profile').live('click',function(){
-	if(!$(this).is(':checked')){
-		return;
-	}
-	answer = confirm('Are you sure? Is your profile filled out yet?\n\nMake sure your profile is filled out a good amount before sharing it with the public!');
-	if (answer){
-		$(this).attr('checked','checked');
-	}	else{
-		$(this).removeAttr('checked');
-	}
+  if(!$(this).is(':checked')){
+    return;
+  }
+  answer = confirm('Are you sure? Is your profile filled out yet?\n\nMake sure your profile is filled out a good amount before sharing it with the public!');
+  if (answer){
+    $(this).attr('checked','checked');
+  } else{
+    $(this).removeAttr('checked');
+  }
 })
 
 $('#open-profile-summary').click(function(){
-	$('#profile-tabs').tabs('select',1);
+  $('#profile-tabs').tabs('select',1);
 })
 
 $('.tabable').tabs({
-	panelTemplate: '<section></section>',
-	fx: { duration: 'fast', opacity: 'toggle' }
+  panelTemplate: '<section></section>',
+  fx: { duration: 'fast', opacity: 'toggle' }
 });
 
 
@@ -122,23 +122,23 @@ if (window.current_user_id) {
 
 $('.new_question').live('click', function(){
     $(this).css({
-		backgroundRepeat: 'no-repeat',
-		backgroundPosition: 'center center',
-		backgroundImage: 'url(/images/redesign/ajax-loader.gif)'
-	});
-	$.ajax({
-		data:'authenticity_token=' + encodeURIComponent($(this).attr('data-auth')),
-	 	success:function(request){
-			$('#btl_game_content').html(request);
-			$('.new_question').css({
-				backgroundImage: 'url(/images/redesign/icon-refresh.png)',
-				backgroundPosition: '0 0'
-			})
-		},
-		type:'post',
-		url:'/users/'+$(this).attr('data-user-id')+'/questions/refresh'
-	});
-	return false;
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center center',
+    backgroundImage: 'url(/images/redesign/ajax-loader.gif)'
+  });
+  $.ajax({
+    data:'authenticity_token=' + encodeURIComponent($(this).attr('data-auth')),
+    success:function(request){
+      $('#btl_game_content').html(request);
+      $('.new_question').css({
+        backgroundImage: 'url(/images/redesign/icon-refresh.png)',
+        backgroundPosition: '0 0'
+      })
+    },
+    type:'post',
+    url:'/users/'+$(this).attr('data-user-id')+'/questions/refresh'
+  });
+  return false;
 });
 
 $('#profile_answer_submit').live('click', function(){
@@ -149,12 +149,12 @@ $('#profile_answer_submit').live('click', function(){
 });
 
 $('#new_quick_reply button').live('click', function(){
-	$(this).text('posting...').attr('disabled','disabled');
+  $(this).text('posting...').attr('disabled','disabled');
 });
 
 function jumbotronController(idx, elem){
-	idx++;
-	return html+='<a href="#">'+idx+'</a>';
+  idx++;
+  return html+='<a href="#">'+idx+'</a>';
 }
 
 var colorboxOnComplete = function(){
@@ -228,23 +228,46 @@ var colorboxForm = function(){
   $form.ajaxSubmit({
     dataType: 'json',
     url: $form.attr('action') + '.json',
+    beforeSubmit:function(){
+      $form.hide();
+      $('#cboxLoadingGraphic').show(); 
+    },
     success: function(text){
-      var $html = $(text.html);
-      var $id   = $html.attr('id');
-      var singularName = $id.replace(/^new_/, "").replace(/_\d+$/, "");
-      var existingElement = $('#'+ $id);
-      if (existingElement.length) {
-        existingElement.html($html.html());
-      } else {
-        $("#" + singularName + "s").append($html);
-      }
-      $.fn.colorbox.close();
-      showResponse(text)
+      $('#cboxLoadingGraphic').hide(); 
+      if($form.attr('id')== "create_employment_form")
+      {
+       
+        $.fn.colorbox.close();
+        $(location).attr('href',text.url);
+      }  
+        var $html = $(text.html);
+        var $id   = $html.attr('id');
+        var singularName = $id.replace(/^new_/, "").replace(/_\d+$/, "");
+        var existingElement = $('#'+ $id);
+        if (existingElement.length) {
+          existingElement.html($html.html());
+        } else {
+          $("#" + singularName + "s").append($html);
+        }
+        showResponse(text)      
+        $.fn.colorbox.close();
     },
     error: function(xhr, status){
       var response;
       try { response = $(xhr.responseText); } catch(e) { response = xhr.responseText; }
-      $.colorbox({html: response});
+
+      $.colorbox({html: response,onClosed:function(){
+        if($form.attr('id')=="new_profile_cuisine")
+        {
+          $('#step3').slideDown();
+          loderHide()
+        }
+      }});
+      if($form.attr('id')=="create_employment_form")
+        $.colorbox({html: response,overlayClose: false,escKey:false});
+      else  
+        $.colorbox({html: response});
+
     }
   });
   // button.enable();
@@ -279,7 +302,7 @@ bindColorbox();
 
 $('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship, #colorbox form.james_beard_region').live('submit', colorboxForm);
 $('#complete_profile form.profile_cuisine').live('submit', colorboxForm);
-
+$("#create_employment_form").live('submit', colorboxForm);
 $("a.showit").showy();
 
 
@@ -310,7 +333,7 @@ $('#restaurant_tags form').submit(function() {
 });
 
 // == Dynamic Updates for Employment Searching
-var	$employmentsList  = $("#employment_list");
+var $employmentsList  = $("#employment_list");
 var $employmentInputs = $("#employment_criteria input[type=checkbox]");
 var $loaderImg        = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
 
@@ -332,7 +355,7 @@ $employmentInputs.change(updateEmploymentsList);
 
 
 // Directory search
-var	$directoryList  = $("#directory_list");
+var $directoryList = $("#directory_list");
 var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
 
 $directoryList.before($loaderImg);
@@ -352,7 +375,7 @@ $directoryInputs.change(updateDirectoryList);
 
 
 // Restaurant directory search
-var	$restoDirectoryList  = $("#restaurant_directory_list");
+var $restoDirectoryList = $("#restaurant_directory_list");
 var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type=checkbox]");
 
 $restoDirectoryList.before($loaderImg);
@@ -369,7 +392,6 @@ updateRestoDirectoryList = function() {
 };
 
 $restoDirectoryInputs.change(updateRestoDirectoryList);
-
 
 //
 // Managing subject matters for restaurant managers
@@ -410,11 +432,11 @@ $("#media_request_request_types").bind('change', function(){
 
 // Media request recipient list
 $('.show_more').click(function(){
-	toggle_me_first = $(this).attr('href');
-	toggle_me_next = $(this).attr('data-show');
-	$(toggle_me_first).toggle();
-	$(toggle_me_next).toggle();
-	return false;
+  toggle_me_first = $(this).attr('href');
+  toggle_me_next = $(this).attr('data-show');
+  $(toggle_me_first).toggle();
+  $(toggle_me_next).toggle();
+  return false;
 })
 
 $('div#photos').masonry({
@@ -431,12 +453,20 @@ updateRestaurantSignupFields = function() {
 };
 
 $("#user_editor").autocomplete({
+
 	source: "/users.js",
 });
 
 $("#otm_keyword_search").autocomplete({
   source: "/otm_keywords.js",
 });
+ 
+   $('.search-button').click(function(e){
+   e.preventDefault();
+   var $form=$(this).parent().find("input:text");
+    $('#restaurant_criteria input').not($form).val('');
+  });
+
 // Social updates filtering
 var $restoSocialList   = $("#updates");
 var $restoSocialInputs = $("#restaurant_filters #restaurant_criteria input[type=checkbox]");
@@ -465,12 +495,12 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
    var user_id = $('#user_id').val()
     if($(this).val())
         $.ajax({
-		data:'state_name=' + encodeURIComponent($(this).val()) +(user_id ? ('&user_id=' +user_id) : ''),
-	     	success:function(response){
-			    $this.next().html(response)
-		    },
-		url:'/mediafeed/get_cities'
-	    });
+    data:'state_name=' + encodeURIComponent($(this).val()) +(user_id ? ('&user_id=' +user_id) : ''),
+        success:function(response){
+          $this.next().html(response)
+        },
+    url:'/mediafeed/get_cities'
+      });
 
 
 })
@@ -541,7 +571,16 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
        
         return false; 
     });
+     $('#cuisine_form').submit(function(e) { 
 
+        e.preventDefault();
+        current_page_id =  $(this).parent().attr('id')   
+        next_page_id    =  $(this).parent().next().attr('id') 
+        loderShow()
+
+        $(this).ajaxSubmit(options); 
+        return false; 
+    });
 
    $('.add-btl').colorbox({rel:'gal'});
   var cache = {};
@@ -560,8 +599,10 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       }
 
     });
+
   $("#newsfeed_james_beard_regions_input input[type=checkbox]").click(function(){
     if($("#newsfeed_james_beard_regions_input input:checkbox:checked").length>0)
+
 
     {
       $("#regional_newsfeed_promotion_type").show('slow')
@@ -611,7 +652,9 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     })
 
 
+
     $("#user_digest_writer_id").change(function(e){
+
 
       $("#digest_metropolitan_areas_state_cities").html("")
       $("#digest_metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");
@@ -656,26 +699,26 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     else
       $(this).prev().attr("disabled","disabled");
   })
+
+ 
+
  $('#add_more').click(function(e){
-  e.preventDefault();
-  more_people = $('#more_people').clone();
-  $('#more_people').show();
-  $(".recommendation_invitations .name").each(function() {
-      $(this).removeClass('name');
-      $(this).addClass('first_name');
-  });
-  $(".recommendation_invitations .last").each(function() {
-      $(this).removeClass('last');
-      $(this).addClass('last_name');
-  });
-  $(".recommendation_invitations .email").each(function() {
-      $(this).removeClass('email');
-      $(this).addClass('email_id');
-  });
-  more_people.insertAfter('#more_people');
-  // $(this).parent.after('<br/>');
-      // $(this).text('close');
-      //$(this).after().append("<a href='#' id='more_people'>Add more people</a>")
+    e.preventDefault();
+    more_people = $('#more_people').clone();
+    $('#more_people').show();
+    $(".recommendation_invitations .name").each(function() {
+        $(this).removeClass('name');
+        $(this).addClass('first_name');
+    });
+    $(".recommendation_invitations .last").each(function() {
+        $(this).removeClass('last');
+        $(this).addClass('last_name');
+    });
+    $(".recommendation_invitations .email").each(function() {
+        $(this).removeClass('email');
+        $(this).addClass('email_id');
+    });
+    more_people.insertAfter('#more_people');
 
   });
   $('#recommendation_invitations').click(function(e){
@@ -705,6 +748,11 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     }else{
       $('#flashes').html('<div id="flash_error">'+ret_val+'</div>');
     }
+  });
+
+  $('.search-button').click(function(){
+    var $form=$(this).parent().find("input:text");
+    $('#restaurant_criteria input').not($form).val('');
   });
   // end $(document).ready
 });

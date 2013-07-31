@@ -25,23 +25,23 @@ class RestaurantNewsletter < ActiveRecord::Base
   end
 
   def menu_items
-    MenuItem.find(menu_item_ids)
+    MenuItem.find(:all,:conditions=>["id in(?)",menu_item_ids])
   end
 
   def restaurant_answers
-    RestaurantAnswer.find(restaurant_answer_ids)
+    RestaurantAnswer.find(:all,:conditions=>["id in(?)",restaurant_answer_ids])
   end
 
   def menus
-    Menu.find(menu_ids)
+    Menu.find(:all,:conditions=>["id in(?)",menu_ids])
   end
 
   def promotions
-    Promotion.find(promotion_ids)
+    Promotion.find(:all,:conditions=>["id in(?)",promotion_ids])
   end
 
   def a_la_minute_answers
-    ALaMinuteAnswer.find(a_la_minute_answer_ids)
+    ALaMinuteAnswer.find(:all,:conditions=>["id in(?)",a_la_minute_answer_ids])
   end
 
 end
