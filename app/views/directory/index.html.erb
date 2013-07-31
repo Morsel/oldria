@@ -1,11 +1,9 @@
 <% title "Personal Profile Directory" %>
-
 <%= title_for_search %>
-
 <% if @use_search %>
-<div id="directory_search">
-	<div class="color-box-restaurant">
-		<%= render :partial => 'directory/search_criteria' %>		
+	<div id="directory_search">
+		<div class="color-box-restaurant">
+			<%= render :partial => 'directory/search_criteria' %>		
+		</div>
 	</div>
-</div>
 <% end %>
