@@ -26,8 +26,9 @@
                       <table style="width: 100%" class="archives">
                           <thead>
                               <tr>
-                                  <th>Email Address</th>
-                                  <th>Subscription Date</th>
+                                  <th class="newsletter-header-a">Email Address</th>
+                                  <th class="newsletter-header-b">Subscription Date</th>
+                                  <th>Type</th>
                               </tr>
                           </thead>
                           <tbody>
@@ -35,6 +36,18 @@
                               <tr>
                                 <td><%= subscription.newsletter_subscriber.email %></td>
                                 <td><%= subscription.created_at %></td>
+                                <% if subscription.newsletter_subscriber.user.blank?%>
+                                  <td> Diner </td>
+                                <% elsif subscription.newsletter_subscriber.user %>
+                                  <td> Industry </td>
+                                <% end %>
+                              </tr>
+                            <% end %> 
+                            <% @media_subscriptions.each do |subscription| %>
+                              <tr>
+                                <td><%= subscription.media_newsletter_subscriber.email %></td>
+                                <td><%= subscription.created_at %></td>
+                                <td> Media </td>
                               </tr>
                             <% end %>
                           </tbody>
