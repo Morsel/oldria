@@ -12,6 +12,9 @@
 #
 
 class RestaurantAnswer < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper
+  include ActionController::UrlWriter
+  default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :restaurant_question
   belongs_to :restaurant
@@ -47,23 +50,24 @@ class RestaurantAnswer < ActiveRecord::Base
 
   def bitly_link
     client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
-    client.shorten(restaurant_question_url(self)).short_url
+    client.shorten(soapbox_restaurant_question_url(restaurant_question_id)).short_url
   rescue => e
     Rails.logger.error("Bit.ly error: #{e.message}")
-    restaurant_question_url(self)
+    soapbox_restaurant_question_url(restaurant_question_id)
   end
 
 
   def post_to_twitter(message=nil)
-    message = message.blank? ? twitter_message : message
+    message = message.blank? ? answer : message
+    message = "#{truncate(message,:length => (135-self.bitly_link.length))} #{self.bitly_link}"
     restaurant.twitter_client.update(message)
   end
 
   def post_to_facebook(message=nil)
-    message = message.blank? ? facebook_message : message
+    message = message.blank? ? answer : message
     post_attributes = {
       :message => message,
-      :link => restaurant_question_url(self),
+      :link => soapbox_restaurant_question_url(restaurant_question_id),
       :name => name,
       :description => Loofah::Helpers.sanitize(description.gsub(/(<[^>]*>)|\r|\t/s) {" "})
     }
