@@ -1,7 +1,7 @@
 <% if @users.present? %>
 <div id="user-results">
 	<h3>Users</h3>
-	<% for user in @users %>
+	<% for user in @users %>  
 		<%= render :partial => 'users/identity', :locals => { :user => user } %>
 	<% end %>
 </div>
