@@ -211,6 +211,7 @@ class RestaurantsController < ApplicationController
 
   def newsletter_subscriptions
     @subscriptions = @restaurant.newsletter_subscriptions
+    @media_subscriptions = @restaurant.media_newsletter_subscriptions
     unless @restaurant.premium_account?
       render "restaurants/_comming_soon"
     end
