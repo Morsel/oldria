@@ -2,9 +2,8 @@
 
 <%= title_for_search %>
 
-<% if @use_search %>
 <div id="directory_search">
-<% form_tag do %>
-<%= render :partial => 'directory/restaurant_search_criteria' %>
-<% end %>
+	<div class="color-box-restaurant">
+		<%= render :partial => 'directory/restaurant_search_criteria' %>		
+	</div>
 </div>
