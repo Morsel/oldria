@@ -12,6 +12,9 @@
 #
 
 class RestaurantAnswer < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper
+  include ActionController::UrlWriter
+  default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :restaurant_question
   belongs_to :restaurant
