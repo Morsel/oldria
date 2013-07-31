@@ -47,23 +47,24 @@ class RestaurantAnswer < ActiveRecord::Base
 
   def bitly_link
     client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
-    client.shorten(restaurant_question_url(self)).short_url
+    client.shorten(restaurant_restaurant_answer_url(restaurant,self)).short_url
   rescue => e
     Rails.logger.error("Bit.ly error: #{e.message}")
-    restaurant_question_url(self)
+    restaurant_restaurant_answer_url(restaurant,self)
   end
 
 
   def post_to_twitter(message=nil)
-    message = message.blank? ? twitter_message : message
+    message = message.blank? ? answer : message
+    message = "#{truncate(message,:length => (135-self.bitly_link.length))} #{self.bitly_link}"
     restaurant.twitter_client.update(message)
   end
 
   def post_to_facebook(message=nil)
-    message = message.blank? ? facebook_message : message
+    message = message.blank? ? answer : message
     post_attributes = {
       :message => message,
-      :link => restaurant_question_url(self),
+      :link => restaurant_restaurant_answer_url(restaurant,self),
       :name => name,
       :description => Loofah::Helpers.sanitize(description.gsub(/(<[^>]*>)|\r|\t/s) {" "})
     }
