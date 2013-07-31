@@ -425,8 +425,14 @@ ActionController::Routing::Routes.draw do |map|
   map.no_choice '/restaurants/:restaurant_id/employees/options', :controller => "employees", :action => "options"
   map.new_employee 'restaurants/:restaurant_id/employees/new_employee', :controller => "employees", :action => "new_employee"  
 
+
   #for autocomplete
   map.resources :auto_complete, :only => ["index"]
+
+  map.resources :otm_keywords, :only => ["index"]  
+
+
+
   #for show filter result of restaurant directory
   map.resources :metropolitan_areas, :only => ["index"]
   map.resources :james_beard_regions, :only => ["index"]
@@ -434,8 +440,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :specialties, :only => ["index"]
   map.search_restaurant_by_name 'directory/search_restaurant_by_name', :controller => 'directory', :action => 'search_restaurant_by_name'
   map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
-
-  map.resources :otm_keywords, :only => ["index"] 
   #for get selected city
   map.get_selected_cities '/mediafeed/media_users/get_selected_cities', :controller => 'media_users', :action => 'get_selected_cities'
 end
