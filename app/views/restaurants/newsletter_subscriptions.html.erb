@@ -34,16 +34,28 @@
                                   <th width="30%">First Name</th>
                                   <th style="30%">Last Name</th>
                                   <th>Subscription Date</th>
+                                  <th>Type</th>
                               </tr>
                           </thead>
                           <tbody>
                             <% @subscriptions.each do |subscription| %>
                               <tr>
-
                                 <td><%= link_to subscription.newsletter_subscriber.first_name,"mailto:#{subscription.newsletter_subscriber.email}" %></td>
                                 <td><%= link_to subscription.newsletter_subscriber.last_name,"mailto:#{subscription.newsletter_subscriber.email}" %></td>
                                 <td><%= subscription.created_at.strftime("%m/%d/%Y") %></td>
-
+                                <% if subscription.newsletter_subscriber.user.blank?%>
+                                  <td> Diner </td>
+                                <% elsif subscription.newsletter_subscriber.user %>
+                                  <td> Industry </td>
+                                <% end %>
+                              </tr>
+                            <% end %> 
+                            <% @media_subscriptions.each do |subscription| %>
+                              <tr>
+                                <td><%= link_to subscription.media_newsletter_subscriber.first_name,"mailto:#{subscription.newsletter_subscriber.email}" %></td>
+                                <td><%= link_to subscription.media_newsletter_subscriber.last_name,"mailto:#{subscription.newsletter_subscriber.email}" %></td>
+                                <td><%= subscription.created_at.strftime("%m/%d/%Y") %></td>
+                                <td> Media </td>
                               </tr>
                             <% end %>
                           </tbody>

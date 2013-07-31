@@ -7,6 +7,7 @@ class RestaurantsController < ApplicationController
 
 
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive,:media_subscribe]
+  before_filter :check_employments, :only => [:index]
 
   def index
     @employments = current_user.employments
@@ -210,6 +211,7 @@ class RestaurantsController < ApplicationController
 
   def newsletter_subscriptions
     @subscriptions = @restaurant.newsletter_subscriptions
+    @media_subscriptions = @restaurant.media_newsletter_subscriptions
     unless @restaurant.premium_account?
       render "restaurants/_comming_soon"
     end
