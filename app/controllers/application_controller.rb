@@ -58,24 +58,10 @@ class ApplicationController < ActionController::Base
   end
 
   def check_employments
-    unless (["Chef/Partner","Executive Chef","Executive Chef/Owner","Director of Operations","Owner","Operations Director","Partner","Pastry Chef/Owner","Wine Director/Owner"] &  @restaurant.employments.map(&:restaurant_role).compact.map(&:name)).blank? 
-      if (params[:controller] == "promotions") || (params[:controller] == "menu_items")
-        render :action => :new
-      elsif (params[:controller] == "promotions") || (params[:controller] == "restaurants/social_post") || (params[:controller] == "restaurants/newsletters") || (params[:controller] == "press_releases")
-        render :action => :index
-      elsif params[:action] == "api"
-        render :action => :api
-      elsif params[:controller] == "restaurant_fact_sheets"
-        render :action => :edit
-      elsif params[:controller] == "restaurant_features" && params[:action] == "edit_top"
-        render :action => :edit_top  
-      else  
-        render :action => :bulk_edit
-      end  
-    else  
+    if (["Chef/Partner","Executive Chef","Executive Chef/Owner","Director of Operations","Owner","Operations Director","Partner","Pastry Chef/Owner","Wine Director/Owner"] &  @restaurant.employments.map(&:restaurant_role).compact.map(&:name)).blank?       
       redirect_to edit_restaurant_path(@restaurant)
       flash[:notice] = "Looks like the  #{@restaurant.name} restaurant profile is missing some personnel! Please add all key staff to the staff tab to ensure the restaurant is accurately represented for media so you can proceed. Thank you!"
-    end   
+    end
   end
 
   private
