@@ -7,6 +7,7 @@ class RestaurantsController < ApplicationController
 
 
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive,:media_subscribe]
+  before_filter :check_employments, :only => [:index]
 
   def index
     @employments = current_user.employments

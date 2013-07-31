@@ -2,11 +2,11 @@ class PressReleasesController < ApplicationController
 
   before_filter :find_restaurant
   before_filter :require_manager, :except => [:archive]
+  before_filter :check_employments, :only => [:index]
 
   def index
     @press_release = @restaurant.press_releases.build
     @press_release.pdf_remote_attachment = PdfRemoteAttachment.new
-    check_employments
   end
 
   def create
