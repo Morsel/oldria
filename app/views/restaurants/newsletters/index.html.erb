@@ -16,7 +16,14 @@
               </nav>
 
               <div id="restaurant_features_content" style="width:700px;">
-
+                <% if @message.present? %>
+                 <div id="flashes" class="hidediv">
+                    <div id="flash_notice">
+                      <%=link_to "","#" ,:class=>"closeButton" %>
+                      <%=@message%>
+                    </div>
+                  </div>
+                <% end %>
                 <h1 class="pg_title">Newsletter Settings</h1>
                 <p>RIA Newsletters are a unique new way to connect with diners. We believe your creativity is enough to drive business so our newsletters make it easy for you to connect with diners through your food, rather than relying on discounts, promotions and events to drive traffic in your door.  </p>
                 <p>

@@ -4,6 +4,7 @@ class Restaurants::NewslettersController < ApplicationController
 
   def index
     @restaurant.newsletter_setting || @restaurant.build_newsletter_setting
+    @message = "Make the most of the content you upload to Spoonfeed with our automated diner newsletter - include in your subscription ! Its the easiest way to stay connected with your diners so they come back for more! Get started today." if (@restaurant.account_type == "Premium") && (@restaurant.restaurant_newsletters.empty? == true) 
     unless @restaurant.premium_account?
       render "restaurants/_comming_soon"
     end
