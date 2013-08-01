@@ -65,8 +65,11 @@ class MenuItemsController < ApplicationController
 
   def facebook_post
     @menu_item = @restaurant.menu_items.find(params[:id])
-    @menu_item.post_to_facebook
-    flash[:notice] = "Posted #{@menu_item.name} to Facebook page"
+    if @menu_item.post_to_facebook
+      flash[:notice] = "Posted #{@menu_item.name} to Facebook page"
+    else
+      flash[:error] = "Not able to post #{@menu_item.name} to Facebook page"
+    end  
     redirect_to :action => "index"
   end
 
