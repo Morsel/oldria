@@ -6,7 +6,7 @@ class EmployeesController < ApplicationController
   def bulk_edit
     @restaurant = Restaurant.find(params[:restaurant_id])    
     @employments = @restaurant.employments.by_position.all(
-        :include => [:subject_matters, :restaurant_role, :employee],:order => "created_at")
+        :include => [:subject_matters, :restaurant_role, :employee],:order => "position")
   end
 
   def new   
