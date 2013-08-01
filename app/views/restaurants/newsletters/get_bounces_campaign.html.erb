@@ -1,0 +1,25 @@
+<% if @bounces["data"].present? %>
+	<div class="color-box-restaurant">
+		<h1 class="set_heading">bounces newsletter</h1>
+		<div class="editing">
+			<table style="width: 100%" >
+				<thead>
+					<tr>
+						<th>Email Id</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @bounces["data"].each do |bounce| %>
+						<tr>
+							<td><%=bounce["email"]%></td>
+							<td><%=bounce["status"]%></td>
+						</tr>
+					<% end -%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+<% else %>
+	<h1 class="set_heading"> Not found any bounces newsletter </h1>
+<% end %>

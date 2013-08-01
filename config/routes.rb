@@ -427,6 +427,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :specialties, :only => ["index"]
   map.search_restaurant_by_name 'directory/search_restaurant_by_name', :controller => 'directory', :action => 'search_restaurant_by_name'
   map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
-  
+  #get opened campaign
+  map.get_opened_campaign '/restaurants/:restaurant_id/newsletters/get_opened_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_opened_campaign'
+  map.get_clicked_campaign '/restaurants/:restaurant_id/newsletters/get_clicked_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_clicked_campaign'
+  map.get_bounces_campaign '/restaurants/:restaurant_id/newsletters/get_bounces_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_bounces_campaign'
 end
 

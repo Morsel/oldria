@@ -1,0 +1,25 @@
+<% if @openeds["data"].present? %>
+	<div class="color-box-restaurant">
+		<h1 class="set_heading">Opened newsletter</h1>
+		<div class="editing">
+			<table style="width: 100%" >
+				<thead>
+					<tr>
+						<th>Email Id</th>
+						<th>Open Count</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @openeds["data"].each do |opened| %>
+						<tr>
+							<td><%=opened["email"]%></td>
+							<td><%=opened["open_count"]%></td>
+						</tr>
+					<% end -%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+<% else %>
+	<h1 class="set_heading"> Not found any openes newsletter </h1>
+<% end %>

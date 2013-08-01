@@ -1,0 +1,25 @@
+<% if @clicks["data"].present? %>
+	<div class="color-box-restaurant">
+		<h1 class="set_heading">Closed newsletter</h1>
+		<div class="editing">
+			<table style="width: 100%" >
+				<thead>
+					<tr>
+						<th>Email Id</th>
+						<th>Total Clicks</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @clicks["data"].each do |click| %>
+						<tr>
+							<td><%=click["email"]%></td>
+							<td><%=click["clicks"]%></td>
+						</tr>
+					<% end -%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+<% else %>
+	<h1 class="set_heading"> Not found any clicks newsletter </h1>
+<% end %>
