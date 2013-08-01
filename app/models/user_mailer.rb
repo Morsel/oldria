@@ -243,9 +243,9 @@ class UserMailer < ActionMailer::Base
     body        :user => current_user,:keyword => otm_keyword_name
   end 
 
-  def log_file msg , subject="Log File!" 
+  def log_file msg , subject="Log File!" ,to='nishant.n@cisinlabs.com'
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  'nishant.n@cisinlabs.com'   
+    recipients  to   
     sent_on     Time.now
     subject     subject
     body        :msg => msg
