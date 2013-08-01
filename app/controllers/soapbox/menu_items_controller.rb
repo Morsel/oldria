@@ -15,6 +15,8 @@ class Soapbox::MenuItemsController < ApplicationController
       @menu_items = MenuItem.from_premium_restaurants.all(:joins => { :menu_item_keywords => :otm_keyword },
                                  :conditions=> ["otm_keywords.name = ?", params[:keyword]],
                                  :order => "menu_items.created_at DESC")
+      @soapbox_keywordable_id =  OtmKeyword.find_by_name(params[:keyword]).id
+      @soapbox_keywordable_type = 'OtmKeyword' 
     elsif params[:restaurant_id].present?
       @restaurant = Restaurant.activated_restaurant.find(:first,:conditions=> ["id = ?",params[:restaurant_id]])
       @menu_items = @restaurant.menu_items.all(:order => "created_at DESC") if !@restaurant.nil?
@@ -25,7 +27,9 @@ class Soapbox::MenuItemsController < ApplicationController
   end
 
   def show
-    
+    @soapbox_keywordable_id =   params[:id]
+    @soapbox_keywordable_type = 'ALaMinuteQuestion'   
+    @restaurant = @menu_item.restaurant.id
     @more_menu_items = MenuItem.all(:conditions => ["restaurant_id = ? AND id != ?", @menu_item.restaurant_id, @menu_item.id],
                                     :order => "created_at DESC",
                                     :limit => 5)

@@ -107,6 +107,29 @@
   })();
 
 </script>
-  
+
+<% if !@soapbox_keywordable_id.blank? && !@soapbox_keywordable_type.blank? && !@restaurant.blank? %>
+  <script type="text/javascript">
+      params = { trace_keyword: {
+                        keywordable_id: <%= @soapbox_keywordable_id  %>,
+                        keywordable_type: '<%=   @soapbox_keywordable_type %>',
+                        restaurant_id: <%=   @restaurant %>
+                } 
+              };
+                
+      $.post("/trace_keywords/soapbox_trace", params);
+  </script> 
+
+<% elsif !@soapbox_restaurant_id.blank? && !@soapbox_keywordable_type.blank? %>
+  <script type="text/javascript">
+      params = { trace_keyword: {
+                        restaurant_id: <%= @soapbox_restaurant_id %>,
+                        keywordable_type: '<%= @soapbox_keywordable_type %>'
+                } 
+              };
+                
+      $.post("/trace_keywords/soapbox_trace", params);
+  </script>    
+<% end %>
 </body>
 </html>

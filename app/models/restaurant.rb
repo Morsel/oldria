@@ -150,6 +150,8 @@ class Restaurant < ActiveRecord::Base
 
   has_many :page_views, :as => :page_owner, :dependent => :destroy
 
+  has_many :trace_keywords, :as => :keywordable
+
 
   # For pagination
   cattr_reader :per_page
