@@ -94,7 +94,7 @@ class Restaurants::NewslettersController < ApplicationController
 
   def get_clicked_campaign
     mc = MailchimpConnector.new
-    @clicks = mc.client.campaign_click_detail_AIM({:cid=>params[:campaign_id],:url => restaurant_newsletter_url(@restaurant,@restaurant.restaurant_newsletters.find_by_campaign_id(params[:campaign_id]))})    
+    @clicks = mc.client.campaign_click_detail_AIM({:cid=>params[:campaign_id],:url => restaurant_newsletter_path(@restaurant,@restaurant.restaurant_newsletters.find_by_campaign_id(params[:campaign_id]))})    
     render :layout => false
   end
 
