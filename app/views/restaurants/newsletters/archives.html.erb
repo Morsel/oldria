@@ -39,10 +39,10 @@
                                 <% if value[:data][:error].nil? %>
                                     <tr align="center">
                                       <td><%= value[:newsletter].created_at.to_formatted_s(:short) %></td>
-                                      <td><%= value[:data]["opens"].to_i%></td>
-                                      <td><%= value[:data]["clicks"].to_i %></td>
-                                      <td><%= value[:data]["soft_bounces"].to_i%></td>
-                                      <td><%= value[:data]["emails_sent"].to_i%>
+                                      <td><%=link_to "#{value[:data]["opens"].to_i}",get_opened_campaign_path(@restaurant,value[:newsletter].campaign_id) ,:class => 'colorbox' %></td>
+                                      <td><%=link_to "#{value[:data]["clicks"].to_i}",get_clicked_campaign_path(@restaurant,value[:newsletter].campaign_id) ,:class => 'colorbox' %></td>
+                                      <td><%=link_to "#{value[:data]["soft_bounces"].to_i}",get_bounces_campaign_path(@restaurant,value[:newsletter].campaign_id) ,:class => 'colorbox' %></td>
+                                      <td><%= value[:data]["emails_sent"].to_i%></td>
                                       <td><%= link_to "view",restaurant_newsletter_path(@restaurant,value[:newsletter]),:target =>"_blank" %> </td>
                                     </tr>
                                  <%  else %>
