@@ -1,7 +1,10 @@
 class Soapbox::ALaMinuteAnswersController < ApplicationController
   
   def show
+  	@soapbox_keywordable_id =   params[:id]
+    @soapbox_keywordable_type = 'ALaMinuteAnswer' 
     @answer = ALaMinuteAnswer.find(params[:id])
+    @restaurant = @answer.restaurant.id
     @question = @answer.a_la_minute_question
     @sidebar_questions = ALaMinuteQuestion.all(:order => "question")        
     @promotions = @answer.restaurant.promotions.all(:conditions=>["DATE(start_date) >=  DATE(?)", Time.now],:order => "created_at DESC",:limit=>3)
