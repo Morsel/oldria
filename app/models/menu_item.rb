@@ -142,7 +142,7 @@ class MenuItem < ActiveRecord::Base
       :message     => message,
       :link        => soapbox_menu_item_url(self),
       :name        => name,
-      :description => Loofah::Helpers.sanitize(description.gsub(/(<[^>]*>)|\r|\t/s) {" "}),
+      :description => Loofah::Helpers.strip_tags(description.gsub(/(<[^>]*>)|\r|\t/s) {" "}),
       :picture     => picture_url,
       :timeline    => self.photo_file_name.present? ? true : false
     }

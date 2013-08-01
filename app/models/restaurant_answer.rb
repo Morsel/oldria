@@ -66,10 +66,10 @@ class RestaurantAnswer < ActiveRecord::Base
   def post_to_facebook(message=nil)
     message = message.blank? ? answer : message
     post_attributes = {
-      :message => message,
+      :message => restaurant_question.title,
       :link => soapbox_restaurant_question_url(restaurant_question_id),
-      :name => name,
-      :description => Loofah::Helpers.sanitize(description.gsub(/(<[^>]*>)|\r|\t/s) {" "})
+      :name => nil,
+      :description => Loofah::Helpers.sanitize(message.gsub(/(<[^>]*>)|\r|\t/s) {" "})
     }
     restaurant.post_to_facebook_page(post_attributes)
   end

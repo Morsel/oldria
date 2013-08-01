@@ -80,8 +80,11 @@ class ALaMinuteAnswersController < ApplicationController
   def facebook_post    
     @a_la_minute_answer = @restaurant.a_la_minute_answers.find(params[:id])
     social_post = SocialPost.find(params[:social_id])
-    @a_la_minute_answer.post_to_facebook(social_post.message)
-    flash[:notice] = "Posted #{social_post.message} to Facebook page"
+    if @a_la_minute_answer.post_to_facebook(social_post.message)
+      flash[:notice] = "Posted #{social_post.message} to Facebook page"
+    else
+      flash[:error] = "Not able to post #{social_post.message} to Facebook page"
+    end  
     redirect_to restaurant_social_posts_path(@restaurant)
   end
 

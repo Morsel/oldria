@@ -65,8 +65,11 @@ class PromotionsController < ApplicationController
   def facebook_post
     @promotions = @restaurant.promotions.find(params[:id])
     social_post = SocialPost.find(params[:social_id])
-    @promotions.post_to_facebook(social_post.message)
-    flash[:notice] = "Posted #{social_post.message} to Facebook page"
+    if @promotions.post_to_facebook(social_post.message)
+      flash[:notice] = "Posted #{social_post.message} to Facebook page"
+    else
+      flash[:error] = "Not able to post #{social_post.message} to Facebook page"
+    end  
     redirect_to restaurant_social_posts_path(@restaurant)
   end
 
