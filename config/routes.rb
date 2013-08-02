@@ -424,17 +424,13 @@ ActionController::Routing::Routes.draw do |map|
   # for restaurant employee no condition
   map.no_choice '/restaurants/:restaurant_id/employees/options', :controller => "employees", :action => "options"
   map.new_employee 'restaurants/:restaurant_id/employees/new_employee', :controller => "employees", :action => "new_employee"  
-
-
   #for autocomplete
   map.resources :auto_complete, :only => ["index"]
-
   map.resources :otm_keywords, :only => ["index"]  
-
-
 
   #for show filter result of restaurant directory
   map.resources :metropolitan_areas, :only => ["index"]
+
   map.resources :james_beard_regions, :only => ["index"]
   map.resources :cuisines, :only => ["index"]
   map.resources :specialties, :only => ["index"]
@@ -447,3 +443,4 @@ ActionController::Routing::Routes.draw do |map|
   map.get_clicked_campaign '/restaurants/:restaurant_id/newsletters/get_clicked_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_clicked_campaign'
   map.get_bounces_campaign '/restaurants/:restaurant_id/newsletters/get_bounces_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_bounces_campaign'
 end
+

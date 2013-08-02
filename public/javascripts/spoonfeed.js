@@ -816,7 +816,6 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       $(this).prev().attr("disabled","disabled");
   });
   // end mediafeed user edit 
-
   // end $(document).ready
 });
 

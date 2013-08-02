@@ -27,7 +27,7 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
     if @user.update_attributes(params[:user])
       @user.newsfeed_promotion_types.destroy_all if @user.newsfeed_writer.blank? #Deleting regiona promotion if user is not newsfeed regional writer
       update_newsletter_data(params[:id])
-      @user.update_media_newsletter_mailchimp
+      @user.send_later(:update_media_newsletter_mailchimp)
       flash[:notice] = "Successfully updated your profile."
       redirect_to edit_mediafeed_media_user_path(@user)
     else

@@ -14,6 +14,9 @@ class Restaurants::NewslettersController < ApplicationController
   def create
     @restaurant.send_newsletter_to_subscribers
     newsletter = @restaurant.restaurant_newsletters.last
+    #TODO - after send news letter  blank all newsletter setting
+    @restaurant.newsletter_setting.update_attributes(:introduction=>"",:subject=>"")
+    @restaurant.update_attributes(:tag_line=>"")
     redirect_to :action => "show", :id => newsletter.id
   end
 
