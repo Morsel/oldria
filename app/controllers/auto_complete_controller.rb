@@ -22,7 +22,7 @@ class AutoCompleteController < ApplicationController
       @keywords = filter_results(["RESTAURANTS BY REGION","RESTAURANTS BY STATE"])
     end
     unless @keywords.present?      
-      render :json => @keywords.push('This keyword does not yet exist in our database.')
+      render :json => @keywords.push('No results found, please try a new search')
     else            
       render :json => @keywords
     end
@@ -43,7 +43,7 @@ class AutoCompleteController < ApplicationController
       @keywords = filter_results(["PERSONS BY STATE","PERSONS BY REGION"])
     end
     unless @keywords.present?      
-      render :json => @keywords.push('This keyword does not yet exist in our database.')
+      render :json => @keywords.push('No results found, please try a new search')
     else      
       render :json => @keywords
     end
