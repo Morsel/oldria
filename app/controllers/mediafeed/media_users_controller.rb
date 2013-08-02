@@ -22,8 +22,8 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
     get_newsletter_data    
   end
 
-  def update      
-     
+  def update
+    @user = User.find(params[:id])  
     if @user.update_attributes(params[:user])
       @user.newsfeed_promotion_types.destroy_all if @user.newsfeed_writer.blank? #Deleting regiona promotion if user is not newsfeed regional writer
       update_newsletter_data(params[:id])
@@ -55,6 +55,15 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
       render :layout => false
   end
 
+  def get_selected_cities
+    @user = User.find(params[:user_id])
+    @cities = MetropolitanArea.find_all_by_state(params['state_name'])
+    @checked_city = MetropolitanArea.find(:all,:conditions=>["id IN(?)",params[:checked_city].split(",").map { |s| s.to_i } ])
+    @cities = ( @checked_city + @cities ).uniq
+    get_newsletter_data
+    render :layout => false
+  end
+  
   private
 
   def authorize 

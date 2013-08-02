@@ -427,6 +427,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :specialties, :only => ["index"]
   map.search_restaurant_by_name 'directory/search_restaurant_by_name', :controller => 'directory', :action => 'search_restaurant_by_name'
   map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
-  
+  #for get selected city
+  map.get_selected_cities '/mediafeed/media_users/get_selected_cities', :controller => 'media_users', :action => 'get_selected_cities'
 end
-

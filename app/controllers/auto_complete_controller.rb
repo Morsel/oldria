@@ -1,12 +1,12 @@
 class AutoCompleteController < ApplicationController
 
   def index
-    if params[:person]
-      respond_to do |format|
+    respond_to do |format|
+      if params[:metro]
+        format.js { auto_complete_metropolitan_keywords }
+      elsif params[:person]
         format.js { auto_complete_person_keywords }
-      end   
-    else
-      respond_to do |format|
+      else
         format.js { auto_complete_keywords }
       end
     end
@@ -29,7 +29,7 @@ class AutoCompleteController < ApplicationController
   end
 
   def auto_complete_person_keywords
-    keyword_name = params[:term]   
+    keyword_name = params[:term]
     if params[:soapbox]
       @keywords = ["PERSONS BY NAME"] + User.in_soapbox_directory.for_autocomplete.find_all_by_name(keyword_name).map(&:name)[0..4]
     else
@@ -65,6 +65,16 @@ class AutoCompleteController < ApplicationController
       i+=1
     end
     return test_result_search
+  end
+
+  def auto_complete_metropolitan_keywords
+  	keyword_name = params[:term]
+  	@keywords = MetropolitanArea.find(:all,:conditions => ["state like ?", "%#{keyword_name}%"],:limit => 15).map(&:state).uniq
+  	unless @keywords.present?
+      render :json => @keywords.push('This keyword does not yet exist in our database.')
+    else
+      render :json => @keywords
+    end
   end
 
 end
