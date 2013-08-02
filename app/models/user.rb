@@ -679,27 +679,8 @@ class User < ActiveRecord::Base
   def update_media_newsletter_mailchimp
 
     if media?      
-      mc = MailchimpConnector.new("RIA Newsfeed")              
-      
-      unless newsfeed_writer.blank?
-
-         region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq #If user has selected regions, getting metros of regions
-        
-
-        mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
-          :email_address => 'nishant.n@cisinlabs.com',
-          :merge_vars => {:FNAME=>first_name,
-                          :LNAME=>last_name,
-                          :METROAREAS=>newsfeed_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(region_metro_areas.join(","),:length => 255),
-                          :WRITERTYPE=>newsfeed_writer.name,
-                          :groupings => [
-                              {:name=>"Regions",:groups=>newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:name).join(",")},
-                              { :name => "SubscriberType",:groups => "Newsfeed"},
-                              {:name=>"Promotions",:groups=>promotion_types.map(&:name).join(",")}]
-          },:replace_interests => true,:update_existing=>true)
-
-      end 
-      digest_mailchimp_update        
+      newsfeed_mailchimp_update(self,true,MailchimpConnector.new("RIA Newsfeed"))
+      digest_mailchimp_update       
     end  
   end  
 
@@ -793,4 +774,24 @@ class User < ActiveRecord::Base
     end  
   end
 
+  def newsfeed_mailchimp_update user,double_optin=false,mc = MailchimpConnector.new("RIA Newsfeed")
+    unless user.newsfeed_writer.blank? 
+
+        region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", user.newsfeed_writer.find_regional_writers(user).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq
+
+        mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+          :email_address => user.email,
+          :merge_vars => {:FNAME=>user.first_name,
+                          :LNAME=>user.last_name, 
+                          :METROAREAS=>user.newsfeed_writer.find_metropolitan_areas_writers(user).map(&:metropolitan_area_id).join(",").to_s + truncate(region_metro_areas.join(","),:length => 255), 
+                          :WRITERTYPE=>user.newsfeed_writer.name,           
+                          :groupings => [
+                              {:name=>"Regions",:groups=>user.newsfeed_writer.find_regional_writers(user).map(&:james_beard_region).map(&:name).join(",")},
+                              { :name => "SubscriberType",:groups => "Newsfeed"},
+                              {:name=>"Promotions",:groups=>user.promotion_types.map(&:name).join(",")}]           
+          },:replace_interests => true,:update_existing=>true,:double_optin=>double_optin)
+
+      end
+  end  
 end
+
