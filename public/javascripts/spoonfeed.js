@@ -355,43 +355,61 @@ $employmentInputs.change(updateEmploymentsList);
 
 
 // Directory search
-var $directoryList = $("#directory_list");
-var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
+var $loaderImg = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
+var $directoryList = $("#user_directory_list");
+var $directoryInputs;
+//var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
 
 $directoryList.before($loaderImg);
 
-updateDirectoryList = function() {
+$.fn.updateDirectoryList = function() {
   input_string = $directoryInputs.serialize();
   $loaderImg.show();
   $directoryList.hide();
-  $directoryList.load('/directory/search', input_string, function(responseText, textStatus){
+  $directoryList.load('/directory/search_user', input_string, function(responseText, textStatus){
     $loaderImg.hide();
     $directoryList.fadeIn(300);
   });
-  // return true;
-};
-
-$directoryInputs.change(updateDirectoryList);
+// return true;
+}
+// Restaurant directory search button event
+$("#person_by_any_name").click(function(){
+  $directoryInputs = $("#directory_search #person_criteria #search_person_eq_any_name");
+  $.fn.updateDirectoryList();
+});
+$("#person_by_state_region").click(function(){
+  $directoryInputs = $("#directory_search #person_criteria #search_person_by_state_or_region");
+  $.fn.updateDirectoryList();
+});
+//$directoryInputs.change(updateDirectoryList);
 
 
 // Restaurant directory search
-var $restoDirectoryList = $("#restaurant_directory_list");
-var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type=checkbox]");
-
+var $restoDirectoryList  = $("#restaurant_directory_list");
+// var $restoDirectoryInputs = $("#directory_search #restaurant_criteria #restaurant_search");
+var $restoDirectoryInputs;
 $restoDirectoryList.before($loaderImg);
 
-updateRestoDirectoryList = function() {
+$.fn.updateRestoDirectoryList = function() {  
   input_string = $restoDirectoryInputs.serialize();
   $loaderImg.show();
   $restoDirectoryList.hide();
-  $restoDirectoryList.load('/directory/restaurant_search', input_string, function(responseText, textStatus){
+  $restoDirectoryList.load('/directory/search_restaurant_by_name', input_string, function(responseText, textStatus){
     $loaderImg.hide();
     $restoDirectoryList.fadeIn(300);
   });
   // return true;
 };
 
-$restoDirectoryInputs.change(updateRestoDirectoryList);
+// Restaurant directory search button event
+$("#restaurant_by_any_name").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #search_restaurant_eq_any_name");
+  $.fn.updateRestoDirectoryList();
+});
+$("#restaurant_by_state_region").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #search_restaurant_by_state_or_region");
+  $.fn.updateRestoDirectoryList();
+});
 
 //
 // Managing subject matters for restaurant managers
@@ -462,12 +480,10 @@ $("#otm_keyword_search").autocomplete({
   source: "/otm_keywords.js",
 });
  
-  $('.search-button').click(function(){
-    var $form=$(this).prev().find('input:text')
-    $('#restaurant_criteria input:text').each(function(){
-      if ($(this).val()!=$form.val())
-        $(this).val('');
-    });     
+   $('.search-button').click(function(e){
+   e.preventDefault();
+   var $form=$(this).parent().find("input:text");
+    $('#restaurant_criteria input').not($form).val('');
   });
 
 // Social updates filtering
@@ -754,52 +770,6 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     var $form=$(this).parent().find("input:text");
     $('#restaurant_criteria input').not($form).val('');
   });
-  // //mediafeed user edit 
-  $("#search_state_by_name").autocomplete({
-    source: "/auto_complete.js?metro=metro",
-    select: function( event, ui ) {
-      $('#loader').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
-      var selected_city = new Array();    
-      $("#newsfeed_metropolitan_area_search input[type=checkbox]").each(function(){
-           if ($(this).is(":checked")){
-              selected_city.push($(this).val());            
-          }  
-      })
-      $.ajax({
-        data:'state_name=' +ui.item.value+'&user_id='+$('#user_id').val()+'&checked_city='+selected_city,           
-        url:'/mediafeed/media_users/get_selected_cities?newsfeed=newsfeed',
-        success:function(request,response){
-          $('#search_state_by_name').val('');
-        }
-      });
-    }
-  });
-  $("#search_digest_state_by_name").autocomplete({
-    source: "/auto_complete.js?metro=metro",
-    select: function( event, ui ) {
-      $('#digest_loader').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
-      var selected_city = new Array();    
-      $("#digest_metropolitan_area_search input[type=checkbox]").each(function(){
-           if ($(this).is(":checked")){
-              selected_city.push($(this).val());            
-          }  
-      })
-      $.ajax({
-        data:'state_name=' +ui.item.value+'&user_id='+$('#user_id').val()+'&checked_city='+selected_city,           
-        url:'/mediafeed/media_users/get_selected_cities?test=test',
-        success:function(request,response){
-          $('#search_digest_state_by_name').val('');
-        }
-      });
-    }
-  });
-  $("#newsfeed_metropolitan_area_search input[type=checkbox], #digest_metropolitan_area_search input[type=checkbox]").live('click',function() {
-    if($(this).prop('checked'))
-      $(this).prev().removeAttr("disabled");
-    else
-      $(this).prev().attr("disabled","disabled");
-  });
-  // end mediafeed user edit 
   // end $(document).ready
 });
 
