@@ -50,5 +50,14 @@ desc "Add goups in groupings for list Media Prmotion newsletter."
       end  
     end 
   end    
+
+
+  desc "Add goups in groupings for Lists RIA Newsfeed."
+    task :add_user_in_newsfeed => :environment do
+      User.media.each do |user|        
+        user.newsfeed_mailchimp_update user,false
+      end          
+  end 
+
 end
 
