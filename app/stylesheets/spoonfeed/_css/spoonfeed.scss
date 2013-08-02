@@ -4801,6 +4801,7 @@ a.profile-out-of-date {
 .set-textarea-width{
 	width: 850px;
 }
+
 .set_heading{
 	color: #333333;
     font-family: 'Voltaire',sans-serif;
@@ -4810,4 +4811,12 @@ a.profile-out-of-date {
     margin: 5px 0 12px;
     padding: 0;
     text-transform: uppercase;
+}
+.profile-update {
+    background: none repeat scroll 0 0 transparent;    
+    position: relative;    
+    top: 17px;
+}
+a.request-profile-update {	
+	  background: none !important;
 }
