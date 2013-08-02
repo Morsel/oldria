@@ -85,11 +85,8 @@
       <%= render 'layouts/soapbox_footer' %>    
    </footer>
 <% if (params[:controller].split('/')[0]=="soapbox" && params[:action]=="restaurant_directory") || (params[:controller].split('/')[0]=="soapbox" && params[:action]=="directory") %>
-<<<<<<< HEAD
-  <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js' %>
-=======
+
   <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js','/soapbox/_js/autocomplete-filter' %>  
->>>>>>> origin/Soapbox-Directory-51407401
 <% else %>
   <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js' %>
 <% end %>
