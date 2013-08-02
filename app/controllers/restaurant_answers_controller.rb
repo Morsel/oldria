@@ -13,11 +13,7 @@ class RestaurantAnswersController < ApplicationController
      # the form submits a hash of question ids with their answers
     @answer = RestaurantAnswer.new(params[:restaurant_answer])
     @answer.save
-    flash[:notice] = "Your answers have been saved"
-    # respond_to do |wants|
-    # wants.js { render :js => render_to_string(:partial => "create")}
-    # end
-    # render(:layout=>false)
+    flash[:notice] = "Your answers have been saved"    
     redirect_to restaurant_social_posts_path(@restaurant)
   end
 

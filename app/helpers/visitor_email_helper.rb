@@ -1,0 +1,2 @@
+module VisitorEmailHelper
+end

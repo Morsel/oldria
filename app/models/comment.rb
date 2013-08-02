@@ -52,13 +52,15 @@ class Comment < ActiveRecord::Base
     return unless commentable.respond_to?(:notify_recipients) || commentable.is_a?(HolidayDiscussion)
     return if commentable.is_a?(SoloDiscussion) # no other recipients to notify
 
-    # Which method of finding users? (using the first available method)
+     # Which method of finding users? (using the first available method)
     users_method = %w(employees users).detect {|method| commentable.respond_to?(method)}
     return unless users_method
-
+    @type =self.commentable_type
     commentable.send(users_method).each do |recipient|
-      if (user_id != recipient.id) && recipient.prefers_receive_email_notifications
-        UserMailer.deliver_message_comment_notification(commentable, recipient, user)
+      #change 50151697
+      # if (user_id != recipient.id) || recipient.prefers_receive_email_notifications
+      if (user_id != recipient.id) || recipient.whats_new_notification 
+        UserMailer.deliver_message_comment_notification(@type,commentable, recipient, user)
       end
     end
   end

@@ -41,7 +41,6 @@
 		            <% f.semantic_fields_for :twitter_posts, twitter_post do |twitter| %>
 		                <%= twitter.input :post_at,:label => "Post to my Twitter account on", :as => :string, :input_html => {:id=>"", :class => 'datetime datetime-width',
 		                                  :value => twitter_post.try(:post_at).try(:strftime, '%Y-%m-%d %H:%M') } %>
-
 		                <%= twitter.input :content, :label => "Custom Tweet (optional)", :input_html => { :class => 'tweet' } %>
 		            <% end %>
 		          <% end %>
@@ -99,7 +98,7 @@ $(document).ready(function(){
 
     var now = new Date(), nextYear = new Date();
     nextYear.setYear(now.getFullYear() + 1);
-    
+
 	$('input.datetime').each(function(){
 		$(this).datetimepicker({
 	      dateFormat: 'yy-mm-dd',
@@ -120,5 +119,6 @@ $(document).ready(function(){
     //   counterText: 'Characters left: ',
     //   cssWarning: 'counter-warning'
     // });
+
 });
 </script>

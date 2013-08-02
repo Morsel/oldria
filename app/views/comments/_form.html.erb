@@ -13,7 +13,6 @@
 	<p class="help_text">If you have something useful to offer, do answer the question fully. Teasing media with highlights that don't fully answer the question is not appreciated and asking them to email you separately just gives them more work todo. </p>
 <% end %>
 
-
 <p class="attach">Attach files</p>
 <% f.fields_for :attachments do |child_form| -%>
 	<p class="attachfield"><%= child_form.file_field :attachment %></p>

@@ -25,6 +25,7 @@
               page_owner_id: <%= @restaurant.try(:id) || @user.try(:id) %>,
               page_owner_type: "<%= @restaurant.try(:class) || @user.try(:class) %>" } 
             };
+
               if("<%=@menu_item.try(:class)%>" == "MenuItem" || <%=@promotions.present?%>)
               {
                 params.page_view.page_type = "<%=@menu_item.try(:class) || 'Promotion' %>"

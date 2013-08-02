@@ -14,7 +14,7 @@
 				<h2>Leave a Comment</h2>
 						<p class="help_text"> If you have something useful to offer, do answer the question fully. Teasing media with highlights that don't fully answer the question is not appreciated and asking them to email you separately just gives them more work todo. </p>
 						<%= render :partial => 'comments/form' %>
-				<% elsif params[:controller] == "media_request_discussions"  %>
+			<% elsif params[:controller] == "media_request_discussions"  %>
 						<%= render :partial => 'comments/form' %> 
 	      <% end %>
 	<% else %>
@@ -30,6 +30,5 @@
 			<% elsif params[:controller] == "media_request_discussions"  %>
 				<%= render :partial => 'comments/form' %> 
 			<% end %>	
-
 <% end %>
 </div>

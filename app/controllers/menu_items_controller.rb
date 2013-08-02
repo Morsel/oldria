@@ -1,12 +1,12 @@
 class MenuItemsController < ApplicationController
 
   before_filter :require_user
-
   before_filter :require_manager, :except => [:index,:get_keywords,:add_keywords,:details,:show]
   before_filter :social_redirect, :only => [:edit]
   before_filter :verify_restaurant_activation, :only => [:show]
   
   include MenuItemsHelper
+
 
   def index
     find_restaurant
@@ -30,6 +30,7 @@ class MenuItemsController < ApplicationController
       @is_new = true
       @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
       @categories_keywords = OtmKeyword.find(:all,:conditions=>["name like ? ","%#{params[:menu_item][:search_keywords]}%"],:order => "category ASC, name ASC",:limit=>100) 
+      build_social_posts
       render :action => "new"
     end
   end

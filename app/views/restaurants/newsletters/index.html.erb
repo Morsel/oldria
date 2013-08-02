@@ -11,7 +11,7 @@
 
               <nav id="restaurant_feature_nav">
                 <%= active_link_to 'Settings', restaurant_newsletters_path(:restaurant_id => @restaurant) %>
-                <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) if @restaurant.shareable_newsletter_subscribers.present? %>
+                <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) %>
                 <%= active_link_to 'Reports', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %>             
               </nav>
 
@@ -26,11 +26,13 @@
                 <div id="newsletter_settings" class="clearfix">
                   <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
                     <% f.inputs :class => "editing" do %>
+
                       
                       <p>When changing frequency or date, the change will take affect for all emails that have not already been scheduled.</p>
 
                       <%= f.input :newsletter_frequency, :as => :select, :collection => ["weekly", "biweekly", "monthly"], :input_html => { :style => 'width:150px;' }  %>
                        <%= f.input :newsletter_frequency_day, :as => :select, :collection => ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], :input_html => { :style => 'width:150px;' }  %>
+
                       <%= submit_tag "Save" %>
                     <% end %>
                     <h2>Customize Current Newsletter</h2><p>Add a headline and an introductory paragraph to your newsletter. This can be changed for every newsletter you send out. To see how it will look, add your headline and introduction below and then click Preview Newsletter.  </p>

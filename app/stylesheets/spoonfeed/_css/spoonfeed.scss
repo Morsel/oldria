@@ -4556,7 +4556,6 @@ a.subscribe_btn {
 	width: 70% !important;
 }
 
-
 .subscription-hints-li{
 	list-style:disc !important;
 	margin-left: 18px !important;
@@ -4693,7 +4692,6 @@ fieldset{
 .set-the-width {
   width: 487px;
 }
-
 /* ==|== restaurant answer ====================================================== */
 .menu_form {
 	width: 840px !important; 
@@ -4712,7 +4710,6 @@ fieldset{
 	color: #D8531E !important;
 }
 
-
 .menu_form {
 	width: 840px !important; 
 	}
@@ -4728,9 +4725,24 @@ a.profile-out-of-date {
     position: relative;    
     top: 10px;
 }
+
+/* -----  for restaurant Directory ------------- */
+ul.featuredList{
+    list-style: none;
+}
+.list_item {
+  margin: 5px;
+  padding: 5px;
+  width: 120px;
+  float: left;
+}
+.setlistwidth{
+  width: 500px;
+}
 #font-fix{
 	font-size: inherit !important;
 }
+
 #subscribe-div{
 	position: relative; 
 	padding-left: 5px; 
@@ -4740,4 +4752,10 @@ a.profile-out-of-date {
 }
 .set-textarea-width{
 	width: 850px;
+}
+
+/* -----  end restaurant Directory ------------- */
+
+.menu_form {
+	width: 840px !important; 
 }

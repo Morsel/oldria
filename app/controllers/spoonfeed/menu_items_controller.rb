@@ -13,7 +13,6 @@ class Spoonfeed::MenuItemsController < ApplicationController
       @keywordable_id =  params[:id]
       @keywordable_type = 'OtmKeyword' 
      else
-
       @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:order => "created_at DESC")
     end    
       

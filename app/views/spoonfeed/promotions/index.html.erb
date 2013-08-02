@@ -3,7 +3,7 @@
 <% for promotion in @promotions -%>
 <% div_for(promotion) do %>
     <h2>
-        <% link_to restaurant_promotions_path(promotion.restaurant) do %>
+        <% link_to promotion_path(promotion) do %>
             <% if @promotion_type.present? -%>
               <%= "#{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
             <% else -%>

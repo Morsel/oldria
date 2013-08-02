@@ -26,8 +26,18 @@ class Soapbox::SoapboxController < ApplicationController
   end
 
   def directory_search
-    directory_search_setup
-    render :partial => "directory/search_results", :locals => { :users => @users }
+    if params[:search_person_eq_any_name]
+      @users = User.in_soapbox_directory.profile_specialties_name_or_profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
+      @users = @users.push(User.in_soapbox_directory.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?
+    else
+      @users = User.in_soapbox_directory.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
+    end
+    if @users.blank? && params[:search_person_by_state_or_region].present?
+      flash[:notice] = "I am sorry, we don't have any person for your state yet. Sign up to receive notification when we do!"
+    elsif @users.blank?
+      flash[:notice] = "No results found, please try a new search"
+    end
+    render :partial => "directory/search_results"
   end
 
   def restaurant_directory
@@ -45,13 +55,23 @@ class Soapbox::SoapboxController < ApplicationController
       @restaurants = Restaurant.all
     end
     @use_search = true
+    @otm_keyword = OtmKeyword.all(:limit=>9)
     @no_sidebar = true
     render :template => "directory/restaurants"
   end
 
   def restaurant_search
-    @subscriber = current_subscriber
-    @restaurants = Restaurant.search(params[:search])
+    if params[:search_restaurant_eq_any_name]
+      @restaurants = Restaurant.name_or_menu_items_otm_keywords_name_or_restaurant_features_value_or_cuisine_name_equals(params[:search_restaurant_eq_any_name]).uniq
+      @restaurants = Restaurant.name_equals(params[:search_restaurant_eq_any_name]) if @restaurants.blank?
+    elsif
+      @restaurants = Restaurant.state_or_james_beard_region_name_equals(params[:search_restaurant_by_state_or_region]).uniq
+    end
+    if @restaurants.blank? && params[:search_restaurant_by_state_or_region].present?
+      flash[:notice] = "I am sorry, we don't have any restaurants for your state yet. Sign up to receive notification when we do!"
+    elsif @restaurants.blank?
+      flash[:notice] = "No results found, please try a new search"
+    end
     render :partial => "directory/restaurant_search_results"
   end
 

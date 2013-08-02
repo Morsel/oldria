@@ -75,12 +75,19 @@ $(document).ready(function(){
 		fx: { duration: 'fast', opacity: 'toggle' }
 	});
 	$('.ui-tabs-panel').equalHeights();
-	$('#trend-comments .comment, #qotd-comments .comment').equalHeights();
-	
+	$('#trend-comments .comment, #qotd-comments .comment').equalHeights();		
 
-	
-	
-});
+ //for autocomplete controller
+	$("#user_search").autocomplete({
+	  source: "/users.js",
+	});  
+
+  $('.search-button').click(function(e){
+   e.preventDefault();
+   var $form=$(this).parent().find("input:text");
+    $('#restaurant_criteria input').not($form).val('');
+  });
+}); // end document ready
 	
 function buildPager(idx, elem){
 	idx++;
@@ -100,23 +107,32 @@ function displayInfo(currSlideElement, nextSlideElement, options, forwardFlag){
 
 // Directory search
 var $loaderImg       = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
-var	$directoryList   = $("#directory_list");
-var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
+var	$directoryList   = $("#user_directory_list");
+var $directoryInputs;
+//var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
 
 $directoryList.before($loaderImg);
 
-function updateDirectoryList() {
+$.fn.updateDirectoryList = function() {
 	input_string = $directoryInputs.serialize();
 	$loaderImg.show();
 	$directoryList.hide();
-	$directoryList.load('/soapbox/directory_search', input_string, function(responseText, textStatus){
+	$directoryList.load('/soapbox/directory_search?soapbox=soapbox', input_string, function(responseText, textStatus){
 	  $loaderImg.hide();
 	  $directoryList.fadeIn(300);
 	});
 	// return true;	
 }
-
-$directoryInputs.change(updateDirectoryList);
+// Restaurant directory search button event
+$("#person_by_any_name").click(function(){
+  $directoryInputs = $("#directory_search #person_criteria #search_person_eq_any_name");
+  $.fn.updateDirectoryList();
+});
+$("#person_by_state_region").click(function(){
+  $directoryInputs = $("#directory_search #person_criteria #search_person_by_state_or_region");
+  $.fn.updateDirectoryList();
+});
+//$directoryInputs.change(updateDirectoryList);
 
 function show_all_questions_linker() {
 	tabs = $('#sidebar').tabs();
@@ -125,23 +141,32 @@ function show_all_questions_linker() {
 }
 
 // Restaurant directory search
-var	$restoDirectoryList  = $("#restaurant_directory_list");
-var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type=checkbox]");
-
+var $restoDirectoryList = $("#restaurant_directory_list");
+var $restoDirectoryInputs;
 $restoDirectoryList.before($loaderImg);
 
-function updateRestoDirectoryList() {
-	input_string = $restoDirectoryInputs.serialize();
-	$loaderImg.show();
-	$restoDirectoryList.hide();
-	$restoDirectoryList.load('/soapbox/restaurant_search', input_string, function(responseText, textStatus){
-	  $loaderImg.hide();
-	  $restoDirectoryList.fadeIn(300);
-	});
-	// return true;
-}
+$.fn.updateRestoDirectoryList = function() {
+  input_string = $restoDirectoryInputs.serialize();
+  $loaderImg.show();
+  $restoDirectoryList.hide();
+  $restoDirectoryList.load('/soapbox/restaurant_search', input_string, function(responseText, textStatus){
+    $loaderImg.hide();
+    $restoDirectoryList.fadeIn(300);
+  });
+  // return true;
+};
 
-$restoDirectoryInputs.change(updateRestoDirectoryList);
+// Restaurant directory search button event
+$("#restaurant_by_any_name").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #search_restaurant_eq_any_name");
+  $.fn.updateRestoDirectoryList();
+});
+$("#restaurant_by_state_region").click(function(){
+  $restoDirectoryInputs = $("#directory_search #restaurant_criteria #search_restaurant_by_state_or_region");
+  $.fn.updateRestoDirectoryList();
+});
+//
+
 jQuery(document).ready(function(){
 		jQuery('.standard-filler').formFiller();
     updateRestaurantSignupFields = function() {
@@ -151,36 +176,4 @@ jQuery(document).ready(function(){
       $('#restaurant_fields').hide();
     } 
   };
-});
-
-$("#user_editor").autocomplete({
-  source: "/users.js",
-});
-$("#otm_keyword_search").autocomplete({
-  source: "/otm_keywords.js",
-});
-
-$("#user_search").autocomplete({
-  source: "/users.js",
-});
-$("#restaurant_search").autocomplete({
-  source: "/restaurants.js",
-});
-$("#feature_search").autocomplete({
-  source: "/features.js",
-});
-$("#state_search").autocomplete({
-  source: "/states.js",
-});
-$("#specialty_search").autocomplete({
-  source: "/specialties.js",
-});
-$("#region_search").autocomplete({
-  source: "/james_beard_regions.js",
-});
-$("#state_search_for_user").autocomplete({
-  source: "/metropolitan_areas.js",
-});
-$("#cusine_search").autocomplete({
-  source: "/cuisines.js",
 });

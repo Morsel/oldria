@@ -457,14 +457,17 @@ $("#user_editor").autocomplete({
 	source: "/users.js",
 });
 
+
 $("#otm_keyword_search").autocomplete({
   source: "/otm_keywords.js",
 });
  
-   $('.search-button').click(function(e){
-   e.preventDefault();
-   var $form=$(this).parent().find("input:text");
-    $('#restaurant_criteria input').not($form).val('');
+  $('.search-button').click(function(){
+    var $form=$(this).prev().find('input:text')
+    $('#restaurant_criteria input:text').each(function(){
+      if ($(this).val()!=$form.val())
+        $(this).val('');
+    });     
   });
 
 // Social updates filtering
@@ -717,7 +720,6 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
         $(this).addClass('email_id');
     });
     more_people.insertAfter('#more_people');
-
   });
   $('#recommendation_invitations').click(function(e){
     e.preventDefault(); 

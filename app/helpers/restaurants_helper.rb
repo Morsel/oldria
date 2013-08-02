@@ -66,5 +66,17 @@ module RestaurantsHelper
       # No url for non-premium accounts because we shouldn't see them off spoonfeed
       ""
     end
-  end  
+  end
+
+  def render_results(results)
+    result_templates = {"MenuItem" => "welcome/menu_item", "ALaMinuteAnswer" => "welcome/a_la_minute_answer","Promotion" => "welcome/promotion"}
+    tpl =''
+    results.each do |result|
+      if template = result_templates[result.class.name]
+         tpl +=render(:partial => template, :object => result)
+      end
+    end
+    tpl
+  end
+  
 end

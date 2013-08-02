@@ -84,8 +84,9 @@ class UserMailer < ActionMailer::Base
   ##
   # Generic message: could be one of DirectMessage, etc.
   def message_notification(message, recipient, sender = nil)
+    
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  recipient.email
+    recipients  [recipient.email]
     sent_on     Time.now
     subject     "Spoonfeed: #{message.email_title} notification"
     body        :message => message, :recipient => recipient, :sender => sender
@@ -94,6 +95,7 @@ class UserMailer < ActionMailer::Base
   ##
   # Generic message which can be 'answered': could be one of QOTD, etc.
   def answerable_message_notification(message, recipient)
+
     from        'notifications@restaurantintelligenceagency.com'
     reply_to    recipient.cloudmail_id(message)+"@#{CLOUDMAIL_DOMAIN}"
     recipients  recipient.email_for_content
@@ -114,9 +116,24 @@ class UserMailer < ActionMailer::Base
 
   ##
   # Comment on a generic message: could be one of DirectMessage, etc.
-  def message_comment_notification(message, recipient, commenter = nil)
+  def message_comment_notification(type,message, recipient, commenter = nil)
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  recipient.email_for_content
+    if type == "MediaRequestDiscussion"
+      if commenter.media_notification?
+      recipients  [recipient.email_for_content,commenter.email] 
+      else
+      recipients  [recipient.email_for_content]
+      end
+    end  
+
+    if type == "AdminDiscussion"
+      if commenter.whats_new_notification?
+      recipients  [recipient.email_for_content,commenter.email] 
+      else
+      recipients  [recipient.email_for_content]
+      end
+    end
+
     sent_on     Time.now
     subject     "Spoonfeed: #{message.email_title} comment notification"
     body        :message => message, :recipient => recipient, :commenter => commenter
@@ -131,8 +148,10 @@ class UserMailer < ActionMailer::Base
   end
 
   def admin_notification(message, recipient)
-    from        'notifications@restaurantintelligenceagency.com'   
-    recipients  "admin@restaurantintelligenceagency.com"
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  "admin@restaurantintelligenceagency.com"   
+    #will use it after client will test
+    #recipients   [recipient.email , "admin@restaurantintelligenceagency.com",email]
     sent_on     Time.now
     subject     "An item is posted to Newsfeed notification "
     body        :message => message, :recipient => recipient
@@ -172,6 +191,7 @@ class UserMailer < ActionMailer::Base
     body       restaurant_visitors
   end
   
+
   def send_chef_user(restaurant_visitors)
     from        'hal@restaurantintelligenceagency.com'
     recipients  restaurant_visitors["current_user"].email
@@ -207,6 +227,17 @@ class UserMailer < ActionMailer::Base
     body        :detail => detail,:title => title,:user =>user,:comment=>comment
   end  
 
+
+  def send_james_bear_region_request(jbrr,requested)
+    @jbrr = jbrr
+    @requested = requested
+    from        requested
+    recipients  "admin@restaurantintelligenceagency.com"
+    sent_on     Time.now
+    subject     "Spoonfeed: James Bear Region Request!"
+  end  
+
+
   def export_press_kit(email,user,restaurant)
     from        user.email
     recipients  email   
@@ -215,7 +246,7 @@ class UserMailer < ActionMailer::Base
     body        :user => user,:restaurant=> restaurant
   end  
 
- 
+
 
   def send_employee_claim_notification_mail(user,employee,restaurant)
     from        'notifications@restaurantintelligenceagency.com'
@@ -227,7 +258,9 @@ class UserMailer < ActionMailer::Base
   end
 
 
+
   def export_press_kit_for_media(email,user,restaurant)
+
     from        user.email
     recipients  email   
     sent_on     Time.now
@@ -258,7 +291,6 @@ class UserMailer < ActionMailer::Base
     subject     "A journalist has requested updates to the #{restaurant.try(:name)} profile"
     body        :restaurant => restaurant
   end 
-
 
 end
 

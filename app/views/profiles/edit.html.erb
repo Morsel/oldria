@@ -5,16 +5,18 @@
 <% end -%>
 
 <section id="profile-tabs">
-    <nav id="profile-options">
-        <span><a href="#profile-summary" id="tab-summary">Summary</a></span>
-        <span><a href="#profile-extended" id="tab-resume">Résumé</a></span>
-        <% if @user.btl_enabled? -%>
-        <span><%= link_to "Behind the Line", edit_btl_user_profile_path(@user), :id => "tab-btl", :title => "profile-btl" %></span>
-        <% end -%>
-        <span><%= link_to "Front Burner", edit_front_burner_user_profile_path(@user), :id => "tab-fb", :title => "profile-front-burner" %></span>
-        <span><a href="#profile-account" id="tab-account">Account</a></span>
-     
-    </nav><!-- /profile_options -->
+
+  <nav id="profile-options">
+      <span><a href="#profile-summary" id="tab-summary">Summary</a></span>
+      <span><a href="#profile-extended" id="tab-resume">Résumé</a></span>
+      <% if @user.btl_enabled? -%>
+      <span><%= link_to "Behind the Line", edit_btl_user_profile_path(@user), :id => "tab-btl", :title => "profile-btl" %></span>
+      <% end -%>
+      <span><%= link_to "Front Burner", edit_front_burner_user_profile_path(@user), :id => "tab-fb", :title => "profile-front-burner" %></span>
+      <span><a href="#profile-account" id="tab-account">Account</a></span>
+   
+  </nav><!-- /profile_options -->
+
 
     <section id="profile-summary">
         <% semantic_form_for @user, :html => { :multipart => true } do |f| %>
@@ -29,7 +31,7 @@
                         <strong><%= f.errors_on :avatar_content_type %></strong>
                         <p class="clearfix">
                             <%= button_tag "Upload Headshot", :class => 'positive' %>
-                            <span class="button-separator"></span> 
+                            <span class="button-separator"></span>
                             <%= link_to "Remove my headshot", remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back" %>
                         </p>
                     </div>
@@ -47,9 +49,9 @@
 
             <% f.inputs :name => "Cuisines and Specialties" do %>
             <div>
-                <%= f.input :specialties, 
-                            :as => :check_boxes, 
-                            :collection => Specialty.all, 
+                <%= f.input :specialties,
+                            :as => :check_boxes,
+                            :collection => Specialty.all,
                             :label => "What are your specialties?" %>
                 <% button_tag :class => 'positive' do %>Save changes to specialties<% end %>
             </div>
@@ -65,7 +67,7 @@
             </div>
             <% end %><!-- Cuisines and specialties -->
 
-          <% if @user.premium_account? %> 
+          <% if @user.premium_account? %>
             <% f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
               <%= user_form.input :publish_profile, :as => :boolean, :label => 'Display my profile on Soapbox' %>
             <% button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
@@ -217,7 +219,7 @@
               <p><%= button_tag "Save What's New", :class => 'positive' %></p>
           <% end %>
           <% f.inputs :name => "Question of the Day" do %>
-              <%= f.input :qotd, :as => :boolean, :label => " Receive Question of the Day via email" %> 
+              <%= f.input :qotd, :as => :boolean, :label => " Receive Question of the Day via email" %>
               <p class="inline-hints"><i>Questions about timely news and topics, sent to help you be a part of the online conversation.</i></p>
               
               <p><%= button_tag "Save Question of the Day", :class => 'positive' %></p>
@@ -292,7 +294,7 @@
           <% elsif @user.twitter_allowed? -%>
           <%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %>
           <% end -%>
-          <p><%= link_to "Need Help?  Read our Twitter 101 introduction in the Marketing Manual.", public_page_path('twitter_101_introduction') %></p>
+          <p><%= link_to "Need Help? Read our Twitter 101 introduction in the Marketing Manual.", public_page_path('twitter_101_introduction') %></p>
       </fieldset>
 
       <fieldset id="facebook-fieldset" class="inputs">
@@ -315,10 +317,10 @@
 
           <%- else -%>
 
-            <%  if @profile.user.facebook_authorized? %>
+            <% if @profile.user.facebook_authorized? %>
                 <% begin %>
                     <p>Current Facebook page for <%= current_user.name %>: <em>"<%= @profile.user.facebook_page.fetch.name %>"</em>
-                     </p> 
+                     </p>
                       <%= link_to "Disconnect Facebook", fb_deauth_user_path(@profile.user), :class => 'sf-button negative' %>
                   <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception =>e%>
                     <p>Access to your Facebook page has expired. Please select the page again.</p>
@@ -327,7 +329,7 @@
               <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %>
               <% end %>
           <%- end -%>
-          <p><%= link_to "Need Help?  Read everything you need to know about Facebook in the Marketing Manual.", public_page_path('facebook_101_introduction') %></p>
+          <p><%= link_to "Need Help? Read everything you need to know about Facebook in the Marketing Manual.", public_page_path('facebook_101_introduction') %></p>
       </fieldset>
       <div class="clear"></div>
       <hr class="edit_block" />
@@ -337,13 +339,13 @@
       <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
       <% f.inputs :name => "Contact Information" do %>
           <div class="clear">
-              <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, 
+              <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options,
                   :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
               <%= f.input :cellnumber, :label => "Cellphone", :wrapper_html => { :class => "span-6 last" } %>
           </div>
 
           <div class="clear">
-              <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, 
+              <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options,
                   :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
               <% f.semantic_fields_for :user do |user| %>
                   <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
@@ -410,7 +412,7 @@ $(document).ready(function() {
   $('#profile-tabs').tabs({
     panelTemplate: '<section></section>',
     fx: { duration: 'fast', opacity: 'toggle' },
-    show: function(event, ui) { 
+    show: function(event, ui) {
       if(ui.panel.id == 'profile-extended' && !already_equalized){
         already_equalized = true;
         $('.culinary_job').equalHeights();
@@ -426,6 +428,8 @@ $(document).ready(function() {
       }
     }
   });
+
+  $('#profile-tabs').tabs('select', 'profile-account');
 
   $('#user_user_visitor_email_setting_attributes_do_not_receive_email').live('change',function(){
     if ($('#user_user_visitor_email_setting_attributes_do_not_receive_email').is(':checked')) {

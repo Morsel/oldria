@@ -243,7 +243,7 @@ class ApplicationController < ActionController::Base
     # FIXME - should call solo_search.all(options) but it generates a DB error
     # instead since we only use the options in media requests we'll manually filter
     @solo_users = [@solo_users, solo_search].flatten.compact.uniq if extra_params.present?
-    @solo_users = @solo_users.select { |u| u.employee.mediafeed_visible } if mediafeed?
+    @solo_users = @solo_users.select { |u| u.employee.mediafeed_visible if u.employee } if mediafeed?
   end
 
   def build_extra_profile_params
@@ -318,7 +318,8 @@ class ApplicationController < ActionController::Base
   end
 
   def is_profile_not_completed? user
-     !user.avatar? || user.profile.specialties.blank? || user.profile.cuisines.blank? || user.restaurants.blank?
+     !user.avatar? || (user.profile.specialties.blank? &&  user.profile.skipp_step.to_i < 2
+) || (user.profile.cuisines.blank? && user.profile.skipp_step.to_i < 3) || user.restaurants.blank?
   end  
   
   def restaurants_has_setup_fb_tw user
