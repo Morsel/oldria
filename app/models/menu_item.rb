@@ -127,7 +127,7 @@ class MenuItem < ActiveRecord::Base
     if(picture.nil?)
       restaurant.twitter_client.update("#{truncate(message,:length => (135-self.bitly_link.length))} #{self.bitly_link}")
     else
-      restaurant.twitter_client.update_with_media("#{truncate(message,:length => (135-self.bitly_link.length))} #{self.bitly_link}",picture)
+      restaurant.twitter_client.update_with_media("#{truncate(message,:length => 10)} #{self.bitly_link}",picture)
     end  
   end
 
