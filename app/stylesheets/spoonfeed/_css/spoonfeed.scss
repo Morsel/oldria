@@ -4741,3 +4741,11 @@ a.profile-out-of-date {
 .set-textarea-width{
 	width: 850px;
 }
+.profile-update {
+    background: none repeat scroll 0 0 transparent;    
+    position: relative;    
+    top: 17px;
+}
+a.request-profile-update {	
+	  background: none !important;
+}

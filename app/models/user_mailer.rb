@@ -259,6 +259,13 @@ class UserMailer < ActionMailer::Base
     body        :restaurant => restaurant
   end 
 
+  def request_profile_update(restaurant,employee)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  employee.email
+    sent_on     Time.now
+    subject     "Request from Journalist"
+    body        :restaurant => restaurant
+  end 
 
 end
 

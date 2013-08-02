@@ -384,6 +384,18 @@ class RestaurantsController < ApplicationController
     redirect_to restaurant_path(@restaurant) 
   end  
 
+  def request_profile_update
+    @restaurant = Restaurant.find( params[:restaurant_id])
+    @restaurant.employments.each do |employment|
+      debugger
+      if !employment.employee.user_visitor_email_setting.do_not_receive_email
+        UserMailer.deliver_request_profile_update(@restaurant,employment.employee)
+      end
+    end
+    flash[:notice] = "We've emailed the restaurant to let them know their profile is need to be update! As they update their profile, it will be reported on the Daily Dineline."
+    redirect_to restaurant_path(@restaurant) 
+  end
+
   private
 
   def find_activated_restaurant    
