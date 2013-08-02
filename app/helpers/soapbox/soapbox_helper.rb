@@ -1,0 +1,2 @@
+module Soapbox::SoapboxHelper
+end

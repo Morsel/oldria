@@ -173,7 +173,8 @@ class ALaMinuteAnswer < ActiveRecord::Base
   end
 
   def post_to_twitter(message=nil)
-    message = message.blank? ? twitter_message : message
+    message = message.blank? ? answer : message
+    message = "#{truncate(message,:length => (135-self.bitly_link.length))} #{self.bitly_link}"
     restaurant.twitter_client.update(message)
   end
 

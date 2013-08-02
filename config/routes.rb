@@ -245,7 +245,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get, :approve => :post, :archives => :get , :get_campaign_status=> :get,:disapprove => :post}
 
     restaurant.add_keywords 'add_keywords', :controller => "menu_items", :action => "add_keywords"
-
+    restaurant.profile_out_of_date 'profile_out_of_date', :controller => "restaurants", :action => "profile_out_of_date"
     restaurant.show_notice 'show_notice', :controller => "restaurants", :action => "show_notice"
   end
 
@@ -414,6 +414,18 @@ ActionController::Routing::Routes.draw do |map|
   # for restaurant employee no condition
   map.no_choice '/restaurants/:restaurant_id/employees/options', :controller => "employees", :action => "options"
   map.new_employee 'restaurants/:restaurant_id/employees/new_employee', :controller => "employees", :action => "new_employee"  
-  map.resources :otm_keywords, :only => ["index"]
-end
 
+  map.resources :otm_keywords, :only => ["index"]  
+
+  #for autocomplete 
+  map.resources :auto_complete, :only => ["index"] 
+  #for show filter result of restaurant directory
+  map.resources :metropolitan_areas, :only => ["index"] 
+  map.resources :james_beard_regions, :only => ["index"]
+  map.resources :cuisines, :only => ["index"]
+  map.resources :specialties, :only => ["index"]
+  map.search_restaurant_by_name 'directory/search_restaurant_by_name', :controller => 'directory', :action => 'search_restaurant_by_name'
+  map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
+  #for get selected city
+  map.get_selected_cities '/mediafeed/media_users/get_selected_cities', :controller => 'media_users', :action => 'get_selected_cities'
+end

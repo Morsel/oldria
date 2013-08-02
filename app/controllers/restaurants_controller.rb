@@ -325,27 +325,30 @@ class RestaurantsController < ApplicationController
   end
 
   def media_user_newsletter_subscription        
+
     @user = User.find(params[:id])    
     @arrMedia=[]    
     @basic_restarurants_menu_items = []
     @basic_restarurants_promotions = []
-
     @arrMedia.push(@user.media_newsletter_subscriptions.map(&:restaurant))
-    
     @arrMedia.push(@user.get_digest_subscription)
 
     @arrMedia.flatten!
     @menu_items = @menus = @restaurantAnswers = @promotions = []
     unless(@arrMedia.blank?)
-      @arrMedia.each do |restaurant|
-        @basic_restarurants_menu_items << restaurant if !restaurant.premium_account? && !restaurant.menu_items.find(:all,:conditions=>["created_at >= ? OR updated_at >= ?",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day]).blank?
-      end
-      @arrMedia.each do |restaurant|
-        @basic_restarurants_promotions << restaurant if !restaurant.premium_account? && !restaurant.promotions.find(:all,:conditions=>["created_at >= ? OR updated_at >= ?",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day]).blank?
-      end
+       @arrMedia.each do |restaurant|
+         @basic_restarurants_menu_items << restaurant if !restaurant.premium_account? && !restaurant.menu_items.find(:all,:conditions=>["created_at >= ? OR updated_at >= ?",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day]).blank?
+       end
+       @arrMedia.each do |restaurant|
+         @basic_restarurants_promotions << restaurant if !restaurant.premium_account? && !restaurant.promotions.find(:all,:conditions=>["created_at >= ? OR updated_at >= ?",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day]).blank?
+       end
 
       @arrMedia = @arrMedia - @basic_restarurants_menu_items - @basic_restarurants_promotions
-      @menu_items = MediaNewsletterSubscription.menu_items(@arrMedia)      
+
+      @menu_items = MediaNewsletterSubscription.menu_items(@arrMedia)   
+      @menus = MediaNewsletterSubscription.newsletter_menus(@arrMedia)  
+      @fact_sheets = MediaNewsletterSubscription.fact_sheets(@arrMedia)  
+      @photos = MediaNewsletterSubscription.photos(@arrMedia)  
       #@alaminute_answers = MediaNewsletterSubscription.restaurant_answers(@arrMedia)
       @promotions = MediaNewsletterSubscription.promotions(@arrMedia)
     end
@@ -369,6 +372,17 @@ class RestaurantsController < ApplicationController
       render :json => @restaurant_keywords.push('This restaurant does not yet exist in our database. Please try another restaurant.')
     end
   end
+
+  def profile_out_of_date
+    @restaurant = Restaurant.find( params[:restaurant_id])
+    UserMailer.deliver_profile_out_of_date(@restaurant)
+    user_id = current_user.id
+    restaurant_id = params[:restaurant_id]
+    @profile_out_of_date = ProfileOutOfDate.find_by_user_id_and_restaurant_id(user_id,restaurant_id)
+    @profile_out_of_date = @profile_out_of_date.nil? ? ProfileOutOfDate.create(:user_id=>current_user.id,:restaurant_id=>params[:restaurant_id]) : @profile_out_of_date.increment!(:count)  
+    flash[:notice] = "We've emailed the restaurant to let them know their profile is out of date! As they update their profile, it will be reported on the Daily Dineline."
+    redirect_to restaurant_path(@restaurant) 
+  end  
 
   private
 

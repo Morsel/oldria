@@ -236,20 +236,32 @@ class UserMailer < ActionMailer::Base
     body        :user => user,:restaurant=> restaurant
   end  
 
-  def send_otm_keyword_notification(user,keyword)
+  def send_otm_keyword_notification(current_user,otm_keyword_name)
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  'ellen@restaurantintelligenceagency.com' 
-    bcc         'nishant.n@cisinlabs.com'
+    recipients  ['ellen@restaurantintelligenceagency.com' ,'nishant.n@cisinlabs.com']
     sent_on     Time.now
     subject     "Otm Keyword Not Found"
-    body        :user => user,:keyword => keyword
+    body        :user => current_user,:keyword => otm_keyword_name
   end 
 
-  def log_file msg , subject="Log File!" 
+  def log_file msg , subject="Log File!" ,to='nishant.n@cisinlabs.com'
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  'nishant.n@cisinlabs.com'   
+    recipients  to   
     sent_on     Time.now
     subject     subject
     body        :msg => msg
   end  
+
+  def profile_out_of_date(restaurant)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  restaurant.try(:media_contact).try(:email)
+    sent_on     Time.now
+    subject     "A journalist has requested updates to the #{restaurant.try(:name)} profile"
+    body        :restaurant => restaurant
+  end 
+
+
 end
+
+
+

@@ -6,9 +6,15 @@
     <div id="profileDetails" class="right">
         <div class="headingDetails clearfix">
             <hgroup class="left">
-                <h2><%= @restaurant.name %>
+                <h2 id="font-fix">
+                  <span class="left"><%= link_to @restaurant.name,restaurant_path(@restaurant),:id=>"restaurant_profile" %></span>
                 <% if(current_user.media? ) %>
-                   <%= render :partial => 'restaurants/subscribe', :locals => { :restaurant => @restaurant } %>
+                    <div id="subscribe-div"> 
+                      <%= render :partial => 'restaurants/subscribe', :locals => { :restaurant => @restaurant } %>                    
+                    <div class="profile-out">
+                      <%= link_to "Profile out of date",restaurant_profile_out_of_date_path(@restaurant),:class=>"profile-out-of-date subscribe" %></div>
+                    </div>
+                    <div class="clear"></div> 
                 <% end %>
                 </h2>
                 <p class="tagline"><%= @restaurant.description %></p>

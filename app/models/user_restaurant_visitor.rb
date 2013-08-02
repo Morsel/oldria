@@ -126,7 +126,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
           
           userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
-            @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
+          @sum = 0
+          @profile_out_of_date = ProfileOutOfDate.all(:conditions => ["restaurant_id = ? AND (DATE(created_at) > ? OR DATE(updated_at) > ?)", visitor.restaurant,user.user_visitor_email_setting.last_email_at ,user.user_visitor_email_setting.last_email_at]).map(&:count).map{|u| @sum=@sum+u}
+          @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
             
             if !visitor.restaurant.nil?
               visitors = visitor.restaurant.newsletter_subscribers
@@ -149,10 +151,13 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
               @menu_item = visitor.restaurant.menu_items.find(:first,:order =>"updated_at desc")
               unless @menu_item.blank?
-                if @menu_item.created_at < 7.day.ago
+                if @menu_item.created_at > 7.day.ago
+                  @menu_item_message = "Looks like you've been working with On the Menu, keep at it!"
+                  counter+=1
+                elsif @menu_item.created_at < 7.day.ago
                   @menu_item_message = "Looks like you haven't uploaded a new dish or drink to On The Menu in quite some time. Let's keep media interested in you, <a href='#{new_restaurant_menu_url(visitor.restaurant)}'>add your newest dish or drink today!</a>"
                   counter+=1
-                end
+                end 
               else
                 counter+=1
                 @menu_item_message = "You've never used On The Menu, a powerful tool for connecting with media. You can ,<a href='#{restaurant_menus_url(visitor.restaurant)}'>check it out here</a>"
@@ -195,11 +200,11 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "alaminutequestions" => @alaminutequestions,
                 "a_la_minute_visitors" => @alm_visitors,
                 "restaurant" => visitor.restaurant,
-                "current_user" => user
-              }  
-                                      
-              if check_email_frequency(@uves)
-                UserMailer.deliver_send_mail_visitor(restaurant_visitors)
+                "current_user" => user,
+                "sum" => @sum
+              }                          
+              if check_email_frequency(@uves)  
+                UserMailer.deliver_send_mail_visitor(restaurant_visitors) 
                 @visitor_mail+=1
                 create_log_file_for_visitor_user(user,visitor.restaurant)
               end
