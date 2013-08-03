@@ -1,7 +1,7 @@
 $(document).ready(function(){
   //for autocomplete controller
   $("#search_restaurant_eq_any_name").autocomplete({
-    source: "/auto_complete.js?name=restaurant",
+    source: "/soapbox?name=restaurant",
   }).data("autocomplete")._renderItem = function (ul, item) {
     if(["No results found, please try a new search","RESTAURANTS BY NAME", "RESTAURANTS BY KEYWORD", "RESTAURANTS BY FEATURE", "RESTAURANTS BY CUISINE"].indexOf(item.label) > -1){
           return $("<li></li>")
@@ -18,7 +18,7 @@ $(document).ready(function(){
      };
   
   $("#search_restaurant_by_state_or_region").autocomplete({
-    source: "/auto_complete.js?name=region",
+    source: "/soapbox?name=region",
   }).data("autocomplete")._renderItem = function (ul, item) {
      if(["No results found, please try a new search","RESTAURANTS BY REGION", "RESTAURANTS BY STATE"].indexOf(item.label) > -1){
          return $("<li></li>")
@@ -35,7 +35,7 @@ $(document).ready(function(){
      };
 
   $('#search_person_eq_any_name').autocomplete({
-    source: "/auto_complete.js?soapbox=soapbox&person=person"
+    source: "/soapbox?soapbox=soapbox&person=person"
   }).data("autocomplete")._renderItem = function (ul, item) {
     if(["No results found, please try a new search","PERSONS BY NAME","PERSONS BY SPECIALITY","PERSONS BY CUISINE"].indexOf(item.label) > -1){
           return $("<li></li>")
@@ -51,7 +51,7 @@ $(document).ready(function(){
            }
      };
   $("#search_person_by_state_or_region").autocomplete({
-    source: "/auto_complete.js?soapbox=soapbox&person=region"
+    source: "/soapbox?soapbox=soapbox&person=region"
   }).data("autocomplete")._renderItem = function (ul, item) {
     if(["No results found, please try a new search","PERSONS BY STATE","PERSONS BY REGION"].indexOf(item.label) > -1){
          return $("<li></li>")
