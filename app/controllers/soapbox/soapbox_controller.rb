@@ -1,12 +1,23 @@
 class Soapbox::SoapboxController < ApplicationController
 
-
+  include AutoCompleteHelper
+  
   def index
-    get_home_page_data
-    @home = true
-    @slides = SoapboxSlide.all(:order => "position", :limit => 5, :conditions => "position is not null")
-    @promos = SoapboxPromo.all(:order => "position", :limit => 3, :conditions => "position is not null")
-    render :layout => 'soapbox_home'
+    if params[:person] || params[:name]
+      respond_to do |format|
+        if params[:person]
+          format.js { auto_complete_person_keywords }
+        else
+          format.js { auto_complete_keywords }
+        end
+      end
+    else
+      get_home_page_data
+      @home = true
+      @slides = SoapboxSlide.all(:order => "position", :limit => 5, :conditions => "position is not null")
+      @promos = SoapboxPromo.all(:order => "position", :limit => 3, :conditions => "position is not null")
+      render :layout => 'soapbox_home'
+    end
   end
 
   def directory
@@ -52,7 +63,7 @@ class Soapbox::SoapboxController < ApplicationController
       @region = JamesBeardRegion.find(params[:james_beard_region_id])
       @restaurants = Restaurant.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
     else      
-      #@restaurants = Restaurant.all
+      @restaurants = Restaurant.all
     end
     @use_search = true
     @otm_keyword = OtmKeyword.all(:limit=>9)
@@ -77,6 +88,24 @@ class Soapbox::SoapboxController < ApplicationController
 
   def travel_guides
     redirect_to soapbox_btl_topic_path(Topic.travel)
+  end
+
+  def auto_complete_keywords
+    @keywords = get_autocomplete_restaurant_result
+    unless @keywords.present?      
+      render :json => @keywords.push('No results found, please try a new search')
+    else            
+      render :json => @keywords
+    end
+  end
+  
+  def auto_complete_person_keywords
+    @keywords = get_autocomplete_person_result
+    unless @keywords.present?      
+      render :json => @keywords.push('No results found, please try a new search')
+    else      
+      render :json => @keywords
+    end
   end
 
   private

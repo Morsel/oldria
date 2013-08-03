@@ -282,8 +282,7 @@ class UserMailer < ActionMailer::Base
     sent_on     Time.now
     subject     subject
     body        :msg => msg
-  end 
-   
+  end  
 
   def profile_out_of_date(restaurant)
     from        'notifications@restaurantintelligenceagency.com'

@@ -92,6 +92,6 @@ class DirectoryController < ApplicationController
       flash[:notice] = "I am sorry, we don't have any person for your state yet. Sign up to receive notification when we do!"
     end
     render :partial => "search_results"
-  end 
-  
+  end  
+
 end

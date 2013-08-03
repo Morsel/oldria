@@ -82,13 +82,11 @@ class PromotionsController < ApplicationController
     end     
   end  
 
-
   def preview
     @promotion = Promotion.find(params[:id])
     @restaurant = @promotion.restaurant
     render :layout =>false    
   end  
-
 
   private
 

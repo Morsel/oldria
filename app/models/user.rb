@@ -104,17 +104,19 @@ class User < ActiveRecord::Base
 
   has_one :featured_profile, :as => :feature
 
-  has_one :push_notification_user
-
   has_many :restaurant_employee_requests ,:foreign_key=>"employee_id"
   has_many :requested_restaurants, :through => :restaurant_employee_requests ,:source=> :restaurant
-
 
   has_one :push_notification_user
   has_many :user_restaurant_visitors
   
   validates_presence_of :email
+  
+  #validates_presence_of :publication, :if => Proc.new { |user| user.role =="media" && user.id}
+  #validates_presence_of :publication, :unless => Proc.new { |user| user.role !="media" }
+
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
+
   has_and_belongs_to_many :metropolitan_areas
   has_many :media_newsletter_subscriptions, :dependent => :destroy, :foreign_key => "media_newsletter_subscriber_id"
   has_many :page_views, :as => :page_owner, :dependent => :destroy
@@ -656,25 +658,8 @@ class User < ActiveRecord::Base
       
       regional_writers.find(:all,:conditions=>"regional_writer_type = 'DigestWriter'").map(&:destroy)
     end 
+
   end
-
-
-  def send_employee_claim_notification_mail
-    # @res.employees.find(:all,:conditions=>["role=?",'admin'])  
-    User.find(:all,:conditions=>["role=?",'admin']).each do |user|
-      user.restaurants.each do |restaurant|
-          restaurant.employees.find(:all,:conditions=>["role != 'admin' || role IS NULL AND confirmed_at IS NULL"]).each do |employee|
-            if employee.claim_count <= 3
-            employee.claim_count+=1
-            employee.publication= "NULL" if employee.publication.blank?
-            employee.save!
-            UserMailer.deliver_send_employee_claim_notification_mail(user,employee,restaurant)
-          end
-        end
-      end
-    end
-  end
-
 
   def update_media_newsletter_mailchimp
 
@@ -770,9 +755,9 @@ class User < ActiveRecord::Base
       rescue Exception => e
         UserMailer.deliver_log_file("User : #{subscriber.name} Error: #{e.message}","Exception")
       end  
-
     end  
   end
+
 
   def newsfeed_mailchimp_update user,double_optin=false,mc = MailchimpConnector.new("RIA Newsfeed")
     unless user.newsfeed_writer.blank? 

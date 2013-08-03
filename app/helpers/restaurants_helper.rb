@@ -66,8 +66,8 @@ module RestaurantsHelper
       # No url for non-premium accounts because we shouldn't see them off spoonfeed
       ""
     end
-
   end
+
   def render_results(results)
     result_templates = {"MenuItem" => "welcome/menu_item", "ALaMinuteAnswer" => "welcome/a_la_minute_answer","Promotion" => "welcome/promotion"}
     tpl =''

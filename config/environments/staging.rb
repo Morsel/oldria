@@ -42,9 +42,7 @@ CLOUDMAIL_DOMAIN = 'staging-mailbot.restaurantintelligenceagency.com'
 # for verifying the emails came from cloudmailin
 CLOUDMAIL_SECRET = '72fa425b1e5c89239639'.freeze
 
-
 #ENV['MC_API_KEY'] = 'b992d9bf14db221d322b7add975b1c39-us2'
 ENV['MC_API_KEY'] = 'e741c48b31e7dc460d7b7fa522741d6a-us5' #Nishant API key
 
 DOMAIN_NAME = "restaurantintelligenceagency.com"
-
