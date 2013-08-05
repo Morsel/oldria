@@ -16,19 +16,19 @@
 
               <div id="restaurant_features_content" style="width:700px;">
 
-                <div class="right" style="margin-right:10px">
-                    <%= link_to "Export to CSV file", download_subscribers_restaurant_path(@restaurant) %>
-                </div>
-                <div class="right" style="margin-right:10px" >
-                   <%= render 'restaurants/newsletters/csv' %>
-               </div>
-
                 <h1 class="pg_title">Newsletter Subscribers</h1>
-                <p>Your list will be kept private and is only accessible by your restaurant. RIA will never share or distribute your customer data. </p>
+                  <p class='export'> <%= link_to "Export to CSV file", download_subscribers_restaurant_path(@restaurant) %></p>
+                  <p>  <%= render 'restaurants/newsletters/csv' %> </p>
+                
+                <p class='export-text' >Upload your diner list! <br/><br/> 
+
+                Your diner list is private, secure and will not be shared with any other restaurants or used for any other mailing activity. It is your list, you've entrusted it to us, and we honor that completely.<br/><br/>
+
+                You can only import lists of people who sign up at your website or your restaurant. No 3rd party lists, no prospects, no lists that you scraped from websites, no chambers of commerce lists, etc.doing so will result in your permanent removal from RIA. If you would like assistance determining if your list can be uploaded, contact RIA (that should be an email to help@restaurantintelligenceagency.com) please follow the instruction rather than copying it.</p>
 
                 <!-- <div id="read_messages" style="width:670px;margin:0;"> -->
                   <div class="editing clearfix clear">
-                      <table style="width: 100%" class="archives">
+                      <table style="width: 100%" cellspacing="0" class="tablesorter">
                           <thead>
                               <tr>
                                   <th width="30%">First Name</th>

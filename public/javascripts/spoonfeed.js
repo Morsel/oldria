@@ -811,3 +811,8 @@ function loderHide()
 {
   $('#loader-waiting').slideUp();
 }
+
+var sortedTables = $('.tablesorter');
+if (sortedTables.length) {
+  sortedTables.tablesorter({sortList: [[0,0]]});
+}

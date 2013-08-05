@@ -12,81 +12,82 @@
               <nav id="restaurant_feature_nav">
                 <%= active_link_to 'Settings', restaurant_newsletters_path(:restaurant_id => @restaurant) %>
                 <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) %>
-                <%= active_link_to 'Reports', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %>             
+                <%#= active_link_to 'Reports', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %>             
               </nav>
+              <%  %>
+              <% if current_user.account_type != "Basic" %>
+                <div id="restaurant_features_content" style="width:700px;">
 
-              <div id="restaurant_features_content" style="width:700px;">
-
-                <h1 class="pg_title">Newsletter Settings</h1>
-                <p>RIA Newsletters are a unique new way to connect with diners. We believe your creativity is enough to drive business so our newsletters make it easy for you to connect with diners through your food, rather than relying on discounts, promotions and events to drive traffic in your door.  </p>
-                <p>
-                To get the most out of our newsletters, we recommend selecting a frequency that best matches how often you change your menu. Then, use our various platforms to post your news and menu items. </p>
+                  <h1 class="pg_title">Newsletter Settings</h1>
+                  <p>RIA Newsletters are a unique new way to connect with diners. We believe your creativity is enough to drive business so our newsletters make it easy for you to connect with diners through your food, rather than relying on discounts, promotions and events to drive traffic in your door.  </p>
+                  
+                  <p>Automated newsletter disctribution is available for premium Restaurant accounts only.if you would like to take advantage of this service please upgrade today. <%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %></p>
 
 
-                <div id="newsletter_settings" class="clearfix">
-                  <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
-                    <% f.inputs :class => "editing" do %>
+                  <div id="newsletter_settings" class="clearfix">
+                    <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
+                      <% f.inputs :class => "editing" do %>
 
-                      
-                      <p>When changing frequency or date, the change will take affect for all emails that have not already been scheduled.</p>
+                         <%= f.input :newsletter_frequency, :as => :select, :collection => ["weekly", "biweekly", "monthly"], :input_html => { :style => 'width:150px;' }  %>
+                         <%= f.input :newsletter_frequency_day, :as => :select, :collection => ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], :input_html => { :style => 'width:150px;' }  %>
 
-                      <%= f.input :newsletter_frequency, :as => :select, :collection => ["weekly", "biweekly", "monthly"], :input_html => { :style => 'width:150px;' }  %>
-                       <%= f.input :newsletter_frequency_day, :as => :select, :collection => ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], :input_html => { :style => 'width:150px;' }  %>
+                        <%= submit_tag "Save" %>
+                      <% end %>
+                      <h2>Customize Current Newsletter</h2><p>Add a headline and an introductory paragraph to your newsletter. This can be changed for every newsletter you send out. To see how it will look, add your headline and introduction below and then click Preview Newsletter.  </p>
+                      <% f.inputs :class => "editing" do %>
+                        <%= f.input :tag_line, :as => :text,:label=>"Newsletter Tagline", :input_html => { :style => 'margin-bottom: 12px;' }  %>
 
-                      <%= submit_tag "Save" %>
+                        <%= submit_tag "Add newsletter headline" %>
+                      <% end %>
                     <% end %>
-                    <h2>Customize Current Newsletter</h2><p>Add a headline and an introductory paragraph to your newsletter. This can be changed for every newsletter you send out. To see how it will look, add your headline and introduction below and then click Preview Newsletter.  </p>
-                    <% f.inputs :class => "editing" do %>
-                      <%= f.input :tag_line, :as => :text,:label=>"Newsletter Tagline", :input_html => { :style => 'margin-bottom: 12px;' }  %>
 
-                      <%= submit_tag "Add newsletter headline" %>
+                     <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
+                          <% f.semantic_fields_for :newsletter_setting do |ns| %>
+                              <% ns.inputs :class => "editing" do %>
+                                <%= ns.input :subject, :hint=>"Nesletter Subject"%>                         
+                                <%= submit_tag "Add Subject" %>
+                              <% end %>  
+                       <% end %>          
+                    <% end %>   
+                    <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
+                       
+                          <% f.semantic_fields_for :newsletter_setting do |ns| %>
+                              <% f.inputs do %>
+                                  <li class="span-12">
+                                      <label for="page_content_editor">Introduction</label>
+                                    <%= ns.cktext_area :introduction, :height => '340px'%>
+                                  </li>
+                              <% end %>
+                          <% end %>
+                          <%= submit_tag "Add newsletter introduction" %>
+              
                     <% end %>
-                  <% end %>
 
-                   <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
-                        <% f.semantic_fields_for :newsletter_setting do |ns| %>
-                            <% ns.inputs :class => "editing" do %>
-                              <%= ns.input :subject, :hint=>"Nesletter Subject"%>                         
-                              <%= submit_tag "Add Subject" %>
-                            <% end %>  
-                     <% end %>          
-                  <% end %>   
-                  <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
-                     
-                        <% f.semantic_fields_for :newsletter_setting do |ns| %>
-                            <% f.inputs do %>
-                                <li class="span-12">
-                                    <label for="page_content_editor">Introduction</label>
-                                  <%= ns.cktext_area :introduction, :height => '340px'%>
-                                </li>
-                            <% end %>
-                        <% end %>
-                        <%= submit_tag "Add newsletter introduction" %>
-            
-                  <% end %>
+                  </div>
+                  <h2>Preview and Schedule Newsletter</h2>
+                  <P><strong>Newsletters must be approved before they are sent to your mailing list. </strong> To approve your newsletter, please click preview newsletter to view and then click approve newsletter below. </P>
+
+                  <div id="restaurant_actions" class="clearfix"><br>
+                    <%= button_to "Preview newsletter", preview_restaurant_newsletters_path(@restaurant), :popup => true, :class => 'button',:method=>"get" %>
+                    <% unless @restaurant.newsletter_approved? %><p>To preview your newsletter, click the preview newsletter button. </p>
+                      <%= button_to "Approve newsletter", approve_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => "your newsletter will send on (#{@restaurant.next_newsletter_for_frequency.to_formatted_s(:sentence)}). Click here to cancel or click Send Newsetter to send immediately." %>
+                    <% end %><p>Approve your newsletter to send at regularly scheduled interval.<br></p>
+                    <% unless @restaurant.newsletter_approved %>
+                      <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :onclick => 'alert("You must approved your newsletter first.") ; return false ; ',:disable=>"disabled"%>
+                    <% else %>
+                    <%= button_to "Cancel newsletter", disapprove_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => "are you sure?" %><p>Next newsletter will send on <%=@restaurant.next_newsletter_for_frequency.to_formatted_s(:sentence)%>.Click here to cancel newsletter.<br></p>
+                    <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :confirm => 'Are you sure you want to send this newsletter right now?'%> To send newsletter immidiatly click here.
+                    <%end%>
+                <p>To send your newsletter to your list right now, select Send Newsletter<br> </p> </div>
 
                 </div>
-                <h2>Preview and Schedule Newsletter</h2>
-                <P><strong>Newsletters must be approved before they are sent to your mailing list. </strong> To approve your newsletter, please click preview newsletter to view and then click approve newsletter below. </P>
 
-                <div id="restaurant_actions" class="clearfix"><br>
-                  <%= button_to "Preview newsletter", preview_restaurant_newsletters_path(@restaurant), :popup => true, :class => 'button',:method=>"get" %>
-                  <% unless @restaurant.newsletter_approved? %><p>To preview your newsletter, click the preview newsletter button. </p>
-                    <%= button_to "Approve newsletter", approve_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => "your newsletter will send on (#{@restaurant.next_newsletter_for_frequency.to_formatted_s(:sentence)}). Click here to cancel or click Send Newsetter to send immediately." %>
-                  <% end %><p>Approve your newsletter to send at regularly scheduled interval.<br></p>
-                  <% unless @restaurant.newsletter_approved %>
-                    <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :onclick => 'alert("You must approved your newsletter first.") ; return false ; ',:disable=>"disabled"%>
-                  <% else %>
-                  <%= button_to "Cancel newsletter", disapprove_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => "are you sure?" %><p>Next newsletter will send on <%=@restaurant.next_newsletter_for_frequency.to_formatted_s(:sentence)%>.Click here to cancel newsletter.<br></p>
-                  <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :confirm => 'Are you sure you want to send this newsletter right now?'%> To send newsletter immidiatly click here.
-                  <%end%>
-              <p>To send your newsletter to your list right now, select Send Newsletter<br> </p> </div>
-
-              </div>
-
-            <%- else -%>
-              <p><%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %> to access your newsletter!</p>
+              <%- elsif current_user.account_type != "Basic"  -%>
+                <p><%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %> to access your newsletter!</p>
+              <% else  %> 
+              <p> Sorry! You don't have permission to access this page </p>     
             <%- end -%>
+         <%- end -%>
 
         </div>
     </div><!-- /editing_restaurant -->
