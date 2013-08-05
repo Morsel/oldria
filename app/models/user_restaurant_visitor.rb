@@ -80,7 +80,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
         if @uves.blank?
           @uves=create_user_visited_email_setting(user)
         end
-      if Time.now > @uves.next_email_at && !@uves.do_not_receive_email
+      if ( Time.now > @uves.next_email_at ) && ( !@uves.do_not_receive_email ) && ( !["Sun","Sat"].include?(Date::ABBR_DAYNAMES[Date.today.wday]) )
         #keyword trace if user chef is not associate to resturants or not
         @al_users= Array.new
         keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , user.user_visitor_email_setting.last_email_at,user.user_visitor_email_setting.last_email_at]).group_by(&:keywordable_type)
@@ -90,7 +90,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
             instance_variable_set("@#{key.to_s.downcase.pluralize}", keywords[key].map(&:keywordable))
           end
         end
-        @al_users = TraceKeyword.all(:conditions => ["(keywordable_type='ALaMinuteAnswer' OR keywordable_type='ALaMinuteQuestion') AND (DATE(created_at) >= ? OR DATE(updated_at) >= ?)" ,1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s]).map(&:user_id)
+        @al_users = TraceKeyword.all(:conditions => ["(keywordable_type='ALaMinuteAnswer' OR keywordable_type='ALaMinuteQuestion') AND (DATE(created_at) >= ? OR DATE(updated_at) >= ?)" ,get_limit_day.day.ago.beginning_of_day.to_formatted_s,get_limit_day.day.ago.beginning_of_day.to_formatted_s]).map(&:user_id)
         @a_la_minute_visitors = User.find(:all ,:conditions=>['id in (?)',@al_users.flatten.compact.uniq])
         if user.restaurants.blank? 
           # check the chef is associated restaurants or not
@@ -255,5 +255,13 @@ class UserRestaurantVisitor < ActiveRecord::Base
     @visitor_mail = 1
     write_the_file "public/email_logs/visitor_email_test_#{Time.now.strftime("%d_%m_%Y")}.html"
   end
+
+  def get_limit_day
+    if Date::ABBR_DAYNAMES[Date.today.wday] == "Mon"
+      return 2
+    else
+      return 1  
+    end 
+  end 
 
 end
