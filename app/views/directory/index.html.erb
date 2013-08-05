@@ -6,4 +6,8 @@
 			<%= render :partial => 'directory/search_criteria' %>		
 		</div>
 	</div>
+<% else %>
+	<div id="person_directory_list">
+	    <%= render :partial => 'directory/search_results', :locals => { :users => @users } %>
+	</div>
 <% end %>
