@@ -385,7 +385,6 @@ class RestaurantsController < ApplicationController
   def request_profile_update
     @restaurant = Restaurant.find( params[:restaurant_id])
     @restaurant.employments.each do |employment|
-      debugger
       if !employment.employee.user_visitor_email_setting.do_not_receive_email
         UserMailer.deliver_request_profile_update(@restaurant,employment.employee)
       end
