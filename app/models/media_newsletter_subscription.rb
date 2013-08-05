@@ -87,6 +87,6 @@ class MediaNewsletterSubscription < ActiveRecord::Base
     end 
   end  
   def add_subscription_to_mailchimp      
-    media_newsletter_subscriber.digest_mailchimp_update
+    #media_newsletter_subscriber.digest_mailchimp_update
   end
 end
