@@ -84,6 +84,24 @@ class Restaurants::NewslettersController < ApplicationController
       @status_data = @restaurant.get_campaign 
     end    
   end
+  
+  def get_opened_campaign
+    mc = MailchimpConnector.new
+    @openeds = mc.client.campaign_opened_AIM({:cid=>params[:campaign_id]})    
+    render :layout => false
+  end
+
+  def get_clicked_campaign
+    mc = MailchimpConnector.new
+    @clicks = mc.client.campaign_click_detail_AIM({:cid=>params[:campaign_id],:url => restaurant_newsletter_url(@restaurant,@restaurant.restaurant_newsletters.find_by_campaign_id(params[:campaign_id]))})    
+    render :layout => false
+  end
+
+  def get_bounces_campaign
+    mc = MailchimpConnector.new
+    @bounces = mc.client.campaign_members({:cid=>params[:campaign_id]})    
+    render :layout => false
+  end
 
   private
 
