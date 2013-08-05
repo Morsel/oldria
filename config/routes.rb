@@ -441,4 +441,8 @@ ActionController::Routing::Routes.draw do |map|
   map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
   #for get selected city
   map.get_selected_cities '/mediafeed/media_users/get_selected_cities', :controller => 'media_users', :action => 'get_selected_cities'
+  #get opened campaign
+  map.get_opened_campaign '/restaurants/:restaurant_id/newsletters/get_opened_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_opened_campaign'
+  map.get_clicked_campaign '/restaurants/:restaurant_id/newsletters/get_clicked_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_clicked_campaign'
+  map.get_bounces_campaign '/restaurants/:restaurant_id/newsletters/get_bounces_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_bounces_campaign'
 end
