@@ -4714,18 +4714,6 @@ fieldset{
 	width: 840px !important; 
 	}
 
-
-a.profile-out-of-date {	
-	  background: none !important;
-	}	
-
-
-.profile-out {
-    background: none repeat scroll 0 0 transparent;    
-    position: relative;    
-    top: 10px;
-}
-
 /* -----  for restaurant Directory ------------- */
 ul.featuredList{
     list-style: none;
@@ -4863,4 +4851,12 @@ a.request-profile-update {
 #user_directory_list{
 	top: -134px;
 	position: relative;
+}
+.profile-update {
+    background: none repeat scroll 0 0 transparent;    
+    position: relative;    
+    top: 12px;
+}
+a.request-profile-update {  
+    background: none !important;
 }

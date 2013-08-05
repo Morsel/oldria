@@ -10,12 +10,18 @@
                   <span class="left"><%= link_to @restaurant.name,restaurant_path(@restaurant),:id=>"restaurant_profile" %></span>
                 <% if(current_user.media? ) %>
                     <div id="subscribe-div"> 
+<<<<<<< HEAD
                       <%= render :partial => 'restaurants/subscribe', :locals => { :restaurant => @restaurant } %>                    
                       <div class="profile-out">
                         <%= link_to "Profile out of date",restaurant_profile_out_of_date_path(@restaurant),:class=>"profile-out-of-date subscribe" %>
                       </div>
                       <div class="profile-update">
                         <%= link_to "Request profile update",restaurant_request_profile_update_path(@restaurant),:class=>"request-profile-update subscribe" %>
+=======
+                      <%= render :partial => 'restaurants/subscribe', :locals => { :restaurant => @restaurant } %> 
+                      <div class="profile-update">
+                        <%= link_to "Request Profile Update",restaurant_request_profile_update_path(@restaurant),:class=>"request-profile-update subscribe" %>
+>>>>>>> origin/Request-Profile-Update-email-52307167-II
                       </div>
                     </div>
                     <div class="clear"></div> 
