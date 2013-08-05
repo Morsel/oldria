@@ -26,8 +26,8 @@
         <h3>What our chefs are serving up:</h3>
         <div class="setlistwidth">
         <ul>
-            <%@otm_keyword.each do |otm_keyword|%>
-                <li class="list_item"> <%=link_to otm_keyword.name , menu_items_path(:id=>otm_keyword.id,:keyword=>otm_keyword.name)%></li>     
+            <%@menu_item_keywords.each do |menu_item_keyword|%>
+                <li class="list_item"> <%=link_to menu_item_keyword.otm_keyword.name , menu_items_path(:id=>menu_item_keyword.otm_keyword.id,:keyword=>menu_item_keyword.otm_keyword.name)%></li>     
             <%end%>
         </ul>
         </div>

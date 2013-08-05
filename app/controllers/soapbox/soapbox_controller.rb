@@ -66,7 +66,7 @@ class Soapbox::SoapboxController < ApplicationController
       @restaurants = Restaurant.all
     end
     @use_search = true
-    @otm_keyword = OtmKeyword.all(:limit=>9)
+    @menu_item_keywords = MenuItemKeyword.all(:select=>"distinct otm_keyword_id",:limit=>9,:order=>"id desc")
     @no_sidebar = true
     render :template => "directory/restaurants"
   end
