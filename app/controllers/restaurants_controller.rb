@@ -285,9 +285,11 @@ class RestaurantsController < ApplicationController
                   @news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
                 end
             end 
-          rescue FasterCSV::MalformedCSVError               
-              @news.push("csv file not valid format.")
+          rescue FasterCSV::MalformedCSVError 
+            @error_arr.push("csv file not valid format.")
+            flash[:notice] = "Please select vaild csv file."
           end
+
            
           unless @error_arr.compact.blank?
             flash[:notice] = "The following people are arleady subscribed #{@error_arr.to_sentence }."
