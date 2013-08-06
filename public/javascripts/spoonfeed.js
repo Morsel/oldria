@@ -770,6 +770,13 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     var $form=$(this).parent().find("input:text");
     $('#restaurant_criteria input').not($form).val('');
   });
+
+     $('.skipp').live('click',function(e){
+      e.preventDefault();
+      $(this).closest('form').submit();      
+   })
+
+
   // end $(document).ready
 });
 
