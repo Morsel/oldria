@@ -656,7 +656,7 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       $(this).prev().attr("disabled","disabled");
   })
 
-  // //mediafeed user edit 
+  // //mediafeed user edit  
   $("#search_state_by_name").autocomplete({
     source: "/auto_complete.js?metro=metro",
     select: function( event, ui ) {
@@ -676,6 +676,7 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       });
     }
   });
+
   $("#search_digest_state_by_name").autocomplete({
     source: "/auto_complete.js?metro=metro",
     select: function( event, ui ) {
@@ -695,6 +696,7 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       });
     }
   });
+
   $("#newsfeed_metropolitan_area_search input[type=checkbox], #digest_metropolitan_area_search input[type=checkbox]").live('click',function() {
     if($(this).prop('checked'))
       $(this).prev().removeAttr("disabled");

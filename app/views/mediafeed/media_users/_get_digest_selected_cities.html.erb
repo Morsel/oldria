@@ -1,5 +1,5 @@
 <p>To add another, type in the abbreviation for your state<p>
-<% @cities.each_with_index do |city,id| %>
+<% @cities.each_with_index do |city,id| %> 
 	<li>
 		<label for="digest_user_metropolitan_area_ids_<%=city.id%>_<%=id%>">
 	    <% checked = false %>
@@ -9,4 +9,4 @@
 	    <%=city.state%>: <%=city.name%>
 	    </label>                             
 	</li>
-<% end %>
+<% end %> 
