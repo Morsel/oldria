@@ -2,6 +2,7 @@ class PromotionsController < ApplicationController
   before_filter :require_user, :only =>[:details]
   before_filter :find_restaurant
   before_filter :require_manager, :except => [:index,:details,:preview]
+  before_filter :check_employments, :only => [:new]
   before_filter :social_redirect, :only => [:edit]
 
   def index

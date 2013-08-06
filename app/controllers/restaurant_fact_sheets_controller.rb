@@ -3,7 +3,8 @@ class RestaurantFactSheetsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update, :destroy]
   before_filter :find_restaurant, :only => :show
-
+  before_filter :check_employments, :only => [:edit]
+  
   # GET /restaurant_fact_sheets/1
   # GET /restaurant_fact_sheets/1.xml
   def show

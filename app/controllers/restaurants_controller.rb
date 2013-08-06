@@ -7,6 +7,7 @@ class RestaurantsController < ApplicationController
 
 
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive,:media_subscribe]
+  before_filter :check_employments, :only => [:api,:new_manager_needed,:download_subscribers,:new_media_contact,:newsletter_subscriptions,:restaurant_visitors]
 
   def index
     @employments = current_user.employments
@@ -303,12 +304,8 @@ class RestaurantsController < ApplicationController
         flash[:notice] = "Please select csv file. "
          redirect_to newsletter_subscriptions_restaurant_path
     end 
-
   end
   
-
-  def api    
-  end
     
   def media_subscribe     
     if current_user.media?   

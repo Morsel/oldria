@@ -57,6 +57,13 @@ class ApplicationController < ActionController::Base
       @user.delete_other_writers
   end
 
+  def check_employments
+    if (["Chef/Partner","Executive Chef","Executive Chef/Owner","Director of Operations","Owner","Operations Director","Partner","Pastry Chef/Owner","Wine Director/Owner"] &  @restaurant.employments.map(&:restaurant_role).compact.map(&:name)).blank?       
+      redirect_to edit_restaurant_path(@restaurant)
+      flash[:notice] = "Looks like the  #{@restaurant.name} restaurant profile is missing some personnel! Please add all key staff to the staff tab to ensure the restaurant is accurately represented for media so you can proceed. Thank you!"
+    end
+  end
+
   private
 
   def site_layout

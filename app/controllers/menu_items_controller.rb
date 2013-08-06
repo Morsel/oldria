@@ -1,7 +1,9 @@
 class MenuItemsController < ApplicationController
 
   before_filter :require_user
+  before_filter :find_restaurant
   before_filter :require_manager, :except => [:index,:get_keywords,:add_keywords,:details,:show]
+  before_filter :check_employments, :only => [:new]
   before_filter :social_redirect, :only => [:edit]
   before_filter :verify_restaurant_activation, :only => [:show]
   

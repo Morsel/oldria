@@ -3,6 +3,7 @@ class ALaMinuteAnswersController < ApplicationController
   before_filter :require_user
   before_filter :require_restaurant_employee, :only => [:destroy, :bulk_edit, :edit, :update, :new, :create,:delete_attachment,:facebook_post]
   before_filter :find_activated_restaurant, :only => [:index]
+  before_filter :check_employments, :only => [:bulk_edit]
   before_filter :social_redirect, :only => [:edit]
 
   def index    

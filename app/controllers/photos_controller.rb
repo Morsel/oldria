@@ -2,6 +2,7 @@ class PhotosController < ApplicationController
   before_filter :require_user
   before_filter :find_restaurant
   before_filter :require_account_manager_authorization, :except => [:index]
+  before_filter :check_employments, :only => [:bulk_edit]
 
   def index
     @photos = @restaurant.photos
@@ -63,4 +64,5 @@ class PhotosController < ApplicationController
   def find_restaurant
     @restaurant = Restaurant.find(params[:restaurant_id], :include => :photos)
   end
+
 end
