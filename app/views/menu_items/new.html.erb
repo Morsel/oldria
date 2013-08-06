@@ -17,7 +17,7 @@
 $(document).ready(function() {
   var userNotSelectedCheckBox = true
   var ajaxNotStart = true;
-  var isPageLoad = true;
+  var isPageLoad = true;  
   $('#form-tabs').tabs({
     panelTemplate: '<section></section>',
     fx: { duration: 'fast', opacity: 'toggle' },
@@ -45,11 +45,17 @@ $(document).ready(function() {
 
     if($(this).val().length>1)
     {
-        var data = $(this).val()
+        var data = $(this).val();
+        var selected_keywords = new Array();
+          $("#form-search-keywords input[type=checkbox]").each(function(){
+              if ($(this).is(":checked")){
+                  selected_keywords.push($(this).val());            
+              }
+          });
         $('#form-search-keywords').html('<%=image_tag "ajax-loader.gif" %><div class="clear"> </div>');
         if(ajaxNotStart)
         {
-          ajaxNotStart = true
+          ajaxNotStart = true;
           $.ajax({
           data:{search_keywords:data,restaurant_id:<%=@restaurant.id%>},
           beforeSend:function(){$('#form-search-keywords').html('<%=image_tag "ajax-loader.gif" %><div class="clear"> </div>')},
@@ -58,7 +64,7 @@ $(document).ready(function() {
             if(userNotSelectedCheckBox) 
               $('#form-search-keywords').html(request.responseText)
             },
-            url: '<%=get_keywords_path%>'
+            url: "<%=get_keywords_path%>?selected_keywords="+selected_keywords+""
           })
         
         }
