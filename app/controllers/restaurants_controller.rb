@@ -270,47 +270,47 @@ class RestaurantsController < ApplicationController
 
 
   def import_csv  
-      @error_arr =[]  
+    @error_arr =[]  
+    @error_emails = []
+    err_msg = ''
     if (!params[:document].nil?)
-       file_type = params[:document].original_filename.scan(/\.\w+$/)[0].to_s.gsub(".","")
-        if file_type.to_s.downcase =="csv" 
-          begin
-            file = params[:document]
-            tmp_pwd = 'temp123'         
-            FasterCSV.read(params[:document].path,:headers => true,:col_sep => "\t").each do |i|
-               @news = NewsletterSubscriber.new(:first_name => i[0],:last_name => i[1],:email => i[2],:password=>tmp_pwd) 
-                unless @news.save
-                  @error_arr.push(@news.email)
-                else
-                  @news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
-                end
-            end 
-          rescue FasterCSV::MalformedCSVError 
-            @error_arr.push("csv file not valid format.")
-            flash[:notice] = "Please select vaild csv file."
-          end
 
-           
-          unless @error_arr.compact.blank?
-            flash[:notice] = "The following people are arleady subscribed #{@error_arr.to_sentence }."
-            redirect_to newsletter_subscriptions_restaurant_path
-          else
-            flash[:notice] = "Records successfully inserted."
-            redirect_to newsletter_subscriptions_restaurant_path
-          end
-         
+       file_type = params[:document].original_filename.scan(/\.\w+$/)[0].to_s.gsub(".","")
+        if file_type.to_s.downcase == "csv" 
+          import_newletter_subscriber_csv
+        elsif file_type.to_s.downcase == "xls"  
+          import_newletter_subscriber_xls
+        elsif file_type.to_s.downcase == "xlsx"  
+          import_newletter_subscriber_xlsx  
         else
-         flash[:notice] = "Please select csv file."
-         redirect_to newsletter_subscriptions_restaurant_path
+          flash[:notice] = "Please select vaild csv or excel file."
+          redirect_to newsletter_subscriptions_restaurant_path
+        end  
+
+        unless @error_arr.blank?         
+          err_msg += "Not able to save,due to follwoing errors: #{@error_arr.to_sentence }."          
+        end
+        unless @error_emails.blank?
+          err_msg += '<br>' unless err_msg==''
+         err_msg += "The following people are arleady subscribed #{@error_emails.to_sentence }."
         end 
-    else  
-        flash[:notice] = "Please select csv file. "
-         redirect_to newsletter_subscriptions_restaurant_path
+
+        if @error_arr.blank? && @error_emails.blank?
+          flash[:notice] = "Records successfully inserted."
+          redirect_to newsletter_subscriptions_restaurant_path
+        else
+          flash[:error] = err_msg
+          redirect_to newsletter_subscriptions_restaurant_path
+        end
+         
+    else
+        flash[:notice] = "Please select csv or excel file. "
+        redirect_to newsletter_subscriptions_restaurant_path
     end 
   end
-  
     
-  def media_subscribe     
+
+  def nee     
     if current_user.media?   
       mnls = current_user.restaurant_newsletter_subscription(@restaurant)   
       if  mnls.blank? && MediaNewsletterSubscription.create(:media_newsletter_subscriber => current_user, :restaurant => @restaurant)
@@ -400,6 +400,90 @@ class RestaurantsController < ApplicationController
   end
 
   private
+
+  def import_newletter_subscriber_csv
+    begin
+      file = params[:document]
+      tmp_pwd = 'temp123'         
+      FasterCSV.read(params[:document].path,:headers => true,:col_sep => "\t").each do |i|
+        news = NewsletterSubscriber.find_by_email(i[2])
+        if news.nil?
+          news = NewsletterSubscriber.new(:first_name => i[0],:last_name => i[1],:email => i[2],:password=>tmp_pwd) 
+          news.save
+        end
+          unless news.valid?
+            @error_arr.push("#{news.email} : #{news.errors.full_messages.to_sentence}")
+          else
+            unless news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
+              @error_emails.push("#{news.email}")
+            end  
+          end        
+      end 
+    rescue FasterCSV::MalformedCSVError    
+      @error_arr.push("CSV file not in valid format.")     
+    end
+
+  end  
+
+
+  def import_newletter_subscriber_xls
+    begin
+      file = params[:document]
+      tmp_pwd = 'temp123' 
+      Spreadsheet.client_encoding = 'UTF-8'
+      xls = Spreadsheet.open file.path 
+      sheet = xls.worksheet 0
+      cn = 0
+      sheet.each do |row|
+         if !row.blank?
+          news = NewsletterSubscriber.find_by_email(row[2])
+            if news.nil?
+              news = NewsletterSubscriber.new(:first_name => row[0],:last_name => row[1],:email => row[2],:password=>tmp_pwd) 
+              news.save
+            end
+            unless news.valid?
+              @error_arr.push(news.email)
+            else
+              unless news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
+                @error_emails.push("#{news.email}")
+              end               
+            end
+          end
+      cn = cn+1   
+      end  
+    rescue 
+      @error_arr.push("Excel file not in valid format.")
+    end
+  end    
+
+
+  def import_newletter_subscriber_xlsx
+    begin
+      file = params[:document]
+      tmp_pwd = 'temp123' 
+      xls = SimpleXlsxReader.open file.path 
+      xls.sheets.each do |sheet|
+        sheet.rows.each do |row|
+          if !row.blank?
+          news = NewsletterSubscriber.find_by_email(row[2])
+            if news.nil?
+              news = NewsletterSubscriber.new(:first_name => row[0],:last_name => row[1],:email => row[2],:password=>tmp_pwd) 
+              news.save
+            end
+            unless news.valid?
+              @error_arr.push(news.email)
+            else              
+              unless news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
+                @error_emails.push("#{news.email}")
+              end
+            end
+          end
+        end   
+      end   
+    rescue 
+      @error_arr.push("Excel file not in valid format.")          
+    end  
+  end   
 
   def find_activated_restaurant    
     find_restaurant
