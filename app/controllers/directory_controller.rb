@@ -39,7 +39,7 @@ class DirectoryController < ApplicationController
     else
       @use_search = true
       @restaurants = Restaurant.activated_restaurant
-      @otm_keyword = OtmKeyword.all(:limit=>9)  
+      @menu_item_keywords = MenuItemKeyword.all(:select=>"distinct otm_keyword_id",:limit=>9,:order=>"id desc")
     end
   end
   
