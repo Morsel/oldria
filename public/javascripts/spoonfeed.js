@@ -772,6 +772,7 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     var $form=$(this).parent().find("input:text");
     $('#restaurant_criteria input').not($form).val('');
   });
+
   // //mediafeed user edit 
   $("#search_state_by_name").autocomplete({
     source: "/auto_complete.js?metro=metro",
@@ -818,6 +819,15 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       $(this).prev().attr("disabled","disabled");
   });
   // end mediafeed user edit 
+
+
+     $('.skipp').live('click',function(e){
+      e.preventDefault();
+      $(this).closest('form').submit();      
+   })
+
+
+
   // end $(document).ready
 });
 
