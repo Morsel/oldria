@@ -1,7 +1,7 @@
-<% if params[:newsfeed] %>
+<% if params[:newsfeed] %> 
 	$('#loader').html('');
 	$("#newsfeed_metropolitan_area_search").html('<%= escape_javascript(render :partial => "/mediafeed/media_users/get_selected_cities" ) %>')
-<% else %>
+<% else %> 
 	$('#digest_loader').html('');
 	$("#digest_metropolitan_area_search").html('<%= escape_javascript(render :partial => "/mediafeed/media_users/get_digest_selected_cities" ) %>')
-<% end %>
+<% end %> 
