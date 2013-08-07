@@ -255,7 +255,6 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.request_profile_update 'request_profile_update', :controller => "restaurants", :action => "request_profile_update"
 
     restaurant.resources :visitor_emails
-    restaurant.profile_out_of_date 'profile_out_of_date', :controller => "restaurants", :action => "profile_out_of_date"
 
     restaurant.show_notice 'show_notice', :controller => "restaurants", :action => "show_notice"
     restaurant.request_profile_update 'request_profile_update', :controller => "restaurants", :action => "request_profile_update"
