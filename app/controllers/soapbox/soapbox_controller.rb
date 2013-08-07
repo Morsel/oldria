@@ -38,7 +38,7 @@ include AutoCompleteHelper
 
   def directory_search
     if params[:search_person_eq_any_name]
-      @users = User.in_soapbox_directory.profile_specialties_name_or_profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
+      @users = User.in_soapbox_directory.profile_specialties_name_equals(params[:search_person_eq_any_name]).uniq + User.in_soapbox_directory.profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
       @users = @users.push(User.in_soapbox_directory.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?
     else
       @users = User.in_soapbox_directory.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
