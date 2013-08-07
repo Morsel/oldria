@@ -1,15 +1,13 @@
 <% title "Personal Profile Directory" %>
-
 <%= title_for_search %>
-
 <% if @use_search %>
-<div id="directory_search">
-    <% form_tag do %>
-        <%= render :partial => 'directory/search_criteria' %>
-    <% end %>
-</div>
+	<div id="directory_search">
+		<div class="color-box-restaurant">
+			<%= render :partial => 'directory/search_criteria' %>		
+		</div>
+	</div>
+<% else %>
+	<div id="person_directory_list">
+	    <%= render :partial => 'directory/search_results', :locals => { :users => @users } %>
+	</div>
 <% end %>
-
-<div id="directory_list">
-    <%= render :partial => 'directory/search_results', :locals => { :users => @users } %>
-</div>
