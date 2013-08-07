@@ -495,12 +495,57 @@ ul.featuredList{
     list-style: none;
 }
 .list_item {
-    margin: 5px;
-    padding: 5px;
-    width: 200px;
-    float: left;
+  margin: 5px;
+  padding: 5px;
+  width: 120px;
+  float: left;
 }
-ul.featuredList li:before {
-        content: "\00BB \0020";
+.setlistwidth{
+  width: 500px;
 }
+.search_resturant{
+	width:46%;
+	#search_restaurant_eq_any_name, #search_person_eq_any_name{
+		 position: relative;
+	     top: 9px;
+	     width: 318px;
+	}
+	button{
+		position: relative;
+		top: -47px;
+		left: 343px;
+	}
+}
+.search_resturant_region {
+    left: 447px;
+    position: relative;
+    top: -122px;
+    width: 62%;
+	h3{
+		left: -66px;
+		position: relative;
+	}
+	label{
+		left: -66px;
+		position: relative;
+	}
+	form input{
+		top: 25px;
+		position: relative;
+		width: 300px;
+	}
+	button{
+		left: 336px;
+		position: relative;
+		top: -31px;
+	}
+} 
+#restaurant_directory_list{
+  top: -134px;
+  position: relative;
+}
+#user_directory_list{
+  top: -134px;
+  position: relative;
+} 
 /* -----  end restaurant Directory ------------- */
