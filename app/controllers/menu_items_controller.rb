@@ -72,7 +72,8 @@ class MenuItemsController < ApplicationController
 
   def get_keywords
     find_restaurant
-    @categories_keywords = OtmKeyword.find(:all,:conditions=>["name like ? ","%#{params[:search_keywords]}%"],:order => "category ASC, name ASC",:limit=>100) 
+    @selected_keywords = params[:selected_keywords].split(",").map { |s| s.to_i }
+    @categories_keywords = OtmKeyword.find(:all,:conditions=>["id IN(?) OR name like ? ",@selected_keywords,"%#{params[:search_keywords]}%"],:order => "category ASC, name ASC",:limit=>100)
      respond_to do |wants|      
         wants.html { render :partial=>'get_keywords' }
     end
