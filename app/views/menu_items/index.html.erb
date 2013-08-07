@@ -6,14 +6,6 @@
         <div id="menu_items_header">
             <h2>On the Menu</h2>
         </div>
-        <div class="color-box-restaurant">
-            <% form_tag menu_items_path  do %>
-                <label for="otm_keyword_editor">Search</label>
-                <%= text_field_tag "otm_keyword_search", "", :name => "keyword" %>
-                <p class="inline-hints">Enter the name of the Otm Keyword to search</p>
-                <p><%= button_tag "Search", :class => 'positive' %></p>
-            <% end %>
-        </div>
         <p class="clearfix"><%= link_to "Add a new item", new_restaurant_menu_item_path(@restaurant), :class => "button" %></p>
 
 		<p>Prefer email? Send your new menu item to <%= mail_to MenuItem.email_address_for_restaurant(@restaurant) %>. Include a photo as an attachment, name of dish in subject of email, description in body of email and, on a separate line, use $ to indicate price.</p>
