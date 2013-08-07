@@ -17,7 +17,7 @@ class NewsletterSubscription < ActiveRecord::Base
 
   validates_uniqueness_of :newsletter_subscriber_id, :scope => :restaurant_id
 
-  after_create :add_subscription_to_mailchimp
+  #after_create :add_subscription_to_mailchimp
   after_destroy :remove_subscription_from_mailchimp
 
   private
