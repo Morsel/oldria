@@ -1,9 +1,9 @@
 class RestaurantsController < ApplicationController
-  before_filter :require_user, :except =>[:media_user_newsletter_subscription]
-  before_filter :authorize, :only => [:edit, :update, :select_primary_photo,
-                                             :new_manager_needed, :replace_manager, :fb_page_auth,
-                                             :remove_twitter, :download_subscribers, :activate_restaurant,:new_media_contact,:replace_media_contact,
-                                             :fb_deauth,:newsletter_subscriptions,:api,:restaurant_visitors]
+   before_filter :require_user, :except =>[:media_user_newsletter_subscription]
+   before_filter :authorize, :only => [:edit, :update, :select_primary_photo,
+                                              :new_manager_needed, :replace_manager, :fb_page_auth,
+                                              :remove_twitter, :download_subscribers, :activate_restaurant,:new_media_contact,:replace_media_contact,
+                                              :fb_deauth,:newsletter_subscriptions,:api,:restaurant_visitors,:confirmation_screen,:import_csv]
 
 
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive,:media_subscribe]
@@ -270,46 +270,49 @@ class RestaurantsController < ApplicationController
 
 
   def import_csv  
-    @error_arr =[]  
-    @error_emails = []
-    err_msg = ''
-    if (!params[:document].nil?)
-
-       file_type = params[:document].original_filename.scan(/\.\w+$/)[0].to_s.gsub(".","")
-        if file_type.to_s.downcase == "csv" 
-          import_newletter_subscriber_csv
-        elsif file_type.to_s.downcase == "xls"  
-          import_newletter_subscriber_xls
-        elsif file_type.to_s.downcase == "xlsx"  
-          import_newletter_subscriber_xlsx  
-        else
-          flash[:notice] = "Please select vaild csv or excel file."
-          redirect_to newsletter_subscriptions_restaurant_path
-        end  
-
-        unless @error_arr.blank?         
-          err_msg += "Not able to save,due to follwoing errors: #{@error_arr.to_sentence }."          
+    tmp_pwd = 'temp123' 
+    @error_arr = []
+     @rows = []
+     
+    (0..params[:first_name].count-1).each do |index,confirmation_key|
+      index = index.to_s
+      if  !params[:confirmation].blank? && params[:confirmation].keys.include?(index)
+        nls = NewsletterSubscriber.find_by_email(params[:email][index])      
+        if nls.nil?
+          nls = NewsletterSubscriber.new(:first_name =>  params[:first_name][index],:last_name =>params[:last_name][index],:email => params[:email][index],:password=>tmp_pwd) 
+          nls.save
         end
-        unless @error_emails.blank?
-          err_msg += '<br>' unless err_msg==''
-         err_msg += "The following people are arleady subscribed #{@error_emails.to_sentence }."
-        end 
-
-        if @error_arr.blank? && @error_emails.blank?
-          flash[:notice] = "Records successfully inserted."
-          redirect_to newsletter_subscriptions_restaurant_path
+        
+        unless nls.valid?
+          @error_arr.push(nls.errors.full_messages.to_sentence)
+          @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:error=>true})
         else
-          flash[:error] = err_msg
-          redirect_to newsletter_subscriptions_restaurant_path
+          build_nls = nls.newsletter_subscriptions.build({:restaurant_id=>@restaurant})
+          unless build_nls.save
+            @error_arr.push(build_nls.errors.full_messages.to_sentence)
+            @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:error=>true})
+          end               
         end
-         
-    else
-        flash[:notice] = "Please select csv or excel file. "
+      else
+        @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:confirmation=>false})
+      end
+
+
+    end
+  
+      if @error_arr.flatten.blank? 
+        flash[:notice] = "Records successfully inserted."
         redirect_to newsletter_subscriptions_restaurant_path
-    end 
-  end
-    
+      else
+        flash.delete(:notice)
+        flash[:error] = @error_arr.flatten.uniq.to_sentence
+        render  :confirmation_screen
 
+      end
+
+
+  end  
+ 
   def media_subscribe          
     if current_user.media?   
       mnls = current_user.restaurant_newsletter_subscription(@restaurant)   
@@ -399,25 +402,48 @@ class RestaurantsController < ApplicationController
     redirect_to restaurant_path(@restaurant) 
   end
 
+  def confirmation_screen
+    @error_arr =[]  
+    @error_emails = []
+    err_msg = ''
+    @rows = []
+    if (!params[:document].nil?)
+
+       file_type = params[:document].original_filename.scan(/\.\w+$/)[0].to_s.gsub(".","")
+        if file_type.to_s.downcase == "csv" 
+          import_newletter_subscriber_csv
+        elsif file_type.to_s.downcase == "xls"  
+          import_newletter_subscriber_xls
+        elsif file_type.to_s.downcase == "xlsx"  
+          import_newletter_subscriber_xlsx  
+        else
+          flash[:notice] = "Please select vaild csv or excel file."
+          redirect_to newsletter_subscriptions_restaurant_path
+        end          
+
+        if @error_arr.blank?
+          flash[:notice] = "Please confirm users."          
+        else
+          flash[:error] = @error_arr.to_sentence
+          redirect_to newsletter_subscriptions_restaurant_path
+        end
+         
+    else
+        flash[:notice] = "Please select csv or excel file. "
+        redirect_to newsletter_subscriptions_restaurant_path
+    end  
+  end  
+
+
+
+
   private
 
   def import_newletter_subscriber_csv
     begin
-      file = params[:document]
-      tmp_pwd = 'temp123'         
-      FasterCSV.read(params[:document].path,:headers => true,:col_sep => "\t").each do |i|
-        news = NewsletterSubscriber.find_by_email(i[2])
-        if news.nil?
-          news = NewsletterSubscriber.new(:first_name => i[0],:last_name => i[1],:email => i[2],:password=>tmp_pwd) 
-          news.save
-        end
-          unless news.valid?
-            @error_arr.push("#{news.email} : #{news.errors.full_messages.to_sentence}")
-          else
-            unless news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
-              @error_emails.push("#{news.email}")
-            end  
-          end        
+      file = params[:document]              
+      FasterCSV.read(params[:document].path,:headers => true,:col_sep => "\t").each do |i|        
+         @rows.push({:first_name=>i[0],:last_name=>i[1],:email=>i[2]})      
       end 
     rescue FasterCSV::MalformedCSVError    
       @error_arr.push("CSV file not in valid format.")     
@@ -435,21 +461,7 @@ class RestaurantsController < ApplicationController
       sheet = xls.worksheet 0
       cn = 0
       sheet.each do |row|
-         if !row.blank?
-          news = NewsletterSubscriber.find_by_email(row[2])
-            if news.nil?
-              news = NewsletterSubscriber.new(:first_name => row[0],:last_name => row[1],:email => row[2],:password=>tmp_pwd) 
-              news.save
-            end
-            unless news.valid?
-              @error_arr.push(news.email)
-            else
-              unless news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
-                @error_emails.push("#{news.email}")
-              end               
-            end
-          end
-      cn = cn+1   
+         @rows.push({:first_name=>row[0],:last_name=>row[1],:email=>row[2]})         
       end  
     rescue 
       @error_arr.push("Excel file not in valid format.")
@@ -464,20 +476,7 @@ class RestaurantsController < ApplicationController
       xls = SimpleXlsxReader.open file.path 
       xls.sheets.each do |sheet|
         sheet.rows.each do |row|
-          if !row.blank?
-          news = NewsletterSubscriber.find_by_email(row[2])
-            if news.nil?
-              news = NewsletterSubscriber.new(:first_name => row[0],:last_name => row[1],:email => row[2],:password=>tmp_pwd) 
-              news.save
-            end
-            unless news.valid?
-              @error_arr.push(news.email)
-            else              
-              unless news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
-                @error_emails.push("#{news.email}")
-              end
-            end
-          end
+          @rows.push({:first_name=>row[0],:last_name=>row[1],:email=>row[2]})           
         end   
       end   
     rescue 
