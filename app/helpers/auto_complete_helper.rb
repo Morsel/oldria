@@ -3,7 +3,7 @@ module AutoCompleteHelper
 	def get_autocomplete_restaurant_result
 		keyword_name = params[:term]        
     if params[:name]=="restaurant"
-      @keywords = ["RESTAURANTS BY KEYWORD"] + OtmKeyword.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANTS BY NAME"] + Restaurant.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANTS BY FEATURE"] + RestaurantFeature.find(:all,:conditions => ["value like ?", "%#{keyword_name}%"],:limit => 2).map(&:value) + ["RESTAURANTS BY CUISINE"]  + Cuisine.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) 
+      @keywords = ["RESTAURANTS BY KEYWORD"] + OtmKeyword.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANTS BY NAME"] + Restaurant.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANTS BY FEATURE"] + RestaurantFeature.find(:all,:conditions => ["value like ?", "%#{keyword_name}%"],:limit => 2).map(&:value) + ["RESTAURANTS BY CUISINE"]  + Cuisine.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) 
       @keywords = filter_results(["RESTAURANTS BY KEYWORD","RESTAURANTS BY NAME","RESTAURANTS BY FEATURE","RESTAURANTS BY CUISINE"])
     else
       @keywords = ["RESTAURANTS BY REGION"]  + JamesBeardRegion.find(:all,:conditions => ["name like ? or description like ?", "%#{keyword_name}%","%#{keyword_name}%"],:limit => 5).map(&:name) + ["RESTAURANTS BY STATE"] + get_state_name_array.grep(/^#{keyword_name}/i)[0..5]

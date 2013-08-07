@@ -120,8 +120,8 @@ class NewsletterSubscriber < ActiveRecord::Base
         else
           { :name => "Your Interests", :groups => "" }
         end
-        #mc.client.list_subscribe(:id => mc.mailing_list_id, :email_address => email, :update_existing => true, :double_optin => false,
-                                 #:merge_vars => { :fname => first_name, :lname => last_name, :groupings => [groupings] })
+        mc.client.list_subscribe(:id => mc.mailing_list_id, :email_address => email, :update_existing => true, :double_optin => false,
+                                 :merge_vars => { :fname => first_name, :lname => last_name, :groupings => [groupings] })
       end
     end
   end
