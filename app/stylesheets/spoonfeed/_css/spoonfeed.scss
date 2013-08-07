@@ -4718,15 +4718,13 @@ fieldset{
 	}
 
 
-a.profile-out-of-date {	
-	  background: none !important;
-	}	
-
-
-.profile-out {
+.profile-update {
     background: none repeat scroll 0 0 transparent;    
     position: relative;    
-    top: 10px;
+    top: 12px;
+}
+a.request-profile-update {  
+    background: none !important;
 }
 #font-fix{
 	font-size: inherit !important;

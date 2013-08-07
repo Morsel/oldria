@@ -251,11 +251,11 @@ class UserMailer < ActionMailer::Base
     body        :msg => msg
   end  
 
-  def profile_out_of_date(restaurant)
+  def request_profile_update(restaurant,employee)
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  restaurant.try(:media_contact).try(:email)
+    recipients  employee.email
     sent_on     Time.now
-    subject     "A journalist has requested updates to the #{restaurant.try(:name)} profile"
+    subject     "Request from Journalist"
     body        :restaurant => restaurant
   end 
 
