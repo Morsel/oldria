@@ -310,7 +310,7 @@ class RestaurantsController < ApplicationController
   end
     
 
-  def nee     
+  def media_subscribe          
     if current_user.media?   
       mnls = current_user.restaurant_newsletter_subscription(@restaurant)   
       if  mnls.blank? && MediaNewsletterSubscription.create(:media_newsletter_subscriber => current_user, :restaurant => @restaurant)
