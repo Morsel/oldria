@@ -4836,19 +4836,8 @@ a.profile-out-of-date {
     padding: 0;
     text-transform: uppercase;
 }
-.profile-update {
-    background: none repeat scroll 0 0 transparent;    
-    position: relative;    
-    top: 17px;
-}
-a.request-profile-update {	
-	  background: none !important;
-}
+/* -----  for restaurant Directory ------------- */
 #restaurant_directory_list{
-	top: -134px;
-	position: relative;
-}
-#user_directory_list{
 	top: -134px;
 	position: relative;
 }
@@ -4889,4 +4878,3 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 }
 
 /* @end */
-

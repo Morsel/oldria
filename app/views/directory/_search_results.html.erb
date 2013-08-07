@@ -1,10 +1,10 @@
 <% if @users.present? %>
-<div id="user-results">
-	<h1>Users</h1>
-	<% for user in @users %>
-		<%= render :partial => 'users/identity', :locals => { :user => user } %>
-	<% end %>
-</div>
+	<div id="user-results">
+		<h1>Users</h1>
+		<% for user in @users %>
+			<%= render :partial => 'users/identity', :locals => { :user => user } %>
+		<% end %>
+	</div>
 <% else %>
   <h3>No matching results</h3>
 <% end -%>

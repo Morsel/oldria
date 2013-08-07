@@ -75,9 +75,10 @@ $(document).ready(function(){
 		fx: { duration: 'fast', opacity: 'toggle' }
 	});
 	$('.ui-tabs-panel').equalHeights();
-	$('#trend-comments .comment, #qotd-comments .comment').equalHeights();		
 
- //for autocomplete controller
+	$('#trend-comments .comment, #qotd-comments .comment').equalHeights();
+	
+//for autocomplete controller
 	$("#user_search").autocomplete({
 	  source: "/users.js",
 	});  
@@ -88,7 +89,7 @@ $(document).ready(function(){
     $('#restaurant_criteria input').not($form).val('');
   });
 }); // end document ready
-	
+
 function buildPager(idx, elem){
 	idx++;
 	return '<a href="#">'+idx+'</a>';
@@ -155,7 +156,6 @@ $.fn.updateRestoDirectoryList = function() {
   });
   // return true;
 };
-
 // Restaurant directory search button event
 $("#restaurant_by_any_name").click(function(){
   $restoDirectoryInputs = $("#directory_search #restaurant_criteria #search_restaurant_eq_any_name");
@@ -167,13 +167,34 @@ $("#restaurant_by_state_region").click(function(){
 });
 //
 
-jQuery(document).ready(function(){
-		jQuery('.standard-filler').formFiller();
-    updateRestaurantSignupFields = function() {
-    if ($('#role').val() == 'restaurant') {
-      $('#restaurant_fields').show();
-    } else {
-      $('#restaurant_fields').hide();
-    } 
-  };
+$("#user_editor").autocomplete({
+  source: "/users.js",
+});
+$("#otm_keyword_search").autocomplete({
+  source: "/otm_keywords.js",
+});
+
+$("#user_search").autocomplete({
+  source: "/users.js",
+});
+$("#restaurant_search").autocomplete({
+  source: "/restaurants.js",
+});
+$("#feature_search").autocomplete({
+  source: "/features.js",
+});
+$("#state_search").autocomplete({
+  source: "/states.js",
+});
+$("#specialty_search").autocomplete({
+  source: "/specialties.js",
+});
+$("#region_search").autocomplete({
+  source: "/james_beard_regions.js",
+});
+$("#state_search_for_user").autocomplete({
+  source: "/metropolitan_areas.js",
+});
+$("#cusine_search").autocomplete({
+  source: "/cuisines.js",
 });

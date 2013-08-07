@@ -1,7 +1,5 @@
 <%if @restaurants.blank? %>
-	<div id="flashes">
-		<div id="flash_notice"><%=flash[:notice]%></div>
-	</div>
+	<h1>No results found</h1>
 <%else%>
 	<h1>Restaurants</h1>
 	<% for restaurant in @restaurants %>

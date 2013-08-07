@@ -373,7 +373,7 @@ $.fn.updateDirectoryList = function() {
 // return true;
 }
 
-// Person directory search button event
+// personal directory search button event
 $("#person_by_any_name").click(function(){
   $directoryInputs = $("#directory_search #person_criteria #search_person_eq_any_name");
   $.fn.updateDirectoryList();
@@ -391,8 +391,7 @@ var $restoDirectoryList = $("#restaurant_directory_list");
 var $restoDirectoryInputs;
 $restoDirectoryList.before($loaderImg);
 
-
-$.fn.updateRestoDirectoryList = function() {  
+$.fn.updateRestoDirectoryList = function() {
   input_string = $restoDirectoryInputs.serialize();
   $loaderImg.show();
   $restoDirectoryList.hide();
@@ -481,11 +480,11 @@ $("#otm_keyword_search").autocomplete({
   source: "/otm_keywords.js",
 });
 
-   $('.search-button').click(function(e){
-   e.preventDefault();
-   var $form=$(this).parent().find("input:text");
+$('.search-button').click(function(e){
+  e.preventDefault();
+  var $form=$(this).parent().find("input:text");
     $('#restaurant_criteria input').not($form).val('');
-  });
+});
 
 // Social updates filtering
 var $restoSocialList   = $("#updates");
@@ -843,15 +842,10 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
   });
 
   // end mediafeed user edit 
-
   $('.skipp').live('click',function(e){
-    e.preventDefault();
-    $(this).closest('form').submit();      
-  })
-
-
-
-
+      e.preventDefault();
+      $(this).closest('form').submit();      
+   })
   // end $(document).ready
 });
 

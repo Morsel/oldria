@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :require_user, :only => [:show, :resume, :index,:edit_newsletters]
+  before_filter :require_user, :only => [:show, :resume, :index,:edit_newsletters] 
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar,
                                                    :fb_auth, :fb_deauth, :fb_connect, :fb_page_auth,:upload]
 
@@ -218,9 +218,9 @@ class UsersController < ApplicationController
   end
 
 
-  def edit_newsletters    
-    @user = User.find(params[:id])
-    @subscriber = @user.newsletter_subscriber
+  def edit_newsletters
+    @user = User.find(params[:id]) 
+    @subscriber = @user.newsletter_subscriber 
   end
 
   def add_region
