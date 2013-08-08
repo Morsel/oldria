@@ -287,11 +287,11 @@ class RestaurantsController < ApplicationController
           @error_arr.push(nls.errors.full_messages.to_sentence)
           @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:error=>true})
         else
-          build_nls = nls.newsletter_subscriptions.build({:restaurant_id=>@restaurant})
-          unless build_nls.save
-            @error_arr.push(build_nls.errors.full_messages.to_sentence)
-            @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:error=>true})
-          end               
+          build_nls = nls.newsletter_subscriptions.build({:restaurant_id=>@restaurant.id})
+            unless build_nls.save
+             @error_arr.push(build_nls.errors.full_messages.to_sentence)
+             @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:error=>true})
+            end               
         end
       else
         @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:confirmation=>false})
