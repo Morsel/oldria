@@ -107,8 +107,33 @@
   })();
 
 </script>
+<% if (!current_user.blank?  && current_user.media?) && (!@soapbox_keywordable_id.blank? && !@soapbox_keywordable_type.blank?)  %>
+ <script type="text/javascript">
+      params = { trace_keyword: {
+                        keywordable_id: <%= @soapbox_keywordable_id  %>,
+                        keywordable_type: '<%=   @soapbox_keywordable_type %>',
+                        user_id: <%=  current_user.id %>
+                } 
+              };
+                
+      $.post("/trace_keywords", params);
+  </script> 
 
-<% if !@soapbox_keywordable_id.blank? && !@soapbox_keywordable_type.blank? && !@restaurant.blank? %>
+<% elsif (!current_user.blank?  && current_user.media?) && (!@soapbox_restaurant_id.blank? && !@soapbox_keywordable_type.blank?)  %>
+ 
+ <script type="text/javascript">
+      params = { trace_keyword: {
+                        user_id: <%= current_user.id %>,
+                        keywordable_type: '<%= @soapbox_keywordable_type %>'
+                } 
+              };
+                
+      $.post("/trace_keywords", params);
+  </script>  
+<% end %>
+
+
+<% if (current_user.blank?) && (!@soapbox_keywordable_id.blank? && !@soapbox_keywordable_type.blank? && !@restaurant.blank?) %>
   <script type="text/javascript">
       params = { trace_keyword: {
                         keywordable_id: <%= @soapbox_keywordable_id  %>,
@@ -120,7 +145,7 @@
       $.post("/trace_keywords/soapbox_trace", params);
   </script> 
 
-<% elsif !@soapbox_restaurant_id.blank? && !@soapbox_keywordable_type.blank? %>
+<% elsif (current_user.blank?) && (!@soapbox_restaurant_id.blank? && !@soapbox_keywordable_type.blank?) %>
   <script type="text/javascript">
       params = { trace_keyword: {
                         restaurant_id: <%= @soapbox_restaurant_id %>,

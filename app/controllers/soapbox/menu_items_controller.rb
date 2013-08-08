@@ -28,7 +28,7 @@ class Soapbox::MenuItemsController < ApplicationController
 
   def show
     @soapbox_keywordable_id =   params[:id]
-    @soapbox_keywordable_type = 'ALaMinuteQuestion'   
+    @soapbox_keywordable_type = 'MenuItem'   
     @restaurant = @menu_item.restaurant.id
     @more_menu_items = MenuItem.all(:conditions => ["restaurant_id = ? AND id != ?", @menu_item.restaurant_id, @menu_item.id],
                                     :order => "created_at DESC",
