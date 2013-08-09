@@ -200,6 +200,8 @@ ActionController::Routing::Routes.draw do |map|
                              :social_archive => :get,
                              :newsletter_subscriptions => :get,
                              :download_subscribers => :get,
+                             :import_csv =>:post,
+                             :confirmation_screen =>:post,
                              :new_media_contact => :get,
                              :replace_media_contact => :post,
                              :restaurant_visitors => :get,

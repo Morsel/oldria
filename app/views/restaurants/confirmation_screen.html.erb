@@ -1,0 +1,84 @@
+<% title "Confirmation screen :: #{@restaurant.name}", false %>
+<div id="restaurant_profile_view" class="edit clear clearfix">
+  <%#= render 'restaurants/restaurant_editing_header' %>
+  <p><b>Please confirm users.</b></p>
+  <div id="editing_restaurant">
+      <div id="restaurant_pages" class="clearfix">
+
+        <%- if @restaurant.premium_account? -%>
+          <nav id="restaurant_feature_nav">
+            <%= active_link_to 'Settings', restaurant_newsletters_path(:restaurant_id => @restaurant) %>
+            <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) %>
+            <%= active_link_to 'Reports', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %>
+
+          </nav>
+        <div class="restaurant_features_content" >
+        <% form_tag(import_csv_restaurant_path(@restaurant), :multipart => true, :method=>'post') do %>
+          <div class="editing clearfix" style="margin-top:0px">
+            <table style="width: 100%" cellspacing="0" class="archives" >
+                <thead>
+                    <tr>
+                        <th class="header" width="10%">
+                          <%= check_box_tag "all_selected", 'yes', true,:id=>"selectall" %>
+                        </th>
+                        <th class="header" width="20%">First Name</th>
+                        <th class="header" width="20%">Last Name</th>
+                        <th class="header" width="50%">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <% @rows.each_with_index do |row, index| %>
+                     <tr class="<%= (row[:error].blank? ? '' : 'error') %>">
+                         <td width="10%"><%= check_box_tag "confirmation[#{index}]", 'yes', (params[:confirmation] && params[:confirmation][index.to_s].blank? ? false: true),:class=>"case"  %></td>
+                        <td width="20%"><%= row[:first_name] %>
+                        <%= hidden_field_tag "first_name[#{index}]",  row[:first_name] %></td>                                  
+                        <td width="20%"><%= row[:last_name] %> 
+                        <%= hidden_field_tag "last_name[#{index}]", row[:last_name]  %> </td>
+
+                        <td width="50%"><%= row[:email] %> 
+                        <%= hidden_field_tag "email[#{index}]", row[:email]  %> </td>
+
+                      </tr>
+                    <% end %> 
+                    <%= hidden_field_tag "mediafeed", "true" %>
+                   
+
+                  </tbody>                  
+            </table>
+              <div>
+                <%= submit_tag 'Import' %> &nbsp;
+                <%= submit_tag 'Back' ,:onclick=>"location.href = '#{newsletter_subscriptions_restaurant_path(@restaurant)}';return false;" %> &nbsp;
+              </div>
+           </div> 
+          
+      <% end  %>   
+      </div>
+       <%- else -%>
+        <p><%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %> to access your newsletter!</p>
+      <%- end %>
+    </div>
+    </div>   
+</div>
+
+
+<SCRIPT language="javascript">
+$(function(){
+    $("#selectall").click(function () {
+          $('.case').attr('checked', this.checked);
+    });
+     $(".case").click(function(){
+ 
+        if($(".case").length == $(".case:checked").length) {
+            $("#selectall").attr("checked", "checked");
+        } else {
+            $("#selectall").removeAttr("checked");
+        }
+ 
+    });
+     if($(".case").length == $(".case:checked").length) {
+            $("#selectall").attr("checked", "checked");
+      } else {
+          $("#selectall").removeAttr("checked");
+      }
+});
+</SCRIPT>
