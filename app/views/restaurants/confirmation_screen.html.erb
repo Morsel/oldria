@@ -45,10 +45,12 @@
                   </tbody>                  
             </table>
             <%= submit_tag 'Import' %>
+
            </div> 
-          
       <% end  %>   
+      <%= button_to "Back" ,newsletter_subscriptions_restaurant_url, :method => :get,:class=>'back-link' %>
       </div>
+
        <%- else -%>
         <p><%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %> to access your newsletter!</p>
       <%- end %>

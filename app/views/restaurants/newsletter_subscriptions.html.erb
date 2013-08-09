@@ -45,9 +45,9 @@
                                 <td><%= link_to subscription.try(:newsletter_subscriber).try(:first_name),"mailto:#{subscription.try(:newsletter_subscriber).try(:email)}" %></td>
                                 <td><%= link_to subscription.try(:newsletter_subscriber).try(:last_name),"mailto:#{subscription.try(:newsletter_subscriber).try(:email)}" %></td>
                                 <td><%= subscription.created_at.strftime("%m/%d/%Y") %></td>
-                                <% if subscription.newsletter_subscriber.user.blank?%>
+                                <% if subscription.newsletter_subscriber.try(:user).blank?%>
                                   <td> Diner </td>
-                                <% elsif subscription.newsletter_subscriber.user %>
+                                <% elsif subscription.newsletter_subscriber.try(:user) %>
                                   <td> Industry </td>
                                 <% end %>
                               </tr>
