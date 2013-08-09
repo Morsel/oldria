@@ -4820,37 +4820,6 @@ a.profile-out-of-date {
 #user_directory_list{
 	top: -134px;
 	position: relative;
-}
-
-.set-textarea-width{
-	width: 850px;
-}
-
-.set_heading{
-	color: #333333;
-    font-family: 'Voltaire',sans-serif;
-    font-size: 25px;
-    font-weight: normal;
-    line-height: 30px;
-    margin: 5px 0 12px;
-    padding: 0;
-    text-transform: uppercase;
-}
-/* -----  for restaurant Directory ------------- */
-#restaurant_directory_list{
-	top: -134px;
-	position: relative;
-}
-.profile-update {
-    background: none repeat scroll 0 0 transparent;    
-    position: relative;    
-    top: 12px;
-}
-a.request-profile-update {  
-    background: none !important;
-}
-
-.export{
 	float: right;
 	margin-right: 173px !important; 
 }
@@ -4877,11 +4846,8 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   background-color: #def;
 }
 
-/* @end */
-
-.back-link{
-  margin-left: 198px !important;
-  margin-top: -37px !important;
+.export {
+    float: right;
+    margin-right: 173px !important;
 }
-
 

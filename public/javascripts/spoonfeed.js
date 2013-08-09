@@ -846,6 +846,11 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       e.preventDefault();
       $(this).closest('form').submit();      
    })
+    
+  var sortedTables = $('.tablesorter');
+  if (sortedTables.length) {
+    sortedTables.tablesorter({sortList: [[0,0]]});
+  }  
   // end $(document).ready
 });
 
@@ -886,9 +891,4 @@ function loderShow()
 function loderHide()
 {
   $('#loader-waiting').slideUp();
-}
-
-var sortedTables = $('.tablesorter');
-if (sortedTables.length) {
-  sortedTables.tablesorter({sortList: [[0,0]]});
 }

@@ -1,4 +1,5 @@
 class RestaurantsController < ApplicationController
+
    before_filter :require_user, :except =>[:media_user_newsletter_subscription]
    before_filter :authorize, :only => [:edit, :update, :select_primary_photo,
                                               :new_manager_needed, :replace_manager, :fb_page_auth,
@@ -272,7 +273,9 @@ class RestaurantsController < ApplicationController
   def import_csv  
     tmp_pwd = 'temp123' 
     @error_arr = []
-     @rows = []
+
+    @rows = []
+
      
     (0..params[:first_name].count-1).each do |index,confirmation_key|
       index = index.to_s
@@ -287,16 +290,17 @@ class RestaurantsController < ApplicationController
           @error_arr.push(nls.errors.full_messages.to_sentence)
           @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:error=>true})
         else
-          build_nls = nls.newsletter_subscriptions.build({:restaurant_id=>@restaurant.id})
-            unless build_nls.save
-             @error_arr.push(build_nls.errors.full_messages.to_sentence)
-             @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:error=>true})
-            end               
+
+          build_nls = nls.newsletter_subscriptions.build({:restaurant=>@restaurant})
+          unless build_nls.save
+            @error_arr.push(build_nls.errors.full_messages.to_sentence)
+            @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:error=>true})
+          end               
+
         end
       else
         @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:confirmation=>false})
       end
-
 
     end
   
@@ -309,7 +313,6 @@ class RestaurantsController < ApplicationController
         render  :confirmation_screen
 
       end
-
 
   end  
  
@@ -402,6 +405,7 @@ class RestaurantsController < ApplicationController
     redirect_to restaurant_path(@restaurant) 
   end
 
+ 
   def confirmation_screen
     @error_arr =[]  
     @error_emails = []
@@ -417,24 +421,20 @@ class RestaurantsController < ApplicationController
         elsif file_type.to_s.downcase == "xlsx"  
           import_newletter_subscriber_xlsx  
         else
-          flash[:notice] = "Please select vaild csv or excel file."
+          flash[:error] = "Please select vaild csv or excel file."
           redirect_to newsletter_subscriptions_restaurant_path
         end          
 
-        if @error_arr.blank?
-          flash[:notice] = "Please confirm users."          
-        else
+        unless @error_arr.blank?
           flash[:error] = @error_arr.to_sentence
           redirect_to newsletter_subscriptions_restaurant_path
         end
          
     else
-        flash[:notice] = "Please select csv or excel file. "
+        flash[:error] = "Please select csv or excel file. "
         redirect_to newsletter_subscriptions_restaurant_path
     end  
   end  
-
-
 
 
   private

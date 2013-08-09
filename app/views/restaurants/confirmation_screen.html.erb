@@ -1,6 +1,7 @@
 <% title "Confirmation screen :: #{@restaurant.name}", false %>
 <div id="restaurant_profile_view" class="edit clear clearfix">
   <%#= render 'restaurants/restaurant_editing_header' %>
+  <p><b>Please confirm users.</b></p>
   <div id="editing_restaurant">
       <div id="restaurant_pages" class="clearfix">
 
@@ -44,13 +45,14 @@
 
                   </tbody>                  
             </table>
-            <%= submit_tag 'Import' %>
-
+              <div>
+                <%= submit_tag 'Import' %> &nbsp;
+                <%= submit_tag 'Back' ,:onclick=>"location.href = '#{newsletter_subscriptions_restaurant_path(@restaurant)}';return false;" %> &nbsp;
+              </div>
            </div> 
+          
       <% end  %>   
-      <%= button_to "Back" ,newsletter_subscriptions_restaurant_url, :method => :get,:class=>'back-link' %>
       </div>
-
        <%- else -%>
         <p><%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %> to access your newsletter!</p>
       <%- end %>
