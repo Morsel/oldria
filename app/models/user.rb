@@ -734,6 +734,7 @@ class User < ActiveRecord::Base
   end
 
   def digest_mailchimp_update
+    return
     #media_newsletter_subscriber.email email id will be replaced by this    
     signal = if media_newsletter_subscriptions.blank? && digest_writer.blank?
         "NO"

@@ -822,6 +822,10 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       $(this).closest('form').submit();      
    })
     
+  var sortedTables = $('.tablesorter');
+  if (sortedTables.length) {
+    sortedTables.tablesorter({sortList: [[0,0]]});
+  }  
   // end $(document).ready
 });
 
