@@ -42,7 +42,8 @@ Rails::Initializer.run do |config|
   config.gem "bcrypt-ruby",           :version => "3.0.1", :lib => "bcrypt"
   config.gem "ar-octopus",            :version => "0.3.4", :lib => "octopus"
   config.gem "gibbon",                :version => "0.3.5"
-
+  config.gem "spreadsheet",           :version => "0.8.5"
+  config.gem "simple_xlsx_reader" ,   :version => "0.9.7" 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
