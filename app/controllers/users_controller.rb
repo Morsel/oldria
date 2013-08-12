@@ -243,6 +243,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def user_profile_subscribe
+    if current_user.media?     
+      get_user
+      ups = current_user.user_profile_subscribe(@user)   
+      if ups.blank? && UserProfileSubscriber.create(:user_profile_subscriber => current_user, :user_id => @user.id)
+        flash[:notice] = "#{current_user.email} is now subscribed to #{@user.name}'s profile."
+      else  
+        ups.destroy          
+        flash[:notice] = "#{current_user.email} is unsubscribed to #{@user.name}'s profile."    
+      end  
+      redirect_path_for_user_profile_subscribe 
+    end   
+  end   
+
+
   private
 
   def get_user
@@ -272,5 +287,19 @@ class UsersController < ApplicationController
       render :json => @users.map(&:name)
     end
   end
+
+  def redirect_path_for_user_profile_subscribe
+   if params[:specialty_id]
+      redirect_to directory_path(:specialty_id=>params[:specialty_id])
+    elsif params[:directory]
+      redirect_to directory_path
+    elsif params[:profile_questions]  
+      redirect_to profile_questions_path
+    elsif params[:profile_questions_id]  
+      redirect_to profile_question_path(params[:profile_questions_id])
+    else   
+      redirect_to :action => "show", :username => @user.username
+    end  
+  end   
 
 end
