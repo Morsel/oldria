@@ -37,29 +37,6 @@
 	</div> 
 <% end %>
 
-<% if params[:controller] == "spoonfeed/profile_questions" && params[:action] == "index" %>
-  <div style="width: 184px;">
-		<% if current_user.user_profile_subscribe(user).blank? %>
-	     <%= link_to 'Subscribe',user_profile_subscribe_path(user.username,:profile_questions=>true) %>,
-	  <% else %> 
-	     <%= link_to 'Unsubscribe', user_profile_subscribe_path(user.username,:profile_questions=>true) %>,
-	  <% end  %>   
-	     <%= mail_to 'help@restaurantintelligenceagency.com',"Inquire" ,:subject => "Question regarding your Spoonfeed profile" %>
-	     <%= link_to (image_tag "http://blog.restaurantintelligenceagency.com/images/newsletter/print.jpg"), "javascript:window.print();" %>
-	     <%= link_to image_tag("http://blog.restaurantintelligenceagency.com/images/newsletter/mail.gif"), "mailto:#{user.email}?Subject=Reporting restaurant" %>
-	</div> 
-<% end  %>
 
 
-<% if params[:controller] == "spoonfeed/profile_questions" && params[:action] == "show" %>
-  <div style="width: 184px;">
-		<% if current_user.user_profile_subscribe(user).blank? %>
-	     <%= link_to 'Subscribe',user_profile_subscribe_path(user.username,:profile_questions_id=>params[:id]) %>,
-	  <% else %> 
-	     <%= link_to 'Unsubscribe', user_profile_subscribe_path(user.username,:profile_questions_id=>params[:id]) %>,
-	  <% end  %>   
-	     <%= mail_to 'help@restaurantintelligenceagency.com',"Inquire" ,:subject => "Question regarding your Spoonfeed profile" %>
-	     <%= link_to (image_tag "http://blog.restaurantintelligenceagency.com/images/newsletter/print.jpg"), "javascript:window.print();" %>
-	     <%= link_to image_tag("http://blog.restaurantintelligenceagency.com/images/newsletter/mail.gif"), "mailto:#{user.email}?Subject=Reporting restaurant" %>
-	</div> 
-<% end  %>
+
