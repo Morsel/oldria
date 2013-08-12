@@ -133,6 +133,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :direct_messages, :member => { :read => :put }
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
+  map.user_profile_subscribe 'user_profile_subscribe/:username', :controller => 'users', :action => 'user_profile_subscribe', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
   map.resources :users, :collection => { :resend_confirmation => :any ,:add_region =>:get ,:new_james_beard_region =>:post }, :member => {
     :resume => :get,
@@ -145,7 +146,7 @@ ActionController::Routing::Routes.draw do |map|
     :remove_editor => :put,
     :upload =>:post,
     :edit_newsletters => :get,    
-    :add_region_request=>:post
+    :add_region_request=>:post  
   }, :shallow => true do |users|
     users.resource :profile, :only => ['create', 'edit', 'update'],
                    :controller => 'profiles',
