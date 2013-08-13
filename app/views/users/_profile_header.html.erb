@@ -26,6 +26,11 @@
 
 				<h5><%= @user.profile.try(:headline) %></h5>
 			</hgroup>
+			<% if(current_user && current_user.media? ) %>
+			  <div id="subscribe-div">   
+			    <%= render :partial => 'users/subscribe', :locals => { :user => @user } %> 
+			  </div>  
+			<% end %>
 			<% if can? :edit, @user %>
 			<div id="profile_actions" class="moreLinks right">
 				<%= link_to "edit profile", edit_user_path(@user), :class => "orangeLink" %>
