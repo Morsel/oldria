@@ -29,7 +29,7 @@
                                   <th style="width:15%;"> Clicks </th>
                                   <th style="width:20%;"> Bounces </th>
                                   <th style="width:20%;"> Total Sent </th>
-                                  <th style="width:20%;"> Archives </th>
+                                  <th style="width:20%;"> Archives </th> 
                               </tr>
                           </thead>
                           <tbody>
@@ -37,7 +37,7 @@
                              <% @status_data.sort.each do |key,value| %>
                                 <% if value[:data][:error].nil? %>
                                     <tr align="center">
-                                      <td><%=  value[:newsletter].created_at.strftime("%d %b %Y %I:%M %P") %></td>
+                                      <td><%= value[:newsletter].created_at.strftime("%d %b %Y %I:%M %P") %></td>
                                       <% if value[:newsletter].campaign_id %>
                                         <td><%=link_to "#{value[:data]["opens"].to_i}",get_opened_campaign_path(@restaurant,value[:newsletter].campaign_id) ,:class => 'colorbox' %></td>
                                         <td><%=link_to "#{value[:data]["clicks"].to_i}",get_clicked_campaign_path(@restaurant,value[:newsletter].campaign_id) ,:class => 'colorbox' %></td>
@@ -50,8 +50,8 @@
                                       <td><%=value[:data]["emails_sent"].to_i%></td>
                                       <td><%=link_to "view",restaurant_newsletter_path(@restaurant,value[:newsletter]),:target =>"_blank" %> </td>
                                     </tr>
-                                 <%  else %>
-                                      <tr align="center"> 
+                                 <% else %>
+                                      <tr align="center">
                                         <td><%= value[:newsletter].restaurant.created_at.to_formatted_s(:short) %></td>
                                         <td colspan="3">Invalid Campaign ID</td>
                                         <td><%= link_to "view",restaurant_newsletter_path(@restaurant,value[:newsletter]),:target =>"_blank" %></td>
