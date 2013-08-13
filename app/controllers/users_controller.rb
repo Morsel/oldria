@@ -253,7 +253,7 @@ class UsersController < ApplicationController
         ups.destroy          
         flash[:notice] = "#{current_user.email} is unsubscribed to #{@user.name}'s profile."    
       end  
-      redirect_path_for_user_profile_subscribe 
+      redirect_to :action => "show", :username => @user.username
     end   
   end   
 
