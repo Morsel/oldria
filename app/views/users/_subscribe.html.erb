@@ -8,8 +8,7 @@
   <% end  %>   
      <%= mail_to 'help@restaurantintelligenceagency.com',"Inquire" ,:subject => "Question regarding your Spoonfeed profile" %>
      <%= link_to (image_tag "http://blog.restaurantintelligenceagency.com/images/newsletter/print.jpg"), "javascript:myPrint();" %>
-     <%#= link_to (image_tag "http://blog.restaurantintelligenceagency.com/images/newsletter/print.jpg"), profile_path(user.username,:print=>true) %>
-     <%= link_to image_tag("http://blog.restaurantintelligenceagency.com/images/newsletter/mail.gif"), "mailto:#{user.email}?Subject=Reporting restaurant" %>
+     <%= link_to image_tag("http://blog.restaurantintelligenceagency.com/images/newsletter/mail.gif"), "mailto:#{user.email}?Subject=Reporting restaurant"%>
 <% end %>
 
 <script>
