@@ -30,6 +30,13 @@ model_count_before_and_after(DigestWriter) do
   end
 end
 
+model_count_before_and_after(OtmKeyword) do
+  FasterCSV.read(@seedling_path + "/otm-keywords.csv",:headers => true,:col_sep => "\t").each do |row|
+    OtmKeyword.find_or_create_by_name_and_category(row["name"],row["category"])
+  end  
+
+end
+
 # == Set up Menu Item Keywords
 =begin
 model_count_before_and_after(OtmKeyword) do
