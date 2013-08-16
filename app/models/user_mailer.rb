@@ -290,7 +290,7 @@ class UserMailer < ActionMailer::Base
     bcc         ['ellen@restaurantintelligenceagency.com' ,'nishant.n@cisinlabs.com']
     sent_on     Time.now
     subject     "Request from Journalist"
-    body        :restaurant => restaurant
+    body        :restaurant => restaurant,:employee => employee
   end 
 
   def request_profile_update(restaurant,employee)
