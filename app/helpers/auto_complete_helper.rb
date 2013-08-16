@@ -3,10 +3,10 @@ module AutoCompleteHelper
 	def get_autocomplete_restaurant_result
 		keyword_name = params[:term]        
     if params[:name]=="restaurant"
-      @keywords = ["KEYWORD"] + OtmKeyword.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANTS BY NAME"] + Restaurant.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 2).map(&:name) + Restaurant.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) + ["FEATURE"] + RestaurantFeature.find(:all,:conditions => ["value like ?", "%#{keyword_name}%"],:limit => 2).map(&:value) + ["CUISINE"]  + Cuisine.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 2).map(&:name) 
+      @keywords = ["KEYWORD"] + OtmKeyword.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANTS BY NAME"] + Restaurant.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 2).map(&:name) + ["FEATURE"] + RestaurantFeature.find(:all,:conditions => ["value like ?", "#{keyword_name}%"],:limit => 2).map(&:value) + ["CUISINE"]  + Cuisine.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 2).map(&:name) 
       @keywords = filter_results(["KEYWORD","RESTAURANTS BY NAME","FEATURE","CUISINE"])
     else
-      @keywords = ["RESTAURANTS BY REGION"]  + JamesBeardRegion.find(:all,:conditions => ["name like ? or description like ?", "%#{keyword_name}%","%#{keyword_name}%"],:limit => 5).map(&:name) + ["RESTAURANTS BY STATE"] + get_state_name_array.grep(/^#{keyword_name}/i)[0..5]
+      @keywords = ["RESTAURANTS BY REGION"]  + JamesBeardRegion.find(:all,:conditions => ["name like ? ", "#{keyword_name}%"],:limit => 5).map(&:name) + ["RESTAURANTS BY STATE"] + get_state_name_array.grep(/^#{keyword_name}/i)[0..5]
       @keywords = filter_results(["RESTAURANTS BY REGION","RESTAURANTS BY STATE"])
     end
     return @keywords
@@ -20,10 +20,10 @@ module AutoCompleteHelper
       @keywords = ["PERSONS BY NAME"] + User.in_spoonfeed_directory.for_autocomplete.find_all_by_name(keyword_name).map(&:name)[0..4]
     end
     if params[:person]=="person"
-      @keywords = @keywords + ["PERSONS BY SPECIALITY"] + Specialty.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 4).map(&:name) + ["PERSONS BY CUISINE"] + Cuisine.find(:all,:conditions => ["name like ?","%#{keyword_name}%"],:limit => 4).map(&:name)
+      @keywords = @keywords + ["PERSONS BY SPECIALITY"] + Specialty.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 4).map(&:name) + ["PERSONS BY CUISINE"] + Cuisine.find(:all,:conditions => ["name like ?","#{keyword_name}%"],:limit => 4).map(&:name)
       @keywords = filter_results(["PERSONS BY NAME","PERSONS BY SPECIALITY","PERSONS BY CUISINE"])
     else
-      @keywords = ["PERSONS BY STATE"] + JamesBeardRegion.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 7).map(&:name) + ["PERSONS BY REGION"] + MetropolitanArea.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 7).map(&:name) 
+      @keywords = ["PERSONS BY STATE"] + JamesBeardRegion.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 7).map(&:name) + ["PERSONS BY REGION"] + MetropolitanArea.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 7).map(&:name) 
       @keywords = filter_results(["PERSONS BY STATE","PERSONS BY REGION"])
     end
     return @keywords
