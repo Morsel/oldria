@@ -7,7 +7,8 @@
                 <ol>       
                   <% keywords.compact.each do |keyword| %>
                   <li>    
-                    <%= label_tag("s_menu_item_otm_keyword_ids_#{keyword.id}",check_box_tag('menu_item[otm_keyword_ids][]',keyword.id,!params[:menu_item].nil? && !params[:menu_item][:otm_keyword_ids].nil? && params[:menu_item][:otm_keyword_ids].include?(keyword.id.to_s) ? true : false ,{:class=>"ajax_otm",:id=>"s_menu_item_otm_keyword_ids_#{keyword.id}",:checked=>@selected_keywords.include?(keyword.id) }) + "&nbsp;"+keyword.name) %>
+                    <%= label_tag("s_menu_item_otm_keyword_ids_#{keyword.id}",check_box_tag('menu_item[otm_keyword_ids][]',keyword.id,!params[:menu_item].nil? && !params[:menu_item][:otm_keyword_ids].nil? && params[:menu_item][:otm_keyword_ids].include?(keyword.id.to_s) ? true : false ,{:class=>"ajax_otm",:id=>"s_menu_item_otm_keyword_ids_#{keyword.id}",:checked=>@selected_keywords.include?(keyword.id) }) + "&nbsp;"+Loofah::Helpers.strip_tags(keyword.name)) %>
+                    
                    </li> 
                    <% end %>
                 </ol>
