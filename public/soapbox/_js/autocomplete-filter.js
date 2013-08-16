@@ -3,7 +3,7 @@ $(document).ready(function(){
   $("#search_restaurant_eq_any_name").autocomplete({
     source: "/soapbox?name=restaurant",
   }).data("autocomplete")._renderItem = function (ul, item) {
-    if(["No results found, please try a new search","RESTAURANTS BY NAME", "RESTAURANTS BY KEYWORD", "RESTAURANTS BY FEATURE", "RESTAURANTS BY CUISINE"].indexOf(item.label) > -1){
+    if(["No results found, please try a new search","RESTAURANTS BY NAME", "KEYWORD", "FEATURE", "CUISINE"].indexOf(item.label) > -1){
           return $("<li></li>")
              .data("item.autocomplete", item)
              .append("<font color='black'>" + item.label + "</font>")
