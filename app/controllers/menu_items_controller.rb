@@ -17,7 +17,7 @@ class MenuItemsController < ApplicationController
   def new
     @is_new = true
     @menu_item = MenuItem.new(:post_to_twitter_at => Time.now, :post_to_facebook_at => Time.now)
-    @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
+    #@categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
     build_social_posts
   end
 
@@ -28,7 +28,7 @@ class MenuItemsController < ApplicationController
       redirect_to :action => "index"
     else
       @is_new = true
-      @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
+      #@categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
       @categories_keywords = OtmKeyword.find(:all,:conditions=>["name like ? ","%#{params[:menu_item][:search_keywords]}%"],:order => "category ASC, name ASC",:limit=>100) 
       render :action => "new"
     end
@@ -36,7 +36,7 @@ class MenuItemsController < ApplicationController
 
   def edit
     @menu_item = @restaurant.menu_items.find(params[:id])
-    @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
+    #@categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
     build_social_posts
   end
 
@@ -46,7 +46,7 @@ class MenuItemsController < ApplicationController
       flash[:notice] = "Your menu item has been saved"
       redirect_to_social_or 'index'
     else
-      @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
+      #@categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
       build_social_posts
       render :action => "edit"
     end
