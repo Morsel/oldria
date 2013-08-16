@@ -22,6 +22,7 @@ class MenuItem < ActiveRecord::Base
 
   include ActionView::Helpers::TextHelper
   include ActionController::UrlWriter
+  include ActionView::Helpers::SanitizeHelper
   default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :restaurant
@@ -65,7 +66,7 @@ class MenuItem < ActiveRecord::Base
   attr_accessor :search_keywords
 
   def keywords
-    otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence
+    Loofah::Helpers.strip_tags(otm_keywords.map { |k| Loofah::Helpers.strip_tags"#{k.category}: #{k.name}" }.to_sentence)
   end
 
   def keywords_without_categories
