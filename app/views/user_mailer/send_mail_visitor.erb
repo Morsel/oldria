@@ -56,7 +56,7 @@
 
 <% unless @specialty_names.blank? &&  @otm_keywords.blank? &&  @restaurant_features.blank? %> 
 
-  <p> Media are researching the following keywords on RIA. If you have any stories or menu items pertaining to these topics you can share them on RIA and we will let the media know!</p>
+  <p>Media are researching the following keywords on RIA. Post your stories and <%=link_to "menu items today",bulk_edit_restaurant_menus_url(@visitor_obj.restaurant)%> pertaining to these keywords or any topics  we will let the media know!</p>
    
   <%unless @specialty_names.blank?%>
     <ul>
@@ -89,7 +89,7 @@
 <% end %> 
 
 <%unless @a_la_minute_visitors.blank? %>
-  <p>The following media visited our A la Minute section yesterday:</p>
+  <p>Post to <%=link_to "A La Minute everyday",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj.restaurant)%> - it's the easiest way to get in front of media. The following media visited our A la Minute section yesterday:</p>
    <ul>
     <%@a_la_minute_visitors.each do |a_la_minute_visitor| %>
       <% unless a_la_minute_visitor.publication.blank? %>
@@ -104,7 +104,8 @@
   <hr />
 <% end %>
 
-<p>Keep the media engaged! If you update your profile, we'll let these media folks know! Here's a few ideas:</p>
+<h3>Yesterday's Successes</h3>
+<p>Tomorrow's Opportunities</p>
 <ul>  
   <% unless @menu_message.blank?%>
     <li>
