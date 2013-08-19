@@ -3418,3 +3418,8 @@ form#join {
 .ui-autocomplete-loading {
    background: white url('/images/ajax-loader.gif') right center no-repeat;
 }
+.ui-autocomplete { 
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
