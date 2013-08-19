@@ -78,7 +78,7 @@ class Employment < ActiveRecord::Base
   named_scope :primary, :order => 'updated_at DESC', :limit => 1, :conditions => { :primary => true }
 
   named_scope :public_profile_only, :conditions => { :public_profile => true }
-  named_scope :by_position, :order => "position ASC", :conditions => ["restaurant_role_id IS NOT NULL"]
+  named_scope :by_position, :order => "position ASC"
 
   def employee_name
     @employee_name ||= employee && employee.name
