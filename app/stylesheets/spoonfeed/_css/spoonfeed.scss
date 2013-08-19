@@ -4871,3 +4871,8 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
     position: relative;
     top: 12px;
 }
+.ui-autocomplete { 
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}

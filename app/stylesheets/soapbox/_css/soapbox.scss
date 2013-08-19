@@ -3419,7 +3419,6 @@ form#join {
 .ui-autocomplete-loading {
    background: white url('/images/ajax-loader.gif') right center no-repeat;
 }
-
 .user-subscribe
 	{
 		margin-top: 5px !important;
@@ -3434,4 +3433,9 @@ form#join {
 			margin : 0px 3px 0px 0px !important;
 			float :none
 		}
+}
+.ui-autocomplete { 
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
