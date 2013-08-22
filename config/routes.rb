@@ -385,7 +385,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :brain_tree_webhook,:collection => {:varify => :any}
 
     admin.invalid_employments 'invalid_employments',:controller => "restaurants", :action => "invalid_employments"
-    admin.resources :runner
+    admin.resources :runner 
+    admin.export_media_for_newsfeed 'export_media_for_newsfeed', :controller => 'runner', :action => 'export_media_for_newsfeed'
+    admin.export_media_for_digest 'export_media_for_digest', :controller => 'runner', :action => 'export_media_for_digest'
     admin.resources :invited_employees, :only => :index, :member =>{:active => :get}
   end
 
