@@ -6,7 +6,7 @@ module AutoCompleteHelper
       @keywords = ["KEYWORD"] + OtmKeyword.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 2).map(&:name) + ["RESTAURANTS BY NAME"] + Restaurant.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 2).map(&:name) + ["FEATURE"] + RestaurantFeature.find(:all,:conditions => ["value like ?", "#{keyword_name}%"],:limit => 2).map(&:value) + ["CUISINE"]  + Cuisine.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 2).map(&:name) 
       @keywords = filter_results(["KEYWORD","RESTAURANTS BY NAME","FEATURE","CUISINE"])
     else
-      @keywords = ["RESTAURANTS BY REGION"]  + JamesBeardRegion.find(:all,:conditions => ["name like ? ", "#{keyword_name}%"],:limit => 5).map(&:name) + ["RESTAURANTS BY STATE"] + get_state_name_array.grep(/^#{keyword_name}/i)[0..5]
+      @keywords = ["RESTAURANTS BY REGION"]  + JamesBeardRegion.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 5).map(&:name) + ["RESTAURANTS BY STATE"] + get_state_name_array.grep(/^#{keyword_name}/i)[0..5]
       @keywords = filter_results(["RESTAURANTS BY REGION","RESTAURANTS BY STATE"])
     end
     return @keywords
