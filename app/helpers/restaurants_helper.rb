@@ -6,6 +6,13 @@ module RestaurantsHelper
                options
   end
 
+  def restaurant_link_for_media(restaurant, options = nil)
+    link_to_if (restaurant.linkable_profile? || logged_in_on_spoonfeed_for_media),
+               restaurant.try(:name),
+               correct_restaurant_path(restaurant),
+               options
+  end   
+
   def restaurant_names_for_user(user)
     if user.employments.blank?
       user.primary_employment.try(:solo_restaurant_name)
@@ -20,6 +27,22 @@ module RestaurantsHelper
       sorted_employments.join(", ") + " and #{link_to 'more', profile_path(user.username)}"
     end
   end
+
+  def restaurant_names_for_media_user(user)
+    if user.employments.blank?
+      user.primary_employment.try(:solo_restaurant_name)
+    elsif user.employments.count == 1
+      restaurant_link_for_media(user.primary_employment.restaurant)
+    elsif user.employments.count <= 3
+      sorted_employments = ([user.primary_employment] + user.nonprimary_employments).flatten
+      sorted_employments.map { |e| restaurant_link_for_media(e.restaurant) }.to_sentence
+    else
+      sorted_employments = ([user.primary_employment] + user.nonprimary_employments[0..1]).flatten
+      sorted_employments = sorted_employments.map { |e| restaurant_link_for_media(e.restaurant) }
+      sorted_employments.join(", ") + " and #{link_to 'more', profile_path(user.username)}"
+    end
+  end
+  
   
   def correct_restaurant_photos_path restaurant
      soapbox? ? soapbox_restaurant_photos_path(restaurant) : restaurant_photos_path(restaurant)
