@@ -62,6 +62,11 @@ module ApplicationHelper
     current_user.present? && not_soapbox && !current_user.media?
   end
 
+  def logged_in_on_spoonfeed_for_media
+    current_user.present? && not_soapbox && current_user.media?
+  end
+
+
   def media_user_prefers_publish_profile?
     current_user.present? && current_user.media?
   end
