@@ -181,6 +181,7 @@ class User < ActiveRecord::Base
   has_many :regional_writers  
   has_many :newsfeed_promotion_types
   has_many :promotion_types,  :through => :newsfeed_promotion_types
+  has_many :trace_searches, :as => :keywordable
 
 
   
