@@ -60,6 +60,7 @@ class DirectoryController < ApplicationController
   end 
 
   def search_restaurant_by_name
+    trace_search_for_restaurant_directory
     if params[:search_restaurant_eq_any_name]
       @restaurants = Restaurant.name_or_menu_items_otm_keywords_name_or_restaurant_features_value_or_cuisine_name_equals(params[:search_restaurant_eq_any_name]).uniq
       @restaurants = Restaurant.name_equals(params[:search_restaurant_eq_any_name]) if @restaurants.blank?
@@ -102,6 +103,7 @@ class DirectoryController < ApplicationController
         @users = User.in_soapbox_directory.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
       end
     else
+      trace_search_on_user_directory
       if params[:search_person_eq_any_name]
         @users = User.in_spoonfeed_directory.profile_specialties_name_or_profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
         @users = @users.push(User.in_spoonfeed_directory.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?
@@ -114,5 +116,75 @@ class DirectoryController < ApplicationController
     end
     render :partial => "search_results"
   end  
+
+
+
+  private 
+
+   def trace_search_for_restaurant_directory
+    if Restaurant.menu_items_otm_keywords_name_equals(params[:search_restaurant_eq_any_name]).present?
+      @searchable_id =  OtmKeyword.find_by_name(params[:search_restaurant_eq_any_name]).id
+      @searchable_type  = 'OtmKeyword' 
+      @term = params["search_restaurant_eq_any_name"]
+    elsif  Restaurant.name_equals(params[:search_restaurant_eq_any_name]).present?
+      @searchable_id = Restaurant.find_by_name(params[:search_restaurant_eq_any_name]).id
+      @searchable_type  = 'Restaurant' 
+      @term = params["search_restaurant_eq_any_name"]
+    elsif Restaurant.restaurant_features_value_equals(params[:search_restaurant_eq_any_name]).present?
+      @searchable_id = RestaurantFeature.find_by_value(params[:search_restaurant_eq_any_name]).id
+      @searchable_type  = 'RestaurantFeature'
+      @term = params["search_restaurant_eq_any_name"]
+    elsif Restaurant.cuisine_name_equals(params[:search_restaurant_eq_any_name]).present?  
+      @searchable_id =  Cuisine.find_by_name(params[:search_restaurant_eq_any_name]).id
+      @searchable_type  = 'Cuisine' 
+      @term = params["search_restaurant_eq_any_name"]
+    elsif  Restaurant.james_beard_region_name_equals(params[:search_restaurant_by_state_or_region]).present?
+      @searchable_id =  JamesBeardRegion.find_by_name(params[:search_restaurant_by_state_or_region]).id
+      @searchable_type  = 'JamesBeardRegion' 
+      @term = params["search_restaurant_by_state_or_region"]
+    elsif Restaurant.state_equals(params[:search_restaurant_by_state_or_region]).present? 
+      @searchable_type  = 'state' 
+      @term = params["search_restaurant_by_state_or_region"]
+    else 
+     @term = params["search_restaurant_by_state_or_region"] unless params["search_restaurant_by_state_or_region"].blank?
+     @term = params["search_restaurant_eq_any_name"] unless params["search_restaurant_eq_any_name"].blank?
+    end  
+    trace_search
+   end  
+
+
+  
+  def trace_search_on_user_directory
+    if User.in_spoonfeed_directory.profile_specialties_name_equals(params[:search_person_eq_any_name]).present?
+      @searchable_id =  Specialty.find_by_name(params[:search_person_eq_any_name]).id
+      @searchable_type  = 'Specialty' 
+      @term = params["search_person_eq_any_name"]
+    elsif User.in_spoonfeed_directory.profile_cuisines_name_equals(params[:search_person_eq_any_name]).present?  
+      @searchable_id =  Cuisine.find_by_name(params[:search_person_eq_any_name]).id
+      @searchable_type  = 'Cuisine' 
+      @term = params["search_person_eq_any_name"]
+    elsif User.in_spoonfeed_directory.profile_metropolitan_area_name_equals(params[:search_person_by_state_or_region]).present? 
+      @searchable_id =  MetropolitanArea.find_by_name(params[:search_person_by_state_or_region]).id
+      @searchable_type  = 'MetropolitanArea'   
+      @term = params["search_person_by_state_or_region"]
+    elsif User.in_spoonfeed_directory.profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).present?
+      @searchable_id =  JamesBeardRegion.find_by_name(params[:search_person_by_state_or_region]).id
+      @searchable_type  = 'MetropolitanArea'  
+      @term = params["search_person_by_state_or_region"]
+    elsif  params[:search_person_eq_any_name].present? &&  User.in_spoonfeed_directory.find_by_name(params[:search_person_eq_any_name]).present?
+      @searchable_id =  User.find_by_name(params[:search_person_eq_any_name]).id 
+      @searchable_type  = 'User'  
+      @term = params["search_person_eq_any_name"]
+    else 
+      @term = params["search_person_eq_any_name"] unless params["search_person_eq_any_name"].blank?
+      @term = params["search_person_by_state_or_region"] unless params["search_person_by_state_or_region"].blank?
+    end   
+    trace_search
+  end   
+
+  def trace_search 
+    @trace_search =  TraceSearch.find_by_searchable_id_and_searchable_type_and_user_id(@searchable_id,@searchable_type ,current_user.id)          
+    @trace_search = @trace_search.nil? ? TraceSearch.create(:searchable_id=>@searchable_id,:searchable_type=>@searchable_type,:user_id=>current_user.id,:term_name=>@term) : @trace_search.increment!(:count)  
+  end
 
 end

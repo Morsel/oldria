@@ -162,8 +162,7 @@ class Restaurant < ActiveRecord::Base
   attr_accessor :restaurant_role_virtual
 
   has_many :trace_keywords, :as => :keywordable
-
-
+  has_many :trace_searches, :as => :keywordable
   has_one  :visitor_email_setting
   
 

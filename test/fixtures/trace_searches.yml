@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  searchable_id: 1
+  searchable_type: MyString
+  user_id: 1
+  count: 1
+
+two:
+  searchable_id: 1
+  searchable_type: MyString
+  user_id: 1
+  count: 1
