@@ -16,5 +16,5 @@ staging:
   secret: 4448edef8ad7b1bdb52c7a184d292989
 
 production:
-  app_id: 546165752117639
-  secret: 53ab11b3705e43c674518c1c49c3d9ac
+  app_id: 304341076331111
+  secret: 2411ebd0fac6caa989bc171cf9d7909b
