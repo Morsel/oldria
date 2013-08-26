@@ -1,4 +1,9 @@
 <%= render :partial => 'email_header' %>
 <p>Hello, <%= @restaurant.try(:media_contact).try(:name) %>!</p>
-<p>A journalist is researching your profile right now and has requested that you update it to include all essential media information, including current menus, updated fact sheet, and all appropriate staff members. </p>
+<% unless @employee.publication.blank? %>
+  <p> A journalist from <%=@employee.publication%> is researching your profile right now and has requested that you update it to include all essential media information, including current menus, updated fact sheet, and all appropriate staff members.</p>
+<% else %>  
+  <p>A journalist is researching your profile right now and has requested that you update it to include all essential media information, including current menus, updated fact sheet, and all appropriate staff members. </p>
+<% end %>
 <%= render :partial => 'email_footer' %>
+
