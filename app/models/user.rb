@@ -765,8 +765,6 @@ class User < ActiveRecord::Base
     end  
   end
 
-
-
   def newsfeed_mailchimp_update user,double_optin=false,mc = MailchimpConnector.new("RIA Newsfeed")
     unless user.newsfeed_writer.blank? 
 
@@ -787,22 +785,7 @@ class User < ActiveRecord::Base
       end
   end  
 
-  def remove_facebook_token_form_user
-    User.all.each do |user|
-      user.update_attributes(:facebook_id=>nil,:facebook_access_token=>nil,:facebook_page_token=>nil,:facebook_page_id=>nil)
-    end    
-  end   
-
-  def remove_facebook_token_for_restaurant
-    Restaurant.all.each do |resto|
-      resto.update_attributes(:facebook_page_url=>nil,:facebook_page_id=>nil,:facebook_page_token=>nil)
-    end   
-  end   
-
 end
-
-
-
 
 
 
