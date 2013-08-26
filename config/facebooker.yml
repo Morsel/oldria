@@ -1,6 +1,6 @@
 mock_fb_app: &FAKE
-  app_id: 102222349832093
-  secret: 918cd2bddf254fbbfab4b5c1666f7667
+  app_id: 304341076331111
+  secret: 2411ebd0fac6caa989bc171cf9d7909b
 
 development:
   <<: *FAKE
