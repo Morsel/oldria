@@ -1,0 +1,26 @@
+<div class="clear"></div>
+<div id="menu_items">
+	<p><hr/><h1> All Category </h1></p>
+  <% for carte_category in @carte.carte_categories.compact -%>
+	  <% unless carte_category.name.nil? %>
+		  <dl class="<%= cycle("odd", "even") %>">
+	      <dt>Name</dt>
+	      <dd><%= carte_category.name %></dd>
+	      <dt>Description</dt>
+	      <dd><%= carte_category.description %></dd>
+	      <dt>Note</dt>
+	      <dd><%= carte_category.note %></dd>
+			</dl>
+			<p class="actions">
+	      <%# if @restaurant.has_facebook_page? -%><%#= link_to "post to Facebook page now", facebook_post_restaurant_menu_item_path(@restaurant, menu_item), :method => "post" %>
+	      <%#- end %>
+	      <%=link_to  "add item", new_restaurant_carte_carte_category_carte_category_item_path(@restaurant,@carte,carte_category) %> |
+	      <%#= link_to "edit", edit_restaurant_carte_carte_category_path(@restaurant, @carte,carte_category) %> |
+	      <%#= link_to "delete", restaurant_carte_carte_category_path(@restaurant, @carte,carte_category), :method => "delete", :confirm => "Are you sure you want to delete this?" %>
+	    </p>
+	  <% end %>
+	<% end %>
+</div>
+<!-- 	<li>
+		<%#=link_to new_restaurant_carte_carte_category_path(), "Add another category"%>
+	</li> -->

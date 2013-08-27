@@ -1,0 +1,59 @@
+<% title "New Menu" , false %>
+<div id="restaurant_profile_view" class="edit clear clearfix">
+  <%= render 'restaurants/restaurant_editing_header' %>
+  <div id="editing_restaurant">
+    <div id="new_menu_header">
+        <h2>New Menu</h2>
+    </div>
+    <p class="clearfix"><%= link_to "Add New Menu", new_restaurant_carte_path(@restaurant), :class => "button" %></p>
+    <hr/>
+    <div id="a_la_minute_questions">
+      <% for carte in @cartes -%>
+        <% div_for carte do -%>          
+          <p class="clearfix">
+            <strong><%=carte.name%></strong>
+            <%= link_to "edit", edit_restaurant_carte_path(@restaurant, carte) %> |
+            <%= link_to "delete", restaurant_carte_path(@restaurant, carte), :method => "delete", :confirm => "Are you sure you want to delete this?" %>
+          
+            <% unless carte.categories.blank? %>
+              <h5><strong>Category</strong></h5>
+              <% carte.categories.map{|c| c if c.parent_id=0}.each do |category| %>
+                <strong><%=category.name%></strong>
+                <%= link_to "edit", new_category_path(category,:carte_id=>carte.id) %> |
+                <%= link_to "delete", category_path(category), :method => "delete", :confirm => "Are you sure you want to delete this?" %>
+                <br/><br/>
+
+                <% unless category.children.blank? %>
+                  <% div_for category do -%>  
+                    <h5><strong>Sub Category</strong></h5>
+                    <% category.children.each do |sub_category|%>
+                      <strong><%=sub_category.name%></strong>
+                      <%= link_to "edit", new_category_path(sub_category,:carte_id=>carte.id,:sub_category=>"sub") %> |
+                      <%= link_to "delete", category_path(sub_category), :method => "delete", :confirm => "Are you sure you want to delete this?" %>
+                      <br/><br/>
+
+                      <% unless sub_category.items.blank? %>
+                        <div class="items">
+                          <h5><strong>Items</strong></h5>
+                          <% sub_category.items.each do |item|%>
+                            <strong><%=item.name%></strong>
+                            <%= link_to "edit", edit_category_item_path(sub_category,item) %> |
+                            <%= link_to "delete", category_item_path(sub_category,item), :method => "delete", :confirm => "Are you sure you want to delete this?" %>
+                            <br/><br/>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                <% end %>                
+
+              <% end %>
+            <% end %>
+          
+        <% end -%>
+        <hr/>
+      <% end -%>
+    </div>
+    <%= will_paginate(@cartes) %>
+	</div>
+</div>

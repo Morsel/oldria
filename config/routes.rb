@@ -248,8 +248,13 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.add_keywords 'add_keywords', :controller => "menu_items", :action => "add_keywords"
     restaurant.request_profile_update 'request_profile_update', :controller => "restaurants", :action => "request_profile_update"
     restaurant.show_notice 'show_notice', :controller => "restaurants", :action => "show_notice"
+    
+    restaurant.resources :cartes
   end
-
+  map.resources :categories do |carte_category|
+      carte_category.resources :items
+  end
+ 
   map.resources :user_sessions, :password_resets, :followings, :pages
 
   map.resources :admin_conversations, :only => 'show', :member => { :read => :put } do |admin_conversations|
@@ -429,4 +434,6 @@ ActionController::Routing::Routes.draw do |map|
   map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
   #for get selected city
   map.get_selected_cities '/mediafeed/media_users/get_selected_cities', :controller => 'media_users', :action => 'get_selected_cities'
+
+  map.get_feature_keywords '/items/get_feature_keywords', :controller => "items", :action => "get_feature_keywords"
 end

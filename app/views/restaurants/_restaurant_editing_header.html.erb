@@ -45,7 +45,8 @@
             :class => 'promo editor pr' %>
         <%= active_link_to "Social Posts", restaurant_social_posts_path(@restaurant), :class => 'promo editor social' %>
         <%= active_link_to "Newsletter", restaurant_newsletters_path(:restaurant_id => @restaurant), :class => "promo editor newsletter" %>
-        <%= active_link_to "Profile Key", api_restaurant_path(@restaurant)%>    
+        <%= active_link_to "Profile Key", api_restaurant_path(@restaurant)%>  
+        <%= active_link_to "Create New Menu", restaurant_cartes_path(@restaurant), :class => "promo editor" %>  
     </nav>
 <%else%>
     <nav id="edit_resto_menu">
@@ -74,5 +75,6 @@
         <%= active_link_to "Social Posts", '#', :class => 'disable_link' %>
         <%= active_link_to "Newsletter", '#', :class => "disable_link" %>
         <%= active_link_to "Profile Key", '#' ,:class =>'disable_link'%>    
+        <%= active_link_to "Create New Menu", :class =>'disable_link' %> 
     </nav>
 <%end%>
