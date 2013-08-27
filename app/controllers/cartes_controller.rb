@@ -19,7 +19,7 @@ class CartesController < ApplicationController
   	@carte = @restaurant.cartes.build(params[:carte])
     if @carte.save
       flash[:notice] = "Your new menu has been saved"
-      redirect_to :action => "edit"
+      redirect_to :action => "edit", :id => @carte.id
     else
 			render :action => "new"
     end
@@ -29,7 +29,6 @@ class CartesController < ApplicationController
   end
 
   def update 
-    debugger
     #delete a new attribute hash that not required here
     params[:carte][:categories_attributes] = params[:carte][:categories_attributes].except(:new_categories) if params[:carte][:categories_attributes].present?
     if @carte.update_attributes(params[:carte])
