@@ -5,9 +5,9 @@ class Restaurants::NewslettersController < ApplicationController
 
   def index
     @restaurant.newsletter_setting || @restaurant.build_newsletter_setting
-    unless @restaurant.premium_account?
+    #unless @restaurant.premium_account?
       render "restaurants/_comming_soon"
-    end
+    #end
   end
 
   # TODO - remove this once the feature is complete, for testing only

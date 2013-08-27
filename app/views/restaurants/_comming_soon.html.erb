@@ -12,7 +12,11 @@
                 
               </nav>
               <div id="restaurant_features_content" style="width:700px;">
-                <p>Automated newsletter disctribution is available for premium Restaurant accounts only.if you would like to take advantage of this service please upgrade today. <%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %></p>
+                <% if @restaurant.premium_account? %>
+                  <%= link_to "We are currently working on a new and improved newsletter feature! Stayed tuned for more information!","" %>
+                <% else %>
+                  <p>Automated newsletter disctribution is available for premium Restaurant accounts only.if you would like to take advantage of this service please upgrade today. <%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %></p>
+                <% end %>
               </div>
         </div>
     </div><!-- /editing_restaurant -->
