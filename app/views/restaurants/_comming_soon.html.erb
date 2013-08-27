@@ -15,7 +15,7 @@
                 <% if @restaurant.premium_account? %>
                   <%= link_to "We are currently working on a new and improved newsletter feature! Stayed tuned for more information!","" %>
                 <% else %>
-                  <%= link_to "Upgrade to become a  premium member today and get access to our automated newsletter feature!", edit_restaurant_path(@restaurant)%>
+                  <%= link_to "Automated newsletter distribution is available for premium Restaurant accounts only. If you would like to take advantage of this service please upgrade today", edit_restaurant_path(@restaurant)%>
                 <% end %>
               </div>
         </div>
