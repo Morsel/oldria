@@ -1,0 +1,22 @@
+<% title "Trace Searches for soapbox" %>
+
+<ul>
+	<% for soapbox_trace in @soapbox_trace_searches %>
+   	<% unless  soapbox_trace.user.blank? %>
+      <li>
+      	<%= soapbox_trace.try(:user).try(:name) %> search  <%= soapbox_trace.try(:term_name) %>
+    <% else %>  	
+      <li>
+      	Diner search  <%= soapbox_trace.try(:term_name) %>
+ 		<% end %>
+ 		<% unless  soapbox_trace.searchable_type.blank? %> 
+ 		   Type of search is <%=  soapbox_trace.searchable_type %> 
+   	<% else %>
+   	  No type present of this term
+   	<% end %>
+   		on <%= soapbox_trace.updated_at.strftime("%m/%d/%y") %>
+   	</li>	
+	<% end %>
+</ul>
+
+
