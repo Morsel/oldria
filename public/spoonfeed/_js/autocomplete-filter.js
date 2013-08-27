@@ -6,7 +6,7 @@ $(document).ready(function(){
     source: "/auto_complete.js?name=restaurant",
     open: function(event,ui){
       if( (i>0) && (label!="No results found, please try a new search") )
-      $('.ui-autocomplete').append("<li><a onclick=$.fn.search('"+label.toLowerCase()+"')><font color='green'>more...</font></a></li>");
+      $('.ui-autocomplete').append("<li><a onclick=$.fn.search('"+label.toLowerCase()+"')><font color='green'>Keep typing to refine your search</font></a></li>");
       i=0;
       label="";
     }
@@ -17,7 +17,7 @@ $(document).ready(function(){
           label=item.label;
           return $("<li></li>")
                  .data("item.autocomplete", $("#search_restaurant_eq_any_name").val())
-                 .append("<a onclick=$.fn.search('name')><font color='green'>more...</font></a>")
+                 .append("<a onclick=$.fn.search('name')><font color='green'>Keep typing to refine your search</font></a>")
                  .appendTo(ul)+$("<li></li>")
                  .data("item.autocomplete", item)
                  .append("<font color='black'>" + item.label + "</font>")
@@ -28,7 +28,7 @@ $(document).ready(function(){
           label=item.label;
           return $("<li></li>")
                  .data("item.autocomplete", $("#search_restaurant_eq_any_name").val())
-                 .append("<a onclick=$.fn.search('keyword')><font color='green'>more...</font></a>")
+                 .append("<a onclick=$.fn.search('keyword')><font color='green'>Keep typing to refine your search</font></a>")
                  .appendTo(ul)+$("<li></li>")
                  .data("item.autocomplete", item)
                  .append("<font color='black'>" + item.label + "</font>")
@@ -39,7 +39,7 @@ $(document).ready(function(){
           label=item.label;
           return $("<li></li>")
                  .data("item.autocomplete", $("#search_restaurant_eq_any_name").val())
-                 .append("<a onclick=$.fn.search('feature')><font color='green'>more...</font></a>")
+                 .append("<a onclick=$.fn.search('feature')><font color='green'>Keep typing to refine your search</font></a>")
                  .appendTo(ul)+$("<li></li>")
                  .data("item.autocomplete", item)
                  .append("<font color='black'>" + item.label + "</font>")
@@ -50,7 +50,7 @@ $(document).ready(function(){
           label=item.label;
           return $("<li></li>")
                  .data("item.autocomplete", $("#search_restaurant_eq_any_name").val())
-                 .append("<a onclick=$.fn.search('cuisine')><font color='green'>more...</font></a>")
+                 .append("<a onclick=$.fn.search('cuisine')><font color='green'>Keep typing to refine your search</font></a>")
                  .appendTo(ul)+$("<li></li>")
                  .data("item.autocomplete", item)
                  .append("<font color='black'>" + item.label + "</font>")
