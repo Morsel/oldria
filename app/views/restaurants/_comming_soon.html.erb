@@ -12,7 +12,11 @@
                 
               </nav>
               <div id="restaurant_features_content" style="width:700px;">
-                <%= link_to "Upgrade to become a  premium member today and get access to our automated newsletter feature!", edit_restaurant_path(@restaurant)%>
+                <% if @restaurant.premium_account? %>
+                  <%= link_to "We are currently working on a new and improved newsletter feature! Stayed tuned for more information!","" %>
+                <% else %>
+                  <%= link_to "Upgrade to become a  premium member today and get access to our automated newsletter feature!", edit_restaurant_path(@restaurant)%>
+                <% end %>
               </div>
         </div>
     </div><!-- /editing_restaurant -->
