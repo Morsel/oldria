@@ -260,8 +260,13 @@ ActionController::Routing::Routes.draw do |map|
 
     restaurant.show_notice 'show_notice', :controller => "restaurants", :action => "show_notice"
     restaurant.request_profile_update 'request_profile_update', :controller => "restaurants", :action => "request_profile_update"
+    
+    restaurant.resources :cartes
   end
-
+  map.resources :categories do |carte_category|
+      carte_category.resources :items
+  end
+ 
   map.resources :user_sessions, :password_resets, :followings, :pages
 
   map.resources :admin_conversations, :only => 'show', :member => { :read => :put } do |admin_conversations|
@@ -450,6 +455,6 @@ ActionController::Routing::Routes.draw do |map|
   map.get_opened_campaign '/restaurants/:restaurant_id/newsletters/get_opened_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_opened_campaign'
   map.get_clicked_campaign '/restaurants/:restaurant_id/newsletters/get_clicked_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_clicked_campaign'
   map.get_bounces_campaign '/restaurants/:restaurant_id/newsletters/get_bounces_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_bounces_campaign'
+
+  map.get_feature_keywords '/items/get_feature_keywords', :controller => "items", :action => "get_feature_keywords"
 end
-
-

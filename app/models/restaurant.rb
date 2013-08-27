@@ -165,6 +165,7 @@ class Restaurant < ActiveRecord::Base
   has_many :trace_searches, :as => :keywordable
   has_one  :visitor_email_setting
   
+  has_many :cartes
 
   # For pagination
   cattr_reader :per_page

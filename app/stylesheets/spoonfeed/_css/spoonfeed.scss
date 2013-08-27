@@ -4876,3 +4876,26 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 	overflow-y: auto;
 	overflow-x: hidden;
 }
+
+.time-width {
+    background-image: url("/images/time.png");
+    background-position: 224px -2px;
+    background-repeat: no-repeat;
+    background-size: 33px auto;
+    width: 30% !important;
+}
+.carte_list{
+	float: left;
+    height: 23px;
+    margin: 5px;
+    padding: 5px;
+    width: 217px;	
+}
+.category{
+	margin-right:50px;
+	margin-left:50px;
+}
+.items{
+	margin-right:100px;
+	margin-left:100px;
+}

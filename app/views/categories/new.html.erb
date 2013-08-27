@@ -1,0 +1,16 @@
+<%= javascript 'jquery', 'nested_form' %>
+<% title "New Menu - Category" , false %>
+<div id="restaurant_profile_view" class="edit clear clearfix">
+  <%= render 'restaurants/restaurant_editing_header' %>
+  <div id="editing_restaurant">
+    <div id="new_menu_header">        
+        <% if params[:sub_category] %>
+        	<h2>New Menu - Sub Category</h2>
+		    	<%= render :partial => "sub_category_form" %>
+		    <% else %>
+		    	<h2>New Menu - Category</h2>
+		    	<%= render :partial => "form" %>
+		    <% end %>
+    </div>    
+	</div>
+</div>

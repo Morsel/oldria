@@ -1,0 +1,45 @@
+<% semantic_form_for [@restaurant, @carte], :html => {:multipart => true} do |f| %>
+  <% f.inputs :class=>"new_carte_category_form" do %>    
+    <div id="menu_items">
+    <% nested_form_for [@restaurant, @carte] do |cf| %>
+			<% cf.fields_for :categories do |category_form| %>
+				<% if category_form.object.name.nil? || category_form.object.parent_id==0 %>
+					<dl class="<%= cycle("odd", "even") %>">
+						<dt>
+							<%= category_form.label :name %>
+							<abbr title="required">*</abbr>
+						</dt>
+						<dd class="string optional">
+						  <%= category_form.text_field :name %>
+					  </dd>
+					  <dt>
+						  <%= category_form.label :description %>
+						</dt>
+						<dd class="string optional">
+							<%= category_form.text_field :description %>
+					  </dd>
+					  <dt>
+						  <%= category_form.label :note %>
+					  </dt>
+					  <dd class="string optional">
+						  	<%= category_form.text_field :note %>
+					  </dd>					  
+					</dl>
+					<% if category_form.object.name.nil? %>
+				  	<p class="actions">
+				  		<%=category_form.hidden_field :parent_id, :value =>0 %>
+				  		<%= category_form.link_to_remove "Close category" %>
+				  	</p>
+				  <% else %>
+				  	<p class="actions">
+	          	<%= link_to "delete", category_path(category_form.object), :method => "delete", :confirm => "Are you sure you want to delete this?" %>
+	      		</p>
+				  <% end %>
+				<% end %>
+			<% end %>
+			<p><%= cf.link_to_add "Add another", :categories %></p>
+			<%= submit_tag "Save" %>
+		<% end %>
+		</div>
+	<% end %> 
+<% end %>

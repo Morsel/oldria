@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  description: MyString
+  DaysOfWeeks: 
+  start_time: 2013-08-08 14:31:34
+  end_time: 2013-08-08 14:31:34
+  start_date: 2013-08-08 14:31:34
+  end_date: 2013-08-08 14:31:34
+  note: MyString
+
+two:
+  name: MyString
+  description: MyString
+  DaysOfWeeks: 
+  start_time: 2013-08-08 14:31:34
+  end_time: 2013-08-08 14:31:34
+  start_date: 2013-08-08 14:31:34
+  end_date: 2013-08-08 14:31:34
+  note: MyString

@@ -1,0 +1,35 @@
+<% nested_form_for [@restaurant,@carte] do |cf| %>
+	<% cf.fields_for :carte_categories do |category_form| %>
+		<li>
+			<%= category_form.label :name %>
+		</li>
+		<li class="string optional">
+		  <%= category_form.text_field :name %>
+	  </li>
+	  <li>
+		  <%= category_form.label :description %>
+		</li>
+		<li class="string optional">
+			<%= category_form.text_field :description %>
+	  </li>
+	  <li>
+		  <%= category_form.label :note %>
+	  </li>
+	  <li class="string optional">
+		  	<%= category_form.text_field :note %>
+	  </li>
+		<% if @carte.carte_categories.present? && category_form.object.parent_id>0 %>
+		  <li>
+			  <%= category_form.label "Sub category of" %>
+		  </li>
+			<li class="string optional">
+			<%= category_form.select :parent_id,[['Select Category....',0]] + CarteCategory.all.map{|p| [p.name,p.id] if !p.parent_id.nil? && p.parent_id==0 }.compact %>
+		  </li>	
+		  <%= category_form.link_to_remove "Remove this sub category" %>
+	  <% else %>
+	  	<%= category_form.link_to_remove "Remove this category" %>  	  
+	  <% end %>
+	  <p></p>
+	<% end %>
+	<p><%= cf.link_to_add "Add a category", :carte_categories %></p>
+<% end %>  

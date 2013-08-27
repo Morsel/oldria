@@ -1,0 +1,39 @@
+<% semantic_form_for [@restaurant, @carte], :html => {:multipart => true} do |f| %>
+  <% f.inputs :class=>"new_menu_form" do %>    
+       <%= f.input :name, :label => "Name", :required => true%> 
+       <%= label_tag "new_menu_description_editor", "Description" %> 
+       <%= f.cktext_area :description, :input_html => { :rows => 4 }, :toolbar => 'Basic' %></br> 
+    	<%= f.input :day_ids ,:collection =>get_all_day, :as => :select, :multiple => :true,:include_blank => "Select days of weeks..", :label => "Days of weeks" %>      
+        <%= f.input :start_time,:as => :string, :label => "Start Time", :input_html => { :class => 'time time-width' } %>
+        <%= f.input :end_time,:as => :string, :label => "End Time", :input_html => { :class => 'time time-width' } %>
+        <%= f.input :start_date, :as => :string, :label => "Start Date", :input_html => { :class => 'date datetime-width' } %>
+        <%= f.input :end_date, :as => :string, :label => "End Date", :input_html => { :class => 'date datetime-width' }  %>
+        <%= f.input :note, :label => "Note" %>    
+  <% end %>
+ <!--  <h1>Add new category </h1> -->
+  <%# f.inputs do %>
+    <%#=render :partial => "category", :locals => { :f => f } %>
+    <%= submit_tag "Save" %>
+  <%# end %>
+<% end %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var now = new Date(), nextYear = new Date();
+  nextYear.setYear(now.getFullYear() + 1);    
+	$('input.date').each(function(){
+		$(this).datepicker({
+	      dateFormat: 'yy-mm-dd',
+	      changeYear: true,
+	      changeMonth: true,
+	      minDateTime: now,
+	      maxDateTime: nextYear
+	    });
+	});
+	$('input.time').each(function(){
+		$(this).timepicker();
+	});
+
+  $('#ui-datepicker-div').wrap('<div class="smoothness"></div>');
+});
+</script>
