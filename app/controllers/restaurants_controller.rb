@@ -51,6 +51,9 @@ class RestaurantsController < ApplicationController
 
   def edit
     @fb_user = current_facebook_user.fetch if current_facebook_user && current_user.facebook_authorized?
+    if @restaurant.manager.employments.first(:conditions=>['restaurant_id = ?',params[:id]]).restaurant_role_id.nil?
+      flash[:notice] = "In order to complete your restaurant, please select your role."
+    end
   rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException,Exception => e
     Rails.logger.error("Unable to fetch Facebook user for restaurant editing due to #{e.message} on #{Time.now}")
   end
