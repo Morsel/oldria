@@ -25,10 +25,10 @@
   		</p>
 		
   	<% end %>
-	  <% unless @employments.blank? %>
+	
   	<h3 class="rearrange">Rearrange the order employees are listed on your restaurant profile by drag and drop.</h3>
 	
-  	
+  	<% unless @employments.blank? %>
   	<div id="restaurant_employees" data-remote-url="<%= reorder_restaurant_employments_url(@restaurant) %>">      
   		<% @employments.each do |group| %>
         <% unless User.find(group.employee_id).confirmed_at.blank? %>
