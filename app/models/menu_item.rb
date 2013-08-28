@@ -19,7 +19,7 @@
 #
 
 class MenuItem < ActiveRecord::Base
-
+  require "iconv"
   include ActionView::Helpers::TextHelper
   include ActionController::UrlWriter
   include ActionView::Helpers::SanitizeHelper

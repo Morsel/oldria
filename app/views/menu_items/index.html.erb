@@ -31,7 +31,7 @@
                 <% end -%>
 
                 <dt>Keywords</dt>
-                <dd><%= menu_item.keywords %></dd>
+                <dd> <%= Iconv.conv("utf-8", "iso-8859-1",menu_item.keywords) %> </dd>
             </dl>
             <p class="actions">
                 <% if @restaurant.has_facebook_page? -%><%= link_to "post to Facebook page now", facebook_post_restaurant_menu_item_path(@restaurant, menu_item), :method => "post" %> |<%- end %>

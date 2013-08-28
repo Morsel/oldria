@@ -27,7 +27,8 @@
         <div class="setlistwidth">
         <ul>
             <%@menu_item_keywords.each do |menu_item_keyword|%>
-                <li class="list_item"> <%=link_to menu_item_keyword.otm_keyword.name , menu_items_path(:id=>menu_item_keyword.otm_keyword.id,:keyword=>menu_item_keyword.otm_keyword.name)%></li>     
+            <%#= Iconv.conv("utf-8", "iso-8859-1",menu_item_keyword.otm_keyword.name) %>
+                <li class="list_item"> <%=link_to Iconv.conv("utf-8", "iso-8859-1",menu_item_keyword.otm_keyword.name) , menu_items_path(:id=>menu_item_keyword.otm_keyword.id,:keyword=>menu_item_keyword.otm_keyword.name)%></li>     
             <%end%>
         </ul>
         </div>

@@ -45,13 +45,11 @@
               </li>
             <% end %>
         </p>
-        <section id="form-tabs">
         <% if @is_new %>
-             <section id="form-search-keywords" class="otm-form-section">
-              <%=render :partial=>'get_keywords'%>
-             </section>
-             <% end %>
-        </section>
+           <section id="form-search-keywords" class="otm-form-section">
+            <%=render :partial=>'get_keywords'%>
+           </section>
+          <% end %>
 
         <section id="social-tabs">
            </br><%= label_tag "social-facebook", "Social Sharing" %>
