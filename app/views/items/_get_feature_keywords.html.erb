@@ -1,0 +1,7 @@
+<ol>
+<% @categories_keywords.each do |keyword| %>
+  <li class="carte_list"><%= label_tag("category_restaurant_feature_ids_#{keyword.id}",check_box_tag("item[restaurant_feature_ids][]",keyword.id, false, {:id=>"category_restaurant_feature_ids_#{keyword.id}",:checked=>@selected_keywords.include?(keyword.id) }) + keyword.name.split[0..3].join(" ")) %>
+  </li>
+<% end %>
+</ol>
+<div class="clear"></div>

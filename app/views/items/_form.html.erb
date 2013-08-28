@@ -1,0 +1,22 @@
+<% semantic_form_for [@category,@item], :html => {:multipart => true} do |f| %>
+  <% f.inputs :class=>"new_category_item_form" do %>    
+	  <%= f.input :name, :required => true%>
+  	<%= f.input :description %>
+	  <%= f.input :options %>
+		<li class="string optional">
+			<%= label_tag "Tags" ,"Tags<abbr >*</abbr>"%>			
+			<%= text_field_tag "restaurant_features" %>
+			<p class="inline-hints">Example: artisanal, cocktail, beer.</p>
+		</li>		
+	  <div id="form-search-keywords">
+	  <% unless @item.name.nil?%>
+	  	<%=render :partial=>"get_feature_keywords"%>              
+	  <% end %>
+	  </div> 
+	  <%= f.input :price %>
+  	<%= f.input :add_on %>
+	  <%= f.input :add_on_price %>
+	  <%= f.input :note %>
+		<%= submit_tag "Save" %>
+	<% end %> 
+<% end %>
