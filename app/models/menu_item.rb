@@ -19,15 +19,17 @@
 #
 
 class MenuItem < ActiveRecord::Base
-
+  require "iconv"
   include ActionView::Helpers::TextHelper
   include ActionController::UrlWriter
+  include ActionView::Helpers::SanitizeHelper
   default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :restaurant
 
   has_many :menu_item_keywords, :dependent => :destroy
   has_many :otm_keywords, :through => :menu_item_keywords
+  has_many :trace_keywords, :as => :keywordable
 
   has_many :twitter_posts, :as => :source, :dependent => :destroy
   accepts_nested_attributes_for :twitter_posts, :limit => 3, :allow_destroy => true, :reject_if => TwitterPost::REJECT_PROC
@@ -42,7 +44,7 @@ class MenuItem < ActiveRecord::Base
                     :bucket         => "spoonfeed",
                     :url            => ':s3_domain_url',
                     :styles         => { :full => "1966x2400>", :large => "360x480>", :medium => "240x320>", :small => "189x150>", :thumb => "120x160>" }
-
+  validates_attachment_size :photo, :less_than => 3.megabytes,:message => "is too large for uploading the twitter please select the size less then 3 megabytes."
   validates_attachment_content_type :photo,
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :photo_file_name
@@ -64,7 +66,7 @@ class MenuItem < ActiveRecord::Base
   attr_accessor :search_keywords
 
   def keywords
-    otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence
+    Loofah::Helpers.strip_tags(otm_keywords.map { |k| Loofah::Helpers.strip_tags"#{k.category}: #{k.name}" }.to_sentence)
   end
 
   def keywords_without_categories
@@ -135,7 +137,7 @@ class MenuItem < ActiveRecord::Base
     picture_url = self.photo(:full) if self.photo_file_name.present?
     message = message.blank? ? facebook_message : message
     unless self.photo_file_name.present? 
-      picture_url = (restaurant.logo && restaurant.logo.attachment?) ? restaurant.logo.attachment.url(:medium) : nil
+      picture_url = (restaurant.logo && restaurant.logo.attachment?) ? restaurant.logo.attachment.url(:small) : nil
     end  
     post_attributes = {
       :message     => message,

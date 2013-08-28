@@ -45,31 +45,12 @@
               </li>
             <% end %>
         </p>
-        <section id="form-tabs">
-            <nav id="profile-options">
-                <% @categories.keys.each do |category| %>
-                <span><a href="#form-<%= category.downcase.gsub(/[\s\W]/, "-") %>" id="tab-summary"><%= category %></a></span>
-                <% end %>
-                  <span class="display-none"><a href="#form-search-keywords" id="tab-summary"></a></span>
-            </nav>
+          <% if @is_new %>
+           <section id="form-search-keywords" class="otm-form-section">
+            <%=render :partial=>'get_keywords'%>
+           </section>
+          <% end %>
 
-            <% @categories.each do |category, keywords| %>
-            <section id="form-<%= category.downcase.gsub(/[\s\W]/, "-") %>" class="otm-form-section">
-                <div><%= category %></div>
-                <% keywords.in_groups(3, OtmKeyword.new).each do |keyword_set| %>
-                  <div class="keyword-column">
-                      <%= f.input :otm_keywords, :as => "check_boxes", :collection => keyword_set, :label => "&nbsp;" %>
-                  </div>
-                <% end %>
-                <div class="clear">&nbsp;</div>
-            </section>
-            <% end %>
-             <% if @is_new %>
-             <section id="form-search-keywords" class="otm-form-section">
-              <%=render :partial=>'get_keywords'%>
-             </section>
-             <% end %>
-        </section>
 
         <section id="social-tabs">
            </br><%= label_tag "social-facebook", "Social Sharing" %>
