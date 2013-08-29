@@ -66,7 +66,10 @@ class Mediafeed::MediafeedController < ApplicationController
   
   def media_subscription
     @subscriptions = current_user.media_newsletter_subscriptions.map{|e| e unless e.restaurant.blank?}.compact.paginate({:page => params[:page], :per_page => @per_page})
+    @newsfeed_subscription = current_user.get_newsfeed_subscription.paginate({:page => params[:page], :per_page => @per_page})
     @digest_subsriptions = current_user.get_digest_subscription.paginate({:page => params[:page], :per_page => @per_page})
+    @follow_kewords_subscription = current_user.user_keywords_restaurants
+    #current_user.filtered_user_keywords 'OtmKeyword'
     @user = current_user
     @user.media_newsletter_setting || @user.build_media_newsletter_setting.save
   end

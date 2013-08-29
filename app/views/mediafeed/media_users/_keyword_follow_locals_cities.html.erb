@@ -1,0 +1,10 @@
+<% @cities.each_with_index do |city,id| %>
+	<li>
+		<label for="keyword_follow_type_metropolitan_areas_writers_attributes_<%=id%>_metropolitan_area_id">
+	    <% checked = @checked_city.map(&:name).include? city.name if @checked_city.present? %>
+	    <%= hidden_field_tag "keyword_follow_type[metropolitan_areas_writers_attributes][#{id}][user_id]" ,@user.id, :disabled=>!checked %>                
+	    <%= check_box_tag "keyword_follow_type[metropolitan_areas_writers_attributes][#{id}][metropolitan_area_id]",city.id,checked%>
+	    <%=city.state%>: <%=city.name%> 
+	    </label>                            
+	</li>
+<% end %>

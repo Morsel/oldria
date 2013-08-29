@@ -1,5 +1,5 @@
 class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
-  before_filter :require_media_user, :only => [:edit, :update]
+  before_filter :require_media_user, :only => [:edit, :update,:get_keywords]
    before_filter :authorize, :only => [:edit, :update]
   def new
     @user = User.new(params[:user])
@@ -23,15 +23,20 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
   end
 
   def update
-    @user = User.find(params[:id])  
+    @user = User.find(params[:id]) 
+    @user.user_keywords.map(&:update_user_keyword) # Hack updated user_keywords column deleted_at
+
     if @user.update_attributes(params[:user])
       @user.newsfeed_promotion_types.destroy_all if @user.newsfeed_writer.blank? #Deleting regiona promotion if user is not newsfeed regional writer
       update_newsletter_data(params[:id])
       @user.send_later(:update_media_newsletter_mailchimp)
+      @user.user_keywords.map(&:delete_user_old_keywords)
       flash[:notice] = "Successfully updated your profile."
       redirect_to edit_mediafeed_media_user_path(@user)
     else
+      @user = User.find(params[:id])  
       get_newsletter_data
+      flash[:error] = "Your profile could not be saved. Please review the errors below."
       render :edit
     end
   end
@@ -60,9 +65,27 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
     @cities = MetropolitanArea.find_all_by_state(params['state_name'])
     @checked_city = MetropolitanArea.find(:all,:conditions=>["id IN(?)",params[:checked_city].split(",").map { |s| s.to_i } ])
     @cities = ( @checked_city + @cities ).uniq
-    get_newsletter_data
+    
     render :layout => false
   end
+
+  def get_keywords
+    keyword_name = params[:keyword]
+    @user = User.find(params[:user_id])
+    @keywords = Restaurant.find(:all,:conditions => ["name like ?", "#{keyword_name}%"],:limit => 4) +OtmKeyword.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 4) + RestaurantFeature.find(:all,:conditions => ["value like ?", "%#{keyword_name}%"],:limit => 4) + Cuisine.find(:all,:conditions => ["name like ?", "%#{keyword_name}%"],:limit => 4)
+    @checked_restaurants = params[:checked][:restaurant]
+    @checked_otm_keywords = params[:checked][:otmkeyword]
+    @checked_cuisines = params[:checked][:cuisine]
+    @checked_features = params[:checked][:restaurantfeature]
+
+    @selected_keywords = Restaurant.find(:all,:conditions => ["id  in (?) ", params[:checked][:restaurant]]) +OtmKeyword.find(:all,:conditions => ["id  in (?) ", params[:checked][:otmkeyword]]) + RestaurantFeature.find(:all,:conditions => ["id  in (?) ", params[:checked][:restaurantfeature]]) + Cuisine.find(:all,:conditions => ["id  in (?) ", params[:checked][:cuisine]])
+    @keywords = (@selected_keywords + @keywords).uniq
+
+    respond_to do |format|
+      format.html 
+      format.js   { render :layout => false }
+    end  
+  end  
 
   private
 

@@ -1,0 +1,22 @@
+<li id="keyword-restaurant-features-li">
+    <fieldset>
+        <legend class="label"> 
+            <label >I would like to receive news from the following Restaurant Features:</label>
+        </legend>                     
+    </fieldset>
+    <ol>
+    	<%keyword.each_with_index do |restaurant_feature,index|%>
+            <% checked = ( @user.filtered_user_keywords("RestaurantFeature").include?(restaurant_feature) || @checked_features.include?(restaurant_feature.id.to_s)) %>
+            <li>
+                <label for="user_user_keywords_attributes_<%=index%>_follow_keyword_id">                    
+                    <%= hidden_field_tag "user[user_keywords_attributes][#{index}][follow_keyword_type]",'RestaurantFeature',:disabled => !checked %>
+                    <%= hidden_field_tag "user[user_keywords_attributes][#{index}][user_id]",@user.id ,:disabled=> !checked %>
+                    <%= check_box_tag "user[user_keywords_attributes][#{index}][follow_keyword_id]",restaurant_feature.id,checked%>                    
+                    <%=restaurant_feature.name%>
+                </label>
+            </li>   
+        <%end%>
+
+    </ol>
+</li>
+<div class="clear"> </div>  

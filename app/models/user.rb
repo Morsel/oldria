@@ -53,6 +53,9 @@ class User < ActiveRecord::Base
   default_url_options[:host] = DEFAULT_HOST
 
   
+  has_many :user_keywords, :dependent => :destroy
+  accepts_nested_attributes_for :user_keywords
+
   has_many :trace_keywords, :as => :keywordable
   has_many :statuses, :dependent => :destroy
   has_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
@@ -184,7 +187,12 @@ class User < ActiveRecord::Base
   has_many :promotion_types,  :through => :newsfeed_promotion_types
   has_many :trace_searches, :as => :keywordable
 
+  #### keyword following media user ###
+  belongs_to :keyword_follow_type
+  has_many :keyword_followers ,:dependent => :destroy
+  attr_accessor :search_keywords
 
+  
   
 
 ### Roles ###
@@ -665,6 +673,17 @@ class User < ActiveRecord::Base
       regional_writers.find(:all,:conditions=>"regional_writer_type = 'DigestWriter'").map(&:destroy)
     end 
 
+    if keyword_follow_type_id == 1
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'KeywordFollowType'").map(&:destroy)      
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'KeywordFollowType'").map(&:destroy)
+    elsif  keyword_follow_type_id == 2
+      
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'KeywordFollowType'").map(&:destroy)      
+    elsif  keyword_follow_type_id == 3
+      
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'KeywordFollowType'").map(&:destroy)
+    end
+
   end
 
   def update_media_newsletter_mailchimp
@@ -690,6 +709,21 @@ class User < ActiveRecord::Base
     @restaurants.flatten.compact.uniq
 
   end  
+  def get_newsfeed_subscription
+    @restaurants = []
+    
+    if newsfeed_writer.name == "National Writer"
+      @restaurants = Restaurant.all
+    elsif newsfeed_writer.name == "Regional Writer"
+      @restaurants = newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:restaurants)
+    else
+      @restaurants = newsfeed_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area).map(&:restaurants)
+
+    end unless newsfeed_writer.blank?
+
+    @restaurants.flatten.compact.uniq
+
+  end
 
   def send_employee_claim_notification_mail
   
@@ -784,6 +818,21 @@ class User < ActiveRecord::Base
 
       end
   end  
+
+  def filtered_user_keywords key
+    if user_keywords.group_by(&:follow_keyword_type).keys.include? key
+      user_keywords.group_by(&:follow_keyword_type)[key.to_s].map(&:follow_keyword)
+    else  
+      []
+    end  
+ end
+ def user_keywords_restaurants
+    restaurants = []
+    restaurants.push(filtered_user_keywords("Cuisine").map(&:restaurants))
+    restaurants.push(filtered_user_keywords("RestaurantFeature").map(&:restaurants))
+    restaurants.push(filtered_user_keywords("Restaurant"))
+    restaurants.compact.flatten.uniq
+ end   
 
 end
 

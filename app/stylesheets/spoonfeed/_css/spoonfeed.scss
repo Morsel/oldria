@@ -1068,11 +1068,11 @@ form#mediafeed_user {
   abbr[title=required] {
     color: red;
   }
-  li#user_metropolitan_areas_input ol li ,li#user_newsfeed_metropolitan_areas_input ol li,li#user_local_promotion_types_input ol li,li#newsfeed_option_national_input ol li,li#user_promotion_types_input ol li ,div#newsfeed_option_regional ol#newsfeed_james_beard_regions_input li,div#digest_option_regional ol li{
+  li#user_metropolitan_areas_input ol li ,li#user_newsfeed_metropolitan_areas_input ol li,li#user_local_promotion_types_input ol li,li#newsfeed_option_national_input ol li,li#user_promotion_types_input ol li ,div#newsfeed_option_regional ol#newsfeed_james_beard_regions_input li,div#digest_option_regional ol li, div.write_type ol li{
     float: left;
     width: 25%;
     label {
-      font-weight: normal;
+      font-weight: normal !important;
       color: black;
     }
   }
@@ -4899,3 +4899,22 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 	margin-right:100px;
 	margin-left:100px;
 }
+#keywords-div li ol li {
+    float: left;
+    min-width: 25%;
+    label {
+      font-weight: normal !important;
+      color: black;
+    }
+  }
+#tabs
+	{
+		h1
+		{
+			&.full
+				{
+					width:820px;			
+				}
+		}
+	}
+

@@ -1,7 +1,10 @@
 <% if params[:newsfeed] %> 
 	$('#loader').html('');
 	$("#newsfeed_metropolitan_area_search").html('<%= escape_javascript(render :partial => "/mediafeed/media_users/get_selected_cities" ) %>')
-<% else %> 
+<%elsif params[:keyword_follow]%>
+	$('#keyword_follow_loader').html('');
+	$("#keyword_follow_metro_ol").html('<%= escape_javascript(render  :partial => "/mediafeed/media_users/keyword_follow_locals_cities" ) %>')	
+<% else %>
 	$('#digest_loader').html('');
 	$("#digest_metropolitan_area_search").html('<%= escape_javascript(render :partial => "/mediafeed/media_users/get_digest_selected_cities" ) %>')
 <% end %> 

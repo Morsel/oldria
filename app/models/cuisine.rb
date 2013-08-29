@@ -15,6 +15,7 @@ class Cuisine < ActiveRecord::Base
   has_many :profiles, :through => :profile_cuisines
   has_many :trace_keywords, :as => :keywordable
   has_many :trace_searches, :as => :keywordable
+  has_many :follow_keywords ,:as => :follow_keyword ,:class_name =>'UserKeyword',:dependent => :destroy
   
   validates_presence_of :name
   default_scope :order => "#{table_name}.name ASC"
