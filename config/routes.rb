@@ -92,7 +92,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:mediafeed) do |mediafeed|
     mediafeed.root :controller => 'mediafeed', :action => 'index'
     mediafeed.login 'login', :controller => 'user_sessions', :action => 'new'
-    mediafeed.resources :media_users, :except => [:index, :show], :member => { "confirm" => :get }
+    mediafeed.resources :media_users, :except => [:index, :show], :member => { "confirm" => :get}
     mediafeed.resend_user_confirmation 'resend_confirmation', :controller => 'media_users', :action => 'resend_confirmation'
     mediafeed.forgot_password 'forgot_password', :controller => 'media_users', :action => 'forgot_password'
     mediafeed.resources :media_requests
@@ -429,4 +429,5 @@ ActionController::Routing::Routes.draw do |map|
   map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
   #for get selected city
   map.get_selected_cities '/mediafeed/media_users/get_selected_cities', :controller => 'media_users', :action => 'get_selected_cities'
+  map.get_selected_cities '/mediafeed/media_users/get_keywords', :controller => 'media_users', :action => 'get_selected_cities'
 end

@@ -1,0 +1,23 @@
+<li id="keyword-cusines-li">
+    <fieldset>
+        <legend class="label"> 
+            <label >I would like to receive news from the following Cusines:</label>
+        </legend>                     
+    </fieldset>
+    <ol>
+    	<%keyword.each_with_index do |cuisine,index|%>
+            <% index = index+3000 %>
+            <% checked = ( @user.filtered_user_keywords("Cuisine").include?(cuisine) || @checked_cuisines.include?(cuisine.id.to_s)) %>
+            <li>
+                <label for="user_user_keywords_attributes_<%=index%>_follow_keyword_id">                    
+                    <%= hidden_field_tag "user[user_keywords_attributes][#{index}][follow_keyword_type]",'Cuisine',:disabled => !checked %>
+                    <%= hidden_field_tag "user[user_keywords_attributes][#{index}][user_id]",@user.id ,:disabled=> !checked %>
+                    <%= check_box_tag "user[user_keywords_attributes][#{index}][follow_keyword_id]",cuisine.id,checked%>                    
+                    <%=cuisine.name%>
+                </label>
+            </li>   
+        <%end%>
+
+    </ol>
+</li>
+<div class="clear"> </div>  

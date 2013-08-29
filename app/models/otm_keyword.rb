@@ -16,6 +16,7 @@ class OtmKeyword < ActiveRecord::Base
   has_many :menu_items, :through => :menu_item_keywords
 
   validates_presence_of :name, :category
+  has_many :follow_keywords ,:as => :follow_keyword ,:class_name =>'UserKeyword',:dependent => :destroy
 
   def name_with_category
     "#{category}: #{name}"

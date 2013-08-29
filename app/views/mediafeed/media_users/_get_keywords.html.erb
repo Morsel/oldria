@@ -1,0 +1,3 @@
+<% @keywords.group_by(&:class).keys.map(&:name).sort.each do |keyword| %>
+	<%=render :partial=>  "/mediafeed/media_users/#{keyword.to_s.downcase}", :locals => {:keyword => @keywords.group_by(&:class)[eval(keyword)]} %>
+<% end %>
