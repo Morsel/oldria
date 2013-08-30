@@ -87,6 +87,71 @@ $(document).ready(function(){
    var $form=$(this).parent().find("input:text");
     $('#restaurant_criteria input').not($form).val('');
   });
+
+    $("#newsletter_subscriber_digest_diner_id").change(function(e){
+
+
+      $("#digest_metropolitan_areas_state_cities").html("")
+      $("#digest_metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");
+      if($(this).val() == "")
+      {
+        $('#digest_option_national').hide('slow')
+        $('#digest_option_regional').hide('slow')
+        $('#digest_option_locals').hide('slow')
+        $("#subscriptions").css("height","408px")     
+			}else{
+        if($(this).val()==1)
+        {
+          $('#digest_option_national').show('slow')
+          $('#digest_option_regional').hide('slow')
+          $('#digest_option_locals').hide('slow')
+          $("#subscriptions").css("height","408px")
+        }        
+        else if($(this).val()==2)
+          {
+            $('#digest_option_regional').show('slow')            
+            $('#digest_option_national').hide('slow')
+            $('#digest_option_locals').hide('slow')
+            $("#subscriptions").css("height","505px")
+          }
+        else if($(this).val()==3)
+        {
+          $('#digest_option_national').hide('slow')          
+          $('#digest_option_regional').hide('slow')
+          $('#digest_option_locals').show('slow')
+          $("#subscriptions").css("height",(590+$("#digest_metropolitan_area_search input[type=checkbox]").length)+"px")
+        }
+      }
+
+    });
+
+  $("#search_digest_state_by_name").autocomplete({
+    source: "/soapbox?metro=metro",
+    select: function( event, ui ) {
+      $('#digest_loader').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
+      var selected_city = new Array();    
+      $("#digest_metropolitan_area_search input[type=checkbox]").each(function(){
+           if ($(this).is(":checked")){
+              selected_city.push($(this).val());            
+          }  
+      })
+      $.ajax({
+        data:'state_name=' +ui.item.value+'&user_id='+$('#user_id').val()+'&checked_city='+selected_city,           
+        url:'/mediafeed/media_users/get_selected_cities?test=test',
+        success:function(request,response){
+          $('#search_digest_state_by_name').val('');
+          $("#subscriptions").css("height",(590+$("#digest_metropolitan_area_search input[type=checkbox]").length)+"px")
+        }
+      });
+    }
+  });  
+  $("#digest_option_regional input[type=checkbox], #digest_metropolitan_area_search input[type=checkbox]").live('click',function() {
+    if($(this).prop('checked'))
+      $(this).prev().removeAttr("disabled");
+    else
+      $(this).prev().attr("disabled","disabled");
+  });
+
 }); // end document ready
 function buildPager(idx, elem){
 	idx++;

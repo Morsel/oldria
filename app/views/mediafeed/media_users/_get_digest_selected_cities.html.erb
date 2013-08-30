@@ -4,8 +4,13 @@
 		<label for="digest_user_metropolitan_area_ids_<%=city.id%>_<%=id%>">
 	    <% checked = false %>
 	    <% checked = @checked_city.map(&:name).include? city.name if @checked_city.present? %>
-	    <%= hidden_field_tag "digest_writer[metropolitan_areas_writers_attributes][#{id}][user_id]" ,@user.id, :disabled=>!checked %>                
-	    <%= check_box_tag "digest_writer[metropolitan_areas_writers_attributes][#{id}][metropolitan_area_id]",city.id,checked,:id=> "digest_user_metropolitan_area_ids_#{city.id}_#{id}"%>
+	    <% if @user.blank? %>		
+	    	<%= hidden_field_tag "digest_diner[metropolitan_areas_writers_attributes][#{id}][newsletter_subscriber_id]" ,@subscriber.id, :disabled=>!checked %> 
+	    	<%= check_box_tag "digest_diner[metropolitan_areas_writers_attributes][#{id}][metropolitan_area_id]",city.id,checked,:id=> "digest_user_metropolitan_area_ids_#{city.id}_#{id}"%>               
+	    <% else %>
+	    	<%= hidden_field_tag "digest_writer[metropolitan_areas_writers_attributes][#{id}][user_id]" ,@user.id, :disabled=>!checked %>
+	    	<%= check_box_tag "digest_writer[metropolitan_areas_writers_attributes][#{id}][metropolitan_area_id]",city.id,checked,:id=> "digest_user_metropolitan_area_ids_#{city.id}_#{id}"%>  
+	    <% end %>
 	    <%=city.state%>: <%=city.name%>
 	    </label>                             
 	</li>

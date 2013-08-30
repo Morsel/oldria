@@ -32,14 +32,4 @@ class AutoCompleteController < ApplicationController
     end
   end
 
-  def auto_complete_metropolitan_keywords
-    keyword_name = params[:term]
-    @keywords = MetropolitanArea.find(:all,:conditions => ["state like ?", "%#{keyword_name}%"],:limit => 15).map(&:state).uniq
-    unless @keywords.present?
-      render :json => @keywords.push('This keyword does not yet exist in our database.')
-    else
-      render :json => @keywords
-    end
-  end
-
 end
