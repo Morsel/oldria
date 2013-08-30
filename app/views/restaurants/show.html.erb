@@ -62,7 +62,7 @@
 
                 <% begin %>
 				<% for post in @restaurant.twitter_client.user_timeline[0...3] do %>
-				<p><%= link_to post.text, "http://twitter.com/#{@restaurant.twitter_username}/status/#{post.id}" %> <span class="datestamp">(<%= Time.parse(post.created_at).strftime("%D") %>)</p>
+				<p><%= link_to post.text, "http://twitter.com/#{@restaurant.twitter_username}/status/#{post.id}" %> <span class="datestamp">(<%= post.created_at.strftime("%D") %>)</p>
 				<% end %>
 				<% rescue %>
 				<p>Sorry, Twitter posts are unavailable at this time.</p>
