@@ -1,12 +1,23 @@
 class Soapbox::SoapboxController < ApplicationController
 
+include AutoCompleteHelper
 
   def index
-    get_home_page_data
-    @home = true
-    @slides = SoapboxSlide.all(:order => "position", :limit => 5, :conditions => "position is not null")
-    @promos = SoapboxPromo.all(:order => "position", :limit => 3, :conditions => "position is not null")
-    render :layout => 'soapbox_home'
+     if params[:person] || params[:name]
+      respond_to do |format|
+        if params[:person]
+          format.js { auto_complete_person_keywords }
+        else
+          format.js { auto_complete_keywords }
+        end
+      end
+    else
+      get_home_page_data
+      @home = true
+      @slides = SoapboxSlide.all(:order => "position", :limit => 5, :conditions => "position is not null")
+      @promos = SoapboxPromo.all(:order => "position", :limit => 3, :conditions => "position is not null")
+      render :layout => 'soapbox_home'
+    end
   end
 
   def directory
@@ -26,8 +37,18 @@ class Soapbox::SoapboxController < ApplicationController
   end
 
   def directory_search
-    directory_search_setup
-    render :partial => "directory/search_results", :locals => { :users => @users }
+    if params[:search_person_eq_any_name]
+      @users = User.in_soapbox_directory.profile_specialties_name_equals(params[:search_person_eq_any_name]).uniq + User.in_soapbox_directory.profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
+      @users = @users.push(User.in_soapbox_directory.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?
+    else
+      @users = User.in_soapbox_directory.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
+    end
+    if @users.blank? && params[:search_person_by_state_or_region].present?
+      flash[:notice] = "I am sorry, we don't have any person for your state yet. Sign up to receive notification when we do!"
+    elsif @users.blank?
+      flash[:notice] = "No results found, please try a new search"
+    end
+    render :partial => "directory/search_results"
   end
 
   def restaurant_directory
@@ -45,18 +66,46 @@ class Soapbox::SoapboxController < ApplicationController
       @restaurants = Restaurant.all
     end
     @use_search = true
+    @menu_item_keywords = MenuItemKeyword.all(:select=>"distinct otm_keyword_id",:limit=>9,:order=>"id desc")
     @no_sidebar = true
     render :template => "directory/restaurants"
   end
 
   def restaurant_search
-    @subscriber = current_subscriber
-    @restaurants = Restaurant.search(params[:search])
+    if params[:search_restaurant_eq_any_name]
+      @restaurants = Restaurant.name_or_menu_items_otm_keywords_name_or_restaurant_features_value_or_cuisine_name_equals(params[:search_restaurant_eq_any_name]).uniq
+      @restaurants = Restaurant.name_equals(params[:search_restaurant_eq_any_name]) if @restaurants.blank?
+    elsif
+      @restaurants = Restaurant.state_or_james_beard_region_name_equals(params[:search_restaurant_by_state_or_region]).uniq
+    end
+    if @restaurants.blank? && params[:search_restaurant_by_state_or_region].present?
+      flash[:notice] = "I am sorry, we don't have any restaurants for your state yet. Sign up to receive notification when we do!"
+    elsif @restaurants.blank?
+      flash[:notice] = "No results found, please try a new search"
+    end
     render :partial => "directory/restaurant_search_results"
   end
 
   def travel_guides
     redirect_to soapbox_btl_topic_path(Topic.travel)
+  end
+
+  def auto_complete_keywords
+    @keywords = get_autocomplete_restaurant_result
+    unless @keywords.present?      
+      render :json => @keywords.push('No results found, please try a new search')
+    else            
+      render :json => @keywords
+    end
+  end
+  
+  def auto_complete_person_keywords
+    @keywords = get_autocomplete_person_result
+    unless @keywords.present?      
+      render :json => @keywords.push('No results found, please try a new search')
+    else      
+      render :json => @keywords
+    end
   end
 
   private

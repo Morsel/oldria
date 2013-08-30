@@ -199,6 +199,8 @@ ActionController::Routing::Routes.draw do |map|
                              :social_archive => :get,
                              :newsletter_subscriptions => :get,
                              :download_subscribers => :get,
+                             :import_csv =>:post,
+                             :confirmation_screen =>:post,
                              :new_media_contact => :get,
                              :replace_media_contact => :post,
                              :restaurant_visitors => :get,
@@ -245,7 +247,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get, :approve => :post, :archives => :get , :get_campaign_status=> :get,:disapprove => :post}
 
     restaurant.add_keywords 'add_keywords', :controller => "menu_items", :action => "add_keywords"
-    restaurant.profile_out_of_date 'profile_out_of_date', :controller => "restaurants", :action => "profile_out_of_date"
+    restaurant.request_profile_update 'request_profile_update', :controller => "restaurants", :action => "request_profile_update"
     restaurant.show_notice 'show_notice', :controller => "restaurants", :action => "show_notice"
   end
 
@@ -382,7 +384,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :brain_tree_webhook,:collection => {:varify => :any}
 
     admin.invalid_employments 'invalid_employments',:controller => "restaurants", :action => "invalid_employments"
-    admin.resources :runner
+    admin.resources :runner 
+    admin.export_media_for_newsfeed 'export_media_for_newsfeed', :controller => 'runner', :action => 'export_media_for_newsfeed'
+    admin.export_media_for_digest 'export_media_for_digest', :controller => 'runner', :action => 'export_media_for_digest'
     admin.resources :invited_employees, :only => :index, :member =>{:active => :get}
   end
 
@@ -428,4 +432,9 @@ ActionController::Routing::Routes.draw do |map|
   map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
   #for get selected city
   map.get_selected_cities '/mediafeed/media_users/get_selected_cities', :controller => 'media_users', :action => 'get_selected_cities'
+  #get opened campaign
+  map.get_opened_campaign '/restaurants/:restaurant_id/newsletters/get_opened_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_opened_campaign'
+  map.get_clicked_campaign '/restaurants/:restaurant_id/newsletters/get_clicked_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_clicked_campaign'
+  map.get_bounces_campaign '/restaurants/:restaurant_id/newsletters/get_bounces_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_bounces_campaign'
 end
+

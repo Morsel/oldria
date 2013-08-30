@@ -9,32 +9,54 @@
 
               <nav id="restaurant_feature_nav">
                 <%= active_link_to 'Settings', restaurant_newsletters_path(:restaurant_id => @restaurant) %>
-                <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) if @restaurant.shareable_newsletter_subscribers.present? %>
+                <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) %>
                 <%= active_link_to 'Reports', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %>
               </nav>
 
               <div id="restaurant_features_content" style="width:700px;">
 
-                <div class="right" style="margin-right:10px">
-                    <%= link_to "Export to CSV file", download_subscribers_restaurant_path(@restaurant) %>
-                </div>
                 <h1 class="pg_title">Newsletter Subscribers</h1>
-                <p>Your list will be kept private and is only accessible by your restaurant. RIA will never share or distribute your customer data. </p>
+                <p class='export'> <%= link_to "Export to CSV file", download_subscribers_restaurant_path(@restaurant) %></p>
+                  <p>  <%= render 'restaurants/newsletters/csv' %> </p>
+                
+                <p class='export-text' >Upload your diner list! <br/><br/> 
+              
+
+                Your diner list is private, secure and will not be shared with any other restaurants or used for any other mailing activity. It is your list, you've entrusted it to us, and we honor that completely.<br/><br/>
+
+                You can only import lists of people who sign up at your website or your restaurant. No 3rd party lists, no prospects, no lists that you scraped from websites, no chambers of commerce lists, etc.doing so will result in your permanent removal from RIA. If you would like assistance determining if your list can be uploaded, contact <%= mail_to 'help@restaurantintelligenceagency.com', "RIA" ,:subject => "CSV Import Issue! :: #{@restaurant.name}" %>.
+
 
                 <!-- <div id="read_messages" style="width:670px;margin:0;"> -->
                   <div class="editing clearfix clear">
-                      <table style="width: 100%" class="archives">
+                      <table style="width: 100%" cellspacing="0" class="tablesorter">
                           <thead>
                               <tr>
-                                  <th>Email Address</th>
+                                  <th width="30%">First Name</th>
+                                  <th style="30%">Last Name</th>
                                   <th>Subscription Date</th>
+                                  <th>Type</th>
                               </tr>
                           </thead>
                           <tbody>
                             <% @subscriptions.each do |subscription| %>
                               <tr>
-                                <td><%= subscription.newsletter_subscriber.email %></td>
-                                <td><%= subscription.created_at %></td>
+                                <td><%= link_to subscription.try(:newsletter_subscriber).try(:first_name),"mailto:#{subscription.try(:newsletter_subscriber).try(:email)}" %></td>
+                                <td><%= link_to subscription.try(:newsletter_subscriber).try(:last_name),"mailto:#{subscription.try(:newsletter_subscriber).try(:email)}" %></td>
+                                <td><%= subscription.created_at.strftime("%m/%d/%Y") %></td>
+                                <% if subscription.newsletter_subscriber.try(:user).blank?%>
+                                  <td> Diner </td>
+                                <% elsif subscription.newsletter_subscriber.try(:user) %>
+                                  <td> Industry </td>
+                                <% end %>
+                              </tr>
+                            <% end %> 
+                            <% @media_subscriptions.each do |subscription| %>
+                              <tr>
+                                <td><%= link_to subscription.media_newsletter_subscriber.first_name,"mailto:#{subscription.media_newsletter_subscriber.email}" %></td>
+                                <td><%= link_to subscription.media_newsletter_subscriber.last_name,"mailto:#{subscription.media_newsletter_subscriber.email}" %></td>
+                                <td><%= subscription.created_at.strftime("%m/%d/%Y") %></td>
+                                <td> Media </td>
                               </tr>
                             <% end %>
                           </tbody>
