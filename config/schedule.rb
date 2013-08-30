@@ -62,3 +62,7 @@ end
 every :thursday, :at => "2:00am" do
   runner 'Restaurant.send_newsletters'
 end
+
+every 1.day, :at => '4:30am' do
+  runner 'NewsletterSubscriber.new.send_newsletters_to_diner'
+end
