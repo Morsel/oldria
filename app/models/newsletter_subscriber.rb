@@ -143,10 +143,10 @@ class NewsletterSubscriber < ActiveRecord::Base
         @menu_items = @menus = @restaurantAnswers = @promotions = []
         unless(@arrMedia.blank?)
            @arrMedia.each do |restaurant|
-             @basic_restarurants_menu_items << restaurant if !restaurant.premium_account? && !restaurant.menu_items.find(:all,:conditions=>["created_at >= ? OR updated_at >= ?",201.day.ago.beginning_of_day,201.day.ago.beginning_of_day]).blank?
+             @basic_restarurants_menu_items << restaurant if !restaurant.premium_account? && !restaurant.menu_items.find(:all,:conditions=>["created_at >= ? OR updated_at >= ?",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day]).blank?
            end
            @arrMedia.each do |restaurant|
-             @basic_restarurants_promotions << restaurant if !restaurant.premium_account? && !restaurant.promotions.find(:all,:conditions=>["created_at >= ? OR updated_at >= ?",201.day.ago.beginning_of_day,201.day.ago.beginning_of_day]).blank?
+             @basic_restarurants_promotions << restaurant if !restaurant.premium_account? && !restaurant.promotions.find(:all,:conditions=>["created_at >= ? OR updated_at >= ?",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day]).blank?
            end
 
           @arrMedia = @arrMedia - @basic_restarurants_menu_items - @basic_restarurants_promotions
