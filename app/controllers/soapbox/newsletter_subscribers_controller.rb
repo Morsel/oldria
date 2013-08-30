@@ -12,10 +12,14 @@ class Soapbox::NewsletterSubscribersController < ApplicationController
   end
 
   def edit
+    @digest_metropolitan_areas = @digest_regional_areas = []
+    @digest_regional_areas = @subscriber.digest_diner.find_diner_regional_writers(@subscriber) unless @subscriber.digest_diner.blank?
+    @digest_metropolitan_areas = @subscriber.digest_diner.find_diner_metropolitan_areas_writers(@subscriber) unless @subscriber.digest_diner.blank?
   end
 
   def update
     if @subscriber.update_attributes(params[:newsletter_subscriber])
+      update_newsletter_data(params[:id])
       flash[:notice] = "Thanks! Your preferences have been updated."
       redirect_to_user_or_edit
     else
@@ -70,6 +74,13 @@ class Soapbox::NewsletterSubscribersController < ApplicationController
 
   def redirect_to_user_or_edit
     redirect_to @subscriber.user.present? ? edit_newsletters_user_url(@subscriber.user) : { :action => "edit" }
+  end
+
+  def update_newsletter_data user_id
+      @subscriber.metropolitan_areas_writers.destroy_all
+      @subscriber.regional_writers.destroy_all
+      @subscriber.digest_diner.update_attributes(params[:digest_diner]) unless @subscriber.digest_diner.blank?
+      @subscriber.delete_other_writers
   end
 
 end

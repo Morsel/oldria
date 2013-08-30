@@ -3439,3 +3439,17 @@ form#join {
 	overflow-y: auto;
 	overflow-x: hidden;
 }
+.display-none{
+	display: none;
+}
+#search_digest_state_by_name{
+	width: 372px;
+}
+li#user_metropolitan_areas_input ol li, div#digest_option_regional ol li{
+  float: left;
+  width: 25%;
+  label {
+    font-weight: normal;
+    color: black;
+  }
+}	

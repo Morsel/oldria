@@ -3,9 +3,11 @@ class Soapbox::SoapboxController < ApplicationController
 include AutoCompleteHelper
 
   def index
-     if params[:person] || params[:name]
+     if params[:person] || params[:name] || params[:metro]
       respond_to do |format|
-        if params[:person]
+        if params[:metro]
+          format.js { auto_complete_metropolitan_keywords }
+        elsif params[:person]
           format.js { auto_complete_person_keywords }
         else
           format.js { auto_complete_keywords }

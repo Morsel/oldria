@@ -61,11 +61,10 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
   end
 
   def get_selected_cities
-    @user = User.find(params[:user_id])
+    current_user ? @user = current_user : @subscriber = current_subscriber
     @cities = MetropolitanArea.find_all_by_state(params['state_name'])
     @checked_city = MetropolitanArea.find(:all,:conditions=>["id IN(?)",params[:checked_city].split(",").map { |s| s.to_i } ])
     @cities = ( @checked_city + @cities ).uniq
-    
     render :layout => false
   end
 
