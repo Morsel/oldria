@@ -243,6 +243,21 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def user_profile_subscribe
+    if current_user.media?     
+      get_user
+      ups = current_user.user_profile_subscribe(@user)   
+      if ups.blank? && UserProfileSubscriber.create(:user_profile_subscriber => current_user, :user_id => @user.id)
+        flash[:notice] = "#{current_user.email} is now subscribed to #{@user.name}'s profile."
+      else  
+        ups.destroy          
+        flash[:notice] = "#{current_user.email} is unsubscribed to #{@user.name}'s profile."    
+      end  
+      redirect_to :action => "show", :username => @user.username
+    end   
+  end   
+
   private
 
   def get_user

@@ -119,6 +119,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :metropolitan_areas
   has_many :media_newsletter_subscriptions, :dependent => :destroy, :foreign_key => "media_newsletter_subscriber_id"
+  has_many :user_profile_subscribers, :dependent => :destroy, :foreign_key => "profile_subscriber_id"
   has_many :page_views, :as => :page_owner, :dependent => :destroy
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
@@ -634,6 +635,10 @@ class User < ActiveRecord::Base
   end
   def restaurant_newsletter_subscription restaurant    
     media_newsletter_subscriptions.find_by_restaurant_id(restaurant.id)
+  end  
+
+  def user_profile_subscribe user    
+    user_profile_subscribers.find_by_user_id(user.id)
   end  
 
   #1 = National, 2 = Regional, 3 = Local
