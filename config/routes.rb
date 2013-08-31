@@ -133,7 +133,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :direct_messages, :member => { :read => :put }
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-
+  map.user_profile_subscribe 'user_profile_subscribe/:username', :controller => 'users', :action => 'user_profile_subscribe', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
   map.resources :users, :collection => { :resend_confirmation => :any ,:add_region =>:get ,:new_james_beard_region =>:post }, :member => {
     :resume => :get,
     :remove_twitter => :put,
