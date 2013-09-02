@@ -14,6 +14,7 @@ class OtmKeyword < ActiveRecord::Base
 
   has_many :menu_item_keywords, :dependent => :destroy
   has_many :menu_items, :through => :menu_item_keywords
+  has_many :trace_searches, :as => :keywordable
 
   validates_presence_of :name, :category
 

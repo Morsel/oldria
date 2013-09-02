@@ -14,6 +14,7 @@ class JamesBeardRegion < ActiveRecord::Base
   has_many :restaurants
   has_many :profiles
   has_many :users, :through => :profiles
+  has_many :trace_searches, :as => :keywordable
 
   validates_presence_of :name
   validates_presence_of :description
