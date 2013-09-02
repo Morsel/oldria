@@ -13,6 +13,7 @@
 class MetropolitanArea < ActiveRecord::Base
   has_many :restaurants
   has_many :profiles
+  has_many :trace_searches, :as => :keywordable
   
   has_and_belongs_to_many :users
   

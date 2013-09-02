@@ -15,6 +15,7 @@ class Specialty < ActiveRecord::Base
   has_many :profile_specialties
   has_many :profiles, :through => :profile_specialties
   has_many :trace_keywords, :as => :keywordable
+  has_many :trace_searches, :as => :keywordable
   
   validates_presence_of :name
 
