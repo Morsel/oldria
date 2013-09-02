@@ -20,7 +20,7 @@
       </li>    
       <li>
         <%= f.label :photo %>
-        <p class="inline-hints">Please shrink large photos to 2400 pixels on a side before you attempt to upload them. <br />"<strong>iPhone users</strong> - Please take photos in landscape mode"<br/>Please select the size less then 3 megabytes. </p>
+        <p class="inline-hints">Please shrink large photos to 2400 pixels on a side before you attempt to upload them. <br />"<strong>iPhone users</strong> - Please take photos in landscape mode"<br/><b>Please select the size less then 3 megabytes. </b></p>
         <%= f.input :photo, :label => false%>
       </li>   
         <% if @menu_item.photo_file_name.present? -%>
@@ -45,11 +45,31 @@
               </li>
             <% end %>
         </p>
-        <% if @is_new %>
-           <section id="form-search-keywords" class="otm-form-section">
-            <%=render :partial=>'get_keywords'%>
-           </section>
-          <% end %>
+        <section id="form-tabs">
+            <nav id="profile-options">
+                <% @categories.keys.each do |category| %>
+                <span><a href="#form-<%= category.downcase.gsub(/[\s\W]/, "-") %>" id="tab-summary"><%= category %></a></span>
+                <% end %>
+                  <span class="display-none"><a href="#form-search-keywords" id="tab-summary"></a></span>
+            </nav>
+
+            <% @categories.each do |category, keywords| %>
+            <section id="form-<%= category.downcase.gsub(/[\s\W]/, "-") %>" class="otm-form-section">
+                <div><%= category %></div>
+                <% keywords.in_groups(3, OtmKeyword.new).each do |keyword_set| %>
+                  <div class="keyword-column">
+                      <%= f.input :otm_keywords, :as => "check_boxes", :collection => keyword_set, :label => "&nbsp;" %>
+                  </div>
+                <% end %>
+                <div class="clear">&nbsp;</div>
+            </section>
+            <% end %>
+             <% if @is_new %>
+             <section id="form-search-keywords" class="otm-form-section">
+              <%=render :partial=>'get_keywords'%>
+             </section>
+             <% end %>
+        </section>
 
         <section id="social-tabs">
            </br><%= label_tag "social-facebook", "Social Sharing" %>
@@ -137,6 +157,11 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
+    $('#form-tabs').tabs({
+      panelTemplate: '<section></section>',
+      fx: { duration: 'fast', opacity: 'toggle' }
+    });
+
     $('#social-tabs').tabs({
       panelTemplate: '<section></section>',
       fx: { duration: 'fast', opacity: 'toggle' }
@@ -155,7 +180,7 @@
     });
 
     $('#ui-datepicker-div').wrap('<div class="smoothness"></div>');
-
+    
     $(".tweet").charCount({
       allowed: 140,
       minChar: 5,
