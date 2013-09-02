@@ -15,31 +15,26 @@
   <p>With a Spoonfeed restaurant profile, you'll know what the media are looking for so you can share information they need for stories.</p>
     
   <%unless @specialty_names.blank?%>
-    <ul>
-      <li>
-        Personal Profile Specialties<br>
+      Personal Profile Specialties<br>
         <%= @specialty_names.compact.uniq.map{|a| link_to a.name,edit_user_profile_url(@current_user)}.to_sentence(:last_word_connector => ' and ') %>
-      </li>
-    </ul>
   <%end%>
     
 
   <%unless @otm_keywords.blank? %>
-    <ul>
-      <li>On the Menu Keywords<br>
+     On the Menu Keywords<br>
         <%= @otm_keywords.compact.uniq.map{ |k| link_to k.name, menu_items_url(:keyword => k.name,:id=>k.id) }.to_sentence(:last_word_connector => ' and ') %>
-      </li>
-    </ul>
   <%end%>
+
+  <%if @otm_keyword_notification.present? %>
+    <%@otm_keyword_notification.each do |otm_keyword_notification| %>
+      <%= otm_keyword_notification.name %><br>
+    <%end%>
+  <% end %>
 
 
   <%unless @restaurant_features.blank?%>
-    <ul>
-      <li>
-        Restaurant features<br>
+      Restaurant features<br>
         <%= @restaurant_features.compact.uniq.map{ |k| link_to k.name, feature_url(:id=>k.id) }.to_sentence(:last_word_connector => ' and ')  %>
-      </li>
-    </ul>
   <%end%>
 
 
