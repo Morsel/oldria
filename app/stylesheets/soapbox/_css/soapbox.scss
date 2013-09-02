@@ -629,8 +629,9 @@ body,html,#container,#main,#content,#inside{
 	}
 	.identity {
 		width: 183px;
-		height: 100px;
-    min-height: 70px;
+    min-height: 93px;
+    height: 100px; 
+    min-height: 70px; 
 		float: left;
 		margin: 0 40px 10px 0;
 		border-bottom: 1px dotted #ddd;
@@ -3419,6 +3420,7 @@ form#join {
 .ui-autocomplete-loading {
    background: white url('/images/ajax-loader.gif') right center no-repeat;
 }
+
 .user-subscribe
 	{
 		margin-top: 5px !important;
