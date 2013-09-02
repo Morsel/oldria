@@ -27,9 +27,15 @@ class MenuItemsController < ApplicationController
       flash[:notice] = "Your menu item has been saved"
       redirect_to :action => "index"
     else
+      flash[:error] = @menu_item.errors.full_messages
       @is_new = true
-      @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
+      if params[:selected_keywords]
+        @selected_keywords = params[:selected_keywords].split(",").map { |s| s.to_i }
+      else
+        @selected_keywords = []
+      end
       @categories_keywords = OtmKeyword.find(:all,:conditions=>["name like ? ","%#{params[:menu_item][:search_keywords]}%"],:order => "category ASC, name ASC",:limit=>100) 
+      build_social_posts
       render :action => "new"
     end
   end
