@@ -75,9 +75,17 @@ include AutoCompleteHelper
 
   def restaurant_search
     trace_search_for_restaurant_directory_for_soapbox
-    if params[:search_restaurant_eq_any_name]
+    if params[:name] == "name"
+      @restaurants = Restaurant.name_begins_with(params[:search_restaurant_eq_any_name]).uniq
+    elsif params[:name] == "keyword"
+      @restaurants = Restaurant.menu_items_otm_keywords_name_begins_with(params[:search_restaurant_eq_any_name]).uniq
+    elsif params[:name] == "feature"
+      @restaurants = Restaurant.restaurant_features_value_begins_with(params[:search_restaurant_eq_any_name]).uniq
+    elsif params[:name] == "cuisine"
+      @restaurants = Restaurant.cuisine_name_begins_with(params[:search_restaurant_eq_any_name]).uniq    
+    elsif ( (params[:search_restaurant_eq_any_name]) && (params[:name].blank?) )
       @restaurants = Restaurant.name_or_menu_items_otm_keywords_name_or_restaurant_features_value_or_cuisine_name_equals(params[:search_restaurant_eq_any_name]).uniq
-      @restaurants = Restaurant.name_equals(params[:search_restaurant_eq_any_name]) if @restaurants.blank?
+      @restaurants = Restaurant.name_begins_with(params[:search_restaurant_eq_any_name]) if @restaurants.blank?
     elsif
       @restaurants = Restaurant.state_or_james_beard_region_name_equals(params[:search_restaurant_by_state_or_region]).uniq
     end

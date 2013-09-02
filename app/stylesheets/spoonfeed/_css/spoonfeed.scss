@@ -4843,3 +4843,10 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 			float :none
 		}
 }
+
+.ui-autocomplete { 
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+

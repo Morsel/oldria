@@ -3436,3 +3436,8 @@ form#join {
 			float :none
 		}
 }
+.ui-autocomplete { 
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
