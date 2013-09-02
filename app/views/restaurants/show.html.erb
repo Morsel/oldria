@@ -46,7 +46,10 @@
 
                 <% begin %>
 				<% for post in @restaurant.facebook_page.posts[0...3] do %>
-				<p><%= post.message %> <span class="datestamp">(<%= Time.parse(post.created_time).strftime("%D") %>)</p>
+				<p>
+					<% unless post.message.blank? %>
+						<%= post.message %> <span class="datestamp">(<%= Time.parse(post.created_time).strftime("%D") %>)</p>
+					<% end %>
 				<% end %>
 				<% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception%>
 				<p>Sorry, Facebook posts are unavailable at this time.</p>
