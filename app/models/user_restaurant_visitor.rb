@@ -176,6 +176,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 @newsfeed_message ="Newsfeed posts are emailed directly to media as press releases from your restaurant and can feature everything from new menu items to events to promos. Don't forget to get news to the ,<a href='#{new_restaurant_promotion_url(visitor.restaurant)}'>media</a> so they can report it."
               end
               
+              #TODU for otm_keyword_notification
+              otm_keyword_notification = OtmKeywordNotification.find(:all,:conditions=>["created_at > ?",user.user_visitor_email_setting.last_email_at])
+
               employee_visitors = user.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 1.day.ago]).map(&:user)
               restaurant_visitors = {
                 "visitor_obj" =>visitor,
@@ -197,10 +200,11 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "a_la_minute_visitors" => @a_la_minute_visitors,
                 "restaurant" => visitor.restaurant,
                 "current_user" => user,
-                "sum" => @sum
-              }                          
-              if check_email_frequency(@uves)  
-                UserMailer.deliver_send_mail_visitor(restaurant_visitors) 
+                "otm_keyword_notification" => otm_keyword_notification
+              }  
+                                      
+              if check_email_frequency(@uves)
+                UserMailer.deliver_send_mail_visitor(restaurant_visitors)
                 @visitor_mail+=1
                 create_log_file_for_visitor_user(user,visitor.restaurant)
               end

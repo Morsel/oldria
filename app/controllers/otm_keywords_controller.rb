@@ -13,7 +13,9 @@ class OtmKeywordsController < ApplicationController
     if @otm_keywords.present?
       render :json => @otm_keywords.map(&:name)
     else
-      UserMailer.deliver_send_otm_keyword_notification(current_user,otm_keyword_name)
+      otm_keyword_notification = OtmKeywordNotification.new
+      otm_keyword_notification.name = params[:term]   
+      UserMailer.deliver_send_otm_keyword_notification(current_user,otm_keyword_name) if otm_keyword_notification.save
       render :json => @otm_keywords.push('This keyword does not yet exist in our database. Please try another keyword.')
     end
   end
