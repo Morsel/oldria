@@ -1,0 +1,20 @@
+<% title "Soapbox Page Views" %>
+
+<ul>
+	<% for soapbox_trace_keyword in @soapbox_trace_keywords %>
+	  <li>viewed page is <%= link_to soapbox_trace_keyword.try(:title), soapbox_trace_keyword.url %>
+	   	[<%= link_to soapbox_trace_keyword.restaurant.name, soapbox_restaurant_path(soapbox_trace_keyword.restaurant) unless soapbox_trace_keyword.restaurant.blank? %>]
+		 on <%= soapbox_trace_keyword.created_at.strftime("%m/%d/%y") %>
+		</li>
+	<% end %>
+
+</ul>
+
+<%= will_paginate(@soapbox_trace_keywords) %>
+
+
+
+
+
+
+

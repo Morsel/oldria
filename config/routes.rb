@@ -357,7 +357,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :site_activities
     admin.resources :otm_keywords
     admin.resources :email_stopwords
-    admin.resources :page_views, :only => ["index"]
+    admin.resources :page_views, :only => ["index"],:collection => {:trace_keyword_for_soapbox => :get}
     admin.resources :featured_profiles
     admin.resources :test_restaurants, :member =>{:active => :get}
 
