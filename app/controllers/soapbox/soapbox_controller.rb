@@ -76,6 +76,7 @@ include AutoCompleteHelper
   end
 
   def restaurant_search
+    trace_search_for_restaurant_directory_for_soapbox
     if params[:name] == "name"
       @restaurants = Restaurant.name_begins_with(params[:search_restaurant_eq_any_name]).uniq
     elsif params[:name] == "keyword"
@@ -85,7 +86,6 @@ include AutoCompleteHelper
     elsif params[:name] == "cuisine"
       @restaurants = Restaurant.cuisine_name_begins_with(params[:search_restaurant_eq_any_name]).uniq    
     elsif ( (params[:search_restaurant_eq_any_name]) && (params[:name].blank?) )
-    trace_search_for_restaurant_directory_for_soapbox
       @restaurants = Restaurant.name_or_menu_items_otm_keywords_name_or_restaurant_features_value_or_cuisine_name_equals(params[:search_restaurant_eq_any_name]).uniq
       @restaurants = Restaurant.name_begins_with(params[:search_restaurant_eq_any_name]) if @restaurants.blank?
     elsif

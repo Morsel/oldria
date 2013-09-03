@@ -74,6 +74,7 @@ class DirectoryController < ApplicationController
   end
   
   def search_restaurant_by_name
+    trace_search_for_restaurant_directory
     if params[:name] == "name"
       @restaurants = Restaurant.name_begins_with(params[:search_restaurant_eq_any_name]).uniq
     elsif params[:name] == "keyword"
