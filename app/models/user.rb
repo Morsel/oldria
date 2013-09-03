@@ -782,6 +782,20 @@ class User < ActiveRecord::Base
     end  
   end
 
+  def import_otm_keywords
+    xls = SimpleXlsxReader.open("public/RIA_Style_Guide_for_import.xlsx")
+      xls.sheets.each do |sheet|
+        sheet.rows.each do |row|          
+          @otm_keyword = OtmKeyword.find_by_id(row[0])
+          unless @otm_keyword.blank?
+            @otm_keyword.update_attributes(:category=>row[2],:name=>row[1])
+          else 
+            OtmKeyword.create(:name=>row[1],:category=>row[2])
+          end    
+        end   
+      end   
+  end  
+   
 
 end
 
