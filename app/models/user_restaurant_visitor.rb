@@ -36,21 +36,21 @@ class UserRestaurantVisitor < ActiveRecord::Base
     days=rest.email_frequency.split("/")
     days.each do |day_name|
       if day_name=="Daily"
-        # rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         return true
       end
       day_names=get_full_day_name(day_name,rest)
       if day_names==getdayname
         # begin update
-        # if day_name=="Weekly"      
-        #   rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
-        # elsif day_name=="M"
-        #   rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
-        # elsif day_name=="W"
-        #   rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
-        # elsif day_name=="F"
-        #   rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
-        # end
+        if day_name=="Weekly"      
+          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        elsif day_name=="M"
+          rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        elsif day_name=="W"
+          rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        elsif day_name=="F"
+          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        end
         # end update 
         return true
       end
