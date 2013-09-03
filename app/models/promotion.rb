@@ -32,7 +32,8 @@ class Promotion < ActiveRecord::Base
   belongs_to :promotion_type
   belongs_to :restaurant
   has_many :trace_keywords, :as => :keywordable
-
+  has_many :soapbox_trace_keywords, :as => :keywordable
+  
   has_many :twitter_posts, :as => :source, :dependent => :destroy
   accepts_nested_attributes_for :twitter_posts, :limit => 3, :allow_destroy => true, :reject_if => TwitterPost::REJECT_PROC
 

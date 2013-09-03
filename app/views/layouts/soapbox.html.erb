@@ -114,6 +114,7 @@
 <% if (!current_user.blank?  && current_user.media?) && (!@soapbox_keywordable_id.blank? && !@soapbox_keywordable_type.blank?)  %>
  <script type="text/javascript">
       params = { trace_keyword: {
+
                         keywordable_id: <%= @soapbox_keywordable_id  %>,
                         keywordable_type: '<%=   @soapbox_keywordable_type %>',
                         user_id: <%=  current_user.id %>
@@ -140,6 +141,8 @@
 <% if (current_user.blank?) && (!@soapbox_keywordable_id.blank? && !@soapbox_keywordable_type.blank? && !@restaurant.blank?) %>
   <script type="text/javascript">
       params = { trace_keyword: {
+                        url: window.location.toString(),
+                        title: "<%= @content_for_title %>",
                         keywordable_id: <%= @soapbox_keywordable_id  %>,
                         keywordable_type: '<%=   @soapbox_keywordable_type %>',
                         restaurant_id: <%=   @restaurant %>
@@ -152,6 +155,8 @@
 <% elsif (current_user.blank?) && (!@soapbox_restaurant_id.blank? && !@soapbox_keywordable_type.blank?) %>
   <script type="text/javascript">
       params = { trace_keyword: {
+                        url: window.location.toString(),
+                        title: "<%= @content_for_title %>",
                         restaurant_id: <%= @soapbox_restaurant_id %>,
                         keywordable_type: '<%= @soapbox_keywordable_type %>'
                 } 

@@ -161,6 +161,8 @@ class Restaurant < ActiveRecord::Base
   has_many :page_views, :as => :page_owner, :dependent => :destroy
   attr_accessor :restaurant_role_virtual
 
+  has_many :trace_keywords, :as => :keywordable
+  has_many :soapbox_trace_keywords, :as => :keywordable
 
   has_many :trace_keywords, :as => :keywordable
   has_many :trace_searches, :as => :keywordable
