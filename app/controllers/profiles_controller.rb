@@ -78,6 +78,8 @@ class ProfilesController < ApplicationController
   end
 
   def find_or_build_profile
+    #TODU for those user whoes profile is incomplete and account type is complimentry premium.validate in view
+    @incomplete_profile =  @user.profile  
     @profile = @user.profile || @user.build_profile
   end
 
