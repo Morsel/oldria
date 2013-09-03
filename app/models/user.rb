@@ -835,7 +835,7 @@ class User < ActiveRecord::Base
  end   
 
   def import_otm_keywords
-    xls = SimpleXlsxReader.open("public/RIA_Style_Guide_for_import.xlsx")
+    xls = SimpleXlsxReader.open("public/import/RIA_Style_Guide_for_import.xlsx")
       xls.sheets.each do |sheet|
         sheet.rows.each do |row|          
           @otm_keyword = OtmKeyword.find_by_id(row[0])
