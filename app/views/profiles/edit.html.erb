@@ -67,7 +67,7 @@
             </div>
             <% end %><!-- Cuisines and specialties -->
 
-          <% if @user.premium_account? &&  !@user.profile.nil? %> 
+          <% if @user.premium_account? && !@incomplete_profile.nil? %> 
             <% f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
               <%= user_form.input :publish_profile, :as => :boolean, :label => 'Display my profile on Soapbox' %>
             <% button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
