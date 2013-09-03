@@ -53,6 +53,9 @@ class User < ActiveRecord::Base
   default_url_options[:host] = DEFAULT_HOST
 
   
+  has_many :user_keywords, :dependent => :destroy
+  accepts_nested_attributes_for :user_keywords
+
   has_many :trace_keywords, :as => :keywordable
   has_many :statuses, :dependent => :destroy
   has_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
@@ -184,7 +187,12 @@ class User < ActiveRecord::Base
   has_many :promotion_types,  :through => :newsfeed_promotion_types
   has_many :trace_searches, :as => :keywordable
 
+  #### keyword following media user ###
+  belongs_to :keyword_follow_type
+  has_many :keyword_followers ,:dependent => :destroy
+  attr_accessor :search_keywords
 
+  
   
 
 ### Roles ###
@@ -665,30 +673,23 @@ class User < ActiveRecord::Base
       regional_writers.find(:all,:conditions=>"regional_writer_type = 'DigestWriter'").map(&:destroy)
     end 
 
+    if keyword_follow_type_id == 1
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'KeywordFollowType'").map(&:destroy)      
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'KeywordFollowType'").map(&:destroy)
+    elsif  keyword_follow_type_id == 2
+      
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'KeywordFollowType'").map(&:destroy)      
+    elsif  keyword_follow_type_id == 3
+      
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'KeywordFollowType'").map(&:destroy)
+    end
+
   end
 
   def update_media_newsletter_mailchimp
 
     if media?      
-      mc = MailchimpConnector.new("RIA Newsfeed")              
-      
-      unless newsfeed_writer.blank?
-        
-        region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq #If user has selected regions, getting metros of regions
-        
-        mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
-          :email_address => email,
-          :merge_vars => {:FNAME=>first_name,
-                          :LNAME=>last_name, 
-                          :METROAREAS=>newsfeed_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area_id).join(",").to_s + truncate(region_metro_areas.join(","),:length => 255), 
-                          :WRITERTYPE=>newsfeed_writer.name,           
-                          :groupings => [
-                              {:name=>"Regions",:groups=>newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:name).join(",")},
-                              { :name => "SubscriberType",:groups => "Newsfeed"},
-                              {:name=>"Promotions",:groups=>promotion_types.map(&:name).join(",")}]           
-          },:replace_interests => true,:update_existing=>true)
-          
-      end 
+      newsfeed_mailchimp_update(self,true,MailchimpConnector.new("RIA Newsfeed"))
       digest_mailchimp_update       
     end  
   end  
@@ -708,6 +709,21 @@ class User < ActiveRecord::Base
     @restaurants.flatten.compact.uniq
 
   end  
+  def get_newsfeed_subscription
+    @restaurants = []
+    
+    if newsfeed_writer.name == "National Writer"
+      @restaurants = Restaurant.all
+    elsif newsfeed_writer.name == "Regional Writer"
+      @restaurants = newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:restaurants)
+    else
+      @restaurants = newsfeed_writer.find_metropolitan_areas_writers(self).map(&:metropolitan_area).map(&:restaurants)
+
+    end unless newsfeed_writer.blank?
+
+    @restaurants.flatten.compact.uniq
+
+  end
 
   def send_employee_claim_notification_mail
   
@@ -750,11 +766,12 @@ class User < ActiveRecord::Base
     mc = MailchimpConnector.new("RIA Media") 
        
     mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
-        :email_address => email,
+        :email_address => 'nishant.n@cisinlabs.com',
         :merge_vars => {:FNAME=>first_name,
                         :LNAME=>last_name,                        
                         :MYCHOICE=>signal,                                              
-        },:replace_interests => true,:update_existing=>true)    
+        },:replace_interests => true,:update_existing=>true)
+
   end  
 
   def send_newsletter_to_media_subscribers subscriber
@@ -782,8 +799,43 @@ class User < ActiveRecord::Base
     end  
   end
 
+  def newsfeed_mailchimp_update user,double_optin=false,mc = MailchimpConnector.new("RIA Newsfeed")
+    unless user.newsfeed_writer.blank? 
+
+        region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", user.newsfeed_writer.find_regional_writers(user).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq
+
+        mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
+          :email_address => user.email,
+          :merge_vars => {:FNAME=>user.first_name,
+                          :LNAME=>user.last_name, 
+                          :METROAREAS=>user.newsfeed_writer.find_metropolitan_areas_writers(user).map(&:metropolitan_area_id).join(",").to_s + truncate(region_metro_areas.join(","),:length => 255), 
+                          :WRITERTYPE=>user.newsfeed_writer.name,           
+                          :groupings => [
+                              {:name=>"Regions",:groups=>user.newsfeed_writer.find_regional_writers(user).map(&:james_beard_region).map(&:name).join(",")},
+                              { :name => "SubscriberType",:groups => "Newsfeed"},
+                              {:name=>"Promotions",:groups=>user.promotion_types.map(&:name).join(",")}]           
+          },:replace_interests => true,:update_existing=>true,:double_optin=>double_optin)
+
+      end
+  end  
+
+  def filtered_user_keywords key
+    if user_keywords.group_by(&:follow_keyword_type).keys.include? key
+      user_keywords.group_by(&:follow_keyword_type)[key.to_s].map(&:follow_keyword)
+    else  
+      []
+    end  
+ end
+ def user_keywords_restaurants
+    restaurants = []
+    restaurants.push(filtered_user_keywords("Cuisine").map(&:restaurants))
+    restaurants.push(filtered_user_keywords("RestaurantFeature").map(&:restaurants))
+    restaurants.push(filtered_user_keywords("Restaurant"))
+    restaurants.compact.flatten.uniq
+ end   
+
   def import_otm_keywords
-    xls = SimpleXlsxReader.open("public/RIA_Style_Guide_for_import.xlsx")
+    xls = SimpleXlsxReader.open("public/import/RIA_Style_Guide_for_import.xlsx")
       xls.sheets.each do |sheet|
         sheet.rows.each do |row|          
           @otm_keyword = OtmKeyword.find_by_id(row[0])
@@ -795,8 +847,9 @@ class User < ActiveRecord::Base
         end   
       end   
   end  
-   
+ 
 
 end
+
 
 
