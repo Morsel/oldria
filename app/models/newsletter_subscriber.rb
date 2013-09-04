@@ -16,6 +16,10 @@
 #
 
 class NewsletterSubscriber < ActiveRecord::Base
+  acts_as_authentic
+  include ActionView::Helpers::TextHelper  
+  include ActionController::UrlWriter
+  default_url_options[:host] = DEFAULT_HOST
 
   has_many :newsletter_subscriptions, :dependent => :destroy
   belongs_to :user
@@ -86,6 +90,11 @@ class NewsletterSubscriber < ActiveRecord::Base
 
   def has_subscription(restaurant)
     NewsletterSubscription.exists?(:newsletter_subscriber_id => self.id, :restaurant_id => restaurant.id)
+  end
+
+  def deliver_soapbox_password_reset_instructions!
+    reset_perishable_token!
+    UserMailer.deliver_password_reset_instructions_for_soapbox(self)
   end
 
   private
