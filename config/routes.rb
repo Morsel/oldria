@@ -210,7 +210,7 @@ ActionController::Routing::Routes.draw do |map|
                              :api => :get,
                              :media_subscribe => :get
                              } do |restaurant|
-    restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
+    restaurant.resources :employees, :collection => { :bulk_edit => :get,:not_activited_account_employee => :get,:again_invite_new_employee => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }
     restaurant.resource :employee_accounts, :only => [:create, :destroy]
 
