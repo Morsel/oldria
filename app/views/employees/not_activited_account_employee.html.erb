@@ -1,0 +1,45 @@
+<% title "Social Posts", false -%>
+
+<div id="restaurant_profile_view" class="edit clear clearfix">
+
+    <%#= render 'restaurants/restaurant_editing_header' %>
+    
+    <div id="editing_restaurant">
+         
+          <h1 class="pg_title">Employees list who have not yet activated their accounts</h1> 
+
+          <div id="restaurant_features_content">
+            <div id="read_messages" style="width:800px;margin:0;">
+              <div class="editing clearfix clear">
+                    <table style="width: 110%">
+                        <thead>
+                            <tr>
+                                <th>Employee Name</th>
+                                <th>Email</th>
+                                <th>Last Request At </th>
+                                <th>Invite</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                          <% @all_employees.each do |group| %>
+                           <% if User.find(group.employee_id).confirmed_at.blank? %>
+	                           <tr>
+	                              <td><%= group.employee.username %></td>
+	                              <td><%= group.employee.email %></td>
+
+	                              <td><%= group.employee.created_at.to_s(:short) %></td>
+	                              <td><%= link_to "Invite again", again_invite_new_employee_restaurant_employees_path(:employee => group.employee.id) %></td>
+	                            </tr>
+	                          <% end %>  
+                          <% end %>
+                        </tbody>
+                    </table>
+                </div>
+
+          </div>
+
+        </div>
+    </div>
+</div>
