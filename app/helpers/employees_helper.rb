@@ -1,7 +1,7 @@
 module EmployeesHelper
   def restaurant_role_and_link(employment)
     role_name = employment.restaurant_role.try(:name) || "<em>No Role Assigned</em>"
-    delete_link = link_to('Delete',
+    delete_link = link_to('Remove from restaurant profile',
                         restaurant_employee_path(employment.restaurant, employment.employee),
                         :method => :delete,
                         :confirm => 'Are you sure?',
