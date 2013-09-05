@@ -22,7 +22,7 @@
   	<% if can? :edit, @restaurant %>
   		<p class="clearfix">
   			<%= link_to "Add employee", new_restaurant_employee_path(@restaurant), :class => 'sf-button positive' %>
-        <%= link_to "Invited employees who have not yet activated",not_activited_account_employee_restaurant_employees_path(@restaurant), :class => 'sf-button positive' %>
+        <%= link_to "Employees who have not activated yet",not_activited_account_employee_restaurant_employees_path(@restaurant), :class => 'sf-button positive' %>
   		</p>
 		<% end %>
 
