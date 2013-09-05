@@ -25,8 +25,8 @@
         <%= link_to "Invited employees who have not yet activated",not_activited_account_employee_restaurant_employees_path(@restaurant), :class => 'sf-button positive' %>
   		</p>
 		<% end %>
-
-  	<h3 class="rearrange">Rearrange the order employees are listed on your restaurant profile by drag and drop.</h3>
+	
+  	<h3 class="rearrange" id="remove-all-caps" >Rearrange the order employees are listed on your restaurant profile by drag and drop.</h3>
 	
   	<% unless @employments.blank? %>
   	<div id="restaurant_employees" data-remote-url="<%= reorder_restaurant_employments_url(@restaurant) %>">      
