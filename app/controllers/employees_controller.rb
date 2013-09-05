@@ -99,6 +99,21 @@ class EmployeesController < ApplicationController
    end
  end
 
+ def not_activited_account_employee
+  @all_employees = @restaurant.employments.by_position.all(:include => [:subject_matters, :restaurant_role, :employee],:order => "position")
+ end  
+
+ def again_invite_new_employee
+  @user = User.find(params[:employee])
+  invitation_sender = current_user
+  @send_invitation = nil
+  @user.reset_perishable_token! 
+  logger.info( "Delivering invitation email to #{@user.email}" )
+  UserMailer.deliver_new_user_invitation!(@user, invitation_sender)
+  flash[:notice] = "Your Invetation has been send sucessfully"
+  redirect_to not_activited_account_employee_restaurant_employees_path(@restaurant)
+ end  
+
   private
 
   def find_or_initialize_employee
