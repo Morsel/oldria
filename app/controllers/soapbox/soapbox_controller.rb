@@ -71,6 +71,7 @@ include AutoCompleteHelper
     end
     @use_search = true
     @menu_item_keywords = MenuItemKeyword.all(:select=>"distinct otm_keyword_id",:limit=>9,:order=>"id desc")
+    @recent_active_restaurants =  Restaurant.activated_restaurant.subscription_is_active.all(:limit=>9,:order=>"updated_at desc")
     @no_sidebar = true
     render :template => "directory/restaurants"
   end
