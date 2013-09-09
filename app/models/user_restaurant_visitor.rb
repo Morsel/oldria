@@ -36,20 +36,20 @@ class UserRestaurantVisitor < ActiveRecord::Base
     days=rest.email_frequency.split("/")
     days.each do |day_name|
       if day_name=="Daily"
-       # rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         return true
       end
       day_names=get_full_day_name(day_name,rest)
       if day_names==getdayname
         # begin update
         if day_name=="Weekly"      
-          #rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="M"
-          #rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="W"
-          #rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="F"
-          #rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         end
         # end update 
         return true
@@ -178,9 +178,6 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 @newsfeed_message ="Newsfeed posts are emailed directly to media as press releases from your restaurant and can feature everything from new menu items to events to promos. Don't forget to get news to the ,<a href='#{new_restaurant_promotion_url(visitor.restaurant)}'>media</a> so they can report it."
               end
               
-              #TODU for otm_keyword_notification
-              otm_keyword_notification = OtmKeywordNotification.find(:all,:conditions=>["created_at > ?",user.user_visitor_email_setting.last_email_at])
-
               employee_visitors = user.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 1.day.ago]).map(&:user)
               restaurant_visitors = {
                 "visitor_obj" =>visitor,
@@ -202,11 +199,10 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "a_la_minute_visitors" => @alm_visitors,
                 "restaurant" => visitor.restaurant,
                 "current_user" => user,
-                "otm_keyword_notification" => otm_keyword_notification
-              }  
-                                      
-              if check_email_frequency(@uves)
-                UserMailer.deliver_send_mail_visitor(restaurant_visitors)
+                "sum" => @sum
+              }                          
+              if check_email_frequency(@uves)  
+                UserMailer.deliver_send_mail_visitor(restaurant_visitors) 
                 @visitor_mail+=1
                 create_log_file_for_visitor_user(user,visitor.restaurant)
               end
