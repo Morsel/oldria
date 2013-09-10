@@ -260,6 +260,14 @@ class UserMailer < ActionMailer::Base
     body        :restaurant => restaurant,:employee => employee
   end 
 
+  def send_user_alert_for_payment_declined_email restaurant
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  restaurant.manager.email
+    bcc         ['ellen@restaurantintelligenceagency.com' ,'nishant.n@cisinlabs.com']
+    sent_on     Time.now
+    subject     "Update account payment information"
+    body        :restaurant => restaurant
+  end 
 
 end
 

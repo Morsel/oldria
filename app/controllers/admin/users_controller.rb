@@ -91,6 +91,11 @@ class Admin::UsersController < Admin::AdminController
     user = User.find(params[:id])   
     if UserSession.create(user).valid?
       flash[:notice] = "Your are logged in as #{user.try(:name)}"
+      restaurant = user.restaurants.map{|restaurant| restaurant unless restaurant.count.nil? }.compact.first
+      unless restaurant.blank?
+        flash[:error] = "Last time you are try to upgrade your #{restaurant.name} but payment was not successfully due to some reason. You can upgrade your account by <a href='/restaurants/#{restaurant.id}/subscription/new' >click here</a>"
+        redirect_to edit_restaurant_path(restaurant)
+      end
       redirect_to root_path
     else
       flash[:error] = "#{user.try(:name)} has not activated his account."
