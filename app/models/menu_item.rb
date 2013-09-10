@@ -45,7 +45,7 @@ class MenuItem < ActiveRecord::Base
                     :bucket         => "spoonfeed",
                     :url            => ':s3_domain_url',
                     :styles         => { :full => "1966x2400>", :large => "360x480>", :medium => "240x320>", :small => "189x150>", :thumb => "120x160>" }
-  validates_attachment_size :photo, :less_than => 3.megabytes,:message => "is too large for uploading the twitter please select the size less then 3 megabytes."
+  validates_attachment_size :photo, :less_than => 3.megabytes,:message => "is too large for uploading the twitter please select the size less then 3 megabytes.", :if => :photo_file_name
   validates_attachment_content_type :photo,
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :photo_file_name
