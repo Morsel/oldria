@@ -458,6 +458,16 @@ class Restaurant < ActiveRecord::Base
     end 
     path 
   end
+   #TODU When a credit card declines, an email goes to admin, the user is alerted three times over the course of 10 days,
+  def send_user_alert_for_payment_declined restaurant
+   if restaurant.count.nil? || restaurant.count < 3
+      restaurant.increment!(:count)      
+   elsif restaurant.count == 3
+    restaurant.admin_cancel #TODU make account to basic if payement decline
+   end     
+   UserMailer.deliver_send_user_alert_for_payment_declined_email(restaurant)
+  end
+
 
   private
 
