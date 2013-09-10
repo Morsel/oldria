@@ -36,20 +36,20 @@ class UserRestaurantVisitor < ActiveRecord::Base
     days=rest.email_frequency.split("/")
     days.each do |day_name|
       if day_name=="Daily"
-        rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        #rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         return true
       end
       day_names=get_full_day_name(day_name,rest)
       if day_names==getdayname
         # begin update
         if day_name=="Weekly"      
-          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          #rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="M"
-          rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          #rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="W"
-          rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          #rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="F"
-          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          #rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         end
         # end update 
         return true
@@ -81,7 +81,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
         if @uves.blank?
           @uves=create_user_visited_email_setting(user)
         end
-      if ( Time.now > @uves.next_email_at ) && ( !@uves.do_not_receive_email ) && ( !["Sun","Sat"].include?(Date::ABBR_DAYNAMES[Date.today.wday]) )
+      if ( Time.now > 1.day.ago ) && ( !@uves.do_not_receive_email ) && ( !["Sun","Sat"].include?(Date::ABBR_DAYNAMES[Date.today.wday]) )
         #keyword trace if user chef is not associate to resturants or not
         @al_users= Array.new
         keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , user.user_visitor_email_setting.last_email_at,user.user_visitor_email_setting.last_email_at]).group_by(&:keywordable_type)
@@ -93,6 +93,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
         end
         @al_users = TraceKeyword.all(:conditions => ["(keywordable_type='ALaMinuteAnswer' OR keywordable_type='ALaMinuteQuestion') AND (DATE(created_at) >= ? OR DATE(updated_at) >= ?)" ,get_limit_day.day.ago.beginning_of_day.to_formatted_s,get_limit_day.day.ago.beginning_of_day.to_formatted_s]).map(&:user_id)
         @a_la_minute_visitors = User.find(:all ,:conditions=>['id in (?)',@al_users.flatten.compact.uniq])
+
         if user.restaurants.blank? 
           # check the chef is associated restaurants or not
           if user.has_chef_role?
@@ -106,6 +107,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "current_user" => user
             }
             if keywords.present? && check_email_frequency(@uves)
+              puts "#{user.name} 1 blok\n"
               UserMailer.deliver_send_chef_user(restaurant_visitors) 
               @connect_media+=1
               create_log_file_for_connect_media(user)
@@ -202,7 +204,8 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "sum" => @sum
               }                          
               if check_email_frequency(@uves)  
-                UserMailer.deliver_send_mail_visitor(restaurant_visitors) 
+                UserMailer.deliver_send_mail_visitor(restaurant_visitors)
+                puts "#{user.name} second block\n" 
                 @visitor_mail+=1
                 create_log_file_for_visitor_user(user,visitor.restaurant)
               end
@@ -259,7 +262,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
     if Date::ABBR_DAYNAMES[Date.today.wday] == "Mon"
       return 2
     else
-      return 1  
+      return 2  
     end 
   end
 end
