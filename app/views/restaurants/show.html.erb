@@ -45,10 +45,17 @@
 				<h2><span>Facebook</span><%= link_to "see all", facebook_archive_restaurant_path(@restaurant), :class => "gray" %></h2>
 
                 <% begin %>
-				<% for post in @restaurant.facebook_page.posts[0...3] do %>
+                <% fb_msg_count = 0%>
+				<% for post in @restaurant.facebook_page.posts do %>
 				<p>
-					<% unless post.message.blank? %>
-						<%= post.message %> <span class="datestamp">(<%= Time.parse(post.created_time).strftime("%D") %>)</p>
+					<% if fb_msg_count != 3 %>
+						<% unless post.message.blank? %>
+							<%= post.message %> <span class="datestamp">(<%= Time.parse(post.created_time).strftime("%D") %>)							
+							<% fb_msg_count+=1 %>
+							</p>
+						<% end %>
+					<% else %>
+						<% break %>
 					<% end %>
 				<% end %>
 				<% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception%>
