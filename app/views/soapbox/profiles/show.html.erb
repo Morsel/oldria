@@ -37,7 +37,7 @@
 
         <%- if display_email(@user) -%>
         <dt>Email</dt>
-        <dd><%= mail_to(@user.email, "#{@user.name+'' +"'s" +' '+ truncate(@user.email, :length => 20)}") %></dd>
+        <dd><%= mail_to(@user.email, "#{@user.name+'' +"'s" +' '+"Email"}") %></dd>
         <%- end -%>
 
         <% if display_twitter(@user) %>
