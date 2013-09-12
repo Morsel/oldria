@@ -59,6 +59,20 @@ class PhotosController < ApplicationController
     @photo = @restaurant.photos.find(params[:id])
   end
 
+
+  def download
+    @error_arr = []
+    begin  
+     @photo = Photo.find(params[:id])
+     data = open(@photo.attachment.url)
+     send_data data.read, :type => data.content_type, :x_sendfile => true
+    rescue 
+      flash[:error] = @error_arr.push("There is some error to download url")     
+      @photos = @restaurant.photos
+      render :action => :index
+    end
+  end   
+
   private
 
   def find_restaurant
