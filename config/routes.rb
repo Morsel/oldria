@@ -62,6 +62,7 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :newsletter_subscribers, :member => { :welcome => :get, :confirm => :get },
                                                :collection => { :find_subscriber => :get }
     soapbox.resources :newsletter_subscriptions, :only => [:update, :destroy]
+    soapbox.resources :soapbox_password_resets , :collection => { :resend_confirmation => :get }
 
     soapbox.connect 'travel_guides', :controller => 'soapbox', :action => 'travel_guides'
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
