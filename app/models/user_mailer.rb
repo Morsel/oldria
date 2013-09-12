@@ -12,12 +12,31 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  def signup_for_soapbox(user = nil, sent_at = Time.now)
+    if user
+      from       'accounts@restaurantintelligenceagency.com'
+      recipients user.email
+      sent_on    sent_at
+      subject    'Welcome to Soapbox! Please confirm your account'
+      body       :user => user
+    end
+  end
+
   def password_reset_instructions(user)
     from          'accounts@restaurantintelligenceagency.com'
     recipients    user.email
     sent_on       Time.now
     subject       "Spoonfeed: Password Reset Instructions"
     body          :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
+  end
+
+  def password_reset_instructions_for_soapbox(user)
+
+    from          'accounts@restaurantintelligenceagency.com'
+    recipients    user.email
+    sent_on       Time.now
+    subject       "soapbox: Password Reset Instructions"
+    body          :edit_soapbox_soapbox_password_reset_url => edit_soapbox_soapbox_password_reset_url(user.perishable_token)
   end
 
   def media_request_notification(request_discussion, user)
