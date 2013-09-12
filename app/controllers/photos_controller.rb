@@ -64,7 +64,8 @@ class PhotosController < ApplicationController
     @error_arr = []
     begin  
      @photo = Photo.find(params[:id])
-     data = open(@photo.attachment.url)
+     #data = open(@photo.attachment.url)
+     data = open(URI.escape @photo.attachment.url)
      send_data data.read, :type => data.content_type, :x_sendfile => true
     rescue 
       flash[:error] = @error_arr.push("There is some error to download url")     
