@@ -29,6 +29,8 @@ class ALaMinuteAnswer < ActiveRecord::Base
   default_url_options[:host] = DEFAULT_HOST
   
   has_many :trace_keywords, :as => :keywordable
+  has_many :soapbox_trace_keywords, :as => :keywordable
+  
   belongs_to :a_la_minute_question
   belongs_to :responder, :polymorphic => true
 

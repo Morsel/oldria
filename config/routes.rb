@@ -362,6 +362,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :email_stopwords
     admin.resources :page_views, :only => ["index"]
     admin.resources :trace_searches, :only => ["index"], :collection => {:trace_search_for_soapbox => :get}
+    admin.resources :page_views, :only => ["index"],:collection => {:trace_keyword_for_soapbox => :get}
     admin.resources :featured_profiles
     admin.resources :test_restaurants, :member =>{:active => :get}
 
