@@ -11,7 +11,7 @@ class TraceKeywordsController < ApplicationController
   end
 
   def soapbox_trace
-  	if params[:trace_keyword][:restaurant_id]
+  	if params[:trace_keyword] && params[:trace_keyword][:restaurant_id]
   	 @trace_soapbox_keyword = SoapboxTraceKeyword.find_by_keywordable_id_and_keywordable_type_and_restaurant_id_and_url_and_title(params[:trace_keyword][:keywordable_id], params[:trace_keyword][:keywordable_type], params[:trace_keyword][:restaurant_id],params[:trace_keyword][:url],params[:trace_keyword][:title])      
   	 @trace_soapbox_keyword = @trace_soapbox_keyword.nil? ? SoapboxTraceKeyword.create(params[:trace_keyword]) : @trace_soapbox_keyword.increment!(:count)  
     else
