@@ -38,6 +38,7 @@ class PhotosController < ApplicationController
       redirect_to bulk_edit_restaurant_photos_path(@restaurant)
     else
       flash[:error] = "There were problems with the following fields"
+      @restaurant.photos.map(&:save)
       @photos = @restaurant.photos
       render :action => :bulk_edit
     end
