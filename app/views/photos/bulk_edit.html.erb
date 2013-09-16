@@ -7,16 +7,41 @@
   	<h2>Photos</h2>
 		<p>Please upload your logo as well as head shots, food shots, room shots, and exterior shots.</p>
 		<div class="upload_photo editing">
-  		<% semantic_form_for :photo, :url => restaurant_photos_path(@restaurant),
-      :html => { :multipart => true } do |photo_form| %>
-    		<% photo_form.inputs "New Photo" do %>
-      		<%= photo_form.error_messages %>
-      		<%= photo_form.input 'attachment', :as => 'file', :hint => "Please upload a jpeg, gif, or png" %>
-      		<%= photo_form.input :name, :required => true %>
-      		<%= photo_form.input :credit, :required => true %>
-      		<%= button_tag 'Upload', :class => 'positive' %>
-    		<% end %>
-  		<% end %>
+  		<% nested_form_for (@restaurant),:url => restaurant_photos_path(@restaurant),
+      :html => { :multipart => true,:method=> :post} do |f| %>  
+        <fieldset class="inputs">
+            <legend><span>New Photo</span></legend>
+        </fieldset>         
+        <% f.fields_for :photos,@raw_photo do |photo_form| %>        
+          <% if photo_form.object.id.nil? %>
+          <fieldset class="inputs">
+            <ol>
+              <%= photo_form.error_messages %>
+              <li  class="file required">         
+                <%= f.label "Attachment*" %>
+                <%= photo_form.file_field 'attachment',  :as => 'file', :hint => "Please upload a jpeg, gif, or png" %>
+                <p class="inline-hints">Please upload a jpeg, gif, or png</p>
+              </li>
+              <li  class="string required">
+                <%= f.label :name %>
+                <%= photo_form.text_field :name %>
+              </li>  
+
+              <li  class="string required">   
+                <%= f.label :credit ,'Credit*'%>
+                <%= photo_form.text_field :credit %>    
+              </li>    
+              <li  class="string required">                  
+                <%= photo_form.link_to_remove "Remove this photo" %>           
+              </li>  
+            </ol>  
+          </fieldset>
+          <% end %>  
+        <% end %>
+        <p><%= f.link_to_add "Add Photo", :photos %> </p>
+        <p><%= f.submit "Update" , :class => 'positive' %></p>&nbsp;&nbsp;
+        
+      <% end %>
 		</div><!--.upload_photo-->
 
 		<h3>Determine the order in which your photos are displayed with drag and drop.</h3>
@@ -45,8 +70,8 @@
                   <%= link_to "Remove", restaurant_photo_path(@restaurant, photo), { :method => :delete, :confirm => "Are you sure you want to remove the photo?" }, { :class => 'delete' } %>
                   <%= link_to "Edit", edit_restaurant_photo_path(@restaurant, photo), :class => 'edit' %>
                 </td>
-    	    	<% end %>
-    	  	    <% end %>
+    	    	<% end unless photo.id.blank?%>
+    	  	    <% end  %>
     	  	</tbody>
     		</table>
 				<p class="clear"><%= button_tag 'Save Primary Selection', :class => 'positive' %></p>

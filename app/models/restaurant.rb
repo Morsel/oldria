@@ -113,7 +113,7 @@ class Restaurant < ActiveRecord::Base
   has_many :user_restaurant_visitors
   has_many :restaurant_visitors ,:through => :user_restaurant_visitors ,:source => :user
   
-  accepts_nested_attributes_for :logo
+  accepts_nested_attributes_for :logo ,:photos
 
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
@@ -159,6 +159,7 @@ class Restaurant < ActiveRecord::Base
   has_many :media_newsletter_subscriptions, :dependent => :destroy
 
   has_many :page_views, :as => :page_owner, :dependent => :destroy
+
   attr_accessor :restaurant_role_virtual
 
   has_many :trace_keywords, :as => :keywordable
@@ -170,6 +171,7 @@ class Restaurant < ActiveRecord::Base
   
   has_many :cartes
   has_many :follow_keywords ,:as => :follow_keyword ,:class_name =>'UserKeyword',:dependent => :destroy
+
 
   # For pagination
   cattr_reader :per_page
