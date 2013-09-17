@@ -5,7 +5,7 @@
   <meta property="og:url" content="<%= soapbox_promotion_url(@promotion) %>"/>
 <% end -%>
 <% content_for :fb_description do -%>
-<%= Loofah::Helpers.strip_tags(@promotion.details) +' '+ "via @Soapbox" %>
+<%= Loofah::Helpers.strip_tags(@promotion.details) +'  '+ "via @Soapbox" %>
 <% end -%>
 
 <% div_for(@promotion) do %>
