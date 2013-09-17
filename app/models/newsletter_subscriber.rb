@@ -37,7 +37,7 @@ class NewsletterSubscriber < ActiveRecord::Base
 
   before_save :encrypt_password
   after_create :send_confirmation
-  #after_update :update_mailchimp
+  after_update :update_mailchimp
 
   named_scope :confirmed, {
     :conditions => "confirmed_at IS NOT NULL"
