@@ -4,7 +4,7 @@
   <meta property="og:image" content="http://soapbox.restaurantintelligenceagency.com/images/soapbox/logo-soapbox.png"/>
   <meta property="og:url" content="<%= soapbox_user_profile_question_url(@user, @question) %>"/>
 <% end -%>
-<% content_for(:fb_description, "#{@user.name} says: #{@question.title} #{truncate(@primary_answer.answer, :length => 100)}" +' '+ "via @Soapbox" ) %>
+<% content_for(:fb_description, "#{@user.name} says: #{@question.title} #{truncate(@primary_answer.answer, :length => 100)}" +'  '+ "via @Soapbox" ) %>
 
 <h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>", soapbox_profile_path(@user.username) %></h1>
 
