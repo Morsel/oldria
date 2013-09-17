@@ -1,6 +1,6 @@
 <% title "On the Menu" %>
 
-<% content_for(:fb_description, truncate(Loofah::Helpers.strip_tags(@menu_item.description), :length => 200)  + "via @Soapbox") %>
+<% content_for(:fb_description, truncate(Loofah::Helpers.strip_tags(@menu_item.description), :length => 200)  +   "via @Soapbox") %>
 <% content_for :facebook_meta do -%>
   <meta property="og:type" content="article"/>
   <meta property="og:image" content="<%= @menu_item.photo_file_name.present? ? @menu_item.photo(:large) : "http://soapbox.restaurantintelligenceagency.com/images/soapbox/logo-soapbox.png" %>"/>
@@ -48,7 +48,7 @@
         <span class='st_email_large' displayText='Email' st_via='Soapbox'></span>
         <span class='st_googleplus_large' displayText='google plus'></span>
         <span class="st_stumbleupon_large" displayText='stumbleupon'></span>
-        <span class="st_digg_large" displayText='stumbleupon' st_summary ='via @Soapbox'></span>
+        <span class="st_digg_large" displayText='stumbleupon' ></span>
 
         
     </div>
