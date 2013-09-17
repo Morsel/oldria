@@ -1,6 +1,6 @@
 <% title message(@feature), false, @feature_type -%>
 <% content_for :fb_description do -%>
-<%= @feature_comments.collect { |comment| comment.user.name.to_s + ": " + truncate(comment.comment.to_s) }.join("; ")+' '+ "via @Soapbox" -%>
+<%= @feature_comments.collect { |comment| comment.user.name.to_s + ": " + truncate(comment.comment.to_s) }.join("; ")+' '+ "  via @Soapbox" -%>
 <% end if @feature_comments -%>
 <% content_for :facebook_meta do -%>
   <meta property="og:type" content="article"/>
