@@ -44,8 +44,7 @@
                     <%= twitter.input :post_at, :label => "Post to my Twitter account on", :as => :string, :input_html => { :class => 'datetime',
                                       :value => twitter_post.try(:post_at).try(:strftime, '%Y-%m-%d %H:%M') } %>
 
-                    <%= twitter.input :content, :label => "Custom Tweet (optional)", :input_html => { :class => 'tweet', :maxlength => 140,
-                                      :value => @promotion.new_record? ? '' : twitter_post.try(:input_value) } %>
+                    <%= twitter.input :content, :label => "Custom Tweet (optional)", :input_html => { :class => 'tweet', :maxlength => 140, :value => twitter_post.try(:content) } %>
                   <% end %>
                 <% end %>
 
