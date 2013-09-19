@@ -7,7 +7,7 @@ set :git_enable_submodules, 1
 set :use_sudo, false
 
 default_run_options[:pty] = true
-
+require "lib/recipes" # for delyed job
 ##
 # == Staging environment
 #
@@ -172,6 +172,12 @@ namespace :compass do
 
   # Generate all the stylesheets manually (from their Sass templates) before each restart.
 end
+namespace :delayed_job do  
+  desc "Stop delayed_job process" 
+  task :stop, :roles => :app do
+    run "cd #{current_path}; script/delayed_job stop #{rails_env}" 
+  end
+end
 
 task :logs, :roles => :app do 
   run "cd #{current_path}; RAILS_ENV=#{rails_env} tail -f log/#{rails_env}.log"
@@ -190,15 +196,10 @@ after 'deploy:update_code', 'update_robots'
 
 before "deploy:update_code", "bluepill:stop"
 after "deploy:restart",  "bluepill:start"
+after "deploy:stop", "delayed_job:stop" 
 
 Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'airbrake-*')].each do |vendored_notifier|
   $: << File.join(vendored_notifier, 'lib')
-end
-
-desc "Stop workers"
-task :stop_workers do
-  run "ps xu | grep delayed_job | grep monitor | grep -v grep | awk '{print $2}' | xargs -r kill"
-  run "cd #{current_path} && RAILS_ENV=staging script/delayed_job stop"
 end
 
 require 'airbrake/capistrano'
