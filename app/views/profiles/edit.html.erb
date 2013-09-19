@@ -13,7 +13,8 @@
         <% end -%>
         <span><%= link_to "Front Burner", edit_front_burner_user_profile_path(@user), :id => "tab-fb", :title => "profile-front-burner" %></span>
         <span><a href="#profile-account" id="tab-account">Account</a></span>
-     
+        <span><a href="#profile-notification" id="tab-notification">Notifications</a></span>
+
     </nav><!-- /profile_options -->
 
     <section id="profile-summary">
@@ -181,76 +182,27 @@
     <div id="restaurant_profile_view" class="edit clear clearfix"> 
       <div id="editing_restaurant">
         <div id="restaurant_pages" class="clearfix">                         
-          <div>
-            <h1 class="pg_title">Media Traffic Report</h1>
-            <p>The Media Traffic Reports let you know what media have visited your restaurant profile and what they are researching. You receive this report via email in the frequency you select.</p>                
-          </div>
-          <div id="newsletter_settings" class="clearfix">
-            <% semantic_form_for @user, :html => { :multipart => true } do |f| %>          
-              <% @user.build_user_visitor_email_setting if @user.user_visitor_email_setting.blank? %>
-              <% f.semantic_fields_for :user_visitor_email_setting do |u| %>
-                  <%= u.input :email_frequency,  :as => :select, :collection => ["Daily","Weekly","M/W/F"] %>
-                  <%= u.input :do_not_receive_email,:label => " I do not want to receive any emails regarding media traffic to my restaurant profile. " %>
-                  <%end%>
-              <%=f.submit 'Save settings' %>
-            <%end%>
-          </div>
-        </div><!-- /editing_restaurant -->
-      <div>
-    <div><hr/>
-
-      <% semantic_form_for @user do |f| %>
-
-          <% f.inputs :name => 'Media Inquiries' do %>
-              <%= f.input :media_inquiries, :as => :boolean, :label => ' I would like to receive media inquiries as they are posted by media' %>
-              <p class="inline-hints"><i>Journalists post requests for information for stories they are working on, which you can receive and respond to for free.</i></p>
-              <%= f.input :media_notification, :as => :boolean, :label => ' I would like to receive notification if other members of my restaurant respond to media inquiries' %>
-              <p class="inline-hints"><i>If you need to know when your coworkers respond to media inquires, please check this preference. You will receive a lot of emails!!.</i></p>
-              <p><%= button_tag "Save Media Inquiries", :class => 'positive' %></p>
-          <% end %>
-          <% f.inputs :name => "What's New" do %>
-              <%= f.input :whats_new, :as => :boolean, :label => " I would like to receive What's New questions via email" %>
-              <p class="inline-hints"><i>What's New questions pertain to trends and by participating in this forum, media will know to include you in research about a topic.</i></p>
-              <%= f.input :whats_new_notification, :as => :boolean, :label => " I would like to receive notification when other members of my restaurant respond to What's New" %>
-               <p class="inline-hints"><i>You can elect to receive notification of responses posted by your coworkers.</i></p>
-              <p><%= button_tag "Save What's New", :class => 'positive' %></p>
-          <% end %>
-          <% f.inputs :name => "Question of the Day" do %>
-              <%= f.input :qotd, :as => :boolean, :label => " Receive Question of the Day via email" %> 
-              <p class="inline-hints"><i>Questions about timely news and topics, sent to help you be a part of the online conversation.</i></p>
-              
-              <p><%= button_tag "Save Question of the Day", :class => 'positive' %></p>
-          <% end %>
-
-          <% #f.inputs :name => 'Preferences' do %>
-              <%#= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
-              <%#= f.input :notification_email, :wrapper_html => { :class => "clear bottom" }, :hint => "Send content notifications to another email address" %>
-
-              <!-- <p><%#= button_tag "Save Messages Preferences", :class => 'positive' %></p> -->
-          <%# end %>
-
-          <% f.inputs :name => "Editing" do %>
-        <label for="user_editor">Allow another user to edit your account?</label>
-        <%= text_field_tag "user_editor", "", :name => "user[editor]" %>
-              <p class="inline-hints">Enter the name of the user to add</p>
-
-              <% if @user.editors.present? -%>
-              <h3>Current Editors:</h3>
-        <ul>
-        <% for editor in @user.editors %>
-        <li><%= editor.name %> <%= link_to "Remove", remove_editor_user_path(@user, :editor_id => editor.id), :confirm => "Are you sure you want to remove this editor?", :method => :put %></li>
-        <% end %>
-        </ul>
-              <% end -%>
-
-              <p><%= button_tag "Save Editing Preferences", :class => 'positive' %></p>
-          <% end %>
-
-      <% end %> 
-
+          <% semantic_form_for @user do |f| %>
+              <% f.inputs :name => "Editing" do %>
+                <label for="user_editor">Allow another user to edit your account?</label>
+                <%= text_field_tag "user_editor", "", :name => "user[editor]" %>
+                  <p class="inline-hints">Enter the name of the user to add</p>
+                  <% if @user.editors.present? -%>
+                    <h3>Current Editors:</h3>
+                    <ul>
+                      <% for editor in @user.editors %>
+                        <li><%= editor.name %> <%= link_to "Remove", remove_editor_user_path(@user, :editor_id => editor.id), :confirm => "Are you sure you want to remove this editor?", :method => :put %>
+                        </li>
+                    <% end %>
+                    </ul>
+                  <% end -%>
+                    <p><%= button_tag "Save Editing Preferences", :class => 'positive' %></p>
+              <% end %>
+          <% end %>          
 
       <fieldset class="inputs">
           <legend><span>Account Status</span></legend>
+
 
           <div id="payment_blurb">
               Basic accounts allow you to participate in Spoonfeed. If you would like to be included in Soapbox, please upgrade to a Premium Account. A personal <%= link_to "premium account", "/account_types", :class => 'button' %> is $50/month. <%= link_to "More Information...", "/account_types", :class => 'button' %>
@@ -375,6 +327,63 @@
       <% end %><!-- Contact information -->
       <% end %>
   </section><!-- /profile-account -->
+  <section id="profile-notification">
+    <div id="restaurant_profile_view" class="edit clear clearfix"> 
+      <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">      
+          <div>
+            <h1 class="pg_title">Media Traffic Report</h1>
+            <p>The Media Traffic Reports let you know what media have visited your restaurant profile and what they are researching. You receive this report via email in the frequency you select.</p>                
+          </div>
+          <div id="newsletter_settings" class="clearfix">
+            <% semantic_form_for @user, :html => { :multipart => true } do |f| %>          
+              <% @user.build_user_visitor_email_setting if @user.user_visitor_email_setting.blank? %>
+              <% f.semantic_fields_for :user_visitor_email_setting do |u| %>
+                  <%= u.input :email_frequency,  :as => :select, :collection => ["Daily","Weekly","M/W/F"] %>
+                  <%= u.input :do_not_receive_email,:label => " I do not want to receive any emails regarding media traffic to my restaurant profile. " %>
+                  <%end%>
+              <%=f.submit 'Save settings' %>
+            <%end%>
+          </div>
+        </div><!-- /editing_restaurant -->
+      <div>
+    <div><hr/>
+
+      <% semantic_form_for @user do |f| %>
+
+          <% f.inputs :name => 'Media Inquiries' do %>
+              <%= f.input :media_inquiries, :as => :boolean, :label => ' I would like to receive media inquiries as they are posted by media' %>
+              <p class="inline-hints"><i>Journalists post requests for information for stories they are working on, which you can receive and respond to for free.</i></p>
+              <%= f.input :media_notification, :as => :boolean, :label => ' I would like to receive notification if other members of my restaurant respond to media inquiries' %>
+              <p class="inline-hints"><i>If you need to know when your coworkers respond to media inquires, please check this preference. You will receive a lot of emails!!.</i></p>
+              <p><%= button_tag "Save Media Inquiries", :class => 'positive' %></p>
+          <% end %>
+          <% f.inputs :name => "What's New" do %>
+              <%= f.input :whats_new, :as => :boolean, :label => " I would like to receive What's New questions via email" %>
+              <p class="inline-hints"><i>What's New questions pertain to trends and by participating in this forum, media will know to include you in research about a topic.</i></p>
+              <%= f.input :whats_new_notification, :as => :boolean, :label => " I would like to receive notification when other members of my restaurant respond to What's New" %>
+               <p class="inline-hints"><i>You can elect to receive notification of responses posted by your coworkers.</i></p>
+              <p><%= button_tag "Save What's New", :class => 'positive' %></p>
+          <% end %>
+          <% f.inputs :name => "Question of the Day" do %>
+              <%= f.input :qotd, :as => :boolean, :label => " Receive Question of the Day via email" %> 
+              <p class="inline-hints"><i>Questions about timely news and topics, sent to help you be a part of the online conversation.</i></p>
+              
+              <p><%= button_tag "Save Question of the Day", :class => 'positive' %></p>
+          <% end %>
+
+          <% #f.inputs :name => 'Preferences' do %>
+              <%#= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
+              <%#= f.input :notification_email, :wrapper_html => { :class => "clear bottom" }, :hint => "Send content notifications to another email address" %>
+
+              <!-- <p><%#= button_tag "Save Messages Preferences", :class => 'positive' %></p> -->
+          <%# end %>
+
+      <% end %> 
+
+  </section><!-- /profile-notification -->
+
+
 
 </section><!-- /profile-tabs -->
 <section id="profile-settings">
