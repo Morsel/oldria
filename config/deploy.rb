@@ -175,7 +175,7 @@ end
 namespace :delayed_job do  
   desc "Stop delayed_job process" 
   task :stop, :roles => :app do
-    run "cd #{current_path}; script/delayed_job stop #{rails_env}" 
+    run "cd #{current_path}; script/delayed_job stop  RAILS_ENV=#{rails_env}" 
   end
 end
 
@@ -196,7 +196,7 @@ after 'deploy:update_code', 'update_robots'
 
 before "deploy:update_code", "bluepill:stop"
 after "deploy:restart",  "bluepill:start"
-after "deploy:stop", "delayed_job:stop" 
+after "deploy:stop", "RAILS_ENV=#{rails_env} delayed_job:stop" 
 
 Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'airbrake-*')].each do |vendored_notifier|
   $: << File.join(vendored_notifier, 'lib')
