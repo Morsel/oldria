@@ -195,4 +195,10 @@ Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'airbrake-*')].eac
   $: << File.join(vendored_notifier, 'lib')
 end
 
+desc "Stop workers"
+task :stop_workers do
+  run "ps xu | grep delayed_job | grep monitor | grep -v grep | awk '{print $2}' | xargs -r kill"
+  run "cd #{current_path} && RAILS_ENV=staging script/delayed_job stop"
+end
+
 require 'airbrake/capistrano'
