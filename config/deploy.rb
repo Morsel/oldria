@@ -7,7 +7,7 @@ set :git_enable_submodules, 1
 set :use_sudo, false
 
 default_run_options[:pty] = true
-require "lib/recipes" # for delyed job
+require "delayed/recipes" # for delyed job
 ##
 # == Staging environment
 #
