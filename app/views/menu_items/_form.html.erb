@@ -136,6 +136,7 @@
     <p class="inline-hints">
         Large, high-resolution photos can take a little while to upload, so please be patient.
     </p>
+    <%=hidden_field_tag "user_time"%>
     <%= submit_tag "Save" %>
 <% end %>
 
@@ -174,7 +175,6 @@
       counterText: 'Characters left: ',
       cssWarning: 'counter-warning'
     });
-
   });
 </script>
 <% end %>

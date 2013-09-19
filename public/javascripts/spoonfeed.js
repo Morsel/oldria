@@ -949,6 +949,9 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     search_keyword_fields()
   })
 
+  var d = new Date();
+  var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate()+" "+d.getHours()+":"+d.getMinutes();
+  $("body #user_time").val(strDate);
   // end $(document).ready
 });
 function search_keyword_fields(){

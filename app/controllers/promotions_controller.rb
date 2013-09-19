@@ -20,6 +20,7 @@ class PromotionsController < ApplicationController
   def create
     @promotion = @restaurant.promotions.build(params[:promotion])    
     if @promotion.save
+      change_post_at_timezone
        @promotion.notify_newsfeed_request!       
       flash[:notice] = "Your promotion has been created"
       redirect_to :action => "new"
@@ -38,6 +39,7 @@ class PromotionsController < ApplicationController
   def update
     find_promotion
     if @promotion.update_attributes(params[:promotion])
+      change_post_at_timezone
       flash[:notice] = "Your promotion has been updated"
       redirect_to_social_or 'new'
     else
@@ -118,6 +120,27 @@ class PromotionsController < ApplicationController
   def build_social_posts
     (TwitterPost::POST_LIMIT - @promotion.twitter_posts.size).times { @promotion.twitter_posts.build }
     (FacebookPost::POST_LIMIT - @promotion.facebook_posts.size).times { @promotion.facebook_posts.build }
+  end
+
+  def change_post_at_timezone
+    i = 0
+    if params[:promotion][:facebook_posts_attributes].present?
+      params[:promotion][:facebook_posts_attributes].each do |facebook_post|
+        if facebook_post[1]["post_at"].present?          
+          times = time_length(Time.parse(facebook_post[1][:post_at])-Time.zone.now,facebook_post[1][:post_at].split(" ")[1].split(":")[0])
+          @promotion.facebook_posts[i].update_attributes(:post_at => times)
+          i+=1          
+        end
+      end
+    elsif params[:promotion][:twitter_posts_attributes].present?
+      params[:promotion][:twitter_posts_attributes].each do |twitter_post|
+        if twitter_post[1]["post_at"].present?       
+          times = time_length(Time.parse(twitter_post[1][:post_at])-Time.zone.now,twitter_post[1][:post_at].split(" ")[1].split(":")[0])
+          @promotion.twitter_posts[i].update_attributes(:post_at => times)
+          i+=1
+        end
+      end
+    end
   end
 
 end
