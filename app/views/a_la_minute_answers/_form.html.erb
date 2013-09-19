@@ -89,7 +89,7 @@
       <% end %>
     </section>
   </section>
-
+  <%=hidden_field_tag "user_time"%>
   <div class="clearfix">
     <%= form.submit "Post" %>
     <%= link_to 'Cancel', bulk_edit_restaurant_a_la_minute_answers_url(@restaurant) %>

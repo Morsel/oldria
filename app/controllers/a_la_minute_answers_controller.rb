@@ -35,6 +35,7 @@ class ALaMinuteAnswersController < ApplicationController
     @question = ALaMinuteQuestion.find(params[:question_id])
     @answer = @restaurant.a_la_minute_answers.build(params[:a_la_minute_answer])
     if @answer.save
+      change_post_at_timezone
       flash[:notice] = "Your answer has been created"
       redirect_to :action => "bulk_edit"
     else
@@ -55,6 +56,7 @@ class ALaMinuteAnswersController < ApplicationController
     @question = @answer.a_la_minute_question
 
     if @answer.update_attributes(params[:a_la_minute_answer])
+      change_post_at_timezone
       flash[:notice] = "Your answer has been updated"
       redirect_to_social_or 'bulk_edit'
     else
@@ -115,4 +117,26 @@ class ALaMinuteAnswersController < ApplicationController
   def redirect_to_social_or(action)
     redirect_to (session[:redirect_to_social_posts].present?) ? session.delete(:redirect_to_social_posts) : { :action => action }
   end
+
+  def change_post_at_timezone
+    i = 0
+    if params[:a_la_minute_answer][:facebook_posts_attributes].present?
+      params[:a_la_minute_answer][:facebook_posts_attributes].each do |facebook_post|
+        if facebook_post[1]["post_at"].present?          
+          times = time_length(Time.parse(facebook_post[1][:post_at])-Time.zone.now,facebook_post[1][:post_at].split(" ")[1].split(":")[0])
+          @answer.facebook_posts[i].update_attributes(:post_at => times)
+          i+=1          
+        end
+      end
+    elsif params[:a_la_minute_answer][:twitter_posts_attributes].present?
+      params[:a_la_minute_answer][:twitter_posts_attributes].each do |twitter_post|
+        if twitter_post[1]["post_at"].present?       
+          times = time_length(Time.parse(twitter_post[1][:post_at])-Time.zone.now,twitter_post[1][:post_at].split(" ")[1].split(":")[0])
+          @answer.twitter_posts[i].update_attributes(:post_at => times)
+          i+=1
+        end
+      end
+    end
+  end
+
 end

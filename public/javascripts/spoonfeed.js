@@ -826,6 +826,10 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
   if (sortedTables.length) {
     sortedTables.tablesorter({sortList: [[0,0]]});
   }  
+
+  var d = new Date();
+  var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate()+" "+d.getHours()+":"+d.getMinutes();
+  $("body #user_time").val(strDate);
   // end $(document).ready
 });
 

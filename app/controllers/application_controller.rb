@@ -335,4 +335,24 @@ class ApplicationController < ActionController::Base
       
   end 
 
+  def time_length seconds,h
+    days = (seconds / 1.day).floor
+    seconds -= days.days
+    hours = (seconds / 1.hour).floor
+    seconds -= hours.hours
+    minutes = (seconds / 1.minute).floor
+    hours = Time.zone.now.hour + hours
+    minutes = Time.zone.now.min + minutes
+    if minutes > 60
+      dif_min = minutes - 60
+      hours+=1
+      minutes = dif_min
+    elsif minutes == 60 || minutes == 0 || minutes == 00
+      hours+=1
+      minutes = "00"
+    end
+    hours = Time.zone.now.hour if (h.to_i-Time.parse(params[:user_time]).hour).abs == 0
+    return "#{hours}:#{minutes}"
+  end
+
 end

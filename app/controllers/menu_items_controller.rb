@@ -24,6 +24,7 @@ class MenuItemsController < ApplicationController
   def create
     @menu_item = @restaurant.menu_items.build(params[:menu_item])
     if @menu_item.save
+      change_post_at_timezone
       flash[:notice] = "Your menu item has been saved"
       redirect_to :action => "index"
     else
@@ -44,6 +45,7 @@ class MenuItemsController < ApplicationController
   def update
     @menu_item = @restaurant.menu_items.find(params[:id])
     if @menu_item.update_attributes(params[:menu_item])
+      change_post_at_timezone
       flash[:notice] = "Your menu item has been saved"
       redirect_to_social_or 'index'
     else
@@ -142,6 +144,27 @@ class MenuItemsController < ApplicationController
   def build_social_posts
     (TwitterPost::POST_LIMIT - @menu_item.twitter_posts.size).times { @menu_item.twitter_posts.build }
     (FacebookPost::POST_LIMIT - @menu_item.facebook_posts.size).times { @menu_item.facebook_posts.build }
+  end
+
+  def change_post_at_timezone
+    i = 0
+    if params[:menu_item][:facebook_posts_attributes].present?
+      params[:menu_item][:facebook_posts_attributes].each do |facebook_post|
+        if facebook_post[1]["post_at"].present?          
+          times = time_length(Time.parse(facebook_post[1][:post_at])-Time.zone.now,facebook_post[1][:post_at].split(" ")[1].split(":")[0])
+          @menu_item.facebook_posts[i].update_attributes(:post_at => times)
+          i+=1
+        end
+      end
+    elsif params[:menu_item][:twitter_posts_attributes].present?
+      params[:menu_item][:twitter_posts_attributes].each do |twitter_post|
+        if twitter_post[1]["post_at"].present?       
+          times = time_length(Time.parse(twitter_post[1][:post_at])-Time.zone.now,twitter_post[1][:post_at].split(" ")[1].split(":")[0])
+          @menu_item.twitter_posts[i].update_attributes(:post_at => times)
+          i+=1
+        end
+      end
+    end
   end
 
 end
