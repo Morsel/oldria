@@ -1,16 +1,16 @@
 <header id="profileHeader" class="clearfix">
     <div id="profileImage" class="left">
-        <%= image_tag(@restaurant.logo.attachment.url(:big_logo)) if @restaurant.logo.present? %>
+        <%#= image_tag(@restaurant.logo.attachment.url(:big_logo)) if @restaurant.logo.present? %>
     </div>
 
     <div id="profileDetails" class="right">
         <div class="headingDetails clearfix">
             <hgroup class="left">
                 <h2 id="font-fix">
-                  <span class="left"><%= link_to @restaurant.name,restaurant_path(@restaurant),:id=>"restaurant_profile" %></span>
+                  <span class="left"><%= link_to @restaurant.name,restaurant_path(@restaurant),:id=>"restaurant_profile" %></span><br/>
                   <% if(current_user.media? ) %>
                     <div id="subscribe-div">   
-                      <%= render :partial => 'restaurants/subscribe', :locals => { :restaurant => @restaurant } %> 
+                      <%#= render :partial => 'restaurants/subscribe', :locals => { :restaurant => @restaurant } %> 
                       <div class="profile-update">
                         <%= link_to "Request Profile Update",restaurant_request_profile_update_path(@restaurant),:class=>"request-profile-update subscribe" %>
                       </div>
@@ -18,7 +18,7 @@
                     <div class="clear"></div> 
                   <% end %>
                 </h2>
-                <p class="tagline"><%= @restaurant.description %></p>
+                <p class="tagline" id='remove-all-caps'><%= @restaurant.description %></p>
                 <p class="cuisine-location">
                     <strong>Cuisine:</strong> <%= link_to @restaurant.cuisine.try(:name), restaurant_directory_path(:cuisine_id => @restaurant.cuisine.try(:id)) %>
                 </p>
