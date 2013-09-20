@@ -186,7 +186,14 @@ class Restaurant < ActiveRecord::Base
   }
 
   named_scope :activated_restaurant, :conditions => { } # TODO for workound I removed is_activated =>true Ticket 36397415 
-
+  
+  #get only premium restaurants
+  named_scope :from_premium_restaurants, lambda {
+    { :joins => :subscription ,
+      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+          Date.today] }
+  }
+  
   def self.find_premium(id)
     possibility = find_by_id(id)
     possibility.try(:premium_account) ? possibility : nil
