@@ -8,7 +8,7 @@ class EmployeesController < ApplicationController
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee],:order => "position")
     if @restaurant.manager.employments.first(:conditions=>['restaurant_id = ?',params[:restaurant_id]]).restaurant_role_id.nil?
-      flash[:notice] = "In order to complete your restaurant, please select your role."
+      flash[:notice] = "<p class='restaurant-flash'>In order to complete your restaraunt setup, please select your role at the restaurant.</p>"
     end
   end
 
