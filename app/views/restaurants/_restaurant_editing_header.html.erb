@@ -6,7 +6,7 @@
         <div class="headingDetails clearfix">
             <hgroup class="left">
                 <h2><%= @restaurant.name %></h2>
-                <p class="tagline"><%= @restaurant.description %></p>
+                <p class="tagline" id='remove-all-caps'><%= @restaurant.description %></p>
             </hgroup>
             <div id="restaurant_actions" class="moreLinks right">
                 <%= link_to 'Back to public view', restaurant_path(@restaurant), :class => 'backtopublic' %>
