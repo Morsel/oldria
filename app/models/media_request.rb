@@ -117,13 +117,7 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def notify_media_request!   
-    @users = self.employment_search[:conditions][:employee_id_equals_any]
-    @users.each do |user|
-      @user = User.find(user)
-      if @user.media_inquiries == true
-          UserMailer.deliver_admin_notification(self, sender,@user.email) 
-      end   
-    end  
+    UserMailer.deliver_admin_notification(self, sender)  
   end  
   
   private
