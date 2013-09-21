@@ -15,8 +15,10 @@
                 <% if @restaurant.premium_account? %>
                   <%= link_to "We are currently working on a new and improved newsletter feature! Stayed tuned for more information!","" %>
                 <% else %>
-                  <p>Automated newsletter disctribution is available for premium Restaurant accounts only.if you would like to take advantage of this service please upgrade today. <%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %></p>
+                  <%#= link_to "Upgrade to become a  premium member today and get access to our automated newsletter feature!", edit_restaurant_path(@restaurant)%>
+                  <%= link_to "Make the most of the content you upload to Spoonfeed with our automated diner newsletter. It's the easiest way to stay connected with your diners so they come back for more! Upgrade today.", edit_restaurant_path(@restaurant)%>
                 <% end %>
+              
               </div>
         </div>
     </div><!-- /editing_restaurant -->
