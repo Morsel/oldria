@@ -7,7 +7,7 @@
         <div class="headingDetails clearfix">
             <hgroup class="left">
                 <h2 id="font-fix">
-                  <span class="left"><%= link_to @restaurant.name,restaurant_path(@restaurant),:id=>"restaurant_profile" %></span>
+                  <span class="left"><%= link_to @restaurant.name,restaurant_path(@restaurant),:id=>"restaurant_profile" %></span><br/>
                   <% if(current_user.media? ) %>
                     <div id="subscribe-div">   
                       <%= render :partial => 'restaurants/subscribe', :locals => { :restaurant => @restaurant } %> 
@@ -18,7 +18,7 @@
                     <div class="clear"></div> 
                   <% end %>
                 </h2>
-                <p class="tagline"><%= @restaurant.description %></p>
+                <p class="tagline" id='remove-all-caps'><%= @restaurant.description %></p>
                 <p class="cuisine-location">
                     <strong>Cuisine:</strong> <%= link_to @restaurant.cuisine.try(:name), restaurant_directory_path(:cuisine_id => @restaurant.cuisine.try(:id)) %>
                 </p>
