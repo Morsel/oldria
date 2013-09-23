@@ -4850,3 +4850,11 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 	overflow-x: hidden;
 }
 
+#remove-all-caps{
+  text-transform: none !important;
+}
+
+#remove-all-caps-show{
+	margin-top: 23px;
+	text-transform: none !important;
+}
