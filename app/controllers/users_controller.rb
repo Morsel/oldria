@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @editor_name.present?
-        editor = User.find_by_name(editor_name)
+        editor = User.find_by_name(@editor_name)
         if editor.present?
           @user.editors << editor
         else
