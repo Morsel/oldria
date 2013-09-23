@@ -260,6 +260,14 @@ class UserMailer < ActionMailer::Base
     body        :restaurant => restaurant,:employee => employee
   end 
 
+  def send_diner_subscriber(diner_user_subscribers)
+    from        'hal@restaurantintelligenceagency.com'
+    recipients  diner_user_subscribers["subscriber"].email
+    bcc         ['ellen@restaurantintelligenceagency.com','nishant.n@cisinlabs.com']
+    sent_on     Time.now
+    subject     "RIA's Daily Dineline for #{Date.today.to_formatted_s(:long)}"
+    body        diner_user_subscribers
+  end
 
 end
 

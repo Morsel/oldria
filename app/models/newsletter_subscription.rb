@@ -21,6 +21,39 @@ class NewsletterSubscription < ActiveRecord::Base
   after_create :add_subscription_to_mailchimp  
   after_destroy :remove_subscription_from_mailchimp
 
+  def self.menu_items(restaurants)
+    menu_items = []
+    menu_items = MenuItem.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?) ",restaurants.compact.map(&:id),get_limit_day.day.ago.beginning_of_day,get_limit_day.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3)      
+    menu_items.flatten.compact
+  end
+
+  def self.promotions(restaurants)
+    promotions = []
+    promotions = Promotion.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?) ",restaurants.compact.map(&:id),get_limit_day.day.ago.beginning_of_day,get_limit_day.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3)
+    promotions.flatten.compact    
+  end
+
+  def self.newsletter_menus(restaurants)
+    menus = []
+    menus = Menu.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?) ",restaurants.map(&:id),1.day.ago.beginning_of_day,1.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3) 
+    menus.flatten.compact
+  end
+
+  def self.fact_sheets(restaurants)
+    fact_sheets = []
+    fact_sheets = RestaurantFactSheet.find(:all,:conditions=>["restaurant_id in (?) and (created_at >= ? OR updated_at >= ?) ",restaurants.map(&:id),1.day.ago.beginning_of_day,1.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3) 
+    fact_sheets.flatten.compact
+  end
+
+  def self.photos(restaurants)
+    photos = []
+    restaurants.each do |restaurant|  
+      photos.push(restaurant.photos.find(:all,:conditions=>["(created_at >= ? OR updated_at >= ?) ",1.day.ago.beginning_of_day,1.day.ago.beginning_of_day],:order=>"updated_at desc",:limit=>3))
+    end      
+    photos.flatten.compact
+   
+  end
+
   private
 
   def add_subscription_to_mailchimp
@@ -62,5 +95,13 @@ class NewsletterSubscription < ActiveRecord::Base
                                  :merge_vars => { :groupings => [{ :name => "Your Interests", :groups => groups.join(",")}] },
                                  :replace_interests => true)
   end
+
+  def self.get_limit_day
+    if Date::ABBR_DAYNAMES[Date.today.wday] == "Mon"
+      return 2
+    else
+      return 1  
+    end 
+  end  
 
 end

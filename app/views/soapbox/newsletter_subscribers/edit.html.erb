@@ -33,6 +33,67 @@
           <%= submit_tag "Save" %>
         <% end %>
 
+        <h3> Digest Options </h3>
+        <% semantic_form_for [:soapbox, @subscriber] do |f| %>
+          <% f.inputs do %>
+            <%= f.input :digest_diner, :as => :select,:label=>false, :include_blank => "Are you a.."%>
+            <div id="digest_option_national" class="display-none">                 
+            </div>   
+            <div id="digest_option_regional" class="<%=get_css_class(@subscriber.digest_diner.try(:id),2)%>"> 
+              <fieldset>
+                  <legend class="label"> 
+                      <label for="user_metropolitan_areas">As a regional diner, I would like to receive Newsfeed items from the following regions:</label>
+                  </legend>                     
+              </fieldset>
+              <ol id="digest_james_beard_regions_input">
+                  <% id = Time.now.to_i %>
+                  <% JamesBeardRegion.all.each_with_index do |jbr,id| %>
+                      <li>
+                          <label for="digest_promotion_types_writers_attribute_id<%=jbr.id%>_<%=id%>">
+                          <% checked = @digest_regional_areas.map(&:james_beard_region_id).include?(jbr.id) %>
+                          <%= hidden_field_tag "digest_diner[regional_writers_attributes][#{jbr.id}][newsletter_subscriber_id]" ,@subscriber.id,:disabled=>!checked %>                
+                          <%= check_box_tag "digest_diner[regional_writers_attributes][#{jbr.id}][james_beard_region_id]",jbr.id,checked,:id=> "digest_promotion_types_writers_attribute_id#{jbr.id}_#{id}"%>
+                           <%=jbr.name%>
+                                  
+                          </label>
+                      </li>
+                  <% end %>                  
+              </ol>
+            </div>
+            <div id="digest_option_locals" class="<%=get_css_class(@subscriber.digest_diner.try(:id),3)%>"> 
+            <li id="user_metropolitan_areas_input">
+                <fieldset>
+                    <legend class="label"> 
+                        <label for="user_metropolitan_areas">As a local diner, I would like to receive Newsfeed items from the following metro areas</label>
+                    </legend>                     
+                 </fieldset>
+                <p class="string optional">
+                    <%= text_field_tag "search_digest_state_by_name", "", :name => "search_digest_state_by_name" ,:placeholder=>"Type in the abbreviation for your state, such as AL for Alabama"%> 
+                    <%=hidden_field_tag "newsletter_subscriber_id", "", :name => "newsletter_subscriber_id", :value => "#{@subscriber.id}" %>
+                </p>
+                <ol>
+                  <div id="digest_metropolitan_area_search">
+                   <% id = Time.now.to_i %>    
+                    <% MetropolitanArea.find_all_by_id(@digest_metropolitan_areas.map(&:metropolitan_area_id).compact).each_with_index do |city,id| %>
+                        <li>
+                            <label for="digest_user_metropolitan_area_ids_<%=city.id%>_<%=id%>">
+                            <%= hidden_field_tag "digest_diner[metropolitan_areas_writers_attributes][#{id}][newsletter_subscriber_id]" ,@subscriber.id %>             
+                            <%= check_box_tag "digest_diner[metropolitan_areas_writers_attributes][#{id}][metropolitan_area_id]",city.id,'true',:id=> "digest_user_metropolitan_area_ids_#{city.id}_#{id}"%>
+                            <%=city.state%>: <%=city.name%> 
+                            </label>
+                        </li>
+                    <% end %>
+                  </div>
+                  <div id="digest_loader"></div>   
+                </ol> 
+            </li>
+            <div id="digest_metropolitan_areas_state_cities">
+            </div>
+            </div>              
+          <% end %>
+          <p><%= submit_tag "Save" %></p>
+        <% end %>
+
         <h2>Opt Out</h2>
         <% if !@subscriber.opt_out %>
           <p><%= link_to "Opt out of all email communication", soapbox_newsletter_subscriber_path(:newsletter_subscriber => {:opt_out => true}), :method => "put", :confirm => "Are you sure you want to opt out?" %></p>
