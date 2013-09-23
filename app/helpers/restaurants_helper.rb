@@ -15,7 +15,8 @@ module RestaurantsHelper
 
   def restaurant_names_for_user(user)
     if user.employments.blank?
-      user.primary_employment.try(:solo_restaurant_name)
+      #user.primary_employment.try(:solo_restaurant_name)
+      ""
     elsif user.employments.count == 1
       restaurant_link(user.primary_employment.restaurant)
     elsif user.employments.count <= 3
@@ -30,7 +31,8 @@ module RestaurantsHelper
 
   def restaurant_names_for_media_user(user)
     if user.employments.blank?
-      user.primary_employment.try(:solo_restaurant_name)
+      #user.primary_employment.try(:solo_restaurant_name)
+      ""
     elsif user.employments.count == 1
       restaurant_link_for_media(user.primary_employment.restaurant)
     elsif user.employments.count <= 3
