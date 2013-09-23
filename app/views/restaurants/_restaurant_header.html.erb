@@ -1,6 +1,6 @@
 <header id="profileHeader" class="clearfix">
     <div id="profileImage" class="left">
-        <%#= image_tag(@restaurant.logo.attachment.url(:big_logo)) if @restaurant.logo.present? %>
+        <%= image_tag(@restaurant.logo.attachment.url(:big_logo)) if @restaurant.logo.present? %>
     </div>
 
     <div id="profileDetails" class="right">
@@ -10,7 +10,7 @@
                   <span class="left"><%= link_to @restaurant.name,restaurant_path(@restaurant),:id=>"restaurant_profile" %></span><br/>
                   <% if(current_user.media? ) %>
                     <div id="subscribe-div">   
-                      <%#= render :partial => 'restaurants/subscribe', :locals => { :restaurant => @restaurant } %> 
+                      <%= render :partial => 'restaurants/subscribe', :locals => { :restaurant => @restaurant } %> 
                       <div class="profile-update">
                         <%= link_to "Request Profile Update",restaurant_request_profile_update_path(@restaurant),:class=>"request-profile-update subscribe" %>
                       </div>
