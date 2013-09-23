@@ -68,7 +68,7 @@
                     </legend>                     
                  </fieldset>
                 <p class="string optional">
-                    <%= text_field_tag "search_digest_state_by_name", "", :name => "search_digest_state_by_name" ,:placeholder=>"AL, Type in the abbreviation for your state"%> 
+                    <%= text_field_tag "search_digest_state_by_name", "", :name => "search_digest_state_by_name" ,:placeholder=>"Type in the abbreviation for your state, such as AL for Alabama"%> 
                     <%=hidden_field_tag "newsletter_subscriber_id", "", :name => "newsletter_subscriber_id", :value => "#{@subscriber.id}" %>
                 </p>
                 <ol>
