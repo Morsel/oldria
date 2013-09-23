@@ -17,6 +17,11 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    @metro_politan_areas = MetropolitanArea.all.map(&:state).uniq
+    @keyword_follow_type_regions = @keyword_follow_type_metros = []
+    @keyword_follow_type_metros = @user.keyword_follow_type.find_keyword_follow_type_metropolitan_areas(@user) unless @user.keyword_follow_type.blank?
+    @keyword_follow_type_regions = @user.keyword_follow_type.find_keyword_follow_type_regionals(@user) unless @user.keyword_follow_type.blank?
+    @profile_cuisine = @profile.profile_cuisines.build
     @fb_user = current_facebook_user.fetch if @profile.user.facebook_authorized? && current_facebook_user
     rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException,Exception => e
     Rails.logger.error("Unable to fetch Facebook user for restaurant editing due to #{e.message} on #{Time.now}")
@@ -40,9 +45,8 @@ class ProfilesController < ApplicationController
       if @profile.update_attributes(params[:profile])
           flash[:notice] = "Successfully updated profile."
           wants.html { redirect_to edit_user_profile_path(:user_id => @user.id, :anchor => "profile-summary")}
-          wants.json { render :json => {:status=>true}}
-          
-      else
+          wants.json { render :json => {:status=>true}}          
+      else       
         flash[:error] = "Please fix the errors in the form below"
         wants.html { render :edit }
         wants.json { render :json => {:status=>false}}

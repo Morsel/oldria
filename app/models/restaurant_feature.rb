@@ -16,6 +16,8 @@ class RestaurantFeature < ActiveRecord::Base
   has_many :restaurants, :through => :restaurant_feature_items
   has_many :trace_searches, :as => :keywordable
 
+  has_many :follow_keywords ,:as => :follow_keyword ,:class_name =>'UserKeyword',:dependent => :destroy
+  
   validates_presence_of :value
   validates_uniqueness_of :value, :scope => :restaurant_feature_category_id
 

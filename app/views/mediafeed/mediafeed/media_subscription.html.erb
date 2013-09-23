@@ -10,16 +10,65 @@
                  <%#= link_to "Unsubscribe All",mediafeed_unsubscribe_path,:confirm => "Are you sure, you want to unsubscribe all restaurants?" %>                                           
                 <!-- <div id="read_messages" style="width:670px;margin:0;"> -->
                   <div class="editing clearfix clear">
-                    <% @subscriptions.each do |subscription| %>
-                      <%= render :partial => 'restaurants/identity', :locals => { :user => subscription.restaurant } %>
-                      <% end %>
-                    <% @digest_subsriptions.flatten.compact.uniq.each do |restaurant| %>
-                      <%= render :partial => 'restaurants/identity_all', :locals => { :user => restaurant } %>
-                      <% end %>
-                       
-                  
-                  <div class=" clearfix clear"></div>
-                    <p><%=will_paginate(@digest_subsriptions)%> </p>
+                    <div id="tabs" class="tabable">
+                      <ul>
+                        <nav id="profile-options">
+                          <span><a href="#fragment-1">Newsfeed</a></span>
+                          <span><a href="#fragment-2">Digest</a></span>
+                          <span><a href="#fragment-3">Keyword Follow</a></span>
+                        </nav>
+                      </ul>
+                      
+                      <div id="fragment-1" class="left">
+                        <% unless @subscriptions.blank? && @newsfeed_subscription.blank? %>
+                          <h1> You have subscribed following subscription for Newsfeed</h1>
+                          <% @subscriptions.each do |subscription| %>
+                            <%= render :partial => 'restaurants/identity', :locals => { :user => subscription.restaurant } %>
+                          <% end %>
+                          <% @newsfeed_subscription.each do |restaurant| %>
+                            <%= render :partial => 'restaurants/identity_all', :locals => { :user => restaurant } %>
+                          <%end %>
+                        <% else %>
+                            <% if params[:page].blank? %>
+                              <h1 class="full">You have not subscribed anything for Newsffeed!</h1>
+                            <% else %>
+                              <h1 class="full">No subscriptions for page <%= params[:page] %></h1>
+                            <% end %>
+                        <% end %>  
+                      </div>
+                      <div id="fragment-2" class="left">
+                        <%unless @digest_subsriptions.blank?%>
+                          <h1> You have subscribed following subscription for Digest</h1>
+                          <% @digest_subsriptions.flatten.compact.uniq.each do |restaurant| %>
+                            <%= render :partial => 'restaurants/identity_all', :locals => { :user => restaurant } %>
+                          <% end %>
+                        <% else %>
+                            <% if params[:page].blank? %>
+                              <h1 class="full">You have not subscribed anything for Digest!</h1>
+                            <% else %>
+                              <h1 class="full">No subscriptions for page <%= params[:page] %></h1>
+                            <% end %>      
+                        <% end %>
+                      </div>
+                      <div id="fragment-3" class="left">                           
+                        <% unless @follow_kewords_subscription.blank?%>
+                            <h1> You have subscribed following subscription for Search Keywords</h1>
+                             <% @follow_kewords_subscription.flatten.compact.uniq.each do |restaurant| %>
+                                <%= render :partial => 'restaurants/identity_all', :locals => { :user => restaurant } %>
+                              <% end %> 
+                              <div class=" clearfix clear"> </div>
+                              <% if @user.filtered_user_keywords("OtmKeyword") %>
+                                <p> You are following Otm Keywords :</p>
+                                <%= @user.filtered_user_keywords("OtmKeyword").map(&:name).to_sentence %>
+                              <% end %>
+                        <% else %>                           
+                            <h1 class="full">You have not subscribed anything by  Search Keywords</h1>
+                        <% end %>
+                      </div>
+                  </div>
+                    
+                  <div class=" clearfix clear"> </div>
+                    <p><%=will_paginate(@newsfeed_subscription.push(@subscriptions).push(@digest_subsriptions).uniq)%> </p>
                   <div class=" clearfix clear"></div>
                    <p>You can subscribe to follow restaurants on the Account tab. By subscribing, you will be selecting the restaurants whose profile updates will be included in one daily email that arrives in your inbox each morning.
                   </p>

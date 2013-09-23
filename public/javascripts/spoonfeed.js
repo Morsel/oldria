@@ -621,8 +621,6 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
 
   $("#newsfeed_james_beard_regions_input input[type=checkbox]").click(function(){
     if($("#newsfeed_james_beard_regions_input input:checkbox:checked").length>0)
-
-
     {
       $("#regional_newsfeed_promotion_type").show('slow')
     }else
@@ -710,9 +708,41 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       }
 
     })
+  /* Follow OTM, Cusine and Specialy*/
+  $("#user_keyword_follow_type_id").change(function(e){
 
+      $("#keyword_follow_metropolitan_areas_state_cities").html("")
+      $("#keyword_follow_metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");
+      if($(this).val() == "")
+      {
+        $('#keword_follow_option_regional').hide('slow')
+        $('#keword_follow_option_locals').hide('slow')        
 
-  $('#newsfeed_option_locals input[type=checkbox], #user_metropolitan_areas_input input[type=checkbox], #newsfeed_option_national_input input[type=checkbox], #newsfeed_option_regional input[type=checkbox], #digest_james_beard_regions_input input[type=checkbox]').click(function(){
+      }else{
+        if($(this).val()==1)
+        {
+         // $('#digest_option_national').show('slow')
+          $('#keword_follow_option_regional').hide('slow')
+          $('#keword_follow_option_locals').hide('slow')
+        }        
+        else if($(this).val()==2)
+          {
+            $('#keword_follow_option_regional').show('slow')
+            //$('#digest_option_national').hide('slow')
+            $('#keword_follow_option_locals').hide('slow')
+          }
+        else if($(this).val()==3)
+        {
+          //$('#digest_option_national').hide('slow')          
+          $('#keword_follow_option_regional').hide('slow')
+          $('#keword_follow_option_locals').show('slow')
+        }
+      }
+
+    })
+/* End Follow OTM*/
+
+  $('#newsfeed_option_locals input[type=checkbox], #user_metropolitan_areas_input input[type=checkbox], #newsfeed_option_national_input input[type=checkbox], #newsfeed_option_regional input[type=checkbox], #digest_james_beard_regions_input input[type=checkbox], #keword_follow_type_james_beard_regions_input li input[type=checkbox], #keyword_follow_metro_ol li input[type=checkbox]').live('click',function(){
     if($(this).prop('checked'))
       $(this).prev().removeAttr("disabled");
     else
@@ -815,6 +845,7 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
       $(this).prev().removeAttr("disabled");
     else
       $(this).prev().attr("disabled","disabled");
+
   });
   // end mediafeed user edit 
   $('.skipp').live('click',function(e){
@@ -826,8 +857,77 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
   if (sortedTables.length) {
     sortedTables.tablesorter({sortList: [[0,0]]});
   }  
+
+    $("#keword_follow_search_state_by_name").autocomplete({
+    source: typeof(metros) === 'undefined' ? [] : metros,
+    select: function( event, ui ) { 
+      $('#keyword_follow_loader').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));     
+      var selected_city = new Array();    
+      $("#keword_follow_option_locals input[type=checkbox]").each(function(){
+           if ($(this).is(":checked")){
+             selected_city.push($(this).val());            
+          }  
+      })
+      $.ajax({
+        data:'state_name='+ui.item.value+'&user_id='+$('#user_id').val()+'&checked_city='+selected_city,           
+        url:'/mediafeed/media_users/get_selected_cities?keyword_follow=true',
+        success:function(request,response){
+          $(this).val('');
+        }
+      });
+    }
+  });
+  $("#user_search_keywords").keyup(function(e){
+    $this = $(this)
+    if($this.val().length>1 && ( typeof(last_value) === 'undefined' || last_value != $this.val()))
+    {
+      last_value = $this.val()
+      var checked_kewords = {restaurant:null,otmkeyword:null,cuisine:null,restaurantfeature:null}
+
+      $("#keywords-div li ol li input::checkbox:checked").map(function(){  
+
+          return checked_kewords[$(this).siblings(':first').val().toLowerCase()] = []
+
+      })/*For checked_kewords key declaration */
+
+      $("#keywords-div li ol li input::checkbox:checked").map(function(){  
+
+          return checked_kewords[$(this).siblings(':first').val().toLowerCase()].push($(this).val());
+
+      })/*For checked_kewords value assisgnment */
+
+      $this.addClass('ui-autocomplete-loading')
+      $.ajax({
+        data:{user_id:$("#user_id").val(),keyword:$this.val(),checked:checked_kewords},
+        dataType:'script',
+        success:function(response){
+          
+          
+        },
+        complete:function(){          
+          $this.removeClass('ui-autocomplete-loading')
+          /*search_keyword_fields() */
+        } ,       
+        url:'/mediafeed/media_users/get_keywords'
+      });
+    }
+  })
+  $("#keywords-div li ol li input::checkbox").live('click',function(){        
+    if($(this).prop('checked'))
+    {
+      $(this).siblings().removeAttr('disabled');      
+    }
+    else
+    {      
+      $(this).siblings().attr('disabled','disabled');
+    }
+    search_keyword_fields()
+  })
   // end $(document).ready
 });
+function search_keyword_fields(){
+  ($("#keywords-div li ol li input::checkbox:checked").length < 1 ) ? $('#keyword-setting-div').hide('slow') : $('#keyword-setting-div').show('slow')
+}
 
   var current_page_id ;
   var next_page_id ;

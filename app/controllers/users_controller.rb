@@ -40,10 +40,16 @@ class UsersController < ApplicationController
           redirect_to edit_user_profile_path(:user_id => @user.id) and return
         end
       end
-
+      @user.user_keywords.destroy_all if params[:user][:user_keywords_attributes].present?
       if @user.update_attributes(params[:user])
         #TODU update the uservisitoremail setting next_email_at date
         UserRestaurantVisitor.new.check_email_frequency(@user.user_visitor_email_setting) if params[:user][:user_visitor_email_setting_attributes].present?
+        if params[:user][:keyword_follow_type]
+          @user.user_keywords.map(&:update_user_keyword) # Hack updated user_keywords column deleted_at 
+          @user.user_keywords.map(&:delete_user_old_keywords)
+        end
+        @user.newsfeed_promotion_types.destroy_all if @user.newsfeed_writer.blank? #Deleting regiona promotion if user is not newsfeed regional writer
+        update_newsletter_data(params[:id])
         # update default employment
         if @employment_params
           if @user.default_employment.present?
@@ -138,7 +144,7 @@ class UsersController < ApplicationController
   def remove_avatar
     @user.avatar = nil
     if @user.save
-      flash[:message] = "Got it! We’ve removed your headshot from your account"
+      flash[:message] = "Got it! We've removed your headshot from your account"
       redirect_to edit_user_profile_path(:user_id => @user.id)
     else
       render :edit

@@ -33,14 +33,20 @@ class ApplicationController < ActionController::Base
 
   def get_newsletter_data
     @newsfeed_metropolitan_areas = @digest_metropolitan_areas = @newsfeed_promotions_types = @newsfeed_promotions_types = @newsfeed_regional_areas = @digest_regional_areas = []
+    @keyword_follow_type_regions = @keyword_follow_type_metros = []
+
+    @checked_restaurants = @checked_otm_keywords = @checked_cuisines = @checked_features = []
+
     @newsfeed_metropolitan_areas = @user.newsfeed_writer.find_metropolitan_areas_writers(@user) unless @user.newsfeed_writer.blank?
     @digest_metropolitan_areas = @user.digest_writer.find_metropolitan_areas_writers(@user) unless @user.digest_writer.blank?
-    
+    @keyword_follow_type_metros = @user.keyword_follow_type.find_keyword_follow_type_metropolitan_areas(@user) unless @user.keyword_follow_type.blank?
 
+    @keyword_follow_type_regions = @user.keyword_follow_type.find_keyword_follow_type_regionals(@user) unless @user.keyword_follow_type.blank?
     @newsfeed_regional_areas = @user.newsfeed_writer.find_regional_writers(@user) unless @user.newsfeed_writer.blank?
     @digest_regional_areas = @user.digest_writer.find_regional_writers(@user) unless @user.digest_writer.blank?
 
     @promotionTypes = PromotionType.find(:all,:order=>"name")
+    @metro_politan_areas = MetropolitanArea.all.map(&:state).uniq
 
   end
   def update_newsletter_data user_id
@@ -51,6 +57,7 @@ class ApplicationController < ActionController::Base
            
       @user.newsfeed_writer.update_attributes(params[:newsfeed_writer]) unless @user.newsfeed_writer.blank?
       @user.digest_writer.update_attributes(params[:digest_writer]) unless @user.digest_writer.blank?
+      @user.keyword_follow_type.update_attributes(params[:keyword_follow_type]) unless @user.keyword_follow_type.blank?
       
       @user = User.find(user_id)  #User.find :  For reloading new object! 
       self.get_newsletter_data

@@ -153,6 +153,7 @@ class Restaurant < ActiveRecord::Base
   has_many :trace_keywords, :as => :keywordable
   has_many :soapbox_trace_keywords, :as => :keywordable
 
+  has_many :follow_keywords ,:as => :follow_keyword ,:class_name =>'UserKeyword',:dependent => :destroy
 
   # For pagination
   cattr_reader :per_page
