@@ -771,6 +771,12 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     var $form=$(this).parent().find("input:text");
     $('#restaurant_criteria input').not($form).val('');
   });
+
+$('.closeButton').click(function(e){
+    e.preventDefault();
+    $('.hidediv').hide();
+  }) 
+
   // //mediafeed user edit 
   $("#search_state_by_name").autocomplete({
     source: "/auto_complete.js?metro=metro",
