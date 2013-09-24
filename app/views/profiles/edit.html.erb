@@ -100,7 +100,11 @@
                         <% f.inputs :class => "plain profile_cuisines" do %>
                           <%= f.input :profile_id, :as => :hidden %>
                           <%= f.errors_on(:cuisine_id) %>
-                          <%= f.input :cuisine, :as => "select", :collection => Cuisine.all, :multiple=>true,:required => true ,:input_html => {:class => "chzn-select" }%>
+                          <% if @cusines.empty? %>
+                           <%= f.input :cuisine, :as => "select", :collection => Cuisine.all,:multiple=>true,:required => true ,:input_html => {:class => "chzn-select" }%>
+                          <% else %>
+                          <%= f.input :cuisine, :as => "select", :collection => Cuisine.all(:conditions => ["name NOT IN (?)", @cusines]) , :multiple=>true,:required => true ,:input_html => {:class => "chzn-select" }%>
+                          <% end %>
                           <%= hidden_field_tag "profile_cusine", true %>
                         <% end %>
                         <%= button_tag "Save" %>
