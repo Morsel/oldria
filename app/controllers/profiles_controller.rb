@@ -17,6 +17,7 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    @cusines = @profile.profile_cuisines.map(&:cuisine).map(&:name)
     @profile_cuisine = @profile.profile_cuisines.build
     @fb_user = current_facebook_user.fetch if @profile.user.facebook_authorized? && current_facebook_user
     rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException,Exception => e
