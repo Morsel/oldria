@@ -4877,7 +4877,6 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 	overflow-y: auto;
 	overflow-x: hidden;
 }
-
 .time-width {
     background-image: url("/images/time.png");
     background-position: 224px -2px;
@@ -4926,9 +4925,23 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 	font-weight: bold;
   height: 2px !important;
 }
-
+#remove-all-caps{
+  text-transform: none !important;
+}
 #remove-all-caps-show{
 	margin-top: 30px !important;
 	text-transform: none !important;
 }
-
+/* ---- premium restaurant message -------------*/
+.closeButton
+{
+    background: url(/images/close-button.png) no-repeat scroll center center transparent;
+    display: block;
+    height: 35px;
+    position: absolute;
+    right: -7px;
+    top: -10px;
+   width: 27px;
+    cursor: pointer;
+}
+/* ---- end premium restaurant message -------- */

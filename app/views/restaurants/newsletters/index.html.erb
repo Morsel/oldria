@@ -16,13 +16,19 @@
               </nav>
               <%  %>
                 <div id="restaurant_features_content" style="width:700px;">
-
+                <% if @message.present? %>
+                 <div id="flashes" class="hidediv">
+                    <div id="flash_notice">
+                      <%=link_to "","#" ,:class=>"closeButton" %>
+                      <%=@message%>
+                    </div>
+                  </div>
+                <% end %> 
                   <h1 class="pg_title">Newsletter Settings</h1>
                   <p>RIA Newsletters are a unique new way to connect with diners. We believe your creativity is enough to drive business so our newsletters make it easy for you to connect with diners through your food, rather than relying on discounts, promotions and events to drive traffic in your door.  </p>
                   <p>
                   To get the most out of our newsletters, we recommend selecting a frequency that best matches how often you change your menu. Then, use our various platforms to post your news and menu items. </p>
-
-
+              <div id="restaurant_features_content" style="width:700px;">
                   <div id="newsletter_settings" class="clearfix">
                     <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
                       <% f.inputs :class => "editing" do %>
