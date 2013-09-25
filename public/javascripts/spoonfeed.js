@@ -999,3 +999,19 @@ function loderHide()
 {
   $('#loader-waiting').slideUp();
 }
+
+var rotateimage = 0;
+var answer_id = $("#a_la_minute_questions").find('form').attr('action').split("/").length
+answer_id = $("#a_la_minute_questions").find('form').attr('action').split("/")[answer_id-1]
+
+$("#rotate").live('click',function(){  
+  if(rotateimage==270)
+    rotateimage = 0;
+  else
+    rotateimage = rotateimage + 90;
+  $("#angle").val(rotateimage);
+  $("#imagetest").rotate(rotateimage);
+})
+$(".iframed-image").each(function() {
+  $(this).colorbox({html: '<img src="/images/rotate.png" id="rotate"><div class="clear">' + $("#getimage").html() + ' " /></div>'});
+});

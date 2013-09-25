@@ -17,7 +17,7 @@ Rails::Initializer.run do |config|
   config.gem 'aws-s3',                :lib => "aws/s3", :version => "0.6.2"
   config.gem 'faraday',               :version => "0.7.5"
   config.gem 'oauth',                 :version => "0.4.5"
-  config.gem 'twitter',               :version => "4.8.1"
+  config.gem 'twitter',               :version => "1.7.2"
   config.gem 'jackdempsey-acts_as_commentable', :lib => 'acts_as_commentable', :source => "http://gems.github.com"
   config.gem 'acts_as_list',          :version => "~>0.1.2"
   config.gem 'aasm',                  :version => "~>2.1.5"
@@ -44,6 +44,7 @@ Rails::Initializer.run do |config|
   config.gem "ar-octopus",            :version => "0.3.4", :lib => "octopus"
   config.gem "spreadsheet",           :version => "0.8.5"
   config.gem "simple_xlsx_reader" ,   :version => "0.9.7"
+  config.gem "rmagick",             :version => "2.13.2",:git=>'http://github.com/rmagick/rmagick.git' 
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
