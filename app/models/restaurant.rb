@@ -111,7 +111,7 @@ class Restaurant < ActiveRecord::Base
   has_many :user_restaurant_visitors
   has_many :restaurant_visitors ,:through => :user_restaurant_visitors ,:source => :user
   
-  accepts_nested_attributes_for :logo
+  accepts_nested_attributes_for :logo ,:photos
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
       :metropolitan_area, :website, :media_contact, :cuisine, :opening_date, :manager,:james_beard_region
