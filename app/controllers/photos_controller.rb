@@ -27,14 +27,19 @@ class PhotosController < ApplicationController
 
   def bulk_edit
     @photos = @restaurant.photos
+    @raw_photo = Photo.new
+    @restaurant.photos.build
   end
 
   def create
-    @photo = @restaurant.photos.create(params[:photo])
-    if @photo.valid?
+    tmp = @restaurant.photos.map(&:id).compact
+    if @restaurant.update_attributes(params[:restaurant])
+       flash[:success] = "Your changes have been saved."
       redirect_to bulk_edit_restaurant_photos_path(@restaurant)
     else
-      @photos = @restaurant.photos.reload
+      flash[:error] = "There were problems with the following fields"      
+      @photos = @restaurant.photos
+      @restaurant.photos.each{|e| e.id=nil unless tmp.include? e.id} # TODO : Hack , was not showing valid photos
       render :action => :bulk_edit
     end
   end
