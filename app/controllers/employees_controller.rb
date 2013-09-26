@@ -5,11 +5,10 @@ class EmployeesController < ApplicationController
 
   def bulk_edit
     @restaurant = Restaurant.find(params[:restaurant_id])    
-    @employments = @restaurant.employments.by_position.all(
-        :include => [:subject_matters, :restaurant_role, :employee],:order => "position")
     if @restaurant.manager.employments.first(:conditions=>['restaurant_id = ?',params[:restaurant_id]]).restaurant_role_id.nil?
       flash[:notice] = "<p class='restaurant-flash'>In order to complete your restaraunt setup, please select your role at the restaurant.</p>"
     end
+    @employments = @restaurant.employments.by_position.all(:include => [:subject_matters, :restaurant_role, :employee],:order => "position")
   end
 
   def new   
@@ -58,8 +57,13 @@ class EmployeesController < ApplicationController
       redirect_to bulk_edit_restaurant_employees_path(@restaurant)
     else
       @employee = @employment.employee
-      flash[:error] = "We were unable to update that employee"
-      render :action => "edit"
+      flash[:error] = @employment.errors.full_messages.to_sentence
+      if params[:bulk_edit_form]
+        redirect_to bulk_edit_restaurant_employees_path(@restaurant)
+      else
+        render :action => "edit"
+      end   
+      
     end
   end
 

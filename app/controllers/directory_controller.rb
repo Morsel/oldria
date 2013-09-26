@@ -106,13 +106,18 @@ class DirectoryController < ApplicationController
       end
     else
       trace_search_on_user_directory
-      if params[:search_person_eq_any_name]
+      if params[:search_person_eq_any_name].present? && !current_user.media?
         @users = User.in_spoonfeed_directory.profile_specialties_name_or_profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
         @users = @users.push(User.in_spoonfeed_directory.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?
-      else
+      elsif !current_user.media?
         @users = User.in_spoonfeed_directory.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
-      end
-    end
+      elsif params[:search_person_eq_any_name].present? && current_user.media?
+        @users = User.in_spoonfeed_directory_for_media.profile_specialties_name_or_profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
+        @users = @users.push(User.in_spoonfeed_directory_for_media.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?  
+      elsif current_user.media? 
+        @users = User.in_spoonfeed_directory_for_media.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
+      end  
+    end 
     if @users.blank? && params[:search_person_by_state_or_region].present?
       flash[:notice] = "I am sorry, we don't have any person for your state yet. Sign up to receive notification when we do!"
     end

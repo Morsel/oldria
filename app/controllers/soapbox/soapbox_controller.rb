@@ -40,10 +40,20 @@ include AutoCompleteHelper
 
   def directory_search
     trace_search_for_persional_directory_for_soapbox
-    if params[:search_person_eq_any_name]
+    if (current_user && !current_user.media?) && (params[:search_person_eq_any_name].present?)
       @users = User.in_soapbox_directory.profile_specialties_name_equals(params[:search_person_eq_any_name]).uniq + User.in_soapbox_directory.profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
       @users = @users.push(User.in_soapbox_directory.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?
-    else
+    elsif (current_user && !current_user.media?)
+      @users = User.in_soapbox_directory.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
+    elsif (current_user && current_user.media?) && (params[:search_person_eq_any_name].present?) 
+      @users = User.in_soapbox_directory_for_media.profile_specialties_name_equals(params[:search_person_eq_any_name]).uniq + User.in_soapbox_directory_for_media.profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
+      @users = @users.push(User.in_soapbox_directory_for_media.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank? 
+    elsif current_user && current_user.media?  
+      @users = User.in_soapbox_directory_for_media.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
+    elsif current_user.blank? && params[:search_person_eq_any_name].present?  
+      @users = User.in_soapbox_directory.profile_specialties_name_equals(params[:search_person_eq_any_name]).uniq + User.in_soapbox_directory.profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
+      @users = @users.push(User.in_soapbox_directory.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?
+    elsif current_user.blank?  
       @users = User.in_soapbox_directory.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
     end
     if @users.blank? && params[:search_person_by_state_or_region].present?
@@ -55,7 +65,6 @@ include AutoCompleteHelper
   end
 
   def restaurant_directory
-    
     @subscriber = current_subscriber
     if params[:cuisine_id]
       @cuisine = Cuisine.find(params[:cuisine_id])
