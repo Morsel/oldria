@@ -33,6 +33,7 @@
                         :collection => User.by_last_name %>
         </div>
       </div>
+      <%- end -%>
       <div class="accordion_box">
         <%= link_to "<span>Restaurants</span>", "#" %>
         <div id="restaurant_fields" style="display:none;">
@@ -41,8 +42,7 @@
                         :label => '&nbsp;',
                         :collection => Restaurant.all(:order => 'sort_name ASC') %>
         </div>
-      </div>
-      <%- end -%>
+      </div>      
       <div class="accordion_box">
         <%= link_to "<span>Cuisine</span>", "#" %>
         <div id="cuisine_fields" class="loading" style="display:none;">
@@ -52,7 +52,7 @@
                         :collection => Cuisine.with_restaurants %>
         </div>
       </div>
-      <%- unless mediafeed? -%>
+      <%#- unless mediafeed? -%>
       <div class="accordion_box">
         <%= link_to "<span>Role</span>", "#" %>
         <div id="role_fields" class="loading" style="display:none;">
@@ -62,7 +62,7 @@
                         :collection => RestaurantRole.with_employments.all %>
         </div>
       </div>
-      <%- end -%>
+      <%#- end -%>
       <div class="accordion_box">
         <%= link_to "<span>Region</span>", "#" %>
         <div id="region_fields" class="loading" style="display:none;">
