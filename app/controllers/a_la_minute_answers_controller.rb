@@ -6,7 +6,7 @@ class ALaMinuteAnswersController < ApplicationController
   before_filter :check_employments, :only => [:bulk_edit]
   before_filter :social_redirect, :only => [:edit]
   before_filter :rotate_image, :only => [:update]
-  require 'RMagick'
+  #require 'RMagick'
 
   def index    
     @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
