@@ -22,10 +22,10 @@
   	<% if can? :edit, @restaurant %>
   		<p class="clearfix">
   			<%= link_to "Add employee", new_restaurant_employee_path(@restaurant), :class => 'sf-button positive' %>
+        <%= link_to "Employees who have not activated yet",not_activited_account_employee_restaurant_employees_path(@restaurant), :class => 'sf-button positive' %>
   		</p>
-		
-  	<% end %>
-	
+		<% end %>
+
   	<h3 class="rearrange">Rearrange the order employees are listed on your restaurant profile by drag and drop.</h3>
 	
   	<% unless @employments.blank? %>
