@@ -12,9 +12,7 @@
                     <div id="subscribe-div">   
                       <%= render :partial => 'restaurants/subscribe', :locals => { :restaurant => @restaurant } %> 
                       <div class="profile-update">
-                      <% if (current_user && current_user.employments) && (current_user.employments.first.media_contact.present?) %>
                         <%= link_to "Request Profile Update",restaurant_request_profile_update_path(@restaurant),:class=>"request-profile-update subscribe" %>
-                      <% end %>  
                       </div>
                     </div>
                     <div class="clear"></div> 
