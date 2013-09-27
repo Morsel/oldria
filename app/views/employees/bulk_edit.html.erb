@@ -22,12 +22,11 @@
   	<% if can? :edit, @restaurant %>
   		<p class="clearfix">
   			<%= link_to "Add employee", new_restaurant_employee_path(@restaurant), :class => 'sf-button positive' %>
-        <%= link_to "Employees who have not activated yet",not_activited_account_employee_restaurant_employees_path(@restaurant), :class => 'sf-button positive' %>
   		</p>
 		<% end %>
 	
   	<h3 class="rearrange" id="remove-all-caps" >Rearrange the order employees are listed on your restaurant profile by drag and drop.</h3>
-	
+	 <%= flash.now[:notice]  %>
   	<% unless @employments.blank? %>
   	<div id="restaurant_employees" data-remote-url="<%= reorder_restaurant_employments_url(@restaurant) %>">      
   		<% @employments.each do |group| %>
@@ -37,7 +36,29 @@
   		<% end -%>
   	</div>
   	<% end -%>
-	
+
+	  <h3 class="rearrange">Employees list who have not yet activated their account</h3> 
+    <p class="clearfix"></p>
+    <% unless @employments.blank? %>
+      <div class="inactive_employees"> 
+        <% @employments.each do |group| %>
+          <% if User.find(group.employee_id).confirmed_at.blank? %>
+            <%= render :partial => "employments/invited_employment", :locals => { :employment => group } %>
+          <%end%>
+        <% end -%>
+      </div>
+    <% end -%>
+    <h3 class="rearrange">Employees list who has requested to be added to your restaurant </h3>
+    <% unless @res_emp_req.blank? %>
+      <div class="inactive_employees"> 
+        <% @res_emp_req.each do |group| %>
+          <% if group.deleted_at.blank? %>
+              <%= render :partial => "employments/requested_employment", :locals => { :employment => group } %>
+          <% end %>    
+        <% end -%>
+      </div>
+    <% end -%>
+
   	<% content_for :javascript do %>
 	
   	  <script type="text/javascript">
@@ -62,6 +83,15 @@
   	          url: url})
   	      }
   	    })
+        $('.inactive_employees').sortable(
+        {
+          axis: 'y',
+          dropOnEmpty:false,
+          cursor: 'crosshair',
+          items: '.employment_box',
+          opacity: 0.4,
+          scroll: true,
+        });
   	    //]]>
   	  </script>
 	

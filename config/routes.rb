@@ -213,7 +213,7 @@ ActionController::Routing::Routes.draw do |map|
                              :api => :get,
                              :media_subscribe => :get
                              } do |restaurant|
-    restaurant.resources :employees, :collection => { :bulk_edit => :get,:not_activited_account_employee => :get,:again_invite_new_employee => :get }, :except => [:show, :index]
+    restaurant.resources :employees, :collection => { :bulk_edit => :get,:again_invite_new_employee => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }
     restaurant.resource :employee_accounts, :only => [:create, :destroy]
 
@@ -457,7 +457,10 @@ ActionController::Routing::Routes.draw do |map|
   map.get_opened_campaign '/restaurants/:restaurant_id/newsletters/get_opened_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_opened_campaign'
   map.get_clicked_campaign '/restaurants/:restaurant_id/newsletters/get_clicked_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_clicked_campaign'
   map.get_bounces_campaign '/restaurants/:restaurant_id/newsletters/get_bounces_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_bounces_campaign'
-
+  #new request of employee for restauarnt 
+  map.accept_requested_employee 'restaurants/:restaurant_id/employees/:id/accept_requested_employee', :controller => "employees", :action => "accept_requested_employee"  
+  map.reject_requested_employee 'restaurants/:restaurant_id/employees/:id/reject_requested_employee', :controller => "employees", :action => "reject_requested_employee"
+end
   map.get_feature_keywords '/items/get_feature_keywords', :controller => "items", :action => "get_feature_keywords"
 
   map.get_selected_cities '/mediafeed/media_users/get_keywords', :controller => 'media_users', :action => 'get_selected_cities'

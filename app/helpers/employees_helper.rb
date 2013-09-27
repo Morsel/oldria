@@ -89,5 +89,34 @@ module EmployeesHelper
       else
         role.to_s
       end  
+  end
+
+  def restaurant_role_and_link_for_invited(employment)
+    role_name = employment.restaurant_role.try(:name) || "<em>No Role Assigned</em>"
+    delete_link = link_to('Delete',
+                        restaurant_employee_path(employment.restaurant, employment.employee),
+                        :method => :delete,
+                        :confirm => 'Are you sure?',
+                        :title => 'Delete',
+                        :class => "delete")
+    edit_link = link_to('Invite again',
+                         again_invite_new_employee_restaurant_employees_path(:employee =>employment.employee.id),
+                         :title => 'Invite again',
+                         :class => 'edit')
+    "<p class='restaurant_role'>#{role_name}</p>#{delete_link} #{edit_link}"
   end 
+
+  def restaurant_role_and_link_for_requested(restaurant,employee)
+    delete_link = link_to('Reject',
+                        reject_requested_employee_path(restaurant, employee),
+                        :method => :delete,
+                        :confirm => 'Are you sure?',
+                        :title => 'Reject',
+                        :class => "delete")
+    edit_link = link_to('Accept',
+                         accept_requested_employee_path(restaurant, employee),
+                         :title => 'Accept',
+                         :class => 'edit')
+    "<p class='restaurant_role'></p>#{delete_link} #{edit_link}"
+  end
 end
