@@ -4,6 +4,8 @@ class ALaMinuteAnswersController < ApplicationController
   before_filter :require_restaurant_employee, :only => [:destroy, :bulk_edit, :edit, :update, :new, :create,:delete_attachment,:facebook_post]
   before_filter :find_activated_restaurant, :only => [:index]
   before_filter :social_redirect, :only => [:edit]
+  before_filter :rotate_image, :only => [:update]
+  require 'RMagick'
 
   def index    
     @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
@@ -50,9 +52,7 @@ class ALaMinuteAnswersController < ApplicationController
     @question = @answer.a_la_minute_question
   end
 
-  def update
-    @answer = ALaMinuteAnswer.find(params[:id])
-    @question = @answer.a_la_minute_question
+  def update   
 
     if @answer.update_attributes(params[:a_la_minute_answer])
       flash[:notice] = "Your answer has been updated"
@@ -114,5 +114,22 @@ class ALaMinuteAnswersController < ApplicationController
 
   def redirect_to_social_or(action)
     redirect_to (session[:redirect_to_social_posts].present?) ? session.delete(:redirect_to_social_posts) : { :action => action }
+  end
+
+  def rotate_image
+    @answer = ALaMinuteAnswer.find(params[:id])
+    @question = @answer.a_la_minute_question
+    if params[:angle] != ""
+      # if params[:a_la_minute_answer][:photo]
+        # source_image = Magick::ImageList.new(params[:a_la_minute_answer][:photo].url)
+      # else
+        source_image = Magick::ImageList.new(@answer.photo.url)
+        file = Tempfile.new(['hello', '.jpg'])
+        params[:a_la_minute_answer][:photo]=file
+      # end
+      image   = source_image.rotate(params[:angle].to_i)
+      image.write(params[:a_la_minute_answer][:photo].path)
+      params[:a_la_minute_answer].delete("angle")
+    end
   end
 end
