@@ -1,0 +1,22 @@
+<% user = employment.employee %>
+<% div_for employment, :class => 'user clearfix employment_box' do %>
+  <% div_for user do %>
+    <%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) if user.avatar.present? %>
+		<div class="profile_meta">
+    	<h3><%= user.name %></h3>
+
+    	<% if can? :edit, @restaurant %>
+      	<%= restaurant_role_and_link_for_requested(@restaurant,employment) %>
+    	<% end %>
+
+
+		</div><!--.profile_meta-->
+
+		<div class="profile_public_meta">
+    	<div class="account_status">
+				This employee has a <%= employment.employee.public_account_type %> 
+				<%= employment.employee.account_payer_type %> Account.
+			</div>
+		</div><!--.profile_public_meta-->
+  <% end %>
+<% end -%>

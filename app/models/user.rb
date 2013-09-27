@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
 
   has_one :featured_profile, :as => :feature
 
-  has_many :restaurant_employee_requests ,:foreign_key=>"employee_id"
+  has_many :restaurant_employee_requests ,:foreign_key=>"employee_id" 
   has_many :requested_restaurants, :through => :restaurant_employee_requests ,:source=> :restaurant
 
   has_one :push_notification_user
