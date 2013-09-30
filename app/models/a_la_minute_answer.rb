@@ -58,9 +58,12 @@ class ALaMinuteAnswer < ActiveRecord::Base
                     :path           => "#{RAILS_ENV}/alaminute_answer_attachments/:id/:style/:filename",
                     :bucket         => "spoonfeed",
                     :url            => ':s3_domain_url',
-                    :styles         => { :full => "1966x2400>", :large => "360x480>", :medium => "240x320>", :small => "189x150>", :thumb => "120x160>" }
+                    :styles         => { :full => "1966x2400>", :large => "360x480>", :medium => "240x320>", :small => "189x150>", :thumb => "120x160>" },
+                    :processors     => [:cropper]
+
   
- 
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  after_update :reprocess_photo, :if => :cropping?
 
   VALID_CONTENT_TYPES = ["application/pdf", "application/x-pdf"]
   VALID_PHOTO_CONTENT_TYPES = ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"]
@@ -195,5 +198,20 @@ class ALaMinuteAnswer < ActiveRecord::Base
     edit_restaurant_a_la_minute_answer_url(restaurant, self, options)
   end
 
+  def cropping?
+    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+  end
+  
+  def photo_geometry(style = :original)
+    @geometry ||= {}
+    path = (photo.options[:storage]==:s3) ? photo.url(style) : photo.path(style)
+    @geometry[style] ||= Paperclip::Geometry.from_file(path)
+  end
+  
+private
+  
+  def reprocess_photo
+    photo.reprocess!
+  end
 
 end

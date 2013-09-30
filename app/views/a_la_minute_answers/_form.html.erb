@@ -7,15 +7,16 @@
   <%= form.input :photo, :hint => "Image files allowed" ,:label =>"Add a photo" %>
 
   <% if !@answer.new_record? && @answer.attachment.file? -%>
-          Current attachment: <%= link_to @answer.attachment_file_name, @answer.attachment.url %>
+          Current attachment: <%#= link_to @answer.attachment_file_name, @answer.attachment.url %>
+          <%= image_tag(@answer.attachment.url) %>
       <p><%= link_to "Delete attachment", delete_attachment_restaurant_a_la_minute_answer_path(@restaurant, @answer,{:type=>:pdf}), :method => :post, :confirm => "Are you sure you want to delete this?" %> or replace by uploading a new file</p>
   <% end -%>
 
   <% if !@answer.new_record? && @answer.photo.file? -%>
         Current attachment:<%=@answer.photo_file_name%>
-         <%=link_to "Edit Image",@answer.photo.url, :class=>"iframed-image"%> 
-         <div id="getimage" style="display:none;">
-          <%= image_tag @answer.photo.url , :id=>"imagetest"%>
+         <%=link_to "Edit Image",@answer.photo(:large), :class=>"iframed-image"%> 
+         <div id="getimage" class="display-none">
+          <%= image_tag @answer.photo(:large) , :id=>"imagetest"%>
          </div>
          <%=hidden_field_tag "angle" %>
     <p><%= link_to "Delete attachment", delete_attachment_restaurant_a_la_minute_answer_path(@restaurant, @answer,{:type=>:photo}), :method => :post, :confirm => "Are you sure you want to delete this?" %> or replace by uploading a new file</p>
@@ -94,7 +95,9 @@
       <% end %>
     </section>
   </section>
-
+  <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+    <%= form.hidden_field attribute, :id => attribute %>
+  <% end %>
   <div class="clearfix">
     <%= form.submit "Post" %>
     <%= link_to 'Cancel', bulk_edit_restaurant_a_la_minute_answers_url(@restaurant) %>
@@ -135,3 +138,28 @@
   });
 </script>
 <% end %>
+ <script type="text/javascript">
+ $(document).ready(function () {
+  $("#imagetest").live('mouseover',function(){
+    var c = {"x":13,"y":7,"x2":487,"y2":107,"w":104,"h":100};
+    $(this).Jcrop({
+      onChange: update_crop,
+      onSelect: update_crop,
+      setSelect: [c.x,c.y,c.x2,c.y2],
+      aspectRatio: 1
+    });
+  })
+
+ });
+ function update_crop(coords) {
+    var rx = 100/coords.w;
+    var ry = 100/coords.h;
+  <% if params[:action]!="new"%>
+    var ratio = <%= @answer.photo_geometry(:original).width %> / <%= @answer.photo_geometry(:large).width %>;
+    $("#crop_x").val(Math.round(coords.x * ratio));
+    $("#crop_y").val(Math.round(coords.y * ratio));
+    $("#crop_w").val(Math.round(coords.w * ratio));
+    $("#crop_h").val(Math.round(coords.h * ratio));
+  <% end %>
+  }
+ </script>

@@ -881,5 +881,5 @@ $("#rotate").live('click',function(){
   $("#imagetest").rotate(rotateimage);
 })
 $(".iframed-image").each(function() {
-  $(this).colorbox({html: '<img src="/images/rotate.png" id="rotate"><div class="clear">' + $("#getimage").html() + ' " /></div>'});
+  $(this).colorbox({escKey: false,overlayClose: false,html: '<img src="/images/rotate.png" id="rotate"><div class="clear">' + $("#getimage").html() + ' </div>'});
 });

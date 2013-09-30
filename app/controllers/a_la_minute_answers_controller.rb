@@ -5,7 +5,7 @@ class ALaMinuteAnswersController < ApplicationController
   before_filter :find_activated_restaurant, :only => [:index]
   before_filter :social_redirect, :only => [:edit]
   before_filter :rotate_image, :only => [:update]
-  require 'RMagick'
+  #require 'RMagick'
 
   def index    
     @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
@@ -120,15 +120,6 @@ class ALaMinuteAnswersController < ApplicationController
     @answer = ALaMinuteAnswer.find(params[:id])
     @question = @answer.a_la_minute_question
     if params[:angle] != ""
-      # if params[:a_la_minute_answer][:photo]
-        # source_image = Magick::ImageList.new(params[:a_la_minute_answer][:photo].url)
-      # else
-        source_image = Magick::ImageList.new(@answer.photo.url)
-        file = Tempfile.new(['hello', '.jpg'])
-        params[:a_la_minute_answer][:photo]=file
-      # end
-      image   = source_image.rotate(params[:angle].to_i)
-      image.write(params[:a_la_minute_answer][:photo].path)
       params[:a_la_minute_answer].delete("angle")
     end
   end
