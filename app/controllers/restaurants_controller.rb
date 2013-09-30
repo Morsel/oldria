@@ -243,8 +243,7 @@ class RestaurantsController < ApplicationController
   def send_restaurant_request
     @restaurant = Restaurant.find(params[:id]) 
     @employment = Employment.find(:first,:conditions=>["employee_id = ? and restaurant_id = ? ",current_user ,@restaurant])
-
-    if @restaurant && @employment.nil?
+    unless @restaurant && @employment.nil?
       @req = RestaurantEmployeeRequest.new({:restaurant_id=>@restaurant.id,:employee_id=>current_user.id})
       if(@req.save)
         UserMailer.deliver_employee_request(@restaurant, current_user)
@@ -254,7 +253,7 @@ class RestaurantsController < ApplicationController
 }."
        end
       else
-        flash[:notice] = "Something went wrong or may be you already sent request to <b> #{@restaurant.name} </b>."           
+        flash[:notice] = "Currently you don't have any employment corresponding to #{@restaurant.name} you can't send the request till then you create any employment "           
     end
     redirect_to root_path
   end

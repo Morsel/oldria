@@ -2,6 +2,10 @@ class Soapbox::ProfilesController < Soapbox::SoapboxController
   before_filter :get_user, :check_access
 
   def show
+    if (current_user && current_user.media?) && (@user && @user.employments.present? && !@user.employments.first.search_by_diner)
+      flash[:notice] = "You don't have permission to access this page"
+      redirect_to root_path
+    end   
     # Is the current user following this person?
     @following = current_user.followings.first(:conditions => {:friend_id => @user.id}) if current_user
   end

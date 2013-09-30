@@ -5,10 +5,8 @@ class EmployeesController < ApplicationController
 
   def bulk_edit
     @restaurant = Restaurant.find(params[:restaurant_id])    
-    @employments = @restaurant.employments.by_position.all(
-        :include => [:subject_matters, :restaurant_role, :employee],:order => "position")
-    #@res_emp_req = RestaurantEmployeeRequest.find(:all,:conditions=>["restaurant_id = ?",params[:restaurant_id]]).map(&:deleted_at).compact
     @res_emp_req = RestaurantEmployeeRequest.find(:all,:conditions=>["restaurant_id = ?",params[:restaurant_id]])
+    @employments = @restaurant.employments.by_position.all(:include => [:subject_matters, :restaurant_role, :employee],:order => "position")
   end
 
   def new   
@@ -57,8 +55,13 @@ class EmployeesController < ApplicationController
       redirect_to bulk_edit_restaurant_employees_path(@restaurant)
     else
       @employee = @employment.employee
-      flash[:error] = "We were unable to update that employee"
-      render :action => "edit"
+      flash[:error] = @employment.errors.full_messages.to_sentence
+      if params[:bulk_edit_form]
+        redirect_to bulk_edit_restaurant_employees_path(@restaurant)
+      else
+        render :action => "edit"
+      end   
+      
     end
   end
 
@@ -124,7 +127,7 @@ class EmployeesController < ApplicationController
 
  def reject_requested_employee
   @re_em_req = RestaurantEmployeeRequest.find_by_restaurant_id(params[:restaurant_id])
-  flash[:notice] = "Deleted request"
+  flash[:notice] = "Your request has been rejected sucessfully"
   @re_em_req.destroy  
   redirect_to bulk_edit_restaurant_employees_path(@restaurant)
  end  

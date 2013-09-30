@@ -56,7 +56,13 @@
 		<ul>
 			<% for employment in @restaurant.public_employments %>
 			<li class="clearfix">
+        <% if current_user && current_user.media && employment.search_by_media %>
 				<%= link_to_if employment.employee.linkable_profile?, image_tag(employment.employee.avatar.url(:thumb)), profile_path(employment.employee.username) %>
+        <% elsif !current_user.media %>
+          <%= link_to_if employment.employee.linkable_profile?, image_tag(employment.employee.avatar.url(:thumb)), profile_path(employment.employee.username) %>
+        <% else %>
+          <%= image_tag(employment.employee.avatar.url(:thumb)) %>
+        <% end  %>  
 				<h3><%= employee_link(employment.employee) %></h3>
 				<p><%= employment.restaurant_role.try(:name) %></p>
 			</li>
