@@ -258,7 +258,7 @@ class RestaurantsController < ApplicationController
 }."
        end
       else
-        flash[:notice] = "Currently you don't have any employment corresponding to #{@restaurant.name} you can't send the request till then you create any employment "           
+        flash[:notice] = "Please create an employment first for sending request,you can't send request till then you create and employment"           
     end
     redirect_to root_path
   end
