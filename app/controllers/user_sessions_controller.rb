@@ -61,7 +61,7 @@ class UserSessionsController < ApplicationController
             redirect_back_or_default
           end
         else
-          #restaurant = user.restaurants.map{|restaurant| restaurant unless restaurant.count.nil? }.compact.first
+          restaurant = user.restaurants.map{|restaurant| restaurant unless restaurant.count.nil? }.compact.first
           unless restaurant.blank?
             flash[:notice] = "We are sorry! Something went wrong with your payment for #{restaurant.name}. Click here to update your payment method <a href='/restaurants/#{restaurant.id}/subscription/new' >click here</a> "
             #flash[:notice] = "Last time you are try to upgrade your #{restaurant.name} but payment was not successfully due to some reason. You can upgrade your account by <a href='/restaurants/#{restaurant.id}/subscription/new' >click here</a>"

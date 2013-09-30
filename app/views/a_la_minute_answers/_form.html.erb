@@ -7,7 +7,7 @@
   <%= form.input :photo, :hint => "Image files allowed" ,:label =>"Add a photo" %>
 
   <% if !@answer.new_record? && @answer.attachment.file? -%>
-          Current attachment: <%#= link_to @answer.attachment_file_name, @answer.attachment.url %>
+          Current attachment: <%= link_to @answer.attachment_file_name, @answer.attachment.url %>
           <%= image_tag(@answer.attachment.url) %>
       <p><%= link_to "Delete attachment", delete_attachment_restaurant_a_la_minute_answer_path(@restaurant, @answer,{:type=>:pdf}), :method => :post, :confirm => "Are you sure you want to delete this?" %> or replace by uploading a new file</p>
   <% end -%>

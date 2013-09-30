@@ -44,7 +44,7 @@ Rails::Initializer.run do |config|
   config.gem "gibbon",                :version => "0.3.5"
   config.gem "spreadsheet",           :version => "0.8.5"
   config.gem "simple_xlsx_reader" ,   :version => "0.9.7"
-  config.gem "cocaine",               :version => "0.3.2" 
+  # config.gem "cocaine",               :version => "0.3.2" 
   # config.gem "rmagick",             :version => "2.13.2",:git=>'http://github.com/rmagick/rmagick.git' 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
