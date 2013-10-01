@@ -105,6 +105,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "a_la_minute_visitors" => @a_la_minute_visitors,
               "current_user" => user
             }
+            UserMailer.deliver_log_file("before mail send start to media")
             if keywords.present? && check_email_frequency(@uves)
               UserMailer.deliver_log_file("mail send start to media")
               UserMailer.deliver_send_chef_user(restaurant_visitors) 
@@ -131,7 +132,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
             
             if !visitor.restaurant.nil?
               visitors = visitor.restaurant.newsletter_subscribers
-            
+            UserMailer.deliver_log_file("got an visitor")
               media_visitors = visitor.restaurant.restaurant_visitors.find(:all,:conditions=>["user_restaurant_visitors.created_at > ? OR user_restaurant_visitors.updated_at > ?",2.day.ago.beginning_of_day.to_formatted_s,2.day.ago.beginning_of_day.to_formatted_s])
 
               counter = 0
@@ -202,7 +203,8 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "current_user" => user,
                 "sum" => @sum,
                 "otm_keyword_notification" => otm_keyword_notification 
-              }                          
+              }              
+              UserMailer.deliver_log_file("before mail send start to visitor")            
               if check_email_frequency(@uves)  
                 UserMailer.deliver_log_file("mail send start to visitor")
                 UserMailer.deliver_send_mail_visitor(restaurant_visitors) 
