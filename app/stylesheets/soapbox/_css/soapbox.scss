@@ -251,7 +251,8 @@ h1,h2,h3,h4,h5,h6{
 	  width: 77px;
 	  height: 115px;
 	  text-decoration: none;
-		background: transparent url(/images/soapbox/soapbox-nav.png) no-repeat;
+
+		background: transparent url(/images/soapbox/soapbox-nav3.png) no-repeat;  
 		&#nav-home {
 			background-position: 0 0;
 			&:hover {
@@ -3459,4 +3460,9 @@ li#user_metropolitan_areas_input ol li, div#digest_option_regional ol li{
 .psw-reset{
 	height: 24px;
 }
+
+#nav-fb{
+font-family: verdana,arial,helvetica,sans-serif;
+}
+
 

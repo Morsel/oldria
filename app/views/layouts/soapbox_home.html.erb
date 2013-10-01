@@ -92,6 +92,8 @@
             <ul>
              <li> <%= link_to content_tag(:span, 'Home'), soapbox_root_path, :id => "nav-home", :class => active_page?('/soapbox') %></li>
 
+              <li> <%= link_to content_tag(:span, 'NewsFeed'), '/soapbox/newsfeed', :id => "nav-fb", :class => active_page?('/soapbox/newsfeed') %></li>
+
              <li> <%= link_to content_tag(:span,'A la <br>Minute'), '/soapbox/a_la_minute_questions', :id => "nav-alm", :class => active_page?('/soapbox/a_la_minute_questions') %></li>
 
               <li><%= link_to content_tag(:span,'On the<br> Menu'), soapbox_menu_items_path, :id => "nav-otm", :class => active_page?('/soapbox/on_the_menu') %></li>
