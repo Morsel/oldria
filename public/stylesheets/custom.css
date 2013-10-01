@@ -5163,3 +5163,15 @@ div.a_la_minute_question .archive {
 
 /* @end */
 
+.inactive_employees p {
+  margin: 0;
+}
+
+.inactive_employees .user.box {
+  min-height: 54px;
+}
+
+.inactive_employees .responsibilities {
+  font-size: .9em;
+  color: #555;
+}

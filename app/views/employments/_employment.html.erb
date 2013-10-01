@@ -4,16 +4,27 @@
     <%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) if user.avatar.present? %>
 		<div class="profile_meta">
     	<h3><%= user.name %></h3>
-
     	<% if can? :edit, employment.restaurant %>
-      	<%= restaurant_role_and_link(employment) %>
-      	<% if employment.omniscient? -%><p>Spoonfeed Account Administrator</p><%- end %>
-    	<% end %>
+      <%= link_to('Delete',
+                        restaurant_employee_path(employment.restaurant, employment.employee),
+                        :method => :delete,
+                        :confirm => 'Are you sure?',
+                        :title => 'Delete',
+                        :class => "delete") %>
+      <% end  %>                  
 
-    	<% if employment.subject_matters.present? %>
-      	<p class="responsibilities">Handles <%= employment.subject_matters.compact.map(&:name).to_sentence %></p>
-    	<% end %>
-		</div><!--.profile_meta-->
+      <%= render :partial => 'employees/employment_edit' , :locals => {:employee => employment.employee,
+        :employment => employment } %>
+
+          <!-- ################commented as pr client requriment######################   -->
+          <%#= restaurant_role_and_link(employment) %>
+            <!--<%# if employment.omniscient? -%><p>Spoonfeed Account Administrator</p><%#- end %>-->
+
+        	<%# if employment.subject_matters.present? %>
+          	<!--<p class="responsibilities">Handles <%#= employment.subject_matters.compact.map(&:name).to_sentence %></p>-->
+        	<%# end %>
+           <!-- ################commented as pr client requriment######################   -->
+		</div> <!--.profile_meta-->
 
 		<div class="profile_public_meta">
     	<div class="public_profile">

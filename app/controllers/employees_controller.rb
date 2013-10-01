@@ -5,8 +5,8 @@ class EmployeesController < ApplicationController
 
   def bulk_edit
     @restaurant = Restaurant.find(params[:restaurant_id])    
-    @employments = @restaurant.employments.by_position.all(
-        :include => [:subject_matters, :restaurant_role, :employee],:order => "position")
+    @res_emp_req = RestaurantEmployeeRequest.find(:all,:conditions=>["restaurant_id = ?",params[:restaurant_id]])
+    @employments = @restaurant.employments.by_position.all(:include => [:subject_matters, :restaurant_role, :employee],:order => "position")
   end
 
   def new   
@@ -55,8 +55,13 @@ class EmployeesController < ApplicationController
       redirect_to bulk_edit_restaurant_employees_path(@restaurant)
     else
       @employee = @employment.employee
-      flash[:error] = "We were unable to update that employee"
-      render :action => "edit"
+      flash[:error] = @employment.errors.full_messages.to_sentence
+      if params[:bulk_edit_form]
+        redirect_to bulk_edit_restaurant_employees_path(@restaurant)
+      else
+        render :action => "edit"
+      end   
+      
     end
   end
 
@@ -95,6 +100,39 @@ class EmployeesController < ApplicationController
       redirect_to recommend_invitations_path(:emails => "test@test.com")
    end
  end
+
+ def again_invite_new_employee
+  @user = User.find(params[:employee])
+  invitation_sender = current_user
+  @send_invitation = nil
+  @user.reset_perishable_token! 
+  logger.info( "Delivering invitation email to #{@user.email}" )
+  UserMailer.deliver_new_user_invitation!(@user, invitation_sender)
+  flash[:notice] = "Your Invitation has been send sucessfully"
+  redirect_to bulk_edit_restaurant_employees_path(@restaurant)
+ end  
+
+ def accept_requested_employee
+  re_em_req = RestaurantEmployeeRequest.find_by_restaurant_id(params[:restaurant_id])
+  re_em_req.update_attributes(:deleted_at=>Time.now)
+  employee = @restaurant.employments.build(:employee_id =>re_em_req.employee_id)
+  if employee.save
+    flash.now[:notice] = "Requested employee sucessfully added to your restaurant"
+  else
+    flash.now[:notice] = "Something went wrong. Our worker bees will look into it."
+  end
+  redirect_to bulk_edit_restaurant_employees_path(@restaurant)
+ end
+
+
+ def reject_requested_employee
+  @re_em_req = RestaurantEmployeeRequest.find_by_restaurant_id(params[:restaurant_id])
+  flash[:notice] = "Your request has been rejected sucessfully"
+  @re_em_req.destroy  
+  redirect_to bulk_edit_restaurant_employees_path(@restaurant)
+ end  
+
+
 
   private
 

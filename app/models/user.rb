@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
 
   has_one :featured_profile, :as => :feature
 
-  has_many :restaurant_employee_requests ,:foreign_key=>"employee_id"
+  has_many :restaurant_employee_requests ,:foreign_key=>"employee_id" 
   has_many :requested_restaurants, :through => :restaurant_employee_requests ,:source=> :restaurant
 
   has_one :push_notification_user
@@ -167,6 +167,19 @@ class User < ActiveRecord::Base
   named_scope :visible, :conditions => ['visible = ? AND (role != ? OR role IS NULL)', true, 'media']
   named_scope :with_published_profile, :conditions => ["publish_profile = ?", true]
 
+  named_scope :media_visible, lambda {
+    {
+      :joins => 'INNER JOIN employments ON `employments`.employee_id = `users`.id and `employments`.search_by_media = true',
+      :conditions => ["visible = ? AND (role != ? OR role IS NULL)", true, 'media']
+    }
+  }
+
+  named_scope :media_visible_for_soapbox, lambda {
+    {
+      :joins => 'INNER JOIN employments ON `employments`.employee_id = `users`.id and `employments`.search_by_diner = true',
+      :conditions => ["visible = ? AND (role != ? OR role IS NULL)", true, 'media']
+    }
+  }
 
   has_and_belongs_to_many  :newsfeed_metropolitan_areas ,:class_name =>"MetropolitanArea"
   accepts_nested_attributes_for :newsfeed_metropolitan_areas
@@ -361,8 +374,16 @@ class User < ActiveRecord::Base
     active.visible.with_premium_account.with_published_profile.by_last_name
   end
 
+  def self.in_soapbox_directory_for_media
+    active.media_visible_for_soapbox.by_last_name
+  end
+
   def self.in_spoonfeed_directory
     active.visible.by_last_name
+  end
+
+  def self.in_spoonfeed_directory_for_media
+    active.media_visible.by_last_name
   end
 
   def deliver_invitation_message!(reset_token = true)

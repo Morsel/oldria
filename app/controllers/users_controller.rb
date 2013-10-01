@@ -12,6 +12,10 @@ class UsersController < ApplicationController
 
   def show
     get_user
+    if (current_user && current_user.media?) && (@user.employments.present? && !@user.employments.first.search_by_media)
+      flash[:notice] = "You don't have permission to access this page"
+      redirect_to root_path
+    end   
     @keywordable_id = @user.id
     @keywordable_type = 'User'
   end
