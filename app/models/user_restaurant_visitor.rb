@@ -106,6 +106,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
               "current_user" => user
             }
             if keywords.present? && check_email_frequency(@uves)
+              UserMailer.deliver_log_file("mail send start to media")
               UserMailer.deliver_send_chef_user(restaurant_visitors) 
               @connect_media+=1
               create_log_file_for_connect_media(user)
@@ -203,6 +204,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
                 "otm_keyword_notification" => otm_keyword_notification 
               }                          
               if check_email_frequency(@uves)  
+                UserMailer.deliver_log_file("mail send start to visitor")
                 UserMailer.deliver_send_mail_visitor(restaurant_visitors) 
                 @visitor_mail+=1
                 create_log_file_for_visitor_user(user,visitor.restaurant)
