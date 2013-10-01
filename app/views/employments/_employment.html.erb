@@ -5,7 +5,7 @@
 		<div class="profile_meta">
     	<h3><%= user.name %></h3>
     	<% if can? :edit, employment.restaurant %>
-      <%= link_to('Delete',
+      <%= link_to('Remove from restaurant profile',
                         restaurant_employee_path(employment.restaurant, employment.employee),
                         :method => :delete,
                         :confirm => 'Are you sure?',
