@@ -337,6 +337,7 @@ class Restaurant < ActiveRecord::Base
   def mailchimp_group_name_media
     "#{name} in #{city} #{state} media"
   end
+  
   def next_newsletter_for_frequency
      case newsletter_frequency
     when "weekly"
@@ -344,7 +345,7 @@ class Restaurant < ActiveRecord::Base
     when "biweekly"
       Chronic.parse("next week #{newsletter_frequency_day} 12:00am")
     when "monthly"
-      Chronic.parse("next month #{newsletter_frequency_day}").to_formatted_s(:db)
+      Chronic.parse("next month #{newsletter_frequency_day}")
     else      
       Chronic.parse("next #{newsletter_frequency} 12:00am")
     end
