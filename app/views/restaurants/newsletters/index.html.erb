@@ -11,10 +11,11 @@
 
               <nav id="restaurant_feature_nav">
                 <%= active_link_to 'Settings', restaurant_newsletters_path(:restaurant_id => @restaurant) %>
-                <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) %>
-                <%= active_link_to 'Reports', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %>             
+                <%#= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) %>
+                <%= active_link_to 'Reports', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %> 
+                <%= active_link_to 'Send', send_newsletter_restaurant_newsletters_path(:restaurant_id => @restaurant) %>             
               </nav>
-
+              <!-- Newsletter setting div is getting started from here    -->
               <div id="restaurant_features_content" style="width:700px;">
                 <% if @message.present? %>
                  <div id="flashes" class="hidediv">
@@ -41,54 +42,63 @@
                        <%= f.input :newsletter_frequency_day, :as => :select, :collection => ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], :input_html => { :style => 'width:150px;' }  %>
                       <%= submit_tag "Save" %>
                     <% end %>
-                    <h2>Customize Current Newsletter</h2><p>Add a headline and an introductory paragraph to your newsletter. This can be changed for every newsletter you send out. To see how it will look, add your headline and introduction below and then click Preview Newsletter.  </p>
-                    <% f.inputs :class => "editing" do %>
-                      <%= f.input :tag_line, :as => :text,:label=>"Newsletter Tagline", :input_html => { :style => 'margin-bottom: 12px;' }  %>
-
-                      <%= submit_tag "Add newsletter headline" %>
-                    <% end %>
                   <% end %>
-
-                   <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
-                        <% f.semantic_fields_for :newsletter_setting do |ns| %>
-                            <% ns.inputs :class => "editing" do %>
-                              <%= ns.input :subject, :hint=>"Nesletter Subject"%>                         
-                              <%= submit_tag "Add Subject" %>
-                            <% end %>  
-                     <% end %>          
-                  <% end %>   
-                  <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
-                     
-                        <% f.semantic_fields_for :newsletter_setting do |ns| %>
-                            <% f.inputs do %>
-                                <li class="span-12">
-                                    <label for="page_content_editor">Introduction</label>
-                                  <%= ns.cktext_area :introduction, :height => '340px'%>
-                                </li>
-                            <% end %>
-                        <% end %>
-                        <%= submit_tag "Add newsletter introduction" %>
-            
-                  <% end %>
-
-                </div>
-                <h2>Preview and Schedule Newsletter</h2>
-                <P><strong>Newsletters must be approved before they are sent to your mailing list. </strong> To approve your newsletter, please click preview newsletter to view and then click approve newsletter below. </P>
-
-                <div id="restaurant_actions" class="clearfix"><br>
-                  <%= button_to "Preview newsletter", preview_restaurant_newsletters_path(@restaurant), :popup => true, :class => 'button',:method=>"get" %>
-                  <% unless @restaurant.newsletter_approved? && @restaurant.next_newsletter_for_frequency.blank? %><p>To preview your newsletter, click the preview newsletter button. </p>
-                    <%#= button_to "Approve newsletter", approve_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => "your newsletter will send on (#{@restaurant.next_newsletter_for_frequency.to_formatted_s(:sentence)}). Click here to cancel or click Send Newsetter to send immediately." %>
-                  <% end %><p>Approve your newsletter to send at regularly scheduled interval.<br></p>
-                  <% unless @restaurant.newsletter_approved %>
-                    <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :onclick => 'alert("You must approved your newsletter first.") ; return false ; ',:disable=>"disabled"%>
-                  <% else %>
-                  <%= button_to "Cancel newsletter", disapprove_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => "are you sure?" %><p>Next newsletter will send on <%=@restaurant.next_newsletter_for_frequency.to_formatted_s(:sentence)%>.Click here to cancel newsletter.<br></p>
-                  <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :confirm => 'Are you sure you want to send this newsletter right now?'%> To send newsletter immidiatly click here.
-                  <%end%>
-              <p>To send your newsletter to your list right now, select Send Newsletter<br> </p> </div>
-
+  
               </div>
+              <!-- Newsletter setting div is getting close here   -->
+
+              <!-- Subscribers div is getting start from here   -->
+              <div id="restaurant_features_content" style="width:700px;">
+                <h1 class="pg_title">Newsletter Subscribers</h1>
+                <p class='export'> <%= link_to "Export to CSV file", download_subscribers_restaurant_path(@restaurant) %></p>
+                  <p>  <%= render 'restaurants/newsletters/csv' %> </p>
+                
+                <p class='export-text' >Upload your diner list! <br/><br/> 
+              
+
+                Your diner list is private, secure and will not be shared with any other restaurants or used for any other mailing activity. It is your list, you've entrusted it to us, and we honor that completely.<br/><br/>
+
+                You can only import lists of people who sign up at your website or your restaurant. No 3rd party lists, no prospects, no lists that you scraped from websites, no chambers of commerce lists, etc.doing so will result in your permanent removal from RIA. If you would like assistance determining if your list can be uploaded, contact <%= mail_to 'help@restaurantintelligenceagency.com', "RIA" ,:subject => "CSV Import Issue! :: #{@restaurant.name}" %>.
+
+
+                <!-- <div id="read_messages" style="width:670px;margin:0;"> -->
+                  <div class="editing clearfix clear">
+                      <table style="width: 100%" cellspacing="0" class="tablesorter">
+                          <thead>
+                              <tr>
+                                  <th width="30%">First Name</th>
+                                  <th style="30%">Last Name</th>
+                                  <th>Subscription Date</th>
+                                  <th>Type</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <% @subscriptions.each do |subscription| %>
+                              <tr>
+                                <td><%= link_to subscription.try(:newsletter_subscriber).try(:first_name),"mailto:#{subscription.try(:newsletter_subscriber).try(:email)}" %></td>
+                                <td><%= link_to subscription.try(:newsletter_subscriber).try(:last_name),"mailto:#{subscription.try(:newsletter_subscriber).try(:email)}" %></td>
+                                <td><%= subscription.created_at.strftime("%m/%d/%Y") %></td>
+                                <% if subscription.newsletter_subscriber.try(:user).blank?%>
+                                  <td> Diner </td>
+                                <% elsif subscription.newsletter_subscriber.try(:user) %>
+                                  <td> Industry </td>
+                                <% end %>
+                              </tr>
+                            <% end %> 
+                            <% @media_subscriptions.each do |subscription| %>
+                              <tr>
+                                <td><%= link_to subscription.media_newsletter_subscriber.first_name,"mailto:#{subscription.media_newsletter_subscriber.email}" %></td>
+                                <td><%= link_to subscription.media_newsletter_subscriber.last_name,"mailto:#{subscription.media_newsletter_subscriber.email}" %></td>
+                                <td><%= subscription.created_at.strftime("%m/%d/%Y") %></td>
+                                <td> Media </td>
+                              </tr>
+                            <% end %>
+                          </tbody>
+                      </table>
+                  </div>
+                <!-- </div> -->
+              </div>
+              <!--  Subscription div close -->
 
             <%- else -%>
               <p><%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %> to access your newsletter!</p>

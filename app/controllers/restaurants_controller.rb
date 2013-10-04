@@ -287,7 +287,6 @@ class RestaurantsController < ApplicationController
           nls = NewsletterSubscriber.new(:first_name =>  params[:first_name][index],:last_name =>params[:last_name][index],:email => params[:email][index],:password=>tmp_pwd) 
           nls.save
         end
-        
         unless nls.valid?
           @error_arr.push(nls.errors.full_messages.to_sentence)
           @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:error=>true})
@@ -308,7 +307,7 @@ class RestaurantsController < ApplicationController
   
       if @error_arr.flatten.blank? 
         flash[:notice] = "Records successfully inserted."
-        redirect_to newsletter_subscriptions_restaurant_path
+        redirect_to restaurant_newsletters_path(@restaurant)
       else
         flash.delete(:notice)
         flash[:error] = @error_arr.flatten.uniq.to_sentence
@@ -424,17 +423,22 @@ class RestaurantsController < ApplicationController
           import_newletter_subscriber_xlsx  
         else
           flash[:error] = "Please select vaild csv or excel file."
-          redirect_to newsletter_subscriptions_restaurant_path
+          #redirect_to newsletter_subscriptions_restaurant_path
+          redirect_to restaurant_newsletters_path(@restaurant)
         end          
 
         unless @error_arr.blank?
           flash[:error] = @error_arr.to_sentence
-          redirect_to newsletter_subscriptions_restaurant_path
+          #redirect_to newsletter_subscriptions_restaurant_path
+          redirect_to restaurant_newsletters_path(@restaurant)
+
         end
          
     else
         flash[:error] = "Please select csv or excel file. "
-        redirect_to newsletter_subscriptions_restaurant_path
+        #redirect_to newsletter_subscriptions_restaurant_path
+        redirect_to restaurant_newsletters_path(@restaurant)
+
     end  
   end  
 

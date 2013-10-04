@@ -9,6 +9,11 @@ class Restaurants::NewslettersController < ApplicationController
     unless @restaurant.premium_account?
       render "restaurants/_comming_soon"
     end
+    @subscriptions = @restaurant.newsletter_subscriptions
+    @media_subscriptions = @restaurant.media_newsletter_subscriptions
+    unless @restaurant.premium_account?
+      render "restaurants/_comming_soon"
+    end
   end
 
   # TODO - remove this once the feature is complete, for testing only
@@ -33,13 +38,21 @@ class Restaurants::NewslettersController < ApplicationController
   end
 
   def update
-    if @restaurant.update_attributes(params[:restaurant])
+    if params[:restaurant][:newsletter_frequency_day].present? && @restaurant.update_attributes(params[:restaurant])
       flash[:notice] = "Updated newsletter settings"
       redirect_to :action => "index", :restaurant => @restaurant
-     else       
-        render :action => "index", :restaurant => @restaurant
+    elsif params[:restaurant][:newsletter_setting_attributes].present? && @restaurant.update_attributes(params[:restaurant])
+      flash[:notice] = "Updated newsletter settings"
+      redirect_to :action => "send_newsletter", :restaurant => @restaurant
+    elsif params[:restaurant][:tag_line].present? && @restaurant.update_attributes(params[:restaurant])
+      flash[:notice] = "Updated newsletter settings"
+      redirect_to :action => "send_newsletter", :restaurant => @restaurant
+    else       
+      render :action => "index", :restaurant => @restaurant
     end
   end
+
+
 
   def preview
     if @restaurant.restaurant_newsletters.blank?
@@ -62,7 +75,7 @@ class Restaurants::NewslettersController < ApplicationController
     else
       flash[:error] = "There was an issue approving the newsletter. Please try again."
     end
-    redirect_to :action => "index"
+    redirect_to :action => "send_newsletter"
   end
 
   def disapprove
@@ -71,7 +84,7 @@ class Restaurants::NewslettersController < ApplicationController
     else
       flash[:error] = "There was an issue disapproving the newsletter. Please try again."
     end
-    redirect_to :action => "index"
+    redirect_to :action => "send_newsletter"
   end  
 
   def archives    
@@ -108,6 +121,9 @@ class Restaurants::NewslettersController < ApplicationController
     render :layout => false
   end
 
+  def send_newsletter
+     @restaurant.newsletter_setting || @restaurant.build_newsletter_setting
+  end  
 
   private
 
