@@ -111,7 +111,7 @@ class Restaurant < ActiveRecord::Base
   has_many :user_restaurant_visitors
   has_many :restaurant_visitors ,:through => :user_restaurant_visitors ,:source => :user
   
-  accepts_nested_attributes_for :logo
+  accepts_nested_attributes_for :logo ,:photos
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
       :metropolitan_area, :website, :media_contact, :cuisine, :opening_date, :manager,:james_beard_region
@@ -149,6 +149,9 @@ class Restaurant < ActiveRecord::Base
   has_many :media_newsletter_subscriptions, :dependent => :destroy
 
   has_many :page_views, :as => :page_owner, :dependent => :destroy
+  has_many :trace_searches, :as => :keywordable
+  has_many :trace_keywords, :as => :keywordable
+  has_many :soapbox_trace_keywords, :as => :keywordable
 
 
   # For pagination
@@ -164,7 +167,14 @@ class Restaurant < ActiveRecord::Base
   }
 
   named_scope :activated_restaurant, :conditions => { } # TODO for workound I removed is_activated =>true Ticket 36397415 
-
+  
+  #get only premium restaurants
+  named_scope :from_premium_restaurants, lambda {
+    { :joins => :subscription ,
+      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+          Date.today] }
+  }
+  
   def self.find_premium(id)
     possibility = find_by_id(id)
     possibility.try(:premium_account) ? possibility : nil
@@ -434,6 +444,16 @@ class Restaurant < ActiveRecord::Base
     end 
     path 
   end
+   #TODU When a credit card declines, an email goes to admin, the user is alerted three times over the course of 10 days,
+  def send_user_alert_for_payment_declined restaurant
+   if restaurant.count.nil? || restaurant.count < 3
+      restaurant.increment!(:count)      
+   elsif restaurant.count == 3
+    restaurant.admin_cancel #TODU make account to basic if payement decline
+   end     
+   UserMailer.deliver_send_user_alert_for_payment_declined_email(restaurant)
+  end
+
 
   private
 

@@ -18,7 +18,7 @@ module ApplicationHelper
 
   def fb_login_link(url=root_path)
     link_to_function image_tag("connect.gif"),
-        "FB.login(function() {window.location.href = '#{url}'}, {scope: 'offline_access, publish_stream, email, friends_status, manage_pages,user_photos,friends_photos'});", :class => "facebook_login"
+        "FB.login(function() {window.location.href = '#{url}'}, {scope: 'user_status,offline_access, publish_stream, email, friends_status, manage_pages,user_photos,friends_photos'});", :class => "facebook_login"
   end
 
   def div_if(boolean, options={}, &block)
@@ -61,6 +61,11 @@ module ApplicationHelper
   def logged_in_on_spoonfeed
     current_user.present? && not_soapbox && !current_user.media?
   end
+
+  def logged_in_on_spoonfeed_for_media
+    current_user.present? && not_soapbox && current_user.media?
+  end
+
 
   def media_user_prefers_publish_profile?
     current_user.present? && current_user.media?

@@ -1,0 +1,16 @@
+<% title "Trace Searches" %>
+
+<ul>
+	<% for trace_search in @trace_searches %>
+ 	<li><%= trace_search.try(:user).try(:name) %> search  <%= trace_search.try(:term_name) %>
+   	<% unless trace_search.searchable_type.blank? %>  Type of search is <%= trace_search.searchable_type %> 
+   	<% else %>
+   	  No type present of this term
+   	<% end %>
+   	on <%= trace_search.updated_at.strftime("%m/%d/%y") %>
+  </li>
+	<% end %>
+</ul>
+
+<%= will_paginate(@trace_searches) %>
+

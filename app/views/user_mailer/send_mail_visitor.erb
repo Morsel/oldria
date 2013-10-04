@@ -60,34 +60,32 @@
   <p> Media are researching the following keywords on RIA. If you have any stories or menu items pertaining to these topics you can share them on RIA and we will let the media know!</p>
    
   <%unless @specialty_names.blank?%>
-    <ul>
-      <li>Personal Profile Specialties <br>
-        <%= @specialty_names.compact.uniq.map{|a| link_to a.name,edit_user_profile_url(@current_user)}.to_sentence(:last_word_connector => ' and ') %>
-         <br>
-      </li>
-    </ul>
+    Personal Profile Specialties<br>
+      <%= @specialty_names.compact.uniq.map{|a| link_to a.name,edit_user_profile_url(@current_user)}.to_sentence(:last_word_connector => ' and ') %>
+      <br>
   <%end%>
    
 
+
   <%unless @otm_keywords.blank? %>
-    <ul>
-      <li>On the Menu Keywords<br>
-        <%= @otm_keywords.compact.uniq.map{ |k| link_to k.name, menu_items_url(:keyword => k.name,:id=>k.id) }.to_sentence(:last_word_connector => ' and ') %>
-      </li>
-    </ul>
-  <%end%>
-  <%unless @restaurant_features.blank?%>
-    <ul>
-      <li>
-        Restaurant features<br>
-        <%= @restaurant_features.compact.uniq.map{ |k| link_to k.name, bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1) }.to_sentence(:last_word_connector => ' and ') %>
-      </li>
-    </ul>
+    On the Menu Keywords<br>
+      <%= @otm_keywords.compact.uniq.map{ |k| link_to k.name, menu_items_url(:keyword => k.name,:id=>k.id) }.to_sentence(:last_word_connector => ' and ') %><br>
   <%end%>
 
-  
-  <hr />
+
+  <%if @otm_keyword_notification.present? %>
+    <%@otm_keyword_notification.each do |otm_keyword_notification| %>
+      <%= otm_keyword_notification.name %><br>
+    <%end%>
+  <% end %>
+
+  <%unless @restaurant_features.blank?%>
+      Restaurant features<br>
+      <%= @restaurant_features.compact.uniq.map{ |k| link_to k.name, bulk_edit_restaurant_feature_url(@visitor_obj.restaurant,1) }.to_sentence(:last_word_connector => ' and ') %>
+  <%end%>
+ <hr />
 <% end %> 
+
 
 <%unless @a_la_minute_visitors.blank? %>
   <p>The following media visited our A la Minute section yesterday:</p>
@@ -104,6 +102,7 @@
   </ul>
   <hr />
 <% end %>
+
 
 <p>Keep the media engaged! If you update your profile, we'll let these media folks know! Here's a few ideas:</p>
 <ul>  

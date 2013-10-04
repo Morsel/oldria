@@ -62,6 +62,7 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :newsletter_subscribers, :member => { :welcome => :get, :confirm => :get },
                                                :collection => { :find_subscriber => :get }
     soapbox.resources :newsletter_subscriptions, :only => [:update, :destroy]
+    soapbox.resources :soapbox_password_resets , :collection => { :resend_confirmation => :get }
 
     soapbox.connect 'travel_guides', :controller => 'soapbox', :action => 'travel_guides'
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
@@ -135,6 +136,9 @@ ActionController::Routing::Routes.draw do |map|
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
   map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
+
+  map.user_profile_subscribe 'user_profile_subscribe/:username', :controller => 'users', :action => 'user_profile_subscribe', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
+  map.resources :users, :collection => { :resend_confirmation => :any ,:add_region =>:get ,:new_james_beard_region =>:post }, :member => {
     :resume => :get,
     :remove_twitter => :put,
     :remove_avatar => :put,
@@ -359,6 +363,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :otm_keywords
     admin.resources :email_stopwords
     admin.resources :page_views, :only => ["index"]
+    admin.resources :trace_searches, :only => ["index"], :collection => {:trace_search_for_soapbox => :get}
+    admin.resources :page_views, :only => ["index"],:collection => {:trace_keyword_for_soapbox => :get}
     admin.resources :featured_profiles
     admin.resources :test_restaurants, :member =>{:active => :get}
 

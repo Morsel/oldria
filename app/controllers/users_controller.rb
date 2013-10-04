@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @editor_name.present?
-        editor = User.find_by_name(editor_name)
+        editor = User.find_by_name(@editor_name)
         if editor.present?
           @user.editors << editor
         else
@@ -216,6 +216,41 @@ class UsersController < ApplicationController
     @user = User.find(params[:id]) 
     @subscriber = @user.newsletter_subscriber 
   end
+
+  def add_region
+    @james_beard_region = JamesBeardRegion.new 
+    @user = User.find(params[:id])   
+    render :layout => false if request.xhr?
+  end 
+
+  def new_james_beard_region
+    @user = User.find(params[:user_id])
+    @james_beard_region = JamesBeardRegion.new(params[:james_beard_region])
+    respond_to do |wants|
+      if @james_beard_region.valid? 
+        UserMailer.deliver_send_james_bear_region_request(@james_beard_region,@user)
+
+        wants.json do render :json => {:html => "<li id='msg'><h3>Sent request to admin, will look into this.<h3></li>" }  end      
+      else   
+        wants.json { render :json => render_to_string(:file => "users/add_region.html.erb"), :status => :unprocessable_entity }
+      end
+    end
+  end
+
+
+  def user_profile_subscribe
+    if current_user.media?     
+      get_user
+      ups = current_user.user_profile_subscribe(@user)   
+      if ups.blank? && UserProfileSubscriber.create(:user_profile_subscriber => current_user, :user_id => @user.id)
+        flash[:notice] = "#{current_user.email} is now subscribed to #{@user.name}'s profile."
+      else  
+        ups.destroy          
+        flash[:notice] = "#{current_user.email} is unsubscribed to #{@user.name}'s profile."    
+      end  
+      redirect_to :action => "show", :username => @user.username
+    end   
+  end   
 
   private
 

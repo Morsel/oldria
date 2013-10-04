@@ -14,7 +14,10 @@ class Soapbox::PromotionsController < ApplicationController
   end
 
   def show
+    @soapbox_keywordable_id =   params[:id]
+    @soapbox_keywordable_type = 'Promotion'   
     @promotion = Promotion.find(params[:id])
+    @restaurant = @promotion.restaurant.id
     @promotions = @promotion.restaurant.promotions.all(:limit=>3,:order=>"created_at DESC",:conditions=>["DATE(promotions.start_date) >= DATE(?) and promotions.id <> ?", Time.now,@promotion.id])
     @menu_items = @promotion.restaurant.menu_items.all(:limit=>3,:order=>"created_at DESC")
     @answers =  @promotion.restaurant.a_la_minute_answers.all(:limit=>3,:order => "a_la_minute_answers.created_at DESC",:conditions=>["DATE(a_la_minute_answers.created_at) = DATE(?)", Time.now])

@@ -499,9 +499,10 @@ form, #main form{
   }
 	.identity {
     width: 183px;
-    min-height: 100px;
+    height: 100px; 
+    min-height: 70px;
     float: left;
-    margin: 0 15px 10px 0;    
+    margin: 0 40px 37px 0;    
     .avatar {
       float: left;
       width: 50px;
@@ -2793,8 +2794,8 @@ ul#friend_timeline {
 	.identity {
 		float: left;
 		width: 315px;
-		height: 96px;
-		margin: 10px 20px 10px 0;
+		height: 110px;
+		margin: 5px 20px 5px 0;
 		min-height: 70px;
 		border-bottom: 1px dotted #ddd;
 		.avatar {
@@ -4734,7 +4735,8 @@ a.request-profile-update {
 	padding-left: 5px; 
 	float: left; 
 	line-height: 8px; 
-	top: 15px;
+	top: 2px;
+
 }
 .set-textarea-width{
 	width: 850px;
@@ -4825,4 +4827,33 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 .export {
     float: right;
     margin-right: 173px !important;
+}
+
+.user-subscribe
+	{
+		margin-top: 6px !important;
+		a { 
+			font-weight: normal !important;
+			margin-right: 5px;
+			float: left;
+			
+		}
+		img{
+			margin : 0px 3px 0px 0px !important;
+			float :none
+		}
+}
+
+.ui-autocomplete { 
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#remove-all-caps{
+  text-transform: none !important;
+}
+#remove-all-caps-show{
+	margin-top: 23px;
+	text-transform: none !important;
 }
