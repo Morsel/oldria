@@ -33,7 +33,7 @@ Braintree::Configuration.merchant_id = "3fb27hjyr2pj4mkh"
 Braintree::Configuration.public_key = "8946tj2vb98yf6xq"
 Braintree::Configuration.private_key = "tkjvt5wph2m5qh33"
 
-config.action_mailer.delivery_method = :emailthing
+config.action_mailer.delivery_method = :sendmail
 
 CLOUDMAIL_ID = '0df080edd37d5e209f5d'
 CLOUDMAIL_DOMAIN = 'mailbot.restaurantintelligenceagency.com'
