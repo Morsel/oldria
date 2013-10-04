@@ -279,9 +279,9 @@ class RestaurantsController < ApplicationController
         nls = NewsletterSubscriber.find_by_email(params[:email][index])      
         if nls.nil?
           nls = NewsletterSubscriber.new(:first_name =>  params[:first_name][index],:last_name =>params[:last_name][index],:email => params[:email][index],:password=>tmp_pwd) 
-          !nls.save
+          nls.save
         end
-        unless !nls.valid?
+        unless nls.valid?
           @error_arr.push(nls.errors.full_messages.to_sentence)
           @rows.push({:first_name=>params[:first_name][index],:last_name=>params[:last_name][index],:email=>params[:email][index],:error=>true})
         else
