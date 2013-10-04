@@ -321,7 +321,7 @@ class Restaurant < ActiveRecord::Base
     when "biweekly"
       Chronic.parse("next week #{newsletter_frequency_day} 12:00am")
     when "monthly"
-      Chronic.parse("next month #{newsletter_frequency_day} 12:00am")
+      Chronic.parse("next month #{newsletter_frequency_day}").to_formatted_s(:db)
     else      
       Chronic.parse("next #{newsletter_frequency} 12:00am")
     end
