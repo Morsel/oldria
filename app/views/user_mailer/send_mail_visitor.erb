@@ -85,45 +85,9 @@
  <hr />
 <% end %> 
 
-
-<%unless @a_la_minute_visitors.blank? %>
-  <p>The following media visited our A la Minute section yesterday:</p>
-   <ul>
-    <%@a_la_minute_visitors.each do |a_la_minute_visitor| %>
-      <% unless a_la_minute_visitor.publication.blank? %>
-        <li>
-          <%= a_la_minute_visitor.publication %>
-        </li>
-      <%else%>
-        <li>Freelance</li>
-      <%end%>
-    <%end%>
-  </ul>
-  <hr />
-<% end %>
-
-
 <p>Keep the media engaged! If you update your profile, we'll let these media folks know! Here's a few ideas:</p>
 <ul>  
-  <% unless @menu_message.blank?%>
-    <li>
-      <p>
-        <%=link_to "Menus",bulk_edit_restaurant_menus_url(@visitor_obj.restaurant)%><br/>
-        <%= @menu_message %>
-      </p>
-    </li> 
-  <% end %>
-
-  <% unless @fact_message.blank?%>
-    <li>
-      <p>
-        <%=link_to("Fact Sheet",edit_restaurant_fact_sheet_url(@visitor_obj.restaurant))%><br/>
-        <%= @fact_message %>
-      </p>  
-    </li>
-  <% end %>
-
-
+  
   <% unless @menu_item_message.blank?%>
     <li>
       <p>
