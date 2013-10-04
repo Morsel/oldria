@@ -65,7 +65,7 @@
                 <div id="restaurant_actions" class="clearfix"><br>
                   <%= button_to "Preview newsletter", preview_restaurant_newsletters_path(@restaurant), :popup => true, :class => 'button',:method=>"get" %>
                   <% unless @restaurant.newsletter_approved? %><p>To preview your newsletter, click the preview newsletter button. </p>
-                    <%= button_to "Approve newsletter", approve_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => "your newsletter will send on (#{@restaurant.next_newsletter_for_frequency.to_formatted_s(:sentence)}). Click here to cancel or click Send Newsetter to send immediately." %>
+                    <%= button_to "Approve newsletter", approve_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => "your newsletter will send on (#{@restaurant.next_newsletter_for_frequency}). Click here to cancel or click Send Newsetter to send immediately." %>
                   <% end %><p>Approve your newsletter to send at regularly scheduled interval.<br></p>
                   <% unless @restaurant.newsletter_approved %>
                     <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :onclick => 'alert("You must approved your newsletter first.") ; return false ; ',:disable=>"disabled"%>
