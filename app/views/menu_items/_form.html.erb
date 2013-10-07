@@ -19,8 +19,8 @@
         <%= f.input :pairing , :label => false%>
       </li>    
       <li>
-        <%= f.label :photo %>
-        <p class="inline-hints">Please shrink large photos to 2400 pixels on a side before you attempt to upload them. <br />"<strong>iPhone users</strong> - Please take photos in landscape mode"<br/><b>Please select the size less then 3 megabytes. </b></p>
+         <%= f.label "photo*" %>
+        <p class="inline-hints">Please shrink large photos to 2400 pixels on a side before you attempt to upload them. <br />"<strong>iPhone users</strong> - Please take photos in landscape mode"<br/></p>
         <%= f.input :photo, :label => false%>
       </li>   
         <% if @menu_item.photo_file_name.present? -%>
