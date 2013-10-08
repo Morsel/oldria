@@ -4859,18 +4859,20 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 }
 
 .box{
- overflow:hidden !important;
  width:200px;
  min-height:190px;
  float:left;
  text-align:center;
  position:relative;
-
+ background: none repeat scroll 0 0 #F3F3F3;
+ border: 1px solid #DBDBDB;
+ margin: 5px;
+ overflow:hidden !important;
       .credit {
         max-width:200px;
 			  max-height:100px;
 			  text-overflow: ellipsis;
-			  overflow:hidden;
+			  overflow:!important;
 			  white-space:nowrap;
       }
 
