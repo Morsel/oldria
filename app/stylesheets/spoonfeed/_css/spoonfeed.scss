@@ -4948,6 +4948,7 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 }
 /* ---- end premium restaurant message -------- */
 .box{
+ overflow:hidden !important;
  width:200px;
  min-height:190px;
  float:left;

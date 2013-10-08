@@ -886,7 +886,7 @@ $('.closeButton').click(function(e){
     sortedTables.tablesorter({sortList: [[0,0]]});
   }  
 
-    $("#keword_follow_search_state_by_name").autocomplete({
+  $("#keword_follow_search_state_by_name").autocomplete({
     source: typeof(metros) === 'undefined' ? [] : metros,
     select: function( event, ui ) { 
       $('#keyword_follow_loader').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));     
@@ -955,6 +955,8 @@ $('.closeButton').click(function(e){
   var d = new Date();
   var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate()+" "+d.getHours()+":"+d.getMinutes();
   $("body #user_time").val(strDate);
+
+  $('.box').equalHeights();
   // end $(document).ready
 });
 function search_keyword_fields(){

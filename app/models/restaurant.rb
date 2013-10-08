@@ -121,7 +121,6 @@ class Restaurant < ActiveRecord::Base
 
   validates_presence_of :restaurant_role_virtual ,:on=> :create
 
-
   validates_format_of :management_company_website,
       :with => URI::regexp(%w(http https)),
       :message => "needs to be a valid URL that starts with http://",
@@ -165,13 +164,11 @@ class Restaurant < ActiveRecord::Base
   has_many :trace_keywords, :as => :keywordable
   has_many :soapbox_trace_keywords, :as => :keywordable
 
-  has_many :trace_keywords, :as => :keywordable
   has_many :trace_searches, :as => :keywordable
   has_one  :visitor_email_setting
   
   has_many :cartes
   has_many :follow_keywords ,:as => :follow_keyword ,:class_name =>'UserKeyword',:dependent => :destroy
-
 
   # For pagination
   cattr_reader :per_page
