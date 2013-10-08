@@ -17,6 +17,8 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    @cusines = @profile.profile_cuisines.map(&:cuisine).map(&:name)
+    @profile_cuisine = @profile.profile_cuisines.build
     @fb_user = current_facebook_user.fetch if @profile.user.facebook_authorized? && current_facebook_user
     rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException,Exception => e
     Rails.logger.error("Unable to fetch Facebook user for restaurant editing due to #{e.message} on #{Time.now}")
@@ -34,22 +36,22 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    @profile = @user.profile
+  @profile = @user.profile
 
+   if params[:profile_cuisine] && params[:profile_cuisine][:cuisine_id]
+     save_cusines
+   end 
     respond_to do |wants|
       if @profile.update_attributes(params[:profile])
           flash[:notice] = "Successfully updated profile."
           wants.html { redirect_to edit_user_profile_path(:user_id => @user.id, :anchor => "profile-summary")}
           wants.json { render :json => {:status=>true}}
-          
       else
         flash[:error] = "Please fix the errors in the form below"
         wants.html { render :edit }
         wants.json { render :json => {:status=>false}}
       end
     end
-
-
   end
   
   def toggle_publish_profile
@@ -66,6 +68,14 @@ class ProfilesController < ApplicationController
 
   def complete_profile
   end
+
+  def save_cusines
+    params[:profile_cuisine][:cuisine_id].each do |profile_cuisine|
+      params[:profile_cuisine][:cuisine_id] = profile_cuisine
+      @profile_cuisine = @profile.profile_cuisines.build(params[:profile_cuisine])
+    end   
+  end 
+
 
   protected
 
