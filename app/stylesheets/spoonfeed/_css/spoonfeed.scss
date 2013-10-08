@@ -4948,18 +4948,20 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 }
 /* ---- end premium restaurant message -------- */
 .box{
- overflow:hidden !important;
  width:200px;
  min-height:190px;
  float:left;
  text-align:center;
  position:relative;
-
+ background: none repeat scroll 0 0 #F3F3F3;
+ border: 1px solid #DBDBDB;
+ margin: 5px;
+ overflow:hidden !important;
       .credit {
         max-width:200px;
 			  max-height:100px;
 			  text-overflow: ellipsis;
-			  overflow:hidden;
+			  overflow:hidden !important;
 			  white-space:nowrap;
       }
 
