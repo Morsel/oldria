@@ -4872,7 +4872,7 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
         max-width:200px;
 			  max-height:100px;
 			  text-overflow: ellipsis;
-			  overflow:!important;
+			  overflow:hidden !important;
 			  white-space:nowrap;
       }
 
