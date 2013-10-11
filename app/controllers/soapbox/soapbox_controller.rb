@@ -218,7 +218,8 @@ include AutoCompleteHelper
     feature_restaurants = @featured_ptofiles["Restaurant"].map{|row| row.feature if row.feature.linkable_profile?} unless  @featured_ptofiles["Restaurant"].blank?
     @restaurants = feature_restaurants.blank? ?  Restaurant.with_premium_account.sample(2) : feature_restaurants.sample(2)
     @restaurants = Restaurant.with_premium_account.sample(2) if @restaurants.blank?
-    @rand_users = @featured_ptofiles["User"].blank? ?  User.in_soapbox_directory.sample(2) : @featured_ptofiles["User"].sample(2).map{|row| row.feature} 
+    @rand_users =  User.in_soapbox_directory.sample(2) 
+    #@rand_users = @featured_ptofiles["User"].blank? ?  User.in_soapbox_directory.sample(2) : @featured_ptofiles["User"].sample(2).map{|row| row.feature} 
     @main_feature = SoapboxEntry.main_feature    
     @main_feature_comments = SoapboxEntry.main_feature_comments(5) if @main_feature
     @qoth = SoapboxEntry.secondary_feature
