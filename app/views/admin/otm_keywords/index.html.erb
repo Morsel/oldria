@@ -8,7 +8,11 @@
     <% table_for(keywords) do |t| %>
         <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
              t.cell(:name)
+             t.cell :count, :heading => '', :cell_html => {:class => 'actions count'} do |keyword| keyword.menu_items.count    
+              end     
         end %>
+        <% t.data   %>
     <% end %>
     <% end -%>
 </div>
+
