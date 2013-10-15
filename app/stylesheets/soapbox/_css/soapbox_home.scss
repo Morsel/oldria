@@ -987,10 +987,15 @@ a.utility {
 }
 .social-plugin li a{
 	display:block;
-	background:url(/images/soapbox/sprite.png) no-repeat 0 -438px;
-	padding:11px 0 10px 41px;
+	background:url(/images/soapbox/facebook_32.png) no-repeat 0;
+	padding:30px 0 10px 41px;
 }
-.social-plugin li .twitter{background-position:0 -505px;width:100%}
+.social-plugin li .twitter
+{
+  background:url(/images/soapbox/twitter_32.png) no-repeat 0 !important;
+  background-position:0 -505px;
+  width:100%;
+}
 .social-plugin li span{
 	display:inline-block;
 	vertical-align:top;
@@ -1017,6 +1022,7 @@ a.utility {
 .social-networks{
 	margin:0;
 	padding:0 10px 1px 0;
+	margin: -54px -5px 0 0;
 	list-style:none;
 	text-align:center;
 }
@@ -1030,11 +1036,17 @@ a.utility {
 	width:34px;
 	height:34px;
 	text-indent:-9999px;
-	overflow:hidden;
-	background:url(/images/soapbox/sprite.png) no-repeat -99px -144px;
+	overflow:hidden; 
+	background:url(/images/soapbox/pinterest_32.png) no-repeat !important;
 }
-.social-networks .linked-in{background-position:-152px -144px;}
-.social-networks .google{background-position:-207px -144px;}
+.social-networks .linked-in{
+	background:url(/images/soapbox/linkedin_32.png) no-repeat !important;
+	background-position:-152px -144px;
+}
+.social-networks .google{
+  background:url(/images/soapbox/googleplus_32.png) no-repeat !important;
+  background-position:-207px -144px;
+}
 .social-networks .instagram{background-position:-260px -144px;}
 .add-info{padding:13px 13px;}
 .add-info h2{
@@ -1382,3 +1394,12 @@ body{
     padding-top:5px;
 }
 #footnotes_debug{display: none;}
+
+.twitter{
+	margin-top: 0px;
+	margin-left: 78px;
+}
+
+.facebook{
+	margin-left: 28px;
+}
