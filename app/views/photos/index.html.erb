@@ -9,7 +9,7 @@
     <% @photos.each do |photo| %>
       <div class="box" >
         <% content_tag_for(:div, photo) do %>
-          <%= link_to image_tag(photo.attachment.url(:medium_photo), :class => "restaurant_photo"), photo.attachment.url(:large), :class => 'colorbox', :rel => 'restaurant_photo', :title => "#{photo.name}" %>
+           <%= link_to image_tag(photo.attachment.url(:medium_photo), :class => "restaurant_photo"), photo.attachment.url(:large), :class => 'colorbox', :rel => 'restaurant_photo', :title => "#{photo.name}"+' : '+(link_to 'Download', download_restaurant_photo_path(@restaurant,photo)) %>
           <p class="credit">
             <div class="cap_text" >  <% if photo.name.present? -%><%= photo.name %><br><% end -%> 
               Credit: <%= photo.credit %>
@@ -17,7 +17,7 @@
           </p>
         <% end %>
       </div>
-    <% end %>
+   <% end %>
   <!-- </div> -->
 
 </div>
@@ -33,3 +33,4 @@ $(document).ready(function() {
   });
 });
 </script>
+
