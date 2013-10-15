@@ -1,3 +1,6 @@
+<div id="restaurant_profile_view">
+  <%= render :partial => "restaurants/restaurant_header" %>
+</div>
 <% title "#{@topic.title} - #{@subject.name} - Online Press Kit", false %>
 
 <h1 id="btl-title" class="btl"><%= link_to "<span class=\"presskit-art\">Online Press Kit:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>", path_for_restaurant_and_page(@restaurant, @page) %></h1>
