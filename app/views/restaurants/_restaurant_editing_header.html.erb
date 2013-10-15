@@ -44,7 +44,7 @@
         <%= active_link_to "Press Releases", restaurant_press_releases_path(:restaurant_id => @restaurant),
             :class => 'promo editor pr' %>
         <%= active_link_to "Social Posts", restaurant_social_posts_path(@restaurant), :class => 'promo editor social' %>
-        <%= active_link_to "Newsletter", restaurant_newsletters_path(:restaurant_id => @restaurant), :class => "promo editor newsletter" %>
+        <%#= active_link_to "Newsletter", restaurant_newsletters_path(:restaurant_id => @restaurant), :class => "promo editor newsletter" %>
         <%= active_link_to "Profile Key", api_restaurant_path(@restaurant)%>    
     </nav>
 <%else%>
