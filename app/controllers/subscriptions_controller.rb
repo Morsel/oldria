@@ -60,7 +60,8 @@
       # else 
       #   session[:payment_decline] = "#{(session[:payment_decline].to_i + 1)}"
       # end
-      UserMailer.deliver_send_payment_error(@braintree_customer.try(:name).try(:capitalize),bt_result.message)
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      UserMailer.deliver_send_payment_error(current_user.name,bt_result.message,@restaurant)
       Rails.logger.info "[Braintree Error Message] #{bt_result.message}"
       flash[:error] = "Whoops. We couldn't process your credit card with the information you provided due to the following reason: <br /> #{bt_result.message} <br /> If you continue to experience issues, <a href='mailto:billing@restaurantintelligenceagency.com?subject=Payment issue!'>Please contact us.</a>"
       if request_kind == 'update_customer'
