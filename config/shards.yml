@@ -6,18 +6,20 @@ octopus:
   development:
     webservice:
       username: ria_staging
-      password: 2x5qhe1lY2
+      password: TIbJPlSpyTk9
       adapter: mysql
       database: ria_cashew
   production:
     webservice:
       username: ria_staging
-      password: 2x5qhe1lY2
+      password: TIbJPlSpyTk9
       adapter: mysql
       database: ria_cashew      
   staging:
     webservice:
       username: ria_staging
-      password: 2x5qhe1lY2
+      password: TIbJPlSpyTk9
       adapter: mysql
       database: ria_cashew
+
+
