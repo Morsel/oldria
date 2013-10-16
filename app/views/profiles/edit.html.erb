@@ -120,9 +120,10 @@
                 <%= f.input :job_start, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
                 <%= f.input :headline %>
                 <%= f.input :summary, :hint => "Keep it under 1000 characters" %>
-                <%= f.input :hometown %>
-                <%= f.input :current_residence, :label => "In what city/state do you work?", :hint => "Or where you live, if currently unemployed" %>
-                <% button_tag :class => 'positive' do %> Save changes to basic information <% end %>
+                <%= f.input :hometown, :as => :select,:include_blank => false,:collection => MetropolitanArea.all.map(&:name) %> 
+                <%= f.input :current_residence, :as => :select, :label => "In what city/state do you work?", :hint => "Or where you live, if currently unemployed", :include_blank => false, :collection => JamesBeardRegion.all.map(&:description)   %>     
+
+              <% button_tag :class => 'positive' do %> Save changes to basic information <% end %>
               <% end %>
     <!-- Basic info -->
       <% end %><!-- Cuisines and specialties -->
