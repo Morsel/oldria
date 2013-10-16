@@ -6,17 +6,135 @@
 
 <section id="profile-tabs">
     <nav id="profile-options">
+        <span><a href="#profile-account" id="tab-account">Account</a></span>
         <span><a href="#profile-summary" id="tab-summary">Summary</a></span>
         <span><a href="#profile-extended" id="tab-resume">Résumé</a></span>
         <% if @user.btl_enabled? -%>
         <span><%= link_to "Behind the Line", edit_btl_user_profile_path(@user), :id => "tab-btl", :title => "profile-btl" %></span>
         <% end -%>
         <span><%= link_to "Front Burner", edit_front_burner_user_profile_path(@user), :id => "tab-fb", :title => "profile-front-burner" %></span>
-        <span><a href="#profile-account" id="tab-account">Account</a></span>
         <span><a href="#profile-notification" id="tab-notification">Notifications</a></span>
 
     </nav><!-- /profile_options -->
+<section id="profile-account">
 
+  
+    <div id="restaurant_profile_view" class="edit clear clearfix"> 
+      <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">                         
+          <% semantic_form_for @user do |f| %>
+              <% f.inputs :name => "Editing" do %>
+                <label for="user_editor">Allow another user to edit your account?</label>
+                <%= text_field_tag "user_editor", "", :name => "user[editor]" %>
+                  <p class="inline-hints">Enter the name of the user to add</p>
+                  <% if @user.editors.present? -%>
+                    <h3>Current Editors:</h3>
+                    <ul>
+                      <% for editor in @user.editors %>
+                        <li><%= editor.name %> <%= link_to "Remove", remove_editor_user_path(@user, :editor_id => editor.id), :confirm => "Are you sure you want to remove this editor?", :method => :put %>
+                        </li>
+                    <% end %>
+                    </ul>
+                  <% end -%>
+                    <p><%= button_tag "Save Editing Preferences", :class => 'positive' %></p>
+              <% end %>
+          <% end %>          
+
+      <fieldset id="twitter-fieldset" class="inputs">
+          <legend><span>Twitter</span></legend>
+
+          <% if @user.twitter_authorized? -%>
+          <p>You currently have your Twitter account set up as <em><%= @user.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
+              <%= link_to "Disconnect Twitter", remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :class => 'sf-button', :method => :put %>
+              <%= link_to 'Read Twitter Timeline', twitter_timelines_path, :class=>'read_twitter' %>
+          </p>
+          <% elsif @user.twitter_allowed? -%>
+          <%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %>
+          <% end -%>
+          <p><%= link_to "Need Help?  Read our Twitter 101 introduction in the Marketing Manual.", public_page_path('twitter_101_introduction') %></p>
+      </fieldset>
+
+      <fieldset id="facebook-fieldset" class="inputs">
+          <legend><span>Facebook</span></legend>
+          <%- if @fb_user -%>
+            <p>
+                You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.
+                <%= fb_logout_link "Disconnect Facebook", fb_deauth_user_path(@user), :class => 'sf-button negative' %>
+            </p>
+
+            <% unless @fb_user.accounts.blank? %>
+              <div class="clear">
+                  <% form_tag fb_page_auth_user_path(@user) do %>
+                    <p>Configure a page to post status updates to:<br>
+                      <%= select_tag "facebook_page", "<option>&nbsp;</option>" + options_from_collection_for_select(@fb_user.accounts, :id, :name, @user.facebook_page_id.to_s) %><br>
+                      <%= button_tag "Save Facebook Page", :class => 'clear' %></p>
+                  <% end %>
+              </div>
+            <% end %>
+
+          <%- else -%>
+
+            <%  if @profile.user.facebook_authorized? %>
+                <% begin %>
+                    <p>Current Facebook page for <%= current_user.name %>: <em>"<%= @profile.user.facebook_page.fetch.name %>"</em>
+                     </p> 
+                      <%= link_to "Disconnect Facebook", fb_deauth_user_path(@profile.user), :class => 'sf-button negative' %>
+                  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception =>e%>
+                    <p>Access to your Facebook page has expired. Please select the page again.</p>
+                  <% end %>
+              <% else %>
+              <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %>
+              <% end %>
+          <%- end -%>
+          <p><%= link_to "Need Help?  Read everything you need to know about Facebook in the Marketing Manual.", public_page_path('facebook_101_introduction') %></p>
+      </fieldset>
+      <div class="clear"></div>
+      <hr class="edit_block" />
+
+      <%= render :partial => 'users/form' %>
+
+      <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
+      <% f.inputs :name => "Contact Information" do %>
+          <div class="clear">
+              <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, 
+                  :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
+              <%= f.input :cellnumber, :label => "Cellphone", :wrapper_html => { :class => "span-6 last" } %>
+          </div>
+
+          <div class="clear">
+              <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, 
+                  :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
+              <% f.semantic_fields_for :user do |user| %>
+                  <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
+              <% end %>
+          </div>
+
+          <%- if @user.twitter_authorized? -%>
+          <div class="clear">
+              <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
+              <div class="span-6 last">Your Twitter account: <%= @user.twitter_username %>
+              </div>
+          </div>
+          <%- else -%>
+            <p><%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %></p>
+          <%- end -%>
+
+          <%- if @fb_user -%>
+          <div class="clear">
+              <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
+              <div class="span-6 last">
+                  Your Facebook account: <%= @fb_user.name %>
+              </div>
+          </div>
+          <%- else -%>
+            <p><%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %></p>
+          <%- end -%>
+
+        <% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
+
+      <% end %><!-- Contact information -->
+      <% end %>
+  </section><!-- /profile-account -->
     <section id="profile-summary">
         <fieldset class="inputs">
           <legend><span>Account Status</span></legend>
@@ -231,125 +349,7 @@
     <% end %>
   </section><!-- /profile-extended -->
 
-  <section id="profile-account">
-
   
-    <div id="restaurant_profile_view" class="edit clear clearfix"> 
-      <div id="editing_restaurant">
-        <div id="restaurant_pages" class="clearfix">                         
-          <% semantic_form_for @user do |f| %>
-              <% f.inputs :name => "Editing" do %>
-                <label for="user_editor">Allow another user to edit your account?</label>
-                <%= text_field_tag "user_editor", "", :name => "user[editor]" %>
-                  <p class="inline-hints">Enter the name of the user to add</p>
-                  <% if @user.editors.present? -%>
-                    <h3>Current Editors:</h3>
-                    <ul>
-                      <% for editor in @user.editors %>
-                        <li><%= editor.name %> <%= link_to "Remove", remove_editor_user_path(@user, :editor_id => editor.id), :confirm => "Are you sure you want to remove this editor?", :method => :put %>
-                        </li>
-                    <% end %>
-                    </ul>
-                  <% end -%>
-                    <p><%= button_tag "Save Editing Preferences", :class => 'positive' %></p>
-              <% end %>
-          <% end %>          
-
-      <fieldset id="twitter-fieldset" class="inputs">
-          <legend><span>Twitter</span></legend>
-
-          <% if @user.twitter_authorized? -%>
-          <p>You currently have your Twitter account set up as <em><%= @user.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
-              <%= link_to "Disconnect Twitter", remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :class => 'sf-button', :method => :put %>
-              <%= link_to 'Read Twitter Timeline', twitter_timelines_path, :class=>'read_twitter' %>
-          </p>
-          <% elsif @user.twitter_allowed? -%>
-          <%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %>
-          <% end -%>
-          <p><%= link_to "Need Help?  Read our Twitter 101 introduction in the Marketing Manual.", public_page_path('twitter_101_introduction') %></p>
-      </fieldset>
-
-      <fieldset id="facebook-fieldset" class="inputs">
-          <legend><span>Facebook</span></legend>
-          <%- if @fb_user -%>
-            <p>
-                You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.
-                <%= fb_logout_link "Disconnect Facebook", fb_deauth_user_path(@user), :class => 'sf-button negative' %>
-            </p>
-
-            <% unless @fb_user.accounts.blank? %>
-              <div class="clear">
-                  <% form_tag fb_page_auth_user_path(@user) do %>
-                    <p>Configure a page to post status updates to:<br>
-                      <%= select_tag "facebook_page", "<option>&nbsp;</option>" + options_from_collection_for_select(@fb_user.accounts, :id, :name, @user.facebook_page_id.to_s) %><br>
-                      <%= button_tag "Save Facebook Page", :class => 'clear' %></p>
-                  <% end %>
-              </div>
-            <% end %>
-
-          <%- else -%>
-
-            <%  if @profile.user.facebook_authorized? %>
-                <% begin %>
-                    <p>Current Facebook page for <%= current_user.name %>: <em>"<%= @profile.user.facebook_page.fetch.name %>"</em>
-                     </p> 
-                      <%= link_to "Disconnect Facebook", fb_deauth_user_path(@profile.user), :class => 'sf-button negative' %>
-                  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception =>e%>
-                    <p>Access to your Facebook page has expired. Please select the page again.</p>
-                  <% end %>
-              <% else %>
-              <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %>
-              <% end %>
-          <%- end -%>
-          <p><%= link_to "Need Help?  Read everything you need to know about Facebook in the Marketing Manual.", public_page_path('facebook_101_introduction') %></p>
-      </fieldset>
-      <div class="clear"></div>
-      <hr class="edit_block" />
-
-      <%= render :partial => 'users/form' %>
-
-      <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
-      <% f.inputs :name => "Contact Information" do %>
-          <div class="clear">
-              <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, 
-                  :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
-              <%= f.input :cellnumber, :label => "Cellphone", :wrapper_html => { :class => "span-6 last" } %>
-          </div>
-
-          <div class="clear">
-              <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, 
-                  :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
-              <% f.semantic_fields_for :user do |user| %>
-                  <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
-              <% end %>
-          </div>
-
-          <%- if @user.twitter_authorized? -%>
-          <div class="clear">
-              <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
-              <div class="span-6 last">Your Twitter account: <%= @user.twitter_username %>
-              </div>
-          </div>
-          <%- else -%>
-            <p><%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %></p>
-          <%- end -%>
-
-          <%- if @fb_user -%>
-          <div class="clear">
-              <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
-              <div class="span-6 last">
-                  Your Facebook account: <%= @fb_user.name %>
-              </div>
-          </div>
-          <%- else -%>
-            <p><%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %></p>
-          <%- end -%>
-
-        <% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
-
-      <% end %><!-- Contact information -->
-      <% end %>
-  </section><!-- /profile-account -->
   <section id="profile-notification">
     <div id="restaurant_profile_view" class="edit clear clearfix"> 
       <div id="editing_restaurant">
