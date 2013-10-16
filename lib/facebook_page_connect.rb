@@ -23,8 +23,8 @@ module FacebookPageConnect
         facebook_page.feed_create(Mogli::Post.new(post_params))
       end
     rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception => e    
-      UserMailer.deliver_log_file("Unable to post to Facebook page #{facebook_page_id} due to #{e.message} on #{Time.now}", "Facebok post failed!",['nishant.n@cisinlabs.com','eric@restaurantintelligenceagency.com'])
-      Rails.logger.error("Unable to post to Facebook page #{facebook_page_id} due to #{e.message} on #{Time.now}")  
+      UserMailer.deliver_log_file("Unable to post to Facebook page #{name} #{facebook_page_id} due to #{e.message} on #{Time.now}", "Facebok post failed!",['nishant.n@cisinlabs.com','eric@restaurantintelligenceagency.com'])
+      Rails.logger.error("Unable to post to Facebook page #{name} #{facebook_page_id} due to #{e.message} on #{Time.now}")  
       return false
     end  
   end
