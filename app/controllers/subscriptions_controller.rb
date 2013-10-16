@@ -50,8 +50,8 @@ class SubscriptionsController < ApplicationController
       redirect_to customer_edit_path(@braintree_customer)
     else      
       if Delayed::Job.find(:all,:conditions=>["handler LIKE ?","%Restaurant:#{@braintree_customer.id}\nmethod: :send_user_alert_for_payment_declined%"]).blank?
-        [0,10,20].each do |day|        
-            @braintree_customer.send_at(day.days.from_now,:send_user_alert_for_payment_declined,@braintree_customer)
+        [0,10,20].each do |day|    
+          @braintree_customer.send_at(day.days.from_now,:send_user_alert_for_payment_declined)
         end
       end      
       if session[:payment_decline] == "3" #TODU make account to basic if payement decline
