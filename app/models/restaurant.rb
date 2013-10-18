@@ -295,7 +295,11 @@ class Restaurant < ActiveRecord::Base
   end
 
   def photos_last_updated
-    photos.present? ? photos.first(:order => "updated_at DESC").updated_at.strftime('%m/%d/%y') : ''
+    if  !photos.present? && photos.first.nil?
+      ""
+    elsif photos.present?
+      photos.first.id.blank? ? "" : photos.first(:order => "updated_at DESC").updated_at.strftime('%m/%d/%y')
+    end
   end
 
   def shareable_newsletter_subscribers
