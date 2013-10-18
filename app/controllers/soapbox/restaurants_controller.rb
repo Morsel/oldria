@@ -3,6 +3,7 @@ module Soapbox
     def show      
       @soapbox_restaurant_id =  params[:id]
       @soapbox_keywordable_type = 'Restaurant' 
+      trace_keyword
       @restaurant = Restaurant.activated_restaurant.find_premium(params[:id])
       if @restaurant.nil?
         redirect_to(soapbox_root_path)
@@ -47,5 +48,16 @@ module Soapbox
       end
     end
 
+    def trace_keyword
+    @restaurant = Restaurant.find(params[:id])
+      url = request.url
+      keywordable_id = @restaurant.id
+      keywordable_type = 'restaurant'
+      title = @restaurant.name
+    unless current_user.blank?
+      @trace_soapbox_keyword = SoapboxTraceKeyword.find_by_keywordable_id_and_keywordable_type_and_url_and_title_and_restaurant_id_and_user_id(keywordable_id, keywordable_type,url,title,@restaurant.id,current_user.id)     
+      @trace_soapbox_keyword = @trace_soapbox_keyword.nil? ? SoapboxTraceKeyword.create(:keywordable_id => keywordable_id,:keywordable_type => keywordable_type,:user_id=> current_user.id,:url=> url,:title=> title,:restaurant_id=>@restaurant.id) : @trace_soapbox_keyword.increment!(:count)  
+    end
   end
+end
 end

@@ -8,9 +8,23 @@ class Soapbox::ProfilesController < Soapbox::SoapboxController
     end   
     # Is the current user following this person?
     @following = current_user.followings.first(:conditions => {:friend_id => @user.id}) if current_user
+    trace_keyword
   end
 
   private
+
+  def trace_keyword
+    url = request.url
+    keywordable_id = @user.id
+    keywordable_type = 'restaurant'
+    title = @user.name
+    unless current_user.blank?
+      @trace_soapbox_keyword = SoapboxTraceKeyword.find_by_keywordable_id_and_keywordable_type_and_url_and_title_and_user_id(keywordable_id, keywordable_type,url,title,current_user.id)     
+      @trace_soapbox_keyword = @trace_soapbox_keyword.nil? ? SoapboxTraceKeyword.create(:keywordable_id => keywordable_id,:keywordable_type => keywordable_type,:user_id=> current_user.id,:url=> url,:title=> title) : @trace_soapbox_keyword.increment!(:count)  
+    end
+  end   
+
+
 
   def get_user
     if params[:username]

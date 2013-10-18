@@ -37,10 +37,6 @@ class RestaurantsController < ApplicationController
 
   def show
     find_activated_restaurant
-    @keywordable_id = @restaurant.id
-    @keywordable_type = 'Restaurant'
-    @trace_keyword =  TraceKeyword.find_by_keywordable_id_and_keywordable_type_and_user_id(@keywordable_id, @keywordable_type ,current_user.id) 
-    @trace_keyword = @trace_keyword.nil? ? TraceKeyword.create(:keywordable_id => @keywordable_id,:keywordable_type =>@keywordable_type,:user_id=>current_user.id) : @trace_keyword.increment!(:count)  
     if current_user.media?
       UserRestaurantVisitor.profile_visitor(current_user,@restaurant.id)
     end
