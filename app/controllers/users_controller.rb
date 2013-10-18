@@ -14,6 +14,8 @@ class UsersController < ApplicationController
     get_user
     @keywordable_id = @user.id
     @keywordable_type = 'User'
+    @trace_keyword =  TraceKeyword.find_by_keywordable_id_and_keywordable_type_and_user_id(@keywordable_id, @keywordable_type ,current_user.id) 
+    @trace_keyword = @trace_keyword.nil? ? TraceKeyword.create(:keywordable_id => @keywordable_id,:keywordable_type =>@keywordable_type,:user_id=>current_user.id) : @trace_keyword.increment!(:count)  
   end
 
   def resume
