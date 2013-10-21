@@ -1910,7 +1910,7 @@ aside.dashboard_actions {
 					border-left: 1px dotted #ccc;
 					width: 200px;
 					padding-left: 15px;
-					height: 248px;
+					height: 447px !important;
 				}
 				img {
 					float: left;
@@ -4870,3 +4870,8 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 .employee-permission{
 	margin-top: -9px !important;
 }
+
+.subjectmatter{
+  margin-bottom: 5px !important;
+}
+
