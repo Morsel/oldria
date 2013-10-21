@@ -1910,7 +1910,7 @@ aside.dashboard_actions {
 					border-left: 1px dotted #ccc;
 					width: 200px;
 					padding-left: 15px;
-					height: 248px;
+					height: 447px !important;
 				}
 				img {
 					float: left;
@@ -4994,7 +4994,6 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 	margin-top: -9px !important;
 }
 
-
 .requested-employee-height{
 	height: 110px;
 }
@@ -5007,6 +5006,9 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 	 width:100%;
 	 background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
 	 display:none;
+}
 
+.subjectmatter{
+  margin-bottom: 5px !important;
 }
 

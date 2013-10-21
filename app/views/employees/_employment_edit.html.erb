@@ -3,13 +3,13 @@
 	 <%= hidden_field_tag "bulk_edit_form", true %>
         <%= f.input :position, :as => :hidden %>
       <p> <%= f.input :restaurant_role, :label => "Role",:input_html => {:class => "edit-employee-role"} %> </p>
-      <p> <label style="white-space: nowrap">Is the Account Admin for the restaurant profile</label> <%= f.check_box :public_profile %></p>
-      <p><label style="white-space: nowrap">Is the Media Contact for our restaurant profile</label> <%= f.check_box :media_contact %></p>
-      <p><label style="white-space: nowrap">Searchable by Media</label> <%= f.check_box :search_by_media %></p>
-      <p><label style="white-space: nowrap">Viewable/Searchable by Diners</label> <%= f.check_box :search_by_diner %></p>
-      <p><label style="white-space: nowrap">Admins receive all notifications </label> <%=  f.check_box :omniscient, :input_html => { :disabled => (@restaurant.manager == employee),:checked=>((!employment.edit_privilege && employment.omniscient) || (@restaurant.manager == employee))} %></p>
-      <p><label style="white-space: nowrap">Admins will not receive any notifications </label> <%=  f.check_box :edit_privilege, :input_html => { :disabled => (@restaurant.manager == employee),:checked=>((!employment.edit_privilege && employment.omniscient) || (@restaurant.manager == employee))} %></p>
-
+      <p> <%= f.check_box :public_profile %> <label>Is the Account Admin for the restaurant profile</label></p>
+      <p> <%= f.check_box :media_contact %> <label>Is the Media Contact for our restaurant profile</label> </p>
+      <p> <%= f.check_box :search_by_media %> <label>Searchable by Media</label></p>
+      <p> <%= f.check_box :search_by_diner %> <label>Viewable/Searchable by Diners</label></p>
+      <p> <%=  f.check_box :omniscient, :input_html => { :disabled => (@restaurant.manager == employee),:checked=>((!employment.edit_privilege && employment.omniscient) || (@restaurant.manager == employee))} %> <label>Admins receive all notifications </label> </p>
+      <p> <%=  f.check_box :edit_privilege, :input_html => { :disabled => (@restaurant.manager == employee),:checked=>((!employment.edit_privilege && employment.omniscient) || (@restaurant.manager == employee))} %> <label>Admins will not receive any notifications </label> </p>
+      <p> <%= f.input :subject_matters,:as => :check_boxes, :wrapper_html => {:class => 'checkall', :id => "employment_general_subject_matters"}, :collection => SubjectMatter.general.all, :label => "Can answer media requests", :input_html => { :disabled => @restaurant.manager == employee,:class=>"subjectmatter" } %></p>
     <% end %>
 
     <p><%= button_tag "Submit", :class => 'positive' %></p>

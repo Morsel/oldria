@@ -17,8 +17,11 @@
 		  <p><%= @employee.name %> is the primary account administrator. Go to <%= link_to 'the restaurant page', edit_restaurant_path(@restaurant) %> to change this.</p>
 		<% end %>
 		
-        <%= f.input :public_profile, :label => "Display on your Restaurant Public Profile?",
+        <%= f.input :public_profile, :label => "Is the Account Admin for the restaurant profile",
             :hint => "Check this box if the employee should be viewable on #{@restaurant.name}'s profile page." %>
+        <%= f.input :media_contact, :label => "Is the Media Contact for our restaurant profile" %>    
+        <%= f.input :search_by_media, :label => "Searchable by Media",:hint => "Check this box if media can search" %>    
+        <%= f.input :search_by_diner, :label => "Viewable/Searchable by Diners" ,:hint => "Check this box if diner can search" %>    
         <%= f.input :restaurant_role,
             :hint => "Which best describes the role that #{@employee.name} has at #{@restaurant.name}?" %>
 
@@ -29,25 +32,3 @@
 
 <% end %>
 
-<% content_for :javascript do %>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#employment_edit_privilege').change(function(){
-			if($(this).is(':checked'))
-			{
-				$('#employment_omniscient').attr("checked",false)
-				$('#employment_prefers_receive_email_notifications').val(0)
-			}else{
-				$('#employment_prefers_receive_email_notifications').val(1)
-			}
-		})		
-		$('#employment_omniscient').change(function(){
-			if($(this).is(':checked'))
-			{
-				$('#employment_edit_privilege').attr("checked",false)
-				$('#employment_prefers_receive_email_notifications').val(1)
-			}
-		})
-	})
-</script>
-<% end %>
