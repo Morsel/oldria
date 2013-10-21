@@ -223,7 +223,7 @@ class UserMailer < ActionMailer::Base
     @restaurant = restaurant
     @name = name
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  "eric@restaurantintelligenceagency.com"
+    recipients  "carla@restaurantintelligenceagency.com"
     sent_on     Time.now
     subject     "RIA was unable to process your payment"
   end  
@@ -331,7 +331,7 @@ class UserMailer < ActionMailer::Base
 
   def send_user_alert_for_payment_declined_email restaurant
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  ['eric@restaurantintelligenceagency.com' ,'nishant.n@cisinlabs.com'] #restaurant.manager.email
+    recipients  ['carla@restaurantintelligenceagency.com' ,'nishant.n@cisinlabs.com'] #restaurant.manager.email
     # bcc         ['eric@restaurantintelligenceagency.com' ,'nishant.n@cisinlabs.com']
     sent_on     Time.now
     subject     "Update account payment information"
