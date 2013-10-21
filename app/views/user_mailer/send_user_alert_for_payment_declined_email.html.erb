@@ -1,4 +1,6 @@
 <%= render :partial => 'email_header' %>
 	<h3>Hello <%=@restaurant.manager.name %></h3>
-	<p>Last time you are try to upgrade your restaurant <%=link_to @restaurant.name,edit_restaurant_url(@restaurant)%> but the paymnet is not done due to some problem occur. If you want to upgrade your restaurant <%=link_to "click here",new_restaurant_subscription_url(@restaurant) %>.</p>
+	<p>Our system has attempted to process the credit card for <%= @restaurant.name %>  for the third time. As we have been unable to process the payment, we have downgraded your account to Basic. If you would like to upgrade your restaurant so it is fully available to media and diners, <%=link_to "please click here",new_restaurant_subscription_url(@restaurant) %>.</p>
 <%= render :partial => 'email_footer' %>
+
+
