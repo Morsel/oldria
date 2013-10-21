@@ -32,3 +32,25 @@
 
 <% end %>
 
+<% content_for :javascript do %>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#employment_edit_privilege').change(function(){
+			if($(this).is(':checked'))
+			{
+				$('#employment_omniscient').attr("checked",false)
+				$('#employment_prefers_receive_email_notifications').val(0)
+			}else{
+				$('#employment_prefers_receive_email_notifications').val(1)
+			}
+		})		
+		$('#employment_omniscient').change(function(){
+			if($(this).is(':checked'))
+			{
+				$('#employment_edit_privilege').attr("checked",false)
+				$('#employment_prefers_receive_email_notifications').val(1)
+			}
+		})
+	})
+</script>
+<% end %>
