@@ -6,14 +6,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   include Facebooker2::Rails::Controller
-  include SslRequirement
+  # include SslRequirement
 
   layout :site_layout
 
   before_filter :notify_emailthing_of_clicked_links
-
+  def notify_emailthing_of_clicked_links
+    # debugger
+  end
   # Scrub sensitive parameters from your log
-  filter_parameter_logging :password
+  # filter_parameter_logging :password
 
   helper_method :current_user
   helper_method :current_subscriber
@@ -144,7 +146,7 @@ class ApplicationController < ActionController::Base
   end
 
   def store_location
-    session[:return_to] = request.request_uri
+    session[:return_to] = request.url
   end
 
   def redirect_back_or_default(default = root_url)

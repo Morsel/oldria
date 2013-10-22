@@ -11,7 +11,7 @@
                 <%= link_to "#{link.name}", soapbox_promotions_path(:promotion_type_id => link.id) %>
             </header>
             <aside class="feed-item-reply-count">
-                <% link_to soapbox_promotions_path(:promotion_type_id => link.id) do %>
+                <%= link_to soapbox_promotions_path(:promotion_type_id => link.id) do %>
                 <span class="num"><%= count = Promotion.current.for_type(link.id).count %></span> <%= count != 1 ? "items" : "item" %>
                 <% end %>
             </aside>

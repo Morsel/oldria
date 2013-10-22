@@ -1,4 +1,4 @@
-<% div_for menu_item do %>
+<%=div_for menu_item do %>
     <h2><%= link_to menu_item.name, restaurant_menu_item_path(menu_item.restaurant,menu_item) %></h2>
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => menu_item.restaurant } unless @restaurant.present? %>
     <div class="menu_item_details">

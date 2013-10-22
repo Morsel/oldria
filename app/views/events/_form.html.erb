@@ -10,8 +10,8 @@
         };
     }
 </script>
-<% semantic_form_for [restaurant, event], :html => { :multipart => true } do |f| %>
-    <% f.inputs :class => "plain" do %>
+<%= semantic_form_for [restaurant, event], :html => { :multipart => true } do |f| %>
+    <%= f.inputs :class => "plain" do %>
         <%= f.input :category, :as => "select", 
                                :label => "Calendar", 
                                :collection => Event::CATEGORIES, 

@@ -28,12 +28,13 @@ class Discussion < ActiveRecord::Base
   belongs_to :employment_search
 
   validates_presence_of :title
+  attr_accessible :user_ids
   
   def posted_comments
     comments.all(:include => [:user, :attachments], :order => 'created_at DESC').reject(&:new_record?)
   end
 
-  named_scope :with_comments_unread_by, lambda { |user|
+  scope :with_comments_unread_by, lambda { |user|
      { :joins => "INNER JOIN comments ON comments.commentable_id = discussions.id
        AND comments.commentable_type = 'Discussion'
        LEFT OUTER JOIN readings ON comments.id = readings.readable_id

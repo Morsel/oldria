@@ -1,10 +1,10 @@
 <% title "#{@question.title} - #{@user.name} - Behind The Line", false %>
-<% content_for :facebook_meta do -%>
+<%= content_for :facebook_meta do -%>
   <meta property="og:type" content="article"/>
   <meta property="og:image" content="http://soapbox.restaurantintelligenceagency.com/images/soapbox/logo-soapbox.png"/>
   <meta property="og:url" content="<%= soapbox_user_profile_question_url(@user, @question) %>"/>
 <% end -%>
-<% content_for(:fb_description, "#{@user.name} says: #{@question.title} #{truncate(@primary_answer.answer, :length => 100)}") %>
+<%= content_for(:fb_description, "#{@user.name} says: #{@question.title} #{truncate(@primary_answer.answer, :length => 100)}") %>
 
 <h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>", soapbox_profile_path(@user.username) %></h1>
 
@@ -15,7 +15,7 @@
 
   <h4><%= @question.title %></h4>
 
-  <% div_for(@primary_answer) do %>
+  <%=div_for(@primary_answer) do %>
   <div class="user_answer">
       <%= render :partial => "users/identity", :locals => { :user => @primary_answer.user } if @primary_answer.user %>
       <div class="user_answer">
@@ -49,7 +49,7 @@
         <h3 id="more-answers">Answers from other users</h3>
 
         <% for answer in @answers[0..4] %>
-          <% div_for(answer) do %>
+          <%=div_for(answer) do %>
             <%= render :partial => "soapbox/profile_questions/answer", :locals => { :answer => answer } %>
           <% end %>
           <div class="clear">&nbsp;</div>
@@ -67,7 +67,7 @@
           </header>
           <div id="answers">
             <% for promotion in @promotions -%>
-                <% div_for(promotion) do %>
+                <%=div_for(promotion) do %>
                     <%= render :partial => 'soapbox/promotions/promotion', :locals => { :promotion => promotion } %>  
                 <% end -%>
             <% end -%>
@@ -101,11 +101,11 @@
     <%end%>
 <%end%>
 <% unless @user.completed_setup? && @user.primary_restaurant? && @user.primary_restaurant.premium_account? && @user.linkable_profile? %>
-    <% content_for :sidebar do -%>
+    <%= content_for :sidebar do -%>
     <%= render :partial => "soapbox/profile_questions/sidebar" %>
     <% end -%>
  <% else  %>
-    <% content_for :sidebar do -%>
+    <%= content_for :sidebar do -%>
       <%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @user.primary_employment.restaurant } %>
     <% end -%>
 <% end -%>

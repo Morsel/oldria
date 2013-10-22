@@ -2,7 +2,7 @@
 
 <%= @user.errors.full_messages.to_sentence %>
 
-<% semantic_form_for [:admin, @invitation] do |f| %>
+<%= semantic_form_for [:admin, @invitation] do |f| %>
     <%= render :partial => "invitations/form", :locals => { :f => f } %>
     <%= submit_tag "Save Invitation" %>
 <% end %>

@@ -4,7 +4,7 @@
     A new restaurant manager must be selected before <%= @restaurant.manager.name %> can be removed from the employee list.
 </p>
 
-<% form_tag replace_manager_restaurant_path(@restaurant) do %>
+<%= form_tag replace_manager_restaurant_path(@restaurant) do %>
     <%= select_tag 'manager', options_from_collection_for_select(@restaurant.additional_managers, 'id', 'name') %>
     <%= submit_tag "Update" %>
 <% end %>

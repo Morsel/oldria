@@ -7,7 +7,7 @@
 <%- end -%>
 
 <div class="calendar-categories">
-    <% form_tag "", :method => :get do %>
+    <%= form_tag "", :method => :get do %>
         <%= hidden_field_tag "date", params[:date], :id => "date-with-category" if params[:date] %>
         <%= hidden_field_tag "show_ria", params[:show_ria], :id => "ria-with-category" if params[:show_ria] %>
         <%= select_tag "category",
@@ -18,7 +18,7 @@
     <!-- Toggle RIA event display -->
     <% unless ria_events? || admin_calendars? %>
     <div class="RIA-recos">
-        <% form_tag '', :method => :get, :class => "toggle-ria-events" do %>
+        <%= form_tag '', :method => :get, :class => "toggle-ria-events" do %>
             <%= hidden_field_tag "date", params[:date], :id => "date-with-ria" if params[:date] %>
             <%= hidden_field_tag "category", params[:category], :id => "category-with-ria" if params[:category] %>
             <p>
@@ -35,10 +35,10 @@
 
   <div class="month-skip">
       <div id="date-select">
-          <% form_tag '', :method => :get, :class => "toggle-ria-events" do %>
+          <%= form_tag '', :method => :get, :class => "toggle-ria-events" do %>
           <%= hidden_field_tag "category", params[:category], :id => "category-with-date" if params[:category] %>
           <%= hidden_field_tag "show_ria", params[:show_ria], :id => "ria-with-date" if params[:show_ria] %>
-          <%= text_field_tag "date", "Pick a date to jump to", :onchange => "this.form.submit();" %>
+          <%= text_field_tag "date", "Pick a date to jump to", :onchange => "this.form.submit();",:class=>"hasDatepicker" %>
           <% end %>
       </div>
   </div>
@@ -46,20 +46,20 @@
 </div><!--.calendar-header-->
 
 <div class="calendar">
-    <% calendar_for(@events, :year => @date.year, :month => @date.month, :first_day_of_week => 1) do |t| %>
-        <%= t.head('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') %>
-        <% t.day do |day, events| %>
+    <%= calendar_for(@events, :year => @date.year, :month => @date.month, :first_day_of_week => 1) do |t| %>
+        <%= t.head('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun').html_safe %>
+        <%= t.day do |day, events| %>
             <%= day.day %>
             <% events.each do |event| %>
                 <p>
-                  <% link_to event_link(event), :class => event_link_class(event), :title => event_link_title(event) do %>
+                  <%= link_to event_link(event), :class => event_link_class(event), :title => event_link_title(event) do %>
                     <% if ria_event?(event) %>
-                      <span class="small-disc"><%= event.child_count %></span>
+                      <span class="small-disc"><%= event.child_count.html_safe %></span>
                     <% end %>
-                    <span class="event-title"><%= event.title %></span>
+                    <span class="event-title"><%= event.title.html_safe %></span>
                     <span class="event-time">
-                      <%= event.start_at.try(:strftime, "%I:%M%p") %> &ndash;
-                      <%= event.end_at.try(:strftime, "%I:%M%p")  %>
+                      <%= event.start_at.try(:strftime, "%I:%M%p").html_safe %> &ndash;
+                      <%= event.end_at.try(:strftime, "%I:%M%p").html_safe  %>
                     </span>
                   <% end -%>
                 </p>
@@ -74,13 +74,13 @@
 <!-- Adding events -->
 <% if current_user.admin? && ria_events? || admin_calendars? %>
 <p class="clearfix">
-  <% link_to new_admin_event_path, :class => 'button positive' do %>
+  <%= link_to new_admin_event_path, :class => 'button positive' do %>
     <%= image_tag('plus.png') %> Add an event
   <% end %>
 </p>
 <% else %>
 <p class="clearfix">
-  <% link_to new_restaurant_event_path(:restaurant_id => @restaurant.id), :class => 'button positive' do %>
+  <%= link_to new_restaurant_event_path(:restaurant_id => @restaurant.id), :class => 'button positive' do %>
     <%= image_tag('plus.png') %> Add an event
   <% end %>
 </p>

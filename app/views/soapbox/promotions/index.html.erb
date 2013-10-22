@@ -1,14 +1,14 @@
 <% title newsfeed_title %>
 
 <% for promotion in @promotions -%>
-<% div_for(promotion) do %>
+<%=div_for(promotion) do %>
     <h2>
     <% if @promotion_type.present? -%>
-        <% link_to soapbox_promotion_path(promotion) do %>
+        <%= link_to soapbox_promotion_path(promotion) do %>
             <%= "#{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
         <% end %>
     <% else -%>
-        <% link_to soapbox_promotion_path(promotion) do %>
+        <%= link_to soapbox_promotion_path(promotion) do %>
             <%= "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
         <% end %>
     <% end -%>
@@ -32,6 +32,6 @@
 
 <%= will_paginate(@promotions) %>
 
-<% content_for :sidebar do -%>
+<%= content_for :sidebar do -%>
 <%= render :partial => 'sidebar' %>
 <% end -%>

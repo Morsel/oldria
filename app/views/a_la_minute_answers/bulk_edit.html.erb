@@ -7,7 +7,7 @@
       <h2>A la minute</h2>
 
       <% @questions.each do |question| %>
-        <% div_for question do -%>
+        <%=div_for question do -%>
           <h5><strong><%= h(question.question) %>?</strong></h5>
 
           <% answers = @answers[question.id] || [] %>
@@ -28,7 +28,7 @@
             <%= link_to 'View past answers', "#a_la_minute_answers_#{question.id}", :class => 'show_all_link showit' %>
             <ul class="archive" id="a_la_minute_answers_<%= question.id %>">
               <% @restaurant.a_la_minute_answers.for_question(question).each_with_index do |archived_answer, index| %>
-                <% content_tag_for(:li, archived_answer, :class => "answer") do %>
+                <%= content_tag_for(:li, archived_answer, :class => "answer") do %>
                   <%= archived_answer.answer %>
                   <% if index == 0 %>
                     <small>(current)</small>
@@ -50,7 +50,7 @@
   </div><!-- /editing_restaurant -->
 </div><!-- /restaurant_profile_view -->
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 <script type="text/javascript">
   jQuery(function($) {
     $(".show_all_link").toggle(function(e) {

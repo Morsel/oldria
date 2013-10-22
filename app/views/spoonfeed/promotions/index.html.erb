@@ -1,9 +1,9 @@
 <% title "Newsfeed " %>
 
 <% for promotion in @promotions -%>
-<% div_for(promotion) do %>
+<%= div_for(promotion) do %>
     <h2>
-        <% link_to restaurant_promotions_path(promotion.restaurant) do %>
+        <%= link_to restaurant_promotions_path(promotion.restaurant) do %>
             <% if @promotion_type.present? -%>
               <%= "#{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
             <% else -%>
@@ -18,7 +18,7 @@
     <div class="fix-nesfeed-details">
         <p><%= promotion.headline %></p>
         <div class="details" >
-             <%=truncate(Loofah::Helpers.sanitize(promotion.details), :length => 240, :omission => (link_to(" more &raquo;", details_restaurant_promotion_path(promotion.restaurant,promotion)).to_s)) %>
+             <%=truncate(Loofah::Helpers.sanitize(promotion.details), :length => 240, :omission => (link_to(" more &raquo;".html_safe, details_restaurant_promotion_path(promotion.restaurant,promotion)).to_s)).html_safe %>
         </div>
 
         <p><%= promotion.date_description %></p>

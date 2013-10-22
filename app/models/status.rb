@@ -20,7 +20,7 @@ class Status < ActiveRecord::Base
   default_scope :order => "created_at DESC"
   include ActionView::Helpers
 
-  named_scope :friends_of_user, lambda { |user| {:conditions => { :user_id => user.friend_ids }} } 
+  scope :friends_of_user, lambda { |user| {:conditions => { :user_id => user.friend_ids }} } 
 
   before_validation :strip_html
   after_create      :send_to_social_media!

@@ -1,14 +1,14 @@
 <% title "Newsfeed: #{@promotion.promotion_type.name}" %>
-<% content_for :facebook_meta do -%>
+<%= content_for :facebook_meta do -%>
   <meta property="og:type" content="article"/>
   <meta property="og:image" content="http://soapbox.restaurantintelligenceagency.com/images/soapbox/logo-soapbox.png"/>
   <meta property="og:url" content="<%= soapbox_promotion_url(@promotion) %>"/>
 <% end -%>
-<% content_for :fb_description do -%>
+<%= content_for :fb_description do -%>
 <%= Loofah::Helpers.strip_tags(@promotion.details) %>
 <% end -%>
 
-<% div_for(@promotion) do %>
+<%=div_for(@promotion) do %>
     
 
     <h3><%= @promotion.headline %></h3>
@@ -52,7 +52,7 @@
       </header>
       <div id="answers">
         <% for promotion in @promotions -%>
-            <% div_for(promotion) do %>
+            <%=div_for(promotion) do %>
                 <%= render :partial => 'soapbox/promotions/promotion', :locals => { :promotion => promotion } %>  
             <% end -%>
         <% end -%>
@@ -84,6 +84,6 @@
         <% end -%>
      </div>   
 <%end%>
-<% content_for :sidebar do -%>
+<%= content_for :sidebar do -%>
 <%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @promotion.restaurant } %>
 <% end -%>

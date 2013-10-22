@@ -1,6 +1,6 @@
 <% unless btl_answer.profile_question.nil? -%>
 <li>
-  <% link_to profile_question_path(btl_answer.profile_question) do %>
+  <%= link_to profile_question_path(btl_answer.profile_question) do %>
     <% date = btl_answer.created_at %>
     <% responder = btl_answer.user %>
     

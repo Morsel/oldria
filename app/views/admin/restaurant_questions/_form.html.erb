@@ -2,9 +2,9 @@
                   admin_restaurant_questions_path :
                   admin_restaurant_question_path(:id => @question.id) %>
 
-<% semantic_form_for [:admin, @question], :url => question_url do |f| %>
+<%= semantic_form_for [:admin, @question], :url => question_url do |f| %>
     <%= f.error_messages %>
-    <% f.inputs do %>
+    <%= f.inputs do %>
         <%= f.input :title, :label => "Your question" %>
 
         <label for="topic">Topic</label>

@@ -2,7 +2,7 @@
     <div class="search_resturant">
         <h3>Find exactly what you're researching:</h3>
         <label for="search_restaurant_eq_any_name">Search for restaurant by name, trend, cuisine, ingredient or restaurant feature. You can type in things like tomatoes, steakhouse, or kid-friendly</label>
-        <%form_tag :url=>"#" do%>
+        <%= form_tag :url=>"#" do%>
             <p class="string optional">
                 <%= text_field_tag "search_restaurant_eq_any_name", "", :name => "search_restaurant_eq_any_name"%> 
                 <%= hidden_field_tag "search_person_eq_any_name", "", :name => "search_person_eq_any_name"%>  
@@ -13,7 +13,7 @@
    <div class="search_resturant_region" >
         <h3>Or go old school:</h3>
         <label for="search_by_state_name">Search by State or Region</label>
-        <%form_tag :url=>"#" do%>
+        <%= form_tag :url=>"#" do%>
             <p class="string optional">
                 <%= text_field_tag "search_restaurant_by_state_or_region", "", :name => "search_restaurant_by_state_or_region"%>
                 <%= hidden_field_tag "search_person_by_state_or_region", "", :name => "search_person_by_state_or_region"%>  

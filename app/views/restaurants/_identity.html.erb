@@ -10,6 +10,7 @@
     <ul class="identity_details restaurant">
         <% cache "#{soapbox? ? "public" : "private"}_restaurant_#{restaurant.id}_#{on_mediafeed}", :expires_in => 1.hour do %>  
             <li class="employee_name primary">
+            <%#= restaurant.prefers_publish_profile?%>
                 <%= link_to_if ((media_user_prefers_publish_profile? && restaurant.prefers_publish_profile?) || restaurant.linkable_profile? || logged_in_on_spoonfeed), restaurant.try(:name), correct_restaurant_path(restaurant) %>
             </li>
             <li class="metro_area">

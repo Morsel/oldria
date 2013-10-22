@@ -21,20 +21,20 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
-config.gem 'cucumber',         :lib => false, :version => '1.1.0'
-config.gem 'cucumber-rails',   :lib => false, :version => '0.3.2'
-config.gem 'gherkin',          :lib => false, :version => '2.5.4'
-config.gem 'database_cleaner', :lib => false, :version => '0.7.2'
-config.gem 'capybara',         :lib => false, :version => '1.1.2'
-config.gem 'capybara-webkit',  :version => "0.7.2"
-config.gem 'rspec',            :lib => false, :version => '1.3.2'
-config.gem 'rspec-rails',      :lib => false, :version => '1.3.4'
-config.gem "factory_girl",     :version => '~>1.2.3'
-config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com"
-config.gem "fakeweb", :version => "1.3.0"
-config.gem "mocha"
-config.gem "delorean"
-config.gem "awesome_print", :lib => "ap"
+# config.gem 'cucumber',         :lib => false, :version => '1.1.0'
+# config.gem 'cucumber-rails',   :lib => false, :version => '0.3.2'
+# config.gem 'gherkin',          :lib => false, :version => '2.5.4'
+# config.gem 'database_cleaner', :lib => false, :version => '0.7.2'
+# config.gem 'capybara',         :lib => false, :version => '1.1.2'
+# config.gem 'capybara-webkit',  :version => "0.7.2"
+# config.gem 'rspec',            :lib => false, :version => '1.3.2'
+# config.gem 'rspec-rails',      :lib => false, :version => '1.3.4'
+# config.gem "factory_girl",     :version => '~>1.2.3'
+# config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com"
+# config.gem "fakeweb", :version => "1.3.0"
+# config.gem "mocha"
+# config.gem "delorean"
+# config.gem "awesome_print", :lib => "ap"
 
 Braintree::Configuration.environment = :sandbox
 Braintree::Configuration.merchant_id = "ny23sz9jy8gy38bw" 

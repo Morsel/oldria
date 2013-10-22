@@ -24,8 +24,8 @@
 
 
                 <div id="newsletter_settings" class="clearfix">
-                  <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
-                    <% f.inputs :class => "editing" do %>
+                  <%= semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
+                    <%= f.inputs :class => "editing" do %>
                       
                       <p>When changing frequency or date, the change will take affect for all emails that have not already been scheduled.</p>
 
@@ -34,25 +34,25 @@
                       <%= submit_tag "Save" %>
                     <% end %>
                     <h2>Customize Current Newsletter</h2><p>Add a headline and an introductory paragraph to your newsletter. This can be changed for every newsletter you send out. To see how it will look, add your headline and introduction below and then click Preview Newsletter.  </p>
-                    <% f.inputs :class => "editing" do %>
+                    <%= f.inputs :class => "editing" do %>
                       <%= f.input :tag_line, :as => :text,:label=>"Newsletter Tagline", :input_html => { :style => 'margin-bottom: 12px;' }  %>
 
                       <%= submit_tag "Add newsletter headline" %>
                     <% end %>
                   <% end %>
 
-                   <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
-                        <% f.semantic_fields_for :newsletter_setting do |ns| %>
+                   <%= semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
+                        <%= f.semantic_fields_for :newsletter_setting do |ns| %>
                             <% ns.inputs :class => "editing" do %>
                               <%= ns.input :subject, :hint=>"Nesletter Subject"%>                         
                               <%= submit_tag "Add Subject" %>
                             <% end %>  
                      <% end %>          
                   <% end %>   
-                  <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
+                  <%= semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
                      
-                        <% f.semantic_fields_for :newsletter_setting do |ns| %>
-                            <% f.inputs do %>
+                        <%= f.semantic_fields_for :newsletter_setting do |ns| %>
+                            <%= f.inputs do %>
                                 <li class="span-12">
                                     <label for="page_content_editor">Introduction</label>
                                   <%= ns.cktext_area :introduction, :height => '340px'%>
@@ -90,7 +90,7 @@
     </div><!-- /editing_restaurant -->
 </div><!-- /restaurant_profile_view -->
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 <script type="text/javascript">
   $(document).ready(function(){  
     $('input[type=submit][popup=true]').parents('form').attr("target","_blank")

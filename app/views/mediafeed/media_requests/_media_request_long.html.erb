@@ -1,7 +1,7 @@
 <% if on_mediafeed %>
   <div id="read_messages">
 <% end %>
-<% div_for @media_request, :class => 'clearfix box extended discussion thread', :id => "media_request_long" do %>
+<%=div_for @media_request, :class => 'clearfix box extended discussion thread', :id => "media_request_long" do %>
     <ul class="message_headers">
         <li>
             <h4><%= @media_request.subject_matter.try(:name) %> (Original request)</h4>

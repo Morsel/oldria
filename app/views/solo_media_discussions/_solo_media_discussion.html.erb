@@ -1,5 +1,5 @@
 <% media_request = solo_media_discussion.media_request %>
-<% div_for solo_media_discussion, :class => 'inbox_message discussion' do %>
+<%=div_for solo_media_discussion, :class => 'inbox_message discussion' do %>
   <div class="message-details">
     <header>
       <h1><%= link_to media_request.inbox_title, solo_media_discussion %></h1>
@@ -15,7 +15,7 @@
   </div>
 
   <div class="message-actions">
-    <p><% link_to solo_media_discussion, :class => 'replies' do %>	
+    <p><%= link_to solo_media_discussion, :class => 'replies' do %>	
       	<% if solo_media_discussion.comments_count > 0 %>
 					<span class="unread_comments_count"><%= solo_media_discussion.comments_count %></span>
           <%= solo_media_discussion.comments_count == 1 ? 'reply' : 'replies' %>. Read &amp;

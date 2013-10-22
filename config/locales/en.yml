@@ -1,7 +1,5 @@
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
 en:
-  soapbox:
-    taglines:
-      main: "Where chefs speak for themselves."
-      secondary: "And sommeliers. And managers. And mixologists. And..."
-    call_to_action: "Create a free account"
+  hello: "Hello world"

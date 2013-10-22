@@ -9,13 +9,20 @@
         <li class="employee_name primary">
             <%= link_to_if ((media_user_prefers_publish_profile? && user.publish_profile?)|| user.linkable_profile? || logged_in_on_spoonfeed), user.name_or_username, directory_link(user) %>
         </li>
-        <li class="employee_role"><%= user.primary_employment.try(:restaurant_role).try(:name) %></li>
+        <li class="employee_role">
+          <% unless user.primary_employment.blank? %>
+            <%= user.primary_employment.try(:restaurant_role).try(:name) %></li>
+          <% end %>
         <% if !current_user.blank? && current_user.media? %>
-          <li class="restaurant_name"><%= restaurant_names_for_media_user(user) %></li>
+          <li class="restaurant_name"><%= restaurant_names_for_media_user(user).html_safe %></li>
         <% else %>
           <li class="restaurant_name"><%= restaurant_names_for_user(user) %></li>
         <% end %>
-        <li><%= user.primary_employment.try(:restaurant).try(:city_and_state) || user.try(:profile).try(:current_residence) %></li>
+        <li>
+          <% unless user.primary_employment.blank? %>
+            <%= user.primary_employment.try(:restaurant).try(:city_and_state) || user.try(:profile).try(:current_residence) %>
+          <% end %>
+        </li>
 <% end %>  
         <li class="user-subscribe"> 
          <% if  !current_user.nil? && current_user.media?  %>

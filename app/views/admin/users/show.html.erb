@@ -1,5 +1,5 @@
 <% title @user.name_or_username %>
-<% content_for(:fb_description, truncate(@user.profile.try(:summary), :length => 256)) %>
+<%= content_for(:fb_description, truncate(@user.profile.try(:summary), :length => 256)) %>
 
 <p>
   <b>Username:</b>

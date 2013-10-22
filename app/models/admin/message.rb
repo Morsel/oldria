@@ -26,11 +26,11 @@ class Admin::Message < ActiveRecord::Base
   validates_presence_of :message
   validates_length_of :slug, :maximum => 30, :allow_nil => true
 
-  named_scope :current, lambda {
+  scope :current, lambda {
     { :conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now] }
   }
 
-  named_scope :recent, lambda {
+  scope :recent, lambda {
     { :conditions => ['admin_messages.scheduled_at >= ?', 2.weeks.ago] }
   }
 
@@ -94,7 +94,8 @@ class Admin::Message < ActiveRecord::Base
   end
 
   def conversations_with_replies
-    admin_conversations.scoped(:conditions => "comments_count > 0", :include => :recipient)
+   # admin_conversations.scoped(:conditions => "comments_count > 0", :include => :recipient) 
+    admin_conversations.scoped.where('comments_count > 0', :include => :recipient)
   end
 
   def conversations_without_replies

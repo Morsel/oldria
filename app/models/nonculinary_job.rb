@@ -24,6 +24,7 @@ class NonculinaryJob < ActiveRecord::Base
   validates_presence_of :company, :title, :city, :state, :country, :date_started, :responsibilities
 
   validate :date_ended_after_date_started
+  attr_accessible :company, :title, :city, :state, :country, :date_started, :responsibilities,:date_ended
 
   def date_ended_after_date_started
     if date_ended.present? && date_ended.to_date < date_started.to_date

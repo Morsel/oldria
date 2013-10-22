@@ -1,12 +1,12 @@
-<% title "Start a Discussion" %>
+<%= title "Start a Discussion"  %>
 
-<% semantic_form_for(@discussion, :html => { :multipart => true }) do |f| %>
-  <% f.inputs do %>
-    <%= f.input :title, :label => "Subject", :input_html => {:class => 'title span-7'} %>
-    <%= f.input :body, :input_html => { :rows => '4' } %>
-    <% f.fields_for :attachments do |child_form| -%>
+<%= semantic_form_for(@discussion, :html => { :multipart => true }) do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :title, :label => "Subject", :input_html => {:class => 'title span-7', :size =>50} %>
+    <%= f.input :body, :input_html => { :rows => '4', :cols => 50 } %>
+    <%= f.fields_for :attachments do |child_form| -%>
       <p class="attach">Attach files</p>
-      <p class="attachfield"><%= child_form.file_field :attachment %></p>
+      <p class="attachfield"><%= child_form.file_field :attachment,:input_html => { :size=>"30"},:size=>"30" %></p>
     <% end -%>
 
     <h3>Who would you like to include in this discussion?</h3>

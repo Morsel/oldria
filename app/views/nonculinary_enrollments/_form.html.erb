@@ -1,6 +1,6 @@
 <%= "<h1>#{yield :title}</h1>" if request.xhr? %>
-<% semantic_form_for @nonculinary_enrollment.new_record? ? [:user, :profile, setup_nonculinary_enrollment(@nonculinary_enrollment)] : setup_nonculinary_enrollment(@nonculinary_enrollment) do |f| %>
-  <% f.inputs :class => "nonculinary_enrollments" do %>
+<%= semantic_form_for @nonculinary_enrollment.new_record? ? [:user, :profile, setup_nonculinary_enrollment(@nonculinary_enrollment)] : setup_nonculinary_enrollment(@nonculinary_enrollment) do |f| %>
+  <%= f.inputs :class => "nonculinary_enrollments" do %>
   
   <% if @nonculinary_enrollment.errors.blank? || (!@nonculinary_enrollment.errors.first.nil? && @nonculinary_enrollment.errors.first.include?("nonculinary_school")) %>
     <%= f.input :nonculinary_school %>
@@ -14,7 +14,7 @@
      <div id="school_fields">
      <%end%>
 
-      <% f.semantic_fields_for :nonculinary_school do |school| %>
+      <%= f.semantic_fields_for :nonculinary_school do |school| %>
         <%= school.input :name, :label => 'School Name' %>
         <%= school.input :city, :input_html => {:class => 'span-5'},
           :wrapper_html => {:class => 'span-5 column'} %>
@@ -45,10 +45,9 @@
       %>
       <p class="inline-hints">Leave blank if you did not graduate</p>
     </li>
-
-    <%= f.input :degree %>
-    <%= f.input :field_of_study %>
-    <%= f.input :achievements, :hint => "Did you receive any awards or special scholarships?" %>
+    <%= f.input :degree,:input_html=>{:size=>50} %>
+    <%= f.input :field_of_study,:input_html=>{:size=>50} %>
+    <%= f.input :achievements, :hint => "Did you receive any awards or special scholarships?",:input_html=>{:size=>50,:cols=>50} %>
   <% end %>
   <%= button_tag "Save" %>
 <% end %>

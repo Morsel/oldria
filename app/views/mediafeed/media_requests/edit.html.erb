@@ -7,7 +7,7 @@
     <% end -%>
     </h4>
 
-    <% semantic_form_for [:mediafeed, @media_request], :html => { :multipart => true } do |f| %>
+    <%= semantic_form_for [:mediafeed, @media_request], :html => { :multipart => true } do |f| %>
     	<%= f.error_messages %>
     	<%= f.hidden_field :sender_id %>
 
@@ -31,7 +31,7 @@
     	</p>
     </div>
 
-      <% f.inputs do %>
+      <%= f.inputs do %>
     	  <%= render :partial => 'subject_matters', :locals => {:f => f} %>
       <% end %>
 

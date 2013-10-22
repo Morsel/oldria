@@ -1,5 +1,5 @@
-<% semantic_form_for [:admin, @slide], :html => { :multipart => true } do |f| %>
-    <% f.inputs do %>
+<%= semantic_form_for [:admin, @slide], :html => { :multipart => true } do |f| %>
+    <%= f.inputs do %>
         <% unless @slide.new_record? %>
         Current image:
         <%= image_tag(@slide.image.url(:thumb)) %>

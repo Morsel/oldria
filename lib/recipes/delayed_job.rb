@@ -9,7 +9,7 @@
 
 namespace :delayed_job do
   def delayed_job_cmd
-    "cd #{current_path}; RAILS_ENV=#{rails_env} script/delayed_job"
+    "cd #{current_path}; Rails.env=#{Rails.env} script/delayed_job"
   end
 
   desc "Stop the delayed_job process"

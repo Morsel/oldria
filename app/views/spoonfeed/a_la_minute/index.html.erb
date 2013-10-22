@@ -1,7 +1,7 @@
 <% title "A la Minute" %>
 
 <% for answer in @answers -%>
-<% div_for answer do %>
+<%=div_for answer do %>
     <h2><%= link_to answer.question, a_la_minute_answers_path(:question_id => answer.a_la_minute_question.id) %></h2>
     <div class="menu_item_main">
          <%= render :partial => 'restaurants/identity', :locals => { :restaurant => answer.responder } %>

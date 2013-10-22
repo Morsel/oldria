@@ -21,11 +21,11 @@ class AdminDiscussion < ActiveRecord::Base
 
   validates_uniqueness_of :restaurant_id, :scope => [:discussionable_id, :discussionable_type]
 
-  named_scope :with_replies, :conditions => "#{table_name}.comments_count > 0"
-  named_scope :without_replies, :conditions => "#{table_name}.comments_count = 0"
+  scope :with_replies, :conditions => "#{table_name}.comments_count > 0"
+  scope :without_replies, :conditions => "#{table_name}.comments_count = 0"
   
-  named_scope :for_trends, :conditions => { :discussionable_type => "TrendQuestion" }
-  named_scope :for_content_requests, :conditions => { :discussionable_type => "ContentRequest" }
+  scope :for_trends, :conditions => { :discussionable_type => "TrendQuestion" }
+  scope :for_content_requests, :conditions => { :discussionable_type => "ContentRequest" }
   
   def message
     [discussionable.subject, discussionable.body].reject(&:blank?).join(": ")

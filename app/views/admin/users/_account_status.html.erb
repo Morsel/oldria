@@ -6,7 +6,7 @@
       <div id="start_date">
           They have been a premium member since <%= subscriber.subscription.start_date.to_s(:long) %>
       </div>
-      <% link_to admin_complimentary_accounts_path(:subscriber_id => subscriber.id, :subscriber_type => subscriber_type), 
+      <%= link_to admin_complimentary_accounts_path(:subscriber_id => subscriber.id, :subscriber_type => subscriber_type), 
           :class => 'button negative', 
           :method => :delete, 
           :confirm => "Are you sure you want to make this account basic?" do %>
@@ -28,7 +28,7 @@
             They have been a premium member since <%= subscriber.subscription.start_date.to_s(:long) %>
         </div>
       <% end %>
-      <% link_to(admin_complimentary_accounts_path(:subscriber_id => subscriber, 
+      <%= link_to(admin_complimentary_accounts_path(:subscriber_id => subscriber, 
           :subscriber_type => subscriber_type), 
           :class => 'button positive', 
           :method => :post,
@@ -37,7 +37,7 @@
         Convert <%= subscriber_type %>'s premium account to a Complimentary Premium Account
       <% end %>
       <br clear="all" />
-      <% link_to(admin_complimentary_accounts_path(:subscriber_id => subscriber, 
+      <%= link_to(admin_complimentary_accounts_path(:subscriber_id => subscriber, 
           :subscriber_type => subscriber_type), 
           :class => 'button negative', 
           :method => :delete, 
@@ -52,7 +52,7 @@
       </span>
       <br clear="all"/>
       <br clear="all"/>
-      <% link_to(admin_complimentary_accounts_path(:subscriber_id => subscriber, 
+      <%= link_to(admin_complimentary_accounts_path(:subscriber_id => subscriber, 
           :subscriber_type => subscriber_type), 
           :class => 'button positive', 
           :method => :post,

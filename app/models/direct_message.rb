@@ -24,10 +24,10 @@ class DirectMessage < ActiveRecord::Base
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   accepts_nested_attributes_for :attachments
 
-  named_scope :all_from_admin, :conditions => { :from_admin => true }
-  named_scope :all_not_from_admin, :conditions => { :from_admin => false }
+  scope :all_from_admin, :conditions => { :from_admin => true }
+  scope :all_not_from_admin, :conditions => { :from_admin => false }
 
-  named_scope :root, :conditions => { :in_reply_to_message_id => nil }
+  scope :root, :conditions => { :in_reply_to_message_id => nil }
 
   validates_presence_of :receiver
   validates_presence_of :sender

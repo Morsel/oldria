@@ -4,7 +4,7 @@
       <%= render 'messages/message_details', :message => announcement %>
     <% end %>
   </div>
-  <% content_for :javascript do %>
+  <%= content_for :javascript do %>
   <% javascript_tag do %>
       $(document).ready(function(){
         $.colorbox({

@@ -2,27 +2,27 @@
   <div class="extended_profile_info resto">
     <h3>Parking and Directions</h3>
     <ul class="location_info clearfix">
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Venue:
         <strong><%=h fact_sheet.venue %></strong>
       <% end unless fact_sheet.venue.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Intersection:
         <strong><%=h fact_sheet.intersection %></strong>
       <% end unless fact_sheet.intersection.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Neighborhood:
         <strong><%=h fact_sheet.neighborhood %></strong>
       <% end unless fact_sheet.neighborhood.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Parking:
         <strong><%=h fact_sheet.parking %></strong>
       <% end unless fact_sheet.parking.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Public transit:
         <strong><%=h fact_sheet.public_transit %></strong>
       <% end unless fact_sheet.public_transit.blank? %>
@@ -36,47 +36,47 @@
   <div class="extended_profile_info resto">
     <h3>Pricing</h3>
     <ul class="pricing_info clearfix">
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Dinner average price:
         <strong><%= price fact_sheet.dinner_average_price %></strong>
       <% end unless fact_sheet.dinner_average_price.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Lunch average price:
         <strong><%= price fact_sheet.lunch_average_price %></strong>
       <% end unless fact_sheet.lunch_average_price.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Brunch average price:
         <strong><%= price fact_sheet.brunch_average_price %></strong>
       <% end unless fact_sheet.brunch_average_price.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Breakfast average price:
         <strong><%= price fact_sheet.breakfast_average_price %></strong>
       <% end unless fact_sheet.breakfast_average_price.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Children average price:
         <strong><%= price fact_sheet.children_average_price %></strong>
       <% end unless fact_sheet.children_average_price.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Appetizer/Small Plate:
         <strong><%= price_range(fact_sheet.small_plate_min_price, fact_sheet.small_plate_max_price) %></strong>
       <% end unless fact_sheet.small_plate_min_price.blank? && fact_sheet.small_plate_max_price.blank?  %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Entree/Large Plate:
         <strong><%= price_range(fact_sheet.large_plate_min_price, fact_sheet.large_plate_max_price) %></strong>
       <% end unless fact_sheet.large_plate_min_price.blank? && fact_sheet.large_plate_max_price.blank?  %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Dessert Plate:
         <strong><%= price_range(fact_sheet.dessert_plate_min_price, fact_sheet.dessert_plate_max_price) %></strong>
       <% end unless fact_sheet.dessert_plate_min_price.blank? && fact_sheet.dessert_plate_max_price.blank?  %>
       <% fact_sheet.tasting_menus.each do |tasting_menu| %>
-        <% content_tag_for(:li, tasting_menu) do %>
+        <%= content_tag_for(:li, tasting_menu) do %>
           <dl>
             <dt><%=h tasting_menu.name %></dt>
             <dd>Price: <strong><%= price tasting_menu.price %></strong></dd>
@@ -87,27 +87,27 @@
         <% end %>
       <% end %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Wine by the Glass count:
         <strong><%=h fact_sheet.wine_by_the_glass_count %></strong>
       <% end unless fact_sheet.wine_by_the_glass_count.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Wine by the Glass:
         <strong><%= price_range(fact_sheet.wine_by_the_glass_min_price, fact_sheet.wine_by_the_glass_max_price) %></strong>
       <% end unless fact_sheet.wine_by_the_glass_min_price.blank? && fact_sheet.wine_by_the_glass_max_price.blank?  %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Wine by the Bottle count:
         <strong><%=h fact_sheet.wine_by_the_bottle_count %></strong>
       <% end unless fact_sheet.wine_by_the_bottle_count.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Wine by the Bottle:
         <strong><%= price_range(fact_sheet.wine_by_the_bottle_min_price, fact_sheet.wine_by_the_bottle_max_price) %></strong>
       <% end unless fact_sheet.wine_by_the_bottle_min_price.blank? && fact_sheet.wine_by_the_bottle_max_price.blank?  %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Wine list details:
         <strong><%= h fact_sheet.wine_by_the_bottle_details %></strong>
       <% end unless fact_sheet.wine_by_the_bottle_details.blank? %>
@@ -135,11 +135,11 @@
     <% unless fact_sheet.days_closed.blank? && fact_sheet.holidays_closed.blank? %>
       <h4>Closed</h4>
       <ul class="hours_closed_info clearfix">
-        <% content_tag(:li) do %>
+        <%= content_tag(:li) do %>
           Days closed:
           <strong><%=h fact_sheet.days_closed %></strong>
         <% end unless fact_sheet.days_closed.blank? %>
-        <% content_tag(:li) do %>
+        <%= content_tag(:li) do %>
           Holidays closed:
           <strong><%=h fact_sheet.holidays_closed %></strong>
         <% end unless fact_sheet.holidays_closed.blank? %>
@@ -154,37 +154,37 @@
   <div class="extended_profile_info resto">
     <h3>Guest Relations</h3>
     <ul class="guest_relations_info clearfix">
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Reservations:
         <strong><%=h fact_sheet.reservations %></strong>
       <% end unless fact_sheet.reservations.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Cancellation policy:
         <strong><%=h fact_sheet.cancellation_policy %></strong>
       <% end unless fact_sheet.cancellation_policy.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Payment methods:
         <strong><%=h fact_sheet.payment_methods %></strong>
       <% end unless fact_sheet.payment_methods.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Byob allowed:
         <strong><%=h fact_sheet.byob_allowed %></strong>
       <% end unless fact_sheet.byob_allowed.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Corkage fee:
         <strong><%=h fact_sheet.corkage_fee %></strong>
       <% end unless fact_sheet.corkage_fee.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Dress code:
         <strong><%=h fact_sheet.dress_code %></strong>
       <% end unless fact_sheet.dress_code.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Delivery:
         <strong><%=h fact_sheet.delivery %></strong>
       <% end unless fact_sheet.delivery.blank? %>
@@ -198,63 +198,63 @@
   <div class="extended_profile_info resto">
     <h3>Design</h3>
     <ul class="design_info clearfix">
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Architect name:
         <strong><%=h fact_sheet.architect_name %></strong>
       <% end unless fact_sheet.architect_name.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Graphic designer:
         <strong><%=h fact_sheet.graphic_designer %></strong>
       <% end unless fact_sheet.graphic_designer.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Furniture designer:
         <strong><%=h fact_sheet.furniture_designer %></strong>
       <% end unless fact_sheet.furniture_designer.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Furniture manufacturer:
         <strong><%=h fact_sheet.furniture_manufacturer %></strong>
       <% end unless fact_sheet.furniture_manufacturer.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Flooring:
         <strong><%=h fact_sheet.flooring %></strong>
       <% end unless fact_sheet.flooring.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Millwork:
         <strong><%=h fact_sheet.millwork %></strong>
       <% end unless fact_sheet.millwork.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         China:
         <strong><%=h fact_sheet.china %></strong>
       <% end unless fact_sheet.china.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Kitchen equipment:
         <strong><%=h fact_sheet.kitchen_equipment %></strong>
       <% end unless fact_sheet.kitchen_equipment.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Lighting:
         <strong><%=h fact_sheet.lighting %></strong>
       <% end unless fact_sheet.lighting.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Draperies:
         <strong><%=h fact_sheet.draperies %></strong>
       <% end unless fact_sheet.draperies.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Square footage:
         <strong><%=h fact_sheet.square_footage %> sq. ft.</strong>
       <% end unless fact_sheet.square_footage.blank? %>
 
       <% fact_sheet.seating_areas.each do |seating_area| %>
-        <% content_tag(:li) do %>
+        <%= content_tag(:li) do %>
           <%=h seating_area.name %>:
           <strong><%=h seating_area.occupancy %> seats</strong>
         <% end %>
@@ -270,22 +270,22 @@
   <div class="extended_profile_info resto">
     <h3>Other Information</h3>
     <ul class="other_info clearfix">
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Wheelchair access:
         <strong><%=h fact_sheet.wheelchair_access %></strong>
       <% end unless fact_sheet.wheelchair_access.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Smoking:
         <strong><%=h fact_sheet.smoking %></strong>
       <% end unless fact_sheet.smoking.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Concept:
         <strong><%=h fact_sheet.concept %></strong>
       <% end unless fact_sheet.concept.blank? %>
 
-      <% content_tag(:li) do %>
+      <%= content_tag(:li) do %>
         Entertainment:
         <strong><%=h fact_sheet.entertainments.map(&:downcase).join(", ") %></strong>
       <% end unless fact_sheet.entertainments.blank? %>

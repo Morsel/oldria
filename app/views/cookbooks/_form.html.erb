@@ -1,8 +1,8 @@
 <%= "<h1>#{yield :title}</h1>" if request.xhr? %>
-<% semantic_form_for @cookbook.new_record? ? [:user, :profile, @cookbook] : @cookbook do |f| %>
-  <% f.inputs :class => "cookbooks" do %>
-    <%= f.input :title, :hint => "Include books you have authored or contributed to" %>
-    <%= f.input :publisher %>
+<%= semantic_form_for @cookbook.new_record? ? [:user, :profile, @cookbook] : @cookbook do |f| %>
+  <%= f.inputs :class => "cookbooks" do %>
+    <%= f.input :title, :hint => "Include books you have authored or contributed to",:input_html=>{:size=>50} %>
+    <%= f.input :publisher,:input_html=>{:size=>50} %>
     <%= f.input :published_on, :as => :date, :end_year => 1940, :start_year => Date.today.year %>
   <% end %>
   <%= button_tag "Save" %>

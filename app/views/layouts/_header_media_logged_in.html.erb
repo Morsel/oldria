@@ -1,11 +1,11 @@
 <header id="user_header" class="clearfix">
     <div class="headerContainer clearfix">
         <div class="logoBox left">
-            <% link_to root_path do -%><%= image_tag "sf/sf-logo.png" %><% end %>
+            <%= link_to root_path do -%><%= image_tag "sf/sf-logo.png" %><% end %>
         </div>
 
         <div class="right">
-            <% form_tag search_path, :method => :get, :class => 'searchBox left' do %>
+            <%= form_tag search_path, :method => :get, :class => 'searchBox left' do %>
             <%= text_field_tag "query", "", :class => 'searchInput', :placeholder => "SEARCH" %>
             <div>
                 <span class="searchArrow"></span>

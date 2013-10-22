@@ -9,7 +9,7 @@
               <div id="restaurant_tags">
                   <h2>Select feature tags to display on your profile</h2>
                   <aside id="tags_remaining"></aside>
-                  <% form_tag update_top_restaurant_features_path(@restaurant) do %>
+                  <%= form_tag update_top_restaurant_features_path(@restaurant) do %>
                   <%= hidden_field_tag :restaurant_id, @restaurant.id %>
                       <% for category in @features.keys %>
                       <div class="tag_category" >

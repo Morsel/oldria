@@ -1,7 +1,7 @@
 <% title "Edit A la Minute Question" %>
 
-<% semantic_form_for [:admin, @question] do |f| %>
-    <% f.inputs :class => "plain" do %>
+<%= semantic_form_for [:admin, @question] do |f| %>
+    <%= f.inputs :class => "plain" do %>
         <%= f.input :question %>
         <%= f.input :topic %>
 

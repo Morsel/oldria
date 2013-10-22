@@ -1,5 +1,5 @@
 <% title "#{@question.title} - Online Press Kit", false %>
-<% content_for(:fb_description, btl_description_for_fb(@answers)) %>
+<%= content_for(:fb_description, btl_description_for_fb(@answers)) %>
 
 <% javascript_tag do %>
   var addthis_share = {

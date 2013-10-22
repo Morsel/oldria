@@ -3,7 +3,7 @@
   <p><%= @holiday_reminder.holiday.restaurants.map { |r| "#{r.name}"}.join(", ") %></p>
 <% end %>
 
-<% f.inputs do %>
+<%= f.inputs do %>
   <%= f.input :scheduled_at %>
   <%= f.input :message, :as => :text, :input_html => {:class => '', :rows => 8} %>
   <% if @holiday_reminder.holiday %>

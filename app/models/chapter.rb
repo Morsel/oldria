@@ -25,49 +25,49 @@ class Chapter < ActiveRecord::Base
 
   default_scope :include => :topic, :order => "topics.title ASC, chapters.title ASC"
 
-  named_scope :for_user, lambda { |user|
+  scope :for_user, lambda { |user|
     { :joins => { :profile_questions => :question_roles },
       :conditions => ["question_roles.restaurant_role_id = ?", user.primary_employment.restaurant_role.id],
       :group => "chapters.id",
       :order => "chapters.position" }
   }
 
-  named_scope :for_restaurant, lambda { |restaurant|
+  scope :for_restaurant, lambda { |restaurant|
     { :joins => :topic,
       :conditions => ["topics.type = 'RestaurantTopic'"],
       :group => "chapters.id",
       :order => "chapters.position" }
   }
 
-  named_scope :for_page, lambda { |page|
+  scope :for_page, lambda { |page|
     { :joins => { :restaurant_questions => :question_pages },
       :conditions => ["question_pages.restaurant_feature_page_id = ?", page.id],
       :group => "chapters.id",
       :order => "chapters.position" }
   }
 
-  named_scope :answered_for_user, lambda { |user|
+  scope :answered_for_user, lambda { |user|
     { :joins => { :profile_questions => :profile_answers },
       :conditions => ["profile_answers.user_id = ?", user.id],
       :group => "chapters.id",
       :order => "chapters.position" }
   }
 
-  named_scope :answered_for_restaurant, lambda { |restaurant|
+  scope :answered_for_restaurant, lambda { |restaurant|
     { :joins => { :restaurant_questions => :restaurant_answers },
       :conditions => ["restaurant_answers.restaurant_id = ?", restaurant.id],
       :group => "chapters.id",
       :order => "chapters.position" }
   }
 
-  named_scope :answered_for_page, lambda { |page, restaurant|
+  scope :answered_for_page, lambda { |page, restaurant|
     { :joins => { :restaurant_questions => [:restaurant_answers, :question_pages] },
       :conditions => ["restaurant_answers.restaurant_id = ? AND question_pages.restaurant_feature_page_id = ?", restaurant.id, page.id],
       :group => "chapters.id",
       :order => "chapters.position" }
   }
 
-  named_scope :answered_by_premium_users, {
+  scope :answered_by_premium_users, {
     :joins => { :profile_questions => { :profile_answers => { :user => :subscription }}},
     :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
         Date.today],

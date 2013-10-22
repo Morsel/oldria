@@ -4,24 +4,24 @@
 
 <p>Also, you should choose new password to use when you login again.</p>
 
-<% semantic_form_for(@user, :url => complete_registration_path, :html => { :method => :put }) do |f| %>
+<%= semantic_form_for(@user, :url => complete_registration_path, :html => { :method => :put }) do |f| %>
 
-  <% f.inputs :name => 'Your Information' do %>
-    <%= f.input :first_name, :input_html => {:class => 'span-3'}, :wrapper_html => {:class => 'span-3 column'} %>
-    <%= f.input :last_name, :input_html => {:class => 'span-4'}, :wrapper_html => {:class => 'span-4 column'} %>
-    <%= f.input :email, :wrapper_html => {:class => 'clear'}, :input_html => { :disabled => true } %>
+  <%= f.inputs :name => 'Your Information' do %>
+    <%= f.input :first_name, :input_html => {:class => 'span-3',:size => 50}, :wrapper_html => {:class => 'span-3 column'} %>
+    <%= f.input :last_name, :input_html => {:class => 'span-4',:size => 50}, :wrapper_html => {:class => 'span-4 column'} %>
+    <%= f.input :email, :wrapper_html => {:class => 'clear'}, :input_html => { :disabled => true ,:size => 50} %>
     <%= f.input :id, :as => :hidden %>
     <%= hidden_field_tag 'step', 1 %>
   <% end %>
 
-  <% f.inputs :name => 'Desired Login Information' do %>
-    <%= f.input :username, :required => true %>
-    <%= f.input :password, :input_html => {:autocomplete => "off"}, :required => true %>
-    <%= f.input :password_confirmation, :input_html => {:autocomplete => "off"}, :required => true %>
+  <%= f.inputs :name => 'Desired Login Information' do %>
+    <%= f.input :username, :required => true,:input_html => {:size => 50} %>
+    <%= f.input :password, :input_html => {:autocomplete => "off",:size => 50}, :required => true %>
+    <%= f.input :password_confirmation, :input_html => {:autocomplete => "off",:size => 50}, :required => true %>
   <% end %>
   
-  <% f.inputs do %>
-    <%= f.input :agree_to_contract, :label => "I have read and agree to the #{link_to 'privacy policy', '/privacy', :popup => true} and #{link_to 'terms of service', '/terms', :popup => true} for spoonfeed", :as => :boolean, :required => true %>
+  <%= f.inputs do %>
+    <%= f.input :agree_to_contract, :label => "I have read and agree to the #{link_to 'privacy policy', '/privacy', :popup => true} and #{link_to 'terms of service', '/terms', :popup => true} for spoonfeed".html_safe, :as => :boolean, :required => true %>
   <% end %>
 
   <p><%= button_tag "Next", :class => 'positive' %></p>

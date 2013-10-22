@@ -20,6 +20,7 @@ class NonculinaryEnrollment < ActiveRecord::Base
   accepts_nested_attributes_for :nonculinary_school, :reject_if => :reject_school_attributes?
 
   validates_presence_of :nonculinary_school, :profile_id
+  attr_accessible :nonculinary_school_id, :nonculinary_school_attributes, :graduation_date, :degree, :field_of_study, :achievements
 
   private
 

@@ -1,5 +1,5 @@
 
-<% form_tag registration_path, :id => "join" ,:class=>"sign-up-form" do %>
+<%= form_tag registration_path, :id => "join" ,:class=>"sign-up-form" do %>
 <fieldset>
       <header class="title">
         <h2><span>Chefs, diners, media - <a href="#">JOIN NOW!</a></span></h2>
@@ -35,7 +35,7 @@
          </div> 
         <div class="clear padding-top-ten"><b>Area(s) of expertise</b></div>
         <p class="inline-hints">I am comfortable answering questions and speaking to the media about the following topics:</p>
-        <% for subject in SubjectMatter.general.all %>
+        <% for subject in SubjectMatter.all %>
         <p><%= check_box_tag "subject_matters[#{subject.id}]" %> <label for="subject_matters_<%= subject.id %>"><%= subject.name %></label></p>
         <% end %>
 

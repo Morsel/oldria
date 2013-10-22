@@ -29,7 +29,7 @@
             <% if @user.profile.try(:cuisines).present? -%>
             <h5>cuisines known for:</h5>
             <p>
-                <%= @user.profile.cuisines.map { |c| link_to c.name, directory_search_link(:cuisine_id => c.id) }.join(", ") %>
+                <%= @user.profile.cuisines.map { |c| link_to c.name, directory_search_link(:cuisine_id => c.id) }.join(", ").html_safe %>
             </p>
             <% end -%>
 
@@ -86,7 +86,7 @@
               <p>
                   <%= truncate(comment = conversation.comments.first.comment, :length => 130) %>
 				<% if comment.length > 130 -%>
-				<%= link_to "more &raquo;", user_qotds_path(:id => @user.id, :anchor => "admin_conversation_#{conversation.id}") %>
+				<%= link_to "more &raquo;".html_safe, user_qotds_path(:id => @user.id, :anchor => "admin_conversation_#{conversation.id}") %>
 				<% end -%>
               </p>
               <% end -%>
@@ -104,36 +104,5 @@
             </div>
         </div>
         <% end -%>
-
-        <!-- <div id="guides" class="clear clearfix">
-
-            <h3><%= @user.first_name %>'s Guides<span class="grayArrow"></span></h3>
-
-            <div id="entertaining" class="left">
-                <div>
-                    <h4>Entertainment</h4>
-                    <p class="description">Get Firstname’s tips and hints for home cooks bartenders and sommeliers:</p>
-                    <p class="ask"><span>Mauris bibendum erat nec?</span>Phasellus vitae ante arcu. Donec tempus justo eget augue pellentesque.</p>
-                    <p class="ask"><span>Mauris bibendum erat nec?</span>Phasellus vitae ante arcu. Donec tempus justo eget augue pellentesque.</p>
-                    <%= link_to_unimplemented "read more tips + hints", :class => "orangeLink" %>
-                </div>
-            </div>
-
-			<% if @user.btl_enabled? %>
-            <div id="travel" class="right">
-                <div>
-                    <h4>Travel</h4>
-                    <p class="description">Find out <%= @user.first_name %>’s favorite haunts around the world:</p>
-                    <ul>
-                        <% for city in Topic.travel.chapters.for_user(@user) %>
-                        <li><%= link_to city.title, user_btl_chapter_path(:user_id => @user.id, :chapter_id => city.id) %></li>
-                        <% end if Topic.travel.present? %>
-                    </ul>
-                </div>
-            </div>
-			<% end %>
-
-        </div> -->
-
     </section>
 </div>

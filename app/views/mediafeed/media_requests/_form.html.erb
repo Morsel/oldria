@@ -1,5 +1,5 @@
-<% semantic_form_for [:mediafeed, @media_request], :html => { :multipart => true } do |f| %>
-    <% f.inputs :name => "About You", :class => 'editing basic' do %>
+<%= semantic_form_for [:mediafeed, @media_request], :html => { :multipart => true } do |f| %>
+    <%= f.inputs :name => "About You", :class => 'editing basic' do %>
       <li>
         Your name: <%= current_user.name %> <br />
         Email: <%= current_user.email %>
@@ -22,7 +22,7 @@
         <%= render :partial => 'shared/employment_list' if params[:search] %>
     </div>
 
-    <% f.inputs :name => 'Your Request', :class => 'editing' do %>
+    <%= f.inputs :name => 'Your Request', :class => 'editing' do %>
       <%= render :partial => 'subject_matters', :locals => { :f => f } %>
 
       <%= f.input :due_date, :label => "When do you need the response by?" %>

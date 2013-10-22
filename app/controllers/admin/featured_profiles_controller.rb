@@ -43,11 +43,13 @@ class Admin::FeaturedProfilesController < Admin::AdminController
   	#@features = FeaturedProfile.all
   end
   def preimum_user_and_restaurant 
-  		if params[:type].present? &&  ['user','restaurant'].include?(params[:type].downcase)        
-  			@records = eval(params[:type].capitalize).premium_account  		
+  		if params[:type].present? &&  ['user','restaurant'].include?(params[:type].downcase) 
+        # @records = eval(params[:type].capitalize).premium_account
+        @records = params[:type].capitalize=="User" ? User.all.map{|u| u if u.premium_account}.compact : Restaurant.all.map{|u| u if u.premium_account}.compact
        else
         redirect_to :action => 'index' 
   		end	
   end	
+
 
 end

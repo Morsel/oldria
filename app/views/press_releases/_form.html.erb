@@ -1,8 +1,8 @@
-<% semantic_form_for [@restaurant, @press_release],
+<%= semantic_form_for [@restaurant, @press_release],
     :html => { :multipart => true } do |pr_form| %>
   <% pr_form.inputs :class => "clear" do %>
     <%= pr_form.input :title, :label => "Press release title" %>
-    <% pr_form.semantic_fields_for :pdf_remote_attachment do |pdf_remote_attachment| %>
+    <%= pr_form.semantic_fields_for :pdf_remote_attachment do |pdf_remote_attachment| %>
 	  <%= link_to @press_release.pdf_remote_attachment.attachment_file_name, @press_release.pdf_remote_attachment.attachment.url, :class => 'editing_label' unless @press_release.new_record? %>
       <%= pdf_remote_attachment.input :attachment, :as => :file %>
     <% end %>

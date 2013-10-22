@@ -1,5 +1,5 @@
-<% semantic_form_for [:admin, @user], :html => {:class => 'span-12'} do |f| %>
-  <% f.inputs :name => 'Basic Information' do %>
+<%= semantic_form_for [:admin, @user], :html => {:class => 'span-12'} do |f| %>
+  <%= f.inputs :name => 'Basic Information' do %>
     <%= f.input :first_name, :input_html => {:class => 'span-3'}, 
         :wrapper_html => {:class => 'span-3'} %>
     <%= f.input :last_name, :input_html => {:class => 'span-4'}, 
@@ -12,7 +12,7 @@
     </p>
   <% end %>
 
-  <% f.inputs :name => 'Account Permissions' do %>
+  <%= f.inputs :name => 'Account Permissions' do %>
     <%= render :partial => 'account_status', 
         :locals => {:subscriber => @user, :subscriber_type => :user}%>
     <br clear="all"/>
@@ -25,7 +25,7 @@
     <%= f.input :mediafeed_visible, :as => :boolean, :label => "This user should appear in media request recipient filter?" %>    
   <% end %>
 
-  <% f.inputs :name => 'Username/Password' do %>
+  <%= f.inputs :name => 'Username/Password' do %>
     <%= f.input :username, :required => (action_name == 'new') %>
     <%= f.input :password, :as => :string, :label => "Password", 
         :required => (action_name == 'new') %>

@@ -300,7 +300,7 @@ function post_reply_text(){
 // Do it!
 bindColorbox();
 
-$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship, #colorbox form.james_beard_region').live('submit', colorboxForm);
+$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
 $('#complete_profile form.profile_cuisine').live('submit', colorboxForm);
 $("#create_employment_form").live('submit', colorboxForm);
 $("a.showit").showy();
@@ -507,19 +507,19 @@ updateRestoDirectoryList = function() {
 $restoSocialInputs.change(updateRestoDirectoryList);
 
 // get cities list by state name : Nishant
-$('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id').change(function(){
+$('#metropolitan_areas_state_state_id').change(function(){
 
-   $(this).next().html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
-   $this = $(this)
-   var user_id = $('#user_id').val()
+   $('#metropolitan_areas_state_cities').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
+
     if($(this).val())
         $.ajax({
-    data:'state_name=' + encodeURIComponent($(this).val()) +(user_id ? ('&user_id=' +user_id) : ''),
-        success:function(response){
-          $this.next().html(response)
-        },
-    url:'/mediafeed/get_cities'
-      });
+        data:'state_name=' + encodeURIComponent($(this).val()) +(user_id ? ('&user_id=' +user_id) : ''),
+            success:function(response){
+              $this.next().html(response)
+            },
+        url:'/mediafeed/get_cities'
+          });
+
 
 
 })
@@ -767,6 +767,7 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     }
   });
 
+
   $('.search-button').click(function(){
     var $form=$(this).parent().find("input:text");
     $('#restaurant_criteria input').not($form).val('');
@@ -866,4 +867,16 @@ function loderShow()
 function loderHide()
 {
   $('#loader-waiting').slideUp();
+}
+
+//for nested form rails3
+function remove_fields(link) {
+  $(link).prev("input[type=hidden]").val("1");
+  $(link).closest(".fields").hide();
+}
+
+function add_fields(link, association, content) {
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g")
+  $(link).parent().before(content.replace(regexp, new_id));
 }

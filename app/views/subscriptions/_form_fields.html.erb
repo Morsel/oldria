@@ -1,8 +1,8 @@
-<% form.semantic_fields_for :credit_card do |cc_form| %>
+<%= form.semantic_fields_for :credit_card do |cc_form| %>
   <p><%= cc_form.input :number, :label => "Visa/Mastercard Number",
-          :input_html => { :value => @customer.credit_card.number } %></p>
+          :input_html => { :value => @customer.credit_card.number, :size => 47} %></p>
 
-  <% content_tag :li,
+  <%= content_tag :li,
           :id => "customer_credit_card_number_expiration_date", :class => "date required" do %>
     <%= label_tag "customer[credit_card][expiration_month]", "Expiration Date" %>
     <%= cc_form.select :expiration_month,
@@ -13,12 +13,12 @@
                 @customer.credit_card.expiration_year) %>
   <% end %>
 
-  <% cc_form.semantic_fields_for :billing_address do |address_form| %>
+  <%= cc_form.semantic_fields_for :billing_address do |address_form| %>
     <p><%= address_form.input :postal_code, :label => "Billing Zip Code",
-            :input_html => { :value => @customer.credit_card.billing_address.postal_code } %></p>
+            :input_html => { :value => @customer.credit_card.billing_address.postal_code, :size => 47 } %></p>
   <% end %>
 
-  <p><%= cc_form.input :cvv, :label => "Security Code" %></p>
+  <p><%= cc_form.input :cvv, :label => "Security Code",:input_html => {:size => 47} %></p>
 <% end %>
 
 <%= hidden_field_tag "tr_data", h(@tr_data) %>

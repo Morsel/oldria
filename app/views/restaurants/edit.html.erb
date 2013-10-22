@@ -1,6 +1,6 @@
 <% @restaurant.logo ||= Image.new %>
 
-<% content_for :head do -%>
+<%= content_for :head do -%>
   <%= stylesheet_link_tag 'colorbox' %>
 <% end -%>
 
@@ -12,9 +12,9 @@
 
   <div id="editing_restaurant">
 
-  <% semantic_form_for(@restaurant) do |f| %>
+  <%= semantic_form_for(@restaurant) do |f| %>
 
-    <% f.inputs :name => "Account Status", :class => "editing account" do %>
+    <%= f.inputs :name => "Account Status", :class => "editing account" do %>
       <div class="current standout">Your current account status is <strong><%= @restaurant.account_type %></strong>.</div>
       <p>Basic accounts allow you to participate in Spoonfeed. If you would like to be included in Soapbox, please upgrade to a Premium Account. A restaurant premium account is $250/month... <%= link_to "More account information&nbsp;&#187;", "/account_types" %></p>
       <% if @restaurant.premium_account? %>
@@ -26,13 +26,13 @@
       <%= render :partial => 'subscriptions/account_links', :locals => {:subscriber => @restaurant, :subscriber_type => "restaurant"} %>
     <% end %>
 
-    <% f.inputs :name => "Basics", :class => "editing basics" do %>
+    <%= f.inputs :name => "Basics", :class => "editing basics" do %>
       <%= f.input :name %>
       <%= f.input :description, :as => :text, :label => "Tagline or short description (no more than 255 characters)" %>
-      <% button_tag :class => 'positive' do %>Save changes to basic information<% end %>
+      <%= button_tag :class => 'positive' do %>Save changes to basic information<% end %>
     <% end %>
 
-    <% f.inputs :name => "Address", :class => "editing address" do %>
+    <%= f.inputs :name => "Address", :class => "editing address" do %>
       <%= f.input :street1, :label => 'Street Address' %>
       <%= f.input :street2, :label => 'Street Address Line 2 (Optional)' %>
       <%= f.input :city %>
@@ -41,10 +41,10 @@
       <%= f.input :phone_number %>
       <%= f.input :metropolitan_area %>
       <%= f.input :james_beard_region, :label => "Region" %>
-      <% button_tag :class => 'positive' do %>Save changes to address<% end %>
+      <%= button_tag :class => 'positive' do %>Save changes to address<% end %>
     <% end -%>
 
-    <% f.inputs :name => 'Other', :class => "editing other" do %>
+    <%= f.inputs :name => 'Other', :class => "editing other" do %>
       <%= f.input :manager, :label => "Spoonfeed Account Administrator", :collection => @restaurant.managers %>
       <%= f.input :media_contact, :collection => @restaurant.employees %>
       <%= f.input :cuisine %>
@@ -52,7 +52,7 @@
       <%= f.input :website %>
       <%= f.input :management_company_name %>
       <%= f.input :management_company_website %>
-      <% button_tag :class => 'positive' do %>Save changes<% end %>
+      <%= button_tag :class => 'positive' do %>Save changes<% end %>
     <% end %>
 
   <% end %>
@@ -88,9 +88,8 @@
         <p>You don't appear to have access to any Facebook pages. If you'd like the change the page for this restaurant, please ask the admin to give you access through your Facebook account.</p>
       <% else %>
       <div class="clear">
-          <% form_tag fb_page_auth_restaurant_path(@restaurant) do %>
-          <p>
-              Configure a page to post to:<br/>
+          <%= form_tag fb_page_auth_restaurant_path(@restaurant) do %>
+          <p>Configure a page to post to:<br/>
               <%= select_tag "facebook_page", "<option>&nbsp;</option>" + options_from_collection_for_select(@fb_user.accounts, :id, :name, @restaurant.facebook_page_id.to_s) %><br>
               <%= button_tag "Save Facebook Page", :class => 'clear' %>
           </p>
@@ -119,16 +118,16 @@
       <%- end -%>
   </fieldset>
 
-  <% semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
+  <%= semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
 
-    <% f.inputs :name => 'Logo', :class => "editing", :id => "logo_image" do %>
+    <%= f.inputs :name => 'Logo', :class => "editing", :id => "logo_image" do %>
 
-      <% f.semantic_fields_for :logo do |logo_fields| %>
+      <%= f.semantic_fields_for :logo do |logo_fields| %>
         <%= image_tag @restaurant.logo.attachment.url(:medium), :id => "restaurant_logo_image" %>
           <%= logo_fields.input :attachment, :as => :file, :hint => "Please upload a jpeg, gif, or png" %>
         <% end %>
         <p id="delete-logo"><%= link_to "Remove restaurant logo", restaurant_logo_path(@restaurant, @restaurant.logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?", :class => "negative" %></p>
-        <% button_tag :class => 'positive' do %>Save logo changes<% end %>
+        <%= button_tag :class => 'positive' do %>Save logo changes<% end %>
     <% end %>
   <% end %>
 

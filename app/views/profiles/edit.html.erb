@@ -1,6 +1,6 @@
 <% title "Edit Profile: #{@user.name}" %>
 
-<% content_for :head do -%>
+<%= content_for :head do -%>
   <%= stylesheet_link_tag 'colorbox' %>
 <% end -%>
 
@@ -49,7 +49,7 @@
           <% end %>
         </fieldset>
 
-        <% semantic_form_for @user, :html => { :multipart => true } do |f| %>
+        <%= semantic_form_for @user, :html => { :multipart => true } do |f| %>
             <fieldset class="headshot inputs">
                 <legend><span>Profile Photo</span></legend>
 
@@ -58,7 +58,7 @@
 
                     <div class="clearfix headshot_fields">
                         <%= f.input :avatar, :as => "file", :label => "Upload a headshot" %>
-                        <strong><%= f.errors_on :avatar_content_type %></strong>
+                        <strong><%#= f.errors_on :avatar_content_type %></strong>
                         <p class="clearfix">
                             <%= button_tag "Upload Headshot", :class => 'positive' %>
                             <span class="button-separator"></span> 
@@ -69,21 +69,21 @@
             </fieldset>
         <% end %>
 
-        <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
-            <% f.inputs :name => "Metro and Region for search" do %>
+        <%= semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
+            <%= f.inputs :name => "Metro and Region for search" do %>
               <%= f.input :metropolitan_area %>
               <%= f.input :james_beard_region, :label => "Region" %>
               <br />
-              <% button_tag :class => 'positive' do %>Save changes for search<% end %>
+              <%= button_tag :class => 'positive' do %>Save changes for search<% end %>
             <% end %>
 
-            <% f.inputs :name => "Cuisines and Specialties" do %>
+            <%= f.inputs :name => "Cuisines and Specialties" do %>
             <div>
                 <%= f.input :specialties, 
                             :as => :check_boxes, 
                             :collection => Specialty.all, 
                             :label => "What are your specialties?" %>
-                <% button_tag :class => 'positive' do %>Save changes to specialties<% end %>
+                <%= button_tag :class => 'positive' do %>Save changes to specialties<% end %>
             </div>
 
             <div class="cuisines ajaxdelete clear">
@@ -97,9 +97,9 @@
             </div>
             <% end %><!-- Cuisines and specialties -->
           <% if @user.premium_account? && !@incomplete_profile.nil? %> 
-            <% f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
+            <%= f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
               <%= user_form.input :publish_profile, :as => :boolean, :label => 'Display my profile on Soapbox' %>
-            <% button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
+            <%= button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
             <% end %>
           <% else %>
             <fieldset class="inputs">
@@ -109,18 +109,18 @@
             </fieldset>
           <% end %>
 
-          <% f.inputs :name => 'Basic Information' do %>
+          <%= f.inputs :name => 'Basic Information' do %>
             <%= f.input :birthday, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
             <%= f.input :job_start, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
-            <%= f.input :headline %>
-            <%= f.input :summary, :hint => "Keep it under 1000 characters" %>
-            <%= f.input :hometown %>
-            <%= f.input :current_residence, :label => "In what city/state do you work?", :hint => "Or where you live, if currently unemployed" %>
-            <% button_tag :class => 'positive' do %> Save changes to basic information <% end %>
+            <%= f.input :headline,:input_html=> {:size => 63} %>
+            <%= f.input :summary, :hint => "Keep it under 1000 characters",:input_html=> {:size => 63,:cols=>61}  %>
+            <%= f.input :hometown,:input_html=> {:size => 63}  %>
+            <%= f.input :current_residence, :label => "In what city/state do you work?", :hint => "Or where you live, if currently unemployed",:input_html=> {:size => 63}  %>
+            <%= button_tag :class => 'positive' do %> Save changes to basic information <% end %>
           <% end %>
 
             <% if !@profile.new_record? && @user.employments.present? %>
-            <% f.inputs :name => "Current Employment" do %>
+            <%= f.inputs :name => "Current Employment" do %>
                 <label>Select your primary job role:</label>
                 <ul class="primary-employment">
                     <% for employment in @user.employments %>
@@ -128,7 +128,7 @@
                     <% end %>
                 </ul>
 
-        <% button_tag :class => 'positive' do %>Save changes to employment<% end %>
+        <%= button_tag :class => 'positive' do %>Save changes to employment<% end %>
             <% end %>
             <% end %>
         <% end %><%# non-basic details %>
@@ -213,8 +213,8 @@
     <div id="restaurant_profile_view" class="edit clear clearfix"> 
       <div id="editing_restaurant">
         <div id="restaurant_pages" class="clearfix">                         
-          <% semantic_form_for @user do |f| %>
-              <% f.inputs :name => "Editing" do %>
+          <%= semantic_form_for @user do |f| %>
+              <%= f.inputs :name => "Editing" do %>
                 <label for="user_editor">Allow another user to edit your account?</label>
                 <%= text_field_tag "user_editor", "", :name => "user[editor]" %>
                   <p class="inline-hints">Enter the name of the user to add</p>
@@ -255,7 +255,7 @@
 
             <% unless @fb_user.accounts.blank? %>
               <div class="clear">
-                  <% form_tag fb_page_auth_user_path(@user) do %>
+                  <%= form_tag fb_page_auth_user_path(@user) do %>
                     <p>Configure a page to post status updates to:<br>
                       <%= select_tag "facebook_page", "<option>&nbsp;</option>" + options_from_collection_for_select(@fb_user.accounts, :id, :name, @user.facebook_page_id.to_s) %><br>
                       <%= button_tag "Save Facebook Page", :class => 'clear' %></p>
@@ -284,8 +284,8 @@
 
       <%= render :partial => 'users/form' %>
 
-      <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
-      <% f.inputs :name => "Contact Information" do %>
+      <%= semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
+      <%= f.inputs :name => "Contact Information" do %>
           <div class="clear">
               <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, 
                   :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
@@ -295,8 +295,8 @@
           <div class="clear">
               <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, 
                   :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
-              <% f.semantic_fields_for :user do |user| %>
-                  <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
+              <%= f.semantic_fields_for :user do |user| %>
+                  <%= user.input :email, :wrapper_html => { :class => "span-6 last" },:input_html => {:size => 63} %>
               <% end %>
           </div>
 
@@ -321,7 +321,7 @@
             <p><%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %></p>
           <%- end -%>
 
-        <% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
+        <%= button_tag :class => 'positive' do %>Save changes to contact information<% end %>
 
       <% end %><!-- Contact information -->
       <% end %>
@@ -335,9 +335,9 @@
             <p>The Media Traffic Reports let you know what media have visited your restaurant profile and what they are researching. You receive this report via email in the frequency you select.</p>                
           </div>
           <div id="newsletter_settings" class="clearfix">
-            <% semantic_form_for @user, :html => { :multipart => true } do |f| %>          
+            <%= semantic_form_for @user, :html => { :multipart => true } do |f| %>          
               <% @user.build_user_visitor_email_setting if @user.user_visitor_email_setting.blank? %>
-              <% f.semantic_fields_for :user_visitor_email_setting do |u| %>
+              <%= f.semantic_fields_for :user_visitor_email_setting do |u| %>
                   <%= u.input :email_frequency,  :as => :select, :collection => ["Daily","Weekly","M/W/F"] %>
                   <%= u.input :do_not_receive_email,:label => " I do not want to receive any emails regarding media traffic to my restaurant profile. " %>
                   <%end%>
@@ -348,23 +348,23 @@
       <div>
     <div><hr/>
 
-      <% semantic_form_for @user do |f| %>
+      <%= semantic_form_for @user do |f| %>
 
-          <% f.inputs :name => 'Media Inquiries' do %>
+          <%= f.inputs :name => 'Media Inquiries' do %>
               <%= f.input :media_inquiries, :as => :boolean, :label => ' I would like to receive media inquiries as they are posted by media' %>
               <p class="inline-hints"><i>Journalists post requests for information for stories they are working on, which you can receive and respond to for free.</i></p>
               <%= f.input :media_notification, :as => :boolean, :label => ' I would like to receive notification if other members of my restaurant respond to media inquiries' %>
               <p class="inline-hints"><i>If you need to know when your coworkers respond to media inquires, please check this preference. You will receive a lot of emails!!.</i></p>
               <p><%= button_tag "Save Media Inquiries", :class => 'positive' %></p>
           <% end %>
-          <% f.inputs :name => "What's New" do %>
+          <%= f.inputs :name => "What's New" do %>
               <%= f.input :whats_new, :as => :boolean, :label => " I would like to receive What's New questions via email" %>
               <p class="inline-hints"><i>What's New questions pertain to trends and by participating in this forum, media will know to include you in research about a topic.</i></p>
               <%= f.input :whats_new_notification, :as => :boolean, :label => " I would like to receive notification when other members of my restaurant respond to What's New" %>
                <p class="inline-hints"><i>You can elect to receive notification of responses posted by your coworkers.</i></p>
               <p><%= button_tag "Save What's New", :class => 'positive' %></p>
           <% end %>
-          <% f.inputs :name => "Question of the Day" do %>
+          <%= f.inputs :name => "Question of the Day" do %>
               <%= f.input :qotd, :as => :boolean, :label => " Receive Question of the Day via email" %> 
               <p class="inline-hints"><i>Questions about timely news and topics, sent to help you be a part of the online conversation.</i></p>
               
@@ -394,7 +394,7 @@
 </div><!-- /restaurant_profile_view -->
 
 </section>
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 <script type="text/javascript">
 $(document).ready(function() {
   if ($('#user_user_visitor_email_setting_attributes_do_not_receive_email').is(':checked')) {
@@ -447,7 +447,7 @@ $(document).ready(function() {
 <% end %>
 
 <% if @user.errors.present? && @user.errors.on(:avatar_content_type).nil? %>
-  <% content_for :javascript do %>
+  <%= content_for :javascript do %>
   <script type="text/javascript">
     $(document).ready(function() {
       $('#profile-tabs').tabs('select', 'profile-account');

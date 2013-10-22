@@ -1,6 +1,6 @@
 <% title "Online Press Kit - #{@subject.name}", false %>
 
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"presskit-art\">Online Press Kit:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>", path_for_restaurant_and_page(@restaurant, @page) %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"presskit-art\">Online Press Kit:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>".html_safe, path_for_restaurant_and_page(@restaurant, @page) %></h1>
 
 <h2 id="topic_title">Topics</h2>
 

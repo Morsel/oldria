@@ -1,6 +1,6 @@
 class AccoladesController < ApplicationController
   before_filter :require_user
-  before_filter :get_accoladable, :only => [:new, :create]
+  before_filter :get_accoladable, :only => [:new, :create,:edit]
 
   def new
     @accolade = @accoladable.accolades.build
@@ -20,7 +20,7 @@ class AccoladesController < ApplicationController
         end
       else
         wants.html { render :new }
-        wants.json { render :json => render_to_string(:partial => "#{@accolade.accoladable.type.to_s.downcase}_form.html.erb"), :status => :unprocessable_entity }
+        wants.json { render :json => render_to_string(:partial => "#{@accolade.accoladable.class.to_s.downcase}_form.html.erb"), :status => :unprocessable_entity }
       end
     end
   end
@@ -46,7 +46,7 @@ class AccoladesController < ApplicationController
         } }
       else
         wants.html { render :new }
-        wants.json { render :json => render_to_string(:partial => "#{@accolade.accoladable.type.downcase}_form.html.erb"), :status => :unprocessable_entity }
+        wants.json { render :json => render_to_string(:partial => "#{@accolade.accoladable.class.downcase}_form.html.erb"), :status => :unprocessable_entity }
       end
     end
   end

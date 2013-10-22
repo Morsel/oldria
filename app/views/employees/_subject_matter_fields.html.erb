@@ -6,6 +6,6 @@
 <%= f.input :subject_matters,
   :as => :check_boxes,
   :wrapper_html => {:class => 'checkall', :id => "employment_general_subject_matters"},
-  :collection => SubjectMatter.general.all,
+  :collection => SubjectMatter.all,
   :label => "This staffer is allowed to freely speak to the media about the following subject(s):",
   :input_html => { :disabled => @restaurant.manager == @employee } %>

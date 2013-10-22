@@ -1,4 +1,4 @@
-<% semantic_form_for @admin_announcement, :html => {:multipart => true} do |f| %>
+<%= semantic_form_for @admin_announcement, :html => {:multipart => true} do |f| %>
   <%= f.inputs :message, :scheduled_at %>
   
   <% f.fields_for :attachments do |child_form| -%>

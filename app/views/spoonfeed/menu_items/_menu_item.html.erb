@@ -1,5 +1,5 @@
 <% buttons ||= false %>
-<% div_for menu_item do %>
+<%=div_for menu_item do %>
     <h2><%= link_to menu_item.name, restaurant_path(menu_item.restaurant) %>
         <% if buttons %>
         <div style="float:right">

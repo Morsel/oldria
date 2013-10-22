@@ -2,7 +2,7 @@
 <p>Possible you forgot your password? We can help you set up a new one in a jiff.</p>
 <p><%= flash[:notice] %></p>
 <p><%= flash.now[:error] %></p>
-<% form_tag soapbox_soapbox_password_resets_path do %>
+<%= form_tag soapbox_soapbox_password_resets_path do %>
   <p>
     <%= label_tag "email", "Email" %>
     <%= text_field_tag "email", "", :class => 'text wider' %>

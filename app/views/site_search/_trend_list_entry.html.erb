@@ -1,5 +1,5 @@
 <li>
-  <% link_to "#" do %>
+  <%= link_to "#" do %>
     <% date = trend_list_entry.scheduled_at %>
     <time datetime="<%= date.try(:strftime,'%Y-%m-%d') %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
     <span class="title"><%= trend_list_entry.display_message || trend_list_entry.subject %></span>

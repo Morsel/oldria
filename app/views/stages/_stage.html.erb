@@ -1,4 +1,4 @@
-<% content_tag_for :li, stage, :class => cycle('odd','even') do %>
+<%= content_tag_for :li, stage, :class => cycle('odd','even') do %>
   <span class="extended-title"><%= stage.establishment %></span>
   with <%= stage.expert %><br />
   <% if stage.end_date %>

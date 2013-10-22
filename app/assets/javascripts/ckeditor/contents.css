@@ -1,0 +1,162 @@
+/*
+Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+body
+{
+	/* Font */
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 12px;
+	line-height: 1.5em;
+	/* Text color */
+	color: #222;
+
+	/* Remove the background color to make it transparent */
+	background-color: #fff;
+	margin: 12px;
+}
+
+html
+{
+	/* #3658: [IE6] Editor document has horizontal scrollbar on long lines
+	To prevent this misbehavior, we show the scrollbar always */
+	_overflow-y: scroll
+}
+
+img:-moz-broken
+{
+	-moz-force-broken-image-icon : 1;
+	width : 24px;
+	height : 24px;
+}
+img, input, textarea
+{
+	cursor: default;
+}
+
+
+h1,h2,h3,h4,h5,h6 {
+	font-family: "helvetica neue", helvetica, arial, sans-serif;
+}
+
+h1,h2,h3 {
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+h2 {
+	color: #333;
+}
+
+h3 {
+	color: #276b96;
+	margin: 0 0 .5em 0;
+}
+
+h4 {
+	color: #333;
+}
+
+blockquote {
+	margin: 0px 0px 10px 0px;
+	color: #666;
+	font-family: Georgia, "trebuchet MS", "times new roman", serif;
+	padding-left: 36px;
+	padding-bottom: 0px;
+}
+
+pre {
+	font-size: .9em;
+	font-family: monospace;
+}
+
+dl {
+	margin: 10px 0px 20px 0px;
+}
+
+dt {
+	font-size: 1em;
+	font-weight: bold;
+	color: #111;
+	font-family: helvetica, arial, sans-serif;
+	line-height: 15px;
+	margin: 10px 0px 2px 0px;
+	padding: 0px;
+}
+
+dd {
+	font-size: 1em;
+	font-weight: normal;
+	color: #444;
+	font-family: helvetica, arial, sans-serif;
+	line-height: 17px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px;
+}
+
+big {
+	font-size: 115%;
+}
+
+small {
+	font-size: 85%;
+}
+
+code {
+	font-family: monospace;
+}
+
+del {
+	color: #999;
+	text-decoration: line-through;
+}
+
+ins {
+	background-color: #dbf4d6;
+	padding: 2px;
+	text-decoration: none;
+	border: 0px;
+}
+
+img, img.left {
+	border: 1px solid #ddd;
+	padding: 3px;
+	float: left;
+	margin: 6px 16px 16px 0px;
+}
+
+img.right {
+	float: right !important;
+	margin: 6px 0 16px 16px;
+}
+
+
+p.text-left {
+	width: 200px;
+	float: left;
+	display: inline;
+	padding-right: 20px;
+	font-family: 'Helvetica neue', arial, sans-serif;
+	font-size: 1.3em;
+	line-height: 20px;
+	font-weight: bold;
+	color: #276b96;
+	}
+
+p.text-right {
+	width: 200px;
+	float: right;
+	display: inline;
+	padding-left: 20px;
+	font-family: 'Helvetica neue', arial, sans-serif;
+	font-size: 1.3em;
+	line-height: 20px;
+	font-weight: bold;
+	color: #276b96;
+	}
+
+

@@ -11,7 +11,7 @@
 
             <% for item in @menu_items %>
             <figure>
-                <% link_to restaurant_menu_items_path(@restaurant, :anchor => "menu_item_#{item.id}") do %>
+                <%= link_to restaurant_menu_items_path(@restaurant, :anchor => "menu_item_#{item.id}") do %>
                   <%= image_tag(item.photo.url(:small)) if item.photo_file_name.present? %>
                 <% end %>
                 <figcaption>
@@ -134,13 +134,13 @@
 		<div class="bottomMenu" style="width:480px;">
 			<h2><span>Newsfeed</span><%= link_to "see all newsfeed items", restaurant_promotions_path(@restaurant) , :class => "gray" %></h2>
 			<% for promotion in @promotions -%>
-			<% div_for promotion do %>
+			<%=div_for promotion do %>
 				<h3><%= link_to "#{promotion.title}:", restaurant_promotions_path(promotion.restaurant) %> <%= promotion.headline %></h3>
 				<p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></p>
 				<p>
-					<%= Loofah::Helpers.sanitize(truncate(promotion.details, :length => 300)) %>
+					<%= Loofah::Helpers.sanitize(truncate(promotion.details, :length => 300)).html_safe %>
 					<% if promotion.details.size > 200 -%>
-					<%= link_to "more &raquo;", restaurant_promotions_path(promotion.restaurant) %>
+					<%= link_to "more &raquo;".html_safe, restaurant_promotions_path(promotion.restaurant) %>
 					<%- end %>
 				</p>
 			<% end %>

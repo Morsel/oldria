@@ -8,7 +8,7 @@
 	<div id="features">
 	    <h2><%= @page.name %></h2>
   	    <% @restaurant.categories_for_page(@page).each do |category| %>
-  	    <% div_for category do -%>
+  	    <%=div_for category do -%>
   	        <h3><%= category.name %></h3>
             <ul>
                 <% @restaurant.features_for_category(category).each do |feature| %>

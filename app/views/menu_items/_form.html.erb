@@ -1,5 +1,5 @@
-<% semantic_form_for [@restaurant, @menu_item], :html => {:multipart => true} do |f| %>
-    <% f.inputs :class=>"menu_form" do %>
+<%= semantic_form_for [@restaurant, @menu_item], :html => {:multipart => true} do |f| %>
+    <%= f.inputs :class=>"menu_form" do %>
       <li>
          <%= f.label :name, :label => "Name of Dish/Drink/Wine/Beer" %></br>
          <%= f.input :name, :label => false %>
@@ -90,7 +90,7 @@
                 <% if twitter_post.try(:posted?) %>
                   This Tweet posted on <%= twitter_post.post_at.strftime('%Y-%m-%d %H:%M') %>
                 <% else %>
-                  <% f.semantic_fields_for :twitter_posts, twitter_post do |twitter| %>
+                  <%= f.semantic_fields_for :twitter_posts, twitter_post do |twitter| %>
                     <h4>Twitter Post #<%= index+1 %></h4>
 
                     <%= twitter.input :post_at, :label => "Post to my Twitter account on", :as => :string, :input_html => { :class => 'datetime datetime-width',
@@ -122,7 +122,7 @@
                   This Facebook post was submitted on <%= facebook_post.post_at.strftime('%Y-%m-%d %H:%M') %>
                 <% else %>
                   <% begin %>
-                    <% f.semantic_fields_for :facebook_posts, facebook_post do |facebook| %>
+                    <%= f.semantic_fields_for :facebook_posts, facebook_post do |facebook| %>
                       <h4>Facebook Post #<%= index+1 %></h4>
 
                       <%= facebook.input :post_at, :label => "Post to Facebook page \"#{@restaurant.facebook_page.fetch.name}\" on", :as => :string, :input_html => { :class => 'datetime datetime-width',
@@ -153,7 +153,7 @@
     <%= submit_tag "Save" %>
 <% end %>
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 <script type="text/javascript">
   $(document).ready(function() {
 

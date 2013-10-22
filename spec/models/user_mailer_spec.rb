@@ -1,7 +1,7 @@
 require 'spec/spec_helper'
 
 describe UserMailer do
-  include ActionController::UrlWriter
+include ActionDispatch::Routing::UrlFor
 
   default_url_options[:host] = DEFAULT_HOST
 

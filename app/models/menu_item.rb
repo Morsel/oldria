@@ -20,9 +20,9 @@
 
 class MenuItem < ActiveRecord::Base
 
-  include ActionView::Helpers::TextHelper
-  include ActionController::UrlWriter
-  default_url_options[:host] = DEFAULT_HOST
+  include ActionDispatch::Routing::UrlFor
+include Rails.application.routes.url_helpers
+default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :restaurant
 
@@ -39,8 +39,8 @@ class MenuItem < ActiveRecord::Base
 
   has_attached_file :photo,
                     :storage        => :s3,
-                    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
-                    :path           => "#{RAILS_ENV}/otm_photos/:id/:style/:filename",
+                    :s3_credentials => "#{Rails.root}/config/environments/#{Rails.env}/amazon_s3.yml",
+                    :path           => "#{Rails.env}/otm_photos/:id/:style/:filename",
                     :bucket         => "spoonfeed",
                     :url            => ':s3_domain_url',
                     :styles         => { :full => "1966x2400>", :large => "360x480>", :medium => "240x320>", :small => "189x150>", :thumb => "120x160>" }
@@ -52,18 +52,19 @@ class MenuItem < ActiveRecord::Base
   validates_presence_of :name, :description, :restaurant
   validates_format_of :price, :with => RestaurantFactSheet::MONEY_FORMAT
 
-  named_scope :from_premium_restaurants, lambda {
+  scope :from_premium_restaurants, lambda {
     { :joins => { :restaurant => :subscription },
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
           Date.today] }
   }
 
-  named_scope :activated_restaurants, {
+  scope :activated_restaurants, {
     :joins => :restaurant,
     :conditions => ["restaurants.is_activated = ?", true]
   }
 
   attr_accessor :search_keywords
+  attr_accessible :post_to_twitter_at, :post_to_facebook_at,:name, :description, :price, :pairing, :search_keywords, :otm_keyword_ids
 
   def keywords
     otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence

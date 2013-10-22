@@ -1,4 +1,4 @@
-<% table_for(feeds, :class => 'feeds') do |t| %>
+<%= table_for(feeds, :class => 'feeds') do |t| %>
  <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
       t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
       t.cell :title

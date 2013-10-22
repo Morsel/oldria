@@ -1,5 +1,5 @@
 <div >
-  <% form_tag(confirmation_screen_restaurant_path(@restaurant), :multipart => true, :method=>'post') do %>  
+  <%= form_tag(confirmation_screen_restaurant_path(@restaurant), :multipart => true, :method=>'post') do %>  
 
    <div class="left" ><%= file_field_tag "document"%> </div>
    <div class="left" ><%= submit_tag 'Import csv' %></div>

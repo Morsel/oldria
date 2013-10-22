@@ -1,6 +1,7 @@
 class FrontBurnerController < ApplicationController
 
   before_filter :require_user
+  require 'will_paginate/array'
 
   def index
     @user = current_user

@@ -1,4 +1,4 @@
-<% semantic_form_for [:admin, @feed_category] do |f| %>
+<%= semantic_form_for [:admin, @feed_category] do |f| %>
   <%= f.inputs :name %>
 
   <p><%= button_tag 'Save', :class => 'positive' %></p>

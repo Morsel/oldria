@@ -1,7 +1,7 @@
 <% buttons ||= false %>
-<% div_for(promotion) do %>
+<%=div_for(promotion) do %>
     <h2>
-        <% link_to restaurant_path(promotion.restaurant) do %>
+        <%= link_to restaurant_path(promotion.restaurant) do %>
             <% if @promotion_type.present? -%>
               <%= "#{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
             <% else -%>

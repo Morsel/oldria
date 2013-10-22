@@ -22,7 +22,7 @@ class WelcomeController < ApplicationController
       @announcements = current_user.unread_announcements
       @announcements.each { |announcement| announcement.read_by!(current_user) }
       params[:is_more] ? set_up_dashboard_with_pagination : set_up_dashboard
-      render :dashboard
+      render :dashboard , :layout => 'application'
     else
       @testimonials = Testimonial.for_page("Spoonfeed").by_position
       render :layout => 'home'

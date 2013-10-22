@@ -19,12 +19,12 @@ class JamesBeardRegion < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :description
 
-  named_scope :with_restaurants,
+  scope :with_restaurants,
     :joins => :restaurants,
     :conditions => 'restaurants.deleted_at IS NULL',
     :group => "#{table_name}.id"
 
-  named_scope :with_profiles,
+  scope :with_profiles,
     :joins => :profiles,
     :group => "#{table_name}.id"
 

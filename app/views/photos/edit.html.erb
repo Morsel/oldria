@@ -5,10 +5,10 @@
 	<div id="editing_restaurant">
   	<h2>Photos</h2>
 		<div class="upload_photo editing">
-  		<% semantic_form_for :photo, :url => restaurant_photo_path(@restaurant, @photo),
+  		<%= semantic_form_for :photo, :url => restaurant_photo_path(@restaurant, @photo),
           :html => { :multipart => true, :method => :put } do |photo_form| %>
         <% photo_form.inputs "Edit Photo" do %>
-          <%= photo_form.error_messages %>
+          <%#= photo_form.error_messages %>
 
           <li id="photo_attachment_input" class="file optional">
             <label for="photo_attachment">Attachment</label>
@@ -33,7 +33,7 @@
 </div><!-- /restaurant_profile_view -->
 
 
-<% javascript_tag do %>
+<%= javascript_tag do %>
     jQuery(function($) {
       $(".toggle_new_photo").click(function(e) {
         e.preventDefault();

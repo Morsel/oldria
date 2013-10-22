@@ -1,6 +1,6 @@
  <% title "On the Menu At #{@restaurant.name}" %>
 <div class="color-box-restaurant">
-    <% form_tag menu_items_path  do %>
+    <%= form_tag menu_items_path  do %>
         <label for="otm_keyword_editor">Search</label>
         <%= text_field_tag "otm_keyword_search", "", :name => "keyword" %>
         <p class="inline-hints">Enter the name of the Otm Keyword to search</p>

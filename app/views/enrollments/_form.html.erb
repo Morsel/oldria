@@ -1,6 +1,6 @@
 <%= "<h1>#{yield :title}</h1>" if request.xhr? %>
-<% semantic_form_for @enrollment.new_record? ? [:user, :profile, setup_enrollment(@enrollment)] : setup_enrollment(@enrollment) do |f| %>
-  <% f.inputs :class => "enrollments" do %>
+<%= semantic_form_for @enrollment.new_record? ? [:user, :profile, setup_enrollment(@enrollment)] : setup_enrollment(@enrollment) do |f| %>
+  <%= f.inputs :class => "enrollments" do %>
   
     <% if @enrollment.errors.blank? || (!@enrollment.errors.first.nil? && @enrollment.errors.first.include?("school")) %>
     <%= f.input :school %>
@@ -14,7 +14,7 @@
      <%else%>
      <div id="school_fields">
      <%end%> 
-      <% f.semantic_fields_for :school do |school| %>
+      <%= f.semantic_fields_for :school do |school| %>
         <%= school.input :name, :label => 'School Name' %>
         <%= school.input :city, :input_html => {:class => 'span-5'},
           :wrapper_html => {:class => 'span-5 column'} %>
@@ -47,9 +47,9 @@
       <p class="inline-hints">Leave blank if you did not graduate</p>
     </li>
 
-    <%= f.input :degree %>
-    <%= f.input :focus, :hint => 'Did you have any special focus?' %>
-    <%= f.input :scholarships, :hint => "Did you receive any awards or special scholarships?" %>
+    <%= f.input :degree ,:input_html=>{:size=>50}%>
+    <%= f.input :focus, :hint => 'Did you have any special focus?' ,:input_html=>{:size=>50,:cols=>50}%>
+    <%= f.input :scholarships, :hint => "Did you receive any awards or special scholarships?" ,:input_html=>{:size=>50,:cols=>50}%>
   <% end %>
   <%= button_tag "Save" %>
 <% end %>

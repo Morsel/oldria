@@ -1,4 +1,4 @@
-<% div_for mediafeed_media_request, :class => 'clearfix box extended discussion thread' do %>
+<%=div_for mediafeed_media_request, :class => 'clearfix box extended discussion thread' do %>
     <ul class="message_headers">
         <li>
             <h4><%= mediafeed_media_request.subject_matter.name %></h4>
@@ -31,4 +31,4 @@
           You sent this on <%= mediafeed_media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>
         <% end %>
     </p>
-<% end #div_for mediafeed_media_request -%>
+<% end #=div_for mediafeed_media_request -%>

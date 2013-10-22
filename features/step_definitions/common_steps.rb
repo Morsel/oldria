@@ -38,15 +38,15 @@ When /^I follow "([^\"]*)" within the "([^\"]*)" section$/ do |link, relselector
 end
 
 When /^I attach an image "([^\"]*)" to "([^\"]*)"$/ do |attachment, field|
-  attach_file(field, RAILS_ROOT + "/features/support/paperclip/image/#{attachment}")
+  attach_file(field, Rails.root + "/features/support/paperclip/image/#{attachment}")
 end
 
 When /^I attach the image "([^\"]*)" to "([^\"]*)" on S3$/ do |attachment, field|
-  attach_file(field, RAILS_ROOT + "/#{attachment}")
+  attach_file(field, Rails.root + "/#{attachment}")
 end
 
 When /^(?:|I )attach the file "([^\"]*)" to "([^\"]*)" on S3$/ do |file_path, field|
-  attach_file(field, RAILS_ROOT + file_path)
+  attach_file(field, Rails.root + file_path)
 end
 
 When /^(?:|I )select "([^\"]*)" as the "([^\"]*)" time$/ do |time, selector|

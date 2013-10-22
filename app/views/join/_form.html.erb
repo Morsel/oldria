@@ -1,4 +1,4 @@
-<% form_tag registration_path, :id => "join" ,:class=>"sign-up-form" do %>
+<%= form_tag registration_path, :id => "join" ,:class=>"sign-up-form" do %>
 <div class="left">
     <%= text_field_tag "first_name", "", :id => "firstName", :class => "standard-filler", :alt => "First Name", :required => "" %>
     <%= text_field_tag "last_name", "", :id => "lastName", :class => "standard-filler", :alt => "Last Name", :required => "" %>
@@ -15,7 +15,7 @@
     <p class="inline-hints">Your role helps the media find you when they are looking for sources for stories.  If you are "chef/owner" select that and not "owner": you will receive more opportunities!</p>
     <h4>Area(s) of expertise</h4>
     <p class="inline-hints">I am comfortable answering questions and speaking to the media about the following topics:</p>
-    <% for subject in SubjectMatter.general.all %>
+    <% for subject in SubjectMatter.all %>
     <p><%= check_box_tag "subject_matters[#{subject.id}]" %> <label for="subject_matters_<%= subject.id %>"><%= subject.name %></label></p>
     <% end %>
 </div>

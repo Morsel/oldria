@@ -1,7 +1,7 @@
 <% title "What's New: #{@trend_question.display_message}" %>
 
 <% for discussion in @discussions %>
-<% div_for discussion, :class => "clearfix" do %>
+<%=div_for discussion, :class => "clearfix" do %>
     <%= render :partial => "restaurants/identity", :locals => { :restaurant => discussion.restaurant } %>
 	<p><%= simple_format discussion.comments.first.comment %></p>
 <% end %>

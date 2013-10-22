@@ -27,10 +27,12 @@
   //]]>
   </script>
   <%- end -%>
+
   <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js' %>
   <% if (params[:controller].split('/')[0]=="directory" && params[:action]=="restaurants") || (params[:controller].split('/')[0]=="directory" && params[:action]=="index")%>
     <%= javascript_include_tag '/spoonfeed/_js/autocomplete-filter' %>
   <%end%>
+  <%= javascript_include_tag 'jquery_ujs' %>
   <%= render :partial => 'layouts/ga' %>
 </head>
 

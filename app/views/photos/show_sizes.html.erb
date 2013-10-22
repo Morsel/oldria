@@ -1,7 +1,7 @@
 <h2>All Sizes</h2>
 
 <% [nil, :medium, :small, :thumbnail].each do |size| %>
-  <% div_for(@photo) do %>
+  <%=div_for(@photo) do %>
     <%= image_tag @photo.attachment.url(size) %>
     <p>Size: <%= size ? size.to_s : "Original" %></p>
   <% end %>

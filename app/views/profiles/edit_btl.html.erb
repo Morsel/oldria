@@ -3,7 +3,7 @@
     <% reset_cycle('default') -%>
     <% @user.topics.each do |topic| %>
     <li class="<%= cycle("even", "odd") %>">
-        <% link_to user_btl_topic_path(:user_id => @user.id, :id => topic.id) do %>
+        <%= link_to user_btl_topic_path(:user_id => @user.id, :id => topic.id) do %>
         <h5><%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(@user) %>% complete)</span></h5>
         <%= topic.description || truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>
         <% end %>

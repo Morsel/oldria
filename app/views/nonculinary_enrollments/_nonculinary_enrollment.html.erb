@@ -1,4 +1,4 @@
-<% content_tag_for :li, nonculinary_enrollment, :class => cycle('odd','even') do %>
+<%= content_tag_for :li, nonculinary_enrollment, :class => cycle('odd','even') do %>
   <span class="extended-title"><%= nonculinary_enrollment.nonculinary_school.try :name %> <span>(<%= nonculinary_enrollment.graduation_date.try(:year) || "Did not graduate" %>)</span></span>
   <%= nonculinary_enrollment.degree %><br>
   <%= nonculinary_enrollment.field_of_study %><br>

@@ -20,8 +20,8 @@ class SubjectMatter < ActiveRecord::Base
   validates_presence_of :name
   default_scope :order => "#{table_name}.name ASC"
 
-  named_scope :nongeneral, :conditions => ["general IS NULL OR general = ?", false]
-  named_scope :media_viewable, :conditions => ["private IS NULL or private = ?", false]
+  scope :nongeneral, :conditions => ["general IS NULL OR general = ?", false]
+  scope :media_viewable, :conditions => ["private IS NULL or private = ?", false]
 
   def admin_only?
     name =~ /RIA/ # || private?

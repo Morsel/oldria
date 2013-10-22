@@ -7,7 +7,7 @@
 <% for topic in @topics %>
   <h2><%= topic.title %>:</h2>
   <% if topic.chapters.present? %>
-  <% table_for @chapters_by_topic[topic] do |t| %>
+  <%= table_for @chapters_by_topic[topic] do |t| %>
   <% t.data do
         t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
     t.cell(:title)

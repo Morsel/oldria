@@ -1,11 +1,11 @@
-<% semantic_form_for [:admin, @soapbox_entry] do |f| %>
+<%= semantic_form_for [:admin, @soapbox_entry] do |f| %>
 	<% if @soapbox_entry.featured_item %>
 		<%= render @soapbox_entry.featured_item %>
 		<%= f.hidden_field :featured_item_id %>
 		<%= f.hidden_field :featured_item_type, :value => @soapbox_entry.featured_item.class %>
 	<% end %>
 
-	<% f.inputs do %>
+	<%= f.inputs do %>
 		<%= f.input :description %>
 		<%= f.input :published_at %>
 		<%= f.input :daily_feature %>

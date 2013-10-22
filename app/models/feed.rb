@@ -17,8 +17,8 @@
 
 class Feed < ActiveRecord::Base
   attr_accessible :url, :feed_url, :title, :featured, :feed_category_id
-  named_scope :featured, :conditions => ['featured=?', true]
-  named_scope :uncategorized, :conditions => {:feed_category_id => nil}
+  scope :featured, :conditions => ['featured=?', true]
+  scope :uncategorized, :conditions => {:feed_category_id => nil}
   default_scope :order => :position
   belongs_to :feed_category
   has_many :feed_entries, :dependent => :destroy
@@ -29,7 +29,8 @@ class Feed < ActiveRecord::Base
   acts_as_list :scope => :feed_category
 
   before_create :normalize_feed_url
-  after_validation_on_create :fetch_and_parse_if_needed
+  before_validation :fetch_and_parse_if_needed, :on => :create
+  # after_validation_on_create :fetch_and_parse_if_needed
   after_create :update_entries
 
   attr_accessor :no_entries

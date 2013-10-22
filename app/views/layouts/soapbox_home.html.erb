@@ -13,7 +13,7 @@
   <meta property="og:title" content="<%= title %>">
   <meta property="og:description" content="<%= h(yield(:fb_description) || "")  %>" />
   <%= yield(:facebook_meta) %>
-  <meta property="fb:app_id" content="<%= RAILS_ENV == 'staging' ? '138436116175329' : '147177445296317' %>"/>
+  <meta property="fb:app_id" content="<%= Rails.env == 'staging' ? '138436116175329' : '147177445296317' %>"/>
   <link rel="shortcut icon" href="/favicon-sb.ico">
   <%= stylesheet_link_tag "/soapbox/_css/museoslab/stylesheet.css", "colorbox.css", :media => "screen" %>
   <%= stylesheet_link_tag "/soapbox/_css/soapbox_home.css", "colorbox.css", :media => "screen" %>
@@ -65,7 +65,7 @@
           <!-- add-nav -->
           <%= render 'layouts/site_nav_soapbox' %>
         </div>
-        <% form_tag soapbox_search_path ,:class=>"search-form", :method => "get" do %>
+        <%= form_tag soapbox_search_path ,:class=>"search-form", :method => "get" do %>
         <!-- <form class="search-form" action="#"> -->
           <fieldset>
             <input type="submit" value="search">
@@ -92,13 +92,13 @@
             <ul>
              <li> <%= link_to content_tag(:span, 'Home'), soapbox_root_path, :id => "nav-home", :class => active_page?('/soapbox') %></li>
 
-             <li> <%= link_to content_tag(:span,'A la <br>Minute'), '/soapbox/a_la_minute_questions', :id => "nav-alm", :class => active_page?('/soapbox/a_la_minute_questions') %></li>
+             <li> <%= link_to content_tag(:span,'A la <br>Minute'.html_safe), '/soapbox/a_la_minute_questions', :id => "nav-alm", :class => active_page?('/soapbox/a_la_minute_questions') %></li>
 
-              <li><%= link_to content_tag(:span,'On the<br> Menu'), soapbox_menu_items_path, :id => "nav-otm", :class => active_page?('/soapbox/on_the_menu') %></li>
+              <li><%= link_to content_tag(:span,'On the<br> Menu'.html_safe), soapbox_menu_items_path, :id => "nav-otm", :class => active_page?('/soapbox/on_the_menu') %></li>
 
-              <li><%= link_to content_tag(:span,'Personal <br> Profiles'), '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %></li>
+              <li><%= link_to content_tag(:span,'Personal <br> Profiles'.html_safe), '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %></li>
 
-              <li><%= link_to content_tag(:span,'Restaurant <br> Profiles'), soapbox_restaurant_directory_path, :id => "nav-directory", :class => active_page?('/soapbox/directory') %></li>
+              <li><%= link_to content_tag(:span,'Restaurant <br> Profiles'.html_safe), soapbox_restaurant_directory_path, :id => "nav-directory", :class => active_page?('/soapbox/directory') %></li>
 
              <li> <%= link_to content_tag(:span,'Join'), soapbox_join_path, :id => "nav-join", :class => "last" %>
              </li>

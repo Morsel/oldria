@@ -1,12 +1,12 @@
 <% title "Culinary Schools" %>
 
 <h3>Culinary Schools</h3>
-<% table_for(@culinary_schools) do |t| %>
+<%= table_for(@culinary_schools) do |t| %>
   <%= t.data :actions => :all, :action_prefix => 'admin' %>
 <% end %>
 
 <h3>Other Schools</h3>
-<% table_for(@nonculinary_schools) do |t| %>
+<%= table_for(@nonculinary_schools) do |t| %>
   <%= t.data :actions => :all, :action_prefix => 'admin' %>
 <% end %>
 

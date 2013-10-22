@@ -23,29 +23,29 @@ class ProfileAnswer < ActiveRecord::Base
   attr_accessor :post_to_facebook, :share_url
   after_save    :crosspost
 
-  named_scope :from_premium_users, {
+  scope :from_premium_users, {
     :joins => { :user => :subscription },
     :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
       Date.today]
   }
 
-  named_scope :from_public_users, {
+  scope :from_public_users, {
     :joins => :user,
     :conditions => ["users.publish_profile = ?", true]
   }
 
-  named_scope :from_premium_and_public_users, {
+  scope :from_premium_and_public_users, {
     :joins => { :user => :subscription },
     :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?) AND users.publish_profile = ?",
       Date.today, true]
   }
 
-  named_scope :recently_answered, :order => "profile_answers.created_at DESC"
+  scope :recently_answered, :order => "profile_answers.created_at DESC"
 
-  named_scope :without_travel, :joins => { :profile_question => { :chapter => :topic }},
+  scope :without_travel, :joins => { :profile_question => { :chapter => :topic }},
       :conditions => ["topics.title != ?", "Travel Guide"]
 
-  named_scope :for_topic, lambda { |topic|
+  scope :for_topic, lambda { |topic|
     { :joins => { :profile_question => { :chapter => :topic } },
       :conditions => ["topics.id = ?", topic.id] }
   }

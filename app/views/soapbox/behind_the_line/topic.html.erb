@@ -9,7 +9,7 @@
 <div class="clear"></div>
 
 <% for answer in @answers %>
-<% div_for answer do %>
+<%=div_for answer do %>
     <div class="activity_header">
         <h3><%= link_to "#{answer.profile_question.title}", soapbox_profile_question_path(answer.profile_question) %></h3>
     </div>
@@ -18,6 +18,6 @@
 <div class="clear">&nbsp;</div>
 <% end %>
 
-<% content_for :sidebar do -%>
+<%= content_for :sidebar do -%>
 <%= render :partial => "soapbox/behind_the_line/sidebar", :locals => { :topic => @topic } %>
 <% end -%>

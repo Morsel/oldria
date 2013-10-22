@@ -13,7 +13,7 @@
 
           </nav>
         <div class="restaurant_features_content" >
-        <% form_tag(import_csv_restaurant_path(@restaurant), :multipart => true, :method=>'post') do %>
+        <%= form_tag(import_csv_restaurant_path(@restaurant), :multipart => true, :method=>'post') do %>
           <div class="editing clearfix" style="margin-top:0px">
             <table style="width: 100%" cellspacing="0" class="archives" >
                 <thead>

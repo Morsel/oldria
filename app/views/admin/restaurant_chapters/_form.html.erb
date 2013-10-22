@@ -1,8 +1,8 @@
 <% chapter_url = chapter.new_record? ? admin_restaurant_chapters_path :
     admin_restaurant_chapter_path(:id => chapter.id) %>
 
-<% semantic_form_for [:admin, chapter], :url => chapter_url do |f| %>
-    <% f.inputs :class => "plain" do %>
+<%= semantic_form_for [:admin, chapter], :url => chapter_url do |f| %>
+    <%= f.inputs :class => "plain" do %>
         <%= f.input :title %>
         <%= f.input :description %>
         <%= f.input :topic_id, :as => :hidden, :input_html => { :value => topic.id } %>

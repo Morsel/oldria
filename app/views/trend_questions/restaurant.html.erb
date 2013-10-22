@@ -1,7 +1,7 @@
 <% title "What's New for #{@restaurant.name}" %>
 
 <% for discussion in @discussions %>
-<% div_for discussion do %>
+<%=div_for discussion do %>
 	<h2><%= discussion.discussionable.display_message %></h2>
 	<p><%= simple_format discussion.comments.first.comment %></p>
 	<p><%= link_to "See how other restaurants responded", trend_question_path(discussion.discussionable) %></p>

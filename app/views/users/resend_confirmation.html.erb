@@ -6,7 +6,7 @@
 <p>If you're seeing a message that you need to confirm your account, but you can't find the confirmation email, that's okay. We'll send it again. Just enter your email address below.</p>
 <% end %>
 
-<% form_tag resend_confirmation_users_path do %>
+<%= form_tag resend_confirmation_users_path do %>
   <p>
     <%= label_tag "email", "Email" %>
     <%= text_field_tag "email", params[:email], :class => 'text wider' %>

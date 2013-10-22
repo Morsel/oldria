@@ -1,6 +1,6 @@
 <% title "Update Account Payment Information" %>
 
-<% semantic_form_for :customer, :url => Braintree::TransparentRedirect.url, :html => {:autocomplete => false} do |form| %>
+<%= semantic_form_for :customer, :url => Braintree::TransparentRedirect.url, :html => {:autocomplete => false} do |form| %>
     <% form.inputs do %>
         <p id="payment_blurb">Please re-enter the data below if you would like to use a different credit card.</p>
         <%= render :partial => 'form_fields', :locals => {:form => form} %>

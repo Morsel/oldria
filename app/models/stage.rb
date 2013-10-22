@@ -21,6 +21,7 @@ class Stage < ActiveRecord::Base
   
   validates_presence_of :establishment, :expert, :start_date, :profile_id
   validate :end_date_after_start_date
+  attr_accessible :establishment, :expert, :start_date, :end_date, :location, :comments
 
   def end_date_after_start_date
     if end_date.present? && end_date.to_date < start_date.to_date

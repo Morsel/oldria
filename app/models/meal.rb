@@ -19,7 +19,7 @@
 
 class Meal < ActiveRecord::Base
   DAYS = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
-  named_scope :for_day, lambda { |day|
+  scope :for_day, lambda { |day|
     { :conditions => {:day => day} }
   }
 

@@ -2,7 +2,7 @@
     <div id="facts">
         <div class="contactDetails">
             <h3>Quick Facts</h3>
-            <p><%= @restaurant.address_parts.join("<br />") %><br /><%= link_to "link to Google Map", "http://maps.google.com/maps?q=#{@restaurant.address_parts.join("+")}", :popup => "true" %></p>
+            <p><%= @restaurant.address_parts.join("<br />").html_safe %><br /><%= link_to "link to Google Map", "http://maps.google.com/maps?q=#{@restaurant.address_parts.join("+")}", :popup => "true" %></p>
         </div>
 
         <div class="contactDetails">

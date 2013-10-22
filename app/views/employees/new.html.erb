@@ -1,11 +1,11 @@
 <% title "New Employee" %>
 
-<% semantic_form_for @employment, :url => new_restaurant_employee_path(@restaurant), :html => {:method => :get } do |f| %>
-  <%= f.error_messages %>
+<%= semantic_form_for @employment, :url => new_restaurant_employee_path(@restaurant), :html => {:method => :get } do |f| %>
+  <%#= f.error_messages %>
 
-  <% f.inputs do %>
+  <%= f.inputs do %>
     <%= f.input :position, :as => :hidden %>
-    <%= f.input :employee_email,:label=>"Employee's Last Name" ,:input_html=>{:value=>f.object.employee_last_name }  %>
+    <%= f.input :employee_email,:label=>"Employee's Last Name" ,:input_html=>{:value=>f.object.employee_last_name,:size => 50 }  %>
   <% end %>
 
 <p><%= button_tag "Submit" %></p>

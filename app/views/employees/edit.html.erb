@@ -1,8 +1,8 @@
 <% title "Editing Employee #{@employee.name}" %>
 
-<% semantic_form_for @employment, :url => restaurant_employee_path(@restaurant, @employee) do |f| %>
+<%= semantic_form_for @employment, :url => restaurant_employee_path(@restaurant, @employee) do |f| %>
 	<%= render :partial => 'employee_edit_account_status', :locals => {:f => f} %>
-	<% f.inputs :name => "Roles" do %>
+	<%= f.inputs :name => "Roles" do %>
         <%= f.input :position, :as => :hidden %>
 		<%= f.input :omniscient, 
 		    :label => "Grant this user the ability to administer and edit #{@restaurant.name}'s Spoonfeed Press Kit", 
@@ -29,7 +29,7 @@
 
 <% end %>
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#employment_edit_privilege').change(function(){

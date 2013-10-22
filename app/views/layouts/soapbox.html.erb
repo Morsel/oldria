@@ -13,7 +13,7 @@
   <meta property="og:title" content="<%= title %>">
   <meta property="og:description" content="<%= h(yield(:fb_description) || "")  %>" />
   <%= yield(:facebook_meta) %>
-  <meta property="fb:app_id" content="<%= RAILS_ENV == 'staging' ? '138436116175329' : '147177445296317' %>"/>
+  <meta property="fb:app_id" content="<%= Rails.env == 'staging' ? '138436116175329' : '147177445296317' %>"/>
   <link rel="shortcut icon" href="/favicon-sb.ico">
   <%= stylesheet_link_tag "/soapbox/_css/soapbox.css", "colorbox.css", :media => "screen" %>
   <%= stylesheet_link_tag "/soapbox/_css/print.css", :media => "print" %>

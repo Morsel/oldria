@@ -1,7 +1,7 @@
 <% title "Upgrade Account To Premium" %>
 
-<% semantic_form_for :customer, :url => Braintree::TransparentRedirect.url, :html => {:autocomplete => false} do |form| %>
-  <% form.inputs do %>
+<%= semantic_form_for :customer, :url => Braintree::TransparentRedirect.url, :html => {:autocomplete => false} do |form| %>
+  <%= form.inputs do %>
     <p id="payment_blurb">
         If you are a member associated with a restaurant, you may pay on your own or ask your restaurant's Spoonfeed account manager to add you to the restaurant account.
     </p>

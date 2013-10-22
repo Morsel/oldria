@@ -1,4 +1,4 @@
-<% div_for discussion, :class => css_classes_for_discussion(discussion) do %>
+<%=div_for discussion, :class => css_classes_for_discussion(discussion) do %>
 <header>
   <div class="sender_avatar">
     <%= image_tag discussion.poster.avatar.url(:thumb) %>
@@ -11,7 +11,7 @@
   <p class="timestamp"><%= discussion.created_at.to_s(:message_meta) %></p>
 
   <p class="message-actions">
-    <% link_to discussion, :class => 'replies' do %>
+    <%= link_to discussion, :class => 'replies' do %>
       <% if discussion.comments.present? %>
         <span class="unread_comments_count"><%= discussion.comments.size %></span> replies &raquo;
       <% else %>

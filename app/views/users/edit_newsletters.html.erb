@@ -18,8 +18,8 @@
 <% if @subscriber.present? %>
   <h2 class="sub-title">Soapbox Newsletter</h2>
 
-  <% semantic_form_for [:soapbox, @subscriber] do |f| %>
-    <% f.inputs do %>
+  <%= semantic_form_for [:soapbox, @subscriber] do |f| %>
+    <%= f.inputs do %>
       <%= f.input :receive_soapbox_news, :label => "I want to receive the Soapbox email newsletter" %>
     <% end %>
     <%= submit_tag "Save" %>

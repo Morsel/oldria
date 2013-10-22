@@ -1,4 +1,4 @@
-<% content_tag_for :li, cuisine do %>
+<%= content_tag_for :li, cuisine do %>
     <%= cuisine.name %>&nbsp;
     <% if action_name != 'show' %>
       <%= link_to "Remove", 

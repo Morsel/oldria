@@ -1,4 +1,4 @@
-<% semantic_form_for [:admin, @holiday] do |form| %>
+<%= semantic_form_for [:admin, @holiday] do |form| %>
 
   <% form.inputs :name => 'Holiday' do %>
     <%= form.input :name, :input_html => {:class => 'title span-8'} %>

@@ -2,14 +2,14 @@
 
 <% if @user.media? -%>
 <% content_tag :div, nil,:id=>'editing_restaurant' do %>
-    <% semantic_form_for @user, :url => save_confirmation_path(:user_id => @user.id), :html => { :id => 'mediafeed_user' } do |f| %>
-        <% f.inputs :name => 'Your Information', :class => 'editing basics' do %>
+    <%= semantic_form_for @user, :url => save_confirmation_path(:user_id => @user.id), :html => { :id => 'mediafeed_user' } do |f| %>
+        <%= f.inputs :name => 'Your Information', :class => 'editing basics' do %>
         	<%= f.input :first_name %>
         	<%= f.input :last_name %>
         	<%= f.input :email %>
         	<%= f.input :publication, :label => "Affiliated Publication", :hint => "Please note: your response rate will increase exponentially if you include a publication. If none is listed, chefs will assume you are a <em>diner</em> and not a <em>journalist</em>. If you are <em>freelance</em>, please include your primary publication(s). " %>
         <% end %>
-        <% f.inputs :name => 'Desired Login Information', :class => 'editing basics' do %>
+        <%= f.inputs :name => 'Desired Login Information', :class => 'editing basics' do %>
         	<%= f.input :username, :required => true %>
         	<%= f.input :password, :required => true, :input_html => { :autocomplete => "off" } %>
         	<%= f.input :password_confirmation, :required => true, :input_html => { :autocomplete => "off" } %>

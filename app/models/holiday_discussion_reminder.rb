@@ -16,17 +16,17 @@ class HolidayDiscussionReminder < ActiveRecord::Base
   belongs_to :holiday_discussion
   belongs_to :holiday_reminder, :class_name => "Admin::HolidayReminder"
 
-  named_scope :current, lambda {
+  scope :current, lambda {
     { :joins => :holiday_reminder,
       :conditions => ['holiday_reminders.scheduled_at < ? OR holiday_reminders.scheduled_at IS NULL', Time.zone.now]  }
     }
 
-  named_scope :recent, lambda {
+  scope :recent, lambda {
     { :joins => :holiday_reminder,
       :conditions => ['holiday_reminders.scheduled_at >= ?', 2.weeks.ago] }
   }
 
-  named_scope :with_replies, :joins => :holiday_discussion, :conditions => 'holiday_discussions.comments_count > 0'
+  scope :with_replies, :joins => :holiday_discussion, :conditions => 'holiday_discussions.comments_count > 0'
 
   def inbox_title
     holiday_reminder.inbox_title

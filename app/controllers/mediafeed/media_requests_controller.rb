@@ -15,6 +15,7 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
     @media_request = current_user.media_requests.build(params[:media_request])
     @media_request.attachments.build
     search_setup(@media_request, User.mediafeed_only_condition)
+    render :layout => "application"
   end
 
   def create
@@ -30,7 +31,7 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
 
     if @media_request.save
       @media_request.notify_media_request!
-      flash[:notice] = "Thank you! Your query is fast on its way to the recipients you selected. You’ll be alerted that answers have arrived (shortly, we hope!) via an email sent to your email inbox. For your convenience, then, everything will be privately and securely stored here for you. Thanks again, and please do give us feedback!"
+      flash[:notice] = "Thank you! Your query is fast on its way to the recipients you selected. You'll be alerted that answers have arrived (shortly, we hope!) via an email sent to your email inbox. For your convenience, then, everything will be privately and securely stored here for you. Thanks again, and please do give us feedback!"
       redirect_to [:mediafeed, @media_request]
     else
       if @employment_search.employments.blank?

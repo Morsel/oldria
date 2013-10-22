@@ -1,8 +1,8 @@
 <div id="editing_restaurant">
     <% title "Search Restaurant" %>
 
-    <% semantic_form_for @restaurant, :url => new_restaurant_path, :html => {:method => :get } do |f| %>
-        <% f.inputs do %>
+    <%= semantic_form_for @restaurant, :url => new_restaurant_path, :html => {:method => :get } do |f| %>
+        <%= f.inputs do %>
             <%= f.input :name, :label => "Restaurant name", :input_html => { :class => 'title span-8' },:hint => "Please type restaurant name" %>
         <% end %>
 

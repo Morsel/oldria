@@ -1,4 +1,4 @@
-<% content_tag_for :li, award, :class => cycle('odd','even') do %>
+<%= content_tag_for :li, award, :class => cycle('odd','even') do %>
   <span class="extended-title"><%= award.name %> <span>(<%= award.year_won.blank? ? "nominated in #{award.year_nominated}" : award.year_won %>)</span></span>
   <% if action_name != 'show' %>
   <%= link_to "Edit", edit_award_path(award), :class => 'colorbox' %>

@@ -7,16 +7,16 @@
   	<h2>Photos</h2>
 		<p>Please upload your logo as well as head shots, food shots, room shots, and exterior shots.</p>
 		<div class="upload_photo editing">
-  		<% nested_form_for (@restaurant),:url => restaurant_photos_path(@restaurant),
+  		<%=nested_form_for (@restaurant),:url => restaurant_photos_path(@restaurant),
       :html => { :multipart => true,:method=> :post} do |f| %>  
         <fieldset class="inputs">
             <legend><span>New Photo</span></legend>
         </fieldset>         
-        <% f.fields_for :photos,@raw_photo do |photo_form| %>        
+        <%=f.fields_for :photos,@raw_photo do |photo_form| %>        
           <% if photo_form.object.id.nil? %>
           <fieldset class="inputs">
             <ol>
-              <%= photo_form.error_messages %>
+              <%= photo_form.object.errors.full_messages unless photo_form.object.errors.full_messages.blank? %>
               <li  class="file required">         
                 <%= f.label "Attachment*" %>
                 <%= photo_form.file_field 'attachment',  :as => 'file', :hint => "Please upload a jpeg, gif, or png" %>
@@ -47,7 +47,7 @@
 		<h3>Determine the order in which your photos are displayed with drag and drop.</h3>
 
 		<div class="editing clearfix clear">
-			<% form_for :restaurant, :url => select_primary_photo_restaurant_path(@restaurant) do |restaurant_form| %>
+			<%= form_for :restaurant, :url => select_primary_photo_restaurant_path(@restaurant) do |restaurant_form| %>
     		<table id="photos" data-remote-url="<%= reorder_restaurant_photos_url(@restaurant) %>" class="clearfix">
     	  	<thead>
     	      <tr>
@@ -59,7 +59,7 @@
     	  	</thead>
     	  	<tbody>
     	  		<% @photos.each do |photo| %>
-    	    	<% content_tag_for(:tr, photo) do %>
+    	    	<%= content_tag_for(:tr, photo) do %>
     	      	<td>
     	      	  <%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %><br>
     	      	  <%= photo.name %>
@@ -81,7 +81,7 @@
 	</div><!--#editing_restaurant-->
 
 </div><!-- /restaurant_profile_view -->
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 
   <script type="text/javascript">
     //<![CDATA[

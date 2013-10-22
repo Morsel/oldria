@@ -16,27 +16,27 @@ class RestaurantTopic < Topic
 
   has_many :restaurant_questions, :through => :chapters
 
-  named_scope :for_restaurant, lambda { |restaurant|
+  scope :for_restaurant, lambda { |restaurant|
       { :conditions => { :type => 'RestaurantTopic' },
         :select => "distinct topics.*",
         :order => :position }
   }
 
-  named_scope :for_page, lambda { |page|
+  scope :for_page, lambda { |page|
     { :joins => { :chapters => { :restaurant_questions => :question_pages }},
       :conditions => ["question_pages.restaurant_feature_page_id = ?", page.id],
       :select => "distinct topics.*",
       :order => :position }
   }
 
-  named_scope :answered_for_restaurant, lambda { |restaurant|
+  scope :answered_for_restaurant, lambda { |restaurant|
     { :joins => { :chapters => { :restaurant_questions => :restaurant_answers } },
       :conditions => ["restaurant_answers.restaurant_id = ?", restaurant.id],
       :select => "distinct topics.*",
       :order => :position }
   }
 
-  named_scope :answered_for_page, lambda { |page, restaurant|
+  scope :answered_for_page, lambda { |page, restaurant|
     { :joins => { :restaurant_questions => [:restaurant_answers, :question_pages] },
       :conditions => ["restaurant_answers.restaurant_id = ? AND question_pages.restaurant_feature_page_id = ?",
         restaurant.id, page.id],

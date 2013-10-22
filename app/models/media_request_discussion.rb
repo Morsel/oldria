@@ -20,8 +20,8 @@ class MediaRequestDiscussion < ActiveRecord::Base
   
   default_scope :order => "#{table_name}.created_at DESC"
   
-  named_scope :approved, :joins => :media_request, :conditions => ['media_requests.status = ?', 'approved']
-  named_scope :with_comments, :conditions => "#{table_name}.comments_count > 0"
+  scope :approved, :joins => :media_request, :conditions => ['media_requests.status = ?', 'approved']
+  scope :with_comments, :conditions => "#{table_name}.comments_count > 0"
 
   def employments
     restaurant.employments.select { |e| self.viewable_by?(e) }
@@ -40,7 +40,7 @@ class MediaRequestDiscussion < ActiveRecord::Base
     return false unless employment
     employment.employee == employment.restaurant.try(:manager) ||
       employment.omniscient? ||
-      media_request.employment_search.employments.include?(employment)
+      media_request.employment_search.employments.relation.include?(employment)
   end
 
   def publication_string

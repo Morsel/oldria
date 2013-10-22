@@ -2,13 +2,13 @@
 
 <p>Confirmed! <%= @subscriber.email %> is now signed up for Soapbox.</p>
 
-<% semantic_form_for [:soapbox, @subscriber] do |f| %>
-    <% f.inputs :name => "Set a password" do %>
+<%= semantic_form_for [:soapbox, @subscriber] do |f| %>
+    <%= f.inputs :name => "Set a password" do %>
         <%= f.input :password %>
         <%= f.input :password_confirmation %>
     <% end %>
 
-    <% f.inputs do %>
+    <%= f.inputs do %>
         <%= f.input :receive_soapbox_news, :label => "Sign me up for the Soapbox email newsletter!" %>
     <% end %>
     <%= submit_tag "Confirm" %>

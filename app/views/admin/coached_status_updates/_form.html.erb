@@ -1,6 +1,6 @@
-<% semantic_form_for [:admin, @coached_status_update] do |f| %>
+<%= semantic_form_for [:admin, @coached_status_update] do |f| %>
 
-	<% f.inputs do %>
+	<%= f.inputs do %>
 		<%= f.input :message %>
 		<%= f.input :date_range, :label => 'Time of Year' %>
 	<% end -%>

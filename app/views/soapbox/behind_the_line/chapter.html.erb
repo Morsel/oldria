@@ -22,7 +22,7 @@
   </div>
 
   <% for question in @questions -%>
-    <% div_for question do %>
+    <%=div_for question do %>
       <h4><%= link_to question.title, soapbox_profile_question_path(question) %></h4>
       <%= render :partial => "soapbox/profile_questions/answer", :locals => { :answer => question.latest_soapbox_answer } if question.latest_soapbox_answer.present? %>
     <% end -%>
@@ -30,6 +30,6 @@
   <% end -%>
 </div>
 
-<% content_for :sidebar do -%>
+<%= content_for :sidebar do -%>
 <%= render :partial => "soapbox/behind_the_line/sidebar", :locals => { :topic => @chapter.topic } %>
 <% end -%>

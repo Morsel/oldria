@@ -1,7 +1,7 @@
-<% semantic_form_for @qotd do |f| %>
+<%= semantic_form_for @qotd do |f| %>
 
   <div class="span-12">
-    <% f.inputs do %>
+    <%= f.inputs do %>
       <div class="form_basics">
         <%= f.input :message %>
         <%= f.input :display_message, :hint => "For Soapbox" %>

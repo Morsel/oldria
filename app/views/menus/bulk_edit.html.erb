@@ -7,16 +7,16 @@
 		
 		<h2>Edit Menus</h2>
 		<div class="upload_photo editing">
-	  	<% semantic_form_for :menu, @menu,
+	  	<%=semantic_form_for @menu,
 	  	    :url => restaurant_menus_path(@restaurant),
 	  	    :html => { :multipart => true } do |menu_form| %>
-	  	  <%= menu_form.error_messages %>
-	  	  <% menu_form.inputs :class => "clear" do %>
+	  	  <%= @menu.errors.messages.first[1].join('') unless @menu.errors.full_messages.blank? %>
+	  	  <%=menu_form.inputs :class => "clear" do %>
 	  	    <%= menu_form.input :name, :label => "Menu name" %>
 	  	    <%= menu_form.input :change_frequency, :label => "How often it changes",
 	  	        :as => :select, :collection => Menu.change_frequencies,
 	  	        :required => true %>
-	  	    <% menu_form.semantic_fields_for :pdf_remote_attachment do |pdf_remote_attachment| %>
+	  	    <%=menu_form.semantic_fields_for :pdf_remote_attachment do |pdf_remote_attachment| %>
 	  	      <%= pdf_remote_attachment.input :attachment, :as => :file,:hint => "Only PDFs are allowed to be uploaded" %>
 	  	    <% end %>
 	  	    <%= button_tag 'Upload', :class => 'positive clear' %>
@@ -40,7 +40,7 @@
                 </thead>
                 <tbody>
                     <% @restaurant.menus.by_position.each do |menu| %>
-                    <% content_tag_for(:tr, menu) do %>
+                    <%= content_tag_for(:tr, menu) do %>
                     <td class="menu_name"><%= link_to h(menu.name), menu.pdf_remote_attachment.attachment.url %></td>
                     <td class="menu_date"><%= menu.pdf_remote_attachment.updated_at.to_s(:standard) %></td>
                     <td class="menu_change_frequency"><%=h menu.change_frequency %></td>
@@ -56,7 +56,7 @@
 	
 </div><!--#restaurant_profile_view-->
 	
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 
   <script type="text/javascript">
     //<![CDATA[

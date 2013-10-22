@@ -1,0 +1,31 @@
+// Here is where you can define your constants for your application and to configure the blueprint framework.
+// Feel free to delete these if you want keep the defaults:
+
+$blueprint-grid-columns: 24;
+$blueprint-container-size: 974px;
+$blueprint-grid-margin: 10px;
+
+$default-transition-function: ease-in-out;
+$default-transition-duration: .2s;
+
+$green: #6CB33F;
+$tomato: #D9531E;
+$brown: #968463;
+$darkgreen: #4F8E25;
+$medgreen: #5da430;
+$tan: #F7F5F3;
+
+
+
+// Use this to calculate the width based on the total width.
+// Or you can set !blueprint_grid_width to a fixed value and unset !blueprint_container_size -- it will be calculated for you.
+$blueprint-grid-width: ($blueprint-container-size + $blueprint-grid-margin) / $blueprint-grid-columns - $blueprint-grid-margin;
+
+@mixin hiddentext{
+	display:block;
+	outline:0;
+	text-indent:-9999px;
+}
+
+@mixin gotham {font-family: Gotham, 'Helvetica Neue', Helvetica, arial, sans-serif;}
+@mixin neue {font-family: 'Helvetica Neue', Helvetica, arial, sans-serif;}

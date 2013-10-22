@@ -2,7 +2,7 @@
 
 <%= link_to "New Slide", new_admin_hq_slide_path, :class => "button positive" %>
 
-<% table_for(@slides) do |t| %>
+<%= table_for(@slides) do |t| %>
     <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
 	    t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
 	    t.cell(:image) { |c| image_tag c.image.url(:thumb) }

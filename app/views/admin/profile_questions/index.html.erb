@@ -17,7 +17,7 @@
 <h2><%= chapter.title_with_topic %>:</h2>
 <%- end -%>
 
-<% table_for @questions[chapter] do |t| %>
+<%= table_for @questions[chapter] do |t| %>
   <% t.data do
         t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
         t.cell(:title)

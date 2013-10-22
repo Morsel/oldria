@@ -1,8 +1,8 @@
-<% title "Envalid Restaurants" %>
+<% title "Invalid Employments" %>
 
-<% table_for(@employments) do |t| %>
+<%= table_for(@employments) do |t| %>
   
-  <% t.data do
+  <%= t.data do
       t.cell :employee
       t.cell :restaurant
       t.cell (:message) {|p| p.errors.full_messages.to_sentence }

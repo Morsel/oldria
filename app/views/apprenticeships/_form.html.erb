@@ -1,14 +1,14 @@
 <%= "<h1>#{yield :title}</h1>" if request.xhr? %>
-<% semantic_form_for @apprenticeship.new_record? ? [:user, :profile, @apprenticeship] : @apprenticeship do |f| %>
-  <% f.inputs :class => "apprenticeships" do %>
-    <%= f.input :establishment, :label => "Name of establishment", :hint => "restaurant, winery, brewery" %>
-    <%= f.input :supervisor, :label => "Name of person for whom you apprenticed", :hint => "chef, winemaker, mixologist, beer master" %>
+<%= semantic_form_for @apprenticeship.new_record? ? [:user, :profile, @apprenticeship] : @apprenticeship do |f| %>
+  <%= f.inputs :class => "apprenticeships" do %>
+    <%= f.input :establishment, :label => "Name of establishment", :hint => "restaurant, winery, brewery",:input_html=>{:size=>50} %>
+    <%= f.input :supervisor, :label => "Name of person for whom you apprenticed", :hint => "chef, winemaker, mixologist, beer master" ,:input_html=>{:size=>50}%>
     <%= f.input :start_date, :hint => "You must include a start date; if you exclude the end date, only the year will display",
       :end_year => 1930, :start_year => Date.today.year %>
      <%= f.input :end_date, :hint => "Optional; exclude if you'd like only the year to display", :selected => nil,
       :end_year => 1930, :start_year => Date.today.year %>
 
-    <%= f.input :comments, :label => "Anything you’d like to share on that?" %>
+    <%= f.input :comments, :label => "Anything you’d like to share on that?",:input_html=>{:size=>50,:cols=>50} %>
   <% end %>
   <%= button_tag "Save" %>
 <% end %>

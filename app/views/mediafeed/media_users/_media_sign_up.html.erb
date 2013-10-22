@@ -1,4 +1,4 @@
-<% f.inputs :name => 'Media Subscriptions', :class => 'basics' do %>
+<%= f.inputs :name => 'Media Subscriptions', :class => 'basics' do %>
 	<p>There are two ways to receive information from RIA:</p>
 	<li class="media-signup">
 			Subscribe to press information only, signing up for materials by location and type of news. Selecting this type of information will subscribe you to receiving press information only as it is posted by our members.
@@ -7,7 +7,7 @@
 			Subscribe to daily digests for groups of restaurants, signing up for by location. Selecting this type of information will subscribe you to receiving a digest of all information each morning. You can elect to receive this information for all restaurants, for restaurants in a given region or metro area/s, or for your own selection of restaurants.
 	</li>
 
-	<% f.inputs do %>
+	<%= f.inputs do %>
         <h3> Newsfeed Options </h3>
         <%= f.input :newsfeed_writer,:label=>false, :as => :select,      :collection => NewsfeedWriter.all ,:include_blank => "Are you a.."%>            
         <div id="newsfeed_option_national" class="<%=get_css_class(@user.newsfeed_writer.try(:id),1)%>">
@@ -94,7 +94,7 @@
         </div>  
         <div class="clear"> </div>
         <div >
-            <% f.inputs :name => nil do %>
+            <%= f.inputs :name => nil do %>
                 <%= f.input :promotion_types,:label=>false, :as => :check_boxes ,:collection=>@promotionTypes%>
             <% end %>
          </div>   

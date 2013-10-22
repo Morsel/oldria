@@ -20,4 +20,6 @@ class SiteActivity < ActiveRecord::Base
 
   validates_presence_of :description
 
+  attr_accessible  :description, :creator, :content
+
 end

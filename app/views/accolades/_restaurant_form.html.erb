@@ -1,12 +1,17 @@
-<%= "<h1>#{yield :title}</h1>" if request.xhr? %>
-<% semantic_form_for [@restaurant, @accolade] do |f| %>
-  <% f.inputs :class => "accolades" do %>
-    <%= f.input :name, :label => "Name of accolade" %>
+<%= "<h1>#{yield :title}</h1>".html_safe  %>
+<%= semantic_form_for [@restaurant, @accolade] do |f| %>
+  <%=f.inputs :class => "accolades" do %>
+    <%= f.input :name, :label => "Name of accolade", :input_html =>{:size=>50} %>
     <%= f.input :run_date, :end_year => 1930, :start_year => Date.today.year %>
     <%= f.input :media_type, :as => :select, :required => true, :collection => Accolade.valid_media_types %>
     <%= f.input :link, :label => "Link (Optional)",
-                :hint => "The full URL. You can copy and paste from your browser's address bar." %>
+                :hint => "The full URL. You can copy and paste from your browser's address bar.", :input_html =>{:size=>50} %>
   <% end %>
 
   <%= button_tag "Save" %>
 <% end %>
+<script>
+$(document).ready(function(){
+	//$("#accolade_run_date_input").addClass("date"); //for rails3 layout improvement
+})
+</script>

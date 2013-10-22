@@ -2,7 +2,7 @@
 
 <br/>
 <%# form_tag restaurant_restaurant_answers_path(:restaurant_id => @restaurant),:id => "btl_answer" do %>
-<% div_for @question do %>
+<%=div_for @question do %>
 <!-- <h4 class="question-popup">Q: <%#=@question.title%></h4> -->
 <%= render :partial => "restaurant_answers/form", :locals => { :answer => @answer,:question=>@question } %>
 <% end %>

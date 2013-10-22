@@ -32,7 +32,7 @@ class AttachmentFile < Asset
 
   has_attached_file :data,
                     :url => "/system/assets/attachments/:id/:filename",
-                    :path => ":rails_root/public/system/assets/attachments/:id/:filename"
+                    :path => ":Rails.root/public/system/assets/attachments/:id/:filename"
 
   validates_attachment_size :data, :less_than => 5.megabytes
 end

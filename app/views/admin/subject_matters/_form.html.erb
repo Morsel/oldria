@@ -1,5 +1,5 @@
-<% semantic_form_for [:admin, @subject_matter] do |f| %>
-  <% f.inputs do %>
+<%= semantic_form_for [:admin, @subject_matter] do |f| %>
+  <%= f.inputs do %>
     <%= f.input :name %>
     <%= f.input :general, :hint => "Should this appear under the 'General Information' category?" %>
     <%= f.input :private, :hint => "Is this a subject matter only meant for RIA use (not media)?" %>

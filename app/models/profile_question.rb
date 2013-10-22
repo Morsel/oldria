@@ -14,7 +14,7 @@
 
 class ProfileQuestion < ActiveRecord::Base
 
-  include ActionController::UrlWriter
+include ActionDispatch::Routing::UrlFor
   default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :chapter
@@ -25,21 +25,21 @@ class ProfileQuestion < ActiveRecord::Base
   validates_presence_of :title, :chapter_id
   validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
 
-  named_scope :for_user, lambda { |user|
+  scope :for_user, lambda { |user|
     { :joins => :question_roles,
       :include => :chapter,
       :conditions => ["question_roles.restaurant_role_id = ?", user.primary_employment.restaurant_role.id],
       :order => "chapters.position, profile_questions.position" }
   }
 
-  named_scope :for_chapter, lambda { |chapter_id|
+  scope :for_chapter, lambda { |chapter_id|
     { :conditions => { :chapter_id => chapter_id } }
   }
 
-  named_scope :answered, :joins => :profile_answers
-  named_scope :recently_answered, :include => :profile_answers, :order => "profile_answers.created_at DESC"
+  scope :answered, :joins => :profile_answers
+  scope :recently_answered, :include => :profile_answers, :order => "profile_answers.created_at DESC"
 
-  named_scope :answered_for_user, lambda { |user|
+  scope :answered_for_user, lambda { |user|
     { :joins => [:profile_answers, :question_roles],
       :include => :chapter,
       :conditions => ["profile_answers.user_id = ? AND question_roles.restaurant_role_id = ?",
@@ -47,18 +47,18 @@ class ProfileQuestion < ActiveRecord::Base
       :order => "chapters.position, profile_questions.position" }
   }
 
-  named_scope :answered_for_chapter, lambda { |chapter_id|
+  scope :answered_for_chapter, lambda { |chapter_id|
     { :joins => [:chapter, :profile_answers],
       :conditions => ["chapters.id = ?", chapter_id] }
   }
 
-  named_scope :answered_by_premium_users, lambda {
+  scope :answered_by_premium_users, lambda {
     { :joins => { :profile_answers => { :user => :subscription }},
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
           Date.today] }
   }
 
-  named_scope :answered_by_premium_and_public_users, {
+  scope :answered_by_premium_and_public_users, {
     :joins => "INNER JOIN profile_answers ON `profile_questions`.id = `profile_answers`.profile_question_id
                INNER JOIN preferences ON `profile_answers`.user_id = `preferences`.owner_id
                INNER JOIN subscriptions ON `profile_answers`.user_id = `subscriptions`.subscriber_id",
@@ -67,8 +67,8 @@ class ProfileQuestion < ActiveRecord::Base
                     true, Date.today]
   }
 
-  named_scope :random, :order => RANDOM_SQL_STRING
-  named_scope :without_travel, :joins => { :chapter => :topic }, :conditions => ["topics.title != ?", "Travel Guide"]
+  scope :random, :order => RANDOM_SQL_STRING
+  scope :without_travel, :joins => { :chapter => :topic }, :conditions => ["topics.title != ?", "Travel Guide"]
 
   before_save :update_roles_description
 

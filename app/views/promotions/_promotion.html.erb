@@ -1,7 +1,7 @@
 <% dashboard ||= false %>
 <% if dashboard == true -%>
 
-<% div_for promotion do %>
+<%=div_for promotion do %>
     <div class="activity_header">
         <h3>Newsfeed</h3>
         <p class="name">
@@ -21,16 +21,16 @@
 
 <% else -%>
 
-<% div_for(promotion) do %>
+<%=div_for(promotion) do %>
     <h3>
-        <% link_to_if soapbox?, soapbox_promotion_path(promotion) do %>
+        <%= link_to_if soapbox?, soapbox_promotion_path(promotion) do %>
         <%= "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
         <% end %>
     </h3>
     <h4><%= promotion.headline %></h4>
 
     <div>
-        <div class="details"><%= Loofah::Helpers.sanitize(promotion.details) %></div>
+        <div class="details"><%= Loofah::Helpers.sanitize(promotion.details).html_safe %></div>
         <p><%= link_to promotion.link, promotion.link %></p>
         <% if promotion.attachment.file? -%>
         <p><%= link_to promotion.attachment_file_name, promotion.attachment.url %></p>

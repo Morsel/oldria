@@ -1,5 +1,5 @@
-<% div_for(attachment) do %>
-  <% link_to(attachment.attachment.url, :class => 'attachment_icon') do %>
+<%=div_for(attachment) do %>
+  <%= link_to(attachment.attachment.url, :class => 'attachment_icon') do %>
     <%= image_tag(icon_image_for_attachment(attachment)) %>
   <% end %>
 

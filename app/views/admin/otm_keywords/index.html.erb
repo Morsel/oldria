@@ -5,7 +5,7 @@
 <div>
     <% @categories.each do |category, keywords| -%>
     <h2><%= category %></h2>
-    <% table_for(keywords) do |t| %>
+    <%= table_for(keywords) do |t| %>
         <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
              t.cell(:name)
         end %>

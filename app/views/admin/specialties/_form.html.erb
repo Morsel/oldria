@@ -1,5 +1,5 @@
-<% semantic_form_for [:admin, @specialty] do |f| %>
-    <% f.inputs do %>
+<%= semantic_form_for [:admin, @specialty] do |f| %>
+    <%= f.inputs do %>
         <%= f.input :name %>
     <% end %>
     <p><%= button_tag "Save" %></p>

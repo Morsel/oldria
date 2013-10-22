@@ -1,7 +1,7 @@
 Given /^Facebook is functioning$/ do
   @message_to_facebook = nil
 
-  status = JSON.parse( File.new( RAILS_ROOT + '/spec/fixtures/facebook_response.json').read )
+  status = JSON.parse( File.new( Rails.root + '/spec/fixtures/facebook_response.json').read )
   Mogli::User.stubs(:new).returns(user = mock())
   user.stubs(:feed_create).returns(status)
   

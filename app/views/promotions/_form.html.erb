@@ -1,7 +1,7 @@
 <p>To ensure your Newsfeed item is sent to media, please include all relevant information in the body of the item you post.</p>
 <p>Also, before the item is distributed, your menus, facts, and other essential press kit items will need to be up-to-date so the media can access the information they need to write about you.</p>
-<% semantic_form_for [restaurant, promotion], :html => { :multipart => true } do |f| %>
-    <% f.inputs do %>
+<%= semantic_form_for [restaurant, promotion], :html => { :multipart => true } do |f| %>
+    <%= f.inputs do %>
         <%= f.input :promotion_type %>
         <%= f.input :headline, :hint => "Limit: 144 characters" %>
 	    <li>
@@ -38,7 +38,7 @@
                 <% if twitter_post.try(:posted?) %>
                   This Tweet posted on <%= twitter_post.post_at.strftime('%Y-%m-%d %H:%M') %>
                 <% else %>
-                  <% f.semantic_fields_for :twitter_posts, twitter_post do |twitter| %>
+                  <%= f.semantic_fields_for :twitter_posts, twitter_post do |twitter| %>
                     <h4>Twitter Post #<%= index+1 %></h4>
 
                     <%= twitter.input :post_at, :label => "Post to my Twitter account on", :as => :string, :input_html => { :class => 'datetime',
@@ -69,7 +69,7 @@
                   This Facebook post was submitted on <%= facebook_post.post_at.strftime('%Y-%m-%d %H:%M') %>
                 <% else %>
                   <% begin %>
-                    <% f.semantic_fields_for :facebook_posts, facebook_post do |facebook| %>
+                    <%= f.semantic_fields_for :facebook_posts, facebook_post do |facebook| %>
                       <h4>Facebook Post #<%= index+1 %></h4>
 
                       <%= facebook.input :post_at, :label => "Post to Facebook page \"#{@restaurant.facebook_page.fetch.name}\" on", :as => :string, :input_html => { :class => 'datetime',
@@ -97,7 +97,7 @@
     <%= f.submit "Post", :onclick => "return confirm('Are you sure you want to send this to media?')" %>
 <% end %>
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 <script type="text/javascript">
   $(document).ready(function() {
 

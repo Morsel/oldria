@@ -1,6 +1,6 @@
-    <% semantic_form_for @user do |f| %>
+    <%= semantic_form_for @user do |f| %>
 
-        <% f.inputs :name => 'Preferences' do %>
+        <%= f.inputs :name => 'Preferences' do %>
             <%= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
             <%= f.input :notification_email, :wrapper_html => { :class => "clear bottom" }, :hint => "Send content notifications to another email address" %>
         <% end %>
@@ -64,7 +64,7 @@
           </p>
           <% unless @fb_user.accounts.blank? %>
             <div class="clear">
-                <% form_tag fb_page_auth_user_path(@user) do %>
+                <%= form_tag fb_page_auth_user_path(@user) do %>
                   <p>Configure a page to post status updates to:<br>
                     <%= select_tag "facebook_page", "<option>&nbsp;</option>" + options_from_collection_for_select(@fb_user.accounts, :id, :name, @user.facebook_page_id.to_s) %><br>
                     <%= button_tag "Save Facebook Page", :class => 'clear' %></p>
@@ -82,8 +82,8 @@
 
     <%= render :partial => 'users/form' %>
 
-    <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
-    <% f.inputs :name => "Contact Information" do %>
+    <%= semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
+    <%= f.inputs :name => "Contact Information" do %>
         <div class="clear">
             <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, 
                 :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
@@ -93,7 +93,7 @@
         <div class="clear">
             <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, 
                 :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
-            <% f.semantic_fields_for :user do |user| %>
+            <%= f.semantic_fields_for :user do |user| %>
                 <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
             <% end %>
         </div>
@@ -119,7 +119,7 @@
           <p><%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %></p>
         <%- end -%>
 
-		  <% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
+		  <%= button_tag :class => 'positive' do %>Save changes to contact information<% end %>
 
     <% end %><!-- Contact information -->
     <% end %>

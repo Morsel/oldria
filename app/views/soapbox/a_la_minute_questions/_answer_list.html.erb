@@ -1,4 +1,4 @@
-<% div_for answer do %>
+<%=div_for answer do %>
     <h2><%= link_to answer.question, soapbox_a_la_minute_question_path(answer.a_la_minute_question) %></h2>
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => answer.responder } %>
      <div class="question_answers">

@@ -1,4 +1,4 @@
-<% div_for employment, :class => 'clearfix' do %>
+<%=div_for employment, :class => 'clearfix' do %>
   <header>
     <%= link_to image_tag(employment.employee.avatar.url(:thumb)), profile_path(employment.employee.username), :class => 'avatar' %>
     <h3><%= employee_link(employment.employee) %></h3>

@@ -1,9 +1,9 @@
 <% title "Behind the Line", false %>
 
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line</span>", soapbox_profile_questions_path %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line</span>".html_safe, soapbox_profile_questions_path %></h1>
 
 <% for answer in @answers %>
-<% div_for answer do %>
+<%=div_for answer do %>
     <div class="activity_header">
         <h3><%= link_to "#{answer.profile_question.chapter.title_with_topic}: #{answer.profile_question.title}", profile_question_path(answer.profile_question) %></h3>
     </div>

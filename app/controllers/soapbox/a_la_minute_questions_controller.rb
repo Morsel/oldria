@@ -1,5 +1,5 @@
 class Soapbox::ALaMinuteQuestionsController < ApplicationController
-
+  require 'will_paginate/array'
   def index
     @answers = ALaMinuteAnswer.activated_restaurants.from_premium_responders.paginate(:page => params[:page], :per_page => 5)
     @sidebar_questions = ALaMinuteQuestion.all(:order => "question")

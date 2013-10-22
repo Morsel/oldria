@@ -26,8 +26,8 @@
         <% end %>
 
         <h2>Soapbox Newsletter</h2>
-        <% semantic_form_for [:soapbox, @subscriber] do |f| %>
-          <% f.inputs do %>
+        <%= semantic_form_for [:soapbox, @subscriber] do |f| %>
+          <%= f.inputs do %>
             <%= f.input :receive_soapbox_news, :label => "I want to receive the Soapbox email newsletter" %>
           <% end %>
           <%= submit_tag "Save" %>
@@ -43,8 +43,8 @@
 
       <div id="password">
         <h2>Change your password</h2>
-        <% semantic_form_for [:soapbox, @subscriber] do |f| %>
-          <% f.inputs do %>
+        <%= semantic_form_for [:soapbox, @subscriber] do |f| %>
+          <%= f.inputs do %>
             <%= f.input :password %>
             <%= f.input :password_confirmation %>
           <% end %>

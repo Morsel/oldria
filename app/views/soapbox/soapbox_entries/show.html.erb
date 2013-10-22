@@ -1,8 +1,8 @@
 <% title message(@feature), false, @feature_type -%>
-<% content_for :fb_description do -%>
+<%= content_for :fb_description do -%>
 <%= @feature_comments.collect { |comment| comment.user.name.to_s + ": " + truncate(comment.comment.to_s) }.join("; ") -%>
 <% end if @feature_comments -%>
-<% content_for :facebook_meta do -%>
+<%= content_for :facebook_meta do -%>
   <meta property="og:type" content="article"/>
   <meta property="og:image" content="http://soapbox.restaurantintelligenceagency.com/images/soapbox/logo-soapbox.png"/>
   <meta property="og:url" content="<%= soapbox_soapbox_entry_url(@entry) %>"/>
@@ -79,7 +79,7 @@
           </header>
           <div id="answers">
             <% for promotion in @promotions -%>
-                <% div_for(promotion) do %>
+                <%=div_for(promotion) do %>
                     <%= render :partial => 'soapbox/promotions/promotion', :locals => { :promotion => promotion } %>  
                 <% end -%>
             <% end -%>
@@ -112,11 +112,11 @@
    <% end -%>
   <% end -%><!-- End if @comment_view --> 
 <% unless @comment_view && @user.completed_setup? && @user.primary_restaurant? && @user.primary_restaurant.premium_account? && @user.linkable_profile? %>
-    <% content_for :sidebar do -%>
+    <%= content_for :sidebar do -%>
     <%= render :partial => 'soapbox/soapbox_entries/front_burner_sidebar' %>
     <% end -%>
  <% else  %>
-    <% content_for :sidebar do -%>
+    <%= content_for :sidebar do -%>
       <%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @user.primary_employment.restaurant } %>
     <% end -%>
 <% end -%>

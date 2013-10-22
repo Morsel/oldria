@@ -25,9 +25,9 @@
 
 class Promotion < ActiveRecord::Base
 
-  include ActionView::Helpers::TextHelper
-  include ActionController::UrlWriter
-  default_url_options[:host] = DEFAULT_HOST
+  include ActionDispatch::Routing::UrlFor
+include Rails.application.routes.url_helpers
+default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :promotion_type
   belongs_to :restaurant
@@ -51,8 +51,8 @@ class Promotion < ActiveRecord::Base
   # Attachments and validations
   has_attached_file :attachment,
                     :storage        => :s3,
-                    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
-                    :path           => "#{RAILS_ENV}/newsfeed_attachments/:id/:filename",
+                    :s3_credentials => "#{Rails.root}/config/environments/#{Rails.env}/amazon_s3.yml",
+                    :path           => "#{Rails.env}/newsfeed_attachments/:id/:filename",
                     :bucket         => "spoonfeed",
                     :url            => ':s3_domain_url'
 
@@ -67,28 +67,31 @@ class Promotion < ActiveRecord::Base
 
   validate :content_type, :if => Proc.new { |promo| promo.attachment_file_name.present? }
 
+  attr_accessible :post_to_twitter_at, :post_to_facebook_at,:promotion_type_id, :headline, :details, :link, :attachment,
+   :start_date, :date_description,:end_date
+   
   def content_type
     errors.add(:attachment, "needs to be converted to PDF") unless VALID_CONTENT_TYPES.include?(self.attachment_content_type)
   end
   # end of attachments section
 
-  named_scope :current,
+  scope :current,
               :conditions => ["promotions.end_date >= ? OR (promotions.start_date >= ? AND promotions.end_date IS NULL)",
                               Date.today, Date.today],
               :order => "promotions.start_date ASC"
 
-  named_scope :recently_posted,
+  scope :recently_posted,
               :conditions => ["promotions.end_date >= ? OR (promotions.start_date >= ? AND promotions.end_date IS NULL)",
                               Date.today, Date.today],
               :order => "promotions.created_at DESC"
 
-  named_scope :from_premium_restaurants, lambda {
+  scope :from_premium_restaurants, lambda {
     { :joins => { :restaurant => :subscription },
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
           Date.today] }
   }
 
-  named_scope :for_type, lambda { |type_id|
+  scope :for_type, lambda { |type_id|
     { :conditions => { :promotion_type_id => type_id } }
   }
 

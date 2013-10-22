@@ -1,0 +1,640 @@
+// This import applies a global reset to any page that imports this stylesheet.
+@import "blueprint/reset";
+@import "compass/reset";
+@import "blueprint";
+@import "compass/css3";
+// To configure blueprint, edit the partials/base.sass file.
+@import "../partials/base";
+@import "compass/layout/sticky-footer";
+
+@include reset-html5;
+
+.clearfix{overflow:hidden;}
+.clear{clear:both;}
+a {text-decoration: none;color: $medgreen;}
+
+#print_only {display: none;}
+
+body{
+ 	font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background:#fff url(/images/ria/bg.gif) repeat-x;
+	color:#333;
+}
+
+strong, b{font-weight:bold;}
+em, i{font-style:italic;}
+a img{ border:0; }
+
+#container{
+	width: 974px;
+	margin: 0 auto;
+	*zoom: 1;
+	position:relative;
+}
+
+@include sticky-footer(148px, "#container", "#padding", "#footer_container");
+
+#staging_bar{
+	position:absolute;
+	z-index:10000;
+	padding:10px;
+	background: #FFF6BF;
+	border:solid #FFD324;
+	border-width:0 2px 2px 0;
+	color: #514721;
+}
+
+
+#site_header {
+	width: 974px;
+	height: 100px;
+	#logo {
+		position: absolute;
+		margin-top: 12px;
+		margin-left: -12px; /* 390px for center alignment */
+		width: 166px;
+		height: 167px;
+		background: transparent url(/images/ria/ria-logo.png) no-repeat;
+		@include hiddentext;
+		z-index: 1000;
+	}
+	nav {
+		float: right;
+		height: 68px;
+		a {
+			float: left;
+			margin-right: 15px;
+			height: 68px;
+			background-image: url(/images/ria/nav.png);
+			@include hiddentext;
+			&#navhome {
+				margin-left: 96px;
+				width: 73px;
+				background-position: -97px 0;
+				&:hover {background-position: -97px -100px;}
+				&.selected {background-position: -97px -200px;}	
+			}
+			&#navabout {
+				width: 83px;
+				background-position: -185px 0;
+				&:hover {background-position: -185px -100px;}
+				&.selected {background-position: -185px -200px;}
+			}
+			&#navproducts {
+				width: 113px;
+				background-position: -283px 0;
+				&:hover {background-position: -283px -100px;}
+				&.selected {background-position: -283px -200px;}
+			}
+			&#navunplugged {
+				width: 124px;
+				background-position: -411px 0;
+				&:hover {background-position: -411px -100px;}
+				&.selected {background-position: -411px -200px;}
+			}
+			&#navtestimonials {
+				width: 144px;
+				background-position: -550px 0;
+				&:hover {background-position: -550px -100px;}
+				&.selected {background-position: -550px -200px;}
+			}
+			&#navcontact {
+				width: 102px;
+				margin-right: 0;
+				background-position: -708px 0;
+				&:hover {background-position: -708px -100px;}
+				&.selected {background-position: -708px -200px;}
+			}
+		}	
+	}
+	#site_login {
+		width: 71px;
+		height: 21px;
+		float: right;
+		margin: 0;
+		background: transparent url(/images/ria/icon-login.png) no-repeat;
+		@include hiddentext;
+		&:hover {
+			background-position: 0 -100px;
+		}
+	}
+} /* ## end of site_header ---------------------- */
+
+h2.tagline {
+/*  margin-top: 90px;*/
+  @include gotham;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #D9531E;
+  margin-bottom: 36px;
+}
+
+#audiences {
+	margin: 10px 0 30px 0;
+	height: 300px;
+	nav {
+	  a:first-child {
+	    margin-left: 0;
+	  }
+		a {
+		  margin-left: 24px;
+		  display: block;
+		  float: left;
+			width: 267px;
+			padding: 0 20px;
+			text-align: center;
+	    @include gotham;
+	    color: black;
+		  &#spoonfeed-link {
+  			background-image: url(/images/ria/hq-feature-1.png);
+  			height: 207px;
+  			padding-top: 90px;
+		  }
+		  &#media-link {
+		    background-image: url(/images/ria/hq-feature-2.png);
+  			height: 200px;
+  			padding-top: 97px;
+		  }
+		  &#soapbox-link {
+  			background-image: url(/images/ria/hq-feature-3.png);
+  			height: 180px;
+  			padding-top: 117px;
+		  }
+		  h3 {
+				font-size: 20px;
+				line-height: 22px;
+				margin: 10px 0 0;
+				font-weight: bold;
+		    text-shadow: 0 1px 0 #fff;
+		  }
+		  p {
+		    color: #D9531E;
+		    text-shadow: 0 1px 0 #fff;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 1em 0;
+		  }
+		}
+	}
+} /* ## end of audiences ------------------------ */
+
+
+#bottom_promos {
+	margin: 0 0 20px;
+	overflow: hidden;
+	article {
+		padding-bottom: 10px;
+		@include column(6);
+		&.last {@include column(6,true);}
+		section {
+			padding: 12px;
+			border: 1px solid #eaeada;
+			@include box-shadow(#f4f4f4,0px,2px, 2px);
+			h1 {
+				@include gotham;
+				border-bottom: 1px dotted #ccc;
+				font-size: 16px;
+				margin: 0 0 10px 0;
+				padding: 0 0 3px;
+				color: #333;
+				text-transform: uppercase;
+				span {
+					font-size: 12px;
+					color: #888;
+					text-transform: lowercase;
+				}
+				a {
+					color: #333;
+					&:hover {
+						color: $tomato;
+					}
+				}	
+			}
+			p {
+				font-size: 13px;
+				line-height: 19px;
+				a {
+					font-weight: bold;
+				}
+			}
+			h3 {
+				@include gotham;
+				font-weight: bold;
+				font-size: 14px;
+				line-height: 18px;
+				margin: 10px 0 0;
+			}
+			&.sb { 
+				h3 a {color: $tomato;
+					&:hover {color: #f48c64;}
+				}
+				p a {color: $tomato;
+					&:hover {color: #f48c64;}
+				}
+			}
+			&.sf { 
+				h3 a {color: $medgreen;
+					&:hover {color: #8ed164;}
+				}
+				p a {color: $medgreen;
+					&:hover {color: #8ed164;}
+				}
+			}
+			&.mf, &.pk { 
+				h3 a {color: $brown;
+					&:hover {color: #c0b49d;}
+				}
+				p a {color: $brown;
+					&:hover {color: #c0b49d;}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+
+		
+#sidebar_a {
+	@include column(4);
+	margin-top: 100px;
+	margin-bottom: 30px;
+	.promo {
+		h1 {
+			@include gotham;
+			text-transform: uppercase;
+			font-weight: normal;
+			font-size: 14px;
+			margin: 0 0 10px;
+		}
+		.quotation {
+			@include gotham;
+			line-height: 17px;
+			background: transparent url(/images/ria/bg-quote.png) no-repeat 0 100%;
+			padding: 8px 10px 16px;
+			color: $medgreen;
+			text-shadow: 0 1px 0 #fff;
+			font-style: italic;
+			font-size: 12px;
+		}
+		.who {
+			@include gotham;
+			color: #777;
+			margin: 6px 0;
+			font-size: 11px;
+			line-height: 15px;
+		}
+	}
+}
+
+#sidebar_b {
+	@include column(4, last);
+	margin-top: 34px;
+	margin-bottom: 30px;
+	.promo {
+		padding: 10px;
+		margin: 0 0 10px;
+		.more {
+			@include gotham;
+			color: #333;
+			&:hover {
+				color: $green;
+			}
+		}
+		&.clickable {
+			display: block;
+			background:#9c907a;
+			@include linear-gradient(color-stops(#b2a289,#9c907a), left);
+			@include gotham;
+			font-weight: bold;
+			font-size: 14px;
+			text-shadow: 0 1px 0 #000;
+			color: #fff;
+			border: 1px solid #b2a289;
+			line-height: 18px;
+			&:hover {
+				background-color: #8f8066;
+				background-image: none;
+				color: #f6f4f0;
+			}
+		}
+		&#page_actions {
+			border-top: 1px dotted #ccc;
+			border-bottom: 1px dotted #ccc;
+			padding: 10px 0;
+			margin: 8px 0;
+			background-color: #fff;
+			nav {
+				padding: 10px;
+				background-color: $tan;
+				a {
+					display: block;
+					margin: 0 0 10px;
+					&:hover {
+						color: #777;
+						text-shadow: 0 1px 0 #fff;
+					}
+					&.share {
+						background: transparent url(/images/ria/icon-16-share.png) no-repeat 0 0;
+						padding: 1px 0 0 22px;
+						&:hover {background-position: 0 -100px;}
+					}
+					&.print {
+						background: transparent url(/images/ria/icon-16-print.png) no-repeat 0 0;
+						padding: 1px 0 0 22px;
+						&:hover {background-position: 0 -100px;}
+					}
+					&.last {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+		&#fromtheblog {
+			padding: 0;
+			ul {
+				li {
+					display: block;
+					a {
+						display: block;
+						background: $tan;
+						margin: 0 0 6px;
+						padding: 10px;
+						font-weight: bold;
+						font-size: 14px;
+						color: #555;
+						line-height: 16px;
+						text-shadow: 0 1px 0 #fff;
+						span {
+							display: block;
+							font-size: 11px;
+							@include gotham;
+							font-weight: normal;
+							color: #777;
+							margin: 2px 0 0;
+						}
+						&:hover {
+							background:$medgreen;
+							@include linear-gradient(color-stops($green,$medgreen), left);
+							text-shadow: 0 1px 0 #000;
+							color: #fff;
+							span {
+								color: #fff;
+								color: rgba(255,255,255,.8);
+								text-shadow: none;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+#main_content {
+	@include column(16);
+	position: relative;
+	a.edit_button {
+		position: absolute;
+		padding: 5px 10px 4px 10px;
+		font-size: 11px;
+		font-weight: bold;
+		@include border-radius(3px);
+		text-transform: uppercase;
+		margin: -22px 0 0 15px;
+		background: $tomato;
+		@include gotham;
+		color: #fff;
+		&:hover {
+			background: $green;
+			color: #fff;
+			text-shadow: 0 1px 0 #333;
+		}
+	}
+}
+
+#page_content {
+	padding: 0 15px;
+	margin-bottom: 30px;
+	a {
+		color: $medgreen;
+		&:hover {color: $brown;}
+	}
+	h1 {
+		font-size: 24px;
+		@include gotham;
+		font-weight: bold;
+		color: #333;
+		line-height: 30px;
+		padding: 0;
+		margin: 12px 0 16px;
+		a {
+			color: $medgreen;
+			&:hover {color: $brown;}
+		}
+	}
+	#pg_title {
+		font-size: 24px;
+		@include gotham;
+		font-weight: bold;
+		color: $green;
+		border-bottom: 1px solid #ccc;
+		line-height: 30px;
+		padding: 0 0 4px;
+		margin: 0 0 20px;
+	}
+	h2 {
+		@include gotham;
+		font-weight: bold;
+		color: #333;
+		font-size: 18px;
+		line-height: 24px;
+		margin: 10px 0 5px;
+		padding: 0;
+		a {
+			color: $brown;
+			&:hover {
+				color: $green;
+			}
+		}
+	}
+	h3 {
+		font-size: 16px;
+		margin: 6px 0;
+		padding: 4px 0 0;
+		color: #333;
+		@include gotham;
+		font-weight: bold;
+		a {
+			color: $tomato;
+			&:hover {color: $brown;}
+		}
+	}
+	h4 {
+		font-size: 14px;
+		margin: 0 0 16px 0;
+		line-height: 20px;
+		color: #333;
+		@include gotham;
+		font-weight: normal;
+		font-weight: 300;
+	}
+	h5 {
+		font-size: 13px;
+		margin: 4px 0 8px 0;
+		color: #333;
+		font-weight: bold;
+	}
+	h6 {
+		font-size: 11px;
+		margin: 10px 0;
+	}
+	img {
+		float: left;
+		margin: 2px 15px 10px 0;
+	}
+	p {
+		font-size: 13px;
+		line-height: 19px;
+		margin: 3px 0 16px;
+		a {
+			color: $medgreen;
+			&:hover {color: $brown;text-decoration: underline;}
+		}
+	}
+	blockquote {
+		float: left;
+		width: 240px;
+		margin: 0 15px 10px 0;
+		background:$darkgreen;
+		@include linear-gradient(color-stops($green,$darkgreen), top);
+		p {
+			padding: 13px 15px;
+			color: #fff;
+			font-size: 18px;
+			font-weight: normal;
+			font-weight: 300;
+			line-height: 26px;
+			@include gotham;
+			margin: 0;
+			text-shadow: 0 1px 0 #3b6a23;
+		}
+	}
+	ul {
+		margin: 5px 0 15px 0;
+		padding: 0;
+		list-style: none;
+		li {
+			padding: 3px 0 3px 20px;
+			background: transparent url(/images/ria/square.gif) no-repeat 10px 5px;
+			line-height: 16px;
+		}
+	}	
+	ol {
+		margin: 5px 0 15px 18px;
+		padding: 0;
+		list-style: decimal;
+		list-style-position: outside;
+		li {
+			padding: 3px 0;
+			background: none;
+			line-height: 16px;
+		}
+	}
+	dl {
+		dd {
+			font-weight: bold;
+			color: #333;
+		}
+		dt {
+			margin: 0 0 10px 0;
+		}
+	}
+}
+
+
+
+
+
+
+#footer_container {
+	background: #1e1e1e url(/images/ria/bg-footer.png) repeat-x;
+	footer {
+		width: 974px;
+		margin: 0 auto;
+		#footer_logo {
+			@include column(6);
+			margin-top: 46px;
+			h2 {
+				@include hiddentext;
+				width: 204px;
+				height: 40px;
+				background: transparent url(/images/ria/logo-footer-ria2.png) no-repeat;
+			}
+		}
+		#copyright {
+			@include column(14);
+			p {
+				color: #eaeaea;
+				margin: 44px 0 10px;
+				font-weight: 300;
+			}
+			nav {
+				margin: 0;
+				padding: 0;
+				a {
+					float: left;
+					font-weight: 300;
+					margin: 0 20px 0 0;
+					padding: 0;
+					color: #eaeaea;
+					text-decoration: underline;
+					&:hover {
+						color: $green;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+		#social {
+			@include column(4, true);
+			ul {
+				margin: 20px 0 0;
+				li {
+					display: block;
+					font-weight: 300;
+					a {
+						display: block;
+						color: #fff;
+						padding: 10px 10px 10px 40px;
+						&.fb {
+							background: transparent url(/images/ria/icons-social.png) no-repeat 8px 12px;
+							&:hover {
+								@include border-radius(6px);
+								background-color: #222;
+								background-position: 8px -88px;
+								color: #ccc;
+							}
+						}
+						&.tw {
+							background: transparent url(/images/ria/icons-social.png) no-repeat -392px 12px;
+							&:hover {
+								@include border-radius(6px);
+								background-color: #222;
+								background-position: -392px -88px;
+								color: #ccc;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+

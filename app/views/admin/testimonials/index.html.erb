@@ -2,7 +2,7 @@
 
 <%= link_to "New Testimonial", new_admin_testimonial_path, :class => "button positive" %>
 
-<% table_for(@testimonials) do |t| %>
+<%= table_for(@testimonials) do |t| %>
     <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
 	    t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
 	    t.cell(:photo) { |c| image_tag c.photo.url(:small) }

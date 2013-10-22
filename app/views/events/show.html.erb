@@ -1,6 +1,6 @@
 <% title @event.title %>
 
-<% content_for :page_actions do %>
+<%= content_for :page_actions do %>
   <p class="event-actions">
   <% if @restaurant
       edit_path = edit_restaurant_event_path(:restaurant_id => @restaurant, :id => @event)

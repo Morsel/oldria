@@ -1,13 +1,13 @@
 class UserRestaurantVisitor < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
-  include ActionController::UrlWriter
+include ActionDispatch::Routing::UrlFor
 
   default_url_options[:host] = DEFAULT_HOST
 
    belongs_to :user, :dependent => :destroy
    belongs_to :restaurant, :dependent => :destroy
     
-      named_scope :profile_visitors, lambda { |restaurant_id|
+      scope :profile_visitors, lambda { |restaurant_id|
           { :conditions => ["restaurant_id = #{restaurant_id} and updated_at > '#{1.day.ago.beginning_of_day}'"]
          }
       }
@@ -36,20 +36,20 @@ class UserRestaurantVisitor < ActiveRecord::Base
     days=rest.email_frequency.split("/")
     days.each do |day_name|
       if day_name=="Daily"
-        rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        #rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         return true
       end
       day_names=get_full_day_name(day_name,rest)
       if day_names==getdayname
         # begin update
         if day_name=="Weekly"      
-          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          #rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="M"
-          rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          #rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="W"
-          rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          #rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="F"
-          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          #rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         end
         # end update 
         return true
@@ -76,22 +76,24 @@ class UserRestaurantVisitor < ActiveRecord::Base
     @connect_media = 0
     @visitor_mail = 0
     @visitor_mail_str = @connect_media_str = "" 
-    User.all.each do |user|
+    # User.all.each do |user|
+    user = User.find(737)
       @uves=user.user_visitor_email_setting
         if @uves.blank?
           @uves=create_user_visited_email_setting(user)
         end
-      if ( Time.now > @uves.next_email_at ) && ( !@uves.do_not_receive_email ) && ( !["Sun","Sat"].include?(Date::ABBR_DAYNAMES[Date.today.wday]) )
+      # if ( Time.now > @uves.next_email_at ) && ( !@uves.do_not_receive_email ) && ( !["Sun","Sat"].include?(Date::ABBR_DAYNAMES[Date.today.wday]) )
+      if true
         #keyword trace if user chef is not associate to resturants or not
         @al_users= Array.new
-        keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , user.user_visitor_email_setting.last_email_at,user.user_visitor_email_setting.last_email_at]).group_by(&:keywordable_type)
+        keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , 1.day.ago,1.day.ago]).group_by(&:keywordable_type)
         @specialties = @cuisines = @chapters = @otmkeywords = @restaurantfeatures = nil
         keywords.keys.each do |key|
           if (key != "ALaMinuteAnswer")||(key != "ALaMinuteQuestion")
             instance_variable_set("@#{key.to_s.downcase.pluralize}", keywords[key].map(&:keywordable))
           end
         end
-        @al_users = TraceKeyword.all(:conditions => ["(keywordable_type='ALaMinuteAnswer' OR keywordable_type='ALaMinuteQuestion') AND (DATE(created_at) >= ? OR DATE(updated_at) >= ?)" ,get_limit_day.day.ago.beginning_of_day.to_formatted_s,get_limit_day.day.ago.beginning_of_day.to_formatted_s]).map(&:user_id)
+        @al_users = TraceKeyword.all(:conditions => ["(keywordable_type='ALaMinuteAnswer' OR keywordable_type='ALaMinuteQuestion') AND (DATE(created_at) >= ? OR DATE(updated_at) >= ?)" ,1.day.ago.beginning_of_day.to_formatted_s,1.day.ago.beginning_of_day.to_formatted_s]).map(&:user_id)
         @a_la_minute_visitors = User.find(:all ,:conditions=>['id in (?)',@al_users.flatten.compact.uniq])
         if user.restaurants.blank? 
           # check the chef is associated restaurants or not
@@ -124,7 +126,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
             end              
           end
           
-          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
+          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),1.day.ago],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
           @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
             
@@ -177,7 +179,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
               if counter < 3 && @newsfeeds.blank?
                 @newsfeed_message ="Newsfeed posts are emailed directly to media as press releases from your restaurant and can feature everything from new menu items to events to promos. Don't forget to get news to the ,<a href='#{new_restaurant_promotion_url(visitor.restaurant)}'>media</a> so they can report it."
               end
-              otm_keyword_notification = OtmKeywordNotification.find(:all,:conditions=>["created_at > ?",user.user_visitor_email_setting.last_email_at]) 
+              otm_keyword_notification = OtmKeywordNotification.find(:all,:conditions=>["created_at > ?",1.day.ago]) 
               employee_visitors = user.trace_keywords.all(:conditions => ["DATE(created_at) >= ? ", 1.day.ago]).map(&:user)
               restaurant_visitors = {
                 "visitor_obj" =>visitor,
@@ -211,7 +213,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
           end
         end
       end      
-    end    
+    # end    
     write_the_file       
   end
   #TODU this method create log file of connect media and visitor email with  

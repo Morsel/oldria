@@ -79,7 +79,7 @@ class RiaWebservicesController < ApplicationController
   end
 
   def get_join_us_value
-     render :json =>{ :restaurantRole=>RestaurantRole.all,:subjectMatter=>SubjectMatter.general.all}
+     render :json =>{ :restaurantRole=>RestaurantRole.all,:subjectMatter=>SubjectMatter.all}
   end
 
   def create

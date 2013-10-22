@@ -3,7 +3,7 @@ class MailchimpConnector
   attr_accessor :client
 
   def initialize name = 'RIA Diners'
-    @client = Gibbon.new
+    @client = Gibbon.new(ENV['MAILCHIMP_API_KEY'])
     @group_name = name
   end
 

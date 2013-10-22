@@ -33,25 +33,25 @@ class Event < ActiveRecord::Base
   
   validate :end_comes_after_start
   
-  named_scope :for_month_of, lambda { |date| 
+  scope :for_month_of, lambda { |date| 
     { :conditions => { :start_at => date.beginning_of_month.at_midnight..date.end_of_month.end_of_day } } 
   }
   
-  named_scope :for_location, lambda { |location|
+  scope :for_location, lambda { |location|
     { :conditions => { :location => location } }
   }
   
-  named_scope :by_category, lambda { |category|
+  scope :by_category, lambda { |category|
     { :conditions => { :category => category } }
   }
   
-  named_scope :from_ria, :conditions => { :category => ['admin_charity', 'admin_holiday'] }
+  scope :from_ria, :conditions => { :category => ['admin_charity', 'admin_holiday'] }
   
-  named_scope :children, lambda { |event| 
+  scope :children, lambda { |event| 
     { :conditions => { :parent_id => event.id } }
   }
   
-  named_scope :admin_locations, :conditions => { :category => ["admin_charity", "admin_holiday"] }, :select => "distinct location"
+  scope :admin_locations, :conditions => { :category => ["admin_charity", "admin_holiday"] }, :select => "distinct location"
   
   def date
     start_at

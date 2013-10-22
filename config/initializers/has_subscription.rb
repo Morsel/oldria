@@ -5,7 +5,7 @@ module HasSubscription
     has_many :paid_subscriptions, :class_name => "Subscription", :as => :payer
     after_update :update_braintree_contact_info
 
-    named_scope :with_premium_account, {:include => :subscription,
+    scope :with_premium_account, {:include => :subscription,
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
           Date.today]}
 

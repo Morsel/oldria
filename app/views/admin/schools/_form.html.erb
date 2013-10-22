@@ -1,5 +1,5 @@
-<% semantic_form_for [:admin, @school] do |f| %>
-  <% f.inputs do %>
+<%= semantic_form_for [:admin, @school] do |f| %>
+  <%= f.inputs do %>
     <%= f.input :name, :label => 'School Name' %>
     <%= f.input :city, :input_html => {:class => 'span-5'},
       :wrapper_html => {:class => 'span-5 column'} %>

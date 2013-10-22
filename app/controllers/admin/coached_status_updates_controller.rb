@@ -14,7 +14,7 @@ class Admin::CoachedStatusUpdatesController < Admin::AdminController
   def create
     @coached_status_update = CoachedStatusUpdate.new(params[:coached_status_update])
     if @coached_status_update.save
-      flash[:notice] = "Awesome, you’ve just added the Coached Status Update  '#{@coached_status_update.message}'. Now, don’t forget to drink some water, it’s good for you."
+      flash[:notice] = "Awesome, you've just added the Coached Status Update  '#{@coached_status_update.message}'. Now, don't forget to drink some water, it's good for you."
         if params[:save_and_new]
         redirect_to new_admin_coached_status_update_path
       else

@@ -1,4 +1,4 @@
-<% div_for(answer,:class=>"comment") do %>
+<%=div_for(answer,:class=>"comment") do %>
   <header>
      <div class="activity_header">
        <h4><%= link_to "#{answer.profile_question.chapter.title_with_topic}: #{answer.profile_question.title}", soapbox_profile_question_path(answer.profile_question) %></h4>

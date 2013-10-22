@@ -4,7 +4,7 @@
 
 <p>Go ahead, get crazy, invite all the chefs, sommeliers and mixologists you admire:</p>
 
-<% form_tag submit_recommendation_invitations_path ,:class=>"recommendation_invitations color-box-restaurant",:id=>"form_invitation" do %>    
+<%= form_tag submit_recommendation_invitations_path ,:class=>"recommendation_invitations color-box-restaurant",:id=>"form_invitation" do %>    
     <label for="first_name">First Name</label>
     <p class="string optional"><%=text_field_tag "first_name","",:class=>"first_name",:name=>"invitedemployee[first_name][]",:placeholder=>"First Name" %></p>
     <label for="first_name">Last Name</label>

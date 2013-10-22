@@ -1,6 +1,6 @@
 <li>
     <% if trend_list_entry.soapbox_entry.present? -%>
-    <% link_to soapbox_soapbox_entry_path(trend_list_entry.soapbox_entry) do %>
+    <%= link_to soapbox_soapbox_entry_path(trend_list_entry.soapbox_entry) do %>
         <% date = trend_list_entry.scheduled_at %>
         <time datetime="<%= date.try(:strftime,'%Y-%m-%d') %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
         <span class="title"><%= message(trend_list_entry) %></span>

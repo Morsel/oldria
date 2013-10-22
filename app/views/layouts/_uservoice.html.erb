@@ -1,4 +1,4 @@
-<% unless RAILS_ENV == 'test' || RAILS_ENV == 'development' %>
+<% unless Rails.env == 'test' || Rails.env == 'development' %>
 
 <script type="text/javascript">
 var uservoiceJsHost = ("https:" == document.location.protocol) ? "https://uservoice.com" : "http://cdn.uservoice.com";

@@ -1,0 +1,551 @@
+@import "compass/css3";
+@import "blueprint";
+
+$orange: #D8531E;
+$med-orange: #e77d53;
+$trans-orange: #FAEAE4;
+$brown: #897A55;
+$med-brown: #AA9C74;
+$trans-brown: #F7F6F2;
+
+$new-orange: #f16522;
+$new-green: #6eb33f;
+@mixin hiddentext{
+	display: block;
+	outline: 0;
+	text-indent: -9999px;
+}
+.ui-autocomplete {
+	position: absolute;
+	cursor: default;
+	background-color: white;
+	border: 1px solid #ccc;
+	li {
+		padding: 3px;
+	}
+}
+.ui-autocomplete-loading {
+   background: white url('/images/ajax-loader.gif') right center no-repeat;
+}
+.color-box-restaurant {
+  padding: 20px;
+	overflow: hidden;
+	border: 1px solid #eaeaea;
+	#hours, #seating_areas, #tasting_menus {
+	  .fields {
+	    margin-bottom: 20px;
+	  }
+	}
+	.btl-art {
+	  display: block;
+	  margin-bottom: 5px;
+	}
+	input {
+    margin-bottom: 12px;
+    &[type="password"], &[type="url"], &[type="text"], &[type="number"] {
+      border: 1px solid #ccc;
+      @include box-shadow(#eaeaea, 0px, 1px, 1px);
+      width: 55%;
+    }
+	}
+	.a_la_minute_question p select{
+			width:auto;    	
+			display:inline;
+    }
+    select {
+    width: 55%;
+    border: 1px solid #BFBFBF;
+    background: #FFF;
+    margin-bottom: 15px;
+    padding: 5px;
+    display: block;
+  }
+	textarea {
+    border: 1px solid #ccc;
+    @include box-shadow(#eaeaea, 0px, 1px, 1px);
+    width: 55%;
+    height: 119px;
+  }
+  
+	button, input[type="submit"] {
+		cursor:pointer;
+		float: left;
+		display: block;
+		margin: 0 10px 0 0;
+		font-size: 12px;
+		font-family: 'helvetica neue', helvetica, arial, sans-serif;
+		background-color: $orange;
+		@include border-radius(20px);
+		color: #fff;
+		padding: 5px 12px;
+		font-weight: bold;
+		text-shadow:0 1px 0 #444;
+		border:0;
+		&:hover {
+			background: #bbb08c;
+			color: #fff;
+		}
+		&.positive {
+			margin:0 0 10px;
+			&:hover {
+				background: #e1d9c4;
+				color: #333;
+				text-shadow:none;
+			}
+		}
+		&.clear{
+			float:none;
+			margin:10px 0;
+		}
+	}
+	.media_requests {
+		font-family: 'helvetica neue', helvetica, arial, sans-serif;
+		font-weight: normal;
+		background: #fff url(/images/redesign/mediarequest.gif) no-repeat 10px 16px;
+		color: #333;
+		float: left;
+		width: 140px;
+		padding: 15px 15px 15px 35px;
+		border: 1px solid #eaeaea;
+		margin: 0 15px 10px 0;
+		@include box-shadow(#f2f2f2, 0,1px,1px);
+		@include border-radius(4px);
+		a {
+			color: $orange;
+			font-weight: bold;
+			&:hover {
+				color: $brown;
+			}
+		}
+	}
+	.rearrange {
+		font-family: 'helvetica neue', helvetica, arial, sans-serif;
+		font-weight: normal;
+		color: #333;
+		border-bottom: 1px solid #ddd;
+		padding: 0 0 4px 0;
+		margin: 5px 0;
+	}
+	.sf-button {
+		display: inline-block;
+		@include linear-gradient(color-stops(#f4f4f4,#eaeaea), top);
+		border: 1px solid #ddd;
+		padding: 4px 14px;
+		@include border-radius(30px);
+		color: #333;
+		text-shadow: 0 1px 0 #fff;
+		font-weight: bold;
+		&:hover{
+			background:#ddd;
+			@include linear-gradient(color-stops(#fff,#ffe1d5 ), top);
+			border: 1px solid #ffe1d5;
+			text-shadow: 0 1px 0 #fff;
+			color: $orange;
+			text-decoration: none;
+		}
+	}
+	.placeholder {
+		background-color: #f9f9f9;
+		border: 1px #eee solid;
+		padding: 15px;
+	}
+	.edit_block {
+		border-bottom: 1px dotted #ccc;
+	}
+	ol li {
+		label {
+		  display: block;
+		  font-size: 13px;
+			font-weight: bold;
+		}
+		select {
+			display: block;
+			margin: 3px 0 12px;
+			width: 55%;
+		}
+		ol select {
+		  width: auto;
+		  display: inline;
+		}
+		.inline-hints {
+			margin: -4px 0 10px;
+			color: #888;
+			font-size: 11px;
+			font-style: normal;
+		}
+	}
+	#menu_pdf_remote_attachment_attributes_attachment_input {
+		label {
+			display: block;
+		}
+		input {
+			@include box-shadow(none);
+		}
+	}
+	.editing {
+		border-bottom: 1px dotted #ccc;
+		margin-top: 20px;
+		padding-bottom: 10px;
+		.question {
+		  input {
+		    margin-top: -5px;
+		  }
+		  label {
+		    font-weight: normal;
+		  }
+		}
+		p {
+			margin: 5px 0 15px;
+			&.currently {
+				float: left;
+				font-size: 14px;
+				margin: 0 15px 10px 0;
+				padding: 10px 15px;
+				text-shadow: 0 1px 0 #fff;
+				width: 140px;
+				background-color: $trans-orange;
+				color: $orange;
+				@include border-radius(4px);
+			}
+			&.alert {
+				font-size: 14px;
+				color: $orange;
+			}
+		}
+		legend {
+			font-family: 'Hoefler Text', Georgia, Times, serif;
+			font-size: 14px;
+			font-weight: bold;
+			color: #333;
+			padding: 0;
+			span {
+				margin: 0;
+				padding: 0;
+			}
+		}
+		&#logo_image {
+			legend {
+				margin: 10px 0 0;
+			}
+			img {
+				float: left;
+				width: 50px;
+				height: 50px;
+				border: 1px solid #ccc;
+				background-color: #f2f2f2;
+				margin: 0 15px 10px 0;
+				@include hiddentext;
+			}
+			label {
+				display: block;
+			}
+			input {
+				@include box-shadow(none);
+			}
+		}
+		table {
+			clear: both;
+			background-color: #fff;
+			form {
+				margin-bottom: 6px;
+			}
+			.photo {
+				background-color: #fff;
+				&:hover {
+					background-color: #fbf2f2;
+				}
+			}
+			th {
+				background-color: #f4f3ee;
+				text-shadow: 0 1px 0 #fff;
+				color: #838280;
+				font-size: 13px;
+				font-weight: normal;
+				padding: 6px 10px;
+			}
+			td {
+				border-bottom: 1px solid #ddd;
+				padding: 2px 10px;
+				img {
+					width: 100px;
+					@include hiddentext;
+				}
+				a.delete, a.colorbox {
+					width:50px;
+					font-size: 11px;
+				}
+			}	
+		}
+	}
+	.negative {
+		background: $trans-orange url(/images/redesign/trash.gif) no-repeat 9px 5px;
+		padding: 4px 12px 4px 22px;
+		@include border-radius(30px);
+		&:hover {
+			background-color: $orange;
+			color: #fff;
+			text-decoration: none;
+			color: rgba(255,255,255,.8);
+		}
+	}
+	.accolades {
+	  border-top: none;
+	  margin: 0;
+	  padding: 0;
+		h2 {
+			font-family: 'Hoefler Text', Georgia, Times, serif;
+			font-size: 14px;
+			font-weight: bold;
+			color: #333;
+			padding: 0;
+			margin-bottom: 5px;
+		}
+		ul#accolades {
+			margin: 0;
+			padding: 0;
+			li {
+				float: left;
+				width: 300px;
+				padding: 10px;
+				border: 1px solid #ddd;
+				background: none;
+				margin: 0 15px 10px 0;
+				.extended-title {
+					display:  block;
+					font-size: 13px;
+					margin: 2px 0;
+					font-weight: bold;
+				}	
+			}
+		}
+	}
+	.editing_label{
+		color:#333;
+		text-decoration:underline;
+	}
+	.edit {
+		margin: 3px 3px 5px 0;
+		background: #eae6d5 url(/images/redesign/icon-16-pencil.png) no-repeat 3px 1px;
+		display: inline-block;
+		padding: 1px 5px 1px 18px;
+		color: $brown;
+		&:hover {
+			background-color: $brown;
+			color: #fff;
+			text-shadow: 0 1px 0 #333;
+			text-decoration: none;
+		}
+	}
+	.delete {
+		margin: 3px 3px 3px 0;
+		background: $trans-orange url(/images/redesign/icon-16-delete.png) no-repeat 3px 1px;
+		display: inline-block;
+		padding: 1px 5px 1px 18px;
+		&:hover {
+			background-color: $orange;
+			color: #fff;
+			text-shadow: 0 1px 0 #333;
+			text-decoration: none;
+		}
+	}
+	#restaurant_opening_date_input fieldset {
+		legend {
+			font-family: 'helvetica neue', helvetica, arial, sans-serif;
+			font-size: 12px;
+		}
+		ol li label {
+			text-transform: uppercase;
+			font-size: 10px;
+			color: #666;
+			margin: 5px 0 0;
+			padding: 0;
+			line-height: 12px;
+		}
+	}
+	.ui-sortable {
+		.employment_box {
+			cursor: move;
+			.user {
+				overflow:hidden;
+				padding: 10px;
+				border: 1px solid #ddd;
+				@include linear-gradient(color-stops(#fff,#f2f2f2), top);
+				@include border-radius(3px);
+				margin: 5px 0;
+				.profile_meta {
+					float: left;
+					width: 340px;
+					a {
+						padding: 2px 10px;
+						@include border-radius(15px);
+						font-size: 11px;
+						&.edit {
+							background: #eae4d9;
+							color: $brown;
+							&:hover {
+								background-color: $brown;
+								text-shadow: 0 1px 0 #333;
+								color: #fff;
+							}
+						}
+						&.delete {
+							background: $trans-orange;
+							color: $orange;
+							&:hover {
+								background-color: $orange;
+								text-shadow: 0 1px 0 #333;
+								color: #fff;
+							}
+						}
+					}
+					.restaurant_role {
+						margin: 0 0 4px;
+					}
+					.responsibilities {
+						font-size: 11px;
+						line-height: 14px;
+						margin: 10px 0 0;
+					}
+				}
+				.profile_public_meta {
+					float: left;
+					border-left: 1px dotted #ccc;
+					width: 200px;
+					padding-left: 15px;
+				}
+				img {
+					float: left;
+					width: 50px;
+					height: 50px;
+					border: 1px solid #ddd;
+					margin: 0 15px 0 0;
+					@include hiddentext;
+				}
+				h3 {
+					text-transform: capitalize;
+					margin: 3px 0;
+				}
+			}
+		}
+	}
+	.upload_photo {
+		@include linear-gradient(color-stops(#fff,#f4f4f4 ), top);
+		border: 1px solid #ddd;
+		padding: 10px 15px;
+		margin: 0 0 20px;
+		fieldset {
+			margin: 0;
+			padding: 0;
+			legend {
+				font-size: 13px;
+				margin: 0 0 8px;
+				padding: 0;
+				color: #777;
+			}
+			ol {
+				li {
+					label {
+						display: block;
+					}
+				}
+				button.positive {
+					display: inline-block;
+					margin: 6px 0 0;
+				}
+			}
+		}
+	}
+	.requestinvite {
+		margin: 0 0 15px;
+		padding: 0;
+	}
+}
+#color-box-restaurant,#add-role{
+	min-width:150px;
+	margin:30px;
+ 	select{
+		background: none repeat scroll 0 0 #FFFFFF;
+	  border: 1px solid #BFBFBF;
+	  display: block;
+	  margin-bottom: 15px;
+	  padding: 5px;
+	  width:100%;
+  }
+  label {
+		color: #333333;
+		font-family: 'Hoefler Text',Georgia,Times,serif;
+		font-size: 14px;
+		font-weight: bold;
+		padding: 0;
+	}
+	
+}
+#color-box-restaurant-msg{
+	display:none;
+	margin:30px;
+}
+
+a {
+  text-decoration: none;
+  color: $orange;
+  outline: none;
+}
+/* -----  for restaurant Directory ------------- */
+ul.featuredList{
+    list-style: none;
+}
+.list_item {
+  margin: 5px;
+  padding: 5px;
+  width: 120px;
+  float: left;
+}
+.setlistwidth{
+  width: 500px;
+}
+.search_resturant{
+	width:46%;
+	#search_restaurant_eq_any_name, #search_person_eq_any_name{
+		 position: relative;
+	     top: 9px;
+	     width: 318px;
+	}
+	button{
+		position: relative;
+		top: -47px;
+		left: 343px;
+	}
+}
+.search_resturant_region {
+    left: 447px;
+    position: relative;
+    top: -122px;
+    width: 62%;
+	h3{
+		left: -66px;
+		position: relative;
+	}
+	label{
+		left: -66px;
+		position: relative;
+	}
+	form input{
+		top: 25px;
+		position: relative;
+		width: 300px;
+	}
+	button{
+		left: 336px;
+		position: relative;
+		top: -31px;
+	}
+} 
+#restaurant_directory_list{
+  top: -134px;
+  position: relative;
+}
+#user_directory_list{
+  top: -134px;
+  position: relative;
+} 
+/* -----  end restaurant Directory ------------- */

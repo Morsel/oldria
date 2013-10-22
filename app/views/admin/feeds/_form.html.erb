@@ -1,5 +1,5 @@
-<% semantic_form_for [:admin, @feed] do |f| %>
-	<% f.inputs do %>
+<%= semantic_form_for [:admin, @feed] do |f| %>
+	<%= f.inputs do %>
 		<%= f.input :feed_url,
                 :input_html => {:class => 'span-12 title'},
                 :hint => "This must be the URL to a valid RSS/ATOM feed itself, not simply the URL to the blog, <br/>\

@@ -1,5 +1,5 @@
 class Admin::TraceSearchesController < ApplicationController
-
+	require 'will_paginate/array'
   def index
   	@trace_searches = TraceSearch.all(:order => "created_at DESC").paginate(:page => params[:page])
   end

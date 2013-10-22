@@ -41,7 +41,7 @@
 
 	<h3>Approved Media Requests</h3>
 <% if !@approved_media_requests.empty? %>
-	<% table_for(@approved_media_requests) do |t| %>
+	<%= table_for(@approved_media_requests) do |t| %>
 		<% t.data :actions => [:show, :edit], :action_prefix => :admin do
 			t.cell :sender
 			t.cell(:recipients) {|r| r.discussions.size }

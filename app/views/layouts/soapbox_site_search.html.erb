@@ -57,7 +57,7 @@
         <section id="content" class="no-sidebar">
             <header id="search-title">
               <h1 id="search_flag">Search</h1>
-              <% form_tag soapbox_search_path, :method => :get, :id => 'question-search-form' do %>
+              <%= form_tag soapbox_search_path, :method => :get, :id => 'question-search-form' do %>
                 <%= text_field_tag "query", @key, :class => 'big_search' %>
                 <%= submit_tag "Search", :class => 'button positive' , :name => nil %>
               <% end %>

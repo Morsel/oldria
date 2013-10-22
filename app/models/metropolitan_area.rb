@@ -22,12 +22,12 @@ class MetropolitanArea < ActiveRecord::Base
   
   default_scope :order => "LOWER(#{table_name}.state) ASC, LOWER(#{table_name}.name) ASC"
 
-  named_scope :with_restaurants,
+  scope :with_restaurants,
     :joins => :restaurants,
     :conditions => 'restaurants.deleted_at IS NULL',
     :group => "#{table_name}.id"
 
-  named_scope :with_profiles,
+  scope :with_profiles,
     :joins => :profiles,
     :group => "#{table_name}.id"
 

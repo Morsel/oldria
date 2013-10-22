@@ -6,7 +6,7 @@
     <p>
 		<%= truncate(answer.answer, :length => 130) %>
 		<% if answer.answer.length > 130 -%>
-		<%= link_to "more &raquo;", user_btl_chapter_path(user, :id => answer.chapter_id, :anchor => "profile_question_#{answer.profile_question.id}") %>
+		<%= link_to "more &raquo;".html_safe, user_btl_chapter_path(user, :id => answer.chapter_id, :anchor => "profile_question_#{answer.profile_question.id}") %>
 		<% end -%>
 	</p>
     <% end %>

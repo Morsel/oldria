@@ -1,6 +1,6 @@
 <% title "Invited Employees" %>
-<% table_for(@invited_employees) do |f| %>
-    <% f.data do
+<%= table_for(@invited_employees) do |f| %>
+    <%= f.data do
       f.cell :first_name
       f.cell :last_name
       f.cell :email

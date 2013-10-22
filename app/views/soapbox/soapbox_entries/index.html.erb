@@ -5,6 +5,6 @@
 
 <%= render :partial => feature_entry_type(@secondary_feature), :locals => { :feature => @secondary_feature, :feature_comments => @secondary_feature_comments } if @secondary_feature.present? %>
 
-<% content_for :sidebar do -%>
+<%= content_for :sidebar do -%>
 <%= render :partial => 'front_burner_sidebar' %>
 <% end -%>

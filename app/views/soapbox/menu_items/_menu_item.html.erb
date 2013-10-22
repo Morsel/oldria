@@ -1,4 +1,4 @@
-<% div_for menu_item do %>
+<%=div_for menu_item do %>
     <h2><%= link_to menu_item.name, soapbox_menu_item_path(menu_item) %></h2>
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => menu_item.restaurant } unless @restaurant.present? %>
     <div class="menu_item_details">
@@ -10,16 +10,16 @@
 
         <p>
             <%- if menu_item.description.present? -%>
-              <%= Loofah::Helpers.sanitize(truncate(menu_item.description, :length => 150)) %>
-              <%= link_to "more &raquo;", soapbox_menu_item_path(menu_item) if menu_item.description.size > 150 %>
+              <%= Loofah::Helpers.sanitize(truncate(menu_item.description, :length => 150)).html_safe %>
+              <%= link_to "more &raquo;".html_safe, soapbox_menu_item_path(menu_item) if menu_item.description.size > 150 %>
             <%- end -%>
         </p>
 
         <p><%= "Pairing: #{menu_item.pairing}" if menu_item.pairing.present? %></p>
         <% if current_user && current_user.media? %>
-            <p class="keywords"><%= menu_item.otm_keywords.sort_by(&:name).map { |k| link_to k.name, menu_items_path(:keyword => k.name) }.to_sentence %></p>
+            <p class="keywords"><%= menu_item.otm_keywords.sort_by(&:name).map { |k| link_to k.name, menu_items_path(:keyword => k.name) }.to_sentence.html_safe %></p>
         <% else %>
-            <p class="keywords"><%= menu_item.otm_keywords.sort_by(&:name).map { |k| link_to k.name, soapbox_menu_items_path(:keyword => k.name) }.to_sentence %></p>
+            <p class="keywords"><%= menu_item.otm_keywords.sort_by(&:name).map { |k| link_to k.name, soapbox_menu_items_path(:keyword => k.name) }.to_sentence.html_safe %></p>
            
         <% end %>
 

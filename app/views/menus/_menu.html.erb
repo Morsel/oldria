@@ -1,5 +1,5 @@
 <li class="menu_item">
-  <% link_to menu.pdf_remote_attachment.attachment.url do -%>
+  <%= link_to menu.pdf_remote_attachment.attachment.url do -%>
     <label><%= h(menu.name) %></label> <time datetime="<%= menu.pdf_remote_attachment.updated_at.strftime('%Y-%m-%d') %>" class="timestamp">Updated <%= menu.pdf_remote_attachment.updated_at.strftime('%m/%d/%Y') %></time>
   <% end -%>
 </li>

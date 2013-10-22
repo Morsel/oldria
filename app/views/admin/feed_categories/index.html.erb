@@ -5,7 +5,7 @@
   <%= link_to "New Feed Category", new_admin_feed_category_path, :class => 'positive button' %>
 </p>
 
-<% table_for @feed_categories do |t| %>
+<%= table_for @feed_categories do |t| %>
   <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
        t.cell(:name)
        t.cell(:feeds_count) {|f| f.feeds.size }

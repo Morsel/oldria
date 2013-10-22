@@ -1,6 +1,6 @@
 <ol class="fields">
   <%= f.input :name, :label => "Service Period", :hint => "e.g., Brunch, lunch, dinner" %>
-  <%= f.input :day, :as => :hidden, :value => day_value %>
+  <%#= f.input :day, :as => :hidden, :value => day_value %>
 
   <%= render "time_select_fields", :f => f, :field => :open %>
   <%= render "time_select_fields", :f => f, :field => :closed %>

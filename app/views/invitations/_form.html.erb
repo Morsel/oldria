@@ -1,8 +1,8 @@
-    <% f.inputs :class => "editing basics requestinvite" do %>
+    <%= f.inputs :class => "editing basics requestinvite" do %>
         <%= f.input :first_name, :as => :string %>
         <%= f.input :last_name, :as => :string %>
         <%= f.input :email, :as => :string %>
-        <% f.inputs :name => "Work details" do %>
+        <%= f.inputs :name => "Work details" do %>
             <%= f.input :restaurant_name, :label => "Name of the restaurant(s) where you work:", :hint => 'Enter your restaurant name or your employment status e.g., student, between jobs, retired, time off' %>
             <%= f.input :restaurant_role, :label => "Role", :as => :select, :collection => RestaurantRole.all, :hint => 'Your role helps the media find you when they are looking for sources for stories.  If you are "chef/owner" select that and not "owner": you will receive more opportunities!' %>
 
@@ -10,7 +10,7 @@
             <%= f.input :subject_matters,
                 :as => :check_boxes,
                 :wrapper_html => { :class => 'checkall', :id => "employment_general_subject_matters" },
-                :collection => SubjectMatter.general.all,
+                :collection => SubjectMatter.all,
                 :label => "I am comfortable answering questions and speaking to the media about the following topics:" %>
         <% end %>
         

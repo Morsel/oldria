@@ -48,7 +48,9 @@ class Restaurant < ActiveRecord::Base
   include FacebookPageConnect
   include TwitterAuthorization
 
-  include ActionController::UrlWriter
+  include ActionView::Helpers::TextHelper  
+  include ActionDispatch::Routing::UrlFor
+  include Rails.application.routes.url_helpers
   default_url_options[:host] = DEFAULT_HOST
 
   default_scope :conditions => {:deleted_at => nil }, :order => "#{table_name}.sort_name"
@@ -135,8 +137,8 @@ class Restaurant < ActiveRecord::Base
   accepts_nested_attributes_for :newsletter_setting
 
   has_one  :visitor_email_setting
-  
-  after_validation_on_create :add_manager_as_employee
+  before_validation :add_manager_as_employee, :on => :create
+  # after_validation_on_create :add_manager_as_employee
   after_create :update_manager
   before_destroy :migrate_employees_to_default_employment
 
@@ -145,7 +147,7 @@ class Restaurant < ActiveRecord::Base
   after_create :add_api_token
 
   preference :publish_profile, :default => true
-  
+  preference :dark_chocolate, :default => true
   has_many :media_newsletter_subscriptions, :dependent => :destroy
 
   has_many :page_views, :as => :page_owner, :dependent => :destroy
@@ -158,23 +160,34 @@ class Restaurant < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 15
 
-  named_scope :with_twitter, lambda {
+  scope :with_twitter, lambda {
     { :conditions => "atoken IS NOT NULL AND asecret IS NOT NULL" }
   }
 
-  named_scope :with_facebook_page, lambda {
+  scope :with_facebook_page, lambda {
     { :conditions => "facebook_page_id IS NOT NULL AND facebook_page_token IS NOT NULL" }
   }
 
-  named_scope :activated_restaurant, :conditions => { } # TODO for workound I removed is_activated =>true Ticket 36397415 
+  scope :activated_restaurant, :conditions => { } # TODO for workound I removed is_activated =>true Ticket 36397415 
   
   #get only premium restaurants
-  named_scope :from_premium_restaurants, lambda {
+  scope :from_premium_restaurants, lambda {
     { :joins => :subscription ,
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
           Date.today] }
   }
-  
+  # create a new named scope bcause not find any method with name subscription_is_active
+  scope :subscription_is_active, lambda {
+    { :joins => :subscription ,
+      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+          Date.today] }
+  }
+
+  attr_accessible :name, :description, :street1, :street2, :city, :state, :zip, :phone_number, :metropolitan_area_id,
+   :james_beard_region_id, :manager_id, :media_contact_id, :cuisine_id, :opening_date, :website, :management_company_name,
+   :management_company_website, :logo_attributes, :attachment, :photos_attributes,:primary_photo,:facebook_page_id, :facebook_page_token, :facebook_page_url,
+   :atoken, :asecret
+
   def self.find_premium(id)
     possibility = find_by_id(id)
     possibility.try(:premium_account) ? possibility : nil
@@ -291,7 +304,11 @@ class Restaurant < ActiveRecord::Base
   end
 
   def photos_last_updated
-    photos.present? ? photos.first(:order => "updated_at DESC").updated_at.strftime('%m/%d/%y') : ''
+   if  !photos.present? && photos.first.nil?
+    ""
+   elsif photos.present?
+     photos.first.id.blank? ? "" : photos.first(:order => "updated_at DESC").updated_at.strftime('%m/%d/%y')
+   end
   end
 
   def shareable_newsletter_subscribers
@@ -471,7 +488,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def missing_subject_matter_ids
-    (SubjectMatter.general.all(:select => :id).map(&:id) - handled_subject_matter_ids)
+    (SubjectMatter.all(:select => :id).map(&:id) - handled_subject_matter_ids)
   end
 
   def reset_primary_photo_on_add(added_photo)

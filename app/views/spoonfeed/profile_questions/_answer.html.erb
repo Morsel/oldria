@@ -3,7 +3,7 @@
     <div class="comment">
         <%= truncate(answer.answer, :length => 200) %>
         <% if answer.answer.size > 200 -%>
-        <%= link_to "more &raquo;", profile_question_path(answer.profile_question) %>
+        <%= link_to "more &raquo;".html_safe, profile_question_path(answer.profile_question) %>
         <% end -%>
     </div>
     <%- if current_user.media? -%>

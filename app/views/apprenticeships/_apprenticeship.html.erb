@@ -1,4 +1,4 @@
-<% content_tag_for :li, apprenticeship, :class => cycle('odd','even') do %>
+<%= content_tag_for :li, apprenticeship, :class => cycle('odd','even') do %>
   <span class="extended-title"><%= apprenticeship.establishment %></span>
   <%= apprenticeship.supervisor %><br />
    <% if apprenticeship.end_date %>

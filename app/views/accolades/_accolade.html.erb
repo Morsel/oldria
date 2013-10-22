@@ -1,4 +1,4 @@
-<% content_tag_for :li, accolade, :class => cycle('odd','even') do %>
+<%=content_tag_for :li, accolade, :class => cycle('odd','even') do %>
   <span class="extended-title"><%= accolade.name %></span>
   <%= accolade.run_date.try(:strftime, "%B %Y") %> (<%= accolade.media_type %>)<br/>
   <%= link_to truncate(accolade.link, :length => 25), accolade.link, :class => 'unstyled' if accolade.link %><br/>

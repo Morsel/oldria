@@ -1,23 +1,23 @@
 <% title "Editing Restaurant" %>
 
-<% semantic_form_for([:admin, @restaurant]) do |f| %>
+<%= semantic_form_for([:admin, @restaurant]) do |f| %>
 	<p>
 		<%= f.label :name %>
 		<%= f.text_field :name, :class => 'title span-8' %>
 	</p>
 
-  <% f.inputs do %>
+  <%= f.inputs do %>
     <%= f.input :sort_name, :class => 'span-8', 
         :hint => "For example: if the restaurant is The Gage, the sort name should be Gage, The" %>
 	<% end %>
 	
-	<% f.inputs :name => "Account Status" do %>
+	<%= f.inputs :name => "Account Status" do %>
 	  <%= render :partial => 'admin/users/account_status', 
         :locals => {:subscriber => @restaurant, :subscriber_type => :restaurant}%>
   <% end %>
 
   <br clear=all />
-	<% f.inputs :name => "Address", :class => "span-8 column" do %>
+	<%= f.inputs :name => "Address", :class => "span-8 column" do %>
 		<%= f.input :street1, :label => 'Street Address' %>
 		<%= f.input :street2, :label => 'Street Address Line 2 (Optional)' %>
 		<%= f.input :city, :input_html => {:class => 'span-3'}, :wrapper_html => {:class => 'span-3 column'}  %>
@@ -28,7 +28,7 @@
 		<%= f.input :james_beard_region, :label => "Region" %>
 	<% end -%>
 
-	<% f.inputs :name => 'Other', :class => "span-9 column last" do %>
+	<%= f.inputs :name => 'Other', :class => "span-9 column last" do %>
 		<%= f.input :manager, :label => "Primary Account Manager", :collection => @restaurant.managers %>
 		<%= f.input :media_contact, :collection => @restaurant.employees %>
 		<%= f.input :cuisine %>

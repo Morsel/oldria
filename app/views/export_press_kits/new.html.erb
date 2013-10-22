@@ -1,6 +1,6 @@
 <h2>Export your press kit</h2>
 
-<% form_tag user_export_press_kits_path do %>
+<%= form_tag user_export_press_kits_path do %>
 	<% if @restaurants.size == 1%>
 		<p> Restaurant Name: <%= @restaurants.first.name %> </p>
 		<%= hidden_field_tag "restaurant", @restaurants.first.id %>

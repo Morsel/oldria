@@ -1,4 +1,4 @@
-<% div_for direct_message, :class => css_classes_for_direct_message(direct_message) do %>
+<%=div_for direct_message, :class => css_classes_for_direct_message(direct_message) do %>
 	<header>
   	<div class="sender_avatar">
     	<%= image_tag direct_message.sender.avatar.url(:thumb) %>
@@ -21,7 +21,7 @@
 
   <% unless direct_message.responses.blank? %>
     <div class="message_replies_link">
-      <% link_to  direct_message, :class => 'replies' do %>
+      <%= link_to  direct_message, :class => 'replies' do %>
         <span class="unread_comments_count"><%= direct_message.descendants_size %></span> replies &raquo;
       <% end %>
     </div>

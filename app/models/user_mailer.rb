@@ -83,12 +83,15 @@ class UserMailer < ActionMailer::Base
   end
   
   # sent to all users after their invite is accepted by an admin
-  def new_user_invitation(user, invitation_sender = nil)
-    from          'accounts@restaurantintelligenceagency.com'
-    recipients    user.email
-    sent_on       Time.now
-    subject       "Your invitation to Spoonfeed has arrived!"
-    body          :user => user, :invitation_sender => invitation_sender
+  def new_user_invitation!(user, invitation_sender = nil)
+    @user = user
+    @invitation_sender = invitation_sender
+    mail(
+      :from => 'accounts@restaurantintelligenceagency.com',
+      :to   =>  user.email,
+      :sent_on => Time.now,
+      :subject => "Your invitation to Spoonfeed has arrived!"
+      )
   end
   
   # sent to the restaurant manager after a user joins and requests to be added to the restaurant as an employee

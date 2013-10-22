@@ -11,7 +11,7 @@
                 <%= link_to chapter.title, soapbox_btl_chapter_path(chapter) %>
             </header>
             <aside class="feed-item-reply-count">
-                <% link_to soapbox_btl_chapter_path(chapter) do %>
+                <%= link_to soapbox_btl_chapter_path(chapter) do %>
                 <span class="num"><%= count = chapter.profile_questions.to_a.sum(&:soapbox_answer_count) %></span> <%= count == 1 ? "reply" : "replies" %>
                 <% end %>
             </aside>

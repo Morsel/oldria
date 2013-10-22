@@ -1,4 +1,4 @@
-<% content_tag_for(:div, answer.responder, :answer_for, :class => 'a_la_minute_answer') do %>
+<%= content_tag_for(:div, answer.responder, :answer_for, :class => 'a_la_minute_answer') do %>
     <%= render :partial => "restaurants/identity", :locals => { :restaurant => answer.responder } if answer.responder %>
     <div>
     	 <% if answer.photo_file_name.present? -%>

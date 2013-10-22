@@ -17,7 +17,7 @@ class HolidayConversation < ActiveRecord::Base
   acts_as_commentable
   acts_as_readable
 
-  named_scope :with_replies, :conditions => 'comments_count > 0'
-  named_scope :without_replies, :conditions => 'comments_count = 0'
+  scope :with_replies, :conditions => 'comments_count > 0'
+  scope :without_replies, :conditions => 'comments_count = 0'
 
 end

@@ -20,8 +20,8 @@ class Testimonial < ActiveRecord::Base
 
   has_attached_file :photo,
                     :storage        => :s3,
-                    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
-                    :path           => "#{RAILS_ENV}/testimonial_photos/:id/:style/:filename",
+                    :s3_credentials => "#{Rails.root}/config/environments/#{Rails.env}/amazon_s3.yml",
+                    :path           => "#{Rails.env}/testimonial_photos/:id/:style/:filename",
                     :bucket         => "spoonfeed",
                     :url            => ':s3_domain_url',
                     :default_url    => "/images/default_avatars/small.png",
@@ -33,8 +33,8 @@ class Testimonial < ActiveRecord::Base
 
   validates_presence_of :person, :quote, :photo, :page
 
-  named_scope :by_position, :order => :position
-  named_scope :for_page, lambda { |page|
+  scope :by_position, :order => :position
+  scope :for_page, lambda { |page|
     { :conditions => { :page => page } }
   }
 

@@ -12,9 +12,9 @@
 #
 
 class RestaurantAnswer < ActiveRecord::Base
-  include ActionView::Helpers::TextHelper
-  include ActionController::UrlWriter
-  default_url_options[:host] = DEFAULT_HOST
+  include ActionDispatch::Routing::UrlFor
+include Rails.application.routes.url_helpers
+default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :restaurant_question
   belongs_to :restaurant
@@ -22,7 +22,7 @@ class RestaurantAnswer < ActiveRecord::Base
   validates_presence_of :answer, :restaurant_question_id, :restaurant_id
   validates_uniqueness_of :restaurant_question_id, :scope => :restaurant_id
 
-  named_scope :from_premium_restaurants, lambda {
+  scope :from_premium_restaurants, lambda {
     {
       :joins => { :restaurant => :subscription },
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
@@ -30,9 +30,9 @@ class RestaurantAnswer < ActiveRecord::Base
     }
   }
 
-  named_scope :recently_answered, :order => "restaurant_answers.created_at DESC"
+  scope :recently_answered, :order => "restaurant_answers.created_at DESC"
 
-  named_scope :activated_restaurants, lambda {
+  scope :activated_restaurants, lambda {
     {
       :joins => 'INNER JOIN restaurants as res ON `res`.id = restaurant_id ',
       :conditions => ["(res.is_activated = ?)", true]
@@ -46,7 +46,7 @@ class RestaurantAnswer < ActiveRecord::Base
   has_many :facebook_posts, :as => :source, :dependent => :destroy
   accepts_nested_attributes_for :facebook_posts, :limit => 1, :allow_destroy => true, :reject_if => FacebookPost::REJECT_PROC
   # end twitter and fb share associations
-
+  attr_accessible :restaurant
 
   def bitly_link
     client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])

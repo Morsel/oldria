@@ -14,7 +14,7 @@
         <ol >
             <li>
                 <header class="feed-item-title">
-                    <p><%= restaurant.address_parts.join("<br />") %></p>
+                    <p><%= restaurant.address_parts.join("<br />").html_safe %></p>
                 </header>
             </li>
             <li>
@@ -90,7 +90,7 @@
         <div id="feed-bottom"></div>
         <footer>
             <div id="activity-chooser-all">
-                <span><%= link_to "View #{restaurant.name} &#187;", soapbox_restaurant_path(restaurant), :id => "view-all-questions" %></span>
+                <span><%= link_to "View #{restaurant.name} &#187;".html_safe, soapbox_restaurant_path(restaurant), :id => "view-all-questions" %></span>
             </div>
         </footer>
 
@@ -104,7 +104,7 @@
             <li>
                 <header class="tags website">
                     <p>
-                        <%= restaurant.top_tags.map{|tag|(link_to h(tag.value),soapbox_feature_path(tag))}.join(", ") %>
+                        <%= restaurant.top_tags.map{|tag|(link_to h(tag.value),soapbox_feature_path(tag))}.join(", ").html_safe %>
                     </p>
                 </header>
             </li>

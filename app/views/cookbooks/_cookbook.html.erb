@@ -1,4 +1,4 @@
-<% content_tag_for :li, cookbook, :class => cycle('odd','even') do %>
+<%= content_tag_for :li, cookbook, :class => cycle('odd','even') do %>
   <span class="extended-title"><%= cookbook.title %></span>
   <p>Publisher: <%= cookbook.publisher %><br>
   Published On: <%= cookbook.published_on.strftime('%b %d, %Y') %></p>

@@ -1,5 +1,5 @@
 <% media_request = media_request_discussion.media_request %>
-<% div_for media_request_discussion, :class => 'inbox_message discussion' do %>
+<%=div_for media_request_discussion, :class => 'inbox_message discussion' do %>
     <div class="message-details">
         <header>
             <h1><%= link_to "Query from Journalist: #{media_request.inbox_title}", media_request_discussion %></h1>

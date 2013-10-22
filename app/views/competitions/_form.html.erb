@@ -1,8 +1,8 @@
 <%= "<h1>#{yield :title}</h1>" if request.xhr? %>
-<% semantic_form_for @competition.new_record? ? [:user, :profile, @competition] : @competition do |f| %>
-  <% f.inputs :class => "competitions" do %>
-    <%= f.input :name, :label => "Name of competition" %>
-    <%= f.input :place, :label => "How did you place?" %>
+<%= semantic_form_for @competition.new_record? ? [:user, :profile, @competition] : @competition do |f| %>
+  <%= f.inputs :class => "competitions" do %>
+    <%= f.input :name, :label => "Name of competition",:input_html=>{:size=>50} %>
+    <%= f.input :place, :label => "How did you place?",:input_html=>{:size=>50} %>
     <%= f.input :year, :label => "What year?", :as => :select, :collection => years_for_select, :selected => @competition.year.to_s %>
   <% end %>
   <%= button_tag "Save" %>

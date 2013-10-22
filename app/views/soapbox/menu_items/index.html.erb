@@ -16,7 +16,7 @@
 <% end %>
 <div class="clear">&nbsp;</div>
 <% unless @cloud_keywords.blank?%>
-	<% content_for :sidebar do -%>	
+	<%= content_for :sidebar do -%>	
 		<%= render :partial => 'soapbox/keywords_cloud' %>
 	<% end -%>
 <% end -%>

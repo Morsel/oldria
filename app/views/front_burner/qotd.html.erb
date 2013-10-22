@@ -3,7 +3,7 @@
 <h2><%= @qotd.message %></h2>
 
 <% for comment in @answers %>
-<% div_for(comment) do %>
+<%=div_for(comment) do %>
     <%= render :partial => "users/identity", :locals => { :user => comment.user } %>
     <p>
         <%= comment.comment %>

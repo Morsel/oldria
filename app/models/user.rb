@@ -49,7 +49,8 @@ class User < ActiveRecord::Base
 
 
   include ActionView::Helpers::TextHelper  
-  include ActionController::UrlWriter
+  include ActionDispatch::Routing::UrlFor
+  include Rails.application.routes.url_helpers
   default_url_options[:host] = DEFAULT_HOST
 
   
@@ -123,7 +124,8 @@ class User < ActiveRecord::Base
   has_many :page_views, :as => :page_owner, :dependent => :destroy
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
-
+  attr_accessible :user_visitor_email_setting_attributes, :type, :solo_restaurant_name
+  
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin
 
@@ -156,16 +158,16 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :media_newsletter_setting,:user_visitor_email_setting
   after_update :update_newsletter_subscriber, :if => Proc.new { |user| user.newsletter_subscriber.present? }
 
-  named_scope :media, :conditions => { :role => 'media' }
-  named_scope :not_media, :conditions => ["(role != ? OR role IS NULL)", "media"]
-  named_scope :admin, :conditions => { :role => 'admin' }
+  scope :media, :conditions => { :role => 'media' }
+  scope :not_media, :conditions => ["(role != ? OR role IS NULL)", "media"]
+  scope :admin, :conditions => { :role => 'admin' }
 
-  named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
-  named_scope :by_last_name, :order => "LOWER(last_name) ASC"
+  scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
+  scope :by_last_name, :order => "LOWER(last_name) ASC"
 
-  named_scope :active, :conditions => "last_request_at IS NOT NULL"
-  named_scope :visible, :conditions => ['visible = ? AND (role != ? OR role IS NULL)', true, 'media']
-  named_scope :with_published_profile, :conditions => ["publish_profile = ?", true]
+  scope :active, :conditions => "last_request_at IS NOT NULL"
+  scope :visible, :conditions => ['visible = ? AND (role != ? OR role IS NULL)', true, 'media']
+  scope :with_published_profile, :conditions => ["publish_profile = ?", true]
 
 
   has_and_belongs_to_many  :newsfeed_metropolitan_areas ,:class_name =>"MetropolitanArea"
@@ -185,7 +187,6 @@ class User < ActiveRecord::Base
   has_many :trace_searches, :as => :keywordable
 
 
-  
 
 ### Roles ###
   def admin?
@@ -249,7 +250,7 @@ class User < ActiveRecord::Base
   end
 
   def primary_employment
-    self.employments.primary.first || self.employments.first || self.default_employment
+    self.employments.primary.first || self.employments.first || self.default_employment || self.employments
   end
 
   def nonprimary_employments
@@ -347,9 +348,9 @@ class User < ActiveRecord::Base
   def self.find_all_by_name(_name)
     namearray = _name.split(" ")
     if namearray.length > 1
-      first_name_like(namearray.first).last_name_like(namearray.last)
+      search(:first_name_like => namearray.first).relation.search(:last_name_like=>namearray.last).relation
     else
-      first_name_or_last_name_like(namearray.first)
+      search(:first_name_or_last_name_like => namearray.first).relation
     end
   end
 
@@ -369,7 +370,7 @@ class User < ActiveRecord::Base
     @send_invitation = nil
     reset_perishable_token! if reset_token
     logger.info( "Delivering invitation email to #{email}" )
-    UserMailer.deliver_new_user_invitation!(self, invitation_sender)
+    UserMailer.new_user_invitation!(self, invitation_sender).deliver
   end
 
   def email_for_content

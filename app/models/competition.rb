@@ -17,5 +17,6 @@ class Competition < ActiveRecord::Base
   belongs_to :profile
   
   validates_presence_of :name, :place, :year, :profile_id
+  attr_accessible :name, :place, :year
   
 end

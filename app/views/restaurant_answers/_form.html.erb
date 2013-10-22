@@ -1,4 +1,4 @@
-<% semantic_form_for [@restaurant, answer], :html => {:multipart => true} do |f| %>
+<%= semantic_form_for [@restaurant, answer], :html => {:multipart => true} do |f| %>
 <div class="color-box-restaurant">
 	<fieldset class="plain">
 	<ol>
@@ -38,7 +38,7 @@
 		          <% if twitter_post.try(:posted?) %>
 		            This Tweet posted on <%= twitter_post.post_at.strftime('%Y-%m-%d %H:%M') %>
 		          <% else %>
-		            <% f.semantic_fields_for :twitter_posts, twitter_post do |twitter| %>
+		            <%= f.semantic_fields_for :twitter_posts, twitter_post do |twitter| %>
 		                <%= twitter.input :post_at,:label => "Post to my Twitter account on", :as => :string, :input_html => {:id=>"", :class => 'datetime datetime-width',
 		                                  :value => twitter_post.try(:post_at).try(:strftime, '%Y-%m-%d %H:%M') } %>
 
@@ -65,7 +65,7 @@
 		            This Facebook post was submitted on <%= facebook_post.post_at.strftime('%Y-%m-%d %H:%M') %>
 		          <% else %>
 		            <% begin %>
-		              <% f.semantic_fields_for :facebook_posts, facebook_post do |facebook| %>
+		              <%= f.semantic_fields_for :facebook_posts, facebook_post do |facebook| %>
 		                <h4>Facebook Post #<%= index+1 %></h4>
 
 		                <%= facebook.input :post_at, :label => "Post to Facebook page \"#{@restaurant.facebook_page.fetch.name}\" on", :as => :string, :input_html => {:id=>"", :class => 'datetime datetime-width',

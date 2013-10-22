@@ -1,23 +1,23 @@
 <% hide_subject_matter ||= false %>
-<% f.inputs :name => 'Select Recipients', :id => 'employment_criteria', :class => 'editing' do %>
+<%= f.inputs :name => 'Select Recipients', :id => 'employment_criteria', :class => 'editing' do %>
 <%- if mediafeed? -%>
 <span class="hint">You may send your media request to any member.</span>
 <%- end -%>
-  <% semantic_fields_for @search do |s| %>
+  <%= semantic_fields_for @search do |s| %>
   <div id="criteria_accordion">
     <%- unless hide_subject_matter -%>
 	<p class="search_filter_hint">Select a subject matter:</p>
       <div class="accordion_box">
         <%- if mediafeed? -%>
-          <%= link_to "<span>Subject Matter *</span>", "#" %>
+          <%= link_to "<span>Subject Matter *</span>".html_safe, "#" %>
         <%- else -%>
-          <%= link_to "<span>Subject Matter</span>", "#" %>
+          <%= link_to "<span>Subject Matter</span>".html_safe, "#" %>
         <%- end -%>
         <div id="subject_fields" class="loading">
             <%= s.input :subject_matters_id_equals_any, 
                         :as => "check_boxes",
                         :label => '&nbsp;',
-                        :collection => SubjectMatter.general.all %>
+                        :collection => SubjectMatter.all %>
         </div>
       </div>
 	<p class="search_filter_hint">Filter further using these criteria, if you like:</p>
@@ -25,59 +25,59 @@
     
       <%- unless mediafeed? -%>
       <div class="accordion_box">
-        <%= link_to  "<span>Users</span>", "#" %>
+        <%= link_to  "<span>Users</span>".html_safe, "#" %>
         <div id="user_fields" style="display:none;">
             <%= s.input :employee_id_equals_any,
                         :as => "check_boxes",
-                        :label => '&nbsp;',
+                        :label => '&nbsp;'.html_safe,
                         :collection => User.by_last_name %>
         </div>
       </div>
       <div class="accordion_box">
-        <%= link_to "<span>Restaurants</span>", "#" %>
+        <%= link_to "<span>Restaurants</span>".html_safe, "#" %>
         <div id="restaurant_fields" style="display:none;">
             <%= s.input :restaurant_id_equals_any,
                         :as => "check_boxes",
-                        :label => '&nbsp;',
+                        :label => '&nbsp;'.html_safe,
                         :collection => Restaurant.all(:order => 'sort_name ASC') %>
         </div>
       </div>
       <%- end -%>
       <div class="accordion_box">
-        <%= link_to "<span>Cuisine</span>", "#" %>
+        <%= link_to "<span>Cuisine</span>".html_safe, "#" %>
         <div id="cuisine_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_cuisine_id_equals_any,
                         :as => "check_boxes",
-                        :label => '&nbsp;',
+                        :label => '&nbsp;'.html_safe,
                         :collection => Cuisine.with_restaurants %>
         </div>
       </div>
       <%- unless mediafeed? -%>
       <div class="accordion_box">
-        <%= link_to "<span>Role</span>", "#" %>
+        <%= link_to "<span>Role</span>".html_safe, "#" %>
         <div id="role_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_role_id_equals_any,
                         :as => "check_boxes",
-                        :label => '&nbsp;',
+                        :label => '&nbsp;'.html_safe,
                         :collection => RestaurantRole.with_employments.all %>
         </div>
       </div>
       <%- end -%>
       <div class="accordion_box">
-        <%= link_to "<span>Region</span>", "#" %>
+        <%= link_to "<span>Region</span>".html_safe, "#" %>
         <div id="region_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_james_beard_region_id_equals_any,
                         :as => "check_boxes",
-                        :label => '&nbsp;',
+                        :label => '&nbsp;'.html_safe,
                         :collection => (JamesBeardRegion.with_restaurants + JamesBeardRegion.with_profiles).flatten.uniq.sort_by(&:name) %>
         </div>
       </div>
       <div class="accordion_box">
-        <%= link_to "<span>Metro Area</span>", "#" %>
+        <%= link_to "<span>Metro Area</span>".html_safe, "#" %>
         <div id="metro_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_metropolitan_area_id_equals_any,
                         :as => "check_boxes",
-                        :label => '&nbsp;',
+                        :label => '&nbsp;'.html_safe,
                         :label_method => :city_and_state,
                         :collection => (MetropolitanArea.with_restaurants + MetropolitanArea.with_profiles).flatten.uniq.sort_by(&:name) %>
         </div>

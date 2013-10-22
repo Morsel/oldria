@@ -53,32 +53,35 @@ class Employment < ActiveRecord::Base
 
   before_save :set_subject_matters_for_managers, :if => Proc.new { |e| e.omniscient }
 
-  named_scope :restaurants_metro_id, lambda { |ids|
+  scope :restaurants_metro_id, lambda { |ids|
     {:joins => :restaurant, :conditions => {:restaurants => { :metropolitan_area_id => ids.map(&:to_i)}}}
   }
 
-  named_scope :restaurants_cuisine_id, lambda { |ids|
+  scope :restaurants_cuisine_id, lambda { |ids|
     {:joins => :restaurant, :conditions => {:restaurants => { :cuisine_id => ids.map(&:to_i)}}}
   }
 
-  named_scope :restaurants_region_id, lambda { |ids|
+  scope :restaurants_region_id, lambda { |ids|
     {:joins => :restaurant, :conditions => {:restaurants => { :james_beard_region_id => ids.map(&:to_i)}}}
   }
 
-  named_scope :handling_subject_matter_id, lambda { |subject_matter_id|
+  scope :handling_subject_matter_id, lambda { |subject_matter_id|
     {:joins => "LEFT OUTER JOIN responsibilities ON responsibilities.employment_id = employments.id",
       :conditions => ['responsibilities.subject_matter_id IN(?) OR omniscient = ?', subject_matter_id, true],
       :group => 'employments.id'}
   }
 
-  named_scope :unique_users, :group => :employee_id
+  scope :unique_users, :group => :employee_id
 
-  named_scope :by_restaurant_name, :order => 'restaurants.name ASC, users.last_name ASC', :include => [:restaurant, :employee]
-  named_scope :by_employee_last_name, :order => 'users.last_name ASC', :include => :employee
-  named_scope :primary, :order => 'updated_at DESC', :limit => 1, :conditions => { :primary => true }
+  scope :by_restaurant_name, :order => 'restaurants.name ASC, users.last_name ASC', :include => [:restaurant, :employee]
+  scope :by_employee_last_name, :order => 'users.last_name ASC', :include => :employee
+  scope :primary, :order => 'updated_at DESC', :limit => 1, :conditions => { :primary => true }
 
-  named_scope :public_profile_only, :conditions => { :public_profile => true }
-  named_scope :by_position, :order => "position ASC"
+  scope :public_profile_only, :conditions => { :public_profile => true }
+  scope :by_position, :order => "position ASC"
+
+  attr_accessible :position, :prefers_receive_email_notifications, :public_profile, :restaurant_role_id, :subject_matter_ids,
+  :employee_email, :employee_id, :omniscient, :edit_privilege, :employee_attributes,:solo_restaurant_name,:type
 
   def employee_name
     @employee_name ||= employee && employee.name
@@ -149,7 +152,7 @@ class Employment < ActiveRecord::Base
   end
 
   def set_subject_matters_for_managers
-    self.subject_matters = SubjectMatter.general.all
+    self.subject_matters = SubjectMatter.all
   end
   
 end

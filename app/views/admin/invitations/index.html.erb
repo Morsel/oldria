@@ -8,7 +8,7 @@
     <% end %>
 </div>
 
-<% table_for @invitations do |t| %>
+<%= table_for @invitations do |t| %>
     <% t.data :actions => [:accept, :archive, :edit, :destroy], :action_prefix => 'admin' do
     	t.cell(:first_name)
     	t.cell(:last_name)

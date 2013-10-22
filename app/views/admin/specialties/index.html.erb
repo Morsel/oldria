@@ -2,7 +2,7 @@
 
 <p class="clearfix"><%= link_to 'New specialty', new_admin_specialty_path, :class => 'button positive' %></p>
 
-<% table_for @specialties do |t| %>
+<%= table_for @specialties do |t| %>
     <% t.data :actions => [:edit], :action_prefix => 'admin' do
         t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
 		t.cell(:name)

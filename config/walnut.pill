@@ -1,19 +1,19 @@
 APP_ROOT   = '/srv/httpd/staging/walnut'
-RAILS_ROOT = "#{APP_ROOT}/current"
-RAILS_ENV  = 'staging'
+Rails.root = "#{APP_ROOT}/current"
+Rails.env  = 'staging'
 RUBY_EXEC  = '/opt/ruby-enterprise-1.8.7-2010.01/bin/ruby'
 
 
 Bluepill.application("walnut", :log_file => "#{APP_ROOT}/shared/log/bluepill.log") do |app|
   app.process("delayed_job") do |process|
-    process.working_dir = RAILS_ROOT
+    process.working_dir = Rails.root
 
     process.start_grace_time    = 60.seconds
     process.stop_grace_time     = 60.seconds
     process.restart_grace_time  = 60.seconds
 
-    process.start_command = "/usr/bin/env RAILS_ENV=#{RAILS_ENV} #{RUBY_EXEC} #{RAILS_ROOT}/script/delayed_job start"
-    process.stop_command  = "/usr/bin/env RAILS_ENV=#{RAILS_ENV} #{RUBY_EXEC} #{RAILS_ROOT}/script/delayed_job stop"
+    process.start_command = "/usr/bin/env Rails.env=#{Rails.env} #{RUBY_EXEC} #{Rails.root}/script/delayed_job start"
+    process.stop_command  = "/usr/bin/env Rails.env=#{Rails.env} #{RUBY_EXEC} #{Rails.root}/script/delayed_job stop"
 
     process.pid_file = "#{APP_ROOT}/shared/pids/delayed_job.pid"
     process.uid = "deployer"

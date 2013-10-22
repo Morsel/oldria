@@ -7,11 +7,11 @@
       :collection => page.restaurant_feature_categories, :as => :category %>
   <div class="add_category_form">
     <% @restaurant_feature_category.restaurant_feature_page = page %>
-    <% form_for :restaurant_feature_category, :url => admin_restaurant_feature_categories_path do |f| %>
+    <%= form_for :restaurant_feature_category, :url => admin_restaurant_feature_categories_path do |f| %>
       <%= f.label :name, "Add a category in #{page.name}" %>
       <%= f.text_field :name  %>
       <%= f.hidden_field :restaurant_feature_page_id %>
-      <%= f.submit_tag "Add #{page.name} category" %>
+      <%= f.submit "Add #{page.name} category" %>
     <% end %>
     <br />
   </div>

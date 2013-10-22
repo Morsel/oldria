@@ -15,7 +15,7 @@ module RestaurantsHelper
 
   def restaurant_names_for_user(user)
     if user.employments.blank?
-      user.primary_employment.try(:solo_restaurant_name)
+      user.primary_employment.try(:solo_restaurant_name) unless user.primary_employment.blank?
     elsif user.employments.count == 1
       restaurant_link(user.primary_employment.restaurant)
     elsif user.employments.count <= 3
@@ -24,7 +24,7 @@ module RestaurantsHelper
     else
       sorted_employments = ([user.primary_employment] + user.nonprimary_employments[0..1]).flatten
       sorted_employments = sorted_employments.map { |e| restaurant_link(e.restaurant) }
-      sorted_employments.join(", ") + " and #{link_to 'more', profile_path(user.username)}"
+      sorted_employments.join(", ") + " and #{link_to 'more', profile_path(user.username)}".html_safe 
     end
   end
 
@@ -39,7 +39,7 @@ module RestaurantsHelper
     else
       sorted_employments = ([user.primary_employment] + user.nonprimary_employments[0..1]).flatten
       sorted_employments = sorted_employments.map { |e| restaurant_link_for_media(e.restaurant) }
-      sorted_employments.join(", ") + " and #{link_to 'more', profile_path(user.username)}"
+      sorted_employments.join(", ") + " and #{link_to 'more', profile_path(user.username)}".html_safe 
     end
   end
   

@@ -1,14 +1,14 @@
 <% title "A La Minute for Restaurants" %>
 
-<% table_for(@questions, :class => 'questions') do |t| %>
+<%= table_for(@questions, :class => 'questions') do |t| %>
     <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
         t.cell :question
         t.cell :topic
     end %>
 <% end %>
 
-<% semantic_form_for [:admin, ALaMinuteQuestion.new] do |f| %>
-    <% f.inputs :class => "plain" do %>
+<%= semantic_form_for [:admin, ALaMinuteQuestion.new] do |f| %>
+    <%= f.inputs :class => "plain" do %>
         <%= f.input :kind, :value => 'restaurant', :as => :hidden %>
         <%= f.input :question %>
         <%= f.input :topic %>

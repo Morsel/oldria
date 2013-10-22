@@ -18,5 +18,5 @@ class Award < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :year_won, :if => Proc.new { |a| a.year_nominated.blank? }
   validates_presence_of :year_nominated, :if => Proc.new { |a| a.year_won.blank? }
-
+  attr_accessible :name, :year_won, :year_nominated
 end

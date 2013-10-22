@@ -1,7 +1,7 @@
 <% title "On the Menu" %>
 
-<% content_for(:fb_description, truncate(Loofah::Helpers.strip_tags(@menu_item.description), :length => 200)) %>
-<% content_for :facebook_meta do -%>
+<%= content_for(:fb_description, truncate(Loofah::Helpers.strip_tags(@menu_item.description), :length => 200)) %>
+<%= content_for :facebook_meta do -%>
   <meta property="og:type" content="article"/>
   <meta property="og:image" content="<%= @menu_item.photo_file_name.present? ? @menu_item.photo(:large) : "http://soapbox.restaurantintelligenceagency.com/images/soapbox/logo-soapbox.png" %>"/>
   <meta property="og:url" content="<%= soapbox_menu_item_url(@menu_item) %>"/>
@@ -15,7 +15,7 @@
 <% end %>
 
 
-<% div_for @menu_item do %>
+<%=div_for @menu_item do %>
     <h2><%= @menu_item.name %> at <%= link_to @menu_item.restaurant.name, soapbox_restaurant_path(@menu_item.restaurant) %></h2>
     <div>
         <% if @menu_item.photo_file_name.present? -%>
@@ -62,7 +62,7 @@
     </header>
       <div id="answers">
         <% for promotion in @promotions -%>
-            <% div_for(promotion) do %>
+            <%=div_for(promotion) do %>
                 <%= render :partial => 'soapbox/promotions/promotion', :locals => { :promotion => promotion } %>  
             <% end -%>
         <% end -%>
@@ -87,6 +87,6 @@
     <%= render :partial => "menu_item", :locals => { :menu_item => menu_item } %>
   <% end -%>
 <% end -%>
-<% content_for :sidebar do -%>
+<%= content_for :sidebar do -%>
 <%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @menu_item.restaurant } %>
 <% end -%>

@@ -1,5 +1,5 @@
 <% employments ||= restaurant.employments %>
-<% div_for restaurant, :class => 'clearfix' do %>
+<%=div_for restaurant, :class => 'clearfix' do %>
   <h2>
     <%= restaurant_link(restaurant) %>
     (<%= restaurant.city %>)
@@ -8,7 +8,7 @@
   <ul class="employees">
     <% employments.each do |employment| %>
       <% user = employment.employee %>
-      <% content_tag_for(:li, user) do %>
+      <%= content_tag_for(:li, user) do %>
         <%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) %>
         <%= link_to "#{user.name}, #{employment.restaurant_role.try(:name)}", profile_path(user.username) %>
       <% end %>

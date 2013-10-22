@@ -1,0 +1,71 @@
+/* soapbox print style */
+
+#container {
+	width: 700px;
+	margin: 0 auto;
+}
+
+h1#logo {display: none;}
+h2 {
+	font-family: 'Hoefler Text', Georgia, Times, serif;
+	font-size: 22px;
+	font-style: italic;
+	font-weight: normal;
+}
+
+.header_right {display: none;}
+nav {display: none;}
+#footnotes_debug {display: none;}
+#footer_social {display: none;}
+#sidebar_b {display: none;}
+.user_actions {display: none;}
+#jumbotron {display: none;}
+#facebook-button {display: none;}
+#directory_search {display: none;}
+#sidebar {display: none;}
+#recent-questions {display: none;}
+
+#main {
+  font-family: 'helvetica neue', helvetica, arial, sans-serif;
+  font-size: 14px;
+  h1 {
+    font-family: 'Hoefler Text', Georgia, Times, serif;
+    font-size: 24px;
+  }
+}
+#page-content{
+  .comment {
+    p {
+      img {
+        float: left;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+footer {
+	overflow: hidden;
+	width: 660px;
+	margin: 0 auto;
+	padding: 10px 20px;
+	background-color: #4E91B1;
+	display: block;
+	#footer-logo {display: none;}
+	p, a, li {
+		color: #fff;
+		font-size: 13px;
+		text-decoration: none;
+	}
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	img {
+		float: left;
+		display: inline;
+		margin: 0 10px 10px 0;
+	}
+	#facebook-link {display:none;}
+}

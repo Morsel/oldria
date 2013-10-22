@@ -5,7 +5,7 @@
     <%= link_to "Back to Profile Questions", admin_profile_questions_path, :class => "button" %>
 </div>
 
-<% table_for @topics do |t| %>
+<%= table_for @topics do |t| %>
   <% t.data do
       t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
       t.cell(:name) { |c| c.title }

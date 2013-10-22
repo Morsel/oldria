@@ -1,7 +1,7 @@
 <%= "<h1>#{yield :title}</h1>" if request.xhr? %>
-<% semantic_form_for @award.new_record? ? [:user, :profile, @award] : @award do |f| %>
-  <% f.inputs :class => "awards" do %>
-    <%= f.input :name, :label => "Name of Award" %>
+<%= semantic_form_for @award.new_record? ? [:user, :profile, @award] : @award do |f| %>
+  <%= f.inputs :class => "awards" do %>
+    <%= f.input :name, :label => "Name of Award",:input_html=>{:size=>50} %>
     <%= f.input :year_won, :as => :select, :collection => years_for_select, :hint => "Leave blank if you were nominated but didn't win" %>
     <%= f.input :year_nominated, :as => :select, :collection => years_for_select, :hint => "Only required if you didn't win" %>
   <% end %>

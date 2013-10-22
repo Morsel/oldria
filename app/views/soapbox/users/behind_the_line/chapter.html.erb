@@ -29,7 +29,7 @@
   </div>
 
   <% for question in @questions -%>
-    <% div_for question do %>
+    <%=div_for question do %>
       <h4><span class="letter-q">Q:</span> <%= link_to question.title, soapbox_profile_question_path(question) %></h4>
       <% if answer = question.answer_for(@user) %>
         <p><%= answer.answer %></p>

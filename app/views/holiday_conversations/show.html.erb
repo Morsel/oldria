@@ -8,7 +8,7 @@
 
   <% if current_user.admin? %>
   <div id="holiday_conversation_acceptable">
-    <% semantic_form_for(@holiday_conversation, :html => {:method => :put}) do |f| %>
+    <%= semantic_form_for(@holiday_conversation, :html => {:method => :put}) do |f| %>
       <%= f.inputs :accepted %>
       <p><%= button_tag "Save" %></p>
     <% end %>

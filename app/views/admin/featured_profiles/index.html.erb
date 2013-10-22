@@ -30,7 +30,7 @@
           <td ><%= profile_row.start_date.try(:strftime,"%m/%d/%y") %></td>
           <td ><%=  profile_row.feature_type == "User" ? "Personal" :"Restaurant" %></td>
           <td  class="<%=  profile_row.spotlight_on ? '' : 'spotlight-off' %>"><%=  profile_row.feature.name %></td>
-          <td  class="<%=  profile_row.spotlight_on ? '' : 'actions' %>"><%= link_to ( profile_row.spotlight_on ? 'Yes' : 'No','#') %></b></td>
+          <td  class="<%=  profile_row.spotlight_on ? '' : 'actions' %>"><%= link_to  profile_row.spotlight_on ? 'Yes' : 'No','#' %></b></td>
           <td  class="actions edit_link">
             <%= link_to "Edit", edit_admin_featured_profile_path(profile_row)+"?type="+profile_row.feature_type %>
           </td>

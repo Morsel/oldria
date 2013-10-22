@@ -1,6 +1,6 @@
 <% title "Search" %>
 
-<% form_for @search, :html => {:class => 'formtastic'} do |f| %>
+<%= form_for @search, :html => {:class => 'formtastic'} do |f| %>
 <fieldset>
 	<legend>Restaurant</legend>
 	<ol>
@@ -39,9 +39,9 @@
 <% end %>
 
 <% if @restaurants_and_employees && !@restaurants_and_employees.blank? %>
-	<% form_for MediaRequest.new, :url => new_media_request_path, :html => {:method => :get} do |f| %>
+	<%= form_for MediaRequest.new, :url => new_media_request_path, :html => {:method => :get} do |f| %>
 		<% @restaurants_and_employees.each do |restaurant, employments| %>
-			<% div_for restaurant do %>
+			<%=div_for restaurant do %>
 				<h3><%= restaurant_link(restaurant) %></h3>
 				<%= render :partial => 'employment', :collection => employments %>
 			<% end -%>

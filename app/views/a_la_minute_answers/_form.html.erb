@@ -1,4 +1,4 @@
-<% semantic_form_for [@restaurant, @answer],:html => { :multipart => true } do |form| %>
+<%= semantic_form_for [@restaurant, @answer],:html => { :multipart => true } do |form| %>
   <%= hidden_field_tag "question_id", @question.id %>
   <%= hidden_field_tag "a_la_minute_answer[a_la_minute_question_id]", @question.id %>
 
@@ -96,7 +96,7 @@
   </div>
 <% end %>
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 <script type="text/javascript">
   jQuery(function($) {
 

@@ -1,8 +1,8 @@
 <div id="editing_restaurant">
     <% title "Search Restaurant" %>
 
-    <% semantic_form_for @james_beard_region,:url => new_james_beard_region_users_path, :html => {:method => :post } do |f| %>
-        <% f.inputs do %>
+    <%= semantic_form_for @james_beard_region,:url => new_james_beard_region_users_path, :html => {:method => :post } do |f| %>
+        <%= f.inputs do %>
             <%= f.input :name, :label => "Name", :input_html => { :class => 'title span-8' },:hint => "Please type region name" %>
             <%= f.input :description, :label => "Description", :input_html => { :class => 'title span-8' },:hint => "Please type region's description seprated by comma like (CA, HI)" %>
             <%= hidden_field_tag (:user_id ,@user.id) %>

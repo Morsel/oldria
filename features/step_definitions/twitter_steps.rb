@@ -1,5 +1,5 @@
 Given /^Twitter is functioning$/ do
-  tweet = JSON.parse( File.new( RAILS_ROOT + '/spec/fixtures/twitter_response.json').read )
+  tweet = JSON.parse( File.new( Rails.root + '/spec/fixtures/twitter_response.json').read )
   Twitter::Client.any_instance.stubs(:update).returns(tweet)
 end
 

@@ -2,7 +2,7 @@
 
 <%= link_to "New Stopword", new_admin_email_stopword_path, :class => "button positive" %>
 
-<% table_for @stopwords do |t| %>
+<%= table_for @stopwords do |t| %>
     <% t.data :actions => [:destroy] do
     	t.cell(:phrase)
     end %>

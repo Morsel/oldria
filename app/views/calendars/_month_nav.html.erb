@@ -1,18 +1,18 @@
 <p class="month-nav">
 <% if @restaurant %>
-    <% link_to restaurant_calendar_link(@restaurant, (@date - 1.month)), :class => 'prev-month' do %>
+    <%= link_to restaurant_calendar_link(@restaurant, (@date - 1.month)), :class => 'prev-month' do %>
       &laquo; <%= (@date - 1.month).try(:strftime, "%B") %>
     <% end %>
 
-    <% link_to restaurant_calendar_link(@restaurant, (@date + 1.month)), :class => 'next-month' do %>
+    <%= link_to restaurant_calendar_link(@restaurant, (@date + 1.month)), :class => 'next-month' do %>
       <%= (@date + 1.month).try(:strftime, "%B") %> &raquo;
     <% end %>
 <% else %>
-    <% link_to admin_calendar_link(@date - 1.month), :class => 'prev-month' do %>
+    <%= link_to admin_calendar_link(@date - 1.month), :class => 'prev-month' do %>
       &laquo; <%= (@date - 1.month).try(:strftime, "%B") %>
     <% end %>
 
-    <% link_to admin_calendar_link(@date + 1.month), :class => 'next-month' do %>
+    <%= link_to admin_calendar_link(@date + 1.month), :class => 'next-month' do %>
       <%= (@date + 1.month).try(:strftime, "%B") %> &raquo;
     <% end %>
 <% end %>

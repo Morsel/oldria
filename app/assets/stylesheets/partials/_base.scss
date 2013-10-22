@@ -1,0 +1,49 @@
+// Here is where you can define your constants for your application and to configure the blueprint framework.
+// Feel free to delete these if you want keep the defaults:
+
+$blueprint-grid-columns: 24;
+$blueprint-container-size: 974px;
+$blueprint-grid-margin: 10px;
+
+$sienna: #CB4827;
+$body-bg: #f6f4f3;
+$purple: #474F80;
+$light-purple: #8a8dad;
+$x-light-purple: #cacada;
+$dark-purple: #323b66;
+$baby-blue: #72B4D2;
+$darker-blue: #488BA9;
+
+// Use this to calculate the width based on the total width.
+// Or you can set !blueprint_grid_width to a fixed value and unset !blueprint_container_size -- it will be calculated for you.
+$blueprint-grid-width: ($blueprint-container-size + $blueprint-grid-margin) / $blueprint-grid-columns - $blueprint-grid-margin;
+
+@mixin hiddentext{
+	display:block;
+	outline:0;
+	text-indent:-9999px;
+}
+
+@mixin museoslabbold {
+	font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
+	font-weight: normal !important;
+	font-weight: 700;
+}
+
+@mixin museoslabmedium {
+	font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
+	font-weight: normal !important;
+	font-weight: 500;
+}
+
+@mixin museoslabthin {
+	font-family: 'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;
+	font-weight: normal !important;
+	font-weight: 300;
+}
+
+@mixin knockout {
+	font-family: 'KnockoutHTF69FullLiteweight', 'Helvetica Neue', Helvetica, arial, sans-serif;
+	font-weight: normal !important;
+	font-weight: 500;
+}

@@ -25,8 +25,8 @@
 
 </head>
 
-<body id="<%= RAILS_ENV %>" class="admin_backend">
-  <% if RAILS_ENV == 'staging' %>
+<body id="<%= Rails.env %>" class="admin_backend">
+  <% if Rails.env == 'staging' %>
     <div id="staging_bar">
       <p>Note: You are currently on <strong>STAGING</strong>.
       You may want to visit the <a href="http://spoonfeed.restaurantintelligenceagency.com/admin" title="">live site &raquo;</a></p>
@@ -76,7 +76,7 @@
       <p class="admin-link"><a href="/">Go to Public</a></p>
       <ul>
         <li><a href="/">SpoonFeed Home</a></li>
-        <li><%= link_to "Logged in as <strong>#{current_user.username}</strong>", profile_path(current_user.username) %></li>
+        <li><%= link_to "Logged in as <strong>#{current_user.username}</strong>".html_safe, profile_path(current_user.username) %></li>
         <li><%= link_to "Log out", logout_path %></li>
       </ul>
     </div><!--#footer-->

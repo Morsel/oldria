@@ -51,7 +51,7 @@
 					<% for release in @restaurant.press_releases.all(:order => "created_at DESC", :limit => 3) -%>
 					<p><%= link_to release.title, release.pdf_remote_attachment.attachment.url %></p>
 					<% end %>
-					<%= link_to "see more &raquo;", archive_restaurant_press_releases_path(@restaurant) %>
+					<%= link_to "see more &raquo;".html_safe, archive_restaurant_press_releases_path(@restaurant) %>
 				</div>
 				<% end -%>
             </div>

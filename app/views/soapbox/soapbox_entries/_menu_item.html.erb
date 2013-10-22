@@ -1,5 +1,5 @@
 
-<% div_for(menu_item,:class=>"comment") do %>
+<%=div_for(menu_item,:class=>"comment") do %>
     <header>
         <h4><%= link_to menu_item.name, soapbox_menu_item_path(menu_item) %></h4>
         <% if menu_item.photo_file_name.present? -%>

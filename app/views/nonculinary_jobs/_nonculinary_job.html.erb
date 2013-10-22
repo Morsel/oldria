@@ -1,4 +1,4 @@
-<% content_tag_for :li, nonculinary_job, :class => cycle('odd','even') do %>
+<%= content_tag_for :li, nonculinary_job, :class => cycle('odd','even') do %>
   <span class="extended-title"><%= nonculinary_job.title %></span>
   <%= nonculinary_job.company %>, 
   <%= nonculinary_job.city %> <%= nonculinary_job.state %> <%= nonculinary_job.country %><br/>

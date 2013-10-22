@@ -1,0 +1,37 @@
+// Here is where you can define your constants for your application and to configure the blueprint framework.
+// Feel free to delete these if you want keep the defaults:
+
+$blueprint-grid-columns: 24;
+$blueprint-container-size: 974px;
+$blueprint-grid-margin: 10px;
+
+$default-transition-function: ease-in-out;
+$default-transition-duration: .2s;
+
+$orange: #D8531E;
+$med-orange: #e77d53;
+$trans-orange: #FAEAE4;
+$brown: #897A55;
+$med-brown: #AA9C74;
+$trans-brown: #F7F6F2;
+
+
+
+// Use this to calculate the width based on the total width.
+// Or you can set !blueprint_grid_width to a fixed value and unset !blueprint_container_size -- it will be calculated for you.
+$blueprint-grid-width: ($blueprint-container-size + $blueprint-grid-margin) / $blueprint-grid-columns - $blueprint-grid-margin;
+
+@mixin hiddentext{
+	display:block;
+	outline:0;
+	text-indent:-9999px;
+}
+
+@mixin brandongrotesquebold {
+	font-family: 'BrandonGrotesqueBold', 'Helvetica Neue', Helvetica, arial, sans-serif;
+	font-weight: normal !important;
+}
+
+@mixin hoeflerbolditalic {
+	font-family: 'HoeflerTextBoldItalic', 'Hoefler Text Italic', Georgia, Times, serif;
+}

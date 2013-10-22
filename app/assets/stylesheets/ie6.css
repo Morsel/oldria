@@ -1,0 +1,43 @@
+
+/* ----- custom css ------ */
+
+/* -- neoteric 6/15/2009 -- */
+
+/* colors 
+
+green: #6DB33F;
+light green: #B3D88C;
+dark blue: #1F66B1;
+mid blue: #4380C2;
+light blue: #6F9AD1;
+darkgreen: #429644;
+orange: #F79320;
+purple: #AB4A9C;
+
+*/
+
+
+#rightcontent {
+	height: 440px;
+}
+
+#leftcontent {
+	height: 440px;
+}
+
+#container #brand a {
+	float: left;
+	display: inline;
+}
+
+#brand .spoonfeed_logo {
+	display: inline;
+	float: left;
+	height: 60px;
+	width: 180px;
+	background: url('../images/logo_spoonfeed.gif') no-repeat;
+}
+
+#brand .spoonfeed_logo img{
+	display: none;
+}

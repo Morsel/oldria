@@ -1,5 +1,5 @@
 <li>
-  <% link_to soapbox_soapbox_entry_path(comment_list_entry.soapbox_entry_id, :anchor => "comment_#{comment_list_entry.comment_id}") do %>
+  <%= link_to soapbox_soapbox_entry_path(comment_list_entry.soapbox_entry_id, :anchor => "comment_#{comment_list_entry.comment_id}") do %>
     <% date = Time.parse(comment_list_entry.comment_at) %>
     <% user = User.find(comment_list_entry.comment_user_id) %>
     

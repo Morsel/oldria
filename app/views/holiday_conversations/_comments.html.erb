@@ -5,8 +5,8 @@
   <%= render @comments %>
 <% end %>
 
-<% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
-  <% f.inputs do %>
+<%= semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
+  <%= f.inputs do %>
     <%= f.input :comment, :label => 'Reply', :input_html => { :rows => 8 } %>
 
     <% f.fields_for :attachments do |child_form| -%>

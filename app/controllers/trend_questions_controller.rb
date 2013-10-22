@@ -1,7 +1,8 @@
 class TrendQuestionsController < ApplicationController
 
   before_filter :require_user
-
+  require 'will_paginate/array'
+  
   def show
     @trend_question = TrendQuestion.find(params[:id])
     @discussions = @trend_question.admin_discussions.with_replies.all(:order => "created_at DESC").paginate(:page => params[:page], :per_page => 10)

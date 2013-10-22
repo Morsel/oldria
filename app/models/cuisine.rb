@@ -19,12 +19,12 @@ class Cuisine < ActiveRecord::Base
   validates_presence_of :name
   default_scope :order => "#{table_name}.name ASC"
 
-  named_scope :with_restaurants,
+  scope :with_restaurants,
     :joins => :restaurants,
     :conditions => 'restaurants.deleted_at IS NULL',
     :group => "#{table_name}.id"
     
-  named_scope :with_profiles,
+  scope :with_profiles,
     :joins => :profiles,
     :group => "#{table_name}.id"
 

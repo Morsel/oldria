@@ -22,7 +22,7 @@ class RestaurantQuestion < ActiveRecord::Base
   validates_presence_of :title, :chapter_id
   validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
 
-  named_scope :for_page, lambda { |page|
+  scope :for_page, lambda { |page|
     { :joins => :question_pages,
       :include => :chapter,
       :conditions => { :question_pages => { :restaurant_feature_page_id => page.id }},
@@ -30,32 +30,32 @@ class RestaurantQuestion < ActiveRecord::Base
     }
   }
 
-  named_scope :for_chapter, lambda { |chapter_id|
+  scope :for_chapter, lambda { |chapter_id|
     { :conditions => { :chapter_id => chapter_id } }
   }
 
-  named_scope :answered, :joins => :restaurant_answers
+  scope :answered, :joins => :restaurant_answers
 
-  named_scope :answered_for_restaurant, lambda { |restaurant|
+  scope :answered_for_restaurant, lambda { |restaurant|
     { :joins => :restaurant_answers,
       :conditions => ['restaurant_answers.restaurant_id = ?', restaurant.id]
     }
   }
 
-  named_scope :answered_for_page, lambda { |page, restaurant|
+  scope :answered_for_page, lambda { |page, restaurant|
     { :joins => [:restaurant_answers, :question_pages],
       :conditions => ['restaurant_answers.restaurant_id = ? AND question_pages.restaurant_feature_page_id = ?',
         restaurant.id, page.id]
     }
   }
 
-  named_scope :answered_for_chapter, lambda { |chapter_id|
+  scope :answered_for_chapter, lambda { |chapter_id|
     { :joins => [:chapter, :restaurant_answers], 
       :conditions => ["chapters.id = ?", chapter_id]
     }
   }
 
-  named_scope :answered_by_premium_restaurants, lambda {
+  scope :answered_by_premium_restaurants, lambda {
     { :joins => { :restaurant_answers => { :restaurant => :subscription }},
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
           Date.today] }

@@ -23,9 +23,9 @@ class Topic < ActiveRecord::Base
 
   default_scope :order => "topics.position ASC, topics.title ASC"
 
-  named_scope :user_topics, :conditions => "type IS NULL"
+  scope :user_topics, :conditions => "type IS NULL"
 
-  named_scope :for_user, lambda { |user|
+  scope :for_user, lambda { |user|
     { :joins => { :chapters => { :profile_questions => :question_roles }},
       :conditions => ["question_roles.restaurant_role_id = ? AND topics.type IS NULL",
                       user.primary_employment.restaurant_role.id],
@@ -33,20 +33,20 @@ class Topic < ActiveRecord::Base
       :order => :position }
   }
 
-  named_scope :answered_for_user, lambda { |user|
+  scope :answered_for_user, lambda { |user|
     { :joins => { :chapters => { :profile_questions => :profile_answers } },
       :conditions => ["profile_answers.user_id = ?", user.id],
       :select => "distinct topics.*",
       :order => :position }
   }
 
-  named_scope :answered, {
+  scope :answered, {
     :joins => { :chapters => { :profile_questions => :profile_answers } },
     :select => "distinct topics.*",
     :order => "profile_answers.created_at DESC"
   }
 
-  named_scope :answered_by_premium_users, {
+  scope :answered_by_premium_users, {
     :joins => { :chapters => { :profile_questions => { :profile_answers => { :user => :subscription }}}},
     :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
         Date.today],
@@ -54,8 +54,8 @@ class Topic < ActiveRecord::Base
     :order => "profile_answers.created_at DESC"
   }
 
-  named_scope :without_travel, :conditions => ["topics.title != ?", "Travel Guide"]
-  named_scope :travel, :conditions => { :title => "Travel Guide" }
+  scope :without_travel, :conditions => ["topics.title != ?", "Travel Guide"]
+  scope :travel, :conditions => { :title => "Travel Guide" }
 
   def previous_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")

@@ -1,12 +1,12 @@
 <% user = employment.employee %>
-<% div_for employment, :class => 'user clearfix employment_box' do %>
-  <% div_for user do %>
+<%=div_for employment, :class => 'user clearfix employment_box' do %>
+  <%=div_for user do %>
     <%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) if user.avatar.present? %>
 		<div class="profile_meta">
     	<h3><%= user.name %></h3>
 
     	<% if can? :edit, employment.restaurant %>
-      	<%= restaurant_role_and_link(employment) %>
+      	<%= restaurant_role_and_link(employment).html_safe %>
       	<% if employment.omniscient? -%><p>Spoonfeed Account Administrator</p><%- end %>
     	<% end %>
 

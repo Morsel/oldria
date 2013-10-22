@@ -15,25 +15,25 @@
 
 class SoapboxEntry < ActiveRecord::Base
 
-  include ActionController::UrlWriter
+include ActionDispatch::Routing::UrlFor
   default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :featured_item, :polymorphic => true
 
   default_scope :order => "#{table_name}.published_at DESC"
 
-  named_scope :qotd, :conditions => { :featured_item_type => 'Admin::Qotd' }
-  named_scope :trend_question, :conditions => { :featured_item_type => 'TrendQuestion' }
+  scope :qotd, :conditions => { :featured_item_type => 'Admin::Qotd' }
+  scope :trend_question, :conditions => { :featured_item_type => 'TrendQuestion' }
 
-  named_scope :published, lambda {
+  scope :published, lambda {
     { :conditions => ['published_at <= ? AND published = ?', Time.zone.now, true] }
   }
 
-  named_scope :recent,
+  scope :recent,
               :limit => 5,
               :offset => 1
 
-  named_scope :daily_feature, :conditions => { :daily_feature => true }, :order => "updated_at DESC"
+  scope :daily_feature, :conditions => { :daily_feature => true }, :order => "updated_at DESC"
 
   def title
     featured_item.title

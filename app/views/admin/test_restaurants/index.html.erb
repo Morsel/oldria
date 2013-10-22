@@ -1,8 +1,8 @@
 <% title "Deleted Restaurants" %>
 
-<% table_for(@restaurants) do |t| %>
+<%= table_for(@restaurants) do |t| %>
   
-  <% t.data do
+  <%= t.data do
       t.cell :name
       t.cell :account_type
       t.cell :city

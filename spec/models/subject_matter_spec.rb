@@ -35,8 +35,8 @@ describe SubjectMatter do
       end
       after(:all) { SubjectMatter.destroy_all }
 
-      it { SubjectMatter.general.should include(@general) }
-      it { SubjectMatter.general.should_not include(@notgeneral1) }
+      it { SubjectMatter.should include(@general) }
+      it { SubjectMatter.should_not include(@notgeneral1) }
       it { SubjectMatter.nongeneral.should include(@notgeneral1) }
       it { SubjectMatter.nongeneral.should include(@notgeneral2) }
       it { SubjectMatter.nongeneral.should_not include(@general) }

@@ -1,18 +1,18 @@
 <% title "Set up your profile details" %>
 
-<% semantic_form_for(@user, :url => complete_registration_path, :html => { :method => :put }) do |f| %>
+<%= semantic_form_for(@user, :url => complete_registration_path, :html => { :method => :put }) do |f| %>
     <%= f.input :id, :as => :hidden %>
     <%= hidden_field_tag 'step', 2 %>
 
     <% if @user.primary_employment.present? && @user.primary_employment.restaurant.present? %>
     <strong>Your employment details:</strong> <%= @user.primary_employment.restaurant_role.try(:name) %> at <%= @user.primary_employment.restaurant_name %>
     <% else %>
-    <% f.semantic_fields_for :default_employment do |employment| %>
+    <%= f.semantic_fields_for :default_employment do |employment| %>
         <%= render :partial => "default_employments/form", :locals => { :f => employment } %>
     <% end %>
     <% end %>
 
-    <% f.semantic_fields_for :profile do |profile| %>
+    <%= f.semantic_fields_for :profile do |profile| %>
         <% profile.inputs :name => 'Profile Details' do %>
             <%= profile.input :hometown %>
             <%= profile.input :current_residence, :label => "In what city/state do you work?", :hint => "Or where you live, if currently unemployed" %>

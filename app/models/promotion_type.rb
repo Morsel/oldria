@@ -15,10 +15,10 @@ class PromotionType < ActiveRecord::Base
   has_many :newsfeed_promotion_types
   has_many :users ,:through => :newsfeed_promotion_types
 
-  named_scope :used_by_current_promotions, :joins => :promotions,
+  scope :used_by_current_promotions, :joins => :promotions,
     :conditions => ["promotions.end_date >= ? OR (promotions.start_date >= ? AND promotions.end_date IS NULL)", Date.today, Date.today]
 
-  named_scope :from_premium_restaurants, lambda {
+  scope :from_premium_restaurants, lambda {
     { :joins => { :promotions => { :restaurant => :subscription }},
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
           Date.today] }

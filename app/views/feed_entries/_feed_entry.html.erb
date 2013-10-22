@@ -1,4 +1,4 @@
-<% div_for feed_entry, :class => "entry#{ ' read' if feed_entry.read_by?(current_user) }", :rel => feed_entry.id do %>
+<%=div_for feed_entry, :class => "entry#{ ' read' if feed_entry.read_by?(current_user) }", :rel => feed_entry.id do %>
 	<div class="feed_entry_header">
 		<span class="indicator"></span>
 		<h4 class="title"><%= feed_entry.title %></h4>

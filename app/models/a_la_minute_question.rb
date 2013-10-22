@@ -21,11 +21,11 @@ class ALaMinuteQuestion < ActiveRecord::Base
   validates_presence_of :question
   validates_inclusion_of :kind, :in => KINDS
 
-  named_scope :answered, :joins => :a_la_minute_answers
+  scope :answered, :joins => :a_la_minute_answers
 
-  # named_scope :restaurants, :conditions => {:kind => "restaurant"}
+  # scope :restaurants, :conditions => {:kind => "restaurant"}
   KINDS.each do |kind|
-    named_scope :"#{kind.pluralize}", :conditions => {:kind => kind}
+    scope :"#{kind.pluralize}", :conditions => {:kind => kind}
   end
 
   def answer_for(restaurant)

@@ -1,6 +1,6 @@
 <div style="width:800px" class="color-box-restaurant">
   <% if  @promotion.blank? %>
-    <% semantic_form_for @menu_item, :url => mediafeed_request_information_mail_path, :html => {:id=>"editing_restaurant",:class=>"request_more_information" ,:method => :post} do |f| %>
+    <%= semantic_form_for @menu_item, :url => mediafeed_request_information_mail_path, :html => {:id=>"editing_restaurant",:class=>"request_more_information" ,:method => :post} do |f| %>
       
         <table class="fixed-width-tbl" cellpadding="10">  
           <tr> 
@@ -42,7 +42,7 @@
 
           <td>&nbsp;</td>
            <td>
-            <% button_tag :class => 'positive' do %>Send <% end %>
+            <%= button_tag :class => 'positive' do %>Send <% end %>
           </td>
         </tr>
       </table>
@@ -54,7 +54,7 @@
 
   <% else %>
 
-    <% semantic_form_for @promotion, :url => mediafeed_request_information_mail_path, :html => {:id=>"editing_restaurant" ,:class=>"request_more_information" ,:method => :post} do |f| %>
+    <%= semantic_form_for @promotion, :url => mediafeed_request_information_mail_path, :html => {:id=>"editing_restaurant" ,:class=>"request_more_information" ,:method => :post} do |f| %>
 
       <table class="fixed-width-tbl" cellpadding="10">  
         <tr> 
@@ -96,7 +96,7 @@
 
           <td>&nbsp;</td>
            <td>
-            <% button_tag :class => 'positive' do %>Send <% end %>
+            <%= button_tag :class => 'positive' do %>Send <% end %>
           </td>
         </tr>
       </table>

@@ -3,7 +3,7 @@
         <header>
             <h1>Discover What's new On The Menu</h1>
         </header>
-       <%= heatmap(@cloud_keywords,soapbox_menu_items_path ) -%>
+       <%= heatmap(@cloud_keywords,soapbox_menu_items_path ).html_safe -%>
 </aside>
 </div>
 

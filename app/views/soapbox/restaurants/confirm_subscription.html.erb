@@ -2,8 +2,8 @@
 
 <%= render 'layouts/flashes' %>
 
-<% semantic_form_for [:soapbox, @subscription] do |f| %>
-    <% f.inputs do %>
+<%= semantic_form_for [:soapbox, @subscription] do |f| %>
+    <%= f.inputs do %>
         <%= f.input :share_with_restaurant, :label => "Share my email address with #{@restaurant.name} to receive other news and promotions?" %>
     <% end %>
     

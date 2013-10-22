@@ -6,9 +6,9 @@
     <div id="editing_restaurant">
         <h1>Edit Restaurant Fact Sheet</h1>
 
-        <% semantic_form_for @fact_sheet, :url => restaurant_fact_sheet_path(@restaurant), :html => { :method => :put, :id => "restaurant_fact_sheet" } do |f| %>
-          <%= f.error_messages %>
-          <% f.inputs :name => "Parking and Directions", :class => "editing parking_directions" do %>
+        <%=semantic_form_for @fact_sheet, :url => restaurant_fact_sheet_path(@restaurant), :html => { :method => :put, :id => "restaurant_fact_sheet" } do |f| %>
+          <%=@fact_sheet.errors.full_messages unless @fact_sheet.errors.full_messages.blank? %>
+          <%=f.inputs :name => "Parking and Directions", :class => "editing parking_directions" do %>
             <%= f.input :venue %>
             <%= f.input :intersection, :hint => "e.g., State and Main" %>
             <%= f.input :neighborhood %>
@@ -17,7 +17,7 @@
                         :hint => "e.g., One block north of Brown line Chicago stop, or 1 block north of bus route 66." %>
           <% end %>
 
-          <% f.inputs :name => "Pricing", :class => "editing pricing" do %>
+          <%=f.inputs :name => "Pricing", :class => "editing pricing" do %>
             <h4>Check Average</h4>
             <%= f.input :dinner_average_price, :hint => "Do not include the dollar sign ($)" %>
             <%= f.input :lunch_average_price, :hint => "Do not include the dollar sign ($)" %>
@@ -43,19 +43,19 @@
             <%= f.input :wine_by_the_bottle_details, :as => :text, :label => "Wine list details" %>
           <% end %>
 
-          <% f.inputs :name => "Hours", :class => "editing hours" do %>
+          <%=f.inputs :name => "Hours", :class => "editing hours" do %>
             <li id="hours">
-              <% Meal::DAYS.each do |day| %>
+              <%= Meal::DAYS.each do |day| %>
               <h4><%= day.capitalize %></h4>
-                <% content_tag(:div, :id => "#{day}_meals") do %>
+                <%=content_tag(:div, :id => "#{day}_meals") do %>
                   <ol>
-                    <% @fact_sheet.meals.for_day(day).each do |meal| %>
-                      <% f.fields_for :meals, meal do |meal_form| %>
+                    <%= @fact_sheet.meals.for_day(day).each do |meal| %>                    
+                      <%=f.fields_for :meals, meal do |meal_form| %>
                         <%= render "meal_fields", :f => meal_form, :day_value => day.downcase %>
                       <% end %>
                     <% end %>
                   </ol>
-                  <%= link_to_add_fields("Add hours", f, :meals, :class => "add_fields_for sf-button", :form_options => {:day_value => day}) %>
+                  <%=link_to_add_fields("Add hours", f, :meals, :class => "add_fields_for sf-button", :form_options => {:day_value => day}) %>
                 <% end %>
               <% end %>
             </li>
@@ -65,7 +65,7 @@
             <%= f.input :holidays_closed, :hint => "Christmas Eve, Christmas Day, and New Years Day" %>
           <% end %>
 
-          <% f.inputs :name => "Guest Services", :class => "editing guest_services" do %>
+          <%=f.inputs :name => "Guest Services", :class => "editing guest_services" do %>
             <%= f.input :reservations, :as => :select, :collection => reservation_options %>
             <%= f.input :cancellation_policy, :as => :text, :hint => "e.g., 72 hours, 24 hours, no cancellation policy" %>
             <%= f.input :payment_methods, :hint => "e.g., Amex, Visa, Mastercard" %>
@@ -75,7 +75,7 @@
             <%= f.input :delivery, :hint => "e.g., yes, not available, takeout only" %>
           <% end %>
 
-          <% f.inputs :name => "Design", :class => "editing design" do %>
+          <%=f.inputs :name => "Design", :class => "editing design" do %>
             <h4>Design Team</h4>
             <p class="inline-hint">Please include name or company name for the following</p>
             <%= f.input :architect_name %>
@@ -95,30 +95,31 @@
             <li id="seating_areas">
               <h4>Seating Areas</h4>
               <ol>
-              <% f.fields_for :seating_areas do |seating_area_form| %>
+              <%=f.fields_for :seating_areas do |seating_area_form| %>
                 <%= render 'seating_area_fields', :f => seating_area_form %>
               <% end %>
               </ol>
-              <%= link_to_add_fields("Add a seating area", f, :seating_areas, :class => "sf-button add_fields_for") %>
+              <% link_to_add_fields("Add a seating area", f, :seating_areas, :class => "sf-button add_fields_for") %>
             </li>
 
           <% end %>
 
-          <% f.inputs :name => "Miscellaneous", :class => "editing misc" do %>
+          <%=f.inputs :name => "Miscellaneous", :class => "editing misc" do %>
             <%= f.input :wheelchair_access, :hint => "e.g., Yes/no" %>
             <%= f.input :smoking, :as => :select, :collection => smoking_options %>
             <%= f.input :concept, :as => :select, :collection => concept_options %>
             <%= f.input :entertainments, :as => :check_boxes, :collection => RestaurantFactSheet::ENTERTAINMENT_OPTIONS %>
          <% end %>
 
-          <% f.buttons do %>
-            <%= button_tag 'Update' %>
+          <%=f.actions do %>
+            <%= f.action :submit, :as => :button %>
+            <%#= button_tag 'Update' %>
           <% end %>
         <% end %>
 
         </div><!--#editing_restaurant-->
 
-        <% content_for :javascript do %>
+        <%= content_for :javascript do %>
 
 
 

@@ -52,7 +52,7 @@ class Profile < ActiveRecord::Base
   
   accepts_nested_attributes_for :culinary_jobs, :nonculinary_jobs, :awards, :user, :specialties,
     :reject_if => REJECT_TITLE_BLANK_PROC
-    
+  
   ### Preferences ###
   preference :display_cell, :string, :default => "everyone"
   preference :display_email, :string, :default => "everyone"
@@ -64,7 +64,10 @@ class Profile < ActiveRecord::Base
       send(:"preferred_#{sym}") == "everyone"
     end
   end
-
+  attr_accessible :metropolitan_area_id, :james_beard_region_id, :specialty_ids, 
+      :birthday, :job_start, :headline, :summary, :hometown, :current_residence,
+      :prefers_display_cell, :cellnumber, :prefers_display_email, :user_attributes,
+      :primary_employment
   def primary_employment
     user.primary_employment
   end

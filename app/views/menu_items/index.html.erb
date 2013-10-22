@@ -17,7 +17,7 @@
                 <dd><%= menu_item.name %></dd>
 
                 <dt>Description</dt>
-                <dd><%= Loofah::Helpers.sanitize(menu_item.description) %></dd>
+                <dd><%= Loofah::Helpers.sanitize(menu_item.description).html_safe %></dd>
 
                 <dt>Price</dt>
                 <dd><%= price(menu_item.price) %></dd>

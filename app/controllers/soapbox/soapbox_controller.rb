@@ -1,9 +1,8 @@
 class Soapbox::SoapboxController < ApplicationController
 
 include AutoCompleteHelper
-
   def index
-     if params[:person] || params[:name]
+    if params[:person] || params[:name]
       respond_to do |format|
         if params[:person]
           format.js { auto_complete_person_keywords }

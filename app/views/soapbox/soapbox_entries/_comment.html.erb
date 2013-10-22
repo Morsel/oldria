@@ -1,6 +1,6 @@
 <%- if full_text -%>
 
-<% div_for(comment) do %>
+<%=div_for(comment) do %>
     <div class="details comment-author">
         <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>
         <%= link_to_if comment.user.linkable_profile?, comment.user.name_or_username, soapbox_profile_path(comment.user.username), :class => "user-name" %><br/>
@@ -16,7 +16,7 @@
 
 <%- else -%>
 
-<% div_for(comment) do %>
+<%=div_for(comment) do %>
     <header>
         <%= link_to_if comment.user.linkable_profile?, comment.user.name_or_username, soapbox_profile_path(comment.user.username) %><br/>
         <%= comment.user.primary_employment.restaurant_role.try(:name) if comment.user.primary_employment %><br/>

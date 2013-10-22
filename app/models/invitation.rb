@@ -34,6 +34,7 @@ class Invitation < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
   
   after_create :send_welcome_and_notify_admins
+  attr_accessible :first_name, :last_name, :email, :restaurant_role_id, :restaurant_name, :subject_matters
   
   def name
     [first_name, last_name].join(' ')

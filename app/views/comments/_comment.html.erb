@@ -1,12 +1,12 @@
 <% dashboard ||= false %>
 <% if dashboard == true -%>
 <%- topic = comment.commentable -%>
-<% div_for topic do %>
+<%=div_for topic do %>
     <div class="activity_header">
         <h3><%= topic.inbox_title %></h3>
         <p class="topic"><%= topic.try(:display_message).present? ? topic.display_message : topic.message %></p>
     </div>
-    <% div_for comment do %>
+    <%=div_for comment do %>
         <%= render :partial => 'users/identity', :locals => { :user => comment.user } %>
         <div class="user_comment"><%= comment.comment %>
         <%# if comment.comment.size > 200 -%>
@@ -17,7 +17,7 @@
 
 <% else -%>
 
-<% div_for comment, :class => 'clearfix' do %>
+<%=div_for comment, :class => 'clearfix' do %>
     <div class="avatar">
         <%= image_tag(comment.user.try(:avatar).try(:url, :thumb)) %>
     </div>

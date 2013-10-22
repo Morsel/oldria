@@ -1,5 +1,5 @@
-<% semantic_form_for [:admin, @page] do |f| %>
-	<% f.inputs do %>
+<%= semantic_form_for [:admin, @page] do |f| %>
+	<%= f.inputs do %>
 		<%= f.input :title,
                 :input_html => {:class => 'title span-8'} %>
 		<%= f.input :slug unless @page.special? %>

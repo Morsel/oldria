@@ -2,8 +2,8 @@
 
 <p><%= link_to (image_tag("plus.png")+"New Trend Question"), new_admin_trend_question_path, :class => 'positive button' %></p>
 
-<% table_for(@trend_questions) do |t| %>
-  <% t.data :actions => :all, :action_prefix => 'admin' do
+<%= table_for(@trend_questions) do |t| %>
+  <%= t.data :actions => :all, :action_prefix => 'admin' do
        t.cell(:scheduled_at, :heading => "Scheduled"){|tr| tr.scheduled_at.try(:strftime,"%m/%d/%y")}
        t.cell(:subject)
        t.cell(:body)

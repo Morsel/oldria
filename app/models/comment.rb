@@ -22,11 +22,11 @@ class Comment < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments
 
-  named_scope :not_user, lambda { |user| {
+  scope :not_user, lambda { |user| {
     :conditions => ["user_id != ?", user.id]
   }}
 
-  named_scope :from_premium_users, {
+  scope :from_premium_users, {
     :joins => { :user => :subscription },
     :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
       Date.today]

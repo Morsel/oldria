@@ -37,13 +37,15 @@ class Image < Attachment
       :medium_photo => "189x150>",
       :restaurant_logo =>"215x150>"
     },
-    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
-    :path => "#{RAILS_ENV}/images/:id/:style/:filename",
+    :s3_credentials => "#{Rails.root}/config/environments/#{Rails.env}/amazon_s3.yml",
+    :path => "#{Rails.env}/images/:id/:style/:filename",
     :bucket => "spoonfeed",
     :url => ':s3_domain_url',
     :whiny => false,
     :default_url => '/images/avatar_restaurant.gif'
 
+  attr_accessible :attachment, :photos_attributes, :name, :credit
+  
   def restaurant
     attachable if attachable_type == "Restaurant"
   end

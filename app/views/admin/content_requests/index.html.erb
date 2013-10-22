@@ -2,7 +2,7 @@
 
 <p><%= link_to (image_tag("plus.png") +"New Content Request (Question from RIA)"), new_admin_content_request_path, :class => 'positive button' %></p>
 
-<% table_for(@content_requests) do |t| %>
+<%= table_for(@content_requests) do |t| %>
   <% t.data :actions => :all, :action_prefix => 'admin' do
        t.cell(:scheduled_at, :heading => "Scheduled"){|c| c.scheduled_at.try(:strftime,"%m/%d/%y")}
        t.cell(:subject)

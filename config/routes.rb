@@ -1,444 +1,724 @@
-ActionController::Routing::Routes.draw do |map|
-  map.login  'login',  :controller => 'user_sessions', :action => 'new'
-  map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'  
-  
-  map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
+Ria::Application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
 
-  map.join 'join_us', :controller => "join", :action => "index"
-  map.soapbox_join 'soapbox/join_us', :controller => "join", :action => "soapbox_join"  
-  map.registration 'register', :controller => "join", :action => "register"
-  map.soapbox_registration 'soapbox_register', :controller => "join", :action => "soapbox_register"
-  map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
-  map.save_confirmation 'save_confirmation/:user_id', :controller => 'users', :action => 'save_confirmation'
-  map.resources :invitations, :only => ['new', 'create', 'show'],
-        :collection => { :recommend => :get, :submit_recommendation => :post, :redirect => :post },
-        :member => { :confirm => :get }
-  map.resource :complete_registration, :only => [:show, :update],
-    :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post,
-      :finish_without_contact => :get }
-
-  map.dashboard_more 'dashboard_more', :controller => 'welcome', :action => 'index', :is_more => true
-  map.refresh_dashboard 'dashboard/refresh', :controller => 'welcome', :action => 'refresh'
-  map.require_login 'dashboard/require_login', :controller => 'welcome', :action => 'require_login'
-
-  map.directory 'directory', :controller => 'directory', :action => 'index'
-  map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
-  map.user_restaurants 'directory/current_user_restaurants', :controller => 'directory', :action => 'current_user_restaurants'
-  map.get_restaurant_url 'directory/get_restaurant_url', :controller => 'directory', :action => 'get_restaurant_url'
-  # the callback for cloudmailin
-  map.resource :cloudmail, :only => :create 
-
-  map.namespace(:soapbox) do |soapbox|
-    soapbox.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line"
-    soapbox.btl_topic 'behind_the_line/topic/:id', :controller => 'behind_the_line', :action => 'topic'
-    soapbox.btl_chapter 'behind_the_line/chapter/:id', :controller => 'behind_the_line', :action => 'chapter'
-
-    soapbox.resources :restaurant_questions, :only => ['show']
-
-    soapbox.resources :restaurants, :only => ['show'], :member => { :subscribe => :any, :unsubscribe => :post, :confirm_subscription => :get } do |restaurants|
-      restaurants.resources :feature_pages, :only => ['show']
-      restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }, :controller => "restaurant_questions"
-      restaurants.resources :photos, :only => ['show', 'index']
-      restaurants.resources :accolades, :only => ['index']
+  match 'login' => 'user_sessions#new', :as => :login
+  match 'logout' => 'user_sessions#destroy', :as => :logout
+  match 'facebook_login' => 'user_sessions#create_from_facebook', :as => :fb_login
+  match 'join_us' => 'join#index', :as => :join
+  match 'soapbox/join_us' => 'join#soapbox_join', :as => :soapbox_join
+  match 'register' => 'join#register', :as => :registration
+  match 'soapbox_register' => 'join#soapbox_register', :as => :soapbox_registration
+  match 'confirm/:id' => 'users#confirm', :as => :confirm
+  match 'save_confirmation/:user_id' => 'users#save_confirmation', :as => :save_confirmation
+  resources :invitations, :only => ["new", "create", "show"] do
+    collection do
+      get :recommend
+      post :submit_recommendation
+      post :redirect
     end
-    soapbox.resources :restaurant_features, :only => ["show"]
-    soapbox.resources :features, :only => ['show'], :controller => 'features'
-    soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
-    soapbox.resources :a_la_minute_answers, :only => ['show']
-    soapbox.resources :soapbox_entries, :only => ['index', 'show', 'qotd', 'trend'], :as => "front_burner",
-                      :collection => { :qotd => :get, :trend => :get },
-                      :member => { :comment => :get }
-    soapbox.frontburner 'frontburner',:controller => 'soapbox_entries',:action=>'frontburner'
+    member do
+      get :confirm
+    end  
+  end
 
-    soapbox.resources :promotions, :as => "newsfeed"
-    soapbox.resources :menu_items, :as => "on_the_menu"
+  resource :complete_registration, :only => [:show, :update] do
+    collection do
+      get :user_details
+      get :find_restaurant
+      post :find_restaurant
+      post :contact_restaurant
+      get :finish_without_contact
+    end  
+  end
 
-    soapbox.resources :users, :only => [] do |users|
-      users.resources :profile_questions, :only => ['index', 'show'], :controller => 'users/profile_questions'
-      users.btl_topic 'behind_the_line/topic/:id', :controller => 'users/behind_the_line', :action => 'topic'
-      users.btl_chapter 'behind_the_line/chapter/:id', :controller => 'users/behind_the_line', :action => 'chapter'
+  match 'dashboard_more' => 'welcome#index', :as => :dashboard_more, :is_more => true
+  match 'dashboard/refresh' => 'welcome#refresh', :as => :refresh_dashboard
+  match 'dashboard/require_login' => 'welcome#require_login', :as => :require_login
+  match 'directory' => 'directory#index', :as => :directory
+  match 'directory/restaurants' => 'directory#restaurants', :as => :restaurant_directory
+  match 'directory/current_user_restaurants' => 'directory#current_user_restaurants', :as => :user_restaurants
+  match 'directory/get_restaurant_url' => 'directory#get_restaurant_url', :as => :get_restaurant_url
+  resource :cloudmail, :only => :create
+    # match '/' => 'soapbox#index'
+  namespace :soapbox do
+    root :to => 'soapbox#index'
+    resources :profile_questions, :only => ["index", "show"]
+    match 'behind_the_line/topic/:id' => 'behind_the_line#topic', :as => :btl_topic
+    match 'behind_the_line/chapter/:id' => 'behind_the_line#chapter', :as => :btl_chapter
+    resources :restaurant_questions, :only => ["show"]
+    resources :restaurants, :only => ["show"] do  
+      member do
+        get :subscribe
+        post :subscribe
+        post :unsubscribe
+        get :confirm_subscription
+      end
+      resources :feature_pages, :only => ["show"]
+      resources :questions do
+        collection do
+          get :topics
+          get :chapters
+          post :refresh
+        end
+      end
+      resources :photos, :only => ["show", "index"]
+      resources :accolades, :only => ["index"]
     end
-
-    soapbox.resources :newsletter_subscribers, :member => { :welcome => :get, :confirm => :get },
-                                               :collection => { :find_subscriber => :get }
-    soapbox.resources :newsletter_subscriptions, :only => [:update, :destroy]
-    soapbox.resources :soapbox_password_resets , :collection => { :resend_confirmation => :get }
-
-    soapbox.connect 'travel_guides', :controller => 'soapbox', :action => 'travel_guides'
-    soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
-    soapbox.connect 'restaurant_search', :controller => 'soapbox', :action => 'restaurant_search'
-    soapbox.resource :search, :controller => 'site_search', :only => ['show']
-    soapbox.root :controller => 'soapbox', :action => 'index'
-  end
-
-  map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show',
-      :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-
-  map.soapbox_directory 'soapbox/directory', :controller => 'soapbox/soapbox', :action => 'directory'
-  map.soapbox_restaurant_directory 'soapbox/directory/restaurants',
-    :controller => 'soapbox/soapbox', :action => 'restaurant_directory'
-
-  map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox/soapbox' do |soapbox|
-    soapbox.root :action => 'index'
-  end
-
-  map.namespace(:hq) do |hq|
-    hq.root :controller => 'hq', :action => 'index'
-  end
-
-  map.with_options :conditions => { :subdomain => 'hq' }, :controller => 'hq/hq' do |hq|
-    hq.root :action => 'index'
-  end
-
-  map.namespace(:mediafeed) do |mediafeed|
-    mediafeed.root :controller => 'mediafeed', :action => 'index'
-    mediafeed.login 'login', :controller => 'user_sessions', :action => 'new'
-    mediafeed.resources :media_users, :except => [:index, :show], :member => { "confirm" => :get }
-    mediafeed.resend_user_confirmation 'resend_confirmation', :controller => 'media_users', :action => 'resend_confirmation'
-    mediafeed.forgot_password 'forgot_password', :controller => 'media_users', :action => 'forgot_password'
-    mediafeed.resources :media_requests
-    mediafeed.connect 'directory_search', :controller => 'mediafeed', :action => 'directory_search'
-    mediafeed.discussion 'media_requests/:id/:discussion_type/:discussion_id', :controller => 'media_requests', :action => 'discussion'
-    mediafeed.request_information 'request_information', :controller => 'mediafeed', :action => 'request_information'
-
-    mediafeed.request_information_mail 'request_info_mail', :controller => 'mediafeed', :action => 'request_info_mail'
-
-    mediafeed.media_subscription 'media_subscription', :controller => 'mediafeed', :action => 'media_subscription'
-    mediafeed.unsubscribe 'unsubscribe', :controller => 'mediafeed', :action => 'media_all_unsubscribe'
-    mediafeed.media_opt_update 'media_opt_update', :controller => 'mediafeed', :action => 'media_opt_update'
-    mediafeed.get_cities_list 'get_cities', :controller => 'media_users', :action => 'get_cities'
-  end
-
-  map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'mediafeed/mediafeed' do |mediafeed|
-    mediafeed.root :action => 'index'
-  end
-
-  map.mediafeed_directory 'mediafeed/directory', :controller => 'mediafeed/mediafeed', :action => 'directory'
-
-  map.resources :quick_replies
-
-  map.resources :media_request_discussions, :only => [:show, :update], :member => { :read => :put } do |mrc|
-    mrc.resources :comments, :only => [:new, :create]
-  end
-
-  map.resources :solo_media_discussions, :only => [:show, :update], :member => { :read => :put } do |smd|
-    smd.resources :comments, :only => [:new, :create]
-  end
-
-  map.resources :discussions, :member => { :read => :put } do |discussions|
-    discussions.resources :comments, :only => [:new, :create]
-  end
-
-  map.resources :conversations
-
-  map.resources :direct_messages, :member => { :read => :put }
-
-  map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-  map.user_profile_subscribe 'user_profile_subscribe/:username', :controller => 'users', :action => 'user_profile_subscribe', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-  map.resources :users, :collection => { :resend_confirmation => :any ,:add_region =>:get ,:new_james_beard_region =>:post }, :member => {
-    :resume => :get,
-    :remove_twitter => :put,
-    :remove_avatar => :put,
-    :fb_auth => :get,
-    :fb_connect => :any,
-    :fb_deauth => :any,
-    :fb_page_auth => :post,
-    :remove_editor => :put,
-    :upload =>:post,
-    :edit_newsletters => :get,    
-    :add_region_request=>:post
-  }, :shallow => true do |users|
-    users.resource :profile, :only => ['create', 'edit', 'update'],
-                   :controller => 'profiles',
-                   :member => { :edit_front_burner => :get, :edit_btl => :get,:add_role =>:post ,:add_role_form =>:get,:complete_profile => :get},
-                   :collection => { :toggle_publish_profile => :get } do |p|
-      p.resources :culinary_jobs
-      p.resources :nonculinary_jobs
-      p.resources :awards
-      p.resources :accolades
-      p.resources :enrollments
-      p.resources :competitions
-      p.resources :internships
-      p.resources :stages
-      p.resources :nonculinary_enrollments
-      p.resources :apprenticeships
-      p.resources :profile_cuisines
-      p.resources :cookbooks
+    resources :restaurant_features, :only => ["show"]
+    resources :features, :only => ["show"]
+    resources :a_la_minute_questions, :only => ["index", "show"]
+    resources :a_la_minute_answers, :only => ["show"]
+    resources :soapbox_entries, :only => ["index", "show", "qotd", "trend"] do
+      collection do
+        get :qotd
+        get :trend
+      end
+      member do
+        get :comment
+      end   
     end
-    users.resources :statuses
-    users.resources :direct_messages, :member => { :reply => :get }
-    users.resources :export_press_kits
-    users.behind_the_line 'behind_the_line', :controller => 'users/behind_the_line', :action => 'index'
-    users.btl_topic 'behind_the_line/topic/:id', :controller => 'users/behind_the_line', :action => 'topic'
-    users.btl_chapter 'behind_the_line/chapter/:id', :controller => 'users/behind_the_line', :action => 'chapter'
-
-    users.resources :default_employments
-    users.resource :subscription, 
-      :collection => { :bt_callback => :get, :billing_history => :get }, 
-      :controller => 'subscriptions'
-  end
-
-  map.resources :users do |users|
-    users.resources :profile_answers, :only => [:create, :update, :destroy]
-    users.resources  :user_visitor_email_setting
-  end
-
-
-  map.resource :search, :controller => 'site_search', :only => ['show']
-
-  map.feature '/features/:id', :controller => 'features', :action => 'show'
-
-  map.resources :restaurants,
-                :collection => {:add_restaurant => :get,:media_user_newsletter_subscription=>:get},
-                :member => { :edit_logo => :get,
-                             :select_primary_photo => :post,
-                             :new_manager_needed => :get,
-                             :replace_manager => :post,
-                             :fb_page_auth => :post,
-                             :remove_twitter => :put,
-                             :twitter_archive => :get,
-                             :facebook_archive => :get,
-                             :social_archive => :get,
-                             :newsletter_subscriptions => :get,
-                             :download_subscribers => :get,
-                             :import_csv =>:post,
-                             :confirmation_screen =>:post,
-                             :new_media_contact => :get,
-                             :replace_media_contact => :post,
-                             :restaurant_visitors => :get,
-                             :send_restaurant_request => :get,
-                             :fb_deauth => :any,
-                             :api => :get,
-                             :media_subscribe => :get
-                             } do |restaurant|
-    restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
-    restaurant.resources :employments, :collection => { "reorder" => :post }
-    restaurant.resource :employee_accounts, :only => [:create, :destroy]
-
-    restaurant.resource :fact_sheet, :controller => "restaurant_fact_sheets"
-    restaurant.resources :calendars, :collection => { "ria" => :get }
-    restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
-
-    restaurant.resources :features, :controller => "restaurant_features",
-                                    :member => { :add => :post, :bulk_edit => :get },
-                                    :collection => { :edit_top => :get, :update_top => :post } do |features|
-      features.resources :profile_answers, :only => [:create, :update, :destroy]
+    match 'frontburner' => 'soapbox_entries#frontburner', :as => :frontburner
+    resources :promotions
+    resources :menu_items, :path => 'on_the_menu'
+    resources :users, :only => [] do   
+      resources :profile_questions, :only => ["index", "show"]
+      match 'behind_the_line/topic/:id' => 'users/behind_the_line#topic', :as => :btl_topic
+      match 'behind_the_line/chapter/:id' => 'users/behind_the_line#chapter', :as => :btl_chapter
     end
-
-    restaurant.resources :feature_pages
-    restaurant.resources :menus, :collection => { "reorder" => :post, :bulk_edit => :get }
-    restaurant.resources :photos, :collection => { "reorder" => :post, "bulk_edit" => :get }, :member => { "show_sizes" => :get }
-    restaurant.resource :logo
-    restaurant.resources :accolades
-    restaurant.resources :restaurant_answers, :only => [:show, :create, :update, :destroy]
-    restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get },:member => { :delete_attachment => :post,:facebook_post => :post }
-    restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get },
-                                       :controller => 'subscriptions'
-
-    restaurant.resources :promotions, :member => { :delete_attachment => :post ,:facebook_post => :post, :details => :get ,:preview => :get}
-    restaurant.resources :menu_items, :member => { :facebook_post => :post, :details => :get}    
-    restaurant.resources :press_releases, :collection => { :archive => :get }
-
-    restaurant.behind_the_line 'behind_the_line', :controller => 'restaurants/behind_the_line', :action => 'index'
-    restaurant.btl_topic 'behind_the_line/topic/:id', :controller => 'restaurants/behind_the_line', :action => 'topic'
-    restaurant.btl_chapter 'behind_the_line/chapter/:id', :controller => 'restaurants/behind_the_line', :action => 'chapter'
-    restaurant.btl_question_ans_post 'behind_the_line/question_ans_post/:id', :controller => 'restaurants/behind_the_line', :action => 'question_ans_post'
-    restaurant.social_posts 'social_posts', :controller => 'restaurants/social_post', :action => 'index'
-    restaurant.social_posts_page 'social_posts/:page', :controller => 'restaurants/social_post', :action => 'index'
-
-    restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get, :approve => :post, :archives => :get , :get_campaign_status=> :get,:disapprove => :post}
-
-    restaurant.add_keywords 'add_keywords', :controller => "menu_items", :action => "add_keywords"
-    restaurant.request_profile_update 'request_profile_update', :controller => "restaurants", :action => "request_profile_update"
-    restaurant.show_notice 'show_notice', :controller => "restaurants", :action => "show_notice"
+    resources :newsletter_subscribers do
+      collection do
+        get :find_subscriber
+      end
+      member do
+        get :welcome
+        get :confirm
+      end   
+    end
+    resources :newsletter_subscriptions, :only => [:update, :destroy]
+    resources :soapbox_password_resets do
+      collection do
+        get :resend_confirmation
+      end   
+    end
+    match 'travel_guides' => 'soapbox#travel_guides'
+    match 'directory_search' => 'soapbox#directory_search'
+    match 'restaurant_search' => 'soapbox#restaurant_search'
+    resource :search,:controller => 'site_search', :only => ["show"]      
   end
 
-  map.resources :user_sessions, :password_resets, :followings, :pages
-
-  map.resources :admin_conversations, :only => 'show', :member => { :read => :put } do |admin_conversations|
-    admin_conversations.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
+  match 'soapbox/profile/:username' => 'soapbox/profiles#show', :as => :soapbox_profile, :constraints => { :username => /[a-zA-Z0-9\-\_ ]+/ }
+  match 'soapbox/directory' => 'soapbox/soapbox#directory', :as => :soapbox_directory
+  match 'soapbox/directory/restaurants' => 'soapbox/soapbox#restaurant_directory', :as => :soapbox_restaurant_directory
+  match '/' => 'soapbox/soapbox#index', :via => 'hq#index'
+  namespace :hq do
+    root :to => 'hq#index'
   end
 
-  map.resources :admin_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
-    admin_discussions.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
+  match '/' => 'hq/hq#index', :via =>'mediafeed#index'
+  namespace :mediafeed do
+    root :to => 'mediafeed#index'
+    match 'login' => 'user_sessions#new', :as => :login
+    resources :media_users, :except => [:index, :show] do  
+      member do
+        get :confirm
+      end    
+    end
+    match 'resend_confirmation' => 'media_users#resend_confirmation', :as => :resend_user_confirmation
+    match 'forgot_password' => 'media_users#forgot_password', :as => :forgot_password
+    resources :media_requests
+    match 'directory_search' => 'mediafeed#directory_search'
+    match 'media_requests/:id/:discussion_type/:discussion_id' => 'media_requests#discussion', :as => :discussion
+    match 'request_information' => 'mediafeed#request_information', :as => :request_information
+    match 'request_info_mail' => 'mediafeed#request_info_mail', :as => :request_information_mail
+    match 'media_subscription' => 'mediafeed#media_subscription', :as => :media_subscription
+    match 'unsubscribe' => 'mediafeed#media_all_unsubscribe', :as => :unsubscribe
+    match 'media_opt_update' => 'mediafeed#media_opt_update', :as => :media_opt_update
+    match 'get_cities' => 'media_users#get_cities', :as => :get_cities_list
   end
-
-  map.resources :solo_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
-    admin_discussions.resources :comments, :only => [:new, :create, :edit, :update]
-  end
-
-  map.resources :admin_messages, :only => 'show', :member => { :read => :put }
-  map.resources :messages, :collection => {
-                              :archive => :get,
-                              :ria => :get,
-                              :private => :get,
-                              :staff_discussions => :get,
-                              :media_requests => :get,
-                              :restaurant_requests => :get
-  }
-
-  map.front_burner 'front_burner', :controller => 'front_burner', :action => 'index'
-  map.user_qotds 'front_burner/user/:id', :controller => 'front_burner', :action => 'user_qotds'
-  map.qotd 'front_burner/qotd/:id', :controller => 'front_burner', :action => 'qotd'
-
-  map.resources 'trend_questions', :only => 'show', :collection => { 'restaurant' => :get }
-
-  map.resources :timelines, :collection => {
-                              :people_you_follow => :get,
-                              :twitter => :get,
-                              :facebook => :get,
-                              :activity_stream => :get
-  }
-
-  map.resources :feed_entries, :only => 'show', :member => { :read => :put }
-  map.resource :feeds
-  map.resource :employment_search
-
-  map.resource :twitter_authorization
-  map.resource :friends_statuses, :only => 'show'
-  map.social_media 'social_media', :controller => 'social_media', :action => 'index'
-
-  map.promotions 'newsfeed', :controller => "spoonfeed/promotions", :action => "index"
-  map.a_la_minute 'a_la_minute', :controller => "spoonfeed/a_la_minute", :action => "index"
-  map.a_la_minute_answers 'a_la_minute/:question_id/answers', :controller => "spoonfeed/a_la_minute", :action => "answers"
-  map.menu_items 'on_the_menu', :controller => "spoonfeed/menu_items", :action => "index"
-  map.menu_items 'menu_items', :controller => "spoonfeed/menu_items", :action => "index"
-  map.menu_item 'on_the_menu/:id', :controller => "spoonfeed/menu_items", :action => "show"
-  map.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line", :controller => 'spoonfeed/profile_questions'
-  map.social 'social', :controller => "spoonfeed/social_updates", :action => "index"
-  map.expire_social_update 'expire_social_update', :controller => "spoonfeed/social_updates", :action => "expire_social_update"
   
-  map.update_social 'update_social', :controller => "spoonfeed/social_updates", :action => "load_updates"
-  map.filter_social 'filter_social', :controller => "spoonfeed/social_updates", :action => "filter_updates"
-  map.resources :restaurant_questions, :only => ['index', 'show'], :as => 'restaurant_btl', :controller => 'spoonfeed/restaurant_questions'
-  
-  map.get_keywords 'get_keywords', :controller => "menu_items", :action => "get_keywords"
-  
-
-  map.resources :page_views, :only => ['create']
-  map.resources :trace_keywords, :only => ['create']
-
-  map.namespace :admin do |admin|
-    admin.root      :controller => 'admin'
-
-    admin.resources :users, :member=>{:impersonator => :get}
-    admin.resources :pages
-    admin.resources :feeds, :collection => { :sort => [:post, :put] }
-    admin.resources :feed_categories
-    admin.resources :date_ranges, :coached_status_updates, :direct_messages
-    admin.resources :cuisines, :subject_matters
-    admin.resources :restaurants
-    admin.resources :media_requests, :member => { :approve => :put,  :media_requests_list => :get}
-    admin.resources :restaurant_roles, :except => [:show], :collection => { :update_category => :put }
-    admin.resources :holidays
-    admin.resources :calendars
-    admin.resources :events
-    admin.resources :soapbox_entries, :member => { :toggle_status => :post }
-
-    admin.resources :restaurant_questions, :member => { :send_notifications => :post }
-    admin.resources :restaurant_chapters, :collection => { :select => :post }
-    admin.resources :restaurant_topics
-
-    admin.resources :profile_questions, :member => { :send_notifications => :post }
-    admin.resources :chapters, :collection => { :select => :post }
-    admin.resources :topics
-    admin.resources :question_roles
-
-    admin.resources :schools
-    admin.resources :specialties, :collection => { :sort => :post }
-    admin.resources :invitations, :member => { :accept => :get, :archive => :get, :resend => :get }
-    admin.resources :a_la_minute_questions, :member => {:edit_in_place => :post}
-    admin.resources :restaurant_features, :only => [:index, :create, :destroy],
-        :collection => {:edit_in_place => :post}
-    admin.resources :restaurant_feature_pages, :only => [:create,  :destroy],
-        :collection => {:edit_in_place => :post}
-    admin.resources :restaurant_feature_categories, :only => [:create,  :destroy],
-        :collection => {:edit_in_place => :post}
-
-    admin.resource :complimentary_accounts, :only => [:create, :destroy]
-    admin.resources :metropolitan_areas
-    admin.resources :site_activities
-    admin.resources :otm_keywords
-    admin.resources :email_stopwords
-    admin.resources :page_views, :only => ["index"]
-    admin.resources :trace_searches, :only => ["index"], :collection => {:trace_search_for_soapbox => :get}
-    admin.resources :page_views, :only => ["index"],:collection => {:trace_keyword_for_soapbox => :get}
-    admin.resources :featured_profiles
-    admin.resources :test_restaurants, :member =>{:active => :get}
-
-    # Admin Messaging
-    exclusive_routes = [:index, :show, :destroy]
-    admin.resources :messages, :only => exclusive_routes
-    admin.resources :qotds, :except => exclusive_routes
-    admin.resources :announcements, :except => exclusive_routes
-    admin.resources :pr_tips, :except => exclusive_routes
-    admin.resources :holiday_reminders, :except => exclusive_routes
-    admin.resources :content_requests
-    admin.resources :trend_questions
-
-    # Homepages for SF, SB, MF
-    admin.resources :soapbox_pages
-    admin.resources :hq_pages
-    admin.resources :mediafeed_pages
-
-    admin.resources :soapbox_slides, :collection => { :sort => :post }
-    admin.resources :soapbox_promos, :collection => { :sort => :post }
-
-    admin.resources :testimonials
-    admin.resources :brain_tree_webhook,:collection => {:varify => :any}
-
-    admin.invalid_employments 'invalid_employments',:controller => "restaurants", :action => "invalid_employments"
-    admin.resources :runner 
-    admin.export_media_for_newsfeed 'export_media_for_newsfeed', :controller => 'runner', :action => 'export_media_for_newsfeed'
-    admin.export_media_for_digest 'export_media_for_digest', :controller => 'runner', :action => 'export_media_for_digest'
-    admin.resources :invited_employees, :only => :index, :member =>{:active => :get}
+  match '/' => 'mediafeed/mediafeed#index', :via =>'mediafeed/mediafeed#directory', :as => :mediafeed_directory
+  resources :quick_replies
+  resources :media_request_discussions, :only => [:show, :update] do  
+    member do
+      put :read
+    end
+    resources :comments, :only => [:new, :create]
   end
 
-  # Not in use?
-  map.resources :holiday_conversations, :only => ['show','update'] do |holiday_conversations|
-    holiday_conversations.resources :comments, :only => [:new, :create]
+  resources :solo_media_discussions, :only => [:show, :update] do  
+    member do
+      put :read
+    end
+    resources :comments, :only => [:new, :create]
   end
 
-  map.resources :holiday_discussions, :member => { :read => :put }, :only => ['show','update'] do |holiday_discussions|
-    holiday_discussions.resources :comments, :only => [:new, :create]
+  resources :discussions do  
+    member do
+      put :read
+    end
+    resources :comments, :only => [:new, :create]
   end
 
-  map.resources :holiday_discussion_reminders, :member => { :read => :put }
-  ###
+  resources :conversations
+  resources :direct_messages do
+    member do
+      put :read
+    end
+  end
 
-  map.root :controller => 'welcome'
-  map.public_page ":id", :controller => 'pages', :action => 'show'
-  map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'
-  map.hq_page 'hq/:id', :controller => 'hq_pages', :action => 'show'
-  map.mediafeed_page 'mediafeed/:id', :controller => 'mediafeed_pages', :action => 'show'
-  
-  # Default Routes
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
-  map.resources :ria_webservices, :collection => {:register => :post,:create => :post,:create_psw_rst => :post,:get_join_us_value=>:get,:soap_box_index =>:get,:a_la_minute_answers =>:get,:menu_items =>:get,:bulk_update => :post,:create_menu=>:post,:create_promotions =>:post,:get_promotion_type=>:get,:new_menu_item=>:get,:bulk_edit_photo=>:get,:create_photo =>:post,:create_comments =>:post,:show_comments =>:get,:get_qotds=>:get,:get_newsfeed=>:get,:push_notification_user=>:post,:get_admin_conversation_discussions=>:get,:get_media_request=>:get}, :controller => "ria_webservices"
-  map.resources :ria_production_webservices, :collection => {:register => :post,:create => :post,:create_psw_rst => :post,:get_join_us_value=>:get,:soap_box_index =>:get,:a_la_minute_answers =>:get,:menu_items =>:get,:bulk_update => :post,:create_menu=>:post,:create_promotions =>:post,:get_promotion_type=>:get,:new_menu_item=>:get,:bulk_edit_photo=>:get,:create_photo =>:post,:create_comments =>:post,:show_comments =>:get,:get_qotds=>:get,:get_newsfeed=>:get,:push_notification_user=>:post,:get_admin_conversation_discussions=>:get,:get_media_request=>:get,:api_register=>:post}, :controller => "ria_production_webservices"
+  match 'profile/:username' => 'users#show', :as => :profile, :constraints => { :username => /[a-zA-Z0-9\-\_ ]+/ }
+  match 'user_profile_subscribe/:username' => 'users#user_profile_subscribe', :as => :user_profile_subscribe, :constraints => { :username => /[a-zA-Z0-9\-\_ ]+/ }
+  resources :users do
+    collection do
+      get :resend_confirmation
+      post :resend_confirmation
+      get :add_region
+      post :new_james_beard_region
+    end
+    match 'behind_the_line' => 'users/behind_the_line#index', :as => :behind_the_line
+    match 'behind_the_line/topic/:id' => 'users/behind_the_line#topic', :as => :btl_topic
+    match 'behind_the_line/chapter/:id' => 'users/behind_the_line#chapter', :as => :btl_chapter
+  end
+  resources :users, shallow: true do 
+    member do
+      get :resume
+      put :remove_twitter
+      put :remove_avatar
+      get :fb_auth
+      get :fb_connect
+      post :fb_connect
+      get :fb_deauth
+      post :fb_deauth
+      post :fb_page_auth
+      put :remove_editor
+      post :upload
+      get :edit_newsletters
+      post :add_region_request
+    end
+    resource :profile, :only => ["create", "edit", "update"] do
+      collection do
+        get :toggle_publish_profile
+      end
+      member do
+        get :edit_front_burner
+        get :edit_btl
+        post :add_role
+        get :add_role_form
+        get :complete_profile
+      end
+      resources :culinary_jobs
+      resources :nonculinary_jobs
+      resources :awards
+      resources :accolades
+      resources :enrollments
+      resources :competitions
+      resources :internships
+      resources :stages
+      resources :nonculinary_enrollments
+      resources :apprenticeships
+      resources :profile_cuisines
+      resources :cookbooks
+    end
+    resources :statuses
+    resources :direct_messages do    
+      member do
+        get :reply
+      end    
+    end
+    resources :export_press_kits
+    
+    resources :default_employments
+    resource :subscription do
+      collection do
+        get :bt_callback
+        get :billing_history
+      end   
+    end
+  end
 
+  resources :users do 
+    resources :profile_answers, :only => [:create, :update, :destroy]
+    resources :user_visitor_email_setting
+  end
 
-  # for restaurant employee no condition
-  map.no_choice '/restaurants/:restaurant_id/employees/options', :controller => "employees", :action => "options"
-  map.new_employee 'restaurants/:restaurant_id/employees/new_employee', :controller => "employees", :action => "new_employee"  
+  resource :search, :only => ["show"]
+  match '/features/:id' => 'features#show', :as => :feature
+  resources :restaurants do
+    collection do
+      get :add_restaurant
+      get :media_user_newsletter_subscription
+    end
+    member do
+      get :edit_logo
+      post :select_primary_photo
+      get :new_manager_needed
+      post :replace_manager
+      post :fb_page_auth
+      put :remove_twitter
+      get :twitter_archive
+      get :facebook_archive
+      get :social_archive
+      get :newsletter_subscriptions
+      get :download_subscribers
+      post :import_csv
+      post :confirmation_screen
+      get :new_media_contact
+      post :replace_media_contact
+      get :restaurant_visitors
+      get :send_restaurant_request
+      get :fb_deauth
+      post :fb_deauth
+      get :api
+      get :media_subscribe
+    end
+    resources :employees, :except => [:show, :index] do
+      collection do
+        get :bulk_edit
+      end   
+    end
+    resources :employments do
+      collection do
+        post :reorder
+      end   
+    end
+    resource :employee_accounts, :only => [:create, :destroy]
+    resource :fact_sheet, :controller => :restaurant_fact_sheets
+    resources :calendars do
+      collection do
+        get :ria
+      end   
+    end
+    resources :events do
+      member do
+        get :ria_details
+        post :transfer
+      end    
+    end
+    resources :features, :controller=>:restaurant_features do
+      collection do
+        get :edit_top 
+        post :update_top 
+      end
+      member do
+        post :add 
+        get :bulk_edit 
+      end
+      resources :profile_answers, :only => [:create, :update, :destroy]
+    end
+    resources :feature_pages
+    resources :menus do
+      collection do
+        post :reorder
+        get :bulk_edit
+      end    
+    end
+    resources :photos do
+      collection do
+        post :reorder
+        get :bulk_edit
+      end
+      member do
+        get :show_sizes
+      end   
+    end
+    resource :logo
+    resources :accolades
+    resources :restaurant_answers, :only => [:show, :create, :update, :destroy]
+    resources :a_la_minute_answers do
+      collection do
+        put :bulk_update
+        get :bulk_edit
+      end
+      member do
+        post :delete_attachment
+        post :facebook_post
+      end   
+    end
+    resource :subscription do
+      collection do
+        get :bt_callback
+        get :billing_history
+      end   
+    end
+    resources :promotions do
+      member do
+        post :delete_attachment
+        post :facebook_post
+        get :details
+        get :preview
+      end    
+    end
+    resources :menu_items do
+      member do
+        post :facebook_post
+        get :details
+      end    
+    end
+    resources :press_releases do
+      collection do
+        get :archive
+      end   
+    end
+    match 'behind_the_line' => 'restaurants/behind_the_line#index', :as => :behind_the_line
+    match 'behind_the_line/topic/:id' => 'restaurants/behind_the_line#topic', :as => :btl_topic
+    match 'behind_the_line/chapter/:id' => 'restaurants/behind_the_line#chapter', :as => :btl_chapter
+    match 'behind_the_line/question_ans_post/:id' => 'restaurants/behind_the_line#question_ans_post', :as => :btl_question_ans_post
+    match 'social_posts' => 'restaurants/social_post#index', :as => :social_posts
+    match 'social_posts/:page' => 'restaurants/social_post#index', :as => :social_posts_page
+    resources :newsletters, :controller => 'restaurants/newsletters' do
+      collection do
+        post :update_settings
+        get :preview
+        post :approve
+        get :archives
+        get :get_campaign_status
+        post :disapprove
+      end    
+    end
+    match 'add_keywords' => 'menu_items#add_keywords', :as => :add_keywords
+    match 'request_profile_update' => 'restaurants#request_profile_update', :as => :request_profile_update
+    match 'show_notice' => 'restaurants#show_notice', :as => :show_notice
+  end
 
-  map.resources :otm_keywords, :only => ["index"]  
+  resources :user_sessions
+  resources :password_resets
+  resources :followings
+  resources :pages
+  resources :admin_conversations, :only => "show" do  
+    member do
+      put :read
+    end
+    resources :comments, :only => [:new, :create, :edit, :update, :destroy]
+  end
 
-  #for autocomplete 
-  map.resources :auto_complete, :only => ["index"] 
-  #for show filter result of restaurant directory
-  map.resources :metropolitan_areas, :only => ["index"] 
-  map.resources :james_beard_regions, :only => ["index"]
-  map.resources :cuisines, :only => ["index"]
-  map.resources :specialties, :only => ["index"]
-  map.search_restaurant_by_name 'directory/search_restaurant_by_name', :controller => 'directory', :action => 'search_restaurant_by_name'
-  map.search_user 'directory/search_user', :controller => 'directory', :action => 'search_user'
-  #for get selected city
-  map.get_selected_cities '/mediafeed/media_users/get_selected_cities', :controller => 'media_users', :action => 'get_selected_cities'
-  #get opened campaign
-  map.get_opened_campaign '/restaurants/:restaurant_id/newsletters/get_opened_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_opened_campaign'
-  map.get_clicked_campaign '/restaurants/:restaurant_id/newsletters/get_clicked_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_clicked_campaign'
-  map.get_bounces_campaign '/restaurants/:restaurant_id/newsletters/get_bounces_campaign/:campaign_id', :controller => 'restaurants/newsletters', :action => 'get_bounces_campaign'
+  resources :admin_discussions, :only => "show" do
+    member do
+      put :read
+    end
+    resources :comments, :only => [:new, :create, :edit, :update, :destroy]
+  end
+
+  resources :solo_discussions, :only => "show" do
+    member do
+      put :read
+    end
+    resources :comments, :only => [:new, :create, :edit, :update]
+  end
+
+  resources :admin_messages, :only => "show" do
+    member do
+      put :read
+    end
+  end
+
+  resources :messages do
+    collection do
+      get :archive
+      get :ria
+      get :private
+      get :staff_discussions
+      get :media_requests
+      get :restaurant_requests
+    end
+  end
+
+  match 'front_burner' => 'front_burner#index', :as => :front_burner
+  match 'front_burner/user/:id' => 'front_burner#user_qotds', :as => :user_qotds
+  match 'front_burner/qotd/:id' => 'front_burner#qotd', :as => :qotd
+  resources :trend_questions, :only => "show" do
+    collection do
+      get :restaurant
+    end 
+  end
+
+  resources :timelines do
+    collection do
+      get :people_you_follow
+      get :twitter
+      get :facebook
+      get :activity_stream
+    end 
+  end
+
+  resources :feed_entries, :only => "show" do
+    member do
+      put :read
+    end 
+  end
+
+  resource :feeds
+  resource :employment_search
+  resource :twitter_authorization
+  resource :friends_statuses, :only => "show"
+  match 'social_media' => 'social_media#index', :as => :social_media
+  match 'newsfeed' => 'spoonfeed/promotions#index', :as => :promotions
+  match 'a_la_minute' => 'spoonfeed/a_la_minute#index', :as => :a_la_minute
+  match 'a_la_minute/:question_id/answers' => 'spoonfeed/a_la_minute#answers', :as => :a_la_minute_answers
+  match 'on_the_menu' => 'spoonfeed/menu_items#index', :as => :menu_items
+  match 'menu_items' => 'spoonfeed/menu_items#index', :as => :menu_items
+  match 'on_the_menu/:id' => 'spoonfeed/menu_items#show', :as => :menu_item
+  namespace :spoonfeed,:as=>"profile_questions", :path => 'behind_the_line' do
+    match "/" => 'profile_questions#index'#,:as => "behind_the_line"
+  end
+  namespace :spoonfeed,:as=>"profile_question", :path => 'behind_the_line' do
+    match "/:id" => 'profile_question#show'#,:get => "behind_the_line"
+  end
+  # match "profile_questions" => 'spoonfeed/profile_questions#index'#,:as => "behind_the_line"
+  # match "profile_questions/:id" => 'spoonfeed/profile_question#show'#,:get => "behind_the_line"
+  match 'social' => 'spoonfeed/social_updates#index', :as => :social
+  match 'expire_social_update' => 'spoonfeed/social_updates#expire_social_update', :as => :expire_social_update
+  match 'update_social' => 'spoonfeed/social_updates#load_updates', :as => :update_social
+  match 'filter_social' => 'spoonfeed/social_updates#filter_updates', :as => :filter_social
+  resources :restaurant_questions, :only => ["index", "show"]
+  match 'get_keywords' => 'menu_items#get_keywords', :as => :get_keywords
+  resources :page_views, :only => ["create"]
+  resources :trace_keywords, :only => ["create"]
+    # match '/' => 'admin#index'
+  namespace :admin do
+    root :to => "admin#index"
+    resources :users do    
+      member do
+        get :impersonator
+      end    
+    end
+    resources :pages
+    resources :feeds do
+      collection do
+        post :sort
+        put :sort
+      end
+    end
+    resources :feed_categories
+    resources :date_ranges
+    resources :coached_status_updates
+    resources :direct_messages
+    resources :cuisines
+    resources :subject_matters
+    resources :restaurants
+    resources :media_requests do      
+      member do
+        put :approve
+        get :media_requests_list
+      end    
+    end
+    resources :restaurant_roles, :except => [:show] do
+      collection do
+        put :update_category
+      end
+    end
+    resources :holidays
+    resources :calendars
+    resources :events
+    resources :soapbox_entries do    
+      member do
+        post :toggle_status
+      end   
+    end
+    resources :restaurant_questions do    
+      member do
+        post :send_notifications
+      end    
+    end
+    resources :restaurant_chapters do
+      collection do
+        post :select
+      end
+    end
+    resources :restaurant_topics
+    resources :profile_questions do
+      member do
+        post :send_notifications
+      end
+    end
+    resources :chapters do
+      collection do
+        post :select
+      end
+    end
+    resources :topics
+    resources :question_roles
+    resources :schools
+    resources :specialties do
+      collection do
+        post :sort
+      end
+    end
+    resources :invitations do    
+      member do
+        get :accept
+        get :archive
+        get :resend
+      end    
+    end
+    resources :a_la_minute_questions do    
+      member do
+        post :edit_in_place
+      end   
+    end    
+    resources :restaurant_features, :only => [:index, :create, :destroy] do
+      collection do
+        post :edit_in_place
+      end
+    end
+    resources :restaurant_feature_pages, :only => [:create, :destroy] do
+      collection do
+        post :edit_in_place
+      end   
+    end
+    resources :restaurant_feature_categories, :only => [:create, :destroy] do
+      collection do
+        post :edit_in_place
+      end
+    end
+    resource :complimentary_accounts, :only => [:create, :destroy]
+    resources :metropolitan_areas
+    resources :site_activities
+    resources :otm_keywords
+    resources :email_stopwords
+    resources :page_views, :only => ["index"]
+    resources :trace_searches, :only => ["index"] do
+      collection do
+        get :trace_search_for_soapbox
+      end
+    end
+    resources :page_views, :only => ["index"] do
+      collection do
+        get :trace_keyword_for_soapbox
+      end    
+    end
+    resources :featured_profiles
+    resources :test_restaurants do    
+      member do
+        get :active
+      end    
+    end
+    resources :messages, :only => [:index, :show, :destroy]
+    resources :qotds, :except => [:index, :show, :destroy]
+    resources :announcements, :except => [:index, :show, :destroy]
+    resources :pr_tips, :except => [:index, :show, :destroy]
+    resources :holiday_reminders, :except => [:index, :show, :destroy]
+    resources :content_requests
+    resources :trend_questions
+    resources :soapbox_pages
+    resources :hq_pages
+    resources :mediafeed_pages
+    resources :soapbox_slides do
+      collection do
+        post :sort
+      end   
+    end
+    resources :soapbox_promos do
+      collection do
+        post :sort
+      end   
+    end
+    resources :testimonials
+    resources :brain_tree_webhook do
+      collection do
+        get :varify
+        post :varify
+      end   
+    end
+    match 'invalid_employments' => 'restaurants#invalid_employments', :as => :invalid_employments
+    resources :runner
+    match 'export_media_for_newsfeed' => 'runner#export_media_for_newsfeed', :as => :export_media_for_newsfeed
+    match 'export_media_for_digest' => 'runner#export_media_for_digest', :as => :export_media_for_digest
+    resources :invited_employees, :only => :index do   
+      member do
+        get :active
+      end    
+    end
+  end
+
+  resources :holiday_conversations, :only => ["show", "update"] do 
+    resources :comments, :only => [:new, :create]
+  end
+
+  resources :holiday_discussions, :only => ["show", "update"] do  
+    member do
+      put :read
+    end
+    resources :comments, :only => [:new, :create]
+  end
+
+  resources :holiday_discussion_reminders do  
+    member do
+      put :read
+    end  
+  end
+  root :to => 'welcome#index'
+  # :root => 'welcome#index'
+  match ':id' => 'pages#show', :as => :public_page
+  match 'soapbox/:id' => 'soapbox_pages#show', :as => :soapbox_page
+  match 'hq/:id' => 'hq_pages#show', :as => :hq_page
+  match 'mediafeed/:id' => 'mediafeed_pages#show', :as => :mediafeed_page
+  match '/:controller(/:action(/:id))'
+  resources :ria_webservices do
+    collection do
+      post :register
+      post :create
+      post :create_psw_rst
+      get :get_join_us_value
+      get :soap_box_index
+      get :a_la_minute_answers
+      get :menu_items
+      post :bulk_update
+      post :create_menu
+      post :create_promotions
+      get :get_promotion_type
+      get :new_menu_item
+      get :bulk_edit_photo
+      post :create_photo
+      post :create_comments
+      get :show_comments
+      get :get_qotds
+      get :get_newsfeed
+      post :push_notification_user
+      get :get_admin_conversation_discussions
+      get :get_media_request
+    end  
+  end
+
+  resources :ria_production_webservices do
+    collection do
+      post :register
+      post :create
+      post :create_psw_rst
+      get :get_join_us_value
+      get :soap_box_index
+      get :a_la_minute_answers
+      get :menu_items
+      post :bulk_update
+      post :create_menu
+      post :create_promotions
+      get :get_promotion_type
+      get :new_menu_item
+      get :bulk_edit_photo
+      post :create_photo
+      post :create_comments
+      get :show_comments
+      get :get_qotds
+      get :get_newsfeed
+      post :push_notification_user
+      get :get_admin_conversation_discussions
+      get :get_media_request
+      post :api_register
+    end  
+  end
+
+  match '/restaurants/:restaurant_id/employees/options' => 'employees#options', :as => :no_choice
+  match 'restaurants/:restaurant_id/employees/new_employee' => 'employees#new_employee', :as => :new_employee
+  resources :otm_keywords, :only => ["index"]
+  # resources :auto_complete, :only => ["index"]
+  match "auto_complete/index" => "auto_complete#index"
+  resources :metropolitan_areas, :only => ["index"]
+  resources :james_beard_regions, :only => ["index"]
+  resources :cuisines, :only => ["index"]
+  resources :specialties, :only => ["index"]
+  match 'directory/search_restaurant_by_name' => 'directory#search_restaurant_by_name', :as => :search_restaurant_by_name
+  match 'directory/search_user' => 'directory#search_user', :as => :search_user
+  match '/mediafeed/media_users/get_selected_cities' => 'media_users#get_selected_cities', :as => :get_selected_cities
+  match '/restaurants/:restaurant_id/newsletters/get_opened_campaign/:campaign_id' => 'restaurants/newsletters#get_opened_campaign', :as => :get_opened_campaign
+  match '/restaurants/:restaurant_id/newsletters/get_clicked_campaign/:campaign_id' => 'restaurants/newsletters#get_clicked_campaign', :as => :get_clicked_campaign
+  match '/restaurants/:restaurant_id/newsletters/get_bounces_campaign/:campaign_id' => 'restaurants/newsletters#get_bounces_campaign', :as => :get_bounces_campaign
 end
-

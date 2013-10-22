@@ -1,8 +1,8 @@
 <div id="front-burner-comments" class="comments">
     <% if @comments.blank? || message.is_a?(ContentRequest) %>
       <%= render @comments %>
-      <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
-        <% f.inputs do %>
+      <%= semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
+        <%= f.inputs do %>
             <% if current_user.admin? -%>
               <% if @admin_discussion.present? -%>
                 <%= f.input :user_id, :as => :select, :collection => @admin_discussion.employees %>

@@ -1,5 +1,5 @@
 <p>
-    <% link_to link_for_message(message), :class => 'replies' do %>
+    <%= link_to link_for_message(message), :class => 'replies' do %>
         <span class="unread_comments_count"><%= message.comments_count %></span>
         <%= message.comments_count == 1 ? 'reply' : 'replies' %> for <%= restaurant_link(restaurant(message)) %>. Read &amp; Reply &raquo;
     <% end %>

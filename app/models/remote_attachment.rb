@@ -19,8 +19,8 @@
 class RemoteAttachment < Attachment
   has_attached_file :attachment,
     :storage => :s3,
-    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
-    :path => "#{RAILS_ENV}/attachments/:id/:filename",
+    :s3_credentials => "#{Rails.root}/config/environments/#{Rails.env}/amazon_s3.yml",
+    :path => "#{Rails.env}/attachments/:id/:filename",
     :bucket => "spoonfeed",
     :url => ':s3_domain_url'
 end

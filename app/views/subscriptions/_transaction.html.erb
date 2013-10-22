@@ -1,6 +1,6 @@
 <% title "Billing History" %>
 
-<% content_tag_for :tr, transaction do %>
+<%= content_tag_for :tr, transaction do %>
   <td><%= h transaction.id %></td>
   <td><%= number_to_currency transaction.amount %></td>
   <td><%= h transaction.status %></td>

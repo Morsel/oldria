@@ -1,6 +1,6 @@
-  <% semantic_form_for [:admin, @feature] do |f| %>
+  <%= semantic_form_for [:admin, @feature] do |f| %>
     <div class="span-12">    
-      <% f.inputs do %>
+      <%= f.inputs do %>
         <div class="form_basics">
            <%= f.input :feature_id, :as => "select", 
                                  :label => (params[:type].downcase == "user" ? "Personal Profile" : "Restaurant"), 

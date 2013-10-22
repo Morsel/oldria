@@ -2,7 +2,7 @@
 
 <% if @restaurants %>
 <h2>Is this your restaurant?</h2>
-<% table_for @restaurants do |t| %>
+<%= table_for @restaurants do |t| %>
     <% t.data do
         t.cell(:name_and_location)
         t.cell(:contact) { |c| link_to "Request to be added", 

@@ -18,4 +18,6 @@ class PressRelease < ActiveRecord::Base
   validates_presence_of :pdf_remote_attachment
 
   accepts_nested_attributes_for :pdf_remote_attachment
+
+  attr_accessible  :title, :pdf_remote_attachment_attributes
 end

@@ -1,4 +1,5 @@
-require "mocha"
+# require "mocha"
+require 'mocha/setup'
 require "delorean"
 
 World(Delorean)

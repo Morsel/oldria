@@ -24,9 +24,9 @@
   </div>
 
 <% if can?(:manage, @restaurant) && !soapbox? %><%# let's edit these answers %>
-  <% form_tag restaurant_restaurant_answers_path(:restaurant_id => @restaurant) do %>
+  <%= form_tag restaurant_restaurant_answers_path(:restaurant_id => @restaurant) do %>
     <% @questions.each do |question| %>
-      <% div_for question do %>
+      <%=div_for question do %>
           <h4>Q: <%= question.title %></h4>
           <%= render :partial => "restaurant_answers/form", :locals => { :answer => question.find_or_build_answer_for(@restaurant) } %>
       <% end %>
@@ -43,7 +43,7 @@
 <% else -%><%# no editing by other users %>
 
   <% for question in @questions -%>
-    <% div_for question do %>
+    <%=div_for question do %>
       <h4><span class="letter-q">Q:</span> <%= link_to question.title, soapbox? ? soapbox_restaurant_question_path(question) : restaurant_question_path(question) %></h4>
       <% if answer = question.answer_for(@restaurant) %>
         <p><%= answer.answer %></p>

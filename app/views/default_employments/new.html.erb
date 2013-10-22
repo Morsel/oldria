@@ -1,14 +1,14 @@
 <% title "Set your work details" %>
 
-<% semantic_form_for [current_user, @employment] do |f| %>
-    <% f.inputs do %>
+<%= semantic_form_for [current_user, @employment] do |f| %>
+    <%= f.inputs do %>
         <%= f.input :restaurant_role, :label => "Role" %>
 
         <h4>Area(s) of expertise</h4>
         <%= f.input :subject_matters,
           :as => :check_boxes,
           :wrapper_html => {:class => 'checkall', :id => "employment_general_subject_matters"},
-          :collection => SubjectMatter.general.all,
+          :collection => SubjectMatter.all,
           :label => "I am comfortable answering questions and speaking to the media about the following topics:" %>
     <% end %>
     

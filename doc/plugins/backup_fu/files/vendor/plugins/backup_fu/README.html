@@ -173,7 +173,7 @@ Advanced options include:
 entire &#8216;public/static&#8217; directory
 
 </li>
-<li>change default dump path from RAILS_ROOT/tmp/backup to whatever
+<li>change default dump path from Rails.root/tmp/backup to whatever
 
 </li>
 <li>specify fully-qualified &#8216;mysqldump&#8217; path
@@ -199,10 +199,10 @@ Here are some cron job examples.
 </p>
 <pre>
         # Backup just the database everyday at 1am
-        0 1 * * * cd /apps/foo/current; RAILS_ENV=production rake backup &gt; /dev/null
+        0 1 * * * cd /apps/foo/current; Rails.env=production rake backup &gt; /dev/null
 
   # Backup db + static @ 2am every 3 days, log the results to ~/backup.log (verbosity should be turned on if logging results)
-  0 2 1-31/3  * * cd /u/apps/shanti.railsblog/current; RAILS_ENV=production rake backup_fu:all &gt;&gt; ~/backup.log
+  0 2 1-31/3  * * cd /u/apps/shanti.railsblog/current; Rails.env=production rake backup_fu:all &gt;&gt; ~/backup.log
 </pre>
 <p>
 Debugging

@@ -24,9 +24,9 @@
 
 class ALaMinuteAnswer < ActiveRecord::Base
 
-  include ActionView::Helpers::TextHelper
-  include ActionController::UrlWriter
-  default_url_options[:host] = DEFAULT_HOST
+  include ActionDispatch::Routing::UrlFor
+include Rails.application.routes.url_helpers
+default_url_options[:host] = DEFAULT_HOST
   
   has_many :trace_keywords, :as => :keywordable
   has_many :soapbox_trace_keywords, :as => :keywordable
@@ -46,16 +46,16 @@ class ALaMinuteAnswer < ActiveRecord::Base
   # Attachments and validations
   has_attached_file :attachment,
                     :storage        => :s3,
-                    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
-                    :path           => "#{RAILS_ENV}/alaminute_answer_attachments/:id/:filename",
+                    :s3_credentials => "#{Rails.root}/config/environments/#{Rails.env}/amazon_s3.yml",
+                    :path           => "#{Rails.env}/alaminute_answer_attachments/:id/:filename",
                     :bucket         => "spoonfeed",
                     :url            => ':s3_domain_url'
 
    # Attachments and validations
   has_attached_file :photo,
                     :storage        => :s3,
-                    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
-                    :path           => "#{RAILS_ENV}/alaminute_answer_attachments/:id/:style/:filename",
+                    :s3_credentials => "#{Rails.root}/config/environments/#{Rails.env}/amazon_s3.yml",
+                    :path           => "#{Rails.env}/alaminute_answer_attachments/:id/:style/:filename",
                     :bucket         => "spoonfeed",
                     :url            => ':s3_domain_url',
                     :styles         => { :full => "1966x2400>", :large => "360x480>", :medium => "240x320>", :small => "189x150>", :thumb => "120x160>" }
@@ -86,9 +86,9 @@ class ALaMinuteAnswer < ActiveRecord::Base
 
   default_scope :order => 'created_at desc'
 
-  named_scope :for_question, lambda { |question| {:conditions => {:a_la_minute_question_id => question.id}} }
+  scope :for_question, lambda { |question| {:conditions => {:a_la_minute_question_id => question.id}} }
 
-  named_scope :from_premium_responders, lambda {
+  scope :from_premium_responders, lambda {
     {
       :joins => 'INNER JOIN subscriptions ON `subscriptions`.subscriber_id = responder_id AND `subscriptions`.subscriber_type = responder_type',
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
@@ -96,14 +96,14 @@ class ALaMinuteAnswer < ActiveRecord::Base
     }
   }
 
-  named_scope :activated_restaurants, lambda {
+  scope :activated_restaurants, lambda {
     {
       :joins => 'INNER JOIN restaurants ON `restaurants`.id = responder_id ',
       :conditions => ["responder_type = 'Restaurant'  AND (restaurants.is_activated = ?)",
           true]
     }
   }
-  named_scope :from_responders, lambda { |restaurants|
+  scope :from_responders, lambda { |restaurants|
     {
       :conditions => ["responder_id in (?)", restaurants.map(&:id)]
     }
@@ -112,17 +112,19 @@ class ALaMinuteAnswer < ActiveRecord::Base
   def self.newest_for(obj)
     ids = []
     if obj.is_a?(Restaurant) || obj.is_a?(User)
-      ids = obj.a_la_minute_answers.maximum(:created_at, :group => :a_la_minute_question_id, :select => :id).collect{|k,v|v}
-      obj.a_la_minute_answers.find(ids)
+      ids = obj.a_la_minute_answers.map(&:id) #obj.a_la_minute_answers.maximum(:created_at, :group => :a_la_minute_question_id, :select => :id).collect{|k,v|v}
+      # obj.a_la_minute_answers.find(ids)
     else
-      ids = obj.a_la_minute_answers.maximum(:created_at, :group => 'responder_type, responder_id', :select => :id).collect{|k,v|v}
+      ids = obj.a_la_minute_answers.map(&:id) #obj.a_la_minute_answers.maximum(:created_at, :group => 'responder_type, responder_id', :select => :id).collect{|k,v|k}
     end
     obj.a_la_minute_answers.find(ids)
   end
 
   def self.public_profile_for(responder)
-    ids = responder.a_la_minute_answers.maximum(:created_at, :group => :a_la_minute_question_id, :select => :id).collect{|k,v|v}
-    responder.a_la_minute_answers.find(ids, :order => "created_at desc")
+    # ids = responder.a_la_minute_answers.maximum(:created_at, :group => :a_la_minute_question_id, :select => :id).collect{|k,v|v}
+    ids = responder.a_la_minute_answers.maximum(:created_at, :group => :a_la_minute_question_id, :select => :id).collect{|k,v|k}
+    responder.a_la_minute_answers.find(:all,:conditions=>["a_la_minute_question_id in (?)",ids], :order => "created_at desc")
+    # responder.a_la_minute_answers.find(ids, :order => "created_at desc")
   end
 
   def self.archived_for(question)

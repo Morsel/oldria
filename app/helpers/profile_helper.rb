@@ -17,13 +17,14 @@ module ProfileHelper
   end
 
   def setup_enrollment(enrollment, culinary = true)
-    returning(enrollment) do |e|
+    enrollment.tap do |e|
       e.build_school unless e.school.present?
     end
+    # return @e
   end
 
   def setup_nonculinary_enrollment(enrollment)
-    returning(enrollment) do |e|
+    enrollment.tap do |e|
       e.build_nonculinary_school unless e.nonculinary_school.present?
     end
   end

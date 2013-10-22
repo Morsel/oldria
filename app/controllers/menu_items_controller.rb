@@ -7,7 +7,8 @@ class MenuItemsController < ApplicationController
   before_filter :verify_restaurant_activation, :only => [:show]
   
   include MenuItemsHelper
-
+  require 'will_paginate/array'
+  
   def index
     find_restaurant
     @menu_items = @restaurant.menu_items.all(:order => "created_at DESC").paginate(:page => params[:page], :per_page => 10)

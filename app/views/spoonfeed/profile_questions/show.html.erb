@@ -1,5 +1,5 @@
 <% title "#{@question.title} - Behind The Line", false %>
-<% content_for(:fb_description, btl_description_for_fb(@answers)) %>
+<%= content_for(:fb_description, btl_description_for_fb(@answers)) %>
 
 <% javascript_tag do %>
   var addthis_share = {
@@ -32,6 +32,6 @@
   <p><span class="timestamp">Last updated: <%= @answers.first.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
 </div><!-- #btl_answers -->
 
-<% content_for :sidebar do -%>
+<%= content_for :sidebar do -%>
 <%= render :partial => "soapbox/topics/sidebar" %>
 <% end if soapbox? -%>

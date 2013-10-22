@@ -2,7 +2,7 @@
 
 <p>Please select an account type: restaurant professional or media</p>
 
-<% form_tag redirect_invitations_path, :id => "join" do %>
+<%= form_tag redirect_invitations_path, :id => "join" do %>
 <div class="left">
     <%= text_field_tag "first_name", params[:first_name], :id => "firstName", :class => "standard-filler", :alt => "First Name", :required => "" %>
     <%= text_field_tag "last_name", params[:last_name], :id => "lastName", :class => "standard-filler", :alt => "Last Name", :required => "" %>

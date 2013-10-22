@@ -21,16 +21,16 @@ class SoloDiscussion < ActiveRecord::Base
   acts_as_readable
   acts_as_commentable
   
-  named_scope :with_replies, :conditions => "#{table_name}.comments_count > 0"
-  named_scope :without_replies, :conditions => "#{table_name}.comments_count = 0"
+  scope :with_replies, :conditions => "#{table_name}.comments_count > 0"
+  scope :without_replies, :conditions => "#{table_name}.comments_count = 0"
   
-  named_scope :current, lambda {
+  scope :current, lambda {
     { :joins => :trend_question,
       :conditions => ['trend_questions.scheduled_at < ? OR trend_questions.scheduled_at IS NULL', Time.zone.now],
       :order => 'trend_questions.scheduled_at DESC'  }
   }
 
-  named_scope :recent, lambda {
+  scope :recent, lambda {
     { :conditions => ['trend_questions.scheduled_at >= ?', 2.weeks.ago] }
   }
 

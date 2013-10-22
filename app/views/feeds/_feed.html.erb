@@ -1,4 +1,4 @@
-<% div_for feed do %>
+<%=div_for feed do %>
 <h3 class="title"><%= feed.title %></h3>
 
 <%= render feed.feed_entries.all(:limit => 3, :include => :readings) %>

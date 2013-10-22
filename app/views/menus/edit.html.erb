@@ -7,19 +7,19 @@
 
 		<div class="editing">
 			<h3>Edit Menu</h3>
-			<% semantic_form_for @menu,
+			<%= semantic_form_for @menu,
     	:url => restaurant_menu_path(@restaurant, @menu),
     	:html => { :multipart => true, :method => :put } do |menu_form| %>
-  			<%= menu_form.error_messages %>
-  			<% menu_form.inputs :class => "clear" do %>
+  			<%= @menu.errors.messages.first[1].join('') unless @menu.errors.full_messages.blank? %>
+  			<%= menu_form.inputs :class => "clear" do %>
    				<%= menu_form.input :name, :label => "Menu name" %>
     			<%= menu_form.input :change_frequency, :label => "How often it changes",
     	    :as => :select, :collection => Menu.change_frequencies,
     	    :required => true %>
-					<% menu_form.semantic_fields_for :pdf_remote_attachment do |pdf_remote_attachment| %>
+					<%= menu_form.semantic_fields_for :pdf_remote_attachment do |pdf_remote_attachment| %>
     				<li id="menu_pdf_remote_attachment_attributes_attachment_input" class="file optional">
     	  			<label for="menu_pdf_remote_attachment_attributes_attachment">Attachment</label>
-    	  			<span class="current_menu_pdf_remote_attachment">
+    	  			<span class="current_menu_pdf_remote_attachment">      
     	    			<%= link_to h(@menu.pdf_remote_attachment.attachment_file_name), @menu.pdf_remote_attachment.attachment.url, :class => 'editing_label' %>
     	    			<%= link_to 'Change', '#', :class => 'toggle_new_menu' %>
     	  			</span>
@@ -38,7 +38,7 @@
 
 </div><!--#restaurant_profile_view -->
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
   <script type="text/javascript">
     //<![CDATA[
     jQuery(function($) {

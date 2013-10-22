@@ -1,6 +1,6 @@
 <%= "<h1>#{yield :title}</h1>" if request.xhr? %>
-<% semantic_form_for @culinary_job.new_record? ? [:user, :profile, @culinary_job] : @culinary_job do |f| %>
-  <% f.inputs :class => "culinary_jobs" do %>
+<%= semantic_form_for @culinary_job.new_record? ? [:user, :profile, @culinary_job] : @culinary_job do |f| %>
+  <%= f.inputs :class => "culinary_jobs" do %>
     <%= f.input :restaurant_name, :input_html => {:class => 'title'} %>
     <%= f.input :title %>
     <%= f.input :city, :input_html => {:class => 'span-5'}, :wrapper_html => {:class => 'span-5 column'} %>

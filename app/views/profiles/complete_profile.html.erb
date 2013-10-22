@@ -1,6 +1,6 @@
 <% title "Welcome to Spoonfeed" %>
 
-<% content_for :head do -%>
+<%= content_for :head do -%>
   <%= stylesheet_link_tag 'colorbox' %>
 <% end -%>
 
@@ -13,7 +13,7 @@
       <!-- Step one -->
       <% unless current_user.avatar? %>
           <div id="step1" class="display-none">
-            <% semantic_form_for @user,:url => upload_user_path(@user),  :html => {:method=>:post, :multipart => true,:id=>"form_upload_img"  } do |f| %>
+            <%= semantic_form_for @user,:url => upload_user_path(@user),  :html => {:method=>:post, :multipart => true,:id=>"form_upload_img"  } do |f| %>
                 <fieldset class="headshot inputs">
                     <legend><span>Next steps for your profile: upload a photo!</span></legend>                      
                     <div>
@@ -37,14 +37,14 @@
         <!-- Step two -->
       <% if @user.profile.specialties.blank? %>
             <div id="step2" class="display-none">   
-              <% semantic_form_for @profile, :url => user_profile_path(@user),:html => { :id=>"specialties_form"} do |f| %>
-                      <% f.inputs :name => "Next steps for your profile: select specialities to help media and diners find you" do %>
+              <%= semantic_form_for @profile, :url => user_profile_path(@user),:html => { :id=>"specialties_form"} do |f| %>
+                      <%= f.inputs :name => "Next steps for your profile: select specialities to help media and diners find you" do %>
                           <div>
                             <%= f.input :specialties, 
                                         :as => :check_boxes, 
                                         :collection => Specialty.all, 
                                         :label => "What are your specialties?" %>
-                            <% button_tag :class => 'positive' do %>Save changes to specialties<% end %>
+                            <%= button_tag :class => 'positive' do %>Save changes to specialties<% end %>
                           </div>
 
                       <% end %><!--   specialties -->
@@ -55,8 +55,8 @@
       <!-- Step three -->
       <% if @profile.cuisines.blank? %>
           <div id="step3" class="display-none"> 
-               <% semantic_form_for @profile, :url => user_profile_path(@user),:html => { :id=>"cuisine_form"} do |f| %>
-                      <% f.inputs :name => "Next steps for your profile: select your cuisines to help media and diners find you" do %>
+               <%= semantic_form_for @profile, :url => user_profile_path(@user),:html => { :id=>"cuisine_form"} do |f| %>
+                      <%= f.inputs :name => "Next steps for your profile: select your cuisines to help media and diners find you" do %>
                         <div>
                             <ul id="cuisines">
                                 <%= render @profile.cuisines %>
@@ -97,7 +97,7 @@
   </section><!-- /profile-summary -->
 </section><!-- /profile-tabs -->
 <%= hidden_field_tag(:redirect_to_url_hidden ,edit_user_profile_path(@user)) %>
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 <script type="text/javascript">
 $(document).ready(function() {
   

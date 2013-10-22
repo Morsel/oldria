@@ -29,10 +29,10 @@ class TrendQuestion < ActiveRecord::Base
   validates_presence_of :subject, :body
   validates_length_of :slug, :maximum => 30, :allow_nil => true
 
-  named_scope :by_scheduled_date, :order => "#{table_name}.scheduled_at desc"
-  named_scope :by_subject, :order => "#{table_name}.subject asc"
+  scope :by_scheduled_date, :order => "#{table_name}.scheduled_at desc"
+  scope :by_subject, :order => "#{table_name}.subject asc"
 
-  named_scope :current, :conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]
+  scope :current, :conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]
 
   before_save :update_restaurants_and_employments_from_search_criteria
   
@@ -61,7 +61,7 @@ class TrendQuestion < ActiveRecord::Base
     return false unless employment
     employment.employee == employment.restaurant.try(:manager) ||
     employment.omniscient? ||
-    employment_search.employments.include?(employment)
+    employment_search.employments.relation.include?(employment)
   end
 
   def discussions

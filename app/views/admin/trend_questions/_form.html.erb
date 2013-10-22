@@ -1,6 +1,6 @@
-<% semantic_form_for [:admin, @trend_question] do |f| %>
+<%= semantic_form_for [:admin, @trend_question] do |f| %>
   <div class="span-12">
-    <% f.inputs do %>
+    <%= f.inputs do %>
       <div class="form_basics">
         <%= f.input :subject %>
         <%= f.input :body %>

@@ -12,11 +12,11 @@
   <% end %>
   <div class="add_feature_form">
     <% @restaurant_feature.restaurant_feature_category = category %>
-    <% form_for :restaurant_feature, :url => admin_restaurant_features_path do |f| %>
+    <%= form_for :restaurant_feature, :url => admin_restaurant_features_path do |f| %>
       <%= f.label :value, "Add a feature in #{category.name}" %>
       <%= f.text_field :value  %>
       <%= f.hidden_field :restaurant_feature_category_id %>
-      <%= f.submit_tag "Add a feature to #{category.name}" %>
+      <%= f.submit "Add a feature to #{category.name}" %>
     <% end %>
     <br />
   </div>

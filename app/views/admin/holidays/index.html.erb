@@ -2,7 +2,7 @@
 
 <p class="clearfix"><%= link_to (image_tag("plus.png") +"New Holiday"), new_admin_holiday_path, :class => 'positive button' %></p>
 
-<% table_for(@holidays) do |t| %>
+<%= table_for(@holidays) do |t| %>
   <% t.data :actions => :all, :action_prefix => 'admin' do
       t.cell :name
       t.cell(:date) {|h| h.date.try(:to_s, :long)}

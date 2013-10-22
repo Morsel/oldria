@@ -1,4 +1,4 @@
-<% content_tag_for :li, culinary_job, :class => cycle('odd','even') do %>
+<%= content_tag_for :li, culinary_job, :class => cycle('odd','even') do %>
   <span class="extended-title"><%= culinary_job.title %></span>
   <%= culinary_job.restaurant_name %>, <%= culinary_job.city %> <%= culinary_job.state %> <%= culinary_job.country %><br/>
   <% if culinary_job.date_ended %>
@@ -6,9 +6,9 @@
   <% else %>
   <%= "Current: since #{culinary_job.date_started.strftime("%m/%d/%y")}" %><br/>
   <% end %>
-  <%= "Chef: #{culinary_job.chef_name}<br/>" unless culinary_job.chef_is_me %>
+  <%= "Chef: #{culinary_job.chef_name}<br/>".html_safe unless culinary_job.chef_is_me %>
   <%= "Cuisine: #{culinary_job.cuisine}" %><br/>
-  <%= "Was on opening staff<br/>" if culinary_job.opening_staff? %>
+  <%= "Was on opening staff<br/>".html_safe if culinary_job.opening_staff? %>
   <%= simple_format(culinary_job.notes) %>
   <%= link_to "Edit", edit_culinary_job_path(culinary_job), :class => 'colorbox' %>
   <%= link_to "Destroy", culinary_job_path(culinary_job), { :method => :delete }, { :class => 'delete' } %>

@@ -3,7 +3,7 @@
 <h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line</span>", restaurant_questions_path %></h1>
 
 <% for answer in @answers %>
-<% div_for answer do %>
+<%=div_for answer do %>
     <div class="activity_header">
         <h3><%= link_to "#{answer.restaurant_question.chapter.title_with_topic}: #{answer.restaurant_question.title}", restaurant_question_path(answer.restaurant_question) %></h3>
     </div>

@@ -33,11 +33,12 @@ class Picture < Asset
 
   has_attached_file :data,
                     :url  => "/system/assets/pictures/:id/:style_:basename.:extension",
-                    :path => ":rails_root/public/system/assets/pictures/:id/:style_:basename.:extension",
+                    :path => ":Rails.root/public/system/assets/pictures/:id/:style_:basename.:extension",
 	                  :styles => { :content => '575>', :thumb => '100x100#' }
 
 	validates_attachment_size :data, :less_than => 4.megabytes
-
+  attr_accessible :attachment, :photos_attributes, :name, :credit
+  
 	def url_content
 	  url(:content)
 	end

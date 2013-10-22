@@ -2,7 +2,7 @@
 
 <%= render 'messages/nav' %>
 <div id="read_messages">
-  <% div_for @direct_message, :class => (css_classes_for_direct_message(@direct_message) + ' individual') do %>
+  <%=div_for @direct_message, :class => (css_classes_for_direct_message(@direct_message) + ' individual') do %>
     <% set_latest_reply_id(@direct_message) %>
 		<header>
     	<div class="sender_avatar">

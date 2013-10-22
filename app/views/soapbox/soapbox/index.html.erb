@@ -75,13 +75,13 @@
             <!-- news-holder -->
             <% css_classes =["","yellow","blue","","yellow","blue"]%>
             <% @promotions.each_with_index do |promotion,index| %>            
-              <% content_tag_for(:article, promotion.promotion_type,:class=>"news-holder") do %>
+              <%= content_tag_for(:article, promotion.promotion_type,:class=>"news-holder") do %>
                     <header class="title <%=css_classes[index]%>">
                       <% promotion_type = promotion.promotion_type.name.split(" ") %>         
                         <h3><%=promotion_type.first%> <em><%=promotion_type.last if promotion_type.length >1 %> </em></h3>
                     </header>    
                     
-                    <%content_tag_for(:div, promotion,:class=>"info") do %> 
+                    <%=content_tag_for(:div, promotion,:class=>"info") do %> 
                     <%=content_tag(:em, (promotion.try(:start_date).to_s(:long).upcase + (promotion.try(:end_date).nil? ? "" : (" - "+ promotion.try(:end_date).to_s(:long).upcase)  )),:class=>"date")%> 
                     <p>
                       <%=Loofah::Helpers.sanitize(truncate(promotion.headline.gsub(/<\/?[^>]*>/, ""), :length => 150))%>
@@ -115,10 +115,10 @@
                    <strong class="answer">
                        A: <%= link_to truncate(answer.answer, :length => 160), soapbox_profile_question_path(answer.profile_question, :anchor => "profile_answer_#{answer.id}") %>. 
                        <br />
-                       <em class="btl_em"><%= link_to_if (answer.user.linkable_profile? || logged_in_on_spoonfeed), answer.user.name_or_username, directory_link(answer.user) %>,
-                       <%= answer.user.primary_employment.try(:restaurant_role).try(:name) %>,
-                       <%= restaurant_names_for_user(answer.user) %>,
-                       <%= answer.user.primary_employment.try(:restaurant).try(:city_and_state) || answer.user.try(:profile).try(:current_residence) %>
+                       <em class="btl_em"><%= link_to_if (answer.user.linkable_profile? || logged_in_on_spoonfeed), answer.user.name_or_username.html_safe, directory_link(answer.user).html_safe %>,
+                       <%= answer.user.primary_employment.try(:restaurant_role).try(:name).html_safe %>,
+                       <%= restaurant_names_for_user(answer.user).html_safe %>,
+                       <%= answer.user.primary_employment.try(:restaurant).try(:city_and_state).html_safe || answer.user.try(:profile).try(:current_residence).html_safe %>
                    </em>
                </strong>
            </div>
@@ -135,7 +135,7 @@
                   </div>
                   <ul>
                      <% @qoth_comments.each do |qoth_comment|%>
-                      <li>A:<%= truncate(qoth_comment.comment,100 )%> 
+                      <li>A:<%= truncate(qoth_comment.comment,:length => 100 )%> 
                           <em>
                              <%= link_to_if qoth_comment.user.linkable_profile?, qoth_comment.user.name_or_username, soapbox_profile_path(qoth_comment.user.username) %>,<%=restaurant_names_for_user(qoth_comment.user) %>
                           </em>
@@ -200,7 +200,7 @@
               <h3>new <span>photography</span></h3>
              <ul class="photo-list">
             <% @photos.each do |photo| %>
-               <% content_tag_for(:li, photo) do %>
+               <%= content_tag_for(:li, photo) do %>
                   <%= link_to (image_tag photo.attachment.url(:thumb) ,:alt=>"Restaurant's photo") , soapbox_restaurant_path(photo.restaurant)  %>
                   <%=content_tag(:span, photo.restaurant.name.capitalize)%>
                <% end %> 
@@ -240,10 +240,10 @@
               <h3><span>Personal</span> Proﬁles</h3>
               <ul class="list">
                 <% @rand_users.each do |user|%>
-                  <% content_tag_for(:li, "user") do %>
+                  <%= content_tag_for(:li, user) do %>
                       <%= image_tag user.avatar.url(:thumb) ,:alt =>user.first_name ,:class => 'alignleft'%> 
                       
-                        <% content_tag_for(:div, user ,:class=>"info") do %>
+                        <%= content_tag_for(:div, user ,:class=>"info") do %>
                             <span>
                                 <strong class="name">
                                  <%= link_to user.name_or_username, soapbox_profile_path(user.username) %>
@@ -270,12 +270,12 @@
               <h3><span>Restaurant</span> Proﬁles</h3>
               <ul class="list">
                  <% @restaurants.each do |restaurant| %>
-                     <% content_tag_for(:li, "restaurnat") do %>
+                     <%= content_tag_for(:li, restaurant) do %>
                         <% if restaurant.logo && restaurant.logo.attachment? -%>
                           <%= image_tag(restaurant.logo.attachment.url(:thumb), :class => 'alignleft') %>
                         <% end -%>
                         
-                          <% content_tag_for(:div, restaurant ,:class=>"info") do %>
+                          <%= content_tag_for(:div, restaurant ,:class=>"info") do %>
                               <span>
                                 <strong class="name">
                                  <%= link_to restaurant.try(:name), soapbox_restaurant_path(restaurant) %>

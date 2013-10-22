@@ -3,7 +3,7 @@ $(document).ready(function(){
   var label="";
   //for autocomplete controller
   $("#search_restaurant_eq_any_name").autocomplete({
-    source: "/auto_complete.js?name=restaurant",
+    source: "/auto_complete/index?name=restaurant",
     open: function(event,ui){
       if( (i>0) && (label!="No results found, please try a new search") )
       $('.ui-autocomplete').append("<li><a onclick=$.fn.search('"+label.toLowerCase()+"')><font color='green'>Keep typing to refine your search</font></a></li>");
@@ -76,7 +76,7 @@ $(document).ready(function(){
      };
   
   $("#search_restaurant_by_state_or_region").autocomplete({
-    source: "/auto_complete.js?name=region",
+    source: "/auto_complete/index?name=region",
   }).data("autocomplete")._renderItem = function (ul, item) {
     if(["No results found, please try a new search","RESTAURANTS BY REGION", "RESTAURANTS BY STATE"].indexOf(item.label) > -1){
          return $("<li></li>")
@@ -93,7 +93,7 @@ $(document).ready(function(){
      };
 
   $('#search_person_eq_any_name').autocomplete({
-    source: "/auto_complete.js?person=person"
+    source: "/auto_complete/index?person=person"
   }).data("autocomplete")._renderItem = function (ul, item) {
     if(["No results found, please try a new search","PERSONS BY NAME","PERSONS BY SPECIALITY","PERSONS BY CUISINE"].indexOf(item.label) > -1){
          return $("<li></li>")
@@ -109,7 +109,7 @@ $(document).ready(function(){
            }
      };
   $("#search_person_by_state_or_region").autocomplete({
-    source: "/auto_complete.js?person=region"
+    source: "/auto_complete/index?person=region"
   }).data("autocomplete")._renderItem = function (ul, item) {
     if(["No results found, please try a new search","PERSONS BY STATE","PERSONS BY REGION"].indexOf(item.label) > -1){
          return $("<li></li>")

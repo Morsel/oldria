@@ -1,7 +1,7 @@
 <% title "Updates from Folks You Follow" %>
 
 <% for status in @statuses %>
-<% div_for status, :class => 'clearfix' do %>
+<%=div_for status, :class => 'clearfix' do %>
 	<%= link_to image_tag(status.user.avatar.url(:thumb)), profile_path(status.user.username), :class => 'avatar' %>
 	<p class="message">
 		<%= status.message %>

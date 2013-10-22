@@ -26,8 +26,8 @@ class Subscription < ActiveRecord::Base
   belongs_to :subscriber, :polymorphic => true
   belongs_to :payer, :polymorphic => true
 
-  named_scope :user_subscriptions, :conditions => {:subscriber_type => "User"}
-  named_scope :is_active, lambda {
+  scope :user_subscriptions, :conditions => {:subscriber_type => "User"}
+  scope :is_active, lambda {
     { :conditions => ['end_date is NULL OR end_date >= ?', Time.now] }
   }
 

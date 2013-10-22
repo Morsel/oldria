@@ -1,4 +1,4 @@
-<% content_tag_for :li, competition, :class => cycle('odd','even') do %>
+<%= content_tag_for :li, competition, :class => cycle('odd','even') do %>
   <span class="extended-title"><%= competition.place %></span>
   <%= competition.name %><br /><%= competition.year %><br>
   <% if action_name != 'show' %>

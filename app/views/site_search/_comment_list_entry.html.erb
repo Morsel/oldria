@@ -1,5 +1,5 @@
 <li>
-  <% link_to "#" do %>
+  <%= link_to "#" do %>
     <% date = Time.parse(comment_list_entry.comment_at) %>
     <% user = User.find(comment_list_entry.comment_user_id) %>
     

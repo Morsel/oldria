@@ -19,7 +19,7 @@
 <h4>Other responses</h4>
 
 <% for answer in @other_answers %>
-<% div_for answer do %>
+<%=div_for answer do %>
     <%= render :partial => "spoonfeed/restaurant_questions/answer", :locals => { :answer => answer } %>
 <% end %>
 <div class="clear">&nbsp;</div>

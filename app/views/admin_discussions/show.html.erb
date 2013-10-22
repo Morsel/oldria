@@ -1,6 +1,6 @@
 <% title @discussionable.subject, false %>
 
-<% div_for @discussionable, :class => 'discussion inbox_message individual' do %>
+<%=div_for @discussionable, :class => 'discussion inbox_message individual' do %>
   <header>
   	<h1><%= title_link_for_message(@discussionable) %></h1>
     <p class="timestamp"><%= @discussionable.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>

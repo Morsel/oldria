@@ -39,4 +39,4 @@ Feature: Coached Status Updates
     And I select "Christmas" from "Time of Year"
     And I press "Save"
 
-    Then I should see "Awesome, you’ve just added the Coached Status Update"
+    Then I should see "Awesome, you've just added the Coached Status Update"

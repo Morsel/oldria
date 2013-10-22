@@ -2,7 +2,7 @@
 <% @is_subscribe = true %>
 <% if current_user.media? %>
   <div class="color-box-restaurant">
-    <% form_tag menu_items_path  do %>
+    <%= form_tag menu_items_path  do %>
         <label for="otm_keyword_editor">Keyword Search</label>
         <%= text_field_tag "otm_keyword_search", "", :name => "keyword" %>
         <p class="inline-hints">Enter the name of the On The Menu Keyword to search</p>
@@ -15,7 +15,7 @@
   <h2 id="otm-tagline">Keyword: <%= params[:keyword] %></h2>
 <% end %>
 <% for menu_item in @menu_items -%>
-<% div_for menu_item do %>
+<%=div_for menu_item do %>
     <h2><%= link_to menu_item.name, menu_item_path(menu_item) %></h2>
     <div class="menu_item_main">
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => menu_item.restaurant } unless @restaurant.present? %>
@@ -29,8 +29,8 @@
 
         <p>
             <%- if menu_item.description.present? -%>
-              <%= Loofah::Helpers.sanitize(truncate(menu_item.description, :length => 240)) %>
-              <%= link_to "more &raquo;", details_restaurant_menu_item_path(menu_item.restaurant,menu_item) if menu_item.description.size > 240 %>
+              <%= Loofah::Helpers.sanitize(truncate(menu_item.description, :length => 240)).html_safe %>
+              <%= link_to "more &raquo;".html_safe, details_restaurant_menu_item_path(menu_item.restaurant,menu_item) if menu_item.description.size > 240 %>
             <%- end -%>
         </p>
 

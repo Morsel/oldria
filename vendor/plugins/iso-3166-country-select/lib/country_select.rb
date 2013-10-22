@@ -19,7 +19,7 @@ module ActionView
           country_options += "<option value=\"\" disabled=\"disabled\">-------------</option>\n"
         end
 
-        return country_options + options_for_select(COUNTRIES, selected)
+        return (country_options + options_for_select(COUNTRIES, selected)).html_safe
       end
       # All the countries included in the country_options output.
       COUNTRIES = ["Afghanistan", "Aland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola",

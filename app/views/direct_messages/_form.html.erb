@@ -1,6 +1,6 @@
-<% semantic_form_for direct_message, :url => user_direct_messages_path(recipient), :html => {:method => :post, :multipart => true} do |f| %>
+<%= semantic_form_for direct_message, :url => user_direct_messages_path(recipient), :html => {:method => :post, :multipart => true} do |f| %>
   <%= f.hidden_field :in_reply_to_message_id %>
-  <% f.inputs :class => 'plain' do %>
+  <%= f.inputs :class => 'plain' do %>
     <%= f.input :body, :input_html => {:class => 'text', :rows => 4} %>
   <% end %>
 

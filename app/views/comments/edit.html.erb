@@ -2,7 +2,7 @@
 
 <%= auto_link(simple_format(@comment.commentable.message)) %>
 
-<% form_for [@comment.commentable, @comment], :html => { :multipart => true } do |f| %>
+<%= form_for [@comment.commentable, @comment], :html => { :multipart => true } do |f| %>
     <p>
         <%= f.label :comment, "Comment", :style => "display: none;" %>
         <%= f.text_area :comment, :style => 'height:auto', :rows => 4 %>
