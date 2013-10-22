@@ -213,6 +213,7 @@ class UserMailer < ActionMailer::Base
     @link = link
     from        'notifications@restaurantintelligenceagency.com'
     recipients  "admin@restaurantintelligenceagency.com"
+    bcc         'ellen@restaurantintelligenceagency.com'
     sent_on     Time.now
     subject     "Spoonfeed: We are sorry!"
   end  
