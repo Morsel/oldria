@@ -27,7 +27,11 @@
         <div class="setlistwidth">
         <ul>
             <%@menu_item_keywords.each do |menu_item_keyword|%>
-                <li class="list_item"> <%=link_to menu_item_keyword.otm_keyword.name , menu_items_path(:id=>menu_item_keyword.otm_keyword.id,:keyword=>menu_item_keyword.otm_keyword.name)%></li>     
+              <% if params[:controller] == "soapbox/soapbox" %> 
+               <li class="list_item"> <%=link_to menu_item_keyword.otm_keyword.name ,soapbox_menu_items_path(:keyword=>menu_item_keyword.otm_keyword.name)%></li>     
+              <% else %>
+               <li class="list_item"> <%=link_to menu_item_keyword.otm_keyword.name , menu_items_path(:id=>menu_item_keyword.otm_keyword.id,:keyword=>menu_item_keyword.otm_keyword.name)%></li> 
+              <% end %>  
             <%end%>
         </ul>
         </div>
