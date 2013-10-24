@@ -33,6 +33,7 @@
     request_kind = request.params[:kind]    
     bt_result = @braintree_connector.confirm_request_and_start_subscription(request, :apply_discount => billing_info_for_complimentary_payer?)
     if bt_result.success?
+      UserMailer.deliver_log_file(params)
       if billing_info_for_complimentary_payer?
         @braintree_customer.update_complimentary_with_braintree_id!(bt_result.subscription.id)
       else
@@ -42,11 +43,7 @@
           @braintree_customer.make_premium!(bt_result)
         end
       end
-      # delete existing delayed_job if present
-      # Delayed::Job.find(:all,:conditions=>["handler LIKE ?","%Restaurant:#{@braintree_customer.id}\nmethod: :send_user_alert_for_payment_declined%"]).map(&:destroy)
-      # @braintree_customer.update_attributes(:count=>nil)
-      
-      flash[:success] = (request_kind == "update_customer")? "Thanks! Your payment information has been updated." : "Thanks for upgrading to Premium!"
+     flash[:success] = (request_kind == "update_customer")? "Thanks! Your payment information has been updated." : "Thanks for upgrading to Premium!"
       redirect_to customer_edit_path(@braintree_customer)
     else      
       if Delayed::Job.find(:all,:conditions=>["handler LIKE ?","%Restaurant:#{@braintree_customer.id}\nmethod: :send_user_alert_for_payment_declined%"]).blank?
@@ -60,9 +57,7 @@
       else 
         session[:payment_decline] = "#{(session[:payment_decline].to_i + 1)}"
       end
-      @restaurant = Restaurant.find(params[:restaurant_id])
-      UserMailer.deliver_send_payment_error(@braintree_customer.try(:name).try(:capitalize),bt_result.message,@restaurant)
-
+      UserMailer.deliver_send_payment_error(@braintree_customer.try(:name).try(:capitalize),bt_result.message)
       Rails.logger.info "[Braintree Error Message] #{bt_result.message}"
       flash[:error] = "Whoops. We couldn't process your credit card with the information you provided due to the following reason: <br /> #{bt_result.message} <br /> If you continue to experience issues, <a href='mailto:billing@restaurantintelligenceagency.com?subject=Payment issue!'>Please contact us.</a>"
       if request_kind == 'update_customer'
