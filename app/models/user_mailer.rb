@@ -218,7 +218,7 @@ class UserMailer < ActionMailer::Base
     body       restaurant_visitors
   end
 
-  def send_payment_error(name,message,restaurant)
+  def send_payment_error(name,message)
     @message = message
     @restaurant = restaurant
     @name = name
