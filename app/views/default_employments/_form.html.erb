@@ -1,6 +1,6 @@
 <%= f.inputs :name => "Work Details" do %>
     <%= f.input :type, :as => :hidden %>
-    <%= f.input :solo_restaurant_name, :label => "Restaurant name", :hint => "Enter your restaurant name or your employment status (e.g., student, between jobs, retired, time off)." %>
+    <%#= f.input :solo_restaurant_name, :label => "Restaurant name", :hint => "Enter your restaurant name or your employment status (e.g., student, between jobs, retired, time off)." %>
     <%= f.input :restaurant_role, :label => "Role", :as => :select, :collection => RestaurantRole.all, 
         :hint => 'Your role helps the media find you when they are looking for sources for stories, so if you are "chef/owner" select that and not "owner" because you\'ll get more opportunities!' %>
 

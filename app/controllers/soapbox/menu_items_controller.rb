@@ -23,7 +23,7 @@ require 'will_paginate/array'
     else
       @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:order => "created_at DESC")
     end      
-      @menu_items = @menu_items.paginate(:page => params[:page], :per_page => 5)  unless @menu_items.count < 1
+      @menu_items = @menu_items.paginate(:page => params[:page], :per_page => 5)  unless @menu_items.blank?
   end
 
   def show

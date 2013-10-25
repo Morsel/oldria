@@ -10,11 +10,14 @@
         <%= f.input :username, :input_html => {:autocomplete => "off"}, :hint => 'Change your username, if you like, by entering a new one here' %>
         <%= f.input :password, :input_html => {:autocomplete => "off"}, :hint => 'Type the new password you would like to use' %>
         <%= f.input :password_confirmation, :input_html => {:autocomplete => "off"}, :hint => 'Re-type the password from above to confirm' %>
+        <!--  Remove as pr client requriment -->
+
         <% unless @user.employments.present? -%>
           <%= f.semantic_fields_for(@user.default_employment || @user.build_default_employment) do |employment_form| %>
             <%= render :partial => "default_employments/form", :locals => { :f => employment_form } %>
           <% end %>
         <%- end %>
+        
         <p class="save_end"><%= button_tag "Save Login Information", :class => 'positive' %></p>
     <% end %>
 <% end %>

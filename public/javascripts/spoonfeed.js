@@ -827,6 +827,8 @@ $('#metropolitan_areas_state_state_id').change(function(){
   if (sortedTables.length) {
     sortedTables.tablesorter({sortList: [[0,0]]});
   }  
+
+  $('.box').equalHeights();
   // end $(document).ready
 });
 

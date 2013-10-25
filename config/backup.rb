@@ -39,7 +39,7 @@ backup 'backup-db-to-s3' do
 
   adapter :mysql2 do
     user        'ria_prod'
-    password    'xnw2sh9ZkFvezm54qo'
+    password    'aEm05pI8Nne8'
     database    'ria_production'
   end
 

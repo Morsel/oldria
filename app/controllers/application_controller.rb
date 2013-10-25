@@ -11,9 +11,6 @@ class ApplicationController < ActionController::Base
   layout :site_layout
 
   before_filter :notify_emailthing_of_clicked_links
-  def notify_emailthing_of_clicked_links
-    # debugger
-  end
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
 

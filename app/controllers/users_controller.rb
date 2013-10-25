@@ -160,7 +160,7 @@ class UsersController < ApplicationController
     if current_facebook_user  
       unless params[:restaurant_id].blank? 
         @restaurant = Restaurant.find(params[:restaurant_id]) 
-        # debugger      
+ 
           @page = current_facebook_user.fetch        
           @restaurant.update_attributes!(:facebook_page_id => @page.id,
                                      :facebook_page_token => @page.client.access_token,

@@ -5,3 +5,6 @@ class WpBlogPost < ActiveRecord::Base
   #Only in case you want to add comments as well:
 
 end
+
+
+

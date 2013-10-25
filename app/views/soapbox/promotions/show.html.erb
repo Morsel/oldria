@@ -5,7 +5,7 @@
   <meta property="og:url" content="<%= soapbox_promotion_url(@promotion) %>"/>
 <% end -%>
 <%= content_for :fb_description do -%>
-<%= Loofah::Helpers.strip_tags(@promotion.details) %>
+<%= Loofah::Helpers.strip_tags(@promotion.details) +'  '+ "  via @SoapboxHQ" %>
 <% end -%>
 
 <%=div_for(@promotion) do %>
@@ -32,12 +32,12 @@
           <span class='st_fbrec_large' displayText='Facebook Recommend'></span>
           <span class='st_pinterest_large' displayText='Pinterest'></span>
           <span class='st_facebook_large' displayText='Facebook'></span>
-          <span class='st_twitter_large' displayText='Tweet'></span>
+          <span class='st_twitter_large' displayText='Tweet' st_via='SoapboxHQ'></span>
           <span class='st_linkedin_large' displayText='LinkedIn'></span>
-          <span class='st_email_large' displayText='Email'></span>   
+          <span class='st_email_large' displayText='Email' st_via='SoapboxHQ'></span>   
           <span class='st_googleplus_large' displayText='google plus'></span>
           <span class="st_stumbleupon_large" displayText='stumbleupon' ></span> 
-          <span class="st_digg_large" displayText='stumbleupon' ></span> 
+          <span class="st_digg_large" displayText='stumbleupon'  ></span> 
    
     </div>
     <!-- Likes and Tweets END -->

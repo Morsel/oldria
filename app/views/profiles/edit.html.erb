@@ -86,16 +86,47 @@
                 <%= button_tag :class => 'positive' do %>Save changes to specialties<% end %>
             </div>
 
+
+
+<!-- profile cusine -->
             <div class="cuisines ajaxdelete clear">
                 <fieldset>
                     <legend class="label"><label>Cuisines you are most known for:</label></legend>
                     <ul id="cuisines">
                         <%= render @profile.cuisines %>
                     </ul>
-                    <p><%= link_to "Add Cuisine", new_user_profile_profile_cuisine_path(:user_id => @user.id), :class => 'sf-button colorbox' %></p>
+                    <div id="complete_profile">
+                      <% semantic_form_for @profile_cuisine, :url => user_profile_path(@user) do |f| %>
+                        <% f.inputs :class => "plain profile_cuisines" do %>
+                          <%= f.input :profile_id, :as => :hidden %>
+                          <%= f.errors_on(:cuisine_id) %>
+                          <% if @cusines.empty? %>
+                           <%= f.input :cuisine, :as => "select", :collection => Cuisine.all,:multiple=>true,:required => true ,:input_html => {:class => "chzn-select" }%>
+                          <% else %>
+                          <%= f.input :cuisine, :as => "select", :collection => Cuisine.all(:conditions => ["name NOT IN (?)", @cusines]) , :multiple=>true,:required => true ,:input_html => {:class => "chzn-select" }%>
+                          <% end %>
+                          <%= hidden_field_tag "profile_cusine", true %>
+                        <% end %>
+                        <%= button_tag "Save" %>
+                        <% end %>
+                      </div>
                 </fieldset>
             </div>
-            <% end %><!-- Cuisines and specialties -->
+<!-- profile cusine -->
+
+    <!-- Basic info -->
+      <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
+              <% f.inputs :name => 'Basic Information' do %>
+                <%= f.input :birthday, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
+                <%= f.input :job_start, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
+                <%= f.input :headline %>
+                <%= f.input :summary, :hint => "Keep it under 1000 characters" %>
+                <%= f.input :hometown %>
+                <%= f.input :current_residence, :label => "In what city/state do you work?", :hint => "Or where you live, if currently unemployed" %>
+                <% button_tag :class => 'positive' do %> Save changes to basic information <% end %>
+              <% end %>
+    <!-- Basic info -->
+      <% end %><!-- Cuisines and specialties -->
           <% if @user.premium_account? && !@incomplete_profile.nil? %> 
             <%= f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
               <%= user_form.input :publish_profile, :as => :boolean, :label => 'Display my profile on Soapbox' %>
@@ -131,6 +162,8 @@
         <%= button_tag :class => 'positive' do %>Save changes to employment<% end %>
             <% end %>
             <% end %>
+        <% end %>
+      
         <% end %><%# non-basic details %>
     </section><!-- /profile-summary -->
 
@@ -455,3 +488,11 @@ $(document).ready(function() {
   </script>
   <% end %>
 <% end %>
+
+  <% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+     $('.chzn-select').chosen()
+    });
+  </script>
+  <% end %>

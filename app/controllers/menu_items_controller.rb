@@ -28,7 +28,7 @@ class MenuItemsController < ApplicationController
       flash[:notice] = "Your menu item has been saved"
       redirect_to :action => "index"
     else
-      flash[:error] = @menu_item.errors.full_messages
+      flash[:error] = @menu_item.errors.full_messages.to_sentence
       @is_new = true
       @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
       build_social_posts

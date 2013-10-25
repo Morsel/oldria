@@ -1,4 +1,4 @@
-class SubscriptionsController < ApplicationController
+ class SubscriptionsController < ApplicationController
   include SubscriptionsControllerHelper
 
   ssl_required :new, :edit if Rails.env.production?
