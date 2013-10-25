@@ -22,6 +22,8 @@ class SubjectMatter < ActiveRecord::Base
 
   scope :nongeneral, :conditions => ["general IS NULL OR general = ?", false]
   scope :media_viewable, :conditions => ["private IS NULL or private = ?", false]
+  attr_accessible :name,:general,:private
+
 
   def admin_only?
     name =~ /RIA/ # || private?

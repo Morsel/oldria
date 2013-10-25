@@ -7,17 +7,32 @@
 <% for topic in @topics %>
   <h2><%= topic.title %>:</h2>
   <% if topic.chapters.present? %>
-  <%= table_for @chapters_by_topic[topic] do |t| %>
-  <% t.data do
-        t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
-    t.cell(:title)
-    t.cell(:description)
-    t.cell(:can_be_deleted?) { |c| link_to "delete", admin_restaurant_chapter_path(:id => c.id), :method => "delete", :confirm => "Are you sure you want to delete this?" if c.profile_questions.count == 0 }
-    t.cell(:edit_link, :heading => '', :cell_html => {:class => 'actions edit_link'}) { |c|
-      link_to('Edit', edit_admin_restaurant_chapter_url(:id => c.id))
-    }
-    end %>
+<%= table_for @chapters_by_topic[topic] do |t| %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Title') %>
+      <%= t.h('Description') %>
+      <%= t.h('can_be_deleted?') %>
+      <th></th>
+      <th></th>
+    <% end %>
   <% end %>
+  <%= t.body do |topic| %>
+    <%= t.r do %>
+      <%= t.d(h(topic.title)) %>
+      <%= t.d(h(topic.description)) %>
+      <% if topic.profile_questions.count == 0  %>
+      <td class="actions destroy_link">
+          <%= link_to "Destroy",admin_restaurant_chapter_path(:id => topic.id), :method => :delete %>
+      </td> 
+      <% else %>
+        <td></td>
+      <% end %>  
+      <%= t.d(h(link_to "Edit",edit_admin_restaurant_chapter_url(:id => topic.id),:class=>'admin-actions')) %>
+    <% end %>
   <% end %>
-  <%= render :partial => "form", :locals => { :chapter => Chapter.new, :topic => topic } %>
+<% end %>
+  <% end %>
+
+ <%= render :partial => "form", :locals => { :chapter => Chapter.new, :topic => topic } %>
 <% end %>

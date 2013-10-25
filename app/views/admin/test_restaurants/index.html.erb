@@ -1,23 +1,33 @@
 <% title "Deleted Restaurants" %>
 
-<%= table_for(@restaurants) do |t| %>
-  
-  <%= t.data do
-      t.cell :name
-      t.cell :account_type
-      t.cell :city
-      t.cell :state
-      t.cell :manager
-      t.cell :media_contact
-      t.cell :metropolitan_area
-      t.cell :cuisine     
-     
-      t.cell :activate, :heading => "Activate" do |restaurant|
-        link_to "Activate", active_admin_test_restaurant_path(restaurant), :method => :get 
-      end
-  end %>
-
+<%= table_for @restaurants do |t| %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Name') %>
+      <%= t.h('Account type') %>
+      <%= t.h('City') %>
+      <%= t.h('State') %>
+      <%= t.h('Manager') %>
+      <%= t.h('Media contact') %>
+      <%= t.h('Metropolitan area') %>
+      <%= t.h('Cuisine') %>
+      <%= t.h('Activate') %>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |restaurant| %>
+    <%= t.r do %>
+      <%= t.d(h(restaurant.name)) %>
+      <% debugger %>
+      <%= t.d(h(restaurant.account_type)) %>
+      <%= t.d(h(restaurant.city)) %>
+      <%= t.d(h(restaurant.state)) %>
+      <%= t.d(h(restaurant.manager.try(:name))) %>
+      <%= t.d(h(restaurant.media_contact.try(:name))) %>
+      <%= t.d(h(restaurant.metropolitan_area.try(:name))) %>
+      <%= t.d(h(restaurant.cuisine.try(:name))) %>
+      <%= t.d(h(link_to "Activate",active_admin_test_restaurant_path(restaurant), :method => :get,:class=>'admin-actions' )) %>
+  <% end %>
+<% end %>
 <% end -%>
-
-
-

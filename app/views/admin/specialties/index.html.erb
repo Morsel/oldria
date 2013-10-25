@@ -3,9 +3,22 @@
 <p class="clearfix"><%= link_to 'New specialty', new_admin_specialty_path, :class => 'button positive' %></p>
 
 <%= table_for @specialties do |t| %>
-    <% t.data :actions => [:edit], :action_prefix => 'admin' do
-        t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
-		t.cell(:name)
-		t.cell(:delete, :heading => 'Can Delete?') { |c| link_to 'delete', admin_specialty_path(c), :method => :delete, :confirm => "Are you sure you want to delete this?" if c.profiles.count == 0 }
-	 end %>
-<% end %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Name') %>
+      <%= t.h('Can Delete?') %>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |specialty| %>
+    <%= t.r do %>
+      <%= t.d(h(specialty.name)) %>
+      <% if specialty.profiles.count == 0 %>
+        <%= t.d(h(link_to 'delete', admin_specialty_path(specialty), :method => :delete, :confirm => "Are you sure you want to delete this?")) %>
+      <% else %>
+      	<td></td>
+      <% end %>  
+      <%= t.d(h(link_to "Edit",edit_admin_specialty_path(specialty),:class=>'admin-actions')) %>
+    <% end %>
+  <% end %>
+<% end -%>

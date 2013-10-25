@@ -2,15 +2,28 @@
 
 <p><%= link_to (image_tag("plus.png") +"New Content Request (Question from RIA)"), new_admin_content_request_path, :class => 'positive button' %></p>
 
-<%= table_for(@content_requests) do |t| %>
-  <% t.data :actions => :all, :action_prefix => 'admin' do
-       t.cell(:scheduled_at, :heading => "Scheduled"){|c| c.scheduled_at.try(:strftime,"%m/%d/%y")}
-       t.cell(:subject)
-       t.cell(:body)
-       t.cell(:criteria) {|cr| cr.employment_search.readable_conditions.join(", ") }
-       t.cell :reply_count, :heading => '', :cell_html => {:class => 'actions reply_count'} do |cr|
-         reply_count_link(cr)
-       end
-    end %>
-<% end %>
-
+ <%= table_for(@content_requests) do |t|  %>
+	  <%= t.head do %>
+	    <%= t.r do %>
+	      <%= t.h('Scheduled') %>
+	      <%= t.h('Subject') %>
+	      <%= t.h('Body') %>
+	      <%= t.h('Criteria') %>
+	      <th></th><th></th><th></th><th></th>
+	    <% end %>
+	  <% end %>
+	  <%= t.body do |content_request| %>
+	    <%= t.r do %>
+	      <%= t.d(h(content_request.scheduled_at.try(:strftime,"%m/%d/%y"))) %>
+	      <%= t.d(h(content_request.subject)) %>
+	      <%= t.d(h(content_request.body)) %>
+	      <%= t.d(h(content_request.employment_search.readable_conditions.join(", "))) %>
+	      <%= t.d(h(reply_count_link(content_request)),:class=>'admin-actions') %>
+	      <%= t.d(h(link_to 'Show', admin_content_request_path(content_request),:class=>'admin-actions')) %>
+	      <%= t.d(h(link_to 'Edit', edit_admin_content_request_path(content_request),:class=>'admin-actions')) %>
+	      <td class="actions destroy_link">
+          <%= link_to "Destroy",admin_content_request_path(content_request), :method => :delete %>
+        </td> 
+	    <% end %>
+	  <% end %>
+	<% end -%>

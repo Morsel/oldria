@@ -49,17 +49,7 @@ default_url_options[:host] = DEFAULT_HOST
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :photo_file_name
 
-HUMANIZED_ATTRIBUTES = {
-    :photo_file_name => "A photo"
-  }
-
-  def self.human_attribute_name(attr)
-    HUMANIZED_ATTRIBUTES[attr.to_sym] || super
-  end
-
-
   validates_presence_of :name, :description, :restaurant
-  validates_presence_of :photo_file_name,:message => "is required."
   validates_format_of :price, :with => RestaurantFactSheet::MONEY_FORMAT
 
   scope :from_premium_restaurants, lambda {
@@ -74,8 +64,7 @@ HUMANIZED_ATTRIBUTES = {
   }
 
   attr_accessor :search_keywords
-  attr_accessible :post_to_twitter_at, :post_to_facebook_at,:name, :description, :price, :pairing, :search_keywords, :otm_keyword_ids,
-  :photo, :twitter_posts_attributes, :facebook_posts_attributes
+  attr_accessible :post_to_twitter_at, :post_to_facebook_at,:name, :description, :price, :pairing, :search_keywords, :otm_keyword_ids
 
   def keywords
     otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence
@@ -121,8 +110,7 @@ HUMANIZED_ATTRIBUTES = {
   end
 
   def twitter_message
-    # "#{truncate(self.name, :length => 120)}" #undefined method `truncate' rails3
-    self.name[0...120]
+    "#{truncate(self.name, :length => 120)}"
   end
 
   def facebook_message

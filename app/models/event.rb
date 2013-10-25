@@ -32,6 +32,8 @@ class Event < ActiveRecord::Base
   validates_presence_of :status, :if => Proc.new { |event| event.category == "Private" }
   
   validate :end_comes_after_start
+  attr_accessible :category, :title,:start_at, :end_at, :location, :description
+
   
   scope :for_month_of, lambda { |date| 
     { :conditions => { :start_at => date.beginning_of_month.at_midnight..date.end_of_month.end_of_day } } 

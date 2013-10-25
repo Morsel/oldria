@@ -3,7 +3,10 @@
                   admin_restaurant_question_path(:id => @question.id) %>
 
 <%= semantic_form_for [:admin, @question], :url => question_url do |f| %>
-    <%= f.error_messages %>
+    <%#= f.error_messages %>
+    <% @question.errors.full_messages.each do |msg| %>
+      <p><%= msg %></p>
+    <% end %>
     <%= f.inputs do %>
         <%= f.input :title, :label => "Your question" %>
 

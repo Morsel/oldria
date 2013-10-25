@@ -20,6 +20,8 @@ class Topic < ActiveRecord::Base
   validates_presence_of :title
   validates_uniqueness_of :title, :case_sensitive => false, :scope => :type
   validates_length_of :description, :maximum => 100
+  attr_accessible :title,:position,:description,:type
+
 
   default_scope :order => "topics.position ASC, topics.title ASC"
 

@@ -42,15 +42,33 @@
 	<h3>Approved Media Requests</h3>
 <% if !@approved_media_requests.empty? %>
 	<%= table_for(@approved_media_requests) do |t| %>
-		<% t.data :actions => [:show, :edit], :action_prefix => :admin do
-			t.cell :sender
-			t.cell(:recipients) {|r| r.discussions.size }
-			t.cell :subject_matter, :heading => "Type / Subject Matter"
-			t.cell(:message) {|r| link_to truncate(r.message, :length => 50),media_requests_list_admin_media_request_path(r) }
-			t.cell(:replies) {|r| list_and_link_replies(r) }
-			t.cell :due_date
-		end %>
-	<% end -%>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Sender') %>
+      <%= t.h('Recipients') %>
+      <%= t.h('Type / Subject Matter') %>
+      <%= t.h('Message') %>
+      <%= t.h('Replies') %>
+      <%= t.h('Due date') %>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |approved_media_request| %>
+    <%= t.r do %>
+    	<%= t.d(h(approved_media_request.sender)) %>
+    	<%= t.d(h(approved_media_request.discussions.size)) %>
+    	<%= t.d(h(approved_media_request.subject_matter)) %>
+    	<%= t.d(h(link_to truncate(approved_media_request.message, :length => 50),media_requests_list_admin_media_request_path(approved_media_request))) %>
+    	<%= t.d(h(list_and_link_replies(approved_media_request))) %>
+    	<%= t.d(h(approved_media_request.due_date)) %>
+    <% end %>
+  <% end %>
+ <% end %>
+
 <% else %>
 	<p>There are no approved media requests yet</p>
 <% end -%>
+
+
+

@@ -2,17 +2,28 @@
 
 <p class="clearfix"><%= link_to (image_tag("plus.png") +"New Holiday"), new_admin_holiday_path, :class => 'positive button' %></p>
 
-<%= table_for(@holidays) do |t| %>
-  <% t.data :actions => :all, :action_prefix => 'admin' do
-      t.cell :name
-      t.cell(:date) {|h| h.date.try(:to_s, :long)}
-      t.cell :reminders_count, :heading => 'Reminders'
-      t.cell(:next, :heading => 'Next Reminder') do |h|
-        h.next_reminder.try(:scheduled_at).try(:strftime, "%m/%d/%y")
-      end
-      t.cell :reply_count, :heading => '', :cell_html => {:class => 'actions reply_count'} do |h|
-        holiday_reply_count_link(h)
-      end
-    end %>
-<% end %>
-
+ <%= table_for(@holidays) do |t|  %>
+    <%= t.head do %>
+      <%= t.r do %>
+        <%= t.h('Name') %>
+        <%= t.h('Date') %>
+        <%= t.h('Reminders') %>
+        <%= t.h('Next Reminder') %>
+        <th></th><th></th><th></th><th></th>
+      <% end %>
+    <% end %>
+    <%= t.body do |holiday| %>
+      <%= t.r do %>
+        <%= t.d(h(holiday.name)) %>
+        <%= t.d(h(holiday.date.try(:to_s, :long))) %>
+        <%= t.d(h(holiday.reminders_count)) %>
+        <%= t.d(h(holiday.next_reminder.try(:scheduled_at).try(:strftime, "%m/%d/%y"))) %>
+        <%= t.d(h(holiday_reply_count_link(holiday)),:class=>'admin-actions') %>
+        <%= t.d(h(link_to 'Show', admin_holiday_path(holiday),:class=>'admin-actions')) %>
+        <%= t.d(h(link_to 'Edit', edit_admin_holiday_path(holiday),:class=>'admin-actions')) %>
+        <td class="actions destroy_link">
+          <%= link_to "Destroy",admin_holiday_path(holiday), :method => :delete %>
+        </td> 
+      <% end %>
+    <% end %>
+  <% end -%>

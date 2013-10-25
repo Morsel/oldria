@@ -126,3 +126,4 @@ gem "watu_table_builder", :require => "table_builder"
 gem "mogli", :git=>"https://github.com/nishant-n/mogli.git"
 # gem 'cocaine', '0.3.2'
 gem 'dynamic_form'
+gem 'rails_autolink'

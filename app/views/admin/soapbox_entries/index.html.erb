@@ -1,15 +1,29 @@
-<% title "Soapbox Entries" %>
-
-<%= table_for @soapbox_entries do |t| %>
-	<% t.data :actions => [:edit], :action_prefix => 'admin' do
-		t.cell(:published_at) { |c| c.published_at.to_s(:long) if c.published }
-		t.cell(:featured_item) {|s| link_to s.featured_item.try(:title), resource_for_featured_item(s)}
-		t.cell(:message) { |c| c.featured_item.message }
-		t.cell(:display_message) { |c| c.featured_item.display_message }
-		t.cell(:authorized_comments) { |c| c.featured_item.soapbox_comment_count }
-		t.cell(:daily_feature) { |c| c.daily_feature ? "yes" : "" }
-		t.cell(:change_status) { |c| link_to (c.published ? "Unpublish" : "Publish"), toggle_status_admin_soapbox_entry_path(c), :method => "post" }
-	end %>
+<%= table_for(@soapbox_entries) do |t| %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Published at') %>
+      <%= t.h('Featured item') %>
+      <%= t.h('Message') %>
+      <%= t.h('Display message') %>
+      <%= t.h('Authorized comments') %>
+      <%= t.h('Daily feature') %>
+      <%= t.h('Change status') %>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |soapbox_entry| %>
+    <%= t.r do %>
+      <%= t.d(h(soapbox_entry.try(:published_at).to_s(:long))) %>
+      <%= t.d(h(link_to soapbox_entry.featured_item.try(:title),resource_for_featured_item(soapbox_entry))) %>
+      <%= t.d(h(soapbox_entry.featured_item.message)) %>
+      <%= t.d(h(soapbox_entry.featured_item.display_message)) %>
+      <%= t.d(h(soapbox_entry.featured_item.soapbox_comment_count)) %>
+      <%= t.d(h(soapbox_entry.daily_feature ? "yes" : " "))  %>
+      <%= t.d(h(link_to soapbox_entry.published ? "Unpublish" : "Publish",toggle_status_admin_soapbox_entry_path(soapbox_entry), :method => "post")) %>
+      <%= t.d(h(link_to "Edit",edit_admin_soapbox_entry_path(soapbox_entry),:class=>'admin-actions')) %>
+    <% end %>
+  <% end %>
 <% end %>
+
 
 <%= will_paginate(@soapbox_entries) %>

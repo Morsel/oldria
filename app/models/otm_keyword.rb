@@ -17,6 +17,8 @@ class OtmKeyword < ActiveRecord::Base
   has_many :trace_searches, :as => :keywordable
 
   validates_presence_of :name, :category
+  attr_accessible :name,:category
+
 
   def name_with_category
     "#{category}: #{name}"

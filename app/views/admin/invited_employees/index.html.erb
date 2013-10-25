@@ -1,11 +1,18 @@
 <% title "Invited Employees" %>
-<%= table_for(@invited_employees) do |f| %>
-    <%= f.data do
-      f.cell :first_name
-      f.cell :last_name
-      f.cell :email
-    end %>
-    
+
+<%= table_for @invited_employees do |t| %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('First name') %>
+      <%= t.h('Last name') %>
+      <%= t.h('Email') %>
+    <% end %>
+  <% end %>
+  <%= t.body do |invited_employee| %>
+    <%= t.r do %>
+      <%= t.d(h(invited_employee.try(:first_name))) %>
+      <%= t.d(h(invited_employee.try(:last_name))) %>
+      <%= t.d(h(invited_employee.email)) %>
+    <% end %>
+  <% end %>
 <% end -%>
-
-
