@@ -220,7 +220,6 @@ class UserMailer < ActionMailer::Base
 
   def send_payment_error(name,message)
     @message = message
-    @restaurant = restaurant
     @name = name
     from        'notifications@restaurantintelligenceagency.com'
     recipients  "carla@restaurantintelligenceagency.com"
