@@ -65,7 +65,7 @@ gem 'jquery-rails'
   gem 'feedzirra'#,              "0.0.24"
   # gem 'preferences'#,            "~>0.4.1"
   gem 'whenever'        
-  # gem 'delayed_job'#,            "~>1.8.4"
+  gem 'delayed_job',:git=>"git@github.com:nishant-n/delayedjob1.8.4.git"#,            "~>1.8.4"
   # gem 'delayed_job_active_record'
   gem "airbrake",               "~> 3.1.1"
   gem 'backup',                 "~>2.3.1"

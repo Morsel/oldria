@@ -19,6 +19,12 @@ GIT
     nested_form (0.3.2)
 
 GIT
+  remote: git@github.com:nishant-n/delayedjob1.8.4.git
+  revision: 46ad9cb35c2a698b376f8b3bcf40d1d82024035a
+  specs:
+    delayed_job (1.8.4)
+
+GIT
   remote: git@github.com:redinger/validation_reflection.git
   revision: 7c3397e3a6ab32773cf7399455e5c63a0fdc66e9
   specs:
@@ -384,6 +390,7 @@ DEPENDENCIES
   cucumber-rails (= 0.3.2)
   database_cleaner (= 0.7.2)
   debugger
+  delayed_job!
   delorean
   dynamic_form
   facebooker2
