@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class ConvertPremiumUsersToSubscriptions < ActiveRecord::Migration
   def self.up
     User.find_all_by_premium_account(true).each { |u| u.make_complimentary! }

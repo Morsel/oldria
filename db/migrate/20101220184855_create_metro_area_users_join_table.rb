@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateMetroAreaUsersJoinTable < ActiveRecord::Migration
   def self.up
     create_table :metropolitan_areas_users, :id => false do |t|

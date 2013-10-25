@@ -16,7 +16,7 @@
 
     <%= f.inputs :name => "Account Status", :class => "editing account" do %>
       <div class="current standout">Your current account status is <strong><%= @restaurant.account_type %></strong>.</div>
-      <p>Basic accounts allow you to participate in Spoonfeed. If you would like to be included in Soapbox, please upgrade to a Premium Account. A restaurant premium account is $250/month... <%= link_to "More account information&nbsp;&#187;", "/account_types" %></p>
+      <p>Basic accounts allow you to participate in Spoonfeed. If you would like to be included in Soapbox, please upgrade to a Premium Account. A restaurant premium account is $250/month... <%= link_to "More account information&nbsp;&#187;".html_safe, "/account_types" %></p>
       <% if @restaurant.premium_account? %>
         <p id="start_date">You have been a premium member since <%= @restaurant.subscription.start_date.to_s(:long) %></p>
       <% end %>

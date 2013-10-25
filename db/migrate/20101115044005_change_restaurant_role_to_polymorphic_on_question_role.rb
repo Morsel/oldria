@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class ChangeRestaurantRoleToPolymorphicOnQuestionRole < ActiveRecord::Migration
   def self.up
     rename_column :question_roles, :restaurant_role_id, :responder_id

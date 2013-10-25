@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateFeaturedProfiles < ActiveRecord::Migration
   def self.up
     create_table :featured_profiles do |t|

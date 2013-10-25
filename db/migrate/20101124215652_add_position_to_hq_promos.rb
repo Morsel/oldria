@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddPositionToHqPromos < ActiveRecord::Migration
   def self.up
     add_column :hq_promos, :position, :integer

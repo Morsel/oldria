@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class ChangeFbPageUrlOnRestaurants < ActiveRecord::Migration
   def self.up
     rename_column :restaurants, :facebook_page, :facebook_page_url

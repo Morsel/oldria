@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class DestroyQuestionRoles < ActiveRecord::Migration
   def self.up
     drop_table :question_roles

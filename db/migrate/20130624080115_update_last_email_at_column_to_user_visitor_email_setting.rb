@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class UpdateLastEmailAtColumnToUserVisitorEmailSetting < ActiveRecord::Migration
   def self.up
     UserVisitorEmailSetting.all.each do |uves|

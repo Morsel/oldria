@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateDirectMessages < ActiveRecord::Migration
   def self.up
     create_table :direct_messages do |t|

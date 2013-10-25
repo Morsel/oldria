@@ -1,5 +1,5 @@
 <nav id="topic_nav" class="topic-nav clearfix">
-    <%= link_to "<span>Next:</span> #{truncate(next_topic.title, :length => 20, :omission=>'&hellip;')}", link_for_user_chapters(:user_id => @user.id, :id => next_topic.id), :class => "next" if next_topic %>
+    <%= link_to "<span>Next:</span> #{truncate(next_topic.title, :length => 20, :omission=>'&hellip;')}".html_safe, link_for_user_chapters(:user_id => @user.id, :id => next_topic.id), :class => "next" if next_topic %>
     <%= link_to "All Topics", link_for_user_topics(:id => @user.id), :class => "all-topics" %>
-    <%= link_to "<span>Prev:</span> #{truncate(prev_topic.title, :length => 20, :omission=>'&hellip;')}", link_for_user_chapters(:user_id => @user.id, :id => prev_topic.id), :class => "prev" if prev_topic %>
+    <%= link_to "<span>Prev:</span> #{truncate(prev_topic.title, :length => 20, :omission=>'&hellip;')}".html_safe, link_for_user_chapters(:user_id => @user.id, :id => prev_topic.id), :class => "prev" if prev_topic %>
 </nav>

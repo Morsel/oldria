@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateChapters < ActiveRecord::Migration
   def self.up
     create_table :chapters do |t|

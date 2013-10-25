@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddNameToNewsletterSubscribers < ActiveRecord::Migration
   def self.up
     add_column :newsletter_subscribers, :first_name, :string

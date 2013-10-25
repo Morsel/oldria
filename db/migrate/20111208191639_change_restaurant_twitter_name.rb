@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class ChangeRestaurantTwitterName < ActiveRecord::Migration
   def self.up
     rename_column :restaurants, :twitter_username, :twitter_handle

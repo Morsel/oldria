@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateTestimonials < ActiveRecord::Migration
   def self.up
     create_table :testimonials do |t|

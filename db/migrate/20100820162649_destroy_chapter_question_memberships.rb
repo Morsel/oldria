@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class DestroyChapterQuestionMemberships < ActiveRecord::Migration
   def self.up
     add_column :profile_questions, :position, :integer, :default => 0

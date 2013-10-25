@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class RemovePublicFlagFromAlmAnswers < ActiveRecord::Migration
   def self.up
     remove_column :a_la_minute_answers, :show_as_public

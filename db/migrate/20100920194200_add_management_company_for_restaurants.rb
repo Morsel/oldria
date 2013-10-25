@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddManagementCompanyForRestaurants < ActiveRecord::Migration
   def self.up
     add_column :restaurants, :management_company_name, :string

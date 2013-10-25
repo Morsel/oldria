@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateHqPages < ActiveRecord::Migration
   def self.up
     create_table :hq_pages do |t|

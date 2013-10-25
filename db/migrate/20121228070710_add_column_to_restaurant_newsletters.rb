@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddColumnToRestaurantNewsletters < ActiveRecord::Migration
   def self.up
   	add_column :restaurant_newsletters, :introduction, :text

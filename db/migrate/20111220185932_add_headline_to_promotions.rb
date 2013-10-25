@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddHeadlineToPromotions < ActiveRecord::Migration
   def self.up
     add_column :promotions, :headline, :string

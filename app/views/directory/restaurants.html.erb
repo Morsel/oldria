@@ -1,6 +1,6 @@
 <% title "Restaurant Directory" %>
 
-<%= title_for_search %>
+<%= title_for_search.html_safe if title_for_search%>
 
 <div id="directory_search">
 	<div class="color-box-restaurant">

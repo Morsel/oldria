@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class MakeAdminDiscussionsPolymorphic < ActiveRecord::Migration
   def self.up
     change_table :admin_discussions do |t|

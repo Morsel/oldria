@@ -1,6 +1,6 @@
 <% title "#{@topic.title} - Behind the Line", false %>
 
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line</span>", soapbox_profile_questions_path %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line</span>".html_safe, soapbox_profile_questions_path %></h1>
 
 <h2 id="topic_title">Topic: <%= @topic.title %></h2>
 

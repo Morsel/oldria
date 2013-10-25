@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class RenameSentAtToScheduledAtOnAdminMessages < ActiveRecord::Migration
   def self.up
     change_table :admin_messages do |t|

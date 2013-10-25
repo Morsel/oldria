@@ -22,10 +22,10 @@ include AutoCompleteHelper
   def directory
     if params[:specialty_id]
       @specialty = Specialty.find(params[:specialty_id])
-      @users = User.in_soapbox_directory.profile_specialties_id_eq(params[:specialty_id]).all(:order => "users.last_name").uniq
+      @users = User.in_soapbox_directory.search(:profile_specialties_id_equals => params[:specialty_id]).all(:order => "users.last_name").uniq
     elsif params[:cuisine_id]
       @cuisine = Cuisine.find(params[:cuisine_id])
-      @users = User.in_soapbox_directory.profile_cuisines_id_eq(params[:cuisine_id]).all(:order => "users.last_name").uniq
+      @users = User.in_soapbox_directory.search(:profile_cuisines_id_equals => params[:cuisine_id]).all(:order => "users.last_name").uniq
     else
       @use_search = true
       @users = User.in_soapbox_directory.all(:order => "users.last_name")
@@ -36,14 +36,19 @@ include AutoCompleteHelper
   end
 
   def directory_search
+    if params[:search_person_by_state_or_region]
+      params[:search_person_eq_any_name] = "_"
+    else
+      params[:search_person_by_state_or_region] = "_"
+    end
     trace_search_for_persional_directory_for_soapbox
-    if params[:search_person_eq_any_name]
-      @users = User.in_soapbox_directory.profile_specialties_name_equals(params[:search_person_eq_any_name]).uniq + User.in_soapbox_directory.profile_cuisines_name_equals(params[:search_person_eq_any_name]).uniq
+    if params[:search_person_eq_any_name] != "_"      
+      @users = User.in_soapbox_directory.search(:profile_specialties_name_equals => params[:search_person_eq_any_name]).relation.uniq + User.in_soapbox_directory.search(:profile_cuisines_name_equals=>params[:search_person_eq_any_name]).relation.uniq
       @users = @users.push(User.in_soapbox_directory.find_by_name(params[:search_person_eq_any_name])).compact if @users.blank?
     else
-      @users = User.in_soapbox_directory.profile_metropolitan_area_name_or_profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).uniq
+      @users = User.in_soapbox_directory.search(:profile_metropolitan_area_name_or_profile_james_beard_region_name_equals=>params[:search_person_by_state_or_region]).relation.uniq
     end
-    if @users.blank? && params[:search_person_by_state_or_region].present?
+    if @users.blank? && params[:search_person_by_state_or_region] != "_"
       flash[:notice] = "I am sorry, we don't have any person for your state yet. Sign up to receive notification when we do!"
     elsif @users.blank?
       flash[:notice] = "No results found, please try a new search"
@@ -56,13 +61,13 @@ include AutoCompleteHelper
     @subscriber = current_subscriber
     if params[:cuisine_id]
       @cuisine = Cuisine.find(params[:cuisine_id])
-      @restaurants = Restaurant.cuisine_id_eq(params[:cuisine_id]).all.uniq
+      @restaurants = Restaurant.search(:cuisine_id_equals =>params[:cuisine_id]).all.uniq
     elsif params[:metropolitan_area_id]
       @metro_area = MetropolitanArea.find(params[:metropolitan_area_id])
-      @restaurants = Restaurant.metropolitan_area_id_eq(params[:metropolitan_area_id]).all.uniq
+      @restaurants = Restaurant.search(:metropolitan_area_id_equals => params[:metropolitan_area_id]).all.uniq
     elsif params[:james_beard_region_id]
       @region = JamesBeardRegion.find(params[:james_beard_region_id])
-      @restaurants = Restaurant.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
+      @restaurants = Restaurant.search(:james_beard_region_id_equals => params[:james_beard_region_id]).all.uniq
     else      
       @restaurants = Restaurant.all
     end
@@ -74,22 +79,27 @@ include AutoCompleteHelper
   end
 
   def restaurant_search
+    if params[:search_restaurant_eq_any_name]
+      params[:search_restaurant_by_state_or_region] = "_"
+    else
+      params[:search_restaurant_eq_any_name] = "_" 
+    end
     trace_search_for_restaurant_directory_for_soapbox
     if params[:name] == "name"
-      @restaurants = Restaurant.name_begins_with(params[:search_restaurant_eq_any_name]).uniq
+      @restaurants = Restaurant.search(:name_begins_with => params[:search_restaurant_eq_any_name]).relation.uniq
     elsif params[:name] == "keyword"
-      @restaurants = Restaurant.menu_items_otm_keywords_name_begins_with(params[:search_restaurant_eq_any_name]).uniq
+      @restaurants = Restaurant.search(:menu_items_otm_keywords_name_begins_with => params[:search_restaurant_eq_any_name]).relation.uniq
     elsif params[:name] == "feature"
-      @restaurants = Restaurant.restaurant_features_value_begins_with(params[:search_restaurant_eq_any_name]).uniq
+      @restaurants = Restaurant.search(:restaurant_features_value_begins_with => params[:search_restaurant_eq_any_name]).relation.uniq
     elsif params[:name] == "cuisine"
-      @restaurants = Restaurant.cuisine_name_begins_with(params[:search_restaurant_eq_any_name]).uniq    
-    elsif ( (params[:search_restaurant_eq_any_name]) && (params[:name].blank?) )
-      @restaurants = Restaurant.name_or_menu_items_otm_keywords_name_or_restaurant_features_value_or_cuisine_name_equals(params[:search_restaurant_eq_any_name]).uniq
-      @restaurants = Restaurant.name_begins_with(params[:search_restaurant_eq_any_name]) if @restaurants.blank?
+      @restaurants = Restaurant.search(:cuisine_name_begins_with => params[:search_restaurant_eq_any_name]).relation.uniq    
+    elsif ( (params[:search_restaurant_eq_any_name]) && (params[:name].blank?) ) && (params[:search_restaurant_eq_any_name] != "_")
+      @restaurants = Restaurant.search(:name_or_menu_items_otm_keywords_name_or_restaurant_features_value_or_cuisine_name_equals => params[:search_restaurant_eq_any_name]).relation.uniq
+      @restaurants = Restaurant.search(:name_begins_with => params[:search_restaurant_eq_any_name]).relation if @restaurants.blank?
     elsif
-      @restaurants = Restaurant.state_or_james_beard_region_name_equals(params[:search_restaurant_by_state_or_region]).uniq
+      @restaurants = Restaurant.search(:state_or_james_beard_region_name_equals => params[:search_restaurant_by_state_or_region]).relation.uniq
     end
-    if @restaurants.blank? && params[:search_restaurant_by_state_or_region].present?
+    if @restaurants.blank? && params[:search_restaurant_by_state_or_region] != "_"
       flash[:notice] = "I am sorry, we don't have any restaurants for your state yet. Sign up to receive notification when we do!"
     elsif @restaurants.blank?
       flash[:notice] = "No results found, please try a new search"
@@ -123,27 +133,27 @@ include AutoCompleteHelper
   private
 
   def trace_search_for_restaurant_directory_for_soapbox
-    if Restaurant.menu_items_otm_keywords_name_equals(params[:search_restaurant_eq_any_name]).present?
+    if Restaurant.search(:menu_items_otm_keywords_name_equals => params[:search_restaurant_eq_any_name]).relation.present?
       @searchable_id =  OtmKeyword.find_by_name(params[:search_restaurant_eq_any_name]).id
       @searchable_type  = 'OtmKeyword' 
       @term = params["search_restaurant_eq_any_name"]
-    elsif  Restaurant.name_equals(params[:search_restaurant_eq_any_name]).present?
+    elsif  Restaurant.search(:name_equals => params[:search_restaurant_eq_any_name]).relation.present?
       @searchable_id = Restaurant.find_by_name(params[:search_restaurant_eq_any_name]).id
       @searchable_type  = 'Restaurant' 
       @term = params["search_restaurant_eq_any_name"]   
-    elsif Restaurant.restaurant_features_value_equals(params[:search_restaurant_eq_any_name]).present?
+    elsif Restaurant.search(:restaurant_features_value_equals => params[:search_restaurant_eq_any_name]).relation.present?
       @searchable_id = RestaurantFeature.find_by_value(params[:search_restaurant_eq_any_name]).id
       @searchable_type  = 'RestaurantFeature'
       @term = params["search_restaurant_eq_any_name"]  
-    elsif Restaurant.cuisine_name_equals(params[:search_restaurant_eq_any_name]).present?  
+    elsif Restaurant.search(:cuisine_name_equals => params[:search_restaurant_eq_any_name]).relation.present?  
       @searchable_id =  Cuisine.find_by_name(params[:search_restaurant_eq_any_name]).id
       @searchable_type  = 'Cuisine' 
       @term = params["search_restaurant_eq_any_name"]  
-    elsif  Restaurant.james_beard_region_name_equals(params[:search_restaurant_by_state_or_region]).present?
+    elsif  Restaurant.search(:james_beard_region_name_equals => params[:search_restaurant_by_state_or_region]).relation.present?
       @searchable_id =  JamesBeardRegion.find_by_name(params[:search_restaurant_by_state_or_region]).id
       @searchable_type  = 'JamesBeardRegion' 
       @term = params["search_restaurant_by_state_or_region"]  
-    elsif Restaurant.state_equals(params[:search_restaurant_by_state_or_region]).present? 
+    elsif Restaurant.search(:state_equals=>params[:search_restaurant_by_state_or_region]).relation.present? 
       @searchable_type  = 'state' 
       @term = params["search_restaurant_by_state_or_region"]  
     else 
@@ -158,19 +168,19 @@ include AutoCompleteHelper
       @searchable_id =  User.find_by_name(params[:search_person_eq_any_name]).id
       @searchable_type  = 'User' 
       @term = params["search_person_eq_any_name"]
-    elsif User.in_soapbox_directory.profile_specialties_name_equals(params[:search_person_eq_any_name]).present?   
+    elsif User.in_soapbox_directory.search(:profile_specialties_name_equals=> params[:search_person_eq_any_name]).relation.present?   
       @searchable_id =  Specialty.find_by_name(params[:search_person_eq_any_name]).id
       @searchable_type  = 'Specialty' 
       @term = params["search_person_eq_any_name"]
-    elsif User.in_soapbox_directory.profile_cuisines_name_equals(params[:search_person_eq_any_name]).present?
+    elsif User.in_soapbox_directory.search(:profile_cuisines_name_equals => params[:search_person_eq_any_name]).relation.present?
       @searchable_id =  Cuisine.find_by_name(params[:search_person_eq_any_name]).id
       @searchable_type  = 'Cuisine' 
       @term = params["search_person_eq_any_name"]
-    elsif User.in_soapbox_directory.profile_metropolitan_area_name_equals(params[:search_person_by_state_or_region]).present?
+    elsif User.in_soapbox_directory.search(:profile_metropolitan_area_name_equals => params[:search_person_by_state_or_region]).relation.present?
       @searchable_id = MetropolitanArea.find_by_name(params[:search_person_by_state_or_region]).id
       @searchable_type  = 'MetropolitanArea' 
       @term = params["search_person_by_state_or_region"]
-    elsif  User.in_soapbox_directory.profile_james_beard_region_name_equals(params[:search_person_by_state_or_region]).present?
+    elsif  User.in_soapbox_directory.search(:profile_james_beard_region_name_equals => params[:search_person_by_state_or_region]).relation.present?
       @searchable_id = JamesBeardRegion.find_by_name(params[:search_person_by_state_or_region]).id
       @searchable_type  = 'JamesBeardRegion' 
       @term = params["search_person_by_state_or_region"]

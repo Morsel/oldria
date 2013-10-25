@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class RenameCulinarySchoolsToSchools < ActiveRecord::Migration
   def self.up
     rename_table :culinary_schools, :schools

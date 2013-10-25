@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateInviteResponsibilities < ActiveRecord::Migration
   def self.up
     create_table :invite_responsibilities do |t|

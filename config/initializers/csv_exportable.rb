@@ -1,3 +1,4 @@
+
 # http://www.brynary.com/2007/4/28/export-activerecords-to-csv
 
 begin

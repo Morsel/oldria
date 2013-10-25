@@ -11,9 +11,9 @@ module SoapboxHelper
 
   def soapbox_tabby_title(featured_item)
     if featured_item.is_a?(TrendQuestion)
-      "<h1 class='trend'>#{link_to 'What\'s New', soapbox_soapbox_entry_path(featured_item.soapbox_entry)}</h1>"
+      "<h1 class='trend'>#{link_to 'What\'s New', soapbox_soapbox_entry_path(featured_item.soapbox_entry)}</h1>".html_safe
     elsif featured_item.is_a?(Admin::Qotd)
-      "<h1 class='qotd'>#{link_to 'Question of the Day', soapbox_soapbox_entry_path(featured_item.soapbox_entry)}</h1>"
+      "<h1 class='qotd'>#{link_to 'Question of the Day', soapbox_soapbox_entry_path(featured_item.soapbox_entry)}</h1>".html_safe
     end
   end
 

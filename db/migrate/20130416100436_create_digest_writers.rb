@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateDigestWriters < ActiveRecord::Migration
   def self.up
     create_table :digest_writers do |t|

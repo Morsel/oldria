@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddApiTokenToRestaurant < ActiveRecord::Migration
   def self.up
   	add_column :restaurants, :api_token, :string

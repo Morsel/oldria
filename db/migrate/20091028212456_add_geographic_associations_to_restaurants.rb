@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddGeographicAssociationsToRestaurants < ActiveRecord::Migration
   def self.up
     add_column :restaurants, :metropolitan_area_id, :integer

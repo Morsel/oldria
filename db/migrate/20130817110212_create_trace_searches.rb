@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateTraceSearches < ActiveRecord::Migration
   def self.up
     create_table :trace_searches do |t|

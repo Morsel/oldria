@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateChaptersProfileQuestions < ActiveRecord::Migration
   def self.up
     create_table :chapters_profile_questions, :id => false do |t|

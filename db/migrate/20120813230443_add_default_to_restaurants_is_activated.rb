@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddDefaultToRestaurantsIsActivated < ActiveRecord::Migration
   def self.up
     change_column_default :restaurants, :is_activated, false

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateMeals < ActiveRecord::Migration
   def self.up
     create_table :meals do |t|

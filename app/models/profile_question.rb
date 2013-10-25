@@ -14,7 +14,7 @@
 
 class ProfileQuestion < ActiveRecord::Base
 
-include ActionDispatch::Routing::UrlFor
+  include ActionDispatch::Routing::UrlFor
   default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :chapter

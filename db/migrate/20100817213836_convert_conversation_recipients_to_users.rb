@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class ConvertConversationRecipientsToUsers < ActiveRecord::Migration
   def self.up
     # convert employment ids to employee (user) ids

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateSoapboxTraceKeywords < ActiveRecord::Migration
   def self.up
     create_table :soapbox_trace_keywords do |t|

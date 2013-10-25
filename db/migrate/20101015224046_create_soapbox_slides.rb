@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateSoapboxSlides < ActiveRecord::Migration
   def self.up
     create_table :soapbox_slides do |t|

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateNewsfeedWriters < ActiveRecord::Migration
   def self.up
     create_table :newsfeed_writers do |t|

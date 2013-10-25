@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddFacebookIdToUsers < ActiveRecord::Migration
   def self.up
     add_column :users, :facebook_id, :integer

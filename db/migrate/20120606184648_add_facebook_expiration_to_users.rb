@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddFacebookExpirationToUsers < ActiveRecord::Migration
   def self.up
     add_column :users, :facebook_token_expiration, :datetime

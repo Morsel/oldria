@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddAttachmentToPromotions < ActiveRecord::Migration
   def self.up
     add_column :promotions, :attachment_file_name, :string

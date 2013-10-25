@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddFacebookPageIdToRestaurants < ActiveRecord::Migration
   def self.up
     add_column :restaurants, :facebook_page_id, :string

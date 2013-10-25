@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddEmploymentSearchToTrendQuestions < ActiveRecord::Migration
   def self.up
     add_column :trend_questions, :employment_search_id, :integer

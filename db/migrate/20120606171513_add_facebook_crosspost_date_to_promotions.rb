@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddFacebookCrosspostDateToPromotions < ActiveRecord::Migration
   def self.up
     add_column :promotions, :post_to_facebook_at, :datetime

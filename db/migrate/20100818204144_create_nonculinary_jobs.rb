@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateNonculinaryJobs < ActiveRecord::Migration
   def self.up
     create_table :nonculinary_jobs do |t|

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class ChangeDirectMessagesBodyToText < ActiveRecord::Migration
   def self.up
     change_column :direct_messages, :body, :text, :limit => nil

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateOtmKeywordNotifications < ActiveRecord::Migration
   def self.up
     create_table :otm_keyword_notifications do |t|

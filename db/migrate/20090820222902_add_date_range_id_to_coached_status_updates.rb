@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddDateRangeIdToCoachedStatusUpdates < ActiveRecord::Migration
   def self.up
     change_table :coached_status_updates do |t|

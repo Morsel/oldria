@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class RenameProfileRestaurantsToCulinaryJobs < ActiveRecord::Migration
   def self.up
     if connection.tables.include?("profile_restaurants")

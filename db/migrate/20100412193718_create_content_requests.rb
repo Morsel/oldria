@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateContentRequests < ActiveRecord::Migration
   def self.up
     create_table :content_requests do |t|

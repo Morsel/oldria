@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddRestaurantIdToPromotions < ActiveRecord::Migration
   def self.up
     add_column :promotions, :restaurant_id, :integer

@@ -1,4 +1,5 @@
-  class AddMediaContactIdToRestaurant < ActiveRecord::Migration
+  #encoding: utf-8 
+class AddMediaContactIdToRestaurant < ActiveRecord::Migration
   def self.up
     add_column :restaurants, :media_contact_id, :integer
   end

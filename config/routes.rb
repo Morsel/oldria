@@ -68,7 +68,7 @@ Ria::Application.routes.draw do
     resources :features, :only => ["show"]
     resources :a_la_minute_questions, :only => ["index", "show"]
     resources :a_la_minute_answers, :only => ["show"]
-    resources :soapbox_entries, :only => ["index", "show", "qotd", "trend"] do
+    resources :front_burner, :as => "soapbox_entries",:controller => "soapbox_entries", :only => ["index", "show", "qotd", "trend"] do
       collection do
         get :qotd
         get :trend
@@ -88,10 +88,11 @@ Ria::Application.routes.draw do
     resources :newsletter_subscribers do
       collection do
         get :find_subscriber
+        post :connect
       end
       member do
         get :welcome
-        get :confirm
+        get :confirm        
       end   
     end
     resources :newsletter_subscriptions, :only => [:update, :destroy]
@@ -652,7 +653,8 @@ Ria::Application.routes.draw do
   match 'soapbox/:id' => 'soapbox_pages#show', :as => :soapbox_page
   match 'hq/:id' => 'hq_pages#show', :as => :hq_page
   match 'mediafeed/:id' => 'mediafeed_pages#show', :as => :mediafeed_page
-  match '/:controller(/:action(/:id))'
+  match '/:controller(/:action(/:id))', :as => :connect
+
   resources :ria_webservices do
     collection do
       post :register

@@ -17,9 +17,9 @@ updateRestaurantSignupFields = function() {
 	$('#join').validationEngine('hide')
   if ($('#role').val() == 'restaurant') {
     $('#restaurant_fields').show();
-    addValidation()
+    //addValidation()
   } else {
-  	removeValidation()
+  	//removeValidation()
     $('#restaurant_fields').hide();
   }
 };

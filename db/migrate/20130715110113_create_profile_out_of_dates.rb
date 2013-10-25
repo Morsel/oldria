@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateProfileOutOfDates < ActiveRecord::Migration
   def self.up
     create_table :profile_out_of_dates do |t|

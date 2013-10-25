@@ -27,6 +27,7 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
     @feature = @entry.featured_item
     @feature_comments = @entry.comments.all(:order => "created_at DESC")
     @feature_type = @entry.featured_item_type == 'Admin::Qotd' ? ' Question of the Day' : ' Trend'
+    render :layout => 'soapbox'
   end
 
   def trend

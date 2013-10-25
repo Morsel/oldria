@@ -66,20 +66,24 @@ class UserMailer < ActionMailer::Base
   
   # sent to users who request an invite for themselves
   def invitation_welcome(invite)
-    from        'notifications@restaurantintelligenceagency.com'
-    recipients  invite.email
-    sent_on     Time.now
-    subject     "Spoonfeed Invitation Request Received"
-    body        :invitation => invite
+    @invitation = invite
+    mail(
+      :from => 'notifications@restaurantintelligenceagency.com',
+      :to   =>  invite.email,
+      :sent_on => Time.now,
+      :subject => "Spoonfeed Invitation Request Received"
+      )
   end
   
   # sent to admins to let them know a new invite has been requested
   def admin_invitation_notice(invite)
-    from        'notifications@restaurantintelligenceagency.com'
-    recipients  'info@restaurantintelligenceagency.com'
-    sent_on     Time.now
-    subject     'A new invitation has been requested'
-    body        :invitation => invite
+    @invitation = invite
+    mail(
+      :from => 'notifications@restaurantintelligenceagency.com',
+      :to   =>  'info@restaurantintelligenceagency.com',
+      :sent_on => Time.now,
+      :subject => 'A new invitation has been requested'
+      )
   end
   
   # sent to all users after their invite is accepted by an admin
@@ -205,10 +209,12 @@ class UserMailer < ActionMailer::Base
 
   def send_payment_error(name,message)
     @message = message
-    from        'notifications@restaurantintelligenceagency.com'
-    recipients  "eric@restaurantintelligenceagency.com"
-    sent_on     Time.now
-    subject     "Spoonfeed::Payment faild! :: #{name}"
+    mail(
+      :from => 'notifications@restaurantintelligenceagency.com',
+      :to   =>  "eric@restaurantintelligenceagency.com",
+      :sent_on => Time.now,
+      :subject => "Spoonfeed::Payment faild! :: #{name}"
+    )
   end  
 
   def send_braintree_payment_error(name,link=nil)
@@ -266,11 +272,13 @@ class UserMailer < ActionMailer::Base
   end 
 
   def log_file msg , subject="Log File!" ,to='nishant.n@cisinlabs.com'
-    from        'notifications@restaurantintelligenceagency.com'
-    recipients  to   
-    sent_on     Time.now
-    subject     subject
-    body        :msg => msg
+    @msg = msg
+    mail(
+      :from => 'notifications@restaurantintelligenceagency.com',
+      :to   =>  to,
+      :sent_on => Time.now,
+      :subject => subject
+    )
   end  
 
   def request_profile_update(restaurant,employee)

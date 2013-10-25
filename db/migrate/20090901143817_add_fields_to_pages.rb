@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddFieldsToPages < ActiveRecord::Migration
   def self.up
     add_column :pages, :title, :string

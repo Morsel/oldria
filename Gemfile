@@ -5,15 +5,19 @@ gem 'rails', '3.2.14'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
-
+# gem 'sqlite3'
+  # gem 'activerecord-mysql2-adapter'#,"0.0.2"
+  # gem 'mysql'
+  # gem 'mysql2'#, '0.2.6'  
+  # gem "activerecord-mysql-adapter"
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
+  gem 'mysql2'#, '0.2.6' 
+  # gem 'activerecord-mysql2-adapter',"0.0.2"
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
 
@@ -61,7 +65,8 @@ gem 'jquery-rails'
   gem 'feedzirra'#,              "0.0.24"
   # gem 'preferences'#,            "~>0.4.1"
   gem 'whenever'        
-  gem 'delayed_job'#,            "~>1.8.4"
+  # gem 'delayed_job'#,            "~>1.8.4"
+  # gem 'delayed_job_active_record'
   gem "airbrake",               "~> 3.1.1"
   gem 'backup',                 "~>2.3.1"
   gem 'newrelic_rpm'#,           "~>3.1.1"
@@ -73,11 +78,11 @@ gem 'jquery-rails'
   gem 'fastercsv'
   gem 'bitly'#,                  "0.7.0"
   gem "bcrypt-ruby"#,            "3.0.1"
-  gem "ar-octopus",             "0.6.1"
-  gem "gibbon",                 "0.4.6"
-  gem "spreadsheet",            "0.8.5"
+  gem "ar-octopus"#,             "0.6.1"
+  gem "gibbon"#,                 "0.4.6"
+  gem "spreadsheet"#,            "0.8.5"
   gem "simple_xlsx_reader"# ,    "0.9.7"
-  gem "mysql2"
+  # gem "mysql2"
   # gem "rails-footnotes",'< 3.7.0'
 
   gem "compass", "0.10.6"
@@ -104,7 +109,8 @@ gem 'jquery-rails'
   gem "fakeweb",  "1.3.0"
   gem "mocha"
   gem "delorean"
-  gem "activerecord-mysql-adapter"
+
+
  # gem "rails3-generators"
  # gem "jquery-rails"
  gem "ckeditor"
@@ -116,5 +122,7 @@ gem 'jquery-rails'
  # gem "formtastic", :git => "git://github.com/justinfrench/formtastic.git", :branch => "2-0-stable"
 gem "prototype-rails"
 gem "watu_table_builder", :require => "table_builder"
-gem 'country-select'
-# gem "mogli", :git=>"git@github.com:mmangino/mogli.git"
+# gem 'country-select'
+gem "mogli", :git=>"https://github.com/nishant-n/mogli.git"
+# gem 'cocaine', '0.3.2'
+gem 'dynamic_form'

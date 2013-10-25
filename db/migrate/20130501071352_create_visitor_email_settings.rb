@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateVisitorEmailSettings < ActiveRecord::Migration
   def self.up
     create_table :visitor_email_settings do |t|

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateOtmKeywords < ActiveRecord::Migration
   def self.up
     create_table :otm_keywords do |t|

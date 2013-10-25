@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateMenuItemKeywords < ActiveRecord::Migration
   def self.up
     create_table :menu_item_keywords do |t|

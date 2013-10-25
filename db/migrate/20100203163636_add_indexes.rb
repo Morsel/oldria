@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddIndexes < ActiveRecord::Migration
   def self.up
     # These were generated using the rails_indexes plugin

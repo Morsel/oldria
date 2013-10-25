@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateSeatingAreas < ActiveRecord::Migration
   def self.up
     create_table :seating_areas do |t|

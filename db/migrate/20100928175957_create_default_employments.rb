@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateDefaultEmployments < ActiveRecord::Migration
   def self.up
     create_table :default_employments do |t|

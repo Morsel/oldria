@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateMediaRequestConversations < ActiveRecord::Migration
   def self.up
     create_table :media_request_conversations do |t|

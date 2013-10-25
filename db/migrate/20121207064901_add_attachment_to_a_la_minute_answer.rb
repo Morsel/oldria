@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddAttachmentToALaMinuteAnswer < ActiveRecord::Migration
   def self.up
     add_column :a_la_minute_answers, :attachment_file_name, :string

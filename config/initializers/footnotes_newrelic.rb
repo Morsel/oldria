@@ -1,3 +1,4 @@
+
 if defined?(Footnotes)
   module Footnotes
     class Filter

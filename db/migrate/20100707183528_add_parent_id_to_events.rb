@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddParentIdToEvents < ActiveRecord::Migration
   def self.up
     add_column :events, :parent_id, :integer

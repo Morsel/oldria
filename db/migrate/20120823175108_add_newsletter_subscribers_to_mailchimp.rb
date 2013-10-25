@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddNewsletterSubscribersToMailchimp < ActiveRecord::Migration
   def self.up
     mc = MailchimpConnector.new

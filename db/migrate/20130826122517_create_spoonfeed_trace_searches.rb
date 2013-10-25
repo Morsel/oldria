@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateSpoonfeedTraceSearches < ActiveRecord::Migration
   def self.up
     create_table :spoonfeed_trace_searches do |t|

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddRolesDescriptionToProfileQuestions < ActiveRecord::Migration
   def self.up
     add_column :profile_questions, :roles_description, :text

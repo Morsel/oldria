@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateProfileAnswers < ActiveRecord::Migration
   def self.up
     create_table :profile_answers do |t|

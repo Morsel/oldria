@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddCoulmnsToApprenticeships < ActiveRecord::Migration
   def self.up
     add_column :apprenticeships, :start_date, :date

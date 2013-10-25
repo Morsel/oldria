@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateFeedSubscriptions < ActiveRecord::Migration
   def self.up
     create_table :feed_subscriptions do |t|

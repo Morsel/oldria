@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class ConvertFacebookIdsToStrings < ActiveRecord::Migration
   def self.up
     change_column :users, :facebook_id, :string

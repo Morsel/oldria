@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateTraceKeywords < ActiveRecord::Migration
   def self.up
     create_table :trace_keywords do |t|

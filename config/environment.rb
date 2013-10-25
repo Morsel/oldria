@@ -1,5 +1,8 @@
+
 # Be sure to restart your server when you modify this file
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.14' unless defined? RAILS_GEM_VERSION
 
@@ -17,4 +20,5 @@ BITLY_CONFIG = YAML.load(File.read(Rails.root + 'config' + 'bitly.yml'))[Rails.e
 
 Bitly.use_api_version_3
 ActionMailer::Base.default :content_type => "text/html"
+
 

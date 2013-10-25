@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddJobIdsToPromotions < ActiveRecord::Migration
   def self.up
     add_column :promotions, :twitter_job_id, :integer

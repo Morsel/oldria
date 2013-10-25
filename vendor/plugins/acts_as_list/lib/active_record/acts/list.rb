@@ -78,7 +78,7 @@ module ActiveRecord
       # by assuming the object to be the item in the list, so <tt>chapter.move_lower</tt> would move that chapter
       # lower in the list of all chapters. Likewise, <tt>chapter.first?</tt> would return +true+ if that chapter is
       # the first in the list of all chapters.
-      module InstanceMethods
+      #module InstanceMethods #http://stackoverflow.com/questions/8683536/the-instancemethods-module-inside-activesupportconcern-deprecation-warning
         # Insert the item at the given position (defaults to the top position of 1).
         def insert_at(position = 1)
           insert_at_position(position)
@@ -255,7 +255,7 @@ module ActiveRecord
             increment_positions_on_lower_items(position)
             self.update_attribute(position_column, position)
           end
-      end 
+      #end 
     end
   end
 end

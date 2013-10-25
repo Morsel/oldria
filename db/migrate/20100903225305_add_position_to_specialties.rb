@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddPositionToSpecialties < ActiveRecord::Migration
   def self.up
     add_column :specialties, :position, :integer

@@ -1,3 +1,4 @@
+
 module HasSubscription
 
   def has_subscription
@@ -9,10 +10,10 @@ module HasSubscription
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
           Date.today]}
 
-    include InstanceMethods
+    #include InstanceMethods
   end
 
-  module InstanceMethods
+#  module InstanceMethods #http://stackoverflow.com/questions/8683536/the-instancemethods-module-inside-activesupportconcern-deprecation-warning
     def braintree_customer_id
       "#{self.class}_#{self.id}"
     end
@@ -263,6 +264,6 @@ module HasSubscription
       end
     end
   end
-end
+# end
 
 ActiveRecord::Base.extend(HasSubscription)

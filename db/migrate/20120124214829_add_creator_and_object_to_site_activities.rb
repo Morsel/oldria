@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddCreatorAndObjectToSiteActivities < ActiveRecord::Migration
   def self.up
     add_column :site_activities, :creator_id, :integer

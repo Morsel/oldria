@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreatePromotionTypes < ActiveRecord::Migration
   def self.up
     create_table :promotion_types do |t|

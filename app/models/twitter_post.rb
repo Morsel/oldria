@@ -1,4 +1,5 @@
 class TwitterPost < SocialPost
+	attr_accessible :post_at, :content
   def input_value
     content == source.twitter_message ? '' : content
   end

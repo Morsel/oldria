@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
 
   has_one :invitation, :foreign_key => "invitee_id"
   has_subscription
-
+  include HasSubscription
   has_many :user_editors, :dependent => :destroy
   has_many :editors, :through => :user_editors
 

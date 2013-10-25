@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class MakeAccoladesPolymorphic < ActiveRecord::Migration
   def self.up
     rename_column :accolades, :profile_id, :accoladable_id

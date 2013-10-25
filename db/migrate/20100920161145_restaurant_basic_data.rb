@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class RestaurantBasicData < ActiveRecord::Migration
   def self.up
     add_column :restaurants, :description, :string, :length => 250

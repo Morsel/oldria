@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class RemoveCulinaryFromSchools < ActiveRecord::Migration
   def self.up
     remove_column :schools, :culinary

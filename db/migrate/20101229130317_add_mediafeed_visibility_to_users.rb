@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddMediafeedVisibilityToUsers < ActiveRecord::Migration
   def self.up
     add_column :users, :mediafeed_visible, :boolean, :default => true

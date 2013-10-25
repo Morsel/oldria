@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddStateToMetropolitanAreas < ActiveRecord::Migration
   def self.up
     add_column :metropolitan_areas, :state, :string

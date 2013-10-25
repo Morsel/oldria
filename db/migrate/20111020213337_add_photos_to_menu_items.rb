@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddPhotosToMenuItems < ActiveRecord::Migration
   def self.up
     add_column :menu_items, :photo_file_name,    :string

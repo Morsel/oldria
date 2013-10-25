@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateDateRanges < ActiveRecord::Migration
   def self.up
     create_table :date_ranges do |t|

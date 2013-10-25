@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddPositionToTopics < ActiveRecord::Migration
   def self.up
     add_column :topics, :position, :integer

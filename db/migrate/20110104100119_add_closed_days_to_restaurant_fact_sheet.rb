@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddClosedDaysToRestaurantFactSheet < ActiveRecord::Migration
   def self.up
     add_column :restaurant_fact_sheets, :days_closed, :string

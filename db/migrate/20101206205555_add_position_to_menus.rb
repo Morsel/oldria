@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddPositionToMenus < ActiveRecord::Migration
   def self.up
     add_column :menus, :position, :integer

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class ChangeMediaRequestsToSubjectMatter < ActiveRecord::Migration
   def self.up
     rename_column :media_requests, :media_request_type_id, :subject_matter_id

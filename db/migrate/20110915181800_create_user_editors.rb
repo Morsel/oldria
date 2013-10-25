@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateUserEditors < ActiveRecord::Migration
   def self.up
     create_table :user_editors do |t|

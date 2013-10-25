@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateSpecialties < ActiveRecord::Migration
   def self.up
     create_table :specialties do |t|

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateBackupTables < ActiveRecord::Migration
   def self.up
     create_table :backup do |t|

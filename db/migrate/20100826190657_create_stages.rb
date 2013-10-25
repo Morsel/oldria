@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateStages < ActiveRecord::Migration
   def self.up
     create_table :stages do |t|

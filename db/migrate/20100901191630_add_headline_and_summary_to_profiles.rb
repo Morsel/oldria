@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddHeadlineAndSummaryToProfiles < ActiveRecord::Migration
   def self.up
     add_column :profiles, :headline, :string, :default => ""

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class MoveSoapboxPreferenceToEmployments < ActiveRecord::Migration
   def self.up
     add_column :employments, :post_to_soapbox, :boolean, :default => true

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddCreditToAttachments < ActiveRecord::Migration
   def self.up
     add_column :attachments, :credit, :string

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class ChangeUserOnProfileAnswersToPolymorphic < ActiveRecord::Migration
   def self.up
     rename_column :profile_answers, :user_id, :responder_id

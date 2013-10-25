@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateCulinarySchools < ActiveRecord::Migration
   def self.up
     create_table :culinary_schools do |t|

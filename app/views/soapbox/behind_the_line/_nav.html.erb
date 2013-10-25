@@ -1,5 +1,5 @@
 <nav id="topic_nav" class="topic-nav clearfix">
-    <%= link_to "<span>Next:</span> #{truncate(next_topic.title, :length => 20, :omission=>'&hellip;')}", soapbox_btl_topic_path(next_topic), :class => "next" if next_topic %>
+    <%= link_to "<span>Next:</span> #{truncate(next_topic.title, :length => 20, :omission=>'&hellip;')}".html_safe, soapbox_btl_topic_path(next_topic), :class => "next" if next_topic %>
     <%= link_to "All Topics", soapbox_profile_questions_path, :class => "all-topics" %>
-    <%= link_to "<span>Prev:</span> #{truncate(prev_topic.title, :length => 20, :omission=>'&hellip;')}", soapbox_btl_topic_path(prev_topic), :class => "prev" if prev_topic %>
+    <%= link_to "<span>Prev:</span> #{truncate(prev_topic.title, :length => 20, :omission=>'&hellip;')}".html_safe, soapbox_btl_topic_path(prev_topic), :class => "prev" if prev_topic %>
 </nav>

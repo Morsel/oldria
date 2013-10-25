@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class TransferRestaurantBtlToNewModels < ActiveRecord::Migration
   def self.up
     # Restaurant topics were created in an earlier migration

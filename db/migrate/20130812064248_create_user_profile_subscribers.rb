@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateUserProfileSubscribers < ActiveRecord::Migration
   def self.up
     create_table :user_profile_subscribers do |t|

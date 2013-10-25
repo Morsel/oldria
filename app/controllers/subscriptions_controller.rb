@@ -13,7 +13,6 @@ class SubscriptionsController < ApplicationController
   def new
     @tr_data = @braintree_connector.braintree_data
     @customer = Customer.new
-    session[:payment_decline] = "1" if session[:payment_decline].nil?
   end
 
   def edit
@@ -42,27 +41,12 @@ class SubscriptionsController < ApplicationController
           @braintree_customer.make_premium!(bt_result)
         end
       end
-      # delete existing delayed_job if present
-      Delayed::Job.find(:all,:conditions=>["handler LIKE ?","%Restaurant:#{@braintree_customer.id}\nmethod: :send_user_alert_for_payment_declined%"]).map(&:destroy)
-      @braintree_customer.update_attributes(:count=>nil)
-      
       flash[:success] = (request_kind == "update_customer")? "Thanks! Your payment information has been updated." : "Thanks for upgrading to Premium!"
       redirect_to customer_edit_path(@braintree_customer)
     else      
-      if Delayed::Job.find(:all,:conditions=>["handler LIKE ?","%Restaurant:#{@braintree_customer.id}\nmethod: :send_user_alert_for_payment_declined%"]).blank?
-        [0,10,20].each do |day|        
-            @braintree_customer.send_at(day.days.from_now,:send_user_alert_for_payment_declined,@braintree_customer)
-        end
-      end      
-      if session[:payment_decline] == "3" #TODU make account to basic if payement decline
-        session.delete(:payment_decline)
-        @braintree_customer.admin_cancel
-      else 
-        session[:payment_decline] = "#{(session[:payment_decline].to_i + 1)}"
-      end
-      UserMailer.deliver_send_payment_error(@braintree_customer.try(:name).try(:capitalize),bt_result.message)
+      UserMailer.send_payment_error(@braintree_customer.try(:name).try(:capitalize),bt_result.message).deliver
       Rails.logger.info "[Braintree Error Message] #{bt_result.message}"
-      flash[:error] = "Whoops. We couldn't process your credit card with the information you provided due to the following reason: <br /> #{bt_result.message} <br /> If you continue to experience issues, <a href='mailto:billing@restaurantintelligenceagency.com?subject=Payment issue!'>Please contact us.</a>"
+      flash[:error] = "Whoops. We couldn't process your credit card with the information you provided due to the following reason: <br /> #{bt_result.message} <br /> If you continue to experience issues, <a href='mailto:billing@restaurantintelligenceagency.com?subject=Payment issue!'>Please contact us.</a>".html_safe
       if request_kind == 'update_customer'
         redirect_to(edit_subscription_path(@braintree_customer))
       else

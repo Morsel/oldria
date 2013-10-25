@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateHqSlides < ActiveRecord::Migration
   def self.up
     create_table :hq_slides do |t|

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class FeatureIndexes < ActiveRecord::Migration
   def self.up
     add_index :restaurant_features, [:restaurant_feature_category_id],

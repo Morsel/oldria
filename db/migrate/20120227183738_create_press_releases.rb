@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreatePressReleases < ActiveRecord::Migration
   def self.up
     create_table :press_releases do |t|

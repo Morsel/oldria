@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class MakeSoapboxSlidesGeneric < ActiveRecord::Migration
   def self.up
     rename_table :soapbox_slides, :slides

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddGeneralAttributeToSubjectMatters < ActiveRecord::Migration
   def self.up
     add_column :subject_matters, :general, :boolean

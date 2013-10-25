@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddPairingToMenuItems < ActiveRecord::Migration
   def self.up
     add_column :menu_items, :pairing, :string

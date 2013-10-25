@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateCoachedStatusUpdates < ActiveRecord::Migration
   def self.up
     create_table :coached_status_updates do |t|

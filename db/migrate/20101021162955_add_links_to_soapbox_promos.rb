@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddLinksToSoapboxPromos < ActiveRecord::Migration
   def self.up
     add_column :soapbox_promos, :link, :string

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddMetroAndRegionToProfiles < ActiveRecord::Migration
   def self.up
     add_column :profiles, :metropolitan_area_id, :integer

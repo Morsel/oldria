@@ -2,7 +2,7 @@
     <h3 id="btl-title"><span class="btl-art">Behind the Line:</span> <%= user.name %></h3>
     <% if can?(:manage, user) && !soapbox? %>
     <div class="edit_profile_link">
-        <%= link_to "<span>Answer more questions!</span>", user_behind_the_line_path(user) %>
+        <%= link_to "<span>Answer more questions!</span>".html_safe, user_behind_the_line_path(user) %>
     </div>
     <% end %>
     <ul class="box">
@@ -16,5 +16,5 @@
         </li>
         <% end %>
     </ul>
-    <p class="view_all"><%= link_to "View all Topics &raquo;", soapbox_user_profile_questions_path(:user_id => user.id) %></p>
+    <p class="view_all"><%= link_to "View all Topics &raquo;".html_safe, soapbox_user_profile_questions_path(:user_id => user.id) %></p>
 </div><!--#behindline-->

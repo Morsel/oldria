@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddMediaEnquiryNotificationToUsers < ActiveRecord::Migration
   def self.up
     add_column :users, :media_inquiries, :boolean, :default => true

@@ -45,6 +45,7 @@ require 'chronic'
 class Restaurant < ActiveRecord::Base
   apply_addresslogic
   has_subscription
+  include HasSubscription
   include FacebookPageConnect
   include TwitterAuthorization
 

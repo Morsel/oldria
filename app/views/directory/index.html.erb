@@ -1,5 +1,5 @@
 <% title "Personal Profile Directory" %>
-<%= title_for_search %>
+<%= title_for_search.html_safe if title_for_search %>
 <% if @use_search %>
 	<div id="directory_search">
 		<div class="color-box-restaurant">

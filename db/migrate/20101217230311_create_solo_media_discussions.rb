@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateSoloMediaDiscussions < ActiveRecord::Migration
   def self.up
     create_table :solo_media_discussions do |t|

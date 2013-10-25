@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class RenameAcheivementsToAchievementsOnNonculinaryEnrollments < ActiveRecord::Migration
   def self.up
     rename_column :nonculinary_enrollments, :acheivements, :achievements

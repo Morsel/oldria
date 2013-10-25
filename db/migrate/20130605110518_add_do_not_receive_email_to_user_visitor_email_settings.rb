@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddDoNotReceiveEmailToUserVisitorEmailSettings < ActiveRecord::Migration
   def self.up
   	remove_column :user_visitor_email_settings, :is_approved

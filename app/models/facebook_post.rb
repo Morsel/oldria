@@ -1,4 +1,5 @@
 class FacebookPost < SocialPost
+  attr_accessible :post_at, :content
   def input_value
     content == source.facebook_message ? '' : content
   end

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateSiteActivities < ActiveRecord::Migration
   def self.up
     create_table :site_activities do |t|

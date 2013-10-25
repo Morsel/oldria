@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateProfileRestaurants < ActiveRecord::Migration
   def self.up
     create_table :profile_restaurants do |t|

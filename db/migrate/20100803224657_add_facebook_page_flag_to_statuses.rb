@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddFacebookPageFlagToStatuses < ActiveRecord::Migration
   def self.up
     add_column :statuses, :queue_for_facebook_page, :boolean, :default => false

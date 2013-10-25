@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateJamesBeardRegions < ActiveRecord::Migration
   def self.up
     create_table :james_beard_regions do |t|

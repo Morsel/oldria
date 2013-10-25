@@ -15,8 +15,10 @@
 
 class SoapboxEntry < ActiveRecord::Base
 
-include ActionDispatch::Routing::UrlFor
-  default_url_options[:host] = DEFAULT_HOST
+  # include ActionView::Helpers::TextHelper  
+  # include ActionDispatch::Routing::UrlFor
+  # include Rails.application.routes.url_helpers
+  # default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :featured_item, :polymorphic => true
 

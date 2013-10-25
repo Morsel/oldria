@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class DropAccountTypes < ActiveRecord::Migration
   def self.up
     drop_table :account_types

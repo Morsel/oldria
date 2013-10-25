@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateDiscussionSeats < ActiveRecord::Migration
   def self.up
     create_table :discussion_seats do |t|

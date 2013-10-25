@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddUserIdToStatuses < ActiveRecord::Migration
   def self.up
     add_column :statuses, :user_id, :integer

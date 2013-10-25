@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateALaMinuteQuestions < ActiveRecord::Migration
   def self.up
     create_table :a_la_minute_questions do |t|

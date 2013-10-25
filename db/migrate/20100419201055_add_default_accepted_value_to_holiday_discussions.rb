@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddDefaultAcceptedValueToHolidayDiscussions < ActiveRecord::Migration
   def self.up
     change_column_default :holiday_discussions, :accepted, false

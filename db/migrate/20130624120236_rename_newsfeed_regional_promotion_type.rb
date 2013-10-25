@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class RenameNewsfeedRegionalPromotionType < ActiveRecord::Migration
    def self.up
         rename_table :newsfeed_regional_promotion_types, :newsfeed_promotion_types

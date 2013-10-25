@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateSocialPosts < ActiveRecord::Migration
   def self.up
     create_table :social_posts do |t|

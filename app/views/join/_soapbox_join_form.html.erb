@@ -31,7 +31,8 @@
         <p class="inline-hints margin-top-zero">Your role helps the media find you when they are looking for sources for stories.  If you are "chef/owner" select that and not "owner": you will receive more opportunities!      
        </p>
        <div class="alignleft">
-             <%= select_tag "restaurant_role", "<option value=''>Select your role</option>" +options_from_collection_for_select(RestaurantRole.all, :id, :name), :id => "restaurant_role", :class => "standard-filler join-us", :placeholder => "Role" %>
+       <%= select_tag "restaurant_role", "<option value=''>Select your role</option>".html_safe+options_from_collection_for_select(RestaurantRole.all, :id, :name), :id => "restaurant_role", :class => "standard-filler join-us", :placeholder => "Role" %>
+             <%#= select_tag "restaurant_role", "<option value=''>Select your role</option>".html_safe + options_from_collection_for_select(RestaurantRole.all, :id, :name).html_safe, :id => "restaurant_role", :class => "standard-filler join-us", :placeholder => "Role" %>
          </div> 
         <div class="clear padding-top-ten"><b>Area(s) of expertise</b></div>
         <p class="inline-hints">I am comfortable answering questions and speaking to the media about the following topics:</p>

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddJobIdsToMenuItems < ActiveRecord::Migration
   def self.up
     add_column :menu_items, :twitter_job_id, :integer

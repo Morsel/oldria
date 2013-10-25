@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddCategoriesToRestaurantRoles < ActiveRecord::Migration
   def self.up
     add_column :restaurant_roles, :category, :string

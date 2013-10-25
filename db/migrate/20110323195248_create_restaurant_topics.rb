@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateRestaurantTopics < ActiveRecord::Migration
   def self.up
     add_column :topics, :type, :string

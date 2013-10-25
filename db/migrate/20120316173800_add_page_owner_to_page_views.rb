@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddPageOwnerToPageViews < ActiveRecord::Migration
   def self.up
     add_column :page_views, :page_owner_id, :integer

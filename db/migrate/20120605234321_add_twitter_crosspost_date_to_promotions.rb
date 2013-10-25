@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddTwitterCrosspostDateToPromotions < ActiveRecord::Migration
   def self.up
     add_column :promotions, :post_to_twitter_at, :datetime

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateHolidayDiscussionReminders < ActiveRecord::Migration
   def self.up
     create_table :holiday_discussion_reminders do |t|

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddEmploymentSearchIdToHolidays < ActiveRecord::Migration
   def self.up
     add_column :holidays, :employment_search_id, :integer

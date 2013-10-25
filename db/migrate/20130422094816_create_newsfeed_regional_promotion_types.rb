@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateNewsfeedRegionalPromotionTypes < ActiveRecord::Migration
   def self.up
     create_table :newsfeed_regional_promotion_types do |t|

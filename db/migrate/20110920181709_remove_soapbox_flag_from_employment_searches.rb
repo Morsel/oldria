@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class RemoveSoapboxFlagFromEmploymentSearches < ActiveRecord::Migration
   def self.up
     EmploymentSearch.all.each do |search|

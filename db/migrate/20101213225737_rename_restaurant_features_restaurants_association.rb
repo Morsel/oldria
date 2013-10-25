@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class RenameRestaurantFeaturesRestaurantsAssociation < ActiveRecord::Migration
   def self.up
     rename_table :restaurant_features_restaurants, :restaurant_feature_items

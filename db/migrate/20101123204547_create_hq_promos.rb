@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateHqPromos < ActiveRecord::Migration
   def self.up
     create_table :hq_promos do |t|

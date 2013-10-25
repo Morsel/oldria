@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddOpenDateToRestaurant < ActiveRecord::Migration
   def self.up
     add_column :restaurants, :opening_date, :date

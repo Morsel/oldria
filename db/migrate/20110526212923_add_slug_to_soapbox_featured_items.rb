@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddSlugToSoapboxFeaturedItems < ActiveRecord::Migration
   def self.up
     add_column :admin_messages, :slug, :string

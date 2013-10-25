@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddColumnToUserRestaurantVisitor < ActiveRecord::Migration
  def self.up
   	add_column :user_restaurant_visitors, :user_id, :integer, :default => false

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class ChangeNextEmailAtTimeWeeklyUser < ActiveRecord::Migration
   def self.up
     User.all.each do |user|

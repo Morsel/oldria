@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddLastAndNextNewsletterDatestampsToRestaurants < ActiveRecord::Migration
   def self.up
     add_column :restaurants, :last_newsletter_at, :datetime

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateTastingMenus < ActiveRecord::Migration
   def self.up
     create_table :tasting_menus do |t|

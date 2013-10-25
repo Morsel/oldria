@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddCommentsCountToMediaRequestConversations < ActiveRecord::Migration
   def self.up
     add_column :media_request_conversations, :comments_count, :integer, :default => 0

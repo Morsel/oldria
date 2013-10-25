@@ -1,3 +1,4 @@
+
 # Backup Configuration File
 #
 # Use the "backup" block to add backup settings to the configuration file.
@@ -36,7 +37,7 @@ end
 #   rake backup:run trigger='backup-db-to-s3'
 backup 'backup-db-to-s3' do
 
-  adapter :mysql do
+  adapter :mysql2 do
     user        'ria_prod'
     password    'xnw2sh9ZkFvezm54qo'
     database    'ria_production'

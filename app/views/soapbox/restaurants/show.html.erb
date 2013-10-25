@@ -52,16 +52,16 @@
       <% end -%>
 
       <ul class="box">
-        <% reset_cycle('default') -%>
+        <%= reset_cycle('default') -%>
         <% for item in @menu_items -%>
         <li class="<%= cycle("odd", "even") %>">
             <%= link_to soapbox_menu_item_path(item) do %>
-            <h5><%= item.name %>: <%= truncate(item.description, :length => 100) %></h5>
+            <h5><%= item.name.html_safe  %>: <%= truncate(item.description, :length => 100).html_safe %></h5>
             <% end %>
         </li>
         <% end -%>
       </ul>
-      <p class="view_all"><%= link_to "View all &raquo;", soapbox? ? soapbox_menu_items_path(:restaurant_id => @restaurant) : restaurant_menu_items_path(:restaurant_id => @restaurant) %></p>
+      <p class="view_all"><%= link_to "View all &raquo;".html_safe , soapbox? ? soapbox_menu_items_path(:restaurant_id => @restaurant) : restaurant_menu_items_path(:restaurant_id => @restaurant) %></p>
   </div><!--#on_the_menu-->
   <% end %>
 
@@ -75,18 +75,18 @@
       <% end -%>
 
       <ul class="box">
-        <% reset_cycle('default') -%>
+        <%= reset_cycle('default') -%>
         <% for promotion in @promotions -%>
         <li class="<%= cycle("even", "odd") %>">
             <%= link_to soapbox_promotion_path(promotion) do %>
-            <h5><%= promotion.title %>: <%= Loofah::Helpers.sanitize(truncate(promotion.details)) %></h5>
+            <h5><%= promotion.title.html_safe  %>: <%= Loofah::Helpers.sanitize(truncate(promotion.details)).html_safe  %></h5>
             <%= promotion.start_date.to_formatted_s(:long) %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %> <%= "- #{promotion.date_description}" if promotion.date_description.present? %>
             <div><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></div>
             <% end %>
         </li>
         <% end -%>
       </ul>
-      <p class="view_all"><%= link_to "View all &raquo;", soapbox? ? soapbox_promotions_path(:restaurant_id => @restaurant) : restaurant_promotions_path(:restaurant_id => @restaurant) %></p>
+      <p class="view_all"><%= link_to "View all &raquo;".html_safe , soapbox? ? soapbox_promotions_path(:restaurant_id => @restaurant) : restaurant_promotions_path(:restaurant_id => @restaurant) %></p>
   </div><!--#newsfeed-->
   <% end %>
   <!-- END OTM / NEWS FEED -->

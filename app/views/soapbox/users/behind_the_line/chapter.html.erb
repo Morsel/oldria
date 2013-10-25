@@ -8,7 +8,7 @@
     title: $('title').text().replace('Spoonfeed','Soapbox')
   }
 <% end %>
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>", soapbox_profile_path(@user.username) %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>".html_safe, soapbox_profile_path(@user.username) %></h1>
 
 <h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
 <%= render :partial => 'questions/topic_nav', :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>
@@ -19,10 +19,10 @@
     <% if @next.present? or @previous.present? -%>
       <nav id="chapter_nav" class="topic-nav clearfix">
         <% if @next.present? -%>
-          <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}", soapbox_user_btl_chapter_path(:user_id => @user.id, :chapter_id => @next), :class => 'next' %>
+          <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}".html_safe, soapbox_user_btl_chapter_path(:user_id => @user.id, :chapter_id => @next), :class => 'next' %>
         <% end -%>
         <% if @previous.present? -%>
-          <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}", soapbox_user_btl_chapter_path(:user_id => @user.id, :chapter_id => @previous), :class => 'prev' %>
+          <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}".html_safe, soapbox_user_btl_chapter_path(:user_id => @user.id, :chapter_id => @previous), :class => 'prev' %>
         <% end -%>
       </nav>
     <% end -%>

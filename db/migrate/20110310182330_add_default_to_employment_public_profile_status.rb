@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddDefaultToEmploymentPublicProfileStatus < ActiveRecord::Migration
   def self.up
     change_column_default :employments, :public_profile, true

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateAccolades < ActiveRecord::Migration
   def self.up
     create_table :accolades do |t|

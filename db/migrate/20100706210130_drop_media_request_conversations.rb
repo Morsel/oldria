@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class DropMediaRequestConversations < ActiveRecord::Migration
   def self.up
     drop_table :media_request_conversations

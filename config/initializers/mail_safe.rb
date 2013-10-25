@@ -1,3 +1,4 @@
+
 # These settings are for Mail Safe gem
 #
 # http://github.com/myronmarston/mail_safe

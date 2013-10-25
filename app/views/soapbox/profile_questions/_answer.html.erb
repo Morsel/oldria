@@ -3,7 +3,7 @@
     <div>
         <%= truncate(answer.answer, :length => 200) %>
         <% if answer.answer.size > 200 -%>
-        <%= link_to "more &raquo;", soapbox_user_profile_question_path(answer.user, answer.profile_question) %>
+        <%= link_to "more &raquo;".html_safe, soapbox_user_profile_question_path(answer.user, answer.profile_question) %>
         <% end -%>
 		<p><span class="timestamp">Last updated: <%= answer.updated_at.strftime("%b %e %Y") %></span></p>
         <p class="share-this"><%= link_to "Share this entry", soapbox_user_profile_question_path(answer.user, answer.profile_question) %></p>

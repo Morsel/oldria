@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateMediafeedPages < ActiveRecord::Migration
   def self.up
     create_table :mediafeed_pages do |t|

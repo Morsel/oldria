@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class DropExtendedProfileItems < ActiveRecord::Migration
   def self.up
     if connection.tables.include?('extended_profile_items')

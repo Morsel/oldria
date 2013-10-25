@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateEmploymentSearches < ActiveRecord::Migration
   def self.up
     create_table :employment_searches do |t|

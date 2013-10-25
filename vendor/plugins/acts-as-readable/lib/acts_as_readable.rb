@@ -10,7 +10,7 @@ module ActiveRecord
           has_many :readings, :as => :readable
           has_many :users_who_read, :through => :readings, :source => :user
           
-          include ActiveRecord::Acts::Readable::InstanceMethods
+          #include ActiveRecord::Acts::Readable::InstanceMethods
           extend  ActiveRecord::Acts::Readable::SingletonMethods
         end
       end
@@ -25,7 +25,7 @@ module ActiveRecord
         end
       end
       
-      module InstanceMethods
+      #module InstanceMethods #http://stackoverflow.com/questions/8683536/the-instancemethods-module-inside-activesupportconcern-deprecation-warning
         def read_by!(user)
           readings << Reading.new(:user_id => user.id)
         end
@@ -37,7 +37,7 @@ module ActiveRecord
         def read_by?(user)
           !!users_who_read.find(:first, :conditions => ["user_id = ?",user.id])
         end
-      end
+      #end
     end
   end
 end

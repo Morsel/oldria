@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreatePushNotificationUsers < ActiveRecord::Migration
   def self.up
     create_table :push_notification_users do |t|

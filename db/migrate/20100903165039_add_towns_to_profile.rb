@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddTownsToProfile < ActiveRecord::Migration
   def self.up
     add_column :profiles, :hometown, :string

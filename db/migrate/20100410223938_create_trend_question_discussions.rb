@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateTrendQuestionDiscussions < ActiveRecord::Migration
   def self.up
     create_table :trend_question_discussions do |t|

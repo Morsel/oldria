@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class ChangeRespondersBackToUsers < ActiveRecord::Migration
   def self.up
     rename_column :question_roles, :responder_id, :restaurant_role_id

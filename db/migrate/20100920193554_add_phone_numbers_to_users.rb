@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddPhoneNumbersToUsers < ActiveRecord::Migration
   def self.up
     add_column :users, :phone_number, :string

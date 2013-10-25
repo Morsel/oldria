@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class MakePromosGeneric < ActiveRecord::Migration
   def self.up
     rename_table :soapbox_promos, :promos

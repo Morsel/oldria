@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateChapterQuestionMemberships < ActiveRecord::Migration
   def self.up
     create_table :chapter_question_memberships do |t|

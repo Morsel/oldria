@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateNewsletterSubscriptions < ActiveRecord::Migration
   def self.up
     create_table :newsletter_subscriptions do |t|

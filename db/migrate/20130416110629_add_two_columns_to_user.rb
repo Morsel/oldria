@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddTwoColumnsToUser < ActiveRecord::Migration
   def self.up
   	add_column :users, :newsfeed_writer_id, :integer

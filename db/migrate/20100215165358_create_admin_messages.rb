@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateAdminMessages < ActiveRecord::Migration
   def self.up
     create_table :admin_messages do |t|

@@ -18,7 +18,7 @@
     <h3><%= promotion.headline %></h3>
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
     <div>
-        <div class="details"><%= Loofah::Helpers.sanitize(promotion.details) %></div>
+        <div class="details"><%= Loofah::Helpers.sanitize(promotion.details).html_safe %></div>
         <p><%= link_to promotion.link,("http://"+ promotion.link.gsub("http://","")) ,:target=>"_blank" %></p>
         <% if promotion.attachment.file? -%>
         <p><%= link_to promotion.attachment_file_name, promotion.attachment.url %></p>

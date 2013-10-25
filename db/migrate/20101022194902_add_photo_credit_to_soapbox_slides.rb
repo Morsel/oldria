@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddPhotoCreditToSoapboxSlides < ActiveRecord::Migration
   def self.up
     add_column :soapbox_slides, :photo_credit, :string

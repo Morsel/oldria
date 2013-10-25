@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateMetropolitanAreas < ActiveRecord::Migration
   def self.up
     create_table :metropolitan_areas do |t|

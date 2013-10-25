@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateAdminEmailStopwords < ActiveRecord::Migration
   def self.up
     create_table :email_stopwords do |t|

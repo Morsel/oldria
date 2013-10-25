@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateQuestionPages < ActiveRecord::Migration
   def self.up
     create_table :question_pages do |t|

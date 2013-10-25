@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class CreateRequestCategorizations < ActiveRecord::Migration
   def self.up
     create_table :request_categorizations do |t|

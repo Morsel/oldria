@@ -22,7 +22,7 @@
     <div id="feed-bottom"></div>
     <footer>
       <div id="activity-chooser-all">
-        <span><%= link_to "View all &nbsp;&#187;", soapbox_promotions_path, :id => "view-all-questions" %></span>
+        <span><%= link_to "View all &nbsp;&#187;".html_safe, soapbox_promotions_path, :id => "view-all-questions" %></span>
       </div>
     </footer>
   </aside><!-- /recent-activity -->

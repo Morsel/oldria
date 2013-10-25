@@ -18,7 +18,7 @@
     <div id="feed-bottom"></div>
     <footer>
       <nav id="activity-chooser-all">
-        <span><%= link_to "View all &nbsp;&#187;", "#", :id => "view-all-questions", :onClick => "show_all_questions_linker();" %></span>
+        <span><%= link_to "View all &nbsp;&#187;".html_safe, "#", :id => "view-all-questions", :onClick => "show_all_questions_linker();" %></span>
         <% javascript_tag do %>
           SOAPBOX_ENTRIES_URLS = ["<%= trend_soapbox_soapbox_entries_path(:view_all => true) %>", "<%= qotd_soapbox_soapbox_entries_path(:view_all => true) %>"];
         <% end %>

@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddPhotoToALaMinuteAnswer < ActiveRecord::Migration
   def self.up
     add_column :a_la_minute_answers, :photo_file_name, :string

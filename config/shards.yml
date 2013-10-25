@@ -1,3 +1,4 @@
+
 octopus:
   environments:
       - development
@@ -5,19 +6,20 @@ octopus:
       - staging
   development:
     webservice:
-      username: ria_staging
-      password: 2x5qhe1lY2
-      adapter: mysql
-      database: ria_cashew
+      username: root
+      password: 
+      adapter: mysql2
+      database: ria_8oct
+      socket: /opt/lampp/var/mysql/mysql.sock
   production:
     webservice:
       username: ria_staging
       password: 2x5qhe1lY2
-      adapter: mysql
+      adapter: mysql2
       database: ria_cashew      
   staging:
     webservice:
       username: ria_staging
       password: 2x5qhe1lY2
-      adapter: mysql
+      adapter: mysql2
       database: ria_cashew

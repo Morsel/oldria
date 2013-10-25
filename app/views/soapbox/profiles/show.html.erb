@@ -113,12 +113,12 @@
 
     <% if @user.profile && @user.profile.specialties.present? %>
     <h5>Specialties</h5>
-    <p><%= @user.profile.specialties.map { |s| link_to s.name, directory_search_link(:specialty_id => s.id) }.to_sentence %></p>
+    <p><%= @user.profile.specialties.map { |s| link_to s.name, directory_search_link(:specialty_id => s.id) }.to_sentence.html_safe %></p>
     <% end %>
 
     <% if @user.profile && @user.profile.cuisines.present? %>
     <h5>Cuisine(s)</h5>
-    <p><%= @user.profile.cuisines.map { |c| link_to c.name, directory_search_link(:cuisine_id => c.id) }.to_sentence %></p>
+    <p><%= @user.profile.cuisines.map { |c| link_to c.name, directory_search_link(:cuisine_id => c.id) }.to_sentence.html_safe %></p>
     <% end %>
 
 </section><!--/profile-summary-->

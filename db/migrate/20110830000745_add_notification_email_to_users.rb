@@ -1,3 +1,4 @@
+#encoding: utf-8 
 class AddNotificationEmailToUsers < ActiveRecord::Migration
   def self.up
     add_column :users, :notification_email, :string
