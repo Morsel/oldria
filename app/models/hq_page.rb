@@ -19,6 +19,8 @@ class HqPage < ActiveRecord::Base
     validates_format_of :slug, :with => /^[\w\d_\-]+$/, :on => :create, :message => "can only contain lowercase letters, numbers, underscores (_) and dashes (-)"
     before_validation :generate_slug!
     before_destroy :deletable? # Prevents accidental deletion of SPECIAL pages
+    attr_accessible :title,:slug,:content
+
 
     friendly_id :slug
 end

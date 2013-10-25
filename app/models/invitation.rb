@@ -45,8 +45,8 @@ class Invitation < ActiveRecord::Base
   end
   
   def send_welcome_and_notify_admins
-    UserMailer.invitation_welcome(self).deliver unless requesting_user_id
-    UserMailer.admin_invitation_notice(self).deliver
+    UserMailer.deliver_invitation_welcome(self) unless requesting_user_id
+    UserMailer.deliver_admin_invitation_notice(self)
   end
 
   def self.build_from_registration(params)

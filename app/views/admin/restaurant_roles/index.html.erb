@@ -5,8 +5,22 @@
 </p>
 
 <%= table_for @restaurant_roles do |t| %>
-    <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
-        t.cell(:name)
-        t.cell(:category) { |r| render :partial => "role_form", :locals => { :role => r, :categories => @categories } }
-    end %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Name') %>
+      <%= t.h('Category') %>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |restaurant_role| %>
+    <%= t.r do %>
+      <%= t.d(h(restaurant_role.name)) %>
+      <%= t.d(h( render :partial => "role_form", :locals => { :role => restaurant_role, :categories => @categories} )) %>
+      <%= t.d(h(link_to "Edit",edit_admin_restaurant_role_path(restaurant_role),:class=>'admin-actions')) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy",admin_restaurant_role_path(restaurant_role), :method => :delete %>
+      </td> 
+    <% end %>
+  <% end %>
 <% end %>

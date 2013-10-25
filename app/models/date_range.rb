@@ -12,4 +12,6 @@
 
 class DateRange < ActiveRecord::Base
   has_many :coached_status_updates
+  attr_accessible :start_date,:end_date,:name
+
 end

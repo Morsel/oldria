@@ -22,6 +22,7 @@ class ALaMinuteQuestion < ActiveRecord::Base
   validates_inclusion_of :kind, :in => KINDS
 
   scope :answered, :joins => :a_la_minute_answers
+  attr_accessible :question,:topic,:kind
 
   # scope :restaurants, :conditions => {:kind => "restaurant"}
   KINDS.each do |kind|

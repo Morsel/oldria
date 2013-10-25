@@ -5,9 +5,22 @@
   <%= link_to "New Feed Category", new_admin_feed_category_path, :class => 'positive button' %>
 </p>
 
-<%= table_for @feed_categories do |t| %>
-  <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
-       t.cell(:name)
-       t.cell(:feeds_count) {|f| f.feeds.size }
-     end %>
-<% end %>
+ <%= table_for(@feed_categories) do |t|  %>
+    <%= t.head do %>
+      <%= t.r do %>
+        <%= t.h('Name') %>
+        <%= t.h('Feeds count') %>
+        <th></th><th></th>
+      <% end %>
+    <% end %>
+    <%= t.body do |feed_category| %>
+      <%= t.r do %>
+        <%= t.d(h(feed_category.name)) %>
+        <%= t.d(h(feed_category.feeds.size)) %>
+        <%= t.d(h(link_to 'Edit', edit_admin_feed_category_path(feed_category),:class=>'admin-actions')) %>
+        <td class="actions destroy_link">
+          <%= link_to "Destroy",admin_feed_category_path(feed_category), :method => :delete %>
+        </td> 
+      <% end %>
+    <% end %>
+  <% end -%>

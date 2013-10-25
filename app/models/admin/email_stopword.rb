@@ -11,5 +11,7 @@
 class Admin::EmailStopword < ActiveRecord::Base
 
   validates_presence_of :phrase
+  attr_accessible :phrase
+
 
 end

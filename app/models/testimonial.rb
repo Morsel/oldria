@@ -37,6 +37,8 @@ class Testimonial < ActiveRecord::Base
   scope :for_page, lambda { |page|
     { :conditions => { :page => page } }
   }
+  
+  attr_accessible :photo,:quote,:person,:page
 
   def self.page_options
     ["RIA HQ", "Spoonfeed"]

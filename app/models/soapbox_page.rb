@@ -12,7 +12,6 @@
 #
 
 class SoapboxPage < ActiveRecord::Base
-
   include PageFeatures
  	extend FriendlyId
   validates_presence_of :title
@@ -20,9 +19,10 @@ class SoapboxPage < ActiveRecord::Base
   validates_format_of :slug, :with => /^[\w\d_\-]+$/, :on => :create, :message => "can only contain lowercase letters, numbers, underscores (_) and dashes (-)"
   before_validation :generate_slug!
   before_destroy :deletable? # Prevents accidental deletion of SPECIAL pages
-
   #has_friendly_id :slug
   #has_friendly_id :slug, :use_slug => true
-    friendly_id :slug#, use: :slugged
+  friendly_id :slug#, use: :slugged
+  attr_accessible :title, :slug, :content
+
 
 end

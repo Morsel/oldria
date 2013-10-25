@@ -1,13 +1,20 @@
 <% title "Invalid Employments" %>
 
-<%= table_for(@employments) do |t| %>
-  
-  <%= t.data do
-      t.cell :employee
-      t.cell :restaurant
-      t.cell (:message) {|p| p.errors.full_messages.to_sentence }
-      t.cell (:action) {|p| link_to "Edit",edit_restaurant_employee_path(p.restaurant,p.employee) }
-
-  end %>
-
+<%= table_for @employments do |t| %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Employee') %>
+      <%= t.h('Restaurant') %>
+      <%= t.h('Message') %>
+      <%= t.h('Action') %>
+    <% end %>
+  <% end %>
+  <%= t.body do |employment| %>
+    <%= t.r do %>
+      <%= t.d(h(employment.employee.try(:name))) %>
+      <%= t.d(h(employment.restaurant.name)) %>
+      <%= t.d(h(employment.errors.full_messages.to_sentence)) %>
+      <%= t.d(h(link_to "Edit",edit_restaurant_employee_path(employment.restaurant,employment.employee))) %>
+    <% end %>
+  <% end %>
 <% end -%>

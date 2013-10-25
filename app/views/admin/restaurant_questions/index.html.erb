@@ -17,20 +17,28 @@
 <%- end -%>
 
 <%= table_for @questions[chapter] do |t| %>
-  <% t.data do
-        t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
-        t.cell(:title)
-        t.cell(:pages, :heading => 'Page') { |c| c.pages_description }
-        t.cell(:notify_link, :heading => '', :cell_html => { :class => 'actions edit_link' }) { |c|
-            link_to('Send Notification', send_notifications_admin_restaurant_question_path(c.id), :method => 'post')
-        }
-        t.cell(:edit_link, :heading => '', :cell_html => {:class => 'actions edit_link'}) { |c|
-          link_to('Edit', edit_admin_restaurant_question_path(:id => c.id))
-        }
-        t.cell(:destroy_link, :heading => '', :cell_html => {:class => 'actions destroy_link'}) { |c|
-          link_to('Destroy', admin_restaurant_question_path(:id => c.id), :method => :destroy)
-        }
-  end %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Title') %>
+      <%= t.h('Page') %>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |que_chap| %>
+    <%= t.r do %>
+      <%= t.d(h(que_chap.title)) %>
+      <%= t.d(h(que_chap.pages_description)) %>
+      <%= t.d(h(link_to "Edit",edit_admin_restaurant_question_path(:id => que_chap.id),:class=>'admin-actions')) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy",admin_restaurant_role_path(:id => que_chap.id), :method => :delete %>
+      </td> 
+    <% end %>
+  <% end %>
 <% end %>
+
+
+
+
 
 <%- end -%>

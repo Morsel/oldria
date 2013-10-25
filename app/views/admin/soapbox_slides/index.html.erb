@@ -3,12 +3,31 @@
 <%= link_to "New Slide", new_admin_soapbox_slide_path, :class => "button positive" %>
 
 <%= table_for(@slides) do |t| %>
-    <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
-	    t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
-	    t.cell(:image) { |c| image_tag c.image.url(:thumb) }
-        t.cell(:photo_credit)
-        t.cell(:title)
-        t.cell(:excerpt)
-        t.cell(:link)
-	end %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Image') %>
+      <%= t.h('Photo credit') %>
+      <%= t.h('Title') %>
+      <%= t.h('Excerpt') %>
+      <%= t.h('Link') %>
+      <th></th>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |slide| %>
+    <%= t.r do %>
+    	<%#= t.d(h(handle , :class => 'small handle'){ "[drag]" }) %> 
+    	<%= t.d(h(image_tag slide.image.url(:thumb))) %>
+      <%= t.d(h(slide.photo_credit)) %> 
+      <%= t.d(h(slide.title)) %>
+      <%= t.d(h(slide.excerpt)) %>
+      <%= t.d(h(slide.link)) %>
+      <%= t.d(h(link_to "Edit",edit_admin_soapbox_slide_path(slide),:class=>'admin-actions')) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy",admin_soapbox_slide_path(slide), :method => :delete %>
+      </td> 
+    <% end %>
+  <% end %>
 <% end %>
+

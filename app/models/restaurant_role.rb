@@ -17,6 +17,8 @@ class RestaurantRole < ActiveRecord::Base
   has_many :question_roles, :dependent => :destroy
   has_many :profile_questions, :through => :question_roles
 
+  attr_accessible :category,:name
+
   validates_presence_of :name
 
   default_scope :order => "#{table_name}.name ASC"

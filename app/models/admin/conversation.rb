@@ -12,7 +12,7 @@
 #
 
 class Admin::Conversation < ActiveRecord::Base
-  self.table_name =  "admin_conversations"
+  set_table_name "admin_conversations"
   acts_as_commentable
   acts_as_readable
 

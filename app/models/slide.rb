@@ -30,4 +30,6 @@ class Slide < ActiveRecord::Base
       :too_long => "Please shorten the text to no more than 200 characters", 
       :allow_blank => true
 
+  attr_accessible :image,:photo_credit,:title,:excerpt,:link
+
 end

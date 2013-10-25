@@ -15,10 +15,8 @@
 
 class SoapboxEntry < ActiveRecord::Base
 
-  # include ActionView::Helpers::TextHelper  
-  # include ActionDispatch::Routing::UrlFor
-  # include Rails.application.routes.url_helpers
-  # default_url_options[:host] = DEFAULT_HOST
+include ActionDispatch::Routing::UrlFor
+  default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :featured_item, :polymorphic => true
 
@@ -36,6 +34,8 @@ class SoapboxEntry < ActiveRecord::Base
               :offset => 1
 
   scope :daily_feature, :conditions => { :daily_feature => true }, :order => "updated_at DESC"
+  attr_accessible :featured_item_id, :featured_item_type, :description, :published_at, :daily_feature
+
 
   def title
     featured_item.title

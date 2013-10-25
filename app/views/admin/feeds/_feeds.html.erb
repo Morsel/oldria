@@ -1,9 +1,23 @@
-<%= table_for(feeds, :class => 'feeds') do |t| %>
- <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
-      t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
-      t.cell :title
-      t.cell :url
-      t.cell :feed_url
-      t.cell :featured, :cell_html => { :class => 'featured' }
-    end %>
-<% end -%>
+ <%= table_for(feeds, :class => 'feeds') do |t|  %>
+    <%= t.head do %>
+      <%= t.r do %>
+        <%= t.h('Title') %>
+        <%= t.h('Url') %>
+        <%= t.h('Feed url') %>
+        <%= t.h('Featured') %>
+        <th></th><th></th><th></th><th></th>
+      <% end %>
+    <% end %>
+    <%= t.body do |feed| %>
+      <%= t.r do %>
+        <%= t.d(h(feed.title)) %>
+        <%= t.d(h(feed.url)) %>
+        <%= t.d(h(feed.feed_url)) %>
+        <%= t.d(h(feed.featured),:class => 'featured') %>
+        <%= t.d(h(link_to 'Edit', edit_admin_feed_path(feed),:class=>'admin-actions')) %>
+        <td class="actions destroy_link">
+          <%= link_to "Destroy",admin_feed_path(feed), :method => :delete %>
+        </td> 
+      <% end %>
+    <% end %>
+  <% end -%>
