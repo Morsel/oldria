@@ -108,7 +108,7 @@ include ActionDispatch::Routing::UrlFor
               "current_user" => user
             }
             if keywords.present? && check_email_frequency(@uves)
-              # UserMailer.deliver_send_chef_user(restaurant_visitors) 
+              UserMailer.deliver_send_chef_user(restaurant_visitors) 
               @connect_media+=1
               create_log_file_for_connect_media(user)
             end

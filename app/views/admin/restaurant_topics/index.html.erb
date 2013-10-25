@@ -6,13 +6,28 @@
 </div>
 
 <%= table_for @topics do |t| %>
-  <% t.data do
-      t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
-      t.cell(:name) { |c| c.title }
-      t.cell(:description)
-      t.cell(:can_be_deleted?) { |c| link_to "delete", admin_restaurant_topic_path(:id => c.id), :method => "delete", :confirm => "Are you sure you want to delete this?" if c.chapters.count == 0 }
-      t.cell(:edit_link, :heading => '', :cell_html => {:class => 'actions edit_link'}) { |c|
-        link_to('Edit', edit_admin_restaurant_topic_url(:id => c.id))
-      }
-    end %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Name') %>
+      <%= t.h('Description') %>
+      <%= t.h('can_be_deleted?') %>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |topic| %>
+    <%= t.r do %>
+      <%= t.d(h(topic.title)) %>
+      <%= t.d(h(topic.description)) %>
+      <% if topic.chapters.count == 0  %>
+      <td class="actions destroy_link">
+          <%= link_to "Destroy",admin_restaurant_topic_path(:id => topic.id), :method => :delete %>
+      </td> 
+      <% else %>
+        <td></td>
+      <% end %>  
+      <%= t.d(h(link_to "Edit",edit_admin_restaurant_topic_url(:id => topic.id),:class=>'admin-actions')) %>
+    <% end %>
+  <% end %>
 <% end %>
+

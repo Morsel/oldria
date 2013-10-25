@@ -14,7 +14,9 @@
 <%= render :partial => "page_index", :collection => @pages, :as => :page %>
 
 <%= content_for :javascript do %>
+
   <script type="text/javascript">
+  $(document).ready(function(){
   //<![CDATA[
   $('.feature_eip').eip("/admin/restaurant_features/edit_in_place");
   $('.feature_category_eip').eip("/admin/restaurant_feature_categories/edit_in_place");

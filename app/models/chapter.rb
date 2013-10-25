@@ -24,6 +24,8 @@ class Chapter < ActiveRecord::Base
   validates_length_of :description, :maximum => 100
 
   default_scope :include => :topic, :order => "topics.title ASC, chapters.title ASC"
+  attr_accessible :title,:description,:topic_id
+
 
   scope :for_user, lambda { |user|
     { :joins => { :profile_questions => :question_roles },

@@ -18,6 +18,8 @@ class RestaurantFeaturePage < ActiveRecord::Base
   validates_uniqueness_of :name
 
   scope :by_name, :order => "name ASC"
+  attr_accessible :name
+
 
   def deletable?
     restaurant_feature_categories.empty?

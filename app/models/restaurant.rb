@@ -45,7 +45,6 @@ require 'chronic'
 class Restaurant < ActiveRecord::Base
   apply_addresslogic
   has_subscription
-  include HasSubscription
   include FacebookPageConnect
   include TwitterAuthorization
 
@@ -119,8 +118,6 @@ class Restaurant < ActiveRecord::Base
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
       :metropolitan_area, :website, :media_contact, :cuisine, :opening_date, :manager,:james_beard_region
 
-  validates_presence_of :restaurant_role_virtual ,:on=> :create    
-
   validates_format_of :management_company_website,
       :with => URI::regexp(%w(http https)),
       :message => "needs to be a valid URL that starts with http://",
@@ -143,7 +140,6 @@ class Restaurant < ActiveRecord::Base
   before_validation :add_manager_as_employee, :on => :create
   # after_validation_on_create :add_manager_as_employee
   after_create :update_manager
-  after_create :update_restaurant_role
   before_destroy :migrate_employees_to_default_employment
 
   has_one :fact_sheet, :class_name => "RestaurantFactSheet"
@@ -159,7 +155,6 @@ class Restaurant < ActiveRecord::Base
   has_many :trace_keywords, :as => :keywordable
   has_many :soapbox_trace_keywords, :as => :keywordable
 
-  attr_accessor :restaurant_role_virtual
 
   # For pagination
   cattr_reader :per_page
@@ -309,11 +304,11 @@ class Restaurant < ActiveRecord::Base
   end
 
   def photos_last_updated
-    if  !photos.present? && photos.first.nil?
-      ""
-    elsif photos.present?
-      photos.first.id.blank? ? "" : photos.first(:order => "updated_at DESC").updated_at.strftime('%m/%d/%y')
-    end
+   if  !photos.present? && photos.first.nil?
+    ""
+   elsif photos.present?
+     photos.first.id.blank? ? "" : photos.first(:order => "updated_at DESC").updated_at.strftime('%m/%d/%y')
+   end
   end
 
   def shareable_newsletter_subscribers
@@ -343,7 +338,7 @@ class Restaurant < ActiveRecord::Base
     when "biweekly"
       Chronic.parse("next week #{newsletter_frequency_day} 12:00am")
     when "monthly"
-      Chronic.parse("next month #{newsletter_frequency_day}")
+      Chronic.parse("next month #{newsletter_frequency_day} 12:00am")
     else      
       Chronic.parse("next #{newsletter_frequency} 12:00am")
     end
@@ -486,10 +481,6 @@ class Restaurant < ActiveRecord::Base
 
   def update_manager
     self.employments.first.update_attribute(:omniscient, true) if employments.any?
-  end
-
-  def update_restaurant_role
-    self.employments.first.update_attribute(:restaurant_role_id, self.restaurant_role_virtual) if employments.any?
   end
 
   def handled_subject_matter_ids

@@ -3,11 +3,26 @@
 <%= link_to "New Testimonial", new_admin_testimonial_path, :class => "button positive" %>
 
 <%= table_for(@testimonials) do |t| %>
-    <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
-	    t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
-	    t.cell(:photo) { |c| image_tag c.photo.url(:small) }
-        t.cell(:quote)
-        t.cell(:person)
-        t.cell(:page)
-	end %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Photo') %>
+      <%= t.h('Quote') %>
+      <%= t.h('Person') %>
+      <%= t.h('Page') %>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |testimonial| %>
+    <%= t.r do %>
+    	<%= t.d(h(image_tag testimonial.photo.url(:small))) %>
+    	<%= t.d(h(testimonial.quote)) %>
+    	<%= t.d(h(testimonial.person)) %>
+    	<%= t.d(h(testimonial.page)) %>
+      <%= t.d(h(link_to "Edit",edit_admin_testimonial_path(testimonial),:class=>'admin-actions')) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy",admin_testimonial_path(testimonial), :method => :delete %>
+      </td> 
+    <% end %>
+  <% end %>
 <% end %>

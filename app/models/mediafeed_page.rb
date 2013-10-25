@@ -21,4 +21,6 @@ class MediafeedPage < ActiveRecord::Base
     before_destroy :deletable? # Prevents accidental deletion of SPECIAL pages
 
     friendly_id :slug
+    attr_accessible :title,:slug,:content
+
 end

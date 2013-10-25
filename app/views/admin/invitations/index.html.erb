@@ -8,21 +8,52 @@
     <% end %>
 </div>
 
-<%= table_for @invitations do |t| %>
-    <% t.data :actions => [:accept, :archive, :edit, :destroy], :action_prefix => 'admin' do
-    	t.cell(:first_name)
-    	t.cell(:last_name)
-    	t.cell(:email)
-    	t.cell(:restaurant) { |c| c.restaurant || c.restaurant_name }
-    	t.cell(:restaurant_role)
-    	t.cell(:subject_matters) { |c| c.subject_matters.map(&:name).join(", ") }
-    	t.cell(:requested) { |c| c.created_at.try(:strftime, "%m/%d/%y") }
-    	
-    	if params[:archived]
-    	  t.cell(:approved) { |c| c.approved_at.try(:strftime, "%m/%d/%y") }
-    	  t.cell(:logged_in) { |c| c.invitee.try(:last_request_at).try(:strftime, "%m/%d/%y") }
-    	  t.cell(:invitee) { |c| link_to c.name, profile_path(c.username) }
-    	  t.cell(:resend_email) { |c| link_to "Resend", resend_admin_invitation_path(c) }
-	    end
-    end %>
+
+<%= table_for(@invitations) do |t| %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('First name') %>
+      <%= t.h('Last name') %>
+      <%= t.h('Email') %>
+      <%= t.h('Restaurant') %>
+      <%= t.h('Restaurant role') %>
+      <%= t.h('Subject matters') %>
+      <%= t.h('Requested') %>
+      <% if params[:archived] %>
+        <%= t.h('Approved') %>
+        <%= t.h('Logged in') %>
+        <%= t.h('Invitee') %>
+        <%= t.h('Resend email') %>
+      <% end  %>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+
+    <% end %>
+  <% end %>
+  <%= t.body do |invitation| %>
+    <%= t.r do %>
+      <%= t.d(h(invitation.first_name)) %>
+      <%= t.d(h(invitation.last_name)) %>
+      <%= t.d(h(invitation.email)) %>
+      <%= t.d(h(invitation.try(:restaurant_name))) %>
+      <%= t.d(h(invitation.try(:restaurant_role).try(:name))) %>
+      <%= t.d(h(invitation.subject_matters.map(&:name).join(", "))) %>
+      <%= t.d(h(invitation.created_at.try(:strftime, "%m/%d/%y"))) %>
+      <% if params[:archived] %>
+        <%= t.d(h(invitation.approved_at.try(:strftime, "%m/%d/%y"))) %>
+        <%= t.d(h(invitation.invitee.try(:last_request_at).try(:strftime, "%m/%d/%y"))) %>
+        <%= t.d(h(link_to invitation.name , profile_path(invitation.username))) %>
+        <%= t.d(h(link_to "Resend",resend_admin_invitation_path(invitation))) %>
+     <% end %>
+      <%= t.d(h(link_to "Accept" , accept_admin_invitation_path(invitation) ,:class=>'admin-actions')) %>
+      <%= t.d(h(link_to "Archive" , archive_admin_invitation_path(invitation) ,:class=>'admin-actions')) %>
+      <%= t.d(h(link_to "Edit" , edit_admin_invitation_path(invitation) ,:class=>'admin-actions')) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy" , admin_invitation_path(invitation), :method => :delete %>
+      </td>
+    <% end %>
+  <% end %>
 <% end %>
+

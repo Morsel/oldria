@@ -14,7 +14,7 @@ class VisitorEmailSetting < ActiveRecord::Base
     when "biweekly"
       Chronic.parse("next week #{email_frequency_day} 12:00am")
     when "monthly"
-      Chronic.parse("next month #{email_frequency_day}")
+      Chronic.parse("next month #{email_frequency_day} 12:00am")
     else      
       Chronic.parse("next #{email_frequency_day} 12:00am")
     end

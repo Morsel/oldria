@@ -18,20 +18,26 @@
 <%- end -%>
 
 <%= table_for @questions[chapter] do |t| %>
-  <% t.data do
-        t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
-        t.cell(:title)
-        t.cell(:roles, :heading => 'Role') { |c| c.roles_description }
-        t.cell(:notify_link, :heading => '', :cell_html => { :class => 'actions edit_link' }) { |c|
-            link_to('Send Notification', send_notifications_admin_profile_question_path(:id => c.id), :method => 'post')
-        }
-        t.cell(:edit_link, :heading => '', :cell_html => {:class => 'actions edit_link'}) { |c|
-          link_to('Edit', edit_admin_profile_question_url(:id => c.id))
-        }
-        t.cell(:destroy_link, :heading => '', :cell_html => {:class => 'actions destroy_link'}) { |c|
-          link_to('Destroy', admin_profile_question_url(:id => c.id), :method => :destroy)
-        }
-  end %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Title') %>
+      <%= t.h('Role') %>
+      <th></th>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |chapt| %>
+    <%= t.r do %>
+      <%= t.d(h(chapt.title)) %>
+      <%= t.d(h(chapt.roles_description)) %>
+      <%= t.d(h(link_to "Send Notification",send_notifications_admin_profile_question_path(:id => chapt.id), :method => 'post',:class=>'admin-actions')) %>
+      <%= t.d(h(link_to "Edit",edit_admin_profile_question_url(:id => chapt.id),:class=>'admin-actions')) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy",admin_profile_question_url(:id => chapt.id), :method => :delete %>
+      </td> 
+    <% end %>
+  <% end %>
 <% end %>
 
 <%- end -%>

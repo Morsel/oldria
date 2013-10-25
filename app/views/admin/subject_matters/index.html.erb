@@ -4,15 +4,45 @@
 
 <div class="span-9">
   <h3>General Information</h3>
-  <%= table_for(@subject_matters.select(&:general)) do |t| %>
-    <%= t.data :name, :actions => [:edit, :destroy], :action_prefix => 'admin' %>
+  <%= table_for(@subject_matters.select(&:general)) do |t|  %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Name') %>
+      <th></th>
+      <th></th>
+    <% end %>
   <% end %>
+  <%= t.body do |subject_matter| %>
+    <%= t.r do %>
+      <%= t.d(h(subject_matter.name)) %>
+      <%= t.d(h(link_to "Edit",edit_admin_subject_matter_path(subject_matter),:class=>'admin-actions')) %>
+      <%= t.d(h(link_to "Destroy",admin_subject_matter_path(subject_matter),:class=>'admin-actions')) %>
+    <% end %>
+  <% end %>
+<% end -%>
+
 </div>
 
 <div class="span-9 last">
   <h3>Specific Types of Media Requests</h3>
-  <%= table_for(@subject_matters.reject(&:general)) do |t| %>
-    <%= t.data :name, :actions => [:edit, :destroy], :action_prefix => 'admin' %>
+  <%= table_for(@subject_matters.reject(&:general)) do |t|  %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Name') %>
+      <th></th>
+      <th></th>
+    <% end %>
   <% end %>
+  <%= t.body do |subject_matter| %>
+    <%= t.r do %>
+      <%= t.d(h(subject_matter.name)) %>
+      <%= t.d(h(link_to "Edit",edit_admin_subject_matter_path(subject_matter),:class=>'admin-actions')) %>
+      <%= t.d(h(link_to "Destroy",admin_subject_matter_path(subject_matter),:class=>'admin-actions')) %>
+    <% end %>
+  <% end %>
+<% end -%>
 </div>
+
+
+
 

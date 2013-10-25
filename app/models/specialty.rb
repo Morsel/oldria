@@ -18,6 +18,8 @@ class Specialty < ActiveRecord::Base
   has_many :trace_searches, :as => :keywordable
   
   validates_presence_of :name
+  attr_accessible :name
+  
 
   scope :with_profiles,
     :joins => :profiles,

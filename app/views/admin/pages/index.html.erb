@@ -3,17 +3,26 @@
 <p class="clearfix"><%= link_to "New Page", new_admin_page_path, :class => 'button positive' %></p>
 
 <%= table_for(@pages) do |t| %>
-	<% t.data do
-			t.cell :title
-			t.cell :slug
-			t.cell :view_live, :heading => "", :cell_html => {:class => 'actions'} do |p|
-				link_to "Live", public_page_path(p)
-			end
-			t.cell :edit, :heading => "", :cell_html => {:class => 'actions edit_link'} do |p|
-				link_to "Edit", edit_admin_page_path(p)
-			end
-			t.cell :destroy, :heading => "", :cell_html => {:class => 'actions destroy_link'} do |p|
-				link_to "Destroy", admin_page_path(p), :method => :delete if p.deletable?
-			end
-	end %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Title') %>
+      <%= t.h('Slug') %>
+      <th></th>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |page| %>
+    <%= t.r do %>
+    	<%= t.d(h(page.title)) %>
+    	<%= t.d(h(page.slug)) %>
+      <%= t.d(h(link_to "Live",soapbox_page_path(page),:class=>'admin-actions')) %> 
+      <%= t.d(h(link_to "Edit",edit_admin_soapbox_page_path(page),:class=>'admin-actions')) %>
+      <% if page.deletable? %>
+        <td class="actions destroy_link">
+        <%= link_to "Destroy",admin_soapbox_page_path(page), :method => :delete %>
+      </td> 
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>

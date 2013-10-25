@@ -1,11 +1,26 @@
 <% title "A La Minute for Restaurants" %>
 
 <%= table_for(@questions, :class => 'questions') do |t| %>
-    <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
-        t.cell :question
-        t.cell :topic
-    end %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Question') %>
+      <%= t.h('Topic') %>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |question| %>
+    <%= t.r do %>
+      <%= t.d(h(question.question)) %>
+      <%= t.d(h(question.topic)) %>
+      <%= t.d(h(link_to "Edit",edit_admin_a_la_minute_question_path(question),:class=>'admin-actions')) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy",admin_a_la_minute_question_path(question), :method => :delete %>
+      </td> 
+    <% end %>
+  <% end %>
 <% end %>
+
 
 <%= semantic_form_for [:admin, ALaMinuteQuestion.new] do |f| %>
     <%= f.inputs :class => "plain" do %>

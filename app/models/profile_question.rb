@@ -14,7 +14,7 @@
 
 class ProfileQuestion < ActiveRecord::Base
 
-  include ActionDispatch::Routing::UrlFor
+include ActionDispatch::Routing::UrlFor
   default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :chapter
@@ -24,6 +24,9 @@ class ProfileQuestion < ActiveRecord::Base
 
   validates_presence_of :title, :chapter_id
   validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
+
+  attr_accessible :title,:position,:chapter_id,:roles_description,:restaurant_role_ids
+
 
   scope :for_user, lambda { |user|
     { :joins => :question_roles,

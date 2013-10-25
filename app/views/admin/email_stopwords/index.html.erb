@@ -2,8 +2,19 @@
 
 <%= link_to "New Stopword", new_admin_email_stopword_path, :class => "button positive" %>
 
-<%= table_for @stopwords do |t| %>
-    <% t.data :actions => [:destroy] do
-    	t.cell(:phrase)
-    end %>
+<%= table_for(@stopwords) do |t| %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Phrase') %>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |stopword| %>
+    <%= t.r do %>
+    	<%= t.d(h(stopword.phrase)) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy",admin_email_stopword_path(stopword), :method => :delete %>
+      </td> 
+    <% end %>
+  <% end %>
 <% end %>

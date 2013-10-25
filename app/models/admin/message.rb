@@ -15,7 +15,7 @@
 #
 
 class Admin::Message < ActiveRecord::Base
-  self.table_name =  "admin_messages"
+  set_table_name "admin_messages"
   acts_as_readable
 
   has_many :admin_conversations, :class_name => 'Admin::Conversation', :foreign_key => 'admin_message_id', :dependent => :destroy

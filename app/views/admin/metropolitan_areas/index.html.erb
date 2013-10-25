@@ -2,9 +2,23 @@
 
 <p class="clearfix"><%= link_to "New Metro Area", new_admin_metropolitan_area_path, :class => 'button positive'%></p>
 
-<%= table_for @metros do |t| %>
-    <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
-	  t.cell(:name)
-	  t.cell(:state)
-	end %>
-<% end %>
+ <%= table_for @metros do |t|  %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Name') %>
+      <%= t.h('State') %>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |metro| %>
+    <%= t.r do %>
+      <%= t.d(h(metro.name)) %>
+      <%= t.d(h(metro.state)) %>
+      <%= t.d(h(link_to "Edit",edit_admin_metropolitan_area_path(metro),:class=>'admin-actions')) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy",admin_metropolitan_area_path(metro), :method => :delete %>
+      </td> 
+    <% end %>
+  <% end %>
+<% end -%>

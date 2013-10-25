@@ -3,12 +3,25 @@
 <p class="clearfix"><%= link_to 'New OTM Keyword', new_admin_otm_keyword_path, :class => 'button positive' %></p>
 
 <div>
-    <% @categories.each do |category, keywords| -%>
-    <h2><%= category %></h2>
-    <%= table_for(keywords) do |t| %>
-        <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
-             t.cell(:name)
-        end %>
-    <% end %>
-    <% end -%>
+<% @categories.each do |category, keywords| -%>
+ <h2><%= category %></h2>
+	 <%= table_for(keywords) do |t|  %>
+	  <%= t.head do %>
+	    <%= t.r do %>
+	      <%= t.h('Name') %>
+	      <th></th>
+	      <th></th>
+	    <% end %>
+	  <% end %>
+	  <%= t.body do |keyword| %>
+	    <%= t.r do %>
+	      <%= t.d(h(keyword.name)) %>
+	      <%= t.d(h(link_to "Edit",edit_admin_otm_keyword_path(keyword),:class=>'admin-actions')) %>
+	      <td class="actions destroy_link">
+          <%= link_to "Destroy",admin_otm_keyword_path(keyword), :method => :delete %>
+        </td> 
+	    <% end %>
+	  <% end %>
+	<% end -%>
+ <% end -%>
 </div>

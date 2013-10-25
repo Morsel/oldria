@@ -3,6 +3,8 @@ class FeaturedProfile < ActiveRecord::Base
 	validates_presence_of :feature_id 	, :start_date
 	validates_uniqueness_of :feature_id, :scope => :feature_type 	
 
+  attr_accessible :feature_id,:spotlight_on,:start_date,:end_date
+
 	scope :valid_feature_profiles, lambda {
     { :conditions => "feature_type IS NOT NULL AND feature_id IS NOT NULL" }
   }
