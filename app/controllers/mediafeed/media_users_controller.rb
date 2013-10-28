@@ -10,7 +10,7 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
     if @user.save
       @user.has_role! :media
       @user.reset_perishable_token!
-      UserMailer.deliver_signup(@user)
+      UserMailer.signup(@user).deliver
       redirect_to confirm_mediafeed_media_user_path(@user)
     else
       get_newsletter_data

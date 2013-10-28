@@ -45,6 +45,7 @@ require 'chronic'
 class Restaurant < ActiveRecord::Base
   apply_addresslogic
   has_subscription
+  include HasSubscription
   include FacebookPageConnect
   include TwitterAuthorization
 
@@ -322,7 +323,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def send_newsletter_preview_reminder
-    UserMailer.deliver_newsletter_preview_reminder(self)
+    UserMailer.newsletter_preview_reminder(self).deliver
   end
 
   def mailchimp_group_name
@@ -468,7 +469,7 @@ class Restaurant < ActiveRecord::Base
    elsif restaurant.count == 3
     restaurant.admin_cancel #TODU make account to basic if payement decline
    end     
-   UserMailer.deliver_send_user_alert_for_payment_declined_email(restaurant)
+   UserMailer.send_user_alert_for_payment_declined_email(restaurant).deliver
   end
 
 

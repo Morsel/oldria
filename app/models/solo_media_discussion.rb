@@ -50,7 +50,7 @@ class SoloMediaDiscussion < ActiveRecord::Base
   end
 
   def notify_recipients
-    UserMailer.deliver_media_request_notification(self, employment.employee)
+    UserMailer.media_request_notification(self, employment.employee).deliver
   end
   
   def recipient_name

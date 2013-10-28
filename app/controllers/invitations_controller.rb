@@ -78,7 +78,7 @@ class InvitationsController < ApplicationController
           #redirect_to :action => "recommend"
         else
           #todu send email to invited people
-          UserMailer.deliver_signup_recommendation(@invitedemployee.email, current_user)
+          UserMailer.signup_recommendation(@invitedemployee.email, current_user).deliver
         end
         j+=1
       end      

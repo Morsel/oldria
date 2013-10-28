@@ -64,7 +64,7 @@ class Discussion < ActiveRecord::Base
   # Never call this directly!
   def notify_recipients
     for user in self.users
-      UserMailer.deliver_discussion_notification(self, user)
+      UserMailer.discussion_notification(self, user).deliver
     end
   end
   

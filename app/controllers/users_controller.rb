@@ -109,7 +109,7 @@ class UsersController < ApplicationController
     require_no_user unless current_user && current_user.admin?
     if request.post?
       if user = User.find_by_email(params[:email])
-        UserMailer.deliver_signup user
+        UserMailer.signup(user).deliver
 
         if current_user && current_user.admin?
           flash[:notice] = "A confirmation email was just sent to #{user.name}"
@@ -234,7 +234,7 @@ class UsersController < ApplicationController
     @james_beard_region = JamesBeardRegion.new(params[:james_beard_region])
     respond_to do |wants|
       if @james_beard_region.valid? 
-        UserMailer.deliver_send_james_bear_region_request(@james_beard_region,@user)
+        UserMailer.send_james_bear_region_request(@james_beard_region,@user).deliver
 
         wants.json do render :json => {:html => "<li id='msg'><h3>Sent request to admin, will look into this.<h3></li>" }  end      
       else   

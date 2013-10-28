@@ -133,7 +133,7 @@ include ActionDispatch::Routing::UrlFor
   # Send an email to everyone who hasn't responded but could
   def notify_users!
     for user in users_without_answers
-      UserMailer.deliver_answerable_message_notification(self, user)
+      UserMailer.answerable_message_notification(self, user).deliver
     end
   end
 

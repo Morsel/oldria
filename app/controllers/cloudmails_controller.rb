@@ -36,25 +36,25 @@ class CloudmailsController < ApplicationController
     render :text => 'No readable message received', :status => 200 and return
   rescue CloudmailinException::MissingReplySeparator
     Rails.logger.info('Email answer does not include separator text')
-    UserMailer.deliver_answerable_message_error(@original_message, @user,
-      "We couldn't find the \"#{EMAIL_SEPARATOR}\" text needed to process this message. Please try replying again, and do not edit any of the quoted text.")
+    UserMailer.answerable_message_error(@original_message, @user,
+      "We couldn't find the \"#{EMAIL_SEPARATOR}\" text needed to process this message. Please try replying again, and do not edit any of the quoted text.").deliver
 
     render :text => 'Email answer does not include separator text', :status => 200 and return
   rescue CloudmailinException::MessageTooShort
     Rails.logger.info 'Email answer was too short'
-    UserMailer.deliver_answerable_message_error(@original_message, @user,
-        "Your answer was too short, or could not be read properly. Please try again by replying to this message.")
+    UserMailer.answerable_message_error(@original_message, @user,
+        "Your answer was too short, or could not be read properly. Please try again by replying to this message.").deliver
 
     render :text => 'Your answer was too short, or could not be read properly', :status => 200 and return
   rescue CloudmailinException::DuplicateResponse
     Rails.logger.info 'User submitted a reply to a discussion or question that already has one'
-    UserMailer.deliver_answerable_message_error(@original_message, @user,
+    UserMailer.answerable_message_error(@original_message, @user,
         ((@message_type == "rd") ? "You already responded to this message, or a coworker beat you to it. Use the link below to review and edit your comments." :
-                                   "You already responded to this message. Use the link below to edit your comments."), false)
+                                   "You already responded to this message. Use the link below to edit your comments."), false).deliver
 
     render :text => 'This is a duplicate reply. Please edit your response on the Spoonfeed site.', :status => 200 and return
   rescue ActiveRecord::RecordInvalid
-    UserMailer.deliver_cloudmailin_error(params[:from])
+    UserMailer.cloudmailin_error(params[:from]).deliver
     Rails.logger.info "Message could not be processed: ActiveRecord::RecordInvalid"
 
     render :text => "This message could not be processed.", :status => 200 and return

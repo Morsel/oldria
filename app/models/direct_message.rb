@@ -93,7 +93,7 @@ class DirectMessage < ActiveRecord::Base
   # Should only be called from an external observer.
   def notify_recipients
     if receiver.prefers_receive_email_notifications
-      UserMailer.deliver_message_notification(self, receiver, sender)
+      UserMailer.message_notification(self, receiver, sender).deliver
     end
   end
 

@@ -68,7 +68,7 @@ class HolidayDiscussionReminder < ActiveRecord::Base
   def queued_message_sending
     for recipient in employees
       if recipient.prefers_receive_email_notifications
-        UserMailer.deliver_message_notification(self, recipient)
+        UserMailer.message_notification(self, recipient).deliver
       end
     end
   end

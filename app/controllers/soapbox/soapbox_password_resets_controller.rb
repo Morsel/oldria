@@ -40,7 +40,7 @@ class Soapbox::SoapboxPasswordResetsController < ApplicationController
   def resend_confirmation
     if request.post?
       if newsletter_subscriber = NewsletterSubscriber.find_by_email(params[:email])
-        UserMailer.deliver_signup_for_soapbox newsletter_subscriber
+        UserMailer.signup_for_soapbox(newsletter_subscriber).deliver
 
         if current_user && current_user.admin?
           flash[:notice] = "A confirmation email was just sent to #{user.name}"

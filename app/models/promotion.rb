@@ -127,7 +127,7 @@ default_url_options[:host] = DEFAULT_HOST
   end
 
   def notify_newsfeed_request!      
-     UserMailer.deliver_admin_notification(self, restaurant.manager)      
+     UserMailer.admin_notification(self, restaurant.manager).deliver      
   end
 
   def twitter_message

@@ -108,7 +108,7 @@ include ActionDispatch::Routing::UrlFor
               "current_user" => user
             }
             if keywords.present? && check_email_frequency(@uves)
-              UserMailer.deliver_send_chef_user(restaurant_visitors) 
+              UserMailer.send_chef_user(restaurant_visitors).deliver 
               @connect_media+=1
               create_log_file_for_connect_media(user)
             end
@@ -205,7 +205,7 @@ include ActionDispatch::Routing::UrlFor
                 "otm_keyword_notification" => otm_keyword_notification 
               }                          
               if check_email_frequency(@uves)  
-                UserMailer.deliver_send_mail_visitor(restaurant_visitors) 
+                UserMailer.send_mail_visitor(restaurant_visitors).deliver
                 @visitor_mail+=1
                 create_log_file_for_visitor_user(user,visitor.restaurant)
               end
