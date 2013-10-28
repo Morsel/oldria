@@ -109,7 +109,7 @@ class UsersController < ApplicationController
     require_no_user unless current_user && current_user.admin?
     if request.post?
       if user = User.find_by_email(params[:email])
-        UserMailer.signup(user)
+        UserMailer.signup(user).deliver
 
         if current_user && current_user.admin?
           flash[:notice] = "A confirmation email was just sent to #{user.name}"

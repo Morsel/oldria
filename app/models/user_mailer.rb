@@ -42,7 +42,7 @@ class UserMailer < ActionMailer::Base
       :from => 'accounts@restaurantintelligenceagency.com',
       :to   =>  user.email,
       :sent_on => Time.now,
-      :subject => "Spoonfeed: Password Reset Instructions"
+      :subject => "Soapbox: Password Reset Instructions"
       )
   end
 
@@ -262,7 +262,7 @@ class UserMailer < ActionMailer::Base
       :from =>  'notifications@restaurantintelligenceagency.com'   ,
       :to   =>  "eric@restaurantintelligenceagency.com" ,
       :sent_on => Time.now,
-      :subject => "Spoonfeed::Payment faild! :: #{name}"
+      :subject => "Spoonfeed::Payment failed! :: #{name}"
       )
   end  
 
