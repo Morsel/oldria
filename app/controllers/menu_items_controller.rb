@@ -87,7 +87,7 @@ class MenuItemsController < ApplicationController
 
   def add_keywords   
     find_restaurant    
-    UserMailer.deliver_add_keyword_request(@restaurant.name, params[:keywords])
+    UserMailer.add_keyword_request(@restaurant.name, params[:keywords]).deliver
     render :text=>"Request sent to admin,Wait for approval."  
   end
 

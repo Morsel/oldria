@@ -17,7 +17,7 @@ module FacebookPageConnect
         unless album.blank?
         facebook_page.client.post("#{album['id']}/photos", nil, {:url =>post_params[:picture] ,:name =>"#{post_params[:message]} : #{post_params[:description]}"}) 
         else
-          UserMailer.deliver_log_file("Unable to post to Facebook page #{facebook_page_id} due to Page has not album with name on Timeline Photos#{Time.now}", "Facebok post failed!",['nishant.n@cisinlabs.com','eric@restaurantintelligenceagency.com'])
+          UserMailer.log_file("Unable to post to Facebook page #{facebook_page_id} due to Page has not album with name on Timeline Photos#{Time.now}", "Facebok post failed!",['nishant.n@cisinlabs.com','eric@restaurantintelligenceagency.com']).deliver
           return false
         end
       else

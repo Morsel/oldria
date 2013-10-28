@@ -247,7 +247,7 @@ class RestaurantsController < ApplicationController
     if @restaurant && @employment.nil?
       @req = RestaurantEmployeeRequest.new({:restaurant_id=>@restaurant.id,:employee_id=>current_user.id})
       if(@req.save)
-        UserMailer.deliver_employee_request(@restaurant, current_user)
+        UserMailer.employee_request(@restaurant, current_user).deliver
         flash[:notice] = "We've contacted the restaurant manager. Thanks for setting up your account, and enjoy SpoonFeed!"
        else
         flash[:notice] = "Something went wrong or may be you already sent request to #{@restaurant.name
@@ -379,7 +379,7 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find( params[:restaurant_id])
     @restaurant.employments.each do |employment|
       if !employment.employee.user_visitor_email_setting.do_not_receive_email
-        UserMailer.deliver_request_profile_update(@restaurant,employment.employee)
+        UserMailer.request_profile_update(@restaurant,employment.employee).deliver
       end
     end
     user_id = current_user.id

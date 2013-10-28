@@ -64,7 +64,7 @@ class CompleteRegistrationsController < ApplicationController
   def contact_restaurant
     @restaurant = Restaurant.find(params[:restaurant_id])
     if @restaurant
-      UserMailer.deliver_employee_request(@restaurant, current_user)
+      UserMailer.employee_request(@restaurant, current_user).deliver
       flash[:notice] = "We've contacted the restaurant manager. Thanks for setting up your account, and enjoy SpoonFeed!"
       redirect_to root_path
     end

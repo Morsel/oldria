@@ -85,7 +85,7 @@ class SoloDiscussion < ActiveRecord::Base
   end
 
   def send_email_notification
-    UserMailer.deliver_answerable_message_notification(self, employee) if employee.prefers_receive_email_notifications
+    UserMailer.answerable_message_notification(self, employee).deliver if employee.prefers_receive_email_notifications
   end
 
 end

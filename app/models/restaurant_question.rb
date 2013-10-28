@@ -90,7 +90,7 @@ class RestaurantQuestion < ActiveRecord::Base
   def notify_users!    
     for user in restaurant_user_without_answers
       unless user.nil? # TODO Identify why giving NoMethodError: undefined method `cloudmail_id' for nil:NilClass
-        UserMailer.deliver_answerable_message_notification(self, user)
+        UserMailer.answerable_message_notification(self, user).deliver
       end  
     end
   end

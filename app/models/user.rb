@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   include TwitterAuthorization
   include FacebookPageConnect
   include UserMessaging
-
+  include HasSubscription
 
   include ActionView::Helpers::TextHelper  
   include ActionDispatch::Routing::UrlFor
@@ -311,7 +311,7 @@ class User < ActiveRecord::Base
 
   def deliver_password_reset_instructions!
     reset_perishable_token!
-    UserMailer.deliver_password_reset_instructions(self)
+    UserMailer.password_reset_instructions(self).deliver
   end
 
   def has_feeds?
@@ -719,7 +719,7 @@ class User < ActiveRecord::Base
             employee.claim_count+=1
             employee.publication= "NULL" if employee.publication.blank?
             employee.save!
-            UserMailer.deliver_send_employee_claim_notification_mail(user,employee,restaurant)
+            UserMailer.send_employee_claim_notification_mail(user,employee,restaurant).deliver
           end
         end
       end
@@ -778,7 +778,7 @@ class User < ActiveRecord::Base
         # send campaign
         mc.client.campaign_send_now(:cid => campaign_id)
       rescue Exception => e
-        UserMailer.deliver_log_file("User : #{subscriber.name} Error: #{e.message}","Exception")
+        UserMailer.log_file("User : #{subscriber.name} Error: #{e.message}","Exception").deliver
       end  
     end  
   end

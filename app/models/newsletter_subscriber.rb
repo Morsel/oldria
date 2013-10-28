@@ -94,7 +94,7 @@ include ActionDispatch::Routing::UrlFor
 
   def deliver_soapbox_password_reset_instructions!
     reset_perishable_token!
-    UserMailer.deliver_password_reset_instructions_for_soapbox(self)
+    UserMailer.password_reset_instructions_for_soapbox(self).deliver
   end
 
   private

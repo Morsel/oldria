@@ -8,11 +8,11 @@ class ExportPressKitsController < ApplicationController
     @restaurant =  Restaurant.find(params[:restaurant])  
     if params[:export_type] == "Diner"
       if !params[:email].blank? && !current_user.blank?
-	      UserMailer.deliver_export_press_kit(params[:email],current_user,@restaurant)
+	      UserMailer.export_press_kit(params[:email],current_user,@restaurant).deliver
       end
     elsif params[:export_type] == "Media"
       if !params[:email].blank? && !current_user.blank?
-        UserMailer.deliver_export_press_kit_for_media(params[:email],current_user,@restaurant)
+        UserMailer.export_press_kit_for_media(params[:email],current_user,@restaurant).deliver
       end    
 	  end	
 	  flash[:notice] = "Your press kit has been sent successfully!"

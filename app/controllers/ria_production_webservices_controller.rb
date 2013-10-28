@@ -38,7 +38,7 @@ class RiaProductionWebservicesController < ApplicationController
       @user = User.build_media_from_registration(params)
       if @user.save
         @user.reset_perishable_token!
-        UserMailer.deliver_signup(@user)
+        UserMailer.signup(@user).deliver
         status = true
       else
         status = false
@@ -130,7 +130,7 @@ class RiaProductionWebservicesController < ApplicationController
 
   def deliver_password_reset_instructions!
     reset_perishable_token!
-    UserMailer.deliver_password_reset_instructions(self)
+    UserMailer.password_reset_instructions(self).deliver
   end
 
 
