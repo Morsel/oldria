@@ -218,13 +218,15 @@ class UserMailer < ActionMailer::Base
     body       restaurant_visitors
   end
 
-  def send_payment_error(name,message)
+  def send_payment_error(braintree_customer,message,value)
     @message = message
-    @name = name
+    @braintree_customer = braintree_customer
+    @value = value 
+
     from        'notifications@restaurantintelligenceagency.com'
     recipients  "carla@restaurantintelligenceagency.com"
     sent_on     Time.now
-    subject     "Spoonfeed::Payment failed! :: #{name}"
+    subject     "We're having trouble processing your credit card"
   end  
 
   def send_braintree_payment_error(name,link=nil)
