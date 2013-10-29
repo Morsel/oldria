@@ -81,13 +81,13 @@ class UserSessionsController < ApplicationController
         end
       end
     else
-      if @user_session.errors.on_base == "Your account is not confirmed"
+      if @user_session.errors.full_messages.join('') == "Your account is not confirmed"
         error_message = "Your account is not confirmed.<br/>
-        Please check your email for instructions or  <a href='#{params[:mediafeed] ? mediafeed_resend_user_confirmation_path : resend_confirmation_users_path}'>request the confirmation email</a> again."
-      elsif @user_session.errors.on(:username) || @user_session.errors.on(:password)
+        Please check your email for instructions or  <a href='#{params[:mediafeed] ? mediafeed_resend_user_confirmation_path : resend_confirmation_users_path}'>request the confirmation email</a> again.".html_safe
+      elsif @user_session.errors.messages[:username].join('') || @user_session.errors.messages[:password].join('')
         error_message = "Oops, you entered the wrong username or password.<br/>
         It coulda been a minor error, so just try again&mdash;or, 
-        could it be you tried to log into #{params[:mediafeed] ? 'Mediafeed' : 'Spoonfeed'} with your RIA login credentials?"
+        could it be you tried to log into #{params[:mediafeed] ? 'Mediafeed' : 'Spoonfeed'} with your RIA login credentials?".html_safe
       else
         error_message = "Sorry, but we couldn't log you in"
       end

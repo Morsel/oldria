@@ -282,10 +282,11 @@ class UserMailer < ActionMailer::Base
     @title = title
     @user = user
     @comment = comment
+    email = restaurant.manager.try(:email) unless user.email == restaurant.manager.try(:email)
     mail(
       :from =>  sender.email   ,
       :to   =>  user.email  ,
-      :cc => restaurant.manager.try(:email) unless user.email == restaurant.manager.try(:email)  ,
+      :cc =>  email  ,
       :sent_on => Time.now,
       :subject => "#{subject} Media Request via RIA" 
       )
@@ -308,10 +309,11 @@ class UserMailer < ActionMailer::Base
     @employee = employee
     @user = user
     @restaurant = restaurant
+    email = restaurant.manager.try(:email) unless user.email == restaurant.manager.try(:email)
     mail(
       :from =>  'notifications@restaurantintelligenceagency.com' ,
       :to   =>  user.email   ,
-      :cc => restaurant.manager.try(:email) unless user.email == restaurant.manager.try(:email) ,
+      :cc => email ,
       :sent_on => Time.now,
       :subject => "#{subject} Employee Claim Notification Mail via RIA" 
       )

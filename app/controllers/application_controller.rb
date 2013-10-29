@@ -46,8 +46,7 @@ class ApplicationController < ActionController::Base
       @user = User.find(user_id)     
       @user.metropolitan_areas_writers.map(&:destroy)
 
-      @user.regional_writers.map(&:destroy)     
-           
+      @user.regional_writers.map(&:destroy)         
       @user.newsfeed_writer.update_attributes(params[:newsfeed_writer]) unless @user.newsfeed_writer.blank?
       @user.digest_writer.update_attributes(params[:digest_writer]) unless @user.digest_writer.blank?
       

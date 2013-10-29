@@ -79,7 +79,7 @@ gem 'jquery-rails'
   gem 'bitly'#,                  "0.7.0"
   gem "bcrypt-ruby"#,            "3.0.1"
   gem "ar-octopus"#,             "0.6.1"
-  gem "gibbon"#,                 "0.4.6"
+  gem "gibbon",                 "0.3.5"
   gem "spreadsheet"#,            "0.8.5"
   gem "simple_xlsx_reader"# ,    "0.9.7"
   # gem "mysql2"
@@ -127,3 +127,4 @@ gem "mogli", :git=>"https://github.com/nishant-n/mogli.git"
 # gem 'cocaine', '0.3.2'
 gem 'dynamic_form'
 gem 'rails_autolink'
+gem "daemons" 

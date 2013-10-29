@@ -158,6 +158,7 @@ GEM
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
     curb (0.8.5)
+    daemons (1.1.9)
     database_cleaner (0.7.2)
     debugger (1.6.2)
       columnize (>= 0.3.1)
@@ -192,9 +193,12 @@ GEM
       activerecord (>= 3.0, < 4.0)
     gherkin (2.5.4)
       json (>= 1.4.6)
-    gibbon (1.0.4)
-      httparty
-      multi_json (>= 1.3.4)
+    gibbon (0.3.5)
+      httparty (> 0.6.0)
+      httparty (> 0.6.0)
+      json (> 1.4.0)
+      json (> 1.4.0)
+      rdoc
     haml (4.0.3)
       tilt
     hashie (2.0.5)
@@ -351,9 +355,9 @@ GEM
       multi_json (~> 1.0)
       simple_oauth (~> 0.2)
     tzinfo (0.3.38)
-    uglifier (2.2.1)
+    uglifier (2.3.0)
       execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
+      json (>= 1.8.0)
     uuidtools (2.1.4)
     watu_table_builder (0.3.0)
     websocket (1.0.7)
@@ -390,6 +394,7 @@ DEPENDENCIES
   compass (= 0.10.6)
   cucumber (= 1.1.0)
   cucumber-rails (= 0.3.2)
+  daemons
   database_cleaner (= 0.7.2)
   debugger
   delayed_job!
@@ -404,7 +409,7 @@ DEPENDENCIES
   formtastic (= 2.1.0.rc)
   friendly_id
   gherkin (= 2.5.4)
-  gibbon
+  gibbon (= 0.3.5)
   jquery-rails
   libxml-ruby (= 2.2.2)
   loofah

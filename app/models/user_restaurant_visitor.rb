@@ -1,6 +1,8 @@
 class UserRestaurantVisitor < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
-include ActionDispatch::Routing::UrlFor
+  include ActionDispatch::Routing::UrlFor
+  
+  attr_accessible :visitor_count
 
   default_url_options[:host] = DEFAULT_HOST
 

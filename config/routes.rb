@@ -122,6 +122,9 @@ Ria::Application.routes.draw do
     resources :media_users, :except => [:index, :show] do  
       member do
         get :confirm
+      end
+      collection do 
+        get :get_selected_cities
       end    
     end
     match 'resend_confirmation' => 'media_users#resend_confirmation', :as => :resend_user_confirmation
@@ -719,7 +722,7 @@ Ria::Application.routes.draw do
   resources :specialties, :only => ["index"]
   match 'directory/search_restaurant_by_name' => 'directory#search_restaurant_by_name', :as => :search_restaurant_by_name
   match 'directory/search_user' => 'directory#search_user', :as => :search_user
-  match '/mediafeed/media_users/get_selected_cities' => 'media_users#get_selected_cities', :as => :get_selected_cities
+  # match '/mediafeed/media_users/get_selected_cities' => 'media_users#get_selected_cities', :as => :get_selected_cities
   match '/restaurants/:restaurant_id/newsletters/get_opened_campaign/:campaign_id' => 'restaurants/newsletters#get_opened_campaign', :as => :get_opened_campaign
   match '/restaurants/:restaurant_id/newsletters/get_clicked_campaign/:campaign_id' => 'restaurants/newsletters#get_clicked_campaign', :as => :get_clicked_campaign
   match '/restaurants/:restaurant_id/newsletters/get_bounces_campaign/:campaign_id' => 'restaurants/newsletters#get_bounces_campaign', :as => :get_bounces_campaign
