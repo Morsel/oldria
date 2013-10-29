@@ -1,5 +1,5 @@
 class RestaurantNewsletter < ActiveRecord::Base
-
+  attr_accessible :menu_item_ids, :restaurant_answer_ids, :menu_ids, :promotion_ids, :a_la_minute_answer_ids, :restaurant, :introduction,:subject,:campaign_id
   belongs_to :restaurant
   serialize :menu_item_ids
   serialize :restaurant_answer_ids

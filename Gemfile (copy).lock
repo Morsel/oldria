@@ -19,6 +19,12 @@ GIT
     nested_form (0.3.2)
 
 GIT
+  remote: git@github.com:nishant-n/delayedjob1.8.4.git
+  revision: 46ad9cb35c2a698b376f8b3bcf40d1d82024035a
+  specs:
+    delayed_job (1.8.4)
+
+GIT
   remote: git@github.com:redinger/validation_reflection.git
   revision: 7c3397e3a6ab32773cf7399455e5c63a0fdc66e9
   specs:
@@ -45,7 +51,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.2.9)
-    aasm (3.0.22)
+    aasm (3.0.23)
     actionmailer (3.2.14)
       actionpack (= 3.2.14)
       mail (~> 2.5.4)
@@ -80,9 +86,9 @@ GEM
     airbrake (3.1.14)
       builder
       json
-    ar-octopus (0.6.1)
-      activerecord (>= 3.0.0, < 4.0)
-      activesupport (>= 3.0.0, < 4.0)
+    ar-octopus (0.7.0)
+      activerecord (>= 3.1.0, < 4.0)
+      activesupport (>= 3.1.0, < 4.0)
     arel (3.0.2)
     awesome_print (1.2.0)
     aws-sdk (1.11.1)
@@ -152,6 +158,7 @@ GEM
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
     curb (0.8.5)
+    daemons (1.1.9)
     database_cleaner (0.7.2)
     debugger (1.6.2)
       columnize (>= 0.3.1)
@@ -186,7 +193,7 @@ GEM
       activerecord (>= 3.0, < 4.0)
     gherkin (2.5.4)
       json (>= 1.4.6)
-    gibbon (0.4.6)
+    gibbon (1.0.4)
       httparty
       multi_json (>= 1.3.4)
     haml (4.0.3)
@@ -226,7 +233,7 @@ GEM
       polyamorous (~> 0.5.0)
     metaclass (0.0.1)
     mime-types (1.25)
-    mini_portile (0.5.1)
+    mini_portile (0.5.2)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
     multi_json (1.7.9)
@@ -279,6 +286,8 @@ GEM
       activesupport (= 3.2.14)
       bundler (~> 1.0)
       railties (= 3.2.14)
+    rails_autolink (1.1.5)
+      rails (> 3.1)
     railties (3.2.14)
       actionpack (= 3.2.14)
       activesupport (= 3.2.14)
@@ -315,7 +324,7 @@ GEM
     simple_xlsx_reader (0.9.8)
       nokogiri
       rubyzip
-    spreadsheet (0.8.5)
+    spreadsheet (0.9.1)
       ruby-ole (>= 1.0)
     sprockets (2.2.2)
       hike (~> 1.2)
@@ -366,7 +375,7 @@ DEPENDENCIES
   acts_as_list
   addresslogic
   airbrake (~> 3.1.1)
-  ar-octopus (= 0.6.1)
+  ar-octopus
   authlogic!
   awesome_print
   aws-sdk
@@ -382,8 +391,10 @@ DEPENDENCIES
   compass (= 0.10.6)
   cucumber (= 1.1.0)
   cucumber-rails (= 0.3.2)
+  daemons
   database_cleaner (= 0.7.2)
   debugger
+  delayed_job!
   delorean
   dynamic_form
   facebooker2
@@ -395,7 +406,7 @@ DEPENDENCIES
   formtastic (= 2.1.0.rc)
   friendly_id
   gherkin (= 2.5.4)
-  gibbon (= 0.4.6)
+  gibbon
   jquery-rails
   libxml-ruby (= 2.2.2)
   loofah
@@ -411,12 +422,12 @@ DEPENDENCIES
   preferences!
   prototype-rails
   rails (= 3.2.14)
+  rails_autolink
   rspec (= 1.3.2)
   rspec-rails (= 1.3.4)
   sass-rails (~> 3.2.3)
   simple_xlsx_reader
-  spreadsheet (= 0.8.5)
-  sqlite3
+  spreadsheet
   subdomain-fu!
   tabletastic
   therubyracer

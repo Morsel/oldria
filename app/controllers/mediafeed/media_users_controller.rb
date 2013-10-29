@@ -19,7 +19,8 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
   end
 
   def edit    
-    get_newsletter_data    
+    get_newsletter_data
+    render :layout => 'application'
   end
 
   def update

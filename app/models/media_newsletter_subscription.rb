@@ -2,7 +2,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
   belongs_to :restaurant 
   belongs_to :media_newsletter_subscriber, :class_name => "User"  ,:foreign_key => "media_newsletter_subscriber_id"
   after_create :add_subscription_to_mailchimp
-
+  attr_accessible :media_newsletter_subscriber, :restaurant
 
   def send_newsletters_to_media
     for user in User.find(:all,:conditions=>["role = 'media'"])

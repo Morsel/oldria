@@ -773,7 +773,7 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
   });
   // //mediafeed user edit 
   $("#search_state_by_name").autocomplete({
-    source: "/auto_complete.js?metro=metro",
+    source: "/auto_complete/index?metro=metro",
     select: function( event, ui ) {
       $('#loader').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
       var selected_city = new Array();    
@@ -792,7 +792,7 @@ $('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id'
     }
   });
   $("#search_digest_state_by_name").autocomplete({
-    source: "/auto_complete.js?metro=metro",
+    source: "/auto_complete/index?metro=metro",
     select: function( event, ui ) {
       $('#digest_loader').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
       var selected_city = new Array();    

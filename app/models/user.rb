@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
   has_many :page_views, :as => :page_owner, :dependent => :destroy
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
-  attr_accessible :user_visitor_email_setting_attributes, :type, :solo_restaurant_name
+  attr_accessible :user_visitor_email_setting_attributes, :type, :solo_restaurant_name,:user_id, :james_beard_region_id
   
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin
@@ -676,7 +676,6 @@ class User < ActiveRecord::Base
       unless newsfeed_writer.blank?
         
         region_metro_areas = MetropolitanArea.find(:all,:conditions=>["state in (?)", newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:description).join(",").gsub(/[\s]*/,"").split(",")]).map(&:id).uniq #If user has selected regions, getting metros of regions
-        
         mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
           :email_address => email,
           :merge_vars => {:FNAME=>first_name,
@@ -687,8 +686,7 @@ class User < ActiveRecord::Base
                               {:name=>"Regions",:groups=>newsfeed_writer.find_regional_writers(self).map(&:james_beard_region).map(&:name).join(",")},
                               { :name => "SubscriberType",:groups => "Newsfeed"},
                               {:name=>"Promotions",:groups=>promotion_types.map(&:name).join(",")}]           
-          },:replace_interests => true,:update_existing=>true)
-          
+          },:replace_interests => true,:update_existing=>true)         
       end 
       digest_mailchimp_update       
     end  
@@ -749,7 +747,6 @@ class User < ActiveRecord::Base
         "YES"
       end 
     mc = MailchimpConnector.new("RIA Media") 
-       
     mc.client.list_subscribe(:id => mc.media_promotion_list_id, 
         :email_address => email,
         :merge_vars => {:FNAME=>first_name,

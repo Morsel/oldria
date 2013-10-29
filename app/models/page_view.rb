@@ -18,5 +18,6 @@ class PageView < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :page_owner, :polymorphic => true
+  attr_accessible :url, :user_id, :title, :page_owner_id, :page_owner_type,:page_type, :page_id
 
 end

@@ -3,7 +3,7 @@ class NewsfeedWriter < ActiveRecord::Base
 	has_many :metropolitan_areas_writers ,:as => :area_writer	
 	has_many :regional_writers, :as => :regional_writer
 
-	attr_accessible :metropolitan_areas_writers_attributes ,:regional_writers_attributes
+	attr_accessible :user_id, :james_beard_region_id,:metropolitan_areas_writers_attributes ,:regional_writers_attributes
 	accepts_nested_attributes_for :metropolitan_areas_writers ,:regional_writers
 
 
