@@ -83,9 +83,6 @@ GEM
     acts_as_list (0.3.0)
       activerecord (>= 3.0)
     addresslogic (1.2.1)
-    airbrake (3.1.14)
-      builder
-      json
     ar-octopus (0.7.0)
       activerecord (>= 3.1.0, < 4.0)
       activesupport (>= 3.1.0, < 4.0)
@@ -105,6 +102,7 @@ GEM
       pony (>= 0.5)
       s3 (>= 0.3.0)
       sqlite3-ruby (>= 1.2.5)
+    bartt-ssl_requirement (1.4.2)
     bcrypt-ruby (3.1.2)
     bitly (0.9.0)
       httparty (>= 0.7.6)
@@ -127,6 +125,10 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    carrierwave (0.9.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
@@ -193,9 +195,12 @@ GEM
       activerecord (>= 3.0, < 4.0)
     gherkin (2.5.4)
       json (>= 1.4.6)
-    gibbon (1.0.4)
-      httparty
-      multi_json (>= 1.3.4)
+    gibbon (0.3.5)
+      httparty (> 0.6.0)
+      httparty (> 0.6.0)
+      json (> 1.4.0)
+      json (> 1.4.0)
+      rdoc
     haml (4.0.3)
       tilt
     hashie (2.0.5)
@@ -226,6 +231,7 @@ GEM
       treetop (~> 1.4.8)
     mail_safe (0.3.1)
       actionmailer (>= 1.3.6)
+    memcache-client (1.8.5)
     meta_search (1.1.3)
       actionpack (~> 3.1)
       activerecord (~> 3.1)
@@ -233,6 +239,8 @@ GEM
       polyamorous (~> 0.5.0)
     metaclass (0.0.1)
     mime-types (1.25)
+    mini_magick (3.6.0)
+      subexec (~> 0.2.1)
     mini_portile (0.5.2)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
@@ -334,6 +342,7 @@ GEM
     sqlite3 (1.3.8)
     sqlite3-ruby (1.3.3)
       sqlite3 (>= 1.3.3)
+    subexec (0.2.3)
     tabletastic (0.2.3)
       activesupport (~> 3.0)
     term-ansicolor (1.2.2)
@@ -352,9 +361,9 @@ GEM
       multi_json (~> 1.0)
       simple_oauth (~> 0.2)
     tzinfo (0.3.38)
-    uglifier (2.2.1)
+    uglifier (2.3.0)
       execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
+      json (>= 1.8.0)
     uuidtools (2.1.4)
     watu_table_builder (0.3.0)
     websocket (1.0.7)
@@ -374,18 +383,19 @@ DEPENDENCIES
   acts_as_commentable
   acts_as_list
   addresslogic
-  airbrake (~> 3.1.1)
   ar-octopus
   authlogic!
   awesome_print
   aws-sdk
   backup (~> 2.3.1)
+  bartt-ssl_requirement (~> 1.4.0)
   bcrypt-ruby
   bitly
   braintree (= 2.22.0)
   cancan
   capistrano (= 2.5.21)
   capybara (= 1.1.2)
+  carrierwave
   ckeditor
   coffee-rails (~> 3.2.1)
   compass (= 0.10.6)
@@ -406,12 +416,14 @@ DEPENDENCIES
   formtastic (= 2.1.0.rc)
   friendly_id
   gherkin (= 2.5.4)
-  gibbon
+  gibbon (= 0.3.5)
   jquery-rails
   libxml-ruby (= 2.2.2)
   loofah
   mail_safe
+  memcache-client
   meta_search
+  mini_magick
   mocha
   mogli!
   mysql2
