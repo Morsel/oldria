@@ -1,5 +1,5 @@
 <%= render :partial => 'email_header' %>
-<% debugger %>
+
 <h3>Hello <%= @braintree_customer.name %>!</h3>
 <% if @braintree_customer.class == Restaurant %>
 	<% if @value == "first" %>
