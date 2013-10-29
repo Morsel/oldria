@@ -59,7 +59,7 @@ module Ria
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
-    # config.plugins = [ :rails_upgrade,:ssl_requirement, :delayed_job, :fetcher , :modporter , :sphinx , :validate_timeliness ]
+    # config.plugins = [ :ssl_requirement, :delayed_job, :fetcher , :modporter , :sphinx , :validate_timeliness ]
     # config = YAML.load(File.open("#{Dir.getwd}/config/s3.yml"))[Rails.env]
   end
 end

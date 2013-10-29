@@ -128,3 +128,8 @@ gem "mogli", :git=>"https://github.com/nishant-n/mogli.git"
 gem 'dynamic_form'
 gem 'rails_autolink'
 gem "daemons" 
+gem "daemons" 
+gem 'memcache-client'
+gem 'carrierwave'
+gem "mini_magick"
+gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'

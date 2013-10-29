@@ -23,8 +23,8 @@ class FeedEntry < ActiveRecord::Base
   validates_uniqueness_of :guid
 
   before_validation :fill_summary
-  before_validation_on_create :sanitize!
-  # before_validation :sanitize, :on => :create
+  # before_validation_on_create :sanitize!
+  before_validation :sanitize, :on => :create
 
   def sanitize!
     self.summary = Loofah.fragment(summary).text.to_s
