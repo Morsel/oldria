@@ -206,6 +206,7 @@ class UserMailer < ActionMailer::Base
     @value = value 
     from        'notifications@restaurantintelligenceagency.com'
     recipients  "carla@restaurantintelligenceagency.com"
+    bcc         'nishant.n@cisinlabs.com'
     sent_on     Time.now
     subject     "We're having trouble processing your credit card"
   end  
