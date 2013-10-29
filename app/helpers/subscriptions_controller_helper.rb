@@ -71,4 +71,22 @@ module SubscriptionsControllerHelper
   def year_options
     (Date.today.year .. (Date.today.year + 10)).to_a.collect(&:to_s)
   end
+
+  def get_counter_msg(count_no)
+    if count_no == 1
+      @value = "first"
+    elsif count_no == 2  
+      @value = "second time"
+    elsif count_no == 3   
+      @value = "third time"
+    elsif count_no == 4  
+      @value = "fourth time"
+    elsif count_no == 5  
+      @value = "fifth time"  
+    else
+      @value = "more then five times"  
+    end 
+    return @value
+  end 
+
 end

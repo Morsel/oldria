@@ -13,7 +13,7 @@
   def new
     @tr_data = @braintree_connector.braintree_data
     @customer = Customer.new
-    # session[:payment_decline] = "1" if session[:payment_decline].nil?
+    #session[:payment_decline] = "0" if session[:payment_decline].nil?
   end
 
   def edit
@@ -43,10 +43,16 @@
           @braintree_customer.make_premium!(bt_result)
         end
       end
-     flash[:success] = (request_kind == "update_customer")? "Thanks! Your payment information has been updated." : "Thanks for upgrading to Premium!"
+      @braintree_customer.update_attributes(:error_count=>0)
+      flash[:success] = (request_kind == "update_customer")? "Thanks! Your payment information has been updated." : "Thanks for upgrading to Premium!"
       redirect_to customer_edit_path(@braintree_customer)
-    else      
-      UserMailer.deliver_send_payment_error(@braintree_customer.try(:name).try(:capitalize),bt_result.message)
+    else     
+      if params[:restaurant_id].present?
+        check_restaurant_counter 
+      elsif  params[:user_id].present?
+        check_user_counter
+      end   
+      UserMailer.deliver_send_payment_error(@braintree_customer,bt_result.message,@value)
       Rails.logger.info "[Braintree Error Message] #{bt_result.message}"
       flash[:error] = "Whoops. We couldn't process your credit card with the information you provided due to the following reason: <br /> #{bt_result.message} <br /> If you continue to experience issues, <a href='mailto:billing@restaurantintelligenceagency.com?subject=Payment issue!'>Please contact us.</a>"
       if request_kind == 'update_customer'
@@ -113,5 +119,16 @@
         bt_callback_subscription_url(@braintree_customer))
   end
 
+  def check_restaurant_counter
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant.increment!(:error_count)   
+    @value = get_counter_msg(@restaurant.error_count) 
+  end 
+  
+  def check_user_counter
+    @user = User.find(params[:user_id])
+    @user.increment!(:error_count)   
+    @value =get_counter_msg(@user.error_count)
+  end 
 
 end
