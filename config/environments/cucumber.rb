@@ -1,3 +1,4 @@
+Ria::Application.config do 
 # Edit at your own peril - it's recommended to regenerate this file
 # in the future when you upgrade to a newer version of Cucumber.
 
@@ -44,3 +45,4 @@ Braintree::Configuration.private_key = "w8kw3smb2g2m6mds"
 CLOUDMAIL_DOMAIN = 'dev-mailbot.restaurantintelligenceagency.com'
 
 DEFAULT_HOST = 'localhost:3000'
+end

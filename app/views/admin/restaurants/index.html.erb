@@ -1,15 +1,34 @@
 <% title "Restaurants" %>
-
 <%= table_for(@restaurants) do |t| %>
-	<%= t.data :name,
-             :account_type,
-             :city,
-             :state,
-             :manager,
-             :media_contact,
-             :metropolitan_area,
-             :cuisine,             
-             :actions => [:edit, :destroy],
-             :action_prefix => :admin %>
-<% end -%>
-
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Name') %>
+      <%= t.h('Account type') %>
+      <%= t.h('City') %>
+      <%= t.h('State') %>
+      <%= t.h('Manager') %>
+      <%= t.h('Media contact') %>
+      <%= t.h('Metropolitan area') %>
+      <%= t.h('Cuisine') %>
+      <th></th>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |restaurant| %>
+    <%= t.r do %>
+      <%= t.d(h(restaurant.name)) %>
+      <%= t.d(h(restaurant.account_type)) %>
+      <%= t.d(h(restaurant.city)) %>
+      <%= t.d(h(restaurant.state)) %>
+      <%= t.d(h(restaurant.manager.name)) %>
+      <%= t.d(h(restaurant.media_contact.name)) %>
+      <%= t.d(h(restaurant.metropolitan_area.name)) %>
+      <%= t.d(h(restaurant.cuisine.name)) %>
+      <%= t.d(h(link_to "Edit",edit_admin_restaurant_path(restaurant),:class=>'actions edit_link')) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy",admin_restaurant_path(restaurant), :method => :delete %>
+      </td> 
+    <% end %>
+  <% end %>
+<% end %>

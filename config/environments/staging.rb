@@ -1,5 +1,6 @@
-# Settings specified here will take precedence over those in config/environment.rb
 DEFAULT_HOST = 'staging.restaurantintelligenceagency.com'
+Ria::Application.config do 
+# Settings specified here will take precedence over those in config/environment.rb
 
 ActionMailer::Base.delivery_method = :sendmail
 
@@ -46,3 +47,4 @@ CLOUDMAIL_SECRET = '72fa425b1e5c89239639'.freeze
 ENV['MAILCHIMP_API_KEY'] = 'e741c48b31e7dc460d7b7fa522741d6a-us5' #Nishant API key
 
 DOMAIN_NAME = "restaurantintelligenceagency.com"
+end

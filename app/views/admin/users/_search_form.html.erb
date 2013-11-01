@@ -1,16 +1,16 @@
 <%= form_for @search do |f| %>
 <p class="first_name">
-  <%= f.label :first_name_begins_with, "First Name" %>
-  <%= f.text_field :first_name_begins_with, :size => 10, :class => 'text' %>
+  <%= f.label :first_name_starts_with, "First Name" %>
+  <%= f.text_field :first_name_starts_with, :size => 10, :class => 'text' %>
 </p>
 <p class="last_name">
-  <%= f.label :last_name_begins_with, "Last Name" %>
-  <%= f.text_field :last_name_begins_with,  :size => 20, :class => 'text'  %>
+  <%= f.label :last_name_starts_with, "Last Name" %>
+  <%= f.text_field :last_name_starts_with,  :size => 20, :class => 'text'  %>
 </p>
 
 <p class="clear">
-  <%= f.label :email %>
-  <%= f.text_field :email, :class => 'text' %>
+  <%#= f.label :email %>
+  <%#= f.text_field :email, :class => 'text' %>
 </p>
   <p>
     <%= f.label :username_like, "Username" %>
