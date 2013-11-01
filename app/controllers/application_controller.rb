@@ -224,11 +224,20 @@ class ApplicationController < ActionController::Base
       @employment_search = if resource.employment_search
         resource.employment_search
       else
-        resource.build_employment_search(:conditions => params[:search] || {})
+        # resource.build_employment_search(:conditions => params[:search] || {})
+        if params[:search].blank?
+          EmploymentSearch.new(:conditions => {})
+        else
+          EmploymentSearch.new(:conditions => params[:search] || {})
+        end        
       end
       @search = @employment_search.employments #searchlogic
     else # no resource
-      @search = EmploymentSearch.new(:conditions => params[:search]).employments
+      if params[:search].blank?
+        @search = Employment
+      else
+        @search = EmploymentSearch.new(:conditions => params[:search]).employments
+      end
     end
 
     extra_params = build_extra_profile_params

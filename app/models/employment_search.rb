@@ -20,7 +20,7 @@ class EmploymentSearch < ActiveRecord::Base
   validates_presence_of :conditions
 
   before_save :clean_up_conditions
-  
+  attr_accessible :conditions
   def employments
     Employment.search(conditions) # searchlogic
   end

@@ -26,8 +26,8 @@
 class Promotion < ActiveRecord::Base
 
   include ActionDispatch::Routing::UrlFor
-include Rails.application.routes.url_helpers
-default_url_options[:host] = DEFAULT_HOST
+  include Rails.application.routes.url_helpers
+  default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :promotion_type
   belongs_to :restaurant

@@ -1,16 +1,29 @@
 <% title "Trend Questions" %>
 
 <p><%= link_to (image_tag("plus.png")+"New Trend Question"), new_admin_trend_question_path, :class => 'positive button' %></p>
-
 <%= table_for(@trend_questions) do |t| %>
-  <%= t.data :actions => :all, :action_prefix => 'admin' do
-       t.cell(:scheduled_at, :heading => "Scheduled"){|tr| tr.scheduled_at.try(:strftime,"%m/%d/%y")}
-       t.cell(:subject)
-       t.cell(:body)
-       t.cell(:criteria) {|tq| tq.employment_search.readable_conditions.join(", ")}
-       t.cell :reply_count, :heading => '', :cell_html => {:class => 'actions reply_count'} do |tq|
-         reply_count_link(tq)
-       end
-    end %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Scheduled') %>
+      <%= t.h('Subject') %>
+      <%= t.h('Body') %>
+      <%= t.h('Criteria') %>
+      <th></th>
+      <th></th>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body do |trend_question| %>
+    <%= t.r do %>
+      <%= t.d(h(trend_question.scheduled_at.try(:strftime,"%m/%d/%y"))) %>
+      <%= t.d(h(trend_question.subject)) %> 
+      <%= t.d(h(trend_question.body)) %>
+      <%= t.d(h(trend_question.employment_search.readable_conditions.join(", "))) %>
+	  <%= t.d(h(link_to "Show",admin_trend_question_path(trend_question),:class=>'actions show_link')) %> 
+      <%= t.d(h(link_to "Edit",edit_admin_trend_question_path(trend_question),:class=>'actions edit_link')) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy",admin_trend_question_path(trend_question), :method => :delete %>
+      </td> 
+    <% end %>
+  <% end %>
 <% end %>
-

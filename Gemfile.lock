@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/binarylogic/authlogic.git
+  remote: https://github.com/binarylogic/authlogic.git
   revision: abc09970ed1fad98c6c12f4ca64d1670d37d11db
   specs:
     authlogic (3.3.0)
@@ -7,35 +7,16 @@ GIT
       activesupport (>= 3.2)
 
 GIT
-  remote: git://github.com/mbleigh/subdomain-fu.git
+  remote: https://github.com/mbleigh/subdomain-fu.git
   revision: 3752799a02c0e18abd0a1bfb422925e880dc754e
   specs:
     subdomain-fu (1.0.0.beta3)
 
 GIT
-  remote: git://github.com/ryanb/nested_form.git
-  revision: 42028bc06e72a848d297edc1467a969a7c9def57
-  specs:
-    nested_form (0.3.2)
-
-GIT
-  remote: git@github.com:nishant-n/delayedjob1.8.4.git
+  remote: https://github.com/nishant-n/delayedjob1.8.4.git
   revision: 46ad9cb35c2a698b376f8b3bcf40d1d82024035a
   specs:
     delayed_job (1.8.4)
-
-GIT
-  remote: git@github.com:redinger/validation_reflection.git
-  revision: 7c3397e3a6ab32773cf7399455e5c63a0fdc66e9
-  specs:
-    validation_reflection (1.0.0)
-
-GIT
-  remote: git@github.com:skyeagle/preferences.git
-  revision: de0b016f4d5972954d8067a99e860506e3dc8be1
-  branch: rails3
-  specs:
-    preferences (0.6.0)
 
 GIT
   remote: https://github.com/nishant-n/mogli.git
@@ -46,6 +27,25 @@ GIT
       httmultiparty (>= 0.3.6)
       httparty (>= 0.4.3)
       multi_json (~> 1.7.8)
+
+GIT
+  remote: https://github.com/redinger/validation_reflection.git
+  revision: 7c3397e3a6ab32773cf7399455e5c63a0fdc66e9
+  specs:
+    validation_reflection (1.0.0)
+
+GIT
+  remote: https://github.com/ryanb/nested_form.git
+  revision: 42028bc06e72a848d297edc1467a969a7c9def57
+  specs:
+    nested_form (0.3.2)
+
+GIT
+  remote: https://github.com/skyeagle/preferences.git
+  revision: de0b016f4d5972954d8067a99e860506e3dc8be1
+  branch: rails3
+  specs:
+    preferences (0.6.0)
 
 GEM
   remote: https://rubygems.org/
