@@ -6,11 +6,12 @@ class ProfilesController < ApplicationController
   
   def create
     @profile = @user.build_profile(params[:profile])
-
     if @profile.save
       flash[:notice] = "Successfully created profile."
       redirect_to profile_path(@user.username)
     else
+      @cusines = @profile.profile_cuisines.map(&:cuisine).map(&:name)
+      @profile_cuisine = @profile.profile_cuisines.build
       flash[:error] = "Please fix the errors in the form below"
       render :edit
     end
