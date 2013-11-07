@@ -121,7 +121,7 @@ class BraintreeConnector
     result = Braintree::Subscription.search do |search|
       search.days_past_due <= 5
     end
-    result.ids
+    result.instance_values["ids"]
   end
 
   # TODO: possible refactor because quantity is redundent with
