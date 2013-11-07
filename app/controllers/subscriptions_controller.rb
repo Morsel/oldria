@@ -67,10 +67,11 @@
     if @braintree_customer.complimentary_account?
       @braintree_customer.cancel_subscription!(:terminate_immediately => false)
     else
-      destroy_result = @braintree_connector.cancel_subscription(
-          @braintree_customer.subscription)
+      destroy_result = @braintree_connector.cancel_subscription(@braintree_customer.subscription)
       if destroy_result.success?
         @braintree_customer.cancel_subscription!(:terminate_immediately => false)
+      else  
+        flash[:error] = "#{destroy_result.message}"  
       end
     end
     redirect_to customer_edit_path(@braintree_customer)

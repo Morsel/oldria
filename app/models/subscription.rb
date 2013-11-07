@@ -61,10 +61,10 @@ class Subscription < ActiveRecord::Base
     BraintreeConnector.find_subscription(self)
   end
 
-  def calculate_end_date
+  def calculate_end_date    
     return 1.month_from_now unless has_braintree_info?
     data = braintree_data
-    data.billing_period_end_date
+    data.billing_period_end_date.blank? ? data.next_billing_date : data.billing_period_end_date
   rescue
     1.month.from_now
   end
