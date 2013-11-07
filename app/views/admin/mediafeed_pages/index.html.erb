@@ -13,7 +13,7 @@
     <% end %>
   <% end %>
   <%= t.body do |page| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
     	<%= t.d(h(page.title)) %>
     	<%= t.d(h(page.slug)) %>
     	<%= t.d(h(link_to "Live",mediafeed_page_path(page),:class=>'admin-actions')) %>
@@ -21,6 +21,5 @@
       <td class="actions destroy_link">
         <%= link_to "Destroy",admin_mediafeed_page_path(page), :method => :delete %>
       </td> 
-    <% end %>
   <% end %>
 <% end %>

@@ -13,7 +13,7 @@
     <% end %>
   <% end %>
   <%= t.body do |promo| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
     	<%= t.d(h(promo.title)) %>
     	<%= t.d(h(promo.body)) %>
     	<%= t.d(h(promo.link)) %>
@@ -21,6 +21,5 @@
       <td class="actions destroy_link">
         <%= link_to "Destroy",admin_soapbox_promo_path(promo),:id=>'soapbox_promos', :method => :delete %>
       </td> 
-    <% end %>
   <% end %>
 <% end %>
