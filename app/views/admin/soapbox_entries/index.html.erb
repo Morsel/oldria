@@ -12,7 +12,7 @@
     <% end %>
   <% end %>
   <%= t.body do |soapbox_entry| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(soapbox_entry.try(:published_at).to_s(:long))) %>
       <%= t.d(h(link_to soapbox_entry.featured_item.try(:title),resource_for_featured_item(soapbox_entry))) %>
       <%= t.d(h(soapbox_entry.featured_item.message)) %>
@@ -21,9 +21,9 @@
       <%= t.d(h(soapbox_entry.daily_feature ? "yes" : " "))  %>
       <%= t.d(h(link_to soapbox_entry.published ? "Unpublish" : "Publish",toggle_status_admin_soapbox_entry_path(soapbox_entry), :method => "post")) %>
       <%= t.d(h(link_to "Edit",edit_admin_soapbox_entry_path(soapbox_entry),:class=>'admin-actions')) %>
-    <% end %>
   <% end %>
 <% end %>
 
 
 <%= will_paginate(@soapbox_entries) %>
+
