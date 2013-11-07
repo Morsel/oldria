@@ -16,7 +16,7 @@
         <% if !current_user.blank? && current_user.media? %>
           <li class="restaurant_name"><%= restaurant_names_for_media_user(user).html_safe %></li>
         <% else %>
-          <li class="restaurant_name"><%= restaurant_names_for_user(user) %></li>
+          <li class="restaurant_name"><%= "#{restaurant_names_for_user(user)}".html_safe %></li>
         <% end %>
         <li>
           <% unless user.primary_employment.blank? %>

@@ -45,11 +45,11 @@
 
           <%=f.inputs :name => "Hours", :class => "editing hours" do %>
             <li id="hours">
-              <%= Meal::DAYS.each do |day| %>
-              <h4><%= day.capitalize %></h4>
+              <%Meal::DAYS.each do |day| %>
+                <h4><%= day.capitalize %></h4>
                 <%=content_tag(:div, :id => "#{day}_meals") do %>
                   <ol>
-                    <%= @fact_sheet.meals.for_day(day).each do |meal| %>                    
+                    <%@fact_sheet.meals.for_day(day).each do |meal| %>                    
                       <%=f.fields_for :meals, meal do |meal_form| %>
                         <%= render "meal_fields", :f => meal_form, :day_value => day.downcase %>
                       <% end %>

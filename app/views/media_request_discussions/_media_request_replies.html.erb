@@ -1,12 +1,12 @@
 <div class="message-actions">
   <p>
     <% if media_request_discussion.comments_count > 0 %>
-      <% link_text = "Read &amp; Reply &raquo;" -%>
+      <% link_text = "Read &amp; Reply &raquo;".html_safe -%>
   		<span class="unread_comments_count"><%= media_request_discussion.comments_count %></span>
       <%= media_request_discussion.comments_count == 1 ? 'reply' : 'replies' %>
       for <%= media_request_discussion.restaurant.try(:name) %>. 
   	<% else %>
-  	  <% link_text = "Reply &#187;" -%>
+  	  <% link_text = "Reply &#187;".html_safe -%>
     	No one has responded yet. 
     <% end -%>
     <%= link_to link_text, media_request_discussion, :class => 'replies' %>

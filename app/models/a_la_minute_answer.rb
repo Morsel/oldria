@@ -169,7 +169,7 @@ default_url_options[:host] = DEFAULT_HOST
   end
 
   def twitter_message
-    "#{truncate(answer, :length => 120)} #{self.bitly_link}"
+    "#{answer[0..120]} #{self.bitly_link}"
   end
 
   def facebook_message

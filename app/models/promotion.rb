@@ -131,7 +131,7 @@ class Promotion < ActiveRecord::Base
   end
 
   def twitter_message
-    "#{truncate(self.headline, :length => 120)} #{self.bitly_link}"
+    "#{self.headline[0..120]} #{self.bitly_link}"
   end
 
   def facebook_message

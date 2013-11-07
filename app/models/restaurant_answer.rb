@@ -46,7 +46,7 @@ default_url_options[:host] = DEFAULT_HOST
   has_many :facebook_posts, :as => :source, :dependent => :destroy
   accepts_nested_attributes_for :facebook_posts, :limit => 1, :allow_destroy => true, :reject_if => FacebookPost::REJECT_PROC
   # end twitter and fb share associations
-  attr_accessible :restaurant
+  attr_accessible :restaurant,:restaurant_question_id, :id, :restaurant_id, :answer, :twitter_posts_attributes, :facebook_posts_attributes
 
   def bitly_link
     client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])

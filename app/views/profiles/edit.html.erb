@@ -99,7 +99,7 @@
                       <% semantic_form_for @profile_cuisine, :url => user_profile_path(@user) do |f| %>
                         <% f.inputs :class => "plain profile_cuisines" do %>
                           <%= f.input :profile_id, :as => :hidden %>
-                          <%= f.errors_on(:cuisine_id) %>
+                          <%#= f.errors_on(:cuisine_id) %>
                           <% if @cusines.empty? %>
                            <%= f.input :cuisine, :as => "select", :collection => Cuisine.all,:multiple=>true,:required => true ,:input_html => {:class => "chzn-select" }%>
                           <% else %>
