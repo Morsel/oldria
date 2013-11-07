@@ -62,6 +62,9 @@ HUMANIZED_ATTRIBUTES = {
   validates_presence_of :photo_file_name,:message => "is required."
   validates_format_of :price, :with => RestaurantFactSheet::MONEY_FORMAT
 
+  before_update :randomize_file_name
+  before_create :randomize_file_name
+
   named_scope :from_premium_restaurants, lambda {
     { :joins => { :restaurant => :subscription },
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
@@ -163,5 +166,15 @@ HUMANIZED_ATTRIBUTES = {
   def edit_path(options={})
     edit_restaurant_menu_item_path(restaurant, self, options)
   end
+
+private
+
+  def randomize_file_name
+    extension = File.extname(photo_file_name).downcase
+    self.photo.instance_write(:file_name, "#{ActiveSupport::SecureRandom.hex(16)}#{extension}")
+  end   
+
+
+
 
 end
