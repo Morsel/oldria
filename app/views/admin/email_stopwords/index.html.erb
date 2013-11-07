@@ -10,11 +10,10 @@
     <% end %>
   <% end %>
   <%= t.body do |stopword| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
     	<%= t.d(h(stopword.phrase)) %>
       <td class="actions destroy_link">
         <%= link_to "Destroy",admin_email_stopword_path(stopword), :method => :delete %>
       </td> 
-    <% end %>
   <% end %>
 <% end %>

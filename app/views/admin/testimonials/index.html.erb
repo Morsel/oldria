@@ -14,7 +14,7 @@
     <% end %>
   <% end %>
   <%= t.body do |testimonial| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
     	<%= t.d(h(image_tag testimonial.photo.url(:small))) %>
     	<%= t.d(h(testimonial.quote)) %>
     	<%= t.d(h(testimonial.person)) %>
@@ -23,6 +23,5 @@
       <td class="actions destroy_link">
         <%= link_to "Destroy",admin_testimonial_path(testimonial), :method => :delete %>
       </td> 
-    <% end %>
   <% end %>
 <% end %>
