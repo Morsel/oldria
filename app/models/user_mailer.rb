@@ -230,15 +230,25 @@ class UserMailer < ActionMailer::Base
     subject     "We're having trouble processing your credit card"
   end  
 
-  def send_braintree_payment_error(name,link=nil)
-    @name = name
-    @link = link
+
+  def send_braintree_payment_error(subscriber,value)
+    @value = value
+    @subscriber = subscriber
     from        'notifications@restaurantintelligenceagency.com'
     recipients  "admin@restaurantintelligenceagency.com"
-    bcc         'ellen@restaurantintelligenceagency.com'
+    bcc         ['ellen@restaurantintelligenceagency.com','nishant.n@cisinlabs.com']
     sent_on     Time.now
     subject     "Spoonfeed: We are sorry!"
   end  
+
+  def send_braintree_subscription_canceled(subscriber)
+    @subscriber = subscriber
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  "admin@restaurantintelligenceagency.com"
+    bcc         ['ellen@restaurantintelligenceagency.com','nishant.n@cisinlabs.com']
+    sent_on     Time.now
+    subject     "Spoonfeed: We are sorry!"
+  end   
 
   def request_info_mail(title,detail,user,restaurant,comment,subject,sender)
     from        sender.email
