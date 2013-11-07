@@ -16,8 +16,7 @@
     <% end %>
   <% end %>
   <%= t.body do |slide| %>
-    <%= t.r do %>
-    	<%#= t.d(h(handle , :class => 'small handle'){ "[drag]" }) %> 
+      <tr class="<%= cycle('odd','even', :name => 'featured_profiles') %>">
     	<%= t.d(h(image_tag slide.image.url(:thumb))) %>
       <%= t.d(h(slide.photo_credit)) %> 
       <%= t.d(h(slide.title)) %>
@@ -27,7 +26,6 @@
       <td class="actions destroy_link">
         <%= link_to "Destroy",admin_soapbox_slide_path(slide), :method => :delete %>
       </td> 
-    <% end %>
   <% end %>
 <% end %>
 
