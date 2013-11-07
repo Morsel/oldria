@@ -29,8 +29,9 @@ class Admin::FeaturedProfilesController < Admin::AdminController
   end 
 
   def create
-  	@feature = eval(params[:type].capitalize).new.build_featured_profile(params[:featured_profile]) # TODO need to remove as this is already in before filter :(
-  	if @feature.save      
+  	@feature = eval(params[:type].capitalize).new.build_featured_profile(params[:featured_profile])     # TODO need to remove as this is already in before filter :(
+  	@feature.feature_id =  params[:featured_profile][:feature_id]
+    if @feature.save      
   		flash[:notice] = "Successfully created profile spotlight ."
       redirect_to :action => 'index'
   	else	
