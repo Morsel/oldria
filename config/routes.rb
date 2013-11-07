@@ -465,7 +465,7 @@ Ria::Application.routes.draw do
     match "/" => 'profile_questions#index'#,:as => "behind_the_line"
   end
   namespace :spoonfeed,:as=>"profile_question", :path => 'behind_the_line' do
-    match "/:id" => 'profile_question#show'#,:get => "behind_the_line"
+    match "/:id" => 'profile_questions#show'#,:get => "behind_the_line"
   end
   # match "profile_questions" => 'spoonfeed/profile_questions#index'#,:as => "behind_the_line"
   # match "profile_questions/:id" => 'spoonfeed/profile_question#show'#,:get => "behind_the_line"

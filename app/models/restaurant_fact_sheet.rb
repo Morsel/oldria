@@ -70,7 +70,12 @@ class RestaurantFactSheet < ActiveRecord::Base
                      "neighborhood dining", "quick service", "self-serve", "takeout only", "retail"]
   ENTERTAINMENT_OPTIONS = ["Live Music", "Dancing", "DJ", "Performers", "Piano bar", "Karaoke", "Special appearances"]
   MONEY_FORMAT = /^\d+??(?:\.\d{0,2})?$/
-
+  attr_accessible :venue, :intersection, :neighborhood, :parking, :public_transit, :dinner_average_price, :lunch_average_price, 
+   :brunch_average_price, :breakfast_average_price, :children_average_price, :small_plate_min_price, :small_plate_max_price, :large_plate_min_price, :large_plate_max_price, 
+   :dessert_plate_min_price, :dessert_plate_max_price, :wine_by_the_glass_count, :wine_by_the_glass_min_price, :wine_by_the_glass_max_price, :wine_by_the_bottle_count, :wine_by_the_bottle_min_price,
+   :wine_by_the_bottle_max_price, :wine_by_the_bottle_details, :meals_attributes, :days_closed, :holidays_closed, :reservations, :cancellation_policy, :payment_methods, :byob_allowed,
+   :corkage_fee, :dress_code, :delivery, :architect_name, :graphic_designer, :furniture_designer, :furniture_manufacturer, :flooring, :millwork, :china, :kitchen_equipment,
+   :lighting, :draperies, :square_footage, :wheelchair_access, :smoking, :concept, :entertainments
   belongs_to :restaurant
   has_many :seating_areas, :dependent => :destroy
   has_many :tasting_menus, :dependent => :destroy

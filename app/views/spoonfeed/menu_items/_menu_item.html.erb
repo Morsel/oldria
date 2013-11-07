@@ -24,7 +24,7 @@
             <% if local_assigns[:dashboard]  -%>                  
                 <%=truncate(Loofah::Helpers.strip_tags(menu_item.description), :length => 240, :omission => (link_to(" more &raquo;", details_restaurant_menu_item_path(menu_item.restaurant,menu_item)).to_s)) %>
                <% else %>
-                <%= Loofah::Helpers.sanitize(menu_item.description) %>
+                <%= Loofah::Helpers.sanitize(menu_item.description).html_safe %>
             <%- end %>
 
 
@@ -33,7 +33,7 @@
 
         <p><%= "Pairing: #{menu_item.pairing}" if menu_item.pairing.present? %></p>
 
-        <p class="keywords"><%= menu_item.otm_keywords.map { |k| link_to k.name, menu_items_path(:keyword => k.name) }.to_sentence %></p>
+        <p class="keywords"><%= menu_item.otm_keywords.map { |k| link_to k.name, menu_items_path(:keyword => k.name) }.to_sentence.html_safe %></p>
 
         <p><span class="datestamp"><%= "Posted #{menu_item.created_at.strftime("%D")}" %></span></p>
     </div>

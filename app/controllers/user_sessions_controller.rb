@@ -64,11 +64,11 @@ class UserSessionsController < ApplicationController
         else
           restaurant = user.restaurants.map{|restaurant| restaurant unless restaurant.count.nil? }.compact.first
           unless restaurant.blank?
-            flash[:notice] = "We are sorry! Something went wrong with your payment for #{restaurant.name}. Click here to update your payment method <a href='/restaurants/#{restaurant.id}/subscription/new' >click here</a> "
+            flash[:notice] = "We are sorry! Something went wrong with your payment for #{restaurant.name}. Click here to update your payment method <a href='/restaurants/#{restaurant.id}/subscription/new' >click here</a> ".html_safe
             #flash[:notice] = "Last time you are try to upgrade your #{restaurant.name} but payment was not successfully due to some reason. You can upgrade your account by <a href='/restaurants/#{restaurant.id}/subscription/new' >click here</a>"
             redirect_to edit_restaurant_path(restaurant)
           else
-            flash[:notice] = "<a href='javascript:void(0)' onclick=\"$('html, body').animate({scrollTop: $('#twitter-fieldset').offset().top -50}, 400);\">Get the most out of Spoonfeed. Hook up your Twitter and Facebook accounts with your restaurant today!</a>"
+            flash[:notice] = "<a href='javascript:void(0)' onclick=\"$('html, body').animate({scrollTop: $('#twitter-fieldset').offset().top -50}, 400);\">Get the most out of Spoonfeed. Hook up your Twitter and Facebook accounts with your restaurant today!</a>".html_safe
             redirect_to edit_restaurant_path(@restaurants_has_not_setup_fb_tw.first)
           end
         end
@@ -82,13 +82,15 @@ class UserSessionsController < ApplicationController
         end
       end
     else
-      if @user_session.errors.on_base == "Your account is not confirmed"
+      if @user_session.errors.full_messages.join('') == "Your account is not confirmed"
         error_message = "Your account is not confirmed.<br/>
-        Please check your email for instructions or <a href='#{params[:mediafeed] ? mediafeed_resend_user_confirmation_path : resend_confirmation_users_path}'>request the confirmation email</a> again."
-      elsif @user_session.errors.on(:username) || @user_session.errors.on(:password)
+        Please check your email for instructions or  <a href='#{params[:mediafeed] ? mediafeed_resend_user_confirmation_path : resend_confirmation_users_path}'>request the confirmation email</a> again.".html_safe
+
+      elsif @user_session.errors.to_hash[:username] || @user_session.errors.to_hash[:password]
         error_message = "Oops, you entered the wrong username or password.<br/>
-        It coulda been a minor error, so just try again&mdash;or,
-        could it be you tried to log into #{params[:mediafeed] ? 'Mediafeed' : 'Spoonfeed'} with your RIA login credentials?"
+        It coulda been a minor error, so just try again&mdash;or, 
+
+        could it be you tried to log into #{params[:mediafeed] ? 'Mediafeed' : 'Spoonfeed'} with your RIA login credentials?".html_safe
       else
         error_message = "Sorry, but we couldn't log you in"
       end
