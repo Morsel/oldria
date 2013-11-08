@@ -11,7 +11,7 @@
     <th></th>
   </tr>
   <% for date_range in @date_ranges %>
-    <tr>
+    <tr class="<%= cycle('odd','even') %>">
       <td><%=h date_range.name %></td>
       <td><%=h date_range.start_date %></td>
       <td><%=h date_range.end_date %></td>

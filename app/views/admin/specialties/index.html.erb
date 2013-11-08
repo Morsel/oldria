@@ -11,7 +11,7 @@
     <% end %>
   <% end %>
   <%= t.body do |specialty| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(specialty.name)) %>
       <% if specialty.profiles.count == 0 %>
         <%= t.d(h(link_to 'delete', admin_specialty_path(specialty), :method => :delete, :confirm => "Are you sure you want to delete this?")) %>
@@ -19,6 +19,5 @@
       	<td></td>
       <% end %>  
       <%= t.d(h(link_to "Edit",edit_admin_specialty_path(specialty),:class=>'admin-actions')) %>
-    <% end %>
   <% end %>
 <% end -%>

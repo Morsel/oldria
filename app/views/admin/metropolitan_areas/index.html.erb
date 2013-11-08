@@ -12,13 +12,12 @@
     <% end %>
   <% end %>
   <%= t.body do |metro| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(metro.name)) %>
       <%= t.d(h(metro.state)) %>
       <%= t.d(h(link_to "Edit",edit_admin_metropolitan_area_path(metro),:class=>'admin-actions')) %>
       <td class="actions destroy_link">
         <%= link_to "Destroy",admin_metropolitan_area_path(metro), :method => :delete %>
       </td> 
-    <% end %>
   <% end %>
 <% end -%>

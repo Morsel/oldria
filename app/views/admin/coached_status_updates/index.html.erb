@@ -11,7 +11,7 @@
     <th></th>
   </tr>
   <% for coached_status_update in @coached_status_updates %>
-    <tr>
+    <tr class="<%= cycle('odd','even') %>">
       <td><%=h coached_status_update.message %></td>
       <td><%=h coached_status_update.date_range.try(:name) %></td>
       <td class="utility">

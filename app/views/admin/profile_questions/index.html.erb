@@ -28,7 +28,7 @@
     <% end %>
   <% end %>
   <%= t.body do |chapt| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(chapt.title)) %>
       <%= t.d(h(chapt.roles_description)) %>
       <%= t.d(h(link_to "Send Notification",send_notifications_admin_profile_question_path(:id => chapt.id), :method => 'post',:class=>'admin-actions')) %>
@@ -36,7 +36,6 @@
       <td class="actions destroy_link">
         <%= link_to "Destroy",admin_profile_question_url(:id => chapt.id), :method => :delete %>
       </td> 
-    <% end %>
   <% end %>
 <% end %>
 

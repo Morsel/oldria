@@ -1,5 +1,6 @@
 <% title = @message.email_title -%>
 <%= render :partial => 'email_header' %>
+
  <h3 id="messagetype" style="color: #bbb; font-size: 11px; font-weight: normal; letter-spacing: 2px; line-height: 14px; margin: 0 0 13px; text-transform: uppercase;"><%= title %></h3>
   <h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 12px 0;">Hi <%= @recipient.first_name %>,</h1>
 

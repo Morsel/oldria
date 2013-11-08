@@ -33,7 +33,7 @@
     <% end %>
   <% end %>
   <%= t.body do |invitation| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(invitation.first_name)) %>
       <%= t.d(h(invitation.last_name)) %>
       <%= t.d(h(invitation.email)) %>
@@ -54,6 +54,5 @@
         <%= link_to "Destroy" , admin_invitation_path(invitation), :method => :delete %>
       </td>
     <% end %>
-  <% end %>
-<% end %>
+ <% end %>
 

@@ -9,7 +9,7 @@
     <% end %>
   <% end %>
   <%= t.body do |invited_employee| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(invited_employee.try(:first_name))) %>
       <%= t.d(h(invited_employee.try(:last_name))) %>
       <%= t.d(h(invited_employee.email)) %>

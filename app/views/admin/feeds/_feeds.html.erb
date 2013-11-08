@@ -9,7 +9,7 @@
       <% end %>
     <% end %>
     <%= t.body do |feed| %>
-      <%= t.r do %>
+      <tr class="<%= cycle('odd','even') %>">
         <%= t.d(h(feed.title)) %>
         <%= t.d(h(feed.url)) %>
         <%= t.d(h(feed.feed_url)) %>
@@ -18,6 +18,5 @@
         <td class="actions destroy_link">
           <%= link_to "Destroy",admin_feed_path(feed), :method => :delete %>
         </td> 
-      <% end %>
     <% end %>
   <% end -%>
