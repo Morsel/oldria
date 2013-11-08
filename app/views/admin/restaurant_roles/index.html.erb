@@ -14,7 +14,7 @@
     <% end %>
   <% end %>
   <%= t.body do |restaurant_role| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(restaurant_role.name)) %>
       <%= t.d(h( render :partial => "role_form", :locals => { :role => restaurant_role, :categories => @categories} )) %>
       <%= t.d(h(link_to "Edit",edit_admin_restaurant_role_path(restaurant_role),:class=>'admin-actions')) %>
@@ -22,5 +22,4 @@
         <%= link_to "Destroy",admin_restaurant_role_path(restaurant_role), :method => :delete %>
       </td> 
     <% end %>
-  <% end %>
 <% end %>

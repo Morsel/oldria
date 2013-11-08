@@ -16,7 +16,7 @@
     <% end %>
   <% end %>
   <%= t.body do |restaurant| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(restaurant.name)) %>
       <%= t.d(h(restaurant.account_type)) %>
       <%= t.d(h(restaurant.city)) %>
@@ -29,6 +29,5 @@
       <td class="actions destroy_link">
         <%= link_to "Destroy",admin_restaurant_path(restaurant), :method => :delete %>
       </td> 
-    <% end %>
   <% end %>
 <% end %>

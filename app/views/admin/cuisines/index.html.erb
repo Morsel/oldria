@@ -9,7 +9,7 @@
 	</tr>
 
 	<% @cuisines.each do |cuisine| %>
-	<tr>
+	<tr class="<%= cycle('odd','even') %>">
 		<td><%=h cuisine.name %></td>
 		<td class="utility"><%= link_to 'Edit', edit_admin_cuisine_path(cuisine) %></td>
 	</tr>

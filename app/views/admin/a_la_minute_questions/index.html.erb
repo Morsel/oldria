@@ -10,7 +10,7 @@
     <% end %>
   <% end %>
   <%= t.body do |question| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(question.question)) %>
       <%= t.d(h(question.topic)) %>
       <%= t.d(h(link_to "Edit",edit_admin_a_la_minute_question_path(question),:class=>'admin-actions')) %>
@@ -18,8 +18,7 @@
         <%= link_to "Destroy",admin_a_la_minute_question_path(question), :method => :delete %>
       </td> 
     <% end %>
-  <% end %>
-<% end %>
+ <% end %>
 
 
 <%= semantic_form_for [:admin, ALaMinuteQuestion.new] do |f| %>

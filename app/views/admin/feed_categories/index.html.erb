@@ -14,13 +14,12 @@
       <% end %>
     <% end %>
     <%= t.body do |feed_category| %>
-      <%= t.r do %>
+      <tr class="<%= cycle('odd','even') %>">
         <%= t.d(h(feed_category.name)) %>
         <%= t.d(h(feed_category.feeds.size)) %>
         <%= t.d(h(link_to 'Edit', edit_admin_feed_category_path(feed_category),:class=>'admin-actions')) %>
         <td class="actions destroy_link">
           <%= link_to "Destroy",admin_feed_category_path(feed_category), :method => :delete %>
         </td> 
-      <% end %>
     <% end %>
   <% end -%>

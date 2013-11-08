@@ -14,7 +14,7 @@
 	    <% end %>
 	  <% end %>
 	  <%= t.body do |keyword| %>
-	    <%= t.r do %>
+	    <tr class="<%= cycle('odd','even') %>">
 	      <%= t.d(h(keyword.name)) %>
 	      <%= t.d(h(link_to "Edit",edit_admin_otm_keyword_path(keyword),:class=>'admin-actions')) %>
 	      <td class="actions destroy_link">

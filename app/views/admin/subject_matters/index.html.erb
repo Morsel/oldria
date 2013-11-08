@@ -13,12 +13,11 @@
     <% end %>
   <% end %>
   <%= t.body do |subject_matter| %>
-    <%= t.r do %>
+     <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(subject_matter.name)) %>
       <%= t.d(h(link_to "Edit",edit_admin_subject_matter_path(subject_matter),:class=>'admin-actions')) %>
       <%= t.d(h(link_to "Destroy",admin_subject_matter_path(subject_matter),:class=>'admin-actions')) %>
     <% end %>
-  <% end %>
 <% end -%>
 
 </div>
@@ -34,11 +33,10 @@
     <% end %>
   <% end %>
   <%= t.body do |subject_matter| %>
-    <%= t.r do %>
+    <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(subject_matter.name)) %>
       <%= t.d(h(link_to "Edit",edit_admin_subject_matter_path(subject_matter),:class=>'admin-actions')) %>
       <%= t.d(h(link_to "Destroy",admin_subject_matter_path(subject_matter),:class=>'admin-actions')) %>
-    <% end %>
   <% end %>
 <% end -%>
 </div>

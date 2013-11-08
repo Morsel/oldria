@@ -13,7 +13,7 @@
       <% end %>
     <% end %>
     <%= t.body do |holiday| %>
-      <%= t.r do %>
+      <tr class="<%= cycle('odd','even') %>">
         <%= t.d(h(holiday.name)) %>
         <%= t.d(h(holiday.date.try(:to_s, :long))) %>
         <%= t.d(h(holiday.reminders_count)) %>
@@ -24,6 +24,5 @@
         <td class="actions destroy_link">
           <%= link_to "Destroy",admin_holiday_path(holiday), :method => :delete %>
         </td> 
-      <% end %>
     <% end %>
   <% end -%>

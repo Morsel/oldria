@@ -130,8 +130,8 @@ class UserMailer < ActionMailer::Base
   # Generic message: could be one of DirectMessage, etc.
   def message_notification(message, recipient, sender = nil)
     @message = message
-    recipient = recipient
-    sender = sender
+    @recipient = recipient
+    @sender = sender
     mail(
       :from => 'notifications@restaurantintelligenceagency.com',
       :to   =>  recipient.email,
