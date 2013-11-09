@@ -27,7 +27,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
   include ActionDispatch::Routing::UrlFor
 include Rails.application.routes.url_helpers
 default_url_options[:host] = DEFAULT_HOST
-  
+  attr_accessible :a_la_minute_question_id, :answer, :attachment, :photo
   has_many :trace_keywords, :as => :keywordable
   has_many :soapbox_trace_keywords, :as => :keywordable
   

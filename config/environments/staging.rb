@@ -33,6 +33,8 @@ config.log_level = :debug
 # Enable threaded mode
 # config.threadsafe!
 
+end
+
 Braintree::Configuration.environment = :sandbox
 Braintree::Configuration.merchant_id = "ny23sz9jy8gy38bw"
 Braintree::Configuration.public_key = "n77z2dvd56jy4j9n"
@@ -47,4 +49,3 @@ CLOUDMAIL_SECRET = '72fa425b1e5c89239639'.freeze
 ENV['MAILCHIMP_API_KEY'] = 'e741c48b31e7dc460d7b7fa522741d6a-us5' #Nishant API key
 
 DOMAIN_NAME = "restaurantintelligenceagency.com"
-end

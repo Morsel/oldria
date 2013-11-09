@@ -78,7 +78,7 @@ Ria::Application.routes.draw do
       end   
     end
     match 'frontburner' => 'soapbox_entries#frontburner', :as => :frontburner
-    resources :promotions
+    resources :promotions,:as=>'newsfeed'
     resources :menu_items, :path => 'on_the_menu'
     resources :users, :only => [] do   
       resources :profile_questions, :only => ["index", "show"]
@@ -170,7 +170,7 @@ Ria::Application.routes.draw do
     end
   end
 
-  match 'profile/:username' => 'users#show', :as => :profile, :constraints => { :username => /[a-zA-Z0-9\-\_ ]+/ }
+  match 'profile/:username' => 'users#show', :as => :profile, :constraints => { :username => /[ a-zA-Z0-9\-\_ ]+/ }
   match 'user_profile_subscribe/:username' => 'users#user_profile_subscribe', :as => :user_profile_subscribe, :constraints => { :username => /[a-zA-Z0-9\-\_ ]+/ }
   resources :users do
     collection do
@@ -245,7 +245,7 @@ Ria::Application.routes.draw do
     resources :user_visitor_email_setting
   end
 
-  resource :search, :only => ["show"]
+  resource :search, :controller => 'site_search', :only => ['show']
   match '/features/:id' => 'features#show', :as => :feature
   resources :restaurants do
     collection do

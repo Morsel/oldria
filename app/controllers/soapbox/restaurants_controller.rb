@@ -20,7 +20,10 @@ module Soapbox
       restaurant = Restaurant.find(params[:id])
 
       if subscriber.present?
-        if NewsletterSubscription.create(:newsletter_subscriber => subscriber, :restaurant => restaurant)
+        newsletter_subscriber = NewsletterSubscription.new
+        newsletter_subscriber.newsletter_subscriber_id = subscriber.id
+        newsletter_subscriber.restaurant_id = restaurant.id
+        if newsletter_subscriber.save#NewsletterSubscription.create(:newsletter_subscriber => subscriber, :restaurant => restaurant)
           flash[:notice] = "#{subscriber.email} is now subscribed to #{restaurant.name}'s newsletter."
           redirect_to :action => "confirm_subscription", :subscriber_id => subscriber.id
         else

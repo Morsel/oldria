@@ -153,7 +153,7 @@
                     </div>
                     <ul>
                       <% @main_feature_comments.each do |main_feature_comment|%>
-                      <li>A:<%= truncate(main_feature_comment.comment,100 )%> 
+                      <li>A:<%= main_feature_comment.comment[0..100]%> 
                           <em>
                              <%= link_to_if main_feature_comment.user.linkable_profile?, main_feature_comment.user.name_or_username, soapbox_profile_path(main_feature_comment.user.username) %>,<%=restaurant_names_for_user(main_feature_comment.user) %>
                           </em>

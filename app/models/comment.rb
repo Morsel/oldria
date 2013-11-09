@@ -103,10 +103,9 @@ class Comment < ActiveRecord::Base
                comments.updated_at as comment_at,
                comments.user_id as comment_user_id,
                admin_messages.display_message as question_display_message,
-               admin_messages.message as question_short_message,
-               soapbox_entries.id as soapbox_entry_id' }
+               admin_messages.message as question_short_message' }
 
-    Admin::Qotd.soapbox_entry_published.admin_conversations_comments_comment_like(keyword).
+    Admin::Qotd.search(:admin_conversations_comments_comment_like=>keyword).
       all(select_params)
   end
 
@@ -117,15 +116,12 @@ class Comment < ActiveRecord::Base
                comments.updated_at as comment_at,
                comments.user_id as comment_user_id,
                trend_questions.display_message as question_display_message,
-               trend_questions.subject as question_short_message,
-               soapbox_entries.id as soapbox_entry_id' }
+               trend_questions.subject as question_short_message' }
 
-    d_comments = TrendQuestion.soapbox_entry_published.
-      admin_discussions_comments_comment_like(keyword).
+    d_comments = TrendQuestion.search(:admin_discussions_comments_comment_like=>keyword).
       all(select_params)
 
-    d_comments + TrendQuestion.soapbox_entry_published.
-      solo_discussions_comments_comment_like(keyword).
+    d_comments + TrendQuestion.search(:solo_discussions_comments_comment_like=>keyword).
       all(select_params)
   end
 

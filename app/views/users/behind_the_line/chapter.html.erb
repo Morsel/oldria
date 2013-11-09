@@ -1,4 +1,4 @@
-<% title "#{@chapter.title} - #{@user.name} - Behind The Line", false %>
+<% title "#{@chapter.title} - #{@user.name} - Behind The Line".html_safe, false %>
 
 <%= render :partial => 'shared/add_this', :locals => {:responder => @user} %>
 
@@ -8,7 +8,7 @@
     title: $('title').text().replace('Spoonfeed','Soapbox')
   }
 <% end %>
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>", profile_path(@user.username) %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>".html_safe, profile_path(@user.username) %></h1>
 
 <h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
 <%= render :partial => 'questions/topic_nav', :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>

@@ -1,4 +1,5 @@
 <% buttons ||= false %>
+<%unless promotion.blank?%>
 <%=div_for(promotion) do %>
     <h2>
         <%= link_to restaurant_path(promotion.restaurant) do %>
@@ -37,7 +38,7 @@
     <div class="fix-nesfeed-details">
         <div class="details" >
             <% unless local_assigns[:dashboard]  -%> 
-             <%=truncate(Loofah::Helpers.sanitize(promotion.details), :length => 240, :omission => (link_to(" more &raquo;", details_restaurant_promotion_path(promotion.restaurant,promotion)).to_s)) %>
+             <%=truncate(Loofah::Helpers.sanitize(promotion.details), :length => 240, :omission => (link_to(" more &raquo;".html_safe, details_restaurant_promotion_path(promotion.restaurant,promotion)).to_s)).html_safe %>
             <%else%> 
                 <%= Loofah::Helpers.sanitize(promotion.details)%>
             <%end%> 
@@ -53,4 +54,5 @@
         <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></p>
     </div>
     <div class="clear">&nbsp;</div>
+<% end %>
 <% end %>
