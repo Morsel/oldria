@@ -120,7 +120,6 @@ include ActionDispatch::Routing::UrlFor
   def update_mailchimp
     if self.confirmed?
       mc = MailchimpConnector.new
-
       if self.opt_out?
         mc.client.list_unsubscribe(:id => mc.mailing_list_id, :email_address => email)
       else

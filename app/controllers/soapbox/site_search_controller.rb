@@ -1,7 +1,7 @@
 class Soapbox::SiteSearchController < ApplicationController
 
   layout 'soapbox_site_search'
-
+  require 'will_paginate/array'
   def show
     @key = params[:query].try(:strip)
     @no_key = params[:query].nil?
@@ -41,7 +41,7 @@ class Soapbox::SiteSearchController < ApplicationController
   protected
 
   def search_qotds_and_trends_entities
-    TrendQuestion.soapbox_entry_published.subject_like_or_display_message_like(@key).
+    TrendQuestion.search(:subject_or_display_message_like=>@key).relation.
       all(:include => :soapbox_entry).each do |entry|
       @all_entries << [entry, :trend_question]
     end
@@ -50,7 +50,7 @@ class Soapbox::SiteSearchController < ApplicationController
       @all_entries << [entry, :trend_question_comment]
     end
 
-    Admin::Qotd.soapbox_entry_published.message_like_or_display_message_like(@key).
+    Admin::Qotd.search(:message_or_display_message_like=>@key).
       all(:include => :soapbox_entry).each do |entry|
       @all_entries << [entry, :qotd]
     end
@@ -61,10 +61,10 @@ class Soapbox::SiteSearchController < ApplicationController
   end
 
   def search_btl_entities
-    ProfileQuestion.answered_by_premium_users.title_like(@key).all.each do |entry|
+    ProfileQuestion.answered_by_premium_users.search(:title_like=>@key).all.each do |entry|
       @all_entries << [entry, :btl_question]
     end
-    ProfileAnswer.from_premium_users.answer_like(@key).all(:include => :profile_question).each do |entry|
+    ProfileAnswer.from_premium_users.search(:answer_like=>@key).all(:include => :profile_question).each do |entry|
       @all_entries << [entry, :btl_answer]
     end
   end

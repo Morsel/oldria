@@ -22,11 +22,13 @@
     	  <% end -%>
     	</div>
 			<p class="btl_answer"><%= truncate(btl_answer.answer, :length => 200) %></p>
-    	<span class="btl-answer-author">
+    	<%unless btl_answer.user.primary_employment.blank? %>
+        <span class="btl-answer-author">        
     	  by <%= [btl_answer.user.try(:name),
     	          btl_answer.user.primary_employment.try(:restaurant_role).try(:name),
-    	          btl_answer.user.restaurant_names].reject(&:blank?).join(", ") %>
-    	</span>
+    	          btl_answer.user.restaurant_names].reject(&:blank?).join(", ") %>   	
+        </span>
+        <%end%>
 		</div>
   <% end %>
 </li>

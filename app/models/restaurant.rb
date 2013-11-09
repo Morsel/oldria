@@ -401,43 +401,43 @@ class Restaurant < ActiveRecord::Base
     premiums = Restaurant.activated_restaurant.subscription_is_active
 
     # RESTAURANT: name, city, state, management_company_name
-    restaurants = premiums.name_or_city_or_state_or_management_company_name_like(keyword)
+    restaurants = premiums.search(:name_or_city_or_state_or_management_company_name_like=>keyword).relation
     # RESTAURANT->CUISINE: name
-    restaurants += premiums.cuisine_name_like(keyword).
+    restaurants += premiums.search(:cuisine_name_like=>keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     # RESTAURANT->METROPOLITAN AREA: name
-    restaurants += premiums.metropolitan_area_name_like(keyword).
+    restaurants += premiums.search(:metropolitan_area_name_like=>keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     # RESTAURANT->ACCOLADE: name
-    restaurants += premiums.accolades_name_like(keyword).
+    restaurants += premiums.search(:accolades_name_like=>keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     # RESTAURANT->RESTAURANT FEATURES: value
-    restaurants += premiums.restaurant_features_value_like(keyword).
+    restaurants += premiums.search(:restaurant_features_value_like=>keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     # RESTAURANT->RESTAURANT FEATURES->RESTAURANT FEATURE CATEGORY: name
-    restaurants += premiums.restaurant_features_restaurant_feature_category_name_like(keyword).
+    restaurants += premiums.search(:restaurant_features_restaurant_feature_category_name_like=>keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     # RESTAURANT->RESTAURANT FEATURES->RESTAURANT FEATURE CATEGORY->RESTAURANT FEATURE PAGE: name
-    restaurants += premiums.restaurant_features_restaurant_feature_category_restaurant_feature_page_name_like(keyword).
+    restaurants += premiums.search(:restaurant_features_restaurant_feature_category_restaurant_feature_page_name_like=>keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)], :group => "restaurants.id")
     # RESTAURANT->MENUS: name
-    restaurants += premiums.menus_name_like(keyword).
+    restaurants += premiums.search(:menus_name_like=>keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     # RESTAURANT->RESTAURANT FACT SHEETS:
     #      venue, neighborhood, wine_by_the_bottle_details, reservations, dress_code, delivery
     #      architect_name, graphic_designer, furniture_designer, flooring, millwork, china
     #      kitchen_equipment, lighting, draperies, smoking
     restaurants += premiums.
-      fact_sheet_venue_or_fact_sheet_neighborhood_or_fact_sheet_wine_by_the_bottle_details_or_fact_sheet_reservations_like(keyword).
+      search(:fact_sheet_venue_or_fact_sheet_neighborhood_or_fact_sheet_wine_by_the_bottle_details_or_fact_sheet_reservations_like=>keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     restaurants += premiums.
-      fact_sheet_dress_code_or_fact_sheet_delivery_or_fact_sheet_architect_name_or_fact_sheet_graphic_designer_like(keyword).
+      search(:fact_sheet_dress_code_or_fact_sheet_delivery_or_fact_sheet_architect_name_or_fact_sheet_graphic_designer_like=>keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     restaurants += premiums.
-      fact_sheet_furniture_designer_or_fact_sheet_flooring_or_fact_sheet_millwork_or_fact_sheet_china_like(keyword).
+      search(:fact_sheet_furniture_designer_or_fact_sheet_flooring_or_fact_sheet_millwork_or_fact_sheet_china_like=>keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     restaurants += premiums.
-      fact_sheet_kitchen_equipment_or_fact_sheet_lighting_or_fact_sheet_draperies_or_fact_sheet_smoking_like(keyword).
+      search(:fact_sheet_kitchen_equipment_or_fact_sheet_lighting_or_fact_sheet_draperies_or_fact_sheet_smoking_like=>keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
 
     restaurants

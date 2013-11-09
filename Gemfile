@@ -25,14 +25,14 @@ end
 
   gem "authlogic", :git => "https://github.com/binarylogic/authlogic.git"
   gem 'addresslogic'
-  gem 'cancan'
+  gem 'cancan',"1.0.1"
   gem 'paperclip'
 
   gem 'faraday'
   gem 'oauth'
   gem 'twitter'#,                "1.7.2"
 
-  gem 'acts_as_list'
+  gem 'acts_as_list',"0.1.2"
   gem 'aasm'
   gem 'validation_reflection', :git => "https://github.com/redinger/validation_reflection.git"
   gem 'tabletastic'

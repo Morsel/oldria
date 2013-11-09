@@ -7,19 +7,19 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      can :manage, User do |user_to_manage,action|
+      can :manage, User do |action, user_to_manage|
         user_to_manage == user || user_to_manage.editors.include?(user)
       end
 
-      can :manage, Profile do |profile,action|
+      can :manage, Profile do |action, profile|
         profile.user == user
       end
 
-      can :manage, Restaurant do |restaurant,action|
+      can :manage, Restaurant do |action, restaurant|
         restaurant.try(:manager) == user || restaurant.managers.include?(user)
       end
 
-      can :manage, Discussion do |discussion,action|
+      can :manage, Discussion do |action, discussion|
         discussion && discussion.poster == user || discussion.users.include?(user)
       end
 
@@ -27,21 +27,21 @@ class Ability
         conversation.try(:recipient) == user
       end
 
-      can :manage, AdminDiscussion do |discussion,action|
+      can :manage, AdminDiscussion do |action, discussion|
         discussion.restaurant && discussion.discussionable && discussion.discussionable.viewable_by?(
           discussion.restaurant.employments.find_by_employee_id(user.id)
         )
       end
 
-      can :manage, MediaRequest do |message,action|
+      can :manage, MediaRequest do |action, message|
         message.sender == user
       end
 
-      can :manage, MediaRequestDiscussion do |discussion,action|
+      can :manage, MediaRequestDiscussion do |action, discussion|
         discussion.viewable_by?(discussion.restaurant.employments.find_by_employee_id(user.id))
       end
 
-      can :manage, SoloMediaDiscussion do |discussion,action|
+      can :manage, SoloMediaDiscussion do |action, discussion|
         discussion.employee == user
       end
     end

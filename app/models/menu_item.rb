@@ -80,7 +80,8 @@ default_url_options[:host] = DEFAULT_HOST
   end
 
   def self.email_address_for_restaurant(restaurant)
-    "otm-#{restaurant.id}@#{CLOUDMAIL_DOMAIN}"
+    "otm-#{restaurant.id}@staging-mailbot.restaurantintelligenceagency.com"
+    #{}"otm-#{restaurant.id}@#{CLOUDMAIL_DOMAIN}"
   end
 
   def self.build_with_photo_url(params = {})

@@ -5,8 +5,9 @@
 
 <h2 id ='remove-all-caps'>Photos (Click to view full sized. Alt-click to download.)</h2>
 
-    <div class="box" >
+    
     <% @photos.each do |photo| %>
+    <div class="box" >
       <%= content_tag_for(:div, photo) do %>
         <%= link_to image_tag(photo.attachment.url(:medium_photo), :class => "restaurant_photo"), photo.attachment.url(:large), :class => 'colorbox', :rel => 'restaurant_photo', :title => "#{photo.name}" %>
         <p class="credit">
@@ -15,7 +16,8 @@
         </p>
       <% end %>
       </div>
+      </div>
     <% end %>
   <!-- </div> -->
 
-</div>
+

@@ -1,6 +1,6 @@
 <li>
   <%= link_to "#" do %>
-    <% date = Time.parse(comment_list_entry.comment_at) %>
+    <% date = Time.parse(comment_list_entry.comment_at.to_s) %>
     <% user = User.find(comment_list_entry.comment_user_id) %>
     
     <time datetime="<%= date.try(:strftime,'%Y-%m-%d') %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>

@@ -19,7 +19,7 @@
                 <dd><%= promotion.title %></dd>
 
                 <dt>Details</dt>
-                <dd><%= Loofah::Helpers.sanitize(promotion.details) %></dd>
+                <dd><%= Loofah::Helpers.sanitize(promotion.details).html_safe %></dd>
 
                 <dt>Headline</dt>
                 <dd><%= promotion.headline %></dd>

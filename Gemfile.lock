@@ -13,20 +13,18 @@ GIT
     subdomain-fu (1.0.0.beta3)
 
 GIT
+  remote: https://github.com/mmangino/facebooker2.git
+  revision: 6a32a36bd871dfcc4e679fe4a18dabf24e248a87
+  specs:
+    facebooker2 (0.0.17)
+      mogli (>= 0.0.33)
+      ruby-hmac
+
+GIT
   remote: https://github.com/nishant-n/delayedjob1.8.4.git
   revision: 46ad9cb35c2a698b376f8b3bcf40d1d82024035a
   specs:
     delayed_job (1.8.4)
-
-GIT
-  remote: https://github.com/nishant-n/mogli.git
-  revision: b21e3ceed89b20118f987cb438dd7b53feea85fe
-  specs:
-    mogli (0.0.44)
-      hashie (>= 1.1.0)
-      httmultiparty (>= 0.3.6)
-      httparty (>= 0.4.3)
-      multi_json (~> 1.7.8)
 
 GIT
   remote: https://github.com/redinger/validation_reflection.git
@@ -36,7 +34,7 @@ GIT
 
 GIT
   remote: https://github.com/ryanb/nested_form.git
-  revision: 42028bc06e72a848d297edc1467a969a7c9def57
+  revision: 35a2cf060680280413880337a3f89bdec469301c
   specs:
     nested_form (0.3.2)
 
@@ -80,12 +78,11 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     acts_as_commentable (4.0.1)
-    acts_as_list (0.3.0)
-      activerecord (>= 3.0)
+    acts_as_list (0.1.2)
     addresslogic (1.2.1)
-    ar-octopus (0.7.0)
-      activerecord (>= 3.1.0, < 4.0)
-      activesupport (>= 3.1.0, < 4.0)
+    ar-octopus (0.8.0)
+      activerecord (>= 3.2.0)
+      activesupport (>= 3.2.0)
     arel (3.0.2)
     awesome_print (1.2.0)
     aws-sdk (1.11.1)
@@ -111,7 +108,7 @@ GEM
     braintree (2.22.0)
       builder (>= 2.0.0)
     builder (3.0.4)
-    cancan (1.6.10)
+    cancan (1.0.1)
     capistrano (2.5.21)
       highline
       net-scp (>= 1.0.0)
@@ -170,14 +167,11 @@ GEM
     debugger-ruby_core_source (1.2.3)
     delorean (2.1.0)
       chronic
-    diff-lcs (1.2.4)
+    diff-lcs (1.2.5)
     dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (2.0.2)
-    facebooker2 (0.0.17)
-      mogli (>= 0.0.33)
-      ruby-hmac
-    factory_girl (4.2.0)
+    factory_girl (4.3.0)
       activesupport (>= 3.0.0)
     fakeweb (1.3.0)
     faraday (0.8.8)
@@ -188,7 +182,7 @@ GEM
       loofah (~> 1.2.1)
       nokogiri (~> 1.6.0)
       sax-machine (~> 0.2.1)
-    ffi (1.9.0)
+    ffi (1.9.3)
     formtastic (2.1.0.rc)
       actionpack (~> 3.0)
     friendly_id (4.0.10.1)
@@ -201,7 +195,7 @@ GEM
       json (> 1.4.0)
       json (> 1.4.0)
       rdoc
-    haml (4.0.3)
+    haml (4.0.4)
       tilt
     hashie (2.0.5)
     highline (1.6.20)
@@ -220,8 +214,8 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
-    jwt (0.1.8)
-      multi_json (>= 1.5)
+    jwt (0.1.6)
+      multi_json (>= 1.0)
     libv8 (3.16.14.3)
     libxml-ruby (2.2.2)
     loofah (1.2.1)
@@ -244,10 +238,15 @@ GEM
     mini_portile (0.5.2)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
-    multi_json (1.7.9)
+    mogli (0.0.44)
+      hashie (>= 1.1.0)
+      httmultiparty (>= 0.3.6)
+      httparty (>= 0.4.3)
+      multi_json (>= 1.0.3, < 1.4)
+    multi_json (1.3.7)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
-    mysql2 (0.3.13)
+    mysql2 (0.3.14)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -255,7 +254,7 @@ GEM
     net-ssh (2.7.0)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    newrelic_rpm (3.6.8.168)
+    newrelic_rpm (3.6.9.171)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     oauth (0.4.7)
@@ -313,8 +312,8 @@ GEM
       rspec (~> 1.3.1)
     ruby-hmac (0.4.0)
     ruby-ole (1.2.11.7)
-    rubyzip (1.0.0)
-    s3 (0.3.13)
+    rubyzip (1.1.0)
+    s3 (0.3.17)
       proxies (~> 0.2.0)
     sass (3.2.12)
     sass-rails (3.2.6)
@@ -323,10 +322,10 @@ GEM
       tilt (~> 1.3)
     sax-machine (0.2.1)
       nokogiri (~> 1.6.0)
-    selenium-webdriver (2.37.0)
+    selenium-webdriver (2.35.0)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
-      rubyzip (~> 1.0.0)
+      rubyzip
       websocket (~> 1.0.4)
     simple_oauth (0.2.0)
     simple_xlsx_reader (0.9.8)
@@ -352,7 +351,7 @@ GEM
       ref
     thor (0.18.1)
     tilt (1.4.1)
-    tins (0.12.0)
+    tins (0.13.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -361,7 +360,7 @@ GEM
       multi_json (~> 1.0)
       simple_oauth (~> 0.2)
     tzinfo (0.3.38)
-    uglifier (2.3.0)
+    uglifier (2.3.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uuidtools (2.1.4)
@@ -381,7 +380,7 @@ DEPENDENCIES
   RedCloth
   aasm
   acts_as_commentable
-  acts_as_list
+  acts_as_list (= 0.1.2)
   addresslogic
   ar-octopus
   authlogic!
@@ -392,7 +391,7 @@ DEPENDENCIES
   bcrypt-ruby
   bitly
   braintree (= 2.22.0)
-  cancan
+  cancan (= 1.0.1)
   capistrano (= 2.5.21)
   capybara (= 1.1.2)
   carrierwave
@@ -407,7 +406,7 @@ DEPENDENCIES
   delayed_job!
   delorean
   dynamic_form
-  facebooker2
+  facebooker2!
   factory_girl
   fakeweb (= 1.3.0)
   faraday
@@ -425,7 +424,6 @@ DEPENDENCIES
   meta_search
   mini_magick
   mocha
-  mogli!
   mysql2
   nested_form!
   newrelic_rpm
