@@ -48,6 +48,11 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
+    if @restaurant.koala_verify_token(@restaurant)
+      graph = @restaurant.initialize_koala(@restaurant) 
+      @fb_pages = graph.get_object("me/accounts/page")      
+      @me = graph.get_object("me")
+    end
     @fb_user = current_facebook_user.fetch if current_facebook_user && current_user.facebook_authorized?
   rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException,Exception => e
     Rails.logger.error("Unable to fetch Facebook user for restaurant editing due to #{e.message} on #{Time.now}")
@@ -127,26 +132,29 @@ class RestaurantsController < ApplicationController
   end
 
   def fb_page_auth
+    if @restaurant.koala_verify_token(@restaurant)
+      extended_token = @restaurant.extend_access_token(@restaurant.facebook_page_token)
+      # client = @restaurant.facebook_client(extended_token["access_token"])
+      # myself = @restaurant.fb_user_find(client)
 
-    if current_facebook_user  
-      extended_token = @restaurant.extend_access_token(current_facebook_user.client.access_token)
-      client = @restaurant.facebook_client(extended_token["access_token"])
-      myself = @restaurant.fb_user_find(client)
-
-      @page = myself.accounts.select { |a| a.id == params[:facebook_page] }.first 
-
-      if @page
-        @restaurant.update_attributes!(:facebook_page_id => @page.id,
-                                       :facebook_page_token => @page.access_token,
-                                       :facebook_page_url => @page.fetch.link)
-        flash[:notice] = "Added Facebook page #{@page.name} to the restaurant"
-      else
-        @page = current_facebook_user
+      # @page = myself.accounts.select { |a| a.id == params[:facebook_page] }.first 
+      graph = Koala::Facebook::API.new(@restaurant.facebook_page_token)      
+      if params[:facebook_page]  
+        fb_pages = graph.get_object("me/accounts/page")       
+        @page = fb_pages.map{ |a|  a if a["id"] == params[:facebook_page] }.compact.first
         if @page
-          @restaurant.update_attributes!(:facebook_page_id => @page.id,
+          @restaurant.update_attributes!(:facebook_page_id => @page["id"],
+                                         :facebook_page_token => @page["access_token"],
+                                         :facebook_page_url => "https://www.facebook.com/#{@page['id']}")
+          flash[:notice] = "Added Facebook page #{@page['name']} to the restaurant"
+        end
+      else 
+        @page = graph.get_object("me")
+        if @page
+          @restaurant.update_attributes!(:facebook_page_id => @page["id"],
                                        :facebook_page_token => extended_token["access_token"],
-                                       :facebook_page_url => @page.fetch.link)
-          flash[:notice] = "Added Facebook page #{@page.name} to the restaurant"
+                                       :facebook_page_url => @page["link"])
+          flash[:notice] = "Added Facebook page #{@page['name']} to the restaurant"
         else  
           @restaurant.update_attributes!(:facebook_page_id => nil, :facebook_page_token => nil)
           flash[:notice] = "Cleared the Facebook page settings from your restaurant"

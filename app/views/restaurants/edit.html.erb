@@ -71,30 +71,28 @@
 
   <fieldset id="facebook-fieldset" class="inputs editing">
       <legend><span>Facebook</span></legend>
-      <%- if @fb_user.present? && @restaurant.has_facebook_page? -%>
+
+      <%- if @me.present? && @restaurant.has_facebook_page? -%>
       <p>
-          You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.
+          You are currently linked to your Facebook account <em>"<%= @me["name"] %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.
       </p>
       <%= link_to "Disconnect Facebook", fb_deauth_restaurant_path(@restaurant), :class => 'sf-button negative' %>
-     
-      <% begin %>
+      <% begin %> 
           <% page_name = @restaurant.facebook_page.fetch %>
-          <p>Current Facebook page for <%= @restaurant.name %>: <em><%= page_name.name %></em></p>
-	  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception =>e %>
+          <p>Current Facebook page for <%= @restaurant.name %>: <em><%= page_name %></em></p>
+	    <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception =>e %>
         <p>Access to your Facebook page has expired. Please select the page again.</p>
       <% end %>
  
-      <% if @fb_user.accounts.blank? %>
+      <% if !@me.present? %>
         <p>You don't appear to have access to any Facebook pages. If you'd like the change the page for this restaurant, please ask the admin to give you access through your Facebook account.</p>
       <% else %>
-      <div class="clear">
-          <%= form_tag fb_page_auth_restaurant_path(@restaurant) do %>
-          <p>Configure a page to post to:<br/>
-              <%= select_tag "facebook_page", "<option>&nbsp;</option>" + options_from_collection_for_select(@fb_user.accounts, :id, :name, @restaurant.facebook_page_id.to_s) %><br>
-              <%= button_tag "Save Facebook Page", :class => 'clear' %>
-          </p>
-          <% end %>
-      </div>
+        <%= form_tag fb_page_auth_restaurant_path(@restaurant) do %>
+            <p>Configure a page to post to:<br/>
+            <%=fb_page_options %>
+            <br>          
+            </p>
+        <% end %>
       <% end %>
 
       <%- else -%>

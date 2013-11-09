@@ -54,5 +54,18 @@ module FacebookPageConnect
     rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception => e
       Rails.logger.error("Unable to exchange token due to #{e.message} on #{Time.now}")
   end
-  
+
+  # using koala to get facebook page
+  def initialize_koala resource
+    graph = Koala::Facebook::API.new(resource.facebook_page_token)
+  end
+  def koala_verify_token resource
+    begin
+      graph = Koala::Facebook::API.new(resource.facebook_page_token)
+      fb_pages = graph.get_object("me/accounts/page") 
+      return true
+    rescue
+      return false
+    end   
+  end
 end

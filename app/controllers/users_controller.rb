@@ -157,24 +157,28 @@ class UsersController < ApplicationController
   end
 
   def fb_connect
-    if current_facebook_user  
-      unless params[:restaurant_id].blank? 
-        @restaurant = Restaurant.find(params[:restaurant_id]) 
- 
-          @page = current_facebook_user.fetch        
+    if current_facebook_user
+      @page = current_facebook_user.fetch
+      unless params[:restaurant_id].blank?
+        @restaurant = Restaurant.find(params[:restaurant_id])
           @restaurant.update_attributes!(:facebook_page_id => @page.id,
                                      :facebook_page_token => @page.client.access_token,
                                      :facebook_page_url => @page.link)
           extended_token = @restaurant.extend_access_token @restaurant.facebook_page_token
           @restaurant.update_attributes!(:facebook_page_token => extended_token["access_token"]) unless extended_token.blank?
+      else
+        @user.update_attributes!(:facebook_page_id => @page.id,
+                                       :facebook_page_token => @page.client.access_token,
+                                       :facebook_page_url => @page.link)
+        extended_token = @user.extend_access_token @user.facebook_page_token
+        user_extended_token = @user.facebook_client(extended_token["access_token"])
+        @user.update_attribute(:facebook_page_token, user_extended_token.access_token)
+        @user.update_attribute(:facebook_page_id, current_facebook_user.id)
+        @user.connect_to_facebook_user(current_facebook_user.id, user_extended_token.expiration)
+        if @user.facebook_access_token != current_facebook_user.client.access_token
+          @user.update_attribute(:facebook_access_token, current_facebook_user.client.access_token)
+        end
       end
-      # user_extended_token = @user.facebook_client(extended_token["access_token"])
-      # @user.update_attribute(:facebook_page_token, user_extended_token.access_token)
-      # @user.update_attribute(:facebook_page_id, current_facebook_user.id)       
-      # @user.connect_to_facebook_user(current_facebook_user.id, user_extended_token.expiration)
-      # if @user.facebook_access_token != current_facebook_user.client.access_token
-      #   @user.update_attribute(:facebook_access_token, current_facebook_user.client.access_token)
-      # end
       flash[:notice] = "Your Facebook account has been connected to your Spoonfeed account"
     else
       flash[:error] = "We were unable to connect your account. Please try again later."
