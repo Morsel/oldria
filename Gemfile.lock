@@ -13,18 +13,20 @@ GIT
     subdomain-fu (1.0.0.beta3)
 
 GIT
-  remote: https://github.com/mmangino/facebooker2.git
-  revision: 6a32a36bd871dfcc4e679fe4a18dabf24e248a87
-  specs:
-    facebooker2 (0.0.17)
-      mogli (>= 0.0.33)
-      ruby-hmac
-
-GIT
   remote: https://github.com/nishant-n/delayedjob1.8.4.git
   revision: 46ad9cb35c2a698b376f8b3bcf40d1d82024035a
   specs:
     delayed_job (1.8.4)
+
+GIT
+  remote: https://github.com/nishant-n/mogli.git
+  revision: b21e3ceed89b20118f987cb438dd7b53feea85fe
+  specs:
+    mogli (0.0.44)
+      hashie (>= 1.1.0)
+      httmultiparty (>= 0.3.6)
+      httparty (>= 0.4.3)
+      multi_json (~> 1.7.8)
 
 GIT
   remote: https://github.com/redinger/validation_reflection.git
@@ -79,6 +81,7 @@ GEM
       multi_json (~> 1.0)
     acts_as_commentable (4.0.1)
     acts_as_list (0.1.2)
+    addressable (2.3.5)
     addresslogic (1.2.1)
     ar-octopus (0.8.0)
       activerecord (>= 3.2.0)
@@ -171,6 +174,9 @@ GEM
     dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (2.0.2)
+    facebooker2 (0.0.17)
+      mogli (>= 0.0.33)
+      ruby-hmac
     factory_girl (4.3.0)
       activesupport (>= 3.0.0)
     fakeweb (1.3.0)
@@ -214,8 +220,12 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
-    jwt (0.1.6)
-      multi_json (>= 1.0)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
+    koala (1.7.0rc1)
+      addressable
+      faraday
+      multi_json
     libv8 (3.16.14.3)
     libxml-ruby (2.2.2)
     loofah (1.2.1)
@@ -238,12 +248,7 @@ GEM
     mini_portile (0.5.2)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
-    mogli (0.0.44)
-      hashie (>= 1.1.0)
-      httmultiparty (>= 0.3.6)
-      httparty (>= 0.4.3)
-      multi_json (>= 1.0.3, < 1.4)
-    multi_json (1.3.7)
+    multi_json (1.7.9)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     mysql2 (0.3.14)
@@ -406,7 +411,7 @@ DEPENDENCIES
   delayed_job!
   delorean
   dynamic_form
-  facebooker2!
+  facebooker2
   factory_girl
   fakeweb (= 1.3.0)
   faraday
@@ -417,6 +422,7 @@ DEPENDENCIES
   gherkin (= 2.5.4)
   gibbon (= 0.3.5)
   jquery-rails
+  koala (= 1.7.0rc1)
   libxml-ruby (= 2.2.2)
   loofah
   mail_safe
@@ -424,6 +430,7 @@ DEPENDENCIES
   meta_search
   mini_magick
   mocha
+  mogli!
   mysql2
   nested_form!
   newrelic_rpm

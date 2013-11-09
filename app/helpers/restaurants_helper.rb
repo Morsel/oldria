@@ -90,4 +90,12 @@ module RestaurantsHelper
       ""
     end
   end  
+  def fb_page_options    
+    options = "<select name='facebook_page' id='facebook_page'><option>&nbsp;</option>"
+    @fb_pages.each do |page|
+      options = options +  "<option value=#{page['id']}>#{page['name']}</option>"
+    end
+    options = options + "<br><input type=submit value='Save Facebook Page', class = 'clear'>"
+    options.html_safe
+  end
 end
