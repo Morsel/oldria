@@ -85,8 +85,11 @@ class Feed < ActiveRecord::Base
   end
 
   def needs_update?
+
     # If the etag isn't the same, or if it's out of date, or if it has no entries
-    self.etag != feed.etag || self.last_modified < feed.last_modified || self.feed_entries.empty?
+    unless feed.is_a?(Fixnum)
+      self.etag != feed.etag || self.last_modified < feed.last_modified || self.feed_entries.empty?
+    end 
   end
 
   # Class methods to update everybody, conservatively or aggressivelycucum

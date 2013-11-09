@@ -69,6 +69,8 @@ class Mediafeed::MediafeedController < ApplicationController
     @digest_subsriptions = current_user.get_digest_subscription.paginate({:page => params[:page], :per_page => @per_page})
     @user = current_user
     @user.media_newsletter_setting || @user.build_media_newsletter_setting.save
+    render :layout => 'application'
+
   end
 
   def media_all_unsubscribe     
