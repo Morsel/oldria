@@ -3,6 +3,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
   include ActionDispatch::Routing::UrlFor
   
   attr_accessible :visitor_count
+  attr_protected
 
   default_url_options[:host] = DEFAULT_HOST
 
@@ -13,6 +14,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
           { :conditions => ["restaurant_id = #{restaurant_id} and updated_at > '#{1.day.ago.beginning_of_day}'"]
          }
       }
+
   def self.profile_visitor(user,restaurant_id)
       urv = UserRestaurantVisitor.find(:first,:conditions=>["user_id = ? and restaurant_id = ? ",user.id,restaurant_id])
       if urv.blank?          

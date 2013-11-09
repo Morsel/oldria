@@ -78,7 +78,7 @@ Ria::Application.routes.draw do
       end   
     end
     match 'frontburner' => 'soapbox_entries#frontburner', :as => :frontburner
-    resources :promotions,:as=>'newsfeed'
+    resources :promotions
     resources :menu_items, :path => 'on_the_menu'
     resources :users, :only => [] do   
       resources :profile_questions, :only => ["index", "show"]
@@ -531,7 +531,7 @@ Ria::Application.routes.draw do
     resources :restaurant_topics
     resources :profile_questions do
       member do
-        post :send_notifications
+        get :send_notifications
       end
     end
     resources :chapters do

@@ -9,6 +9,8 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
       @media_requests = params[:view_all] ? 
           current_user.media_requests.all(:include => [:subject_matter, :restaurants]) :
           @media_requests_with_replies #set in :get_reply_count
+      render :layout => "application"
+    
   end
 
   def new
@@ -41,6 +43,7 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
       end
       render :new
     end
+
   end
 
   def show
