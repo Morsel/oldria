@@ -55,7 +55,7 @@
                       <% end %>
                     <% end %>
                   </ol>
-                  <%=link_to_add_fields("Add hours", f, :meals, :class => "add_fields_for sf-button", :form_options => {:day_value => day}) %>
+                  <%=link_to_add_fields("Add hours", f, :meals, :class => "add_fields_for sf-button", :form_options => {:day_value => day}).html_safe %>
                 <% end %>
               <% end %>
             </li>
