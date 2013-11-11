@@ -257,10 +257,10 @@ class ApplicationController < ActionController::Base
   def build_extra_profile_params
     extra_params = {}
     if params[:search].try(:[], :restaurant_james_beard_region_id_equals_any)
-      extra_params[:employee_profile_james_beard_region_id_eq_any] = params[:search][:restaurant_james_beard_region_id_equals_any]
+      extra_params[:employee_profile_james_beard_region_id_equals] = params[:search][:restaurant_james_beard_region_id_equals_any]
     end
     if params[:search].try(:[], :restaurant_metropolitan_area_id_equals_any)
-      extra_params[:employee_profile_metropolitan_area_id_eq_any] = params[:search][:restaurant_metropolitan_area_id_equals_any]
+      extra_params[:employee_profile_metropolitan_area_id_equals] = params[:search][:restaurant_metropolitan_area_id_equals_any]
     end
 
     return extra_params

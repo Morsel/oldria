@@ -531,7 +531,10 @@ Ria::Application.routes.draw do
     resources :restaurant_topics
     resources :profile_questions do
       member do
-        get :send_notifications
+        get :send_notifications        
+      end
+      collection do 
+        post :sort
       end
     end
     resources :chapters do

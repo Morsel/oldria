@@ -1,10 +1,10 @@
 <% title "Soapbox Slides" %>
 
 <%= link_to "New Slide", new_admin_soapbox_slide_path, :class => "button positive" %>
-
-<%= table_for(@slides) do |t| %>
+<%= table_for(@slides, :html => {:id=>"soapbox_slides"} ) do |t| %>
   <%= t.head do %>
-    <%= t.r do %>
+    <%= t.r do %> 
+      <%= t.h('')%>
       <%= t.h('Image') %>
       <%= t.h('Photo credit') %>
       <%= t.h('Title') %>
@@ -15,8 +15,11 @@
       <th></th>
     <% end %>
   <% end %>
-  <%= t.body do |slide| %>
-      <tr class="<%= cycle('odd','even', :name => 'featured_profiles') %>">
+  <%= t.body(:html=>{:class=>"ui-sortable"}) do |slide| %>
+    <tr id="soapbox_slide_<%=slide.id%>" class="soapbox_slide <%=cycle('odd','even', :name => 'featured_profiles')%>">
+      <%= t.d(:class => 'small handle') do %>
+        [drag]
+      <% end %>
     	<%= t.d(h(image_tag slide.image.url(:thumb))) %>
       <%= t.d(h(slide.photo_credit)) %> 
       <%= t.d(h(slide.title)) %>
