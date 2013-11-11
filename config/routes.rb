@@ -107,7 +107,7 @@ Ria::Application.routes.draw do
     resource :search,:controller => 'site_search', :only => ["show"]      
   end
 
-  match 'soapbox/profile/:username' => 'soapbox/profiles#show', :as => :soapbox_profile, :constraints => { :username => /[a-zA-Z0-9\-\_ ]+/ }
+  match 'soapbox/profile/:username' => 'soapbox/profiles#show', :as => :soapbox_profile, :constraints => { :username => /[a-zA-Z0-9\-\_20% ]+/ }
   match 'soapbox/directory' => 'soapbox/soapbox#directory', :as => :soapbox_directory
   match 'soapbox/directory/restaurants' => 'soapbox/soapbox#restaurant_directory', :as => :soapbox_restaurant_directory
   match '/' => 'soapbox/soapbox#index', :via => 'hq#index'
@@ -170,8 +170,8 @@ Ria::Application.routes.draw do
     end
   end
 
-  match 'profile/:username' => 'users#show', :as => :profile, :constraints => { :username => /[ a-zA-Z0-9\-\_ ]+/ }
-  match 'user_profile_subscribe/:username' => 'users#user_profile_subscribe', :as => :user_profile_subscribe, :constraints => { :username => /[a-zA-Z0-9\-\_ ]+/ }
+  match 'profile/:username' => 'users#show', :as => :profile, :constraints => { :username => /[a-zA-Z0-9\-\_20% ]+/ }
+  match 'user_profile_subscribe/:username' => 'users#user_profile_subscribe', :as => :user_profile_subscribe, :constraints => { :username => /[a-zA-Z0-9\-\_20% ]+/ }
   resources :users do
     collection do
       get :resend_confirmation
