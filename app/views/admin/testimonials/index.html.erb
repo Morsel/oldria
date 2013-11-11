@@ -1,8 +1,7 @@
 <% title "Testimonials" %>
 
 <%= link_to "New Testimonial", new_admin_testimonial_path, :class => "button positive" %>
-
-<%= table_for(@testimonials) do |t| %>
+<%= table_for(@testimonials,:html => {:id=>"testimonials"}) do |t| %>
   <%= t.head do %>
     <%= t.r do %>
       <%= t.h('Photo') %>
@@ -13,16 +12,17 @@
       <th></th>
     <% end %>
   <% end %>
-  <%= t.body do |testimonial| %>
-    <%= t.r do %>
-    	<%= t.d(h(image_tag testimonial.photo.url(:small))) %>
-    	<%= t.d(h(testimonial.quote)) %>
-    	<%= t.d(h(testimonial.person)) %>
-    	<%= t.d(h(testimonial.page)) %>
-      <%= t.d(h(link_to "Edit",edit_admin_testimonial_path(testimonial),:class=>'admin-actions')) %>
-      <td class="actions destroy_link">
-        <%= link_to "Destroy",admin_testimonial_path(testimonial), :method => :delete %>
-      </td> 
+  <%= t.body_r(:class =>"testimonial #{cycle('odd','even')}") do |testimonial| %>
+    <%= t.d(:class => 'small handle') do %>
+      [drag]
     <% end %>
+    <%= t.d(h(image_tag testimonial.photo.url(:small))) %>
+    <%= t.d(h(testimonial.quote)) %>
+    <%= t.d(h(testimonial.person)) %>
+    <%= t.d(h(testimonial.page)) %>
+    <%= t.d(h(link_to "Edit",edit_admin_testimonial_path(testimonial),:class=>'admin-actions')) %>
+    <td class="actions destroy_link">
+      <%= link_to "Destroy",admin_testimonial_path(testimonial), :method => :delete %>
+    </td> 
   <% end %>
 <% end %>

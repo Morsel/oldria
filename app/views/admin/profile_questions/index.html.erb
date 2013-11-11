@@ -16,8 +16,7 @@
 <%- unless chapter.nil? -%>
 <h2><%= chapter.title_with_topic %>:</h2>
 <%- end -%>
-
-<%= table_for @questions[chapter] do |t| %>
+<%= table_for(@questions[chapter], :html => {:id=>"profile_questions"}) do |t| %>
   <%= t.head do %>
     <%= t.r do %>
       <%= t.h('Title') %>
@@ -27,8 +26,11 @@
       <th></th>
     <% end %>
   <% end %>
-  <%= t.body do |chapt| %>
-    <%= t.r do %>
+  <%= t.body(:html=>{:class=>"ui-sortable"}) do |chapt| %>
+    <tr id="profile_question_<%=chapt.id%>" class="profile_question <%=cycle('odd','even', :name => 'featured_profiles')%>">
+      <%= t.d(:class => 'small handle') do %>
+        [drag]
+      <% end %>
       <%= t.d(h(chapt.title)) %>
       <%= t.d(h(chapt.roles_description)) %>
       <%= t.d(h(link_to "Send Notification",send_notifications_admin_profile_question_path(:id => chapt.id), :method => 'post',:class=>'admin-actions')) %>

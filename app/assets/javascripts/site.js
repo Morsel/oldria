@@ -62,6 +62,7 @@ $('.status a.trash').live('click', function(){
 $('a.trash').removeAttr('onclick');
 
 $('.actions.destroy_link a').ajaxDestroyLink();
+$('.destroy_link a').ajaxDestroyLink();
 
 var bindAjaxDeleters = function(){
   $('a.delete').ajaxDestroyLink({

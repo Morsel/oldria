@@ -78,7 +78,7 @@
             <%= s.input :restaurant_metropolitan_area_id_equals_any,
                         :as => "check_boxes",
                         :label => '&nbsp;'.html_safe,
-                        :label_method => :city_and_state,
+                        :member_label => :city_and_state,
                         :collection => (MetropolitanArea.with_restaurants + MetropolitanArea.with_profiles).flatten.uniq.sort_by(&:name) %>
         </div>
       </div>

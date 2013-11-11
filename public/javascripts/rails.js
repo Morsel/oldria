@@ -159,7 +159,7 @@
     // <a href="/users/5" data-method="delete" rel="nofollow" data-confirm="Are you sure?">Delete</a>
     handleMethod: function(link) {
       var href = rails.href(link),
-        method = link.data('method'),
+        method = link.data('method') || "get",
         target = link.attr('target'),
         csrf_token = $('meta[name=csrf-token]').attr('content'),
         csrf_param = $('meta[name=csrf-param]').attr('content'),

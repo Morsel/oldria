@@ -170,7 +170,7 @@ Ria::Application.routes.draw do
     end
   end
 
-  match 'profile/:username' => 'users#show', :as => :profile, :constraints => { :username => /[a-zA-Z0-9\-\_ ]+/ }
+  match 'profile/:username' => 'users#show', :as => :profile, :constraints => { :username => /[ a-zA-Z0-9\-\_ ]+/ }
   match 'user_profile_subscribe/:username' => 'users#user_profile_subscribe', :as => :user_profile_subscribe, :constraints => { :username => /[a-zA-Z0-9\-\_ ]+/ }
   resources :users do
     collection do
@@ -245,7 +245,7 @@ Ria::Application.routes.draw do
     resources :user_visitor_email_setting
   end
 
-  resource :search, :only => ["show"]
+  resource :search, :controller => 'site_search', :only => ['show']
   match '/features/:id' => 'features#show', :as => :feature
   resources :restaurants do
     collection do
@@ -465,7 +465,7 @@ Ria::Application.routes.draw do
     match "/" => 'profile_questions#index'#,:as => "behind_the_line"
   end
   namespace :spoonfeed,:as=>"profile_question", :path => 'behind_the_line' do
-    match "/:id" => 'profile_question#show'#,:get => "behind_the_line"
+    match "/:id" => 'profile_questions#show'#,:get => "behind_the_line"
   end
   # match "profile_questions" => 'spoonfeed/profile_questions#index'#,:as => "behind_the_line"
   # match "profile_questions/:id" => 'spoonfeed/profile_question#show'#,:get => "behind_the_line"
@@ -531,7 +531,10 @@ Ria::Application.routes.draw do
     resources :restaurant_topics
     resources :profile_questions do
       member do
-        post :send_notifications
+        get :send_notifications        
+      end
+      collection do 
+        post :sort
       end
     end
     resources :chapters do
