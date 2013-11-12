@@ -3,7 +3,7 @@ class Admin::MessagesController < Admin::AdminController
   # GET /admin/messages
   # GET /admin/messages.xml
   def index
-    @messages = Admin::Message.all(:order => 'scheduled_at DESC, message ASC')
+    @messages = Admin::Message.all(:limit=>10,:order => 'scheduled_at DESC, message ASC')
     @message_groups = @messages.group_by(&:class)
 
     respond_to do |format|

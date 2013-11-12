@@ -94,12 +94,12 @@ class Admin::Message < ActiveRecord::Base
   end
 
   def conversations_with_replies
-   # admin_conversations.scoped(:conditions => "comments_count > 0", :include => :recipient) 
     admin_conversations.scoped.where('comments_count > 0', :include => :recipient)
   end
 
   def conversations_without_replies
-    admin_conversations.scoped(:conditions => "comments_count < 1", :include => :recipient)
+    admin_conversations.scoped.where('comments_count < 1', :include => :recipient)
+
   end
 
   def attachments_allowed?

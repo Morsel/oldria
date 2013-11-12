@@ -20,7 +20,8 @@ class Admin::Qotd < Admin::Message
   has_one :soapbox_entry, :foreign_key => :featured_item_id, :conditions => { :featured_item_type => "Admin::Qotd" }, :dependent => :destroy
 
   scope :current, :conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]
-
+  attr_protected
+  
   def self.title
     "Question of the Day"
   end
