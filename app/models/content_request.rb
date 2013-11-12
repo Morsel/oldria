@@ -14,6 +14,7 @@
 
 class ContentRequest < ActiveRecord::Base
   acts_as_readable
+  attr_protected
   belongs_to :employment_search
   has_many :admin_discussions, :as => :discussionable, :dependent => :destroy
   has_many :restaurants, :through => :admin_discussions

@@ -8,9 +8,7 @@
       <%= t.h('Subject') %>
       <%= t.h('Body') %>
       <%= t.h('Criteria') %>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th></th><th></th><th></th><th></th>
     <% end %>
   <% end %>
   <%= t.body do |trend_question| %>
@@ -19,11 +17,13 @@
       <%= t.d(h(trend_question.subject)) %> 
       <%= t.d(h(trend_question.body)) %>
       <%= t.d(h(trend_question.employment_search.readable_conditions.join(", "))) %>
-	  <%= t.d(h(link_to "Show",admin_trend_question_path(trend_question),:class=>'actions show_link')) %> 
-      <%= t.d(h(link_to "Edit",edit_admin_trend_question_path(trend_question),:class=>'actions edit_link')) %>
+      <%= t.d(h(reply_count_link(trend_question)),:class=>'admin-actions') %>
+  	  <%= t.d(h(link_to "Show",admin_trend_question_path(trend_question),:class=>'admin-actions')) %> 
+      <%= t.d(h(link_to "Edit",edit_admin_trend_question_path(trend_question),:class=>'admin-actions')) %>
       <td class="actions destroy_link">
         <%= link_to "Destroy",admin_trend_question_path(trend_question), :method => :delete %>
       </td> 
     <% end %>
   <% end %>
 <% end %>
+

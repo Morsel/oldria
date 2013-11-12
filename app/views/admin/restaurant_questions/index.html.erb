@@ -23,12 +23,15 @@
       <%= t.h('Page') %>
       <th></th>
       <th></th>
+      <th></th>
+
     <% end %>
   <% end %>
   <%= t.body do |que_chap| %>
     <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(que_chap.title)) %>
       <%= t.d(h(que_chap.pages_description)) %>
+      <%= t.d(h(link_to 'Send Notification', send_notifications_admin_restaurant_question_path(que_chap.id),:class=>'admin-actions')) %>
       <%= t.d(h(link_to "Edit",edit_admin_restaurant_question_path(:id => que_chap.id),:class=>'admin-actions')) %>
       <td class="actions destroy_link">
         <%= link_to "Destroy",admin_restaurant_role_path(:id => que_chap.id), :method => :delete %>
