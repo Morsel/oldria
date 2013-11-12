@@ -2,7 +2,7 @@ class Admin::ChaptersController < Admin::AdminController
 
   def index
     @topics = Topic.user_topics(:order => :title)
-    @chapters_by_topic = Chapter.all(:include => :topic,
+    @chapters_by_topic = Chapter.unscoped.all(:include => :topic,
                                      :conditions => "topics.type IS NULL",
                                      :order => "topics.title ASC, chapters.position ASC").group_by(&:topic)
   end

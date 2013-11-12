@@ -16,17 +16,21 @@
 <h2><%= chapter.title_with_topic %>:</h2>
 <%- end -%>
 
-<%= table_for @questions[chapter] do |t| %>
+<%= table_for(@questions[chapter], :html => {:id=>"restaurant_questions"}) do |t| %>
   <%= t.head do %>
     <%= t.r do %>
+      <%= t.h('')%>
       <%= t.h('Title') %>
       <%= t.h('Page') %>
       <th></th>
       <th></th>
     <% end %>
   <% end %>
-  <%= t.body do |que_chap| %>
-    <tr class="<%= cycle('odd','even') %>">
+  <%= t.body(:html=>{:class=>"ui-sortable"}) do |que_chap| %>
+    <tr id="restaurant_question_<%=que_chap.id%>" class="restaurant_question <%=cycle('odd','even', :name => 'featured_profiles')%>">
+      <%= t.d(:class => 'small handle') do %>
+        [drag]
+      <% end %>
       <%= t.d(h(que_chap.title)) %>
       <%= t.d(h(que_chap.pages_description)) %>
       <%= t.d(h(link_to "Edit",edit_admin_restaurant_question_path(:id => que_chap.id),:class=>'admin-actions')) %>

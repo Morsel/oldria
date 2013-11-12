@@ -23,7 +23,7 @@ class Chapter < ActiveRecord::Base
   validates_uniqueness_of :title, :scope => :topic_id, :case_sensitive => false
   validates_length_of :description, :maximum => 100
 
-  default_scope :include => :topic, :order => "topics.title ASC, chapters.title ASC"
+  default_scope :include => :topic, :order => "chapters.position ASC"
   attr_accessible :title,:description,:topic_id
 
 

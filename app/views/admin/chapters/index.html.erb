@@ -10,17 +10,21 @@
   <%= render :partial => "form", :locals => { :chapter => Chapter.new, :topic => topic } %>
 <% end %>
 
-<%= table_for @chapters_by_topic[topic] do |t| %>
+<%= table_for(@chapters_by_topic[topic], :html => {:id=>"chapters"}) do |t| %>
   <%= t.head do %>
     <%= t.r do %>
+      <%= t.h('')%>
       <%= t.h('Title') %>
       <%= t.h('Description') %>
       <%= t.h('can_be_deleted?') %>
       <th></th>
     <% end %>
   <% end %>
-  <%= t.body do |chap_topic| %>
-    <%= t.r do %>
+  <%= t.body(:html=>{:class=>"ui-sortable"}) do |chap_topic| %>
+    <tr id="chapter_<%=chap_topic.id%>" class="chapter <%=cycle('odd','even', :name => 'featured_profiles')%>">
+      <%= t.d(:class => 'small handle') do %>
+        [drag]
+      <% end %>
       <%= t.d(h(chap_topic.title)) %>
       <%= t.d(h(chap_topic.description)) %>
       <% if chap_topic.profile_questions.count == 0 %>
@@ -31,7 +35,6 @@
         <td></td>
       <% end %>  
       <%= t.d(h(link_to "Edit",edit_admin_chapter_url(:id => chap_topic.id),:class=>'admin-actions')) %>
-    <% end %>
   <% end %>
 <% end %>
   <% end %>
