@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   include Facebooker2::Rails::Controller
   # include SslRequirement
-  include ::SslRequirement
+  #include ::SslRequirement
 
   layout :site_layout
 

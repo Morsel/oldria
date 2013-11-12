@@ -101,3 +101,4 @@ gem 'carrierwave'
 gem "mini_magick"
 gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 gem "koala", "1.7.0rc1"
+gem 'ssl_requirement'
