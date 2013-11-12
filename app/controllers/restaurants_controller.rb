@@ -386,6 +386,9 @@ class RestaurantsController < ApplicationController
   def request_profile_update
     @restaurant = Restaurant.find( params[:restaurant_id])
     @restaurant.employments.each do |employment|
+      if employment.employee.user_visitor_email_setting.blank?
+        UserRestaurantVisitor.new.create_user_visited_email_setting(employment.employee)
+      end
       if !employment.employee.user_visitor_email_setting.do_not_receive_email
         UserMailer.request_profile_update(@restaurant,employment.employee).deliver
       end

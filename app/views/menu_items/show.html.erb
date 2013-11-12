@@ -24,7 +24,7 @@
 
         <p><%= @menu_item.name %> <%= "(#{price(@menu_item.price)})" if @menu_item.price.present? %></p>
 
-        <p><%= Loofah::Helpers.sanitize(@menu_item.description) %></p>
+        <p><%= Loofah::Helpers.sanitize(@menu_item.description).html_safe %></p>
 
         <p><%= "Pairing: #{@menu_item.pairing}" if @menu_item.pairing.present? %></p>
 

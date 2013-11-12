@@ -79,7 +79,7 @@ $(document).ready(function(){
 	
 //for autocomplete controller
 	$("#user_search").autocomplete({
-	  source: "/users.js",
+	  source: "/users/index",
 	});  
 
   $('.search-button').click(function(e){
@@ -167,33 +167,34 @@ $("#restaurant_by_state_region").click(function(){
 //
 
 $("#user_editor").autocomplete({
-  source: "/users.js",
+	source: "/users/index",
 });
+
 $("#otm_keyword_search").autocomplete({
-  source: "/otm_keywords.js",
+  source: "/otm_keywords/index",
 });
 
 $("#user_search").autocomplete({
-  source: "/users.js",
+  source: "/users/index",
 });
 $("#restaurant_search").autocomplete({
-  source: "/restaurants.js",
+  source: "/restaurants/index",
 });
 $("#feature_search").autocomplete({
-  source: "/features.js",
+  source: "/features/index",
 });
 $("#state_search").autocomplete({
-  source: "/states.js",
+  source: "/states/index",
 });
 $("#specialty_search").autocomplete({
-  source: "/specialties.js",
+  source: "/specialties/index",
 });
 $("#region_search").autocomplete({
-  source: "/james_beard_regions.js",
+  source: "/james_beard_regions/index",
 });
 $("#state_search_for_user").autocomplete({
-  source: "/metropolitan_areas.js",
+  source: "/metropolitan_areas/index",
 });
 $("#cusine_search").autocomplete({
-  source: "/cuisines.js",
+  source: "/cuisines/index",
 });

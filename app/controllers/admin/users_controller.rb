@@ -85,7 +85,7 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  def impersonator  
+  def impersonator 
     session = UserSession.find
     #session.destroy
     user = User.find(params[:id])   

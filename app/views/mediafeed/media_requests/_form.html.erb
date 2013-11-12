@@ -26,9 +26,9 @@
       <%= render :partial => 'subject_matters', :locals => { :f => f } %>
 
       <%= f.input :due_date, :label => "When do you need the response by?" %>
-      <%= f.input :message, :input_html => {:rows => 5, :style => 'height:auto'} %>
+      <%= f.input :message, :input_html => {:rows => 5, :style => 'height:auto',:cols=>"50"} %>
 
-      <% f.fields_for :attachments do |child_form| -%>
+      <%= f.fields_for :attachments do |child_form| -%>
         <%= child_form.label :attachment, "Attachment(s)" %>
         <p class="attachfield"><%= child_form.file_field :attachment %></p>
       <% end -%>
