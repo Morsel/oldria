@@ -5161,5 +5161,24 @@ div.a_la_minute_question .archive {
 
 .spotlight-off{font-weight: bold}
 
+.admin-actions{
+  border-bottom: 0 none;
+  color: #999999;
+  font-size: 9px;
+}
+
+#soapbox_promos {
+    background: linear-gradient(#F4901E, #E3790C) repeat scroll 0 0 transparent;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    display: block;
+    font-size: 26px;
+    font-weight: normal !important;
+    padding: 16px 16px 14px;
+    text-align: center;
+    text-shadow: 0 1px 1px #333333;
+}
+
+
 /* @end */
 

@@ -501,6 +501,7 @@ Ria::Application.routes.draw do
     resources :restaurants
     resources :media_requests do      
       member do
+        get :approve
         put :approve
         get :media_requests_list
       end    
@@ -515,12 +516,13 @@ Ria::Application.routes.draw do
     resources :events
     resources :soapbox_entries do    
       member do
+        get :toggle_status
         post :toggle_status
       end   
     end
     resources :restaurant_questions do    
       member do
-        post :send_notifications
+        get :send_notifications
       end 
       collection do 
         post :sort
