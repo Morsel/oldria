@@ -10,8 +10,8 @@
 
         <p>
             <%- if menu_item.description.present? -%>
-              <%= Loofah::Helpers.sanitize(truncate(menu_item.description, :length => 150)) %>
-              <%= link_to "more &raquo;", restaurant_menu_item_path(menu_item.restaurant,menu_item) if menu_item.description.size > 150 %>
+              <%= Loofah::Helpers.sanitize(truncate(menu_item.description, :length => 150)).html_safe %>
+              <%= link_to "more &raquo;".html_safe, restaurant_menu_item_path(menu_item.restaurant,menu_item) if menu_item.description.size > 150 %>
             <%- end -%>
         </p>
 

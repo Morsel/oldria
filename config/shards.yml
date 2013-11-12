@@ -20,10 +20,9 @@ octopus:
       socket: /opt/lampp/var/mysql/mysql.sock      
   staging:
     webservice:
-      username: root
-      password: 
+      username: ria_staging
+      password: TIbJPlSpyTk9
       adapter: mysql2
-      database: ria_staging
-      socket: /opt/lampp/var/mysql/mysql.sock      
+      database: ria_cashew
 
 

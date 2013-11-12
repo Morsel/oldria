@@ -4,6 +4,6 @@
 </header>
 
 <div class="resto_meta">
-	<p class="address"><%= restaurant_list_entry.address_parts.join("<br />") %></p>
+	<p class="address"><%= restaurant_list_entry.address_parts.join("<br />").html_safe %></p>
 	<p class="region">Metropolitan Area: <%=h restaurant_list_entry.metropolitan_area.try(:name) %><br/>Region: <%=h restaurant_list_entry.james_beard_region.try(:name) %></p>
 </div><!-- .resto_meta -->

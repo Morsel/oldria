@@ -1,21 +1,20 @@
+# Settings specified here will take precedence over those in config/environm
 DEFAULT_HOST = 'staging.restaurantintelligenceagency.com'
-Ria::Application.config do 
-# Settings specified here will take precedence over those in config/environment.rb
+Ria::Application.configure do
 
 ActionMailer::Base.delivery_method = :sendmail
 
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
-config.cache_classes = true
 
 # Full error reports are disabled and caching is turned on
-# config.action_controller.consider_all_requests_local = false
+config.consider_all_requests_local  =  true
 config.action_controller.perform_caching             = true
 config.action_view.cache_template_loading            = true
 
 # Using memcache as cache store
 config.cache_store = :mem_cache_store
-
+#config.cache_store = :cookie_store
 # See everything in the log (default is :info)
 config.log_level = :debug
 
@@ -32,9 +31,10 @@ config.log_level = :debug
 
 # Enable threaded mode
 # config.threadsafe!
+# config.action_controller.consider_all_requests_local = true
+#config.active_support.deprecation = :log
 
 end
-
 Braintree::Configuration.environment = :sandbox
 Braintree::Configuration.merchant_id = "ny23sz9jy8gy38bw"
 Braintree::Configuration.public_key = "n77z2dvd56jy4j9n"

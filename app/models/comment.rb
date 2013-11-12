@@ -35,6 +35,7 @@ class Comment < ActiveRecord::Base
   #validates_presence_of :comment
 
   attr_accessor :post_to_facebook
+  attr_accessible :user_id, :comment
 
   before_create :clear_read_status
 

@@ -35,6 +35,7 @@ class TrendQuestion < ActiveRecord::Base
   scope :current, :conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]
 
   before_save :update_restaurants_and_employments_from_search_criteria
+  attr_accessible :subject, :body, :display_message, :slug, :scheduled_at
   
   def self.title
     "What's New"
