@@ -107,7 +107,7 @@ include ActionDispatch::Routing::UrlFor
   end
 
   def send_confirmation
-    UserMailer.newsletter_subscription_confirmation(self).deliver
+    UserMailer.newsletter_subscription_confirmation(self).send_later(:deliver)
   end
 
   def encrypt_password
