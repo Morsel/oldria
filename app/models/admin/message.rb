@@ -99,7 +99,6 @@ class Admin::Message < ActiveRecord::Base
 
   def conversations_without_replies
     admin_conversations.scoped.where('comments_count < 1', :include => :recipient)
-
   end
 
   def attachments_allowed?
