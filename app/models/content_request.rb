@@ -21,6 +21,7 @@ class ContentRequest < ActiveRecord::Base
   scope :by_scheduled_date, :order => "#{table_name}.scheduled_at ASC"
 
   before_save :update_restaurants_from_search_criteria
+  attr_accessible :subject, :body, :scheduled_at
 
   def self.title
     "Question from RIA"
