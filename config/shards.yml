@@ -9,7 +9,7 @@ octopus:
       username: root
       password: 
       adapter: mysql2
-      database: ria_8oct
+      database: ria_staging
       socket: /opt/lampp/var/mysql/mysql.sock
   production: &development
     webservice:

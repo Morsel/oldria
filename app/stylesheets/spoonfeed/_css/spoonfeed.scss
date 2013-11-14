@@ -4877,3 +4877,13 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 
 
 }
+.test{
+	color: blue;
+	.credit {
+        max-width:200px;
+			  max-height:100px;
+			  text-overflow: ellipsis;
+			  overflow:hidden;
+			  white-space:nowrap;
+      }
+}
