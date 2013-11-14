@@ -4860,7 +4860,10 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 }
 
 .box{
+ background: none repeat scroll 0 0 #F3F3F3;
+ border: 1px solid #DBDBDB;
  overflow:hidden !important;
+ margin: 5px;
  width:200px;
  min-height:190px;
  float:left;

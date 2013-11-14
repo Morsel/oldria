@@ -15,6 +15,7 @@
 #
 
 class Admin::PrTip < Admin::Message
+  attr_protected
   def self.title
     "PR Tip"
   end

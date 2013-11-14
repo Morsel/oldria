@@ -4,4 +4,5 @@ class Reading < ActiveRecord::Base
   
   validates_presence_of :user_id, :readable_id, :readable_type
   validates_uniqueness_of :user_id, :scope => [:readable_id, :readable_type]
+  attr_protected
 end

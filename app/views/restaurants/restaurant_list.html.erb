@@ -2,15 +2,24 @@
 
 <% if @restaurants %>
 <h2>Is this your restaurant?</h2>
-<%= table_for @restaurants do |t| %>
-    <% t.data do
-        t.cell(:name_and_location)
-        t.cell(:contact) { |c| link_to "Request to be added", 
-                               send_restaurant_request_restaurant_path(c.id), :method => :get }
-    end %>
+<%= table_for(@restaurants) do |t| %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('Name and location') %>
+      <%= t.h('Contact') %>
+    <% end %>
+  <% end %>
+  <%= t.body do |restaurant| %>
+    <tr class="<%= cycle('odd','even') %>">
+    	<%= t.d(h(restaurant.name_and_location)) %>
+    	<%= t.d(h(link_to "Request to be added",send_restaurant_request_restaurant_path(restaurant.id))) %>
+  <% end %>
 <% end %>
 <% end %>
-
 <p>
-    <%= link_to "I don't see my restaurant listed", add_restaurant_restaurants_path %>
+  <%= link_to "I don't see my restaurant listed", add_restaurant_restaurants_path %>
 </p>
+
+
+
+

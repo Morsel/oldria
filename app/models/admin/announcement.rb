@@ -15,6 +15,7 @@
 #
 
 class Admin::Announcement < Admin::Message
+  attr_protected
   def self.title
     "Announcement"
   end

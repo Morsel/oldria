@@ -26,9 +26,11 @@
         <h3>What our chefs are serving up:</h3>
         <div class="setlistwidth">
         <ul>
+          <% unless @menu_item_keywords.blank? %>
             <%@menu_item_keywords.each do |menu_item_keyword|%>
                 <li class="list_item"> <%=link_to menu_item_keyword.otm_keyword.name , menu_items_path(:id=>menu_item_keyword.otm_keyword.id,:keyword=>menu_item_keyword.otm_keyword.name)%></li>     
             <%end%>
+          <% end %>  
         </ul>
         </div>
    </div>
@@ -37,10 +39,12 @@
         <h3>Our most active restaurants:</h3>
         <div class="setlistwidth">
         <ul>
+        <% unless @recent_active_restaurants.blank?  %>  
           <% @recent_active_restaurants.each do |recent_active_restaurant|%>
             <li class="list_item"> <%=link_to recent_active_restaurant.name ,restaurant_path(recent_active_restaurant.id)
              %></li>     
           <%end%>
+        <% end %>  
         </ul>
         </div>
    </div>
