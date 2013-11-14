@@ -17,6 +17,7 @@ class DirectMessage < ActiveRecord::Base
   belongs_to :sender, :class_name => "User"
   default_scope :order => "#{table_name}.created_at DESC"
   acts_as_readable
+  attr_protected
 
   has_many :responses, :class_name => "DirectMessage", :foreign_key => "in_reply_to_message_id", :order => "created_at"
   belongs_to :parent, :class_name => "DirectMessage", :foreign_key => "in_reply_to_message_id"

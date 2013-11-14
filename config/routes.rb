@@ -107,7 +107,7 @@ Ria::Application.routes.draw do
     resource :search,:controller => 'site_search', :only => ["show"]      
   end
 
-  match 'soapbox/profile/:username' => 'soapbox/profiles#show', :as => :soapbox_profile, :constraints => { :username => /[a-zA-Z0-9\-\_ ]+/ }
+  match 'soapbox/profile/:username' => 'soapbox/profiles#show', :as => :soapbox_profile, :constraints => { :username => /[a-zA-Z0-9\-\_20% ]+/ }
   match 'soapbox/directory' => 'soapbox/soapbox#directory', :as => :soapbox_directory
   match 'soapbox/directory/restaurants' => 'soapbox/soapbox#restaurant_directory', :as => :soapbox_restaurant_directory
   match '/' => 'soapbox/soapbox#index', :via => 'hq#index'
@@ -170,8 +170,8 @@ Ria::Application.routes.draw do
     end
   end
 
-  match 'profile/:username' => 'users#show', :as => :profile, :constraints => { :username => /[ a-zA-Z0-9\-\_ ]+/ }
-  match 'user_profile_subscribe/:username' => 'users#user_profile_subscribe', :as => :user_profile_subscribe, :constraints => { :username => /[a-zA-Z0-9\-\_ ]+/ }
+  match 'profile/:username' => 'users#show', :as => :profile, :constraints => { :username => /[a-zA-Z0-9\-\_20% ]+/ }
+  match 'user_profile_subscribe/:username' => 'users#user_profile_subscribe', :as => :user_profile_subscribe, :constraints => { :username => /[a-zA-Z0-9\-\_20% ]+/ }
   resources :users do
     collection do
       get :resend_confirmation
@@ -501,6 +501,7 @@ Ria::Application.routes.draw do
     resources :restaurants
     resources :media_requests do      
       member do
+        get :approve
         put :approve
         get :media_requests_list
       end    
@@ -515,13 +516,17 @@ Ria::Application.routes.draw do
     resources :events
     resources :soapbox_entries do    
       member do
+        get :toggle_status
         post :toggle_status
       end   
     end
     resources :restaurant_questions do    
       member do
-        post :send_notifications
-      end    
+        get :send_notifications
+      end 
+      collection do 
+        post :sort
+      end   
     end
     resources :restaurant_chapters do
       collection do

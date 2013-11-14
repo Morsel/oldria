@@ -28,7 +28,7 @@
       %></td>
 			<td><%= list_and_link_replies(media_request) %></td>
 			<td><%= media_request.due_date %></td>
-			<td class="actions approve_link"><%= link_to "Approve!", approve_admin_media_request_path(media_request), :method => :put %></td>
+			<td class="actions approve_link"><%= link_to "Approve!", approve_admin_media_request_path(media_request) %></td>
 			<td class="actions show_link"><%= link_to "Show", admin_media_request_path(media_request) %></td>
 			<td class="actions edit_link"><%= link_to "Edit", edit_admin_media_request_path(media_request) %></td>
 		</tr>
@@ -56,15 +56,14 @@
   <% end %>
   <%= t.body do |approved_media_request| %>
     <tr class="<%= cycle('odd','even') %>">
-    	<%= t.d(h(approved_media_request.sender)) %>
+    	<%= t.d(h(approved_media_request.sender.name)) %>
     	<%= t.d(h(approved_media_request.discussions.size)) %>
-    	<%= t.d(h(approved_media_request.subject_matter)) %>
+    	<%= t.d(h(approved_media_request.subject_matter.name)) %>
     	<%= t.d(h(link_to truncate(approved_media_request.message, :length => 50),media_requests_list_admin_media_request_path(approved_media_request))) %>
-    	<%= t.d(h(list_and_link_replies(approved_media_request))) %>
+     	<%= t.d(h(list_and_link_replies(approved_media_request))) %>
     	<%= t.d(h(approved_media_request.due_date)) %>
     <% end %>
   <% end %>
-
 <% else %>
 	<p>There are no approved media requests yet</p>
 <% end -%>

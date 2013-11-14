@@ -8,7 +8,8 @@
     <th>Name</th>
     <th>Start Date</th>
     <th>End Date</th>
-    <th></th>
+    <th></th>        <th></th>
+
   </tr>
   <% for date_range in @date_ranges %>
     <tr class="<%= cycle('odd','even') %>">
@@ -18,8 +19,10 @@
       <td class="utility">
         <%= link_to "Show", [:admin, date_range] %>
         <%= link_to "Edit", edit_admin_date_range_path(date_range) %>
-        <%= link_to "Destroy", [:admin, date_range], :confirm => 'Are you sure?', :method => :delete %>
       </td>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy",admin_date_range_path(date_range), :method => :delete %>
+      </td> 
     </tr>
   <% end %>
 </table>

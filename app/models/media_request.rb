@@ -51,7 +51,7 @@ class MediaRequest < ActiveRecord::Base
   aasm_state :pending
   aasm_state :approved
   aasm_state :closed
-  attr_accessible :subject_matter_id, :fields, :due_date, :message,:sender_id, :status
+  attr_accessible :subject_matter_id, :fields, :due_date, :message,:sender_id, :status,:attachments_attributes
 
   aasm_event :approve, :success => :deliver_notifications do
     transitions :to => :approved, :from => [:pending]

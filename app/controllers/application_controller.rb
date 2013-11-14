@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   include Facebooker2::Rails::Controller
   # include SslRequirement
-  include ::SslRequirement
+  #include ::SslRequirement
 
   layout :site_layout
 
@@ -224,20 +224,11 @@ class ApplicationController < ActionController::Base
       @employment_search = if resource.employment_search
         resource.employment_search
       else
-        # resource.build_employment_search(:conditions => params[:search] || {})
-        if params[:search].blank?
-          EmploymentSearch.new(:conditions => {})
-        else
-          EmploymentSearch.new(:conditions => params[:search] || {})
-        end        
+        resource.build_employment_search(:conditions => params[:search] || {})
       end
       @search = @employment_search.employments #searchlogic
     else # no resource
-      if params[:search].blank?
-        @search = Employment
-      else
-        @search = EmploymentSearch.new(:conditions => params[:search]).employments
-      end
+      @search = EmploymentSearch.new(:conditions => params[:search]).employments
     end
 
     extra_params = build_extra_profile_params
@@ -285,10 +276,11 @@ class ApplicationController < ActionController::Base
     @search = Employment.search(normalized_search_params)
 
     @employment_search = if resource.employment_search
-      resource.employment_search.conditions = @search.conditions
+      resource.employment_search.search_attributes = @search.search_attributes
       resource.employment_search
     else
-      resource.build_employment_search(:conditions => @search.conditions)
+      #instead of @search.conditions use @search.search_attributes
+      resource.build_employment_search(:conditions => @search.search_attributes)
     end
   end
 

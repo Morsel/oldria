@@ -53,12 +53,12 @@ class Mediafeed::MediafeedController < ApplicationController
   def request_info_mail   
     if params[:promotion].blank?
       menu_item  = MenuItem.find(params[:menu_item][:id])
-      UserMailer.send_later(:deliver_request_info_mail,params[:menu_item][:name],params[:menu_item][:description],menu_item.restaurant.media_contact,menu_item.restaurant,params[:comment],params[:subject],current_user)     
+      UserMailer.request_info_mail(params[:menu_item][:name],params[:menu_item][:description],menu_item.restaurant.media_contact,menu_item.restaurant,params[:comment],params[:subject],current_user).deliver     
       flash[:notice] = "Request has been sent!"
       redirect_to menu_items_path
     else
       promotion=Promotion.find(params[:promotion][:id])       
-      UserMailer.send_later(:deliver_request_info_mail,params[:promotion][:title],params[:promotion][:details],promotion.restaurant.media_contact,promotion.restaurant,params[:comment],params[:subject],current_user)
+      UserMailer.request_info_mail(params[:promotion][:title],params[:promotion][:details],promotion.restaurant.media_contact,promotion.restaurant,params[:comment],params[:subject],current_user).deliver
       flash[:notice] = "Request has been sent!"
       redirect_to promotions_path
     end     

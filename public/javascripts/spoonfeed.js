@@ -473,11 +473,11 @@ updateRestaurantSignupFields = function() {
 
 $("#user_editor").autocomplete({
 
-	source: "/users.js",
+  source: "/users",
 });
 
 $("#otm_keyword_search").autocomplete({
-  source: "/otm_keywords.js",
+  source: "/otm_keywords",
 });
  
 $('.search-button').click(function(e){

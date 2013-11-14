@@ -13,7 +13,7 @@
           </tr>
           <tr> 
             <td class="labels"> Subject: </td> 
-            <td ><%= f.text_field_tag :subject ,"Request More Information : #{@menu_item.name}"  %></td>
+            <td ><%= f.text_field :subject ,"Request More Information : #{@menu_item.name}"  %></td>
           </tr>
         </table>
 
@@ -63,11 +63,11 @@
         </tr>
         <tr> 
           <td class="labels"> Name: </td> 
-          <td ><%= f.text_field_tag :name ,@promotion.title  %></td>
+          <td ><%= text_field :name ,@promotion.title  %></td>
         </tr>
         <tr> 
           <td class="labels"> Subject: </td> 
-          <td ><%= f.text_field_tag :subject ,"Request More Information : #{@promotion.title}"  %></td>
+          <td ><%= text_field :subject ,"Request More Information : #{@promotion.title}"  %></td>
         </tr>
       </table>
 
@@ -75,7 +75,7 @@
         <tr>
          <td width="15%" class="labels"> &nbsp;</td>
           <td width="85%"> 
-            <%= text_area_tag 'comment',nil,:placeholder => "Add a comment..."  %>  
+            <%= text_area 'comment',nil,:placeholder => "Add a comment..."  %>  
             <%if @promotion.restaurant.manager.avatar? -%>       
                 <div class="manager manager-img">
                     <%= image_tag(@promotion.restaurant.manager.avatar.url(:thumb), :width => 'auto', :height => 'auto') %>
@@ -84,7 +84,7 @@
                 <div class="manager">
                   <p>
                     <b><%= @promotion.restaurant.manager.name %></b>
-                    <br><%= truncate(@promotion.details,:length => 50) %></p>
+                    <br><%= truncate(@promotion.details,:length => 50).html_safe %></p>
                 </div>
 
           </td>

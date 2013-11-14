@@ -2,19 +2,25 @@
 
 <p class="clearfix"><%= link_to 'New specialty', new_admin_specialty_path, :class => 'button positive' %></p>
 
-<%= table_for @specialties do |t| %>
+<%= table_for(@specialties, :html => {:id=>"specialties"}) do |t| %>
   <%= t.head do %>
     <%= t.r do %>
+      <%= t.h('')%>
       <%= t.h('Name') %>
       <%= t.h('Can Delete?') %>
       <th></th>
     <% end %>
   <% end %>
-  <%= t.body do |specialty| %>
-    <tr class="<%= cycle('odd','even') %>">
+  <%= t.body(:html=>{:class=>"ui-sortable"}) do |specialty| %>
+    <tr id="specialty_<%=specialty.id%>" class="specialty <%=cycle('odd','even', :name => 'featured_profiles')%>">
+      <%= t.d(:class => 'small handle') do %>
+        [drag]
+      <% end %>
       <%= t.d(h(specialty.name)) %>
       <% if specialty.profiles.count == 0 %>
-        <%= t.d(h(link_to 'delete', admin_specialty_path(specialty), :method => :delete, :confirm => "Are you sure you want to delete this?")) %>
+        <td class="actions destroy_link">
+          <%= link_to "Destroy", admin_specialty_path(specialty), :method => :delete %>
+        </td>
       <% else %>
       	<td></td>
       <% end %>  

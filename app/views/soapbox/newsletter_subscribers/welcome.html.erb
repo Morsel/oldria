@@ -1,4 +1,4 @@
 <% title "Welcome!" %>
 <p>Thanks for signing up! Check your email (<%= @subscriber.email %>) for a confirmation message.</p>
 
-<p><%= link_to "Back to Soapbox &rarr;", soapbox_root_path %>
+<p><%= link_to "Back to Soapbox &rarr;".html_safe, soapbox_root_path %>

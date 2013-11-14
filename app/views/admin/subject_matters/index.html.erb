@@ -16,7 +16,9 @@
      <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(subject_matter.name)) %>
       <%= t.d(h(link_to "Edit",edit_admin_subject_matter_path(subject_matter),:class=>'admin-actions')) %>
-      <%= t.d(h(link_to "Destroy",admin_subject_matter_path(subject_matter),:class=>'admin-actions')) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy", admin_subject_matter_path(subject_matter), :method => :delete %>
+      </td>
     <% end %>
 <% end -%>
 
@@ -36,7 +38,9 @@
     <tr class="<%= cycle('odd','even') %>">
       <%= t.d(h(subject_matter.name)) %>
       <%= t.d(h(link_to "Edit",edit_admin_subject_matter_path(subject_matter),:class=>'admin-actions')) %>
-      <%= t.d(h(link_to "Destroy",admin_subject_matter_path(subject_matter),:class=>'admin-actions')) %>
+      <td class="actions destroy_link">
+        <%= link_to "Destroy", admin_subject_matter_path(subject_matter), :method => :delete %>
+      </td>
   <% end %>
 <% end -%>
 </div>

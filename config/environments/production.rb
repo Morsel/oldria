@@ -68,7 +68,7 @@ Ria::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Settings specified here will take precedence over those in config/environment.rb
-  DEFAULT_HOST = 'spoonfeed.restaurantintelligenceagency.com'
+
 
   # Full error reports are disabled and caching is turned on
   config.action_view.cache_template_loading            = true
@@ -90,13 +90,15 @@ Ria::Application.configure do
 
   # Enable threaded mode
   # config.threadsafe!
-
+  config.action_mailer.delivery_method = :sendmail
+end
+  DEFAULT_HOST = 'spoonfeed.restaurantintelligenceagency.com'
   Braintree::Configuration.environment = :production
   Braintree::Configuration.merchant_id = "3fb27hjyr2pj4mkh"
   Braintree::Configuration.public_key = "8946tj2vb98yf6xq"
   Braintree::Configuration.private_key = "tkjvt5wph2m5qh33"
 
-  config.action_mailer.delivery_method = :sendmail
+  
 
   CLOUDMAIL_ID = '0df080edd37d5e209f5d'
   CLOUDMAIL_DOMAIN = 'mailbot.restaurantintelligenceagency.com'
@@ -105,4 +107,3 @@ Ria::Application.configure do
 
   ENV['MAILCHIMP_API_KEY'] = 'b992d9bf14db221d322b7add975b1c39-us2'
   DOMAIN_NAME = "restaurantintelligenceagency.com"
-end

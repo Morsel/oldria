@@ -39,6 +39,7 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
 
   def confirm
     @user = User.find(params[:id])
+    render :layout => "application"
   end
 
   def resend_confirmation

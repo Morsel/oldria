@@ -1,0 +1,452 @@
+GIT
+  remote: https://github.com/binarylogic/authlogic.git
+  revision: abc09970ed1fad98c6c12f4ca64d1670d37d11db
+  specs:
+    authlogic (3.3.0)
+      activerecord (>= 3.2)
+      activesupport (>= 3.2)
+
+GIT
+  remote: https://github.com/mbleigh/subdomain-fu.git
+  revision: 3752799a02c0e18abd0a1bfb422925e880dc754e
+  specs:
+    subdomain-fu (1.0.0.beta3)
+
+GIT
+  remote: https://github.com/nishant-n/delayedjob1.8.4.git
+  revision: 46ad9cb35c2a698b376f8b3bcf40d1d82024035a
+  specs:
+    delayed_job (1.8.4)
+
+GIT
+  remote: https://github.com/nishant-n/mogli.git
+  revision: b21e3ceed89b20118f987cb438dd7b53feea85fe
+  specs:
+    mogli (0.0.44)
+      hashie (>= 1.1.0)
+      httmultiparty (>= 0.3.6)
+      httparty (>= 0.4.3)
+      multi_json (~> 1.7.8)
+
+GIT
+  remote: https://github.com/redinger/validation_reflection.git
+  revision: 7c3397e3a6ab32773cf7399455e5c63a0fdc66e9
+  specs:
+    validation_reflection (1.0.0)
+
+GIT
+  remote: https://github.com/ryanb/nested_form.git
+  revision: 35a2cf060680280413880337a3f89bdec469301c
+  specs:
+    nested_form (0.3.2)
+
+GIT
+  remote: https://github.com/skyeagle/preferences.git
+  revision: de0b016f4d5972954d8067a99e860506e3dc8be1
+  branch: rails3
+  specs:
+    preferences (0.6.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    RedCloth (4.2.9)
+    aasm (3.0.23)
+    actionmailer (3.2.14)
+      actionpack (= 3.2.14)
+      mail (~> 2.5.4)
+    actionpack (3.2.14)
+      activemodel (= 3.2.14)
+      activesupport (= 3.2.14)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      journey (~> 1.0.4)
+      rack (~> 1.4.5)
+      rack-cache (~> 1.2)
+      rack-test (~> 0.6.1)
+      sprockets (~> 2.2.1)
+    activemodel (3.2.14)
+      activesupport (= 3.2.14)
+      builder (~> 3.0.0)
+    activerecord (3.2.14)
+      activemodel (= 3.2.14)
+      activesupport (= 3.2.14)
+      arel (~> 3.0.2)
+      tzinfo (~> 0.3.29)
+    activeresource (3.2.14)
+      activemodel (= 3.2.14)
+      activesupport (= 3.2.14)
+    activesupport (3.2.14)
+      i18n (~> 0.6, >= 0.6.4)
+      multi_json (~> 1.0)
+    acts_as_commentable (4.0.1)
+    acts_as_list (0.1.2)
+    addressable (2.3.5)
+    addresslogic (1.2.1)
+    ar-octopus (0.8.0)
+      activerecord (>= 3.2.0)
+      activesupport (>= 3.2.0)
+    arel (3.0.2)
+    awesome_print (1.2.0)
+    aws-sdk (1.11.1)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
+    backup (2.3.3.1)
+      activerecord (>= 2.3.5)
+      cloudfiles (>= 1.4.7)
+      hirb (>= 0.2.9)
+      net-scp (>= 1.0.2)
+      net-sftp (>= 2.0.4)
+      net-ssh (>= 2.0.15)
+      pony (>= 0.5)
+      s3 (>= 0.3.0)
+      sqlite3-ruby (>= 1.2.5)
+    bartt-ssl_requirement (1.4.2)
+    bcrypt-ruby (3.1.2)
+    bitly (0.9.0)
+      httparty (>= 0.7.6)
+      multi_json (~> 1.3)
+      oauth2 (>= 0.5.0, < 0.9)
+    braintree (2.22.0)
+      builder (>= 2.0.0)
+    builder (3.0.4)
+    cancan (1.0.1)
+    capistrano (2.5.21)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.0.0)
+    capybara (1.1.2)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 0.1.4)
+    carrierwave (0.9.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+    childprocess (0.3.9)
+      ffi (~> 1.0, >= 1.0.11)
+    chronic (0.10.2)
+    ckeditor (4.0.6)
+      mime-types
+      orm_adapter
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cloudfiles (1.5.0.3)
+      json
+    cocaine (0.5.3)
+      climate_control (>= 0.0.3, < 1.0)
+    coffee-rails (3.2.2)
+      coffee-script (>= 2.2.0)
+      railties (~> 3.2.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.6.3)
+    columnize (0.3.6)
+    compass (0.10.6)
+      haml (>= 3.0.4)
+    cucumber (1.1.0)
+      builder (>= 2.1.2)
+      diff-lcs (>= 1.1.2)
+      gherkin (~> 2.5.0)
+      json (>= 1.4.6)
+      term-ansicolor (>= 1.0.6)
+    cucumber-rails (0.3.2)
+      cucumber (>= 0.8.0)
+    curb (0.8.5)
+    daemons (1.1.9)
+    database_cleaner (0.7.2)
+    debugger (1.6.2)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.3)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.3)
+    delorean (2.1.0)
+      chronic
+    diff-lcs (1.2.5)
+    dynamic_form (1.1.4)
+    erubis (2.7.0)
+    execjs (2.0.2)
+    facebooker2 (0.0.17)
+      mogli (>= 0.0.33)
+      ruby-hmac
+    factory_girl (4.3.0)
+      activesupport (>= 3.0.0)
+    fakeweb (1.3.0)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
+    fastercsv (1.5.5)
+    feedzirra (0.2.1)
+      curb (~> 0.8.1)
+      loofah (~> 1.2.1)
+      nokogiri (~> 1.6.0)
+      sax-machine (~> 0.2.1)
+    ffi (1.9.3)
+    formtastic (2.1.0.rc)
+      actionpack (~> 3.0)
+    friendly_id (4.0.10.1)
+      activerecord (>= 3.0, < 4.0)
+    gherkin (2.5.4)
+      json (>= 1.4.6)
+    gibbon (0.3.5)
+      httparty (> 0.6.0)
+      httparty (> 0.6.0)
+      json (> 1.4.0)
+      json (> 1.4.0)
+      rdoc
+    haml (4.0.4)
+      tilt
+    hashie (2.0.5)
+    highline (1.6.20)
+    hike (1.2.3)
+    hirb (0.7.1)
+    httmultiparty (0.3.10)
+      httparty (>= 0.7.3)
+      multipart-post
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    httpauth (0.2.0)
+    i18n (0.6.5)
+    journey (1.0.4)
+    json (1.8.1)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
+    koala (1.7.0rc1)
+      addressable
+      faraday
+      multi_json
+    libv8 (3.16.14.3)
+    libxml-ruby (2.2.2)
+    loofah (1.2.1)
+      nokogiri (>= 1.4.4)
+    mail (2.5.4)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    mail_safe (0.3.1)
+      actionmailer (>= 1.3.6)
+    memcache-client (1.8.5)
+    meta_search (1.1.3)
+      actionpack (~> 3.1)
+      activerecord (~> 3.1)
+      activesupport (~> 3.1)
+      polyamorous (~> 0.5.0)
+    metaclass (0.0.1)
+    mime-types (1.25)
+    mini_magick (3.6.0)
+      subexec (~> 0.2.1)
+    mini_portile (0.5.2)
+    mocha (0.14.0)
+      metaclass (~> 0.0.1)
+    multi_json (1.7.9)
+    multi_xml (0.5.5)
+    multipart-post (1.2.0)
+    mysql2 (0.3.14)
+    net-scp (1.1.2)
+      net-ssh (>= 2.6.5)
+    net-sftp (2.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.7.0)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
+    newrelic_rpm (3.6.9.171)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
+    oauth (0.4.7)
+    oauth2 (0.8.1)
+      faraday (~> 0.8)
+      httpauth (~> 0.1)
+      jwt (~> 0.1.4)
+      multi_json (~> 1.0)
+      rack (~> 1.2)
+    orm_adapter (0.5.0)
+    paperclip (3.5.2)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
+    polyamorous (0.5.0)
+      activerecord (~> 3.0)
+    polyglot (0.3.3)
+    pony (1.5.1)
+      mail (>= 2.0)
+    prototype-rails (3.2.1)
+      rails (~> 3.2)
+    proxies (0.2.1)
+    rack (1.4.5)
+    rack-cache (1.2)
+      rack (>= 0.4)
+    rack-ssl (1.3.3)
+      rack
+    rack-test (0.6.2)
+      rack (>= 1.0)
+    rails (3.2.14)
+      actionmailer (= 3.2.14)
+      actionpack (= 3.2.14)
+      activerecord (= 3.2.14)
+      activeresource (= 3.2.14)
+      activesupport (= 3.2.14)
+      bundler (~> 1.0)
+      railties (= 3.2.14)
+    rails_autolink (1.1.5)
+      rails (> 3.1)
+    railties (3.2.14)
+      actionpack (= 3.2.14)
+      activesupport (= 3.2.14)
+      rack-ssl (~> 1.3.2)
+      rake (>= 0.8.7)
+      rdoc (~> 3.4)
+      thor (>= 0.14.6, < 2.0)
+    rake (10.1.0)
+    rdoc (3.12.2)
+      json (~> 1.4)
+    ref (1.0.5)
+    rspec (1.3.2)
+    rspec-rails (1.3.4)
+      rack (>= 1.0.0)
+      rspec (~> 1.3.1)
+    ruby-hmac (0.4.0)
+    ruby-ole (1.2.11.7)
+    rubyzip (1.1.0)
+    s3 (0.3.17)
+      proxies (~> 0.2.0)
+    sass (3.2.12)
+    sass-rails (3.2.6)
+      railties (~> 3.2.0)
+      sass (>= 3.1.10)
+      tilt (~> 1.3)
+    sax-machine (0.2.1)
+      nokogiri (~> 1.6.0)
+    selenium-webdriver (2.35.0)
+      childprocess (>= 0.2.5)
+      multi_json (~> 1.0)
+      rubyzip
+      websocket (~> 1.0.4)
+    simple_oauth (0.2.0)
+    simple_xlsx_reader (0.9.8)
+      nokogiri
+      rubyzip
+    spreadsheet (0.9.4)
+      ruby-ole (>= 1.0)
+    sprockets (2.2.2)
+      hike (~> 1.2)
+      multi_json (~> 1.0)
+      rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
+    sqlite3 (1.3.8)
+    sqlite3-ruby (1.3.3)
+      sqlite3 (>= 1.3.3)
+    subexec (0.2.3)
+    tabletastic (0.2.3)
+      activesupport (~> 3.0)
+    term-ansicolor (1.2.2)
+      tins (~> 0.8)
+    therubyracer (0.12.0)
+      libv8 (~> 3.16.14.0)
+      ref
+    thor (0.18.1)
+    tilt (1.4.1)
+    tins (0.13.1)
+    treetop (1.4.15)
+      polyglot
+      polyglot (>= 0.3.1)
+    twitter (4.8.1)
+      faraday (~> 0.8, < 0.10)
+      multi_json (~> 1.0)
+      simple_oauth (~> 0.2)
+    tzinfo (0.3.38)
+    uglifier (2.3.1)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
+    uuidtools (2.1.4)
+    watu_table_builder (0.3.0)
+    websocket (1.0.7)
+    whenever (0.8.4)
+      activesupport (>= 2.3.4)
+      chronic (>= 0.6.3)
+    will_paginate (3.0.5)
+    xpath (0.1.4)
+      nokogiri (~> 1.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  RedCloth
+  aasm
+  acts_as_commentable
+  acts_as_list (= 0.1.2)
+  addresslogic
+  ar-octopus
+  authlogic!
+  awesome_print
+  aws-sdk
+  backup (~> 2.3.1)
+  bartt-ssl_requirement (~> 1.4.0)
+  bcrypt-ruby
+  bitly
+  braintree (= 2.22.0)
+  cancan (= 1.0.1)
+  capistrano (= 2.5.21)
+  capybara (= 1.1.2)
+  carrierwave
+  ckeditor
+  coffee-rails (~> 3.2.1)
+  compass (= 0.10.6)
+  cucumber (= 1.1.0)
+  cucumber-rails (= 0.3.2)
+  daemons
+  database_cleaner (= 0.7.2)
+  debugger
+  delayed_job!
+  delorean
+  dynamic_form
+  facebooker2
+  factory_girl
+  fakeweb (= 1.3.0)
+  faraday
+  fastercsv
+  feedzirra
+  formtastic (= 2.1.0.rc)
+  friendly_id
+  gherkin (= 2.5.4)
+  gibbon (= 0.3.5)
+  koala (= 1.7.0rc1)
+  libxml-ruby (= 2.2.2)
+  loofah
+  mail_safe
+  memcache-client
+  meta_search
+  mini_magick
+  mocha
+  mogli!
+  mysql2
+  nested_form!
+  newrelic_rpm
+  oauth
+  paperclip
+  preferences!
+  prototype-rails
+  rails (= 3.2.14)
+  rails_autolink
+  rspec (= 1.3.2)
+  rspec-rails (= 1.3.4)
+  sass-rails (~> 3.2.3)
+  simple_xlsx_reader
+  spreadsheet
+  subdomain-fu!
+  tabletastic
+  therubyracer
+  twitter
+  uglifier (>= 1.0.3)
+  validation_reflection!
+  watu_table_builder
+  whenever
+  will_paginate
