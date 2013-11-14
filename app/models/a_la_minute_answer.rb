@@ -121,10 +121,9 @@ default_url_options[:host] = DEFAULT_HOST
   end
 
   def self.public_profile_for(responder)
+    ids = responder.a_la_minute_answers.maximum(:id, :group => :a_la_minute_question_id, :select => :id).collect{|k,v|v}
     # ids = responder.a_la_minute_answers.maximum(:created_at, :group => :a_la_minute_question_id, :select => :id).collect{|k,v|v}
-    ids = responder.a_la_minute_answers.maximum(:created_at, :group => :a_la_minute_question_id, :select => :id).collect{|k,v|k}
-    responder.a_la_minute_answers.find(:all,:conditions=>["a_la_minute_question_id in (?)",ids], :order => "created_at desc")
-    # responder.a_la_minute_answers.find(ids, :order => "created_at desc")
+    responder.a_la_minute_answers.find(ids, :order => "created_at desc")   
   end
 
   def self.archived_for(question)
