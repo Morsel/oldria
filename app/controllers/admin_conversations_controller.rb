@@ -19,8 +19,7 @@ class AdminConversationsController < ApplicationController
   private
 
   def build_comment
-   # @comment = @admin_conversation.comments.build(:user => current_user)
-    @admin_conversation.comments.build(:user_id => current_user.id)
+    @comment = @admin_conversation.comments.build(:user => current_user)
     @comment.attachments.build if @admin_conversation.admin_message.attachments_allowed?
     @comment_resource = [@admin_conversation, @comment]
   end
