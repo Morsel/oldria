@@ -17,6 +17,7 @@ class Admin::Conversation < ActiveRecord::Base
   acts_as_readable
   attr_accessor :user,:user_id
 
+
   scope :current, lambda {
     { :joins => :admin_message,
       :conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now],

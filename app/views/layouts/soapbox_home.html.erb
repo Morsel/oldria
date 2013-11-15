@@ -79,7 +79,7 @@
 
         <% if current_user || current_subscriber %>
           <% profile_uri = current_user ? edit_user_profile_url(current_user, :subdomain => 'spoonfeed') : edit_soapbox_newsletter_subscriber_path(current_subscriber) %>
-          <%= link_to 'Edit Profile', profile_uri, :id => 'preferences', :class => 'utility' %>
+          <%#= link_to 'Edit Profile', profile_uri, :id => 'preferences', :class => 'utility' %>
         <% end %>
       </div>
 

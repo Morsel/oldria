@@ -19,7 +19,8 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, :polymorphic => true, :counter_cache => true
   belongs_to :user
   default_scope :order => "#{table_name}.created_at ASC"
-  
+  attr_protected
+
   accepts_nested_attributes_for :attachments
 
   scope :not_user, lambda { |user| {

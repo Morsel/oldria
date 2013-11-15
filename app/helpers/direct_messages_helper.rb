@@ -15,7 +15,7 @@ module DirectMessagesHelper
   def title_for_direct_message(direct_message)
     return unless direct_message
     if direct_message.sender_id == current_user.try(:id)
-      "You sent a message to #{link_to direct_message.receiver.name_or_username, profile_path(direct_message.receiver.username)}"
+      %(You sent a message to #{link_to(direct_message.receiver.name_or_username, profile_path(direct_message.receiver.username))}).html_safe
     else
       "#{link_to direct_message.sender.name_or_username, profile_path(direct_message.sender.username)} sent you a message"
     end

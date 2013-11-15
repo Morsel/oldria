@@ -7,16 +7,18 @@
 	<%= f.text_area :comment, :style => 'height:auto', :rows => 4 %>
 </p>
 
-<p class="attach">Attach files</p>
-<% f.fields_for :attachments do |child_form| -%>
-	<p class="attachfield"><%= child_form.file_field :attachment %></p>
-<% end -%>
-
 <% if current_user.media? && (params[:controller] == "mediafeed/media_requests" || params[:controller] == "media_request_discussions") %> 
 	<p class="help_text">Please help us make this service successful, encourage users to respond on the platform instead of diverting the conversation to email. The traffic ensures RIA will grow, adding more contacts and tools that make your job easier! </p>
 <% elsif params[:controller] == "mediafeed/media_requests" || params[:controller] == "media_request_discussions" %>	
 	<p class="help_text">If you have something useful to offer, do answer the question fully. Teasing media with highlights that don't fully answer the question is not appreciated and asking them to email you separately just gives them more work todo. </p>
 <% end %>
+
+<p class="attach">Attach files</p>
+<%= f.fields_for :attachments do |child_form| -%>
+	<p class="attachfield"><%= child_form.file_field :attachment %></p>
+<% end -%>
+
+
 
 <p class="clearfix"><%= button_tag "Post Comment", :class => 'submit' %></p>
 
