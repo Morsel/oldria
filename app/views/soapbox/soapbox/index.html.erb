@@ -257,8 +257,8 @@
                                 <% end %>
                             </span>
                               <p>
-                                <%= user.primary_employment.try(:restaurant_role).try(:name) %>,
-                                <%= user.primary_employment.try(:restaurant).try(:city_and_state) || user.try(:profile).try(:current_residence) %>
+                                <%#= user.primary_employment.try(:restaurant_role).try(:name) %>,
+                                <%#= user.primary_employment.try(:restaurant).try(:city_and_state) || user.try(:profile).try(:current_residence) %>
                               </p>
                         <% end %>
 

@@ -120,7 +120,6 @@
       <%= link_to "edit your answers", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant) %>
     </div>
     <% end %>
-
     <div class="questions">
       <%= render :partial => "restaurants/a_la_minute_question",
               :collection => @questions, :as => :answer, :locals => { :restaurant => @restaurant } %>
