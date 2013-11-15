@@ -35,7 +35,7 @@ class Admin::PrTip < Admin::Message
   # Should only be called from an external observer.
   def notify_recipients
     for user in User.not_media.receive_email_notifications
-      UserMailer.send_at(scheduled_at, :deliver_message_notification, self, user)
+      UserMailer.send_at(scheduled_at, :message_notification, self, user)
     end
   end
 
