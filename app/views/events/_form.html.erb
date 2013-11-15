@@ -30,7 +30,7 @@
     <% end %>
 
     <div id="event-attachments" style="<%= form_display(event) %>">
-        <% f.fields_for :attachments do |child_form| -%>
+        <%= f.fields_for :attachments do |child_form| -%>
             <p class="attach">Attach files</p>
             <p class="attachfield"><%= child_form.file_field :attachment %></p>
         <% end -%>
