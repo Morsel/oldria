@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: https://github.com/nishant-n/delayedjob1.8.4.git
-  revision: 46ad9cb35c2a698b376f8b3bcf40d1d82024035a
+  revision: ed9e7481a07376c7b720a01b7072c1426b8d35df
   specs:
     delayed_job (1.8.4)
 
