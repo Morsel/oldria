@@ -187,7 +187,7 @@ class Restaurant < ActiveRecord::Base
   attr_accessible :name, :description, :street1, :street2, :city, :state, :zip, :phone_number, :metropolitan_area_id,
    :james_beard_region_id, :manager_id, :media_contact_id, :cuisine_id, :opening_date, :website, :management_company_name,
    :management_company_website, :logo_attributes, :attachment, :photos_attributes,:primary_photo,:facebook_page_id, :facebook_page_token, :facebook_page_url,
-   :atoken, :asecret,:last_newsletter_at, :newsletter_approved
+   :atoken, :asecret,:last_newsletter_at, :newsletter_approved,:subscription
 
   def self.find_premium(id)
     possibility = find_by_id(id)

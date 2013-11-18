@@ -2,7 +2,7 @@
 		<legend>
 			<label>Please select restaurant</label>
 	</legend>
-		<%= select_tag 'restaurant', "<option value=''>Select Restaurant</option>" +options_from_collection_for_select( @restaurants, 'id', 'name'),:id => "select_restaurant" %>		
+		<%= select_tag 'restaurant', ("<option value=''>Select Restaurant</option>" + "#{options_from_collection_for_select( @restaurants, 'id', 'name')}").html_safe,:id => "select_restaurant" %>		
 			<input id="hidden_clicked_nav" type="hidden" value="<%= params[:clicked] %>">
 	</div>
 	<div id='color-box-restaurant-msg'>

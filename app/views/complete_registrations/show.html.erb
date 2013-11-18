@@ -9,7 +9,7 @@
   <%= f.inputs :name => 'Your Information' do %>
     <%= f.input :first_name, :input_html => {:class => 'span-3',:size => 50}, :wrapper_html => {:class => 'span-3 column'} %>
     <%= f.input :last_name, :input_html => {:class => 'span-4',:size => 50}, :wrapper_html => {:class => 'span-4 column'} %>
-    <%= f.input :email, :wrapper_html => {:class => 'clear'}, :input_html => { :disabled => true ,:size => 50} %>
+    <%= f.input :email, :wrapper_html => {:class => 'string required clear'}, :input_html => { :disabled => true ,:size => 50} %>
     <%= f.input :id, :as => :hidden %>
     <%= hidden_field_tag 'step', 1 %>
   <% end %>

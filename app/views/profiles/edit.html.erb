@@ -96,8 +96,8 @@
                         <%= render @profile.cuisines %>
                     </ul>
                     <div id="complete_profile">
-                      <% semantic_form_for @profile_cuisine, :url => user_profile_path(@user) do |f| %>
-                        <% f.inputs :class => "plain profile_cuisines" do %>
+                      <%= semantic_form_for @profile_cuisine, :url => user_profile_path(@user) do |f| %>
+                        <%= f.inputs :class => "plain profile_cuisines" do %>
                           <%= f.input :profile_id, :as => :hidden %>
                           <%#= f.errors_on(:cuisine_id) %>
                           <% if @cusines.empty? %>
@@ -115,15 +115,15 @@
 <!-- profile cusine -->
 
     <!-- Basic info -->
-      <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
-              <% f.inputs :name => 'Basic Information' do %>
+      <%= semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
+              <%= f.inputs :name => 'Basic Information' do %>
                 <%= f.input :birthday, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
                 <%= f.input :job_start, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
                 <%= f.input :headline %>
                 <%= f.input :summary, :hint => "Keep it under 1000 characters" %>
                 <%= f.input :hometown %>
                 <%= f.input :current_residence, :label => "In what city/state do you work?", :hint => "Or where you live, if currently unemployed" %>
-                <% button_tag :class => 'positive' do %> Save changes to basic information <% end %>
+                <%= button_tag :class => 'positive' do %> Save changes to basic information <% end %>
               <% end %>
     <!-- Basic info -->
       <% end %><!-- Cuisines and specialties -->

@@ -1,4 +1,5 @@
 <% buttons ||= false %>
+<% unless menu_item.blank? %>
 <%=div_for menu_item do %>
     <h2><%= link_to menu_item.name, restaurant_path(menu_item.restaurant) %>
         <% if buttons %>
@@ -37,4 +38,5 @@
 
         <p><span class="datestamp"><%= "Posted #{menu_item.created_at.strftime("%D")}" %></span></p>
     </div>
+<% end %>
 <% end %>

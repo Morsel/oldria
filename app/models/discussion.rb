@@ -15,7 +15,7 @@
 class Discussion < ActiveRecord::Base
   acts_as_commentable
   acts_as_readable
-  attr_accessible :title, :body
+  attr_accessible :title, :body,:attachments_attributes
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   accepts_nested_attributes_for :comments, :attachments
 
