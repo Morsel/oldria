@@ -79,6 +79,7 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
     collection = params[:discussion_type]
     @media_request_discussion = @media_request.send(collection.to_sym).find(params[:discussion_id])
     build_comment
+    render :layout => "application"
   end
   
   protected

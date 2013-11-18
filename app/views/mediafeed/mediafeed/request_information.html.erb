@@ -13,7 +13,7 @@
           </tr>
           <tr> 
             <td class="labels"> Subject: </td> 
-            <td ><%= f.text_field :subject ,"Request More Information : #{@menu_item.name}"  %></td>
+            <td ><%=text_field_tag :subject ,"Request More Information : #{@menu_item.name}"  %></td>
           </tr>
         </table>
 
@@ -30,7 +30,7 @@
                 <div class="manager">
                   <p>
                     <b><%= @menu_item.restaurant.manager.name %></b>
-                    <br><%= truncate(@menu_item.description,:length => 50) %></p>
+                    <br><%= truncate(@menu_item.description,:length => 50).html_safe %></p>
                 </div>
 
           </td>

@@ -71,8 +71,10 @@ class ProfilesController < ApplicationController
 
   def save_cusines
     params[:profile_cuisine][:cuisine_id].each do |profile_cuisine|
-      params[:profile_cuisine][:cuisine_id] = profile_cuisine
-      @profile_cuisine = @profile.profile_cuisines.build(params[:profile_cuisine])
+      unless profile_cuisine.blank?
+        params[:profile_cuisine][:cuisine_id] = profile_cuisine
+        @profile_cuisine = @profile.profile_cuisines.build(params[:profile_cuisine])
+      end
     end   
   end 
 

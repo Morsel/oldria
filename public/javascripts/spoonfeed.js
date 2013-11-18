@@ -477,7 +477,7 @@ $("#user_editor").autocomplete({
 });
 
 $("#otm_keyword_search").autocomplete({
-  source: "/otm_keywords",
+  source: "/otm_keywords/index",
 });
  
 $('.search-button').click(function(e){
