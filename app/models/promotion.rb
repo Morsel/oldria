@@ -140,7 +140,7 @@ class Promotion < ActiveRecord::Base
 
   def post_to_twitter(message=nil)
     message = message.blank? ? headline : message
-    message = "#{truncate(message,:length => (135-self.bitly_link.length))} #{self.bitly_link}"
+    message = "#{message[0..(135-self.bitly_link.length)]} #{self.bitly_link}"
     restaurant.twitter_client.update(message)
 
   end

@@ -59,7 +59,7 @@ default_url_options[:host] = DEFAULT_HOST
 
   def post_to_twitter(message=nil)
     message = message.blank? ? answer : message
-    message = "#{truncate(message,:length => (135-self.bitly_link.length))} #{self.bitly_link}"
+    message = "#{message[0..(135-self.bitly_link.length)]} #{self.bitly_link}"
     restaurant.twitter_client.update(message)
   end
 
