@@ -35,7 +35,7 @@
           <% if twitter_post.try(:posted?) %>
             This Tweet posted on <%= twitter_post.post_at.strftime('%Y-%m-%d %H:%M') %>
           <% else %>
-            <% form.semantic_fields_for :twitter_posts, twitter_post do |twitter| %>
+            <%= form.semantic_fields_for :twitter_posts, twitter_post do |twitter| %>
               <h4>Twitter Post #<%= index+1 %></h4>
 
               <%= twitter.input :post_at, :label => "Post to my Twitter account on", :as => :string, :input_html => { :class => 'datetime',
@@ -67,7 +67,7 @@
             This Facebook post was submitted on <%= facebook_post.post_at.strftime('%Y-%m-%d %H:%M') %>
           <% else %>
             <% begin %>
-              <% form.semantic_fields_for :facebook_posts, facebook_post do |facebook| %>
+              <%= form.semantic_fields_for :facebook_posts, facebook_post do |facebook| %>
                 <h4>Facebook Post #<%= index+1 %></h4>
 
                 <%= facebook.input :post_at, :label => "Post to Facebook page \"#{@restaurant.facebook_page.fetch.name}\" on", :as => :string, :input_html => { :class => 'datetime',

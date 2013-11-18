@@ -130,9 +130,9 @@ default_url_options[:host] = DEFAULT_HOST
     end    
     message = message.blank? ? twitter_message : message
     if(picture.nil?)
-      restaurant.twitter_client.update("#{truncate(message,:length => (135-self.bitly_link.length))} #{self.bitly_link}")
+      restaurant.twitter_client.update("#{message[0..(135-self.bitly_link.length)]} #{self.bitly_link}")
     else
-      restaurant.twitter_client.update_with_media("#{truncate(message,:length => (90-self.bitly_link.length))} #{self.bitly_link}",picture)
+      restaurant.twitter_client.update_with_media("#{message[0..(90-self.bitly_link.length)]} #{self.bitly_link}",picture)
     end  
   end
 

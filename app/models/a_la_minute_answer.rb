@@ -27,7 +27,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
   include ActionDispatch::Routing::UrlFor
 include Rails.application.routes.url_helpers
 default_url_options[:host] = DEFAULT_HOST
-  attr_accessible :a_la_minute_question_id, :answer, :attachment, :photo
+  attr_accessible :a_la_minute_question_id, :answer, :attachment, :photo, :twitter_posts_attributes, :facebook_posts_attributes
   has_many :trace_keywords, :as => :keywordable
   has_many :soapbox_trace_keywords, :as => :keywordable
   
@@ -177,7 +177,7 @@ default_url_options[:host] = DEFAULT_HOST
 
   def post_to_twitter(message=nil)
     message = message.blank? ? answer : message
-    message = "#{truncate(message,:length => (135-self.bitly_link.length))} #{self.bitly_link}"
+    message = "#{message[0..(135-self.bitly_link.length)]} #{self.bitly_link}"
     restaurant.twitter_client.update(message)
   end
 
