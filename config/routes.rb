@@ -42,7 +42,7 @@ Ria::Application.routes.draw do
     # match '/' => 'soapbox#index'
   namespace :soapbox do
     root :to => 'soapbox#index'
-    resources :profile_questions, :only => ["index", "show"]
+    resources :behind_the_line, :only => ["index", "show"], :controller => :profile_questions, :as=>:profile_questions
     match 'behind_the_line/topic/:id' => 'behind_the_line#topic', :as => :btl_topic
     match 'behind_the_line/chapter/:id' => 'behind_the_line#chapter', :as => :btl_chapter
     resources :restaurant_questions, :only => ["show"]
@@ -78,10 +78,10 @@ Ria::Application.routes.draw do
       end   
     end
     match 'frontburner' => 'soapbox_entries#frontburner', :as => :frontburner
-    resources :promotions
+    resources :newsfeed,:as => :promotions,:controller=>"soapbox/promotions"
     resources :menu_items, :path => 'on_the_menu'
     resources :users, :only => [] do   
-      resources :profile_questions, :only => ["index", "show"]
+      resources :profile_questions, :only => ["index", "show"], :controller => 'users/profile_questions'
       match 'behind_the_line/topic/:id' => 'users/behind_the_line#topic', :as => :btl_topic
       match 'behind_the_line/chapter/:id' => 'users/behind_the_line#chapter', :as => :btl_chapter
     end

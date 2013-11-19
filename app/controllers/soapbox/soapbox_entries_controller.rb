@@ -16,6 +16,7 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
 
     @secondary_feature = SoapboxEntry.secondary_feature
     @secondary_feature_comments = SoapboxEntry.secondary_feature_comments if @secondary_feature
+    render :layout =>"soapbox"
   end
 
   def dashboard_cache_key
@@ -38,6 +39,7 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
       @featured_items = questions.map(&:featured_item).paginate(:page => params[:page], :include => :featured_item)
     end
     @no_sidebar = true
+    render :layout =>"soapbox"
   end
 
   def qotd
@@ -48,6 +50,7 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
       @featured_items = questions.map(&:featured_item).paginate(:page => params[:page], :include => :featured_item)
     end
     @no_sidebar = true
+    render :layout =>"soapbox"
   end
 
   def comment
@@ -84,7 +87,7 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
 
     @secondary_feature = SoapboxEntry.secondary_feature
     @secondary_feature_comments = SoapboxEntry.secondary_feature_comments if @secondary_feature
-    render 'dashboard'
+    render 'dashboard', :layout =>"soapbox"
   end
   protected
 

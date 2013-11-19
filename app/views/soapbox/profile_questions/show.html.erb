@@ -1,7 +1,7 @@
 <% title "#{@question.title} - Behind The Line", false %>
 <%= content_for(:fb_description, btl_description_for_fb(@answers)) %>
 
-<% javascript_tag do %>
+<%= javascript_tag do %>
   var addthis_share = {
     url: '<%= soapbox_profile_question_url(@question) %>',
     title: $('title')

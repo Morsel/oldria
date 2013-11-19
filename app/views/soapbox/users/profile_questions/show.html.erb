@@ -6,7 +6,7 @@
 <% end -%>
 <%= content_for(:fb_description, "#{@user.name} says: #{@question.title} #{truncate(@primary_answer.answer, :length => 100)}" +'  '+ "  via @SoapboxHQ" ) %>
 
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>", soapbox_profile_path(@user.username) %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>".html_safe, soapbox_profile_path(@user.username) %></h1>
 
 <h2 id="topic_title">Topic: <%= @question.chapter.topic.title %></h2>
 
