@@ -187,11 +187,11 @@ class UsersController < ApplicationController
     else
       flash[:error] = "We were unable to connect your account. Please try again later."
     end
-    redirect_to params[:restaurant_id].present? ? edit_restaurant_path(params[:restaurant_id]) : edit_user_profile_path(:user_id => @user.id)
+    redirect_to params[:restaurant_id].present? ? edit_restaurant_path(@restaurant) : edit_user_profile_path(@user)
   rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception=> e
     Rails.logger.error("Unable to connect Facebook user account for #{@user.id} due to #{e.message} on #{Time.now}")
     flash[:error] = "We were unable to connect your account. Please log back into Facebook if you are logged out, or try again later."
-    redirect_to params[:restaurant_id].present? ? edit_restaurant_path(params[:restaurant_id]) : edit_user_profile_path(:user_id => @user.id)
+    redirect_to params[:restaurant_id].present? ? edit_restaurant_path(@restaurant) : edit_user_profile_path(@user)
   end
 
    
