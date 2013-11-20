@@ -19,4 +19,5 @@ class School < ActiveRecord::Base
 
   has_many :enrollments
   has_many :profiles, :through => :enrollments
+  attr_accessible :name, :city, :state, :country
 end

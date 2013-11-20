@@ -18,7 +18,7 @@
         <%= t.d(h(holiday.date.try(:to_s, :long))) %>
         <%= t.d(h(holiday.reminders_count)) %>
         <%= t.d(h(holiday.next_reminder.try(:scheduled_at).try(:strftime, "%m/%d/%y"))) %>
-        <%= t.d(h(holiday_reply_count_link(holiday)),:class=>'admin-actions') %>
+        <%= t.d(h(holiday_reply_count_link(holiday)),:class=>'actions reply_count') %>
         <%= t.d(h(link_to 'Show', admin_holiday_path(holiday),:class=>'admin-actions')) %>
         <%= t.d(h(link_to 'Edit', edit_admin_holiday_path(holiday),:class=>'admin-actions')) %>
         <td class="actions destroy_link">

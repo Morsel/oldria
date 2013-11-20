@@ -16,11 +16,11 @@
     <tr class="<%= cycle('odd','even') %>">
     	<%= t.d(h(page.title)) %>
     	<%= t.d(h(page.slug)) %>
-      <%= t.d(h(link_to "Live",soapbox_page_path(page),:class=>'admin-actions')) %> 
-      <%= t.d(h(link_to "Edit",edit_admin_soapbox_page_path(page),:class=>'admin-actions')) %>
+      <%= t.d(h(link_to "Live",public_page_path(page),:class=>'admin-actions')) %> 
+      <%= t.d(h(link_to "Edit",edit_admin_page_path(page),:class=>'admin-actions')) %>
       <% if page.deletable? %>
         <td class="actions destroy_link">
-        <%= link_to "Destroy",admin_soapbox_page_path(page), :method => :delete %>
+        <%= link_to "Destroy",admin_page_path(page), :method => :delete %>
       </td> 
     <% end %>
   <% end %>

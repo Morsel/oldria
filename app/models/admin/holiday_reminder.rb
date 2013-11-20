@@ -23,6 +23,7 @@ class Admin::HolidayReminder < ActiveRecord::Base
   }
   
   before_save :update_discussions
+  attr_accessible :holiday_id
 
   def self.title
     "Holiday Reminder"
