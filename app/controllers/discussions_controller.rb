@@ -27,7 +27,7 @@ class DiscussionsController < ApplicationController
     if params[:search]
       search_setup(@discussion)
       save_search
-      @discussion.users << @search.map(&:employee)
+      @discussion.users << @search.relation.map(&:employee)
     end
 
     if @discussion.save

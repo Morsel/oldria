@@ -1,17 +1,17 @@
 <%= "<h1>#{yield :title}</h1>" if request.xhr? %>
 <%= semantic_form_for @nonculinary_job.new_record? ? [:user, :profile, @nonculinary_job] : @nonculinary_job do |f| %>
   <%= f.inputs :class => "nonculinary_jobs" do %>
-    <%= f.input :company, :input_html => {:class => 'title'} %>
-    <%= f.input :title %>
-    <%= f.input :city, :input_html => {:class => 'span-5'},
+    <%= f.input :company, :input_html => {:class => 'title',:size=>50} %>
+    <%= f.input :title, :input_html=>{:size=>50} %>
+    <%= f.input :city, :input_html => {:class => 'span-5',:size=>50},
       :wrapper_html => {:class => 'span-5 column'} %>
-    <%= f.input :state, :input_html => {:maxlength => 2, :class => 'span-1'},
+    <%= f.input :state, :input_html => {:maxlength => 2, :class => 'span-1',:size=>50},
       :wrapper_html => {:class => 'span-1 column last'} %>
     <%= f.input :country, :wrapper_html => {:class => 'clear'} %>
     <%= f.input :date_started, :end_year => 1930, :start_year => Date.today.year %>
     <%= f.input :date_ended, :as => :date, :selected => nil, :end_year => 1930, :start_year => Date.today.year %>
     <%= f.input :responsibilities, :label => "Responsibilities and Accomplishments",
-      :input_html => {:rows => 3} %>
+      :input_html => {:rows => 3,:cols=>50} %>
   <% end %>
   <%= button_tag "Save" %>
 <% end %>

@@ -3,7 +3,7 @@
     <div class="comment">
         <%= truncate(answer.answer, :length => 200) %>
         <% if answer.answer.size > 200 -%>
-        <%= link_to "more &raquo;", restaurant_question_path(answer.restaurant_question) %>
+        <%= link_to "more &raquo;".html_safe, restaurant_question_path(answer.restaurant_question) %>
         <% end -%>
     </div>
     <p><span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span> - <%= link_to "Share this entry", restaurant_restaurant_answer_path(answer.restaurant, answer) %></p>

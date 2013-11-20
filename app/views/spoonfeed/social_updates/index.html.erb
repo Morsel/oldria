@@ -11,7 +11,7 @@
         <ol>
             <div id="criteria_accordion">
                 <div class="accordion_box">
-                    <%= link_to "<span>Region</span>", "#" %>
+                    <%= link_to "<span>Region</span>".html_safe, "#" %>
                     <div id="region_fields" class="loading" style="display:none;">
                         <li id="search_james_beard_region_id_eq_any_input" class="check_boxes optional">
                             <fieldset>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="accordion_box">
-                    <%= link_to "<span>Metro Area</span>", "#" %>
+                    <%= link_to "<span>Metro Area</span>".html_safe, "#" %>
                     <div id="metro_fields" class="loading" style="display:none;">
                         <li id="search_metropolitan_area_id_eq_any_input" class="check_boxes optional">
                             <fieldset>
@@ -51,7 +51,7 @@
                     </div>
                 </div>                
                 <div class="accordion_box">
-                    <%= link_to "<span>Source</span>", "#" %>
+                    <%= link_to "<span>Source</span>".html_safe, "#" %>
                     <div id="source_fields" class="loading" style="display:none;">
                         <li id="search_source" class="check_boxes optional fix-height">
                             <fieldset>

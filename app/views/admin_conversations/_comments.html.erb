@@ -4,7 +4,7 @@
   <%= semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
     <%= f.inputs do %>
       <%= f.hidden_field :user_id, :value => @admin_conversation.recipient_id %>
-      <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
+      <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8, :cols=>50 }, :hint => soapbox_notice(message) %>
       <div id="loading-wait" style="display: none">
         <%= image_tag "ajax-loader.gif" %>
         <p>Please wait while we save your comment</p>

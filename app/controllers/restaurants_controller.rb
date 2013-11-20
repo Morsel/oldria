@@ -7,6 +7,7 @@ class RestaurantsController < ApplicationController
 
 
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive,:media_subscribe]
+  require 'csv'
 
   def index
     @employments = current_user.employments
@@ -228,7 +229,7 @@ class RestaurantsController < ApplicationController
     @subscriptions = @restaurant.newsletter_subscriptions
 
     # csv string generator
-    @csv = FasterCSV.generate(:col_sep => "\t") do |csv|
+    @csv = CSV.generate(:col_sep => "\t") do |csv|
       # header
       csv << %w[first_name last_name email subscription_date]
 

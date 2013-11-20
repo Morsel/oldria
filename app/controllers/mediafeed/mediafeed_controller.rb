@@ -19,7 +19,7 @@ class Mediafeed::MediafeedController < ApplicationController
     @use_search = true
     @users = User.in_soapbox_directory.all(:order => "users.last_name")
 
-    render :template => "directory/index"
+    render :template => "directory/index",:layout => "application"
   end
 
   def directory_search

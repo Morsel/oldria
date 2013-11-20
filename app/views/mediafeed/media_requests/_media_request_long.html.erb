@@ -11,8 +11,9 @@
 	<p class="message">
 	  <%= simple_format @media_request.message %>
 	</p>
-	<%= formatted_fields @media_request %>
-	
+	<div class="fields">
+		<%="#{formatted_fields(@media_request)}".html_safe%>
+	</div>
 	<ul class="responses">
 	  <li class="sent_on">
 		  <% if @media_request.sender == current_user %>

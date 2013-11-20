@@ -1,38 +1,40 @@
 <% discussions = current_user.grouped_admin_discussions[@quick_reply.message] %>
-<div class="inbox_message <%= dom_class(@quick_reply.message) %>">
-  <%= render 'messages/message_details', :message =>  @quick_reply.message %>
-</div>
-
+<% unless @quick_reply.message.blank? %>
+  <div class="inbox_message <%= dom_class(@quick_reply.message) %>">
+    <%= render 'messages/message_details', :message =>  @quick_reply.message %>
+  </div>
+<% end %>
+<% unless discussions.blank? %>
   <% discussions_without_replies = discussions.select do |discussion|
        discussion.comments_count == 0
      end %>
-
+<% end %>
 <div id="quick_reply_time">
 <%= not_responded_phrase_for_discussions(discussions_without_replies) %>
 
-<% remote_form_for @quick_reply do |f| %>
+<%= form_for @quick_reply, :remote => true do |f| %>
   <div id="error_messages"></div>
   <%= f.hidden_field :message_id %>
   <%= f.hidden_field :message_type %>
 
   <%= f.label :reply_text, "Comment for Restaurant(s)", :class => 'function-bold' %>
   <%= f.text_area :reply_text, :size => '100x5' %>
-
-<% if discussions.size == 1 %>
-  <% restaurant = discussions.first.restaurant %>
-  <%= hidden_field_tag 'quick_reply[restaurant_ids][]', restaurant.id %>
-  <p>You are replying for <%= restaurant_link(restaurant) %></p>
-<% else %>
-  <p>Check all of the restaurants that you'll be replying for:</p>
-  <fieldset class="checkall">
-    <ol>
-  <% discussions.each do |admin_discussion| %>
-    <li><label><%= check_box_tag 'quick_reply[restaurant_ids][]', admin_discussion.restaurant_id %> <%= admin_discussion.restaurant.try(:name) %></label></li>
+<% unless discussions.blank? %>
+  <% if discussions.size == 1 %>
+    <% restaurant = discussions.first.restaurant %>
+    <%= hidden_field_tag 'quick_reply[restaurant_ids][]', restaurant.id %>
+    <p>You are replying for <%= restaurant_link(restaurant) %></p>
+  <% else %>
+    <p>Check all of the restaurants that you'll be replying for:</p>
+    <fieldset class="checkall">
+      <ol>
+    <% discussions.each do |admin_discussion| %>
+      <li><label><%= check_box_tag 'quick_reply[restaurant_ids][]', admin_discussion.restaurant_id %> <%= admin_discussion.restaurant.try(:name) %></label></li>
+    <% end %>
+      </ol>
+    </fieldset>
   <% end %>
-    </ol>
-  </fieldset>
 <% end %>
-
   <p><%= button_tag "Post" %> <%= link_to 'Cancel','#', :class => 'close' %></p>
 <% end %>
 </div>

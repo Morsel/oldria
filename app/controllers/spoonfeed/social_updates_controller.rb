@@ -12,7 +12,7 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
   end
 
   def filter_updates
-    @updates = SocialUpdate.all(:order => "post_created_at DESC",:conditions => {:source =>params[:source], :restaurant_id => Restaurant.search(params[:search]).map(&:id)}).paginate(:page => params[:page], :per_page => 10)
+    @updates = SocialUpdate.all(:order => "post_created_at DESC",:conditions => {:source =>params[:source], :restaurant_id => Restaurant.search(params[:search]).relation.map(&:id)}).paginate(:page => params[:page], :per_page => 10)
     render :partial => "updates", :locals => { :updates => @updates }
   end
 

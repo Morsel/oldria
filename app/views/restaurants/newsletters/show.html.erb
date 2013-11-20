@@ -130,7 +130,7 @@
 							                        </tr>
 								                    </table></td>
 								                  <% end %>
-								                  <td style="padding-left:17px; font:14px Georgia, Times, serif; line-height:18px; color:#4e4e4e" valign="top" width="238"><%= truncate(menu_item.description.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,:length => 300).gsub("...","")  %> <%=("...  " + link_to("read more»", soapbox_menu_item_url(menu_item)) ) %></td>
+								                  <td style="padding-left:17px; font:14px Georgia, Times, serif; line-height:18px; color:#4e4e4e" valign="top" width="238"><%= truncate(menu_item.description.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,:length => 300).gsub("...","")  %> <%=("...  " + link_to("read more»", soapbox_menu_item_url(menu_item)) ).html_safe %></td>
 							                    </tr>
 								                </table></td>
 							                </tr>
@@ -277,7 +277,7 @@
 								            <tr>
 								              <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to alm_answer.question.capitalize, soapbox_a_la_minute_question_url(alm_answer.a_la_minute_question), :style => "text-decoration: none;color:#2f3861" %>
 								                <p style="pa2ding-left:7px; font:normal 12px Georgia, Times, serif; line-height:19px; color:#4e4e4e"> <%= truncate(alm_answer.answer.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,
-                                     :length => 300).gsub("...","") %><%=("...  " + link_to("read more»", soapbox_a_la_minute_answer_url(alm_answer)) )%> </p></td>
+                                     :length => 300).gsub("...","") %><%=("...  " + link_to("read more»", soapbox_a_la_minute_answer_url(alm_answer)) ).html_safe%> </p></td>
 							                </tr>
 								            <tr>
 								              <td style="font-size:0; line-height:0;" height="8"></td>
@@ -341,7 +341,7 @@
 								                <tr>
 								                  <td style="padding-left:10px; padding-right:10px;"><table width="100%" cellspacing="0" cellpadding="0">
 								                    <tr>
-								                      <td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff"><%= @restaurant.address_parts.join("<br />") %></td>
+								                      <td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff"><%= @restaurant.address_parts.join("<br />").html_safe %></td>
 							                        </tr>
 								                    </table></td>
 							                    </tr>
@@ -415,7 +415,7 @@
 								                  <td style="padding-left:10px; padding-right:10px;"><table width="100%" cellspacing="0" cellpadding="0">
 								                    <tr>
 								                      <td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Facebook:<br />
-								                        <%= link_to @restaurant.facebook_page_url.gsub("http://www.facebook.com/",""), "#{@restaurant.facebook_page_url}", :style => "color: #fff;text-decoration: none;",:target=>"_blank" %></td>
+								                        <%= link_to @restaurant.facebook_page_url.gsub("http://www.facebook.com/","").html_safe, "#{@restaurant.facebook_page_url}", :style => "color: #fff;text-decoration: none;",:target=>"_blank" %></td>
 							                        </tr>
 								                    </table></td>
 							                    </tr>

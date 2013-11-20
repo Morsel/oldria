@@ -6,7 +6,7 @@
 	<h2>Facebook updates</h2>
 	<p><%= link_to "See all archive", social_archive_restaurant_path(@restaurant) %></p>
 
-    <% for post in @restaurant.facebook_page.posts do %>
-    <p><%= post.message %></p>
+    <% for post in @restaurant.facebook_page.posts.data do %>
+    <p><%= post["message"] %></p>
     <% end rescue nil %>
 </div>

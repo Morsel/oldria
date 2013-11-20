@@ -60,9 +60,9 @@ require 'compass/app_integration/rails'
 ENV['RAILS_ASSET_ID'] = ''
 
 Braintree::Configuration.environment = :sandbox
-Braintree::Configuration.merchant_id = "ny23sz9jy8gy38bw" 
-Braintree::Configuration.public_key = "n77z2dvd56jy4j9n" 
-Braintree::Configuration.private_key = "w8kw3smb2g2m6mds"
+Braintree::Configuration.merchant_id = "p9p7r29hg8s7bsvn" 
+Braintree::Configuration.public_key = "ydq86dmzmxg2zttd" 
+Braintree::Configuration.private_key = "d3e75b6232f86ae9c4e393dd1f5c3a7d"
 
 CLOUDMAIL_DOMAIN = 'dev-mailbot.restaurantintelligenceagency.com'
 

@@ -58,6 +58,7 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
     @subject_matters = SubjectMatter.all
     @media_request.publication = @media_request.sender.try(:publication)
     @restaurants = @media_request.restaurants
+    render :layout => "application"
   end
 
   def update

@@ -42,7 +42,6 @@ class RestaurantFactSheetsController < ApplicationController
   def destroy
     @fact_sheet = @restaurant.fact_sheet
     @fact_sheet.destroy
-ac
     respond_to do |format|
       format.html { redirect_to(restaurant_fact_sheets_url) }
       format.xml  { head :ok }

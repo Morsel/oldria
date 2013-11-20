@@ -140,7 +140,7 @@ Ria::Application.routes.draw do
     match 'get_cities' => 'media_users#get_cities', :as => :get_cities_list
   end
   
-  match '/' => 'mediafeed/mediafeed#index', :via =>'mediafeed/mediafeed#directory', :as => :mediafeed_directory
+  match 'mediafeed/directory' =>'mediafeed/mediafeed#directory'#, :as => :mediafeed_directory
   resources :quick_replies
   resources :media_request_discussions, :only => [:show, :update] do  
     member do
@@ -473,7 +473,7 @@ Ria::Application.routes.draw do
   match 'expire_social_update' => 'spoonfeed/social_updates#expire_social_update', :as => :expire_social_update
   match 'update_social' => 'spoonfeed/social_updates#load_updates', :as => :update_social
   match 'filter_social' => 'spoonfeed/social_updates#filter_updates', :as => :filter_social
-  resources :restaurant_questions, :only => ["index", "show"]
+  resources :restaurant_btl, :only => ["index", "show"],:as => :restaurant_questions, :controller => 'spoonfeed/restaurant_questions'
   match 'get_keywords' => 'menu_items#get_keywords', :as => :get_keywords
   resources :page_views, :only => ["create"]
   resources :trace_keywords, :only => ["create"]

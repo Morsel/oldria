@@ -10,6 +10,7 @@
 #
 
 class QuickReply < ActiveRecord::Base
+  attr_protected
   def self.columns() @columns ||= []; end
 
   def self.column(name, sql_type = nil, default = nil, null = true)

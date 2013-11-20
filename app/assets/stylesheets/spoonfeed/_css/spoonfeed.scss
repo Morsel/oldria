@@ -4857,3 +4857,24 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 	margin-top: 23px;
 	text-transform: none !important;
 }
+
+.box{
+    background: none repeat scroll 0 0 #F3F3F3;
+    border: 1px solid #DBDBDB;
+    float: left;
+    margin: 5px;
+    min-height: 190px;
+    overflow: hidden !important;
+    position: relative;
+    text-align: center;
+    width: 200px;
+      .credit {
+        max-width:200px;
+			  max-height:100px;
+			  text-overflow: ellipsis;
+			  overflow:hidden;
+			  white-space:nowrap;
+      }
+
+
+}

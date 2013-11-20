@@ -19,7 +19,7 @@
   		  <li class="reply_count">
   		    <h3><%= discussion.recipient_name %></h3>
   		    <p><%= pluralize discussion.comments.size, "reply" %><br>
-  		      <%= link_to "Read &amp; Reply &#187;", mediafeed_discussion_path(mediafeed_media_request, discussion.class.name.pluralize.underscore.downcase, discussion), :class => 'replies' %></p>
+  		      <%= link_to "Read &amp; Reply &#187;".html_safe, mediafeed_discussion_path(mediafeed_media_request, discussion.class.name.pluralize.underscore.downcase, discussion), :class => 'replies' %></p>
   			</li>
   		<% end %>
   	<% else #there are no discussions with comments %>
