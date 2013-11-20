@@ -13,9 +13,9 @@ class Soapbox::SoapboxPasswordResetsController < ApplicationController
       flash[:notice] = "Please check your email for instructions to finish resetting your password"
       redirect_to :action => "new"
     else
-       flash.now[:error] = @newsletter_subscriber ? "Your account is not confirmed.<br/>Please check your email for instructions or 
+       flash.now[:error] = (@newsletter_subscriber ? "Your account is not confirmed.<br/>Please check your email for instructions or 
           <a href='#{resend_confirmation_soapbox_soapbox_password_resets_path}'>request the confirmation email</a> again." : 
-          "No user was found with that email address"
+          "No user was found with that email address").html_safe
        render :action => "new"
     end
   end

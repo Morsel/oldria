@@ -1,18 +1,18 @@
 <%= "<h1>#{yield :title}</h1>" if request.xhr? %>
 <%= semantic_form_for @culinary_job.new_record? ? [:user, :profile, @culinary_job] : @culinary_job do |f| %>
   <%= f.inputs :class => "culinary_jobs" do %>
-    <%= f.input :restaurant_name, :input_html => {:class => 'title'} %>
-    <%= f.input :title %>
-    <%= f.input :city, :input_html => {:class => 'span-5'}, :wrapper_html => {:class => 'span-5 column'} %>
-    <%= f.input :state, :input_html => {:maxlength => 2, :class => 'span-1'}, :wrapper_html => {:class => 'span-1 column'} %>
+    <%= f.input :restaurant_name, :input_html => {:size=>50,:class => 'title'} %>
+    <%= f.input :title, :input_html=>{:size=>50} %>
+    <%= f.input :city, :input_html => {:size=>50,:class => 'span-5'}, :wrapper_html => {:class => 'span-5 column'} %>
+    <%= f.input :state, :input_html => {:size=>50,:maxlength => 2, :class => 'span-1'}, :wrapper_html => {:class => 'span-1 column'} %>
     <%= f.input :country, :wrapper_html => {:class => 'clear'} %>
     <%= f.input :date_started, :end_year => 1930, :start_year => Date.today.year %>
     <%= f.input :date_ended, :as => :date, :selected => nil, :end_year => 1930, :start_year => Date.today.year, :hint => "Leave blank for current positions" %>
-    <%= f.input :chef_name, :label => "Chef in charge of menu" %>
+    <%= f.input :chef_name, :label => "Chef in charge of menu", :input_html=>{:size=>50} %>
     <%= f.input :chef_is_me, :rel => current_user.name %>
     <%= f.input :opening_staff, :label => "Were you on the opening staff?" %>
-    <%= f.input :cuisine, :label => "Type of cuisine served", :input_html => {:rows => 3} %>
-    <%= f.input :notes, :input_html => {:rows => 3} %>
+    <%= f.input :cuisine, :label => "Type of cuisine served", :input_html => {:rows => 3,:cols=>50} %>
+    <%= f.input :notes, :input_html => {:rows => 3,:cols=>50} %>
   <% end %>
   <%= button_tag "Save" %>
 <% end %>

@@ -1,6 +1,6 @@
 <% title "Restaurant Behind the Line", false %>
 
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line</span>", restaurant_questions_path %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line</span>".html_safe, restaurant_questions_path %></h1>
 
 <% for answer in @answers %>
 <%=div_for answer do %>

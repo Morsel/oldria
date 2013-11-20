@@ -2,10 +2,10 @@
 
 <%= render :partial => 'shared/add_this', :locals => {:responder => @user} %>
 
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>", soapbox_profile_path(@user.username) %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>".html_safe, soapbox_profile_path(@user.username) %></h1>
 
 <h2 id="topic_title">Topics</h2>
-<% javascript_tag do %>
+<%= javascript_tag do %>
   var addthis_share = {
     url: '<%= soapbox_user_profile_questions_url(@user) %>',
     title: $('title').text().replace('Spoonfeed','Soapbox')

@@ -21,7 +21,7 @@
 
                         <div class="clearfix headshot_fields">
                             <%= f.input :avatar, :as => "file", :label => "Upload a headshot" %>
-                            <strong><%= f.errors_on :avatar_content_type %></strong>
+                            <strong><%#= f.errors_on :avatar_content_type %></strong>
                             <p class="clearfix">
                                 <%= button_tag "Upload Headshot", :class => 'positive' %>
                                 <span class="button-separator"></span> 

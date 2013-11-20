@@ -1,7 +1,7 @@
 
 mock_fb_app: &FAKE
-  app_id: 513746155367280
-  secret: c36d0b6981f528c19a1751c3c2131f5a
+  app_id: 1409604265927151
+  secret: 97af297451ca7285bed02dfa71066b8a
 
 development:
   <<: *FAKE
@@ -13,8 +13,8 @@ cucumber:
   <<: *FAKE
 
 staging:
-  app_id: 138436116175329
-  secret: 4448edef8ad7b1bdb52c7a184d292989
+  app_id: 513746155367280
+  secret: c36d0b6981f528c19a1751c3c2131f5a
 
 production:
   app_id: 304341076331111

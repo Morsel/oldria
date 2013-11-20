@@ -94,4 +94,8 @@ module ApplicationHelper
   def link_to_unimplemented(string, opts = {})
     link_to_function(string, "alert('Not implemented yet')", opts)
   end
+
+  def remove_special_char string
+    string.gsub(/[^0-9A-Za-z]/, ' ')
+  end
 end

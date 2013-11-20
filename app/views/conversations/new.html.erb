@@ -2,8 +2,8 @@
 <%= semantic_form_for(@discussion, :html => { :multipart => true }) do |f| %>
 <div>
   <%= f.inputs :class => "plain" do %>
-    <%= f.input :title, :label => "Subject", :input_html => {:class => 'title span-5'} %>
-    <%= f.input :body, :input_html => { :rows => '4', :class => "span-5" } %>
+    <%= f.input :title, :label => "Subject", :input_html => {:class => 'title span-5',:size=>50} %>
+    <%= f.input :body, :input_html => { :rows => '4', :class => "span-5",:cols=>50 } %>
     <%= f.fields_for :attachments do |child_form| -%>
       <p class="attach">Attach files</p>
       <p class="attachfield"><%= child_form.file_field :attachment %></p>

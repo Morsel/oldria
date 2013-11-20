@@ -1,4 +1,4 @@
-<% title "Restaurants with the feature: #{@feature.name}" %>
+<% title "Restaurants with the feature: #{remove_special_char(@feature.name)}" %>
 <div id="restaurant-results">
   <% @restaurants.each do |restaurant| -%>
       <%= render :partial => 'restaurants/identity', :locals => { :user => restaurant } %>

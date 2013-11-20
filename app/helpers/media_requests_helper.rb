@@ -22,10 +22,10 @@ module MediaRequestsHelper
     outer_tag = options[:html_tag] || "div"
 
     stringified = media_request.fields.inject("") do |result, (key,value)|
-      result += content_tag(html_tag, "#{before_key + key.to_s.humanize + after_key + value}\n")
+      result += content_tag(html_tag, "#{before_key.html_safe + key.to_s.humanize + after_key.html_safe + value}\n".html_safe)
     end
 
-    content_tag(outer_tag, :class => "fields") { stringified }
+    # content_tag(outer_tag, :class => "fields") { stringified }
   end
 
   def last_comment_and_date_span(comment)

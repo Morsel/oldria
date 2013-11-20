@@ -10,7 +10,8 @@ production: &PRODUCTION
   callbackurl: http://spoonfeed.restaurantintelligenceagency.com/twitter_authorization/
 
 staging:
-  <<: *PRODUCTION
+  token: ZBklaKCBcrrNmEDsXeYjVg
+  secret: aOybP6qNIVNBChEF06oI9c9brdOJIiLpyLVZ4ObQ
   callbackurl: http://staging.restaurantintelligenceagency.com/twitter_authorization/
 
 test:

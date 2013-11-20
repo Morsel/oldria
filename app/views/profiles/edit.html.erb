@@ -119,10 +119,10 @@
               <%= f.inputs :name => 'Basic Information' do %>
                 <%= f.input :birthday, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
                 <%= f.input :job_start, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
-                <%= f.input :headline %>
-                <%= f.input :summary, :hint => "Keep it under 1000 characters" %>
-                <%= f.input :hometown %>
-                <%= f.input :current_residence, :label => "In what city/state do you work?", :hint => "Or where you live, if currently unemployed" %>
+                <%= f.input :headline, :input_html=>{:size=>50} %>
+                <%= f.input :summary, :hint => "Keep it under 1000 characters", :input_html=>{:cols=>50} %>
+                <%= f.input :hometown, :input_html=>{:size=>50} %>
+                <%= f.input :current_residence, :label => "In what city/state do you work?", :hint => "Or where you live, if currently unemployed", :input_html=>{:size=>50} %>
                 <%= button_tag :class => 'positive' do %> Save changes to basic information <% end %>
               <% end %>
     <!-- Basic info -->

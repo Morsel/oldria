@@ -48,7 +48,7 @@ class ContentRequest < ActiveRecord::Base
     return false unless employment
     employment.employee == employment.restaurant.try(:manager) ||
     employment.omniscient? ||
-    employment_search.employments.include?(employment)
+    employment_search.employments.relation.include?(employment)
   end
   
   def recipients_can_reply?

@@ -46,12 +46,12 @@
 
                 <% begin %>
                 <% fb_msg_count = 0%>
-				<% for post in @restaurant.facebook_page.posts do %>
+				<% for post in @restaurant.facebook_page.posts.data do %>
 				<p>
 					<% if fb_msg_count != 3 %>
-						<% unless post.message.blank? %>
-							<%= link_to post.message[0...100]+"...", "https://www.facebook.com/#{post.id.split("_")[0]}/posts/#{post.id.split("_")[1]}" %>
-							<span class="datestamp">(<%= Time.parse(post.created_time).strftime("%D") %>)							
+						<% unless post["message"].blank? %>
+							<%= link_to post["message"][0...100]+"...", "https://www.facebook.com/#{post['id'].split("_")[0]}/posts/#{post['id'].split("_")[1]}" %>
+							<span class="datestamp">(<%= Time.parse(post["created_time"]).strftime("%D") %>)							
 							<% fb_msg_count+=1 %>
 							</p>
 						<% end %>

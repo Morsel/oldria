@@ -1,7 +1,7 @@
 <% title "Confirming your account" %>
 
 <% if @user.media? -%>
-<% content_tag :div, nil,:id=>'editing_restaurant' do %>
+<%= content_tag :div, nil,:id=>'editing_restaurant' do %>
     <%= semantic_form_for @user, :url => save_confirmation_path(:user_id => @user.id), :html => { :id => 'mediafeed_user' } do |f| %>
         <%= f.inputs :name => 'Your Information', :class => 'editing basics' do %>
         	<%= f.input :first_name %>
@@ -15,7 +15,7 @@
         	<%= f.input :password_confirmation, :required => true, :input_html => { :autocomplete => "off" } %>
         <% end %>
         <%=render :partial =>'mediafeed/media_users/media_sign_up' ,:locals =>{:f=>f} %>
-        <%= hidden_field_tag (:user_id ,@user.id) %>
+        <%= hidden_field_tag 'user_id' ,@user.id %>
         <p><%= submit_tag "Confirm" %></p>
     <% end %>
 <% end %>

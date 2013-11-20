@@ -1,9 +1,9 @@
 <%= semantic_form_for [:soapbox, (@subscriber || NewsletterSubscriber.new)] do |f| %>
     <%= f.inputs do %>
-		<%= f.input :first_name %>
-		<%= f.input :last_name %>
-        <%= f.input :email, :label => "Email address" %>
+		<%= f.input :first_name,:input_html=>{:size=>50} %>
+		<%= f.input :last_name,:input_html=>{:size=>50} %>
+        <%= f.input :email, :label => "Email address",:input_html=>{:size=>50} %>
     <% end %>
 
-    <%= f.submit_tag "Subscribe" %>
+    <%=submit_tag "Subscribe" %>
 <% end %>
