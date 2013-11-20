@@ -1,11 +1,11 @@
 <%= semantic_form_for [:admin, @holiday] do |form| %>
 
-  <% form.inputs :name => 'Holiday' do %>
+  <%= form.inputs :name => 'Holiday' do %>
     <%= form.input :name, :input_html => {:class => 'title span-8'} %>
     <%= form.input :date %>
   <% end %>
 
-  <% form.inputs :for => :admin_holiday_reminders do |reminder| -%>
+  <%= form.inputs :for => :admin_holiday_reminders do |reminder| -%>
     <li><h3>Reminder</h3></li>
     <%= reminder.input :scheduled_at %>
     <%= reminder.input :message, :input_html => {:rows => 5} %>

@@ -2,18 +2,30 @@
 
 <%= semantic_form_for [:admin, @role] do |f| %>
     <%= f.inputs :class => "plain" do %>
-        <%= f.input :name %>
+        <%#= f.input :name %>
         <%= f.input :restaurant_roles, 
                     :as => :check_boxes %>
     <% end %>
     <p><%= f.submit "Save" %></p>
 <% end %>
-
-<%= table_for QuestionRole.all do |t| %>
-    <% t.data :actions => [:edit], :action_prefix => 'admin' do
-        t.cell(:name)
-        t.cell(:roles) { |c| c.restaurant_roles.map(&:name).to_sentence }
-        t.cell(:topics) { |c| c.topics.map(&:title).to_sentence }
-		t.cell(:can_be_deleted?) { |c| link_to "delete", admin_question_role_path(c), :method => "delete", :confirm => "Are you sure you want to delete this?" if c.topics.count == 0 }
-    end %>
+<%= table_for(QuestionRole.all) do |t| %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%#= t.h('name')%>
+      <%= t.h('roles') %>
+      <%#= t.h('topics') %>
+      <%= t.h('can_be_deleted?') %>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body(:html=>{:class=>"ui-sortable"}) do |q| %>
+    <tr>
+      <%#= t.d(h(q.name)) %>
+      <%= t.d(h(q.restaurant_role.name)) %>
+      <%#= t.d(h(q.topic.title.to_sentence ))%>
+      <td class="actions destroy_link">
+        <%= link_to "delete", admin_question_role_path(q), :method => "delete", :confirm => "Are you sure you want to delete this?"%>
+      </td> 
+  <% end %>
 <% end %>
+

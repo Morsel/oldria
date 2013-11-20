@@ -58,7 +58,7 @@
 	
 			<% if media_request_without_reply.kind_of? MediaRequestDiscussion %>	
 				<td>
-					<%= media_request_without_reply.restaurant.present? ? mail_to (media_request_without_reply.restaurant.employments.map(&:employee).map(&:email).join(",") ,media_request_without_reply.restaurant.employments.map(&:employee).map(&:name).join(" &nbsp; &nbsp;"),:body => @media_request.message) : "Restaurant Deleted" %>	
+					<%= media_request_without_reply.restaurant.present? ? mail_to(media_request_without_reply.restaurant.employments.map(&:employee).map(&:email).join(",") ,media_request_without_reply.restaurant.employments.map(&:employee).map(&:name).join(" &nbsp; &nbsp;").html_safe,:body => @media_request.message) : "Restaurant Deleted" %>	
 				
 			  </td>
 

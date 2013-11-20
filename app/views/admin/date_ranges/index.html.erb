@@ -19,10 +19,10 @@
       <td class="utility">
         <%= link_to "Show", [:admin, date_range] %>
         <%= link_to "Edit", edit_admin_date_range_path(date_range) %>
+        <span class="actions destroy_link">
+        <%= link_to "Destroy", [:admin, date_range], :confirm => 'Are you sure?', :method => :delete %>
+        </span>
       </td>
-      <td class="actions destroy_link">
-        <%= link_to "Destroy",admin_date_range_path(date_range), :method => :delete %>
-      </td> 
     </tr>
   <% end %>
 </table>

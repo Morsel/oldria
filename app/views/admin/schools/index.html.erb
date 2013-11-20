@@ -2,12 +2,49 @@
 
 <h3>Culinary Schools</h3>
 <%= table_for(@culinary_schools) do |t| %>
-  <%= t.data :actions => :all, :action_prefix => 'admin' %>
+	<%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('name')%>
+      <%= t.h('city')%>
+      <%= t.h('state')%>
+      <%= t.h('country')%>
+    <% end %>
+  <% end %>
+  <%= t.body(:html=>{:class=>"ui-sortable"}) do |culinary_schools| %>
+    <tr>
+      <%= t.d(h(culinary_schools.name)) %>
+      <%= t.d(h(culinary_schools.city)) %>
+      <%= t.d(h(culinary_schools.state)) %>
+      <%= t.d(h(culinary_schools.country)) %>
+      <%= t.d(h(link_to "Edit",edit_admin_school_url(:id => culinary_schools.id),:class=>'admin-actions')) %>
+      <td class="actions destroy_link">
+        <%= link_to "delete",admin_school_path(:id => culinary_schools.id), :method => :delete %>
+      </td>
+  <% end %>
 <% end %>
 
 <h3>Other Schools</h3>
 <%= table_for(@nonculinary_schools) do |t| %>
-  <%= t.data :actions => :all, :action_prefix => 'admin' %>
+	<%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('name')%>
+      <%= t.h('city')%>
+      <%= t.h('state')%>
+      <%= t.h('country')%>
+      <%= t.h(' ')%>
+    <% end %>
+  <% end %>
+  <%= t.body(:html=>{:class=>"ui-sortable"}) do |nonculinary_schools| %>
+    <tr>
+      <%= t.d(h(nonculinary_schools.name)) %>
+      <%= t.d(h(nonculinary_schools.city)) %>
+      <%= t.d(h(nonculinary_schools.state)) %>
+      <%= t.d(h(nonculinary_schools.country)) %>
+      <%#= t.d(h(link_to "Edit",edit_admin_school_url(:id => nonculinary_schools.id),:class=>'admin-actions')) %>
+      <td class="actions destroy_link">
+        <%#= link_to "delete",admin_school_path(:id => nonculinary_schools.id), :method => :delete %>
+      </td>
+  <% end %>
 <% end %>
 
 <p><%= link_to "New School", new_admin_school_path %></p>

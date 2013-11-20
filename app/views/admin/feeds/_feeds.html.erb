@@ -1,6 +1,7 @@
- <%= table_for(feeds, :class => 'feeds') do |t|  %>
+ <%= table_for(feeds, :html => {:id=>"feeds"}) do |t|  %>
     <%= t.head do %>
       <%= t.r do %>
+        <%= t.h('')%>
         <%= t.h('Title') %>
         <%= t.h('Url') %>
         <%= t.h('Feed url') %>
@@ -8,8 +9,11 @@
         <th></th><th></th><th></th><th></th>
       <% end %>
     <% end %>
-    <%= t.body do |feed| %>
-      <tr class="<%= cycle('odd','even') %>">
+    <%= t.body(:html=>{:class=>"ui-sortable"}) do |feed| %>
+      <tr id="feed_<%=feed.id%>" class="feed <%=cycle('odd','even', :name => 'featured_profiles')%>">
+        <%= t.d(:class => 'small handle') do %>
+          [drag]
+        <% end %>
         <%= t.d(h(feed.title)) %>
         <%= t.d(h(feed.url)) %>
         <%= t.d(h(feed.feed_url)) %>
