@@ -882,3 +882,10 @@ function add_fields(link, association, content) {
   var regexp = new RegExp("new_" + association, "g")
   $(link).parent().before(content.replace(regexp, new_id));
 }
+
+// Ajaxy Delete
+$('.status a.trash').live('click', function(){
+  $.post(this.href, { _method: 'delete' }, null, 'script');
+  return false; 
+});
+$('a.trash').removeAttr('onclick');
