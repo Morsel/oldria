@@ -867,3 +867,10 @@ function loderHide()
 {
   $('#loader-waiting').slideUp();
 }
+
+// Ajaxy Delete
+$('.status a.trash').live('click', function(){
+  $.post(this.href, { _method: 'delete' }, null, 'script');
+  return false; 
+});
+$('a.trash').removeAttr('onclick');
