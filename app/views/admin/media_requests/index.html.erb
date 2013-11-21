@@ -56,9 +56,9 @@
   <% end %>
   <%= t.body do |approved_media_request| %>
     <tr class="<%= cycle('odd','even') %>">
-    	<%= t.d(h(approved_media_request.sender.name)) %>
-    	<%= t.d(h(approved_media_request.discussions.size)) %>
-    	<%= t.d(h(approved_media_request.subject_matter.name)) %>
+    	<%= t.d(h(approved_media_request.try(:sender).try(:name))) %>
+    	<%= t.d(h(approved_media_request.try(:discussions).size)) %>
+    	<%= t.d(h(approved_media_request.try(:subject_matter).try(:name))) %>
     	<%= t.d(h(link_to truncate(approved_media_request.message, :length => 50),media_requests_list_admin_media_request_path(approved_media_request))) %>
      	<%= t.d(h(list_and_link_replies(approved_media_request))) %>
     	<%= t.d(h(approved_media_request.due_date)) %>

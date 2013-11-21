@@ -26,7 +26,7 @@
       <%= t.d(h(restaurant.media_contact.try(:name))) %>
       <%= t.d(h(restaurant.metropolitan_area.try(:name))) %>
       <%= t.d(h(restaurant.cuisine.try(:name))) %>
-      <%= t.d(h(link_to "Activate",active_admin_test_restaurant_path(restaurant), :method => :get,:class=>'admin-actions' )) %>
+      <%= t.d(h(link_to "Activate",active_admin_test_restaurant_path(restaurant), :method => :get,:class=>'admin-actions-restaurant' )) %>
   <% end %>
 <% end %>
 <% end -%>

@@ -84,6 +84,9 @@
   </div><!--#container-->
 
    <%#if (params[:controller]=="admin/users" || params[:controller]=="admin/restaurant_features" || params[:controller]=="admin/restaurants") && (params[:action]=="index" || params[:action]=="edit")%>
+
+  <%= javascript_include_tag :all %> 
+   <%if (params[:controller]=="admin/users" || params[:controller]=="admin/restaurant_features" ) && params[:action]=="index"%>
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js" type="text/javascript"></script>
    <%#else%>
      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>

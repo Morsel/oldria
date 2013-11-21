@@ -28,20 +28,20 @@
 
     <% end %>
   <% end %>
-  <%= t.body(:html=>{:class=>"ui-sortable"}) do |que_chap| %>
-    <tr id="restaurant_question_<%=que_chap.id%>" class="restaurant_question <%=cycle('odd','even', :name => 'featured_profiles')%>">
+ <%= t.body(:html=>{:class=>"ui-sortable"}) do |que_chap| %>
+    <tr id="restaurant_question_<%=que_chap.id%>" class="restaurant_question <%=cycle('odd','even', :name => 'restaurant_questions')%>">
       <%= t.d(:class => 'small handle') do %>
         [drag]
-      <% end %>
+      <% end %>  
       <%= t.d(h(que_chap.title)) %>
       <%= t.d(h(que_chap.pages_description)) %>
       <%= t.d(h(link_to 'Send Notification', send_notifications_admin_restaurant_question_path(que_chap.id),:class=>'admin-actions')) %>
       <%= t.d(h(link_to "Edit",edit_admin_restaurant_question_path(:id => que_chap.id),:class=>'admin-actions')) %>
-      <td class="actions destroy_link">
-        <%= link_to "Destroy",admin_restaurant_role_path(:id => que_chap.id), :method => :delete %>
-      </td> 
+      <%= t.d(h( link_to "Destroy",admin_restaurant_question_path(:id => que_chap.id), :method => :delete,:confirm => "Are you sure ?" ,:class=>'admin-actions')) %>
   <% end %>
 <% end %>
+
+   
 
 
 

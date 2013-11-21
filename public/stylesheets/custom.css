@@ -5179,6 +5179,25 @@ div.a_la_minute_question .archive {
     text-shadow: 0 1px 1px #333333;
 }
 
+.#restaurant  {
+    background: url("/images/arrow2.png") no-repeat scroll left center transparent;
+    color: #333333;
+    display: inline-block;
+    line-height: 15px;
+    margin: 3px 0;
+    padding-left: 15px;
+}
+
+.admin-actions-restaurant{
+  border-bottom: 0 none;
+  color: #999999;
+  font-size: 9px;
+  background: url("/images/arrow2.png") no-repeat scroll left center transparent;
+  display: inline-block;
+  line-height: 15px;
+  margin: 3px 0;
+  padding-left: 15px;
+}
 
 /* @end */
 
