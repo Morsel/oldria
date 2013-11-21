@@ -14,7 +14,6 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   end
 
   def new
-    flash.now[:error] = "Please begin by selecting a subject matter" if params[:error]
     @media_request = current_user.media_requests.build(params[:media_request])
     @media_request.attachments.build
     search_setup(@media_request, User.mediafeed_only_condition)
@@ -29,10 +28,10 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
     unless params[:search][:subject_matters_id_equals_any].compact.any?
 
       # @media_request.errors.add_to_base("Please begin by selecting a subject matter")
-      # @media_request.errors.add(:base, "Please begin by selecting a subject matter")
-      # flash.now[:error] = "Please begin by selecting a subject matter" #@media_request.errors.full_messages.to_sentence
-      # # render :new and return
-      redirect_to new_mediafeed_media_request_url(:error=>"") and return
+      @media_request.errors.add(:base, "Please begin by selecting a subject matter")
+      flash.now[:error] = "Please begin by selecting a subject matter" #@media_request.errors.full_messages.to_sentence
+      render :new ,:layout=>"application" and return
+      # redirect_to new_mediafeed_media_request_url(:error=>"") and return
     end
 
     if @media_request.save
@@ -45,7 +44,7 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
       else
         flash.now[:error] = @media_request.errors.full_messages.to_sentence
       end
-      render :new
+      render :new,:layout=>"application"
     end
 
   end

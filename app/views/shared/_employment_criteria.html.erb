@@ -14,10 +14,7 @@
           <%= link_to "<span>Subject Matter</span>".html_safe, "#" %>
         <%- end -%>
         <div id="subject_fields" class="loading">
-            <%= s.input :subject_matters_id_equals_any, 
-                        :as => "check_boxes",
-                        :label => '&nbsp;',
-                        :collection => SubjectMatter.all %>
+          <%= s.input :subject_matters_id_equals_any,:as => "check_boxes",:label => '&nbsp;',:collection =>SubjectMatter.all.map{|b| [b.name,b.id]}  %>
         </div>
       </div>
 	<p class="search_filter_hint">Filter further using these criteria, if you like:</p>
@@ -49,7 +46,7 @@
             <%= s.input :restaurant_cuisine_id_equals_any,
                         :as => "check_boxes",
                         :label => '&nbsp;'.html_safe,
-                        :collection => Cuisine.with_restaurants %>
+                        :collection =>Cuisine.with_restaurants.map{|b| [b.name,b.id]}  %>
         </div>
       </div>
       <%- unless mediafeed? -%>
@@ -69,7 +66,7 @@
             <%= s.input :restaurant_james_beard_region_id_equals_any,
                         :as => "check_boxes",
                         :label => '&nbsp;'.html_safe,
-                        :collection => (JamesBeardRegion.with_restaurants + JamesBeardRegion.with_profiles).flatten.uniq.sort_by(&:name) %>
+                        :collection => (JamesBeardRegion.with_restaurants + JamesBeardRegion.with_profiles).flatten.uniq.sort_by(&:name).map{|b| [b.name,b.id]} %>
         </div>
       </div>
       <div class="accordion_box">
@@ -79,7 +76,7 @@
                         :as => "check_boxes",
                         :label => '&nbsp;'.html_safe,
                         :member_label => :city_and_state,
-                        :collection => (MetropolitanArea.with_restaurants + MetropolitanArea.with_profiles).flatten.uniq.sort_by(&:name) %>
+                        :collection => (MetropolitanArea.with_restaurants + MetropolitanArea.with_profiles).flatten.uniq.sort_by(&:name).map{|b| [b.name,b.id]} %>
         </div>
       </div>
     </div>
