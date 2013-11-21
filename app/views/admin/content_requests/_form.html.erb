@@ -10,7 +10,7 @@
         <%= render :partial => 'shared/employment_list' %>
       </div>
 
-      <%= f.input :scheduled_at, :label => 'Post this question on:', :selected => (@content_request.new_record? ? Time.now : @content_request.scheduled_at) %>
+      <%= f.input :scheduled_at, :label => 'Post this question on:'%>
     <% end %>
     <p><%= button_tag "Submit" %></p>
   </div>

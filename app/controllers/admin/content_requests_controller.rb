@@ -6,11 +6,13 @@ class Admin::ContentRequestsController < Admin::AdminController
 
   def show
     @content_request = ::ContentRequest.find(params[:id])
+    @content_request.scheduled_at = (@content_request.new_record? ? Time.now : @content_request.scheduled_at)
     search_setup(@content_request)
   end
 
   def new
     @content_request = ::ContentRequest.new
+    @content_request.scheduled_at = (@content_request.new_record? ? Time.now : @content_request.scheduled_at)
     search_setup(@content_request)
   end
 
@@ -28,6 +30,7 @@ class Admin::ContentRequestsController < Admin::AdminController
 
   def edit
     @content_request = ::ContentRequest.find(params[:id], :include => :employment_search)
+    @content_request.scheduled_at = (@content_request.new_record? ? Time.now : @content_request.scheduled_at)
     search_setup(@content_request)
   end
 

@@ -12,7 +12,7 @@
         <%= render :partial => 'shared/employment_list' %>
       </div>
 
-      <%= f.input :scheduled_at, :label => 'Post this question on:', :selected => (@trend_question.new_record? ? Time.now : @trend_question.scheduled_at) %>
+      <%= f.input :scheduled_at, :label => 'Post this question on:' %>
       <%# f.input :expired_at, :selected => 3.months.from_now %>
     <% end %>
     <p><%= button_tag "Submit" %></p>
