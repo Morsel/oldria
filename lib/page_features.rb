@@ -4,7 +4,9 @@ module PageFeatures
 
   def generate_slug!
     return slug unless slug.blank?
-    self.slug = Slug.normalize(title)
+      unless slug.blank?
+        self.slug = Slug.normalize(title)
+      end  
   end
 
   def deletable?

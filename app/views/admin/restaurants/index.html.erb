@@ -21,13 +21,11 @@
       <%= t.d(h(restaurant.account_type)) %>
       <%= t.d(h(restaurant.city)) %>
       <%= t.d(h(restaurant.state)) %>
-      <%= t.d(h(restaurant.manager.name)) %>
-      <%= t.d(h(restaurant.media_contact.name)) %>
-      <%= t.d(h(restaurant.metropolitan_area.name)) %>
-      <%= t.d(h(restaurant.cuisine.name)) %>
-      <%= t.d(h(link_to "Edit",edit_admin_restaurant_path(restaurant),:class=>'actions edit_link')) %>
-      <td class="actions destroy_link">
-        <%= link_to "Destroy",admin_restaurant_path(restaurant), :method => :delete %>
-      </td> 
+      <%= t.d(h(restaurant.try(:manager).try(:name))) %>
+      <%= t.d(h(restaurant.try(:media_contact).try(:name))) %>
+      <%= t.d(h(restaurant.try(:metropolitan_area).try(:name))) %>
+      <%= t.d(h(restaurant.try(:cuisine).try(:name))) %>
+      <%= t.d(h(link_to "Edit",edit_admin_restaurant_path(restaurant),:class=>'admin-actions-restaurant')) %>
+      <%= t.d(h( link_to "Destroy",admin_restaurant_path(restaurant), :method => :delete,:confirm => "Are you sure ?" ,:class=>'admin-actions-restaurant')) %>
   <% end %>
 <% end %>

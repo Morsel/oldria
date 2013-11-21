@@ -5,27 +5,28 @@
     <%= link_to "Back to Profile Questions", admin_profile_questions_path, :class => "button" %>
 </div>
 
-<%= table_for @topics do |t| %>
+<%= table_for @topics, :html => {:id=>"topics"} do |t| %>
   <%= t.head do %>
     <%= t.r do %>
+      <th></th>
       <%= t.h('Name') %>
       <%= t.h('Description') %>
       <%= t.h('can_be_deleted?') %>
       <th></th>
     <% end %>
   <% end %>
-  <%= t.body do |topic| %>
-    <%= t.r do %>
+  <%= t.body(:html=>{:class=>"ui-sortable"}) do |topic| %>
+    <tr id="topic_<%=topic.id%>" class="topic <%=cycle('odd','even', :name => 'topic')%>">
+      <%= t.d(:class => 'small handle') do %>
+        [drag]
+      <% end %>
       <%= t.d(h(topic.title)) %>
       <%= t.d(h(topic.description)) %>
       <% if topic.chapters.count == 0 %>
-        <td class="actions destroy_link">
-          <%= link_to "Destroy",admin_profile_question_url(:id => topic.id), :method => :delete %>
-        </td> 
+        <%= t.d(h( link_to "Destroy",admin_topic_path(:id => topic.id), :method => :delete,:confirm => "Are you sure ?" ,:class=>'admin-actions')) %>
       <% else %>
         <td></td>
       <% end %>  
       <%= t.d(h(link_to "Edit",edit_admin_topic_url(:id => topic.id),:class=>'admin-actions')) %>
     <% end %>
   <% end %>
-<% end %>

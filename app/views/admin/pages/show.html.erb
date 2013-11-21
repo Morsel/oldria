@@ -15,6 +15,11 @@
 
 <p>
 	<%= link_to "Edit", edit_page_path(@page) %> |
-	<%= link_to "Destroy", @page, :confirm => 'Are you sure?', :method => :delete %> |
+   <%=link_to "Delete",admin_page_path(@page), 'data-method' => :delete,  :confirm => "Are you sure ?"%> |
 	<%= link_to "View All", pages_path %>
 </p>
+
+
+
+
+

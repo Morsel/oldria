@@ -15,11 +15,9 @@
       <td><%=h coached_status_update.message %></td>
       <td><%=h coached_status_update.date_range.try(:name) %></td>
       <td class="utility">
-         <%= link_to "Show", [:admin, coached_status_update],:class=>'admin-actions'  %>
-         <%= link_to "Edit", edit_admin_coached_status_update_path(coached_status_update),:class=>'admin-actions' %>
-         <td class="actions destroy_link">
-          <%= link_to "Destroy",admin_coached_status_update_path(coached_status_update), :method => :delete %>
-        </td> 
+         <%= link_to "Show", [:admin, coached_status_update] %>
+         <%= link_to "Edit", edit_admin_coached_status_update_path(coached_status_update) %>
+         <%= link_to "Destroy",admin_coached_status_update_path(coached_status_update), :method => :delete,:confirm => "Are you sure ?" %>
       </td>
     </tr>
   <% end %>

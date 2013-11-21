@@ -58,6 +58,6 @@
 
 <p class="clear">
   <%= link_to "Edit", edit_admin_trend_question_path(@trend_question) %> |
-  <%= link_to "Destroy", [:admin, @trend_question], :confirm => 'Are you sure?', :method => :delete %> |
+  <%=link_to "Delete", [:admin, @trend_question], 'data-method' => :delete,  :confirm => "Are you sure ?"%> |
   <%= link_to "View All", admin_trend_questions_path %>
 </p>

@@ -7,7 +7,8 @@
 <% for topic in @topics %>
   <h2><%= topic.title %>:</h2>
   <% if topic.chapters.present? %>
-<%= table_for @chapters_by_topic[topic] do |t| %>
+
+<%= table_for @chapters_by_topic[topic] , :html => {:id=>"chapters"} do |t| %>
   <%= t.head do %>
     <%= t.r do %>
       <%= t.h('Title') %>
@@ -17,8 +18,11 @@
       <th></th>
     <% end %>
   <% end %>
-  <%= t.body do |topic| %>
-    <%= t.r do %>
+  <%= t.body(:html=>{:class=>"ui-sortable"}) do |topic| %>
+      <tr id="chapter<%=topic.id%>" class="chapter <%=cycle('odd','even', :name => 'chapter_topic')%>">
+      <%= t.d(:class => 'small handle') do %>
+        [drag]
+      <% end %>  
       <%= t.d(h(topic.title)) %>
       <%= t.d(h(topic.description)) %>
       <% if topic.profile_questions.count == 0  %>
@@ -32,7 +36,10 @@
     <% end %>
   <% end %>
 <% end %>
-  <% end %>
+
+
+
+
 
  <%= render :partial => "form", :locals => { :chapter => Chapter.new, :topic => topic } %>
 <% end %>
