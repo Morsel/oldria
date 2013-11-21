@@ -6,11 +6,13 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   def show
     @trend_question = ::TrendQuestion.find(params[:id])
+    @trend_question.scheduled_at = (@trend_question.new_record? ? Time.now : @trend_question.scheduled_at)
     search_setup(@trend_question)
   end
 
   def new
     @trend_question = ::TrendQuestion.new
+    @trend_question.scheduled_at = (@trend_question.new_record? ? Time.now : @trend_question.scheduled_at)
     search_setup(@trend_question)
   end
 
@@ -30,6 +32,7 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   def edit
     @trend_question = ::TrendQuestion.find(params[:id], :include => :employment_search)
+    @trend_question.scheduled_at = (@trend_question.new_record? ? Time.now : @trend_question.scheduled_at)
     search_setup(@trend_question)
   end
 
