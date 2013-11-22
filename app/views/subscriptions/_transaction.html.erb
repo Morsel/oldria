@@ -1,6 +1,6 @@
 <% title "Billing History" %>
-
-<%= content_tag_for :tr, transaction do %>
+<%transactions.each do |transaction| %>
+  <tr>
   <td><%= h transaction.id %></td>
   <td><%= number_to_currency transaction.amount %></td>
   <td><%= h transaction.status %></td>
@@ -8,4 +8,5 @@
   <td><%= h transaction.credit_card_details.card_type %></td>
   <td><%= obscure_credit_card_number(transaction.credit_card_details) %></td>
   <td><%= h transaction.credit_card_details.expiration_date %></td>
+  </tr>
 <% end %>
