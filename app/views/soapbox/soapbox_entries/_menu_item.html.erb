@@ -7,8 +7,8 @@
         <% end -%>
     </header>
           <p>           
-             <%= truncate(menu_item.description, :length => 30) if menu_item.description.present?%>
-             <%= link_to "more&nbsp;&#187;", soapbox_menu_item_path(menu_item) if menu_item.description.size > 30%>
+             <%= truncate(menu_item.description, :length => 30).html_safe if menu_item.description.present?%>
+             <%= link_to "more&nbsp;&#187;".html_safe, soapbox_menu_item_path(menu_item) if menu_item.description.size > 30%>
           </p>    
 <% end %>
 

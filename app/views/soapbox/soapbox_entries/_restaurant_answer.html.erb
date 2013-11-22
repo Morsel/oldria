@@ -7,7 +7,7 @@
     <p>
         <%= truncate(restaurant_answer.answer, :length => 100)%>
         <% if restaurant_answer.answer.size > 100 -%>
-          <%= link_to "more&nbsp;&#187;", soapbox_restaurant_question_path(restaurant_answer.restaurant_question) %>
+          <%= link_to "more&nbsp;&#187;".html_safe, soapbox_restaurant_question_path(restaurant_answer.restaurant_question) %>
         <% end -%>
     </p>
 

@@ -54,7 +54,7 @@ Ria::Application.routes.draw do
         get :confirm_subscription
       end
       resources :feature_pages, :only => ["show"]
-      resources :questions do
+      resources :questions,:controller => "restaurant_questions" do
         collection do
           get :topics
           get :chapters
@@ -78,7 +78,7 @@ Ria::Application.routes.draw do
       end   
     end
     match 'frontburner' => 'soapbox_entries#frontburner', :as => :frontburner
-    resources :newsfeed,:as => :promotions,:controller=>"soapbox/promotions"
+    resources :newsfeed,:as => :promotions,:controller=>"promotions"
     resources :menu_items, :path => 'on_the_menu'
     resources :users, :only => [] do   
       resources :profile_questions, :only => ["index", "show"], :controller => 'users/profile_questions'

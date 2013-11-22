@@ -3,6 +3,8 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
    before_filter :authorize, :only => [:edit, :update]
   def new
     @user = User.new(params[:user])
+    get_newsletter_data if current_user
+    render :layout => 'application'
   end
 
   def create
