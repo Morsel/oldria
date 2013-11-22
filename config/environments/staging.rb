@@ -2,7 +2,7 @@
 DEFAULT_HOST = 'staging.restaurantintelligenceagency.com'
 Ria::Application.configure do
 
-ActionMailer::Base.delivery_method = :sendmail
+#ActionMailer::Base.delivery_method = :sendmail
 
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
