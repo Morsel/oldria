@@ -1,4 +1,4 @@
-<table id="transactions">
+<table id="transactions" class="bill_history">
   <thead>
     <tr>
       <th>Transaction #</th>
@@ -11,6 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <%= render :partial => 'transaction', :collection => @transactions %>
+    <%= render :partial => 'transaction', :locals => {:transactions => @transactions} %>
+    <%#= render :partial => 'transaction', :collection => @transactions %>
   </tbody>
 </table>
