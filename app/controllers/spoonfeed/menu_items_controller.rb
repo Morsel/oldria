@@ -3,7 +3,9 @@ class Spoonfeed::MenuItemsController < ApplicationController
   before_filter :require_user
   before_filter :verify_restaurant_activation, :only =>[:show]
   require 'will_paginate/array'
+  
   def index
+    UserMailer.log_file("This is testing nishant").deliver
     if params[:keyword].present?
       @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:joins => { :menu_item_keywords => :otm_keyword },
                                  :conditions => ["otm_keywords.name = ?", params[:keyword]],
