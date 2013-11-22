@@ -8,7 +8,7 @@
         <%= f.input :subject_matters,
           :as => :check_boxes,
           :wrapper_html => {:class => 'checkall', :id => "employment_general_subject_matters"},
-          :collection => SubjectMatter.all,
+          :collection => SubjectMatter.general.all,
           :label => "I am comfortable answering questions and speaking to the media about the following topics:" %>
     <% end %>
     

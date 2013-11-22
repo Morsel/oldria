@@ -2,14 +2,13 @@
 <%= semantic_form_for @enrollment.new_record? ? [:user, :profile, setup_enrollment(@enrollment)] : setup_enrollment(@enrollment) do |f| %>
   <%= f.inputs :class => "enrollments" do %>
   
-    <% if @enrollment.errors.blank? || (!@enrollment.errors.first.nil? && @enrollment.errors.first.include?("school")) %>
+    <% if @enrollment.errors.blank? || (!@enrollment.errors.first.nil? && @enrollment.errors.first.include?(:school)) %>
     <%= f.input :school %>
 
     <% end %>
-
   <% if action_name != 'edit' %>
     
-    <% if !@enrollment.errors.first.nil? && @enrollment.errors.first.include?("school") %>
+    <% if !@enrollment.errors.first.nil? && @enrollment.errors.first.include?(:school) %>
     <div id="school_fields" class="display-none">
      <%else%>
      <div id="school_fields">

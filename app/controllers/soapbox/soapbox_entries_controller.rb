@@ -68,7 +68,7 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
     end
     @more_comments  = @entry.comments.all(:order => "created_at DESC") - @feature_comments
     
-    render :action => "show"
+    render :action => "show",:layout => 'soapbox'
   end
 
   def frontburner

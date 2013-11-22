@@ -7,7 +7,7 @@
     <p>
         <%= truncate(answer.answer, :length => 10)%>
     	<% if answer.answer.size > 10 -%>
-          <%= link_to "more&nbsp;&#187;", soapbox_user_profile_question_path(answer.user, answer.profile_question) %>
+          <%= link_to "more&nbsp;&#187;".html_safe, soapbox_user_profile_question_path(answer.user, answer.profile_question) %>
         <% end -%>
     </p>
 <% end %>

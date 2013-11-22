@@ -21,6 +21,7 @@ class SubjectMatter < ActiveRecord::Base
   default_scope :order => "#{table_name}.name ASC"
 
   scope :nongeneral, :conditions => ["general IS NULL OR general = ?", false]
+  scope :general, :conditions => ["general IS NULL OR general = ?", true]
   scope :media_viewable, :conditions => ["private IS NULL or private = ?", false]
   attr_accessible :name,:general,:private
 
