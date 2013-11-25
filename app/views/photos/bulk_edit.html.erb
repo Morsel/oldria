@@ -16,7 +16,7 @@
           <% if photo_form.object.id.nil? %>
           <fieldset class="inputs">
             <ol>
-              <%= photo_form.object.errors.full_messages unless photo_form.object.errors.full_messages.blank? %>
+              <%= photo_form.error_messages %>
               <li  class="file required">         
                 <%= f.label "Attachment*" %>
                 <%= photo_form.file_field 'attachment',  :as => 'file', :hint => "Please upload a jpeg, gif, or png" %>

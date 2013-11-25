@@ -170,8 +170,9 @@ calendarFields.datepicker ({
 	constrainInput: false
 });
 
-$("#date-select #date").datepicker();
-
+$("#date-select #date").datepicker({
+    dateFormat: 'dd-mm-yy'
+});
 // == Placebo Fields
 var placeboFields = $("form .general_info input").not(":checkbox");
 $("form .general_info :checkbox").change(function(){
