@@ -1,8 +1,8 @@
 <%= semantic_form_for [@restaurant, @menu_item], :html => {:multipart => true} do |f| %>
     <%= f.inputs :class=>"menu_form" do %>
       <li>
-         <%= f.label :name, :label => "Name of Dish/Drink/Wine/Beer" %></br>
-         <%= f.input :name, :label => false %>
+         <%#= f.label :name, :label => "Name of Dish/Drink/Wine/Beer" %></br>
+         <%= f.input :name, :label => "Name of Dish/Drink/Wine/Beer" %>
       </li> 
       <li class="set-textarea-width">
         <%= label_tag "menu_item_description_editor", "Inspiration/Background" %> 

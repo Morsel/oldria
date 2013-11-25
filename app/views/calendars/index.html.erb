@@ -38,7 +38,7 @@
           <%= form_tag '', :method => :get, :class => "toggle-ria-events" do %>
           <%= hidden_field_tag "category", params[:category], :id => "category-with-date" if params[:category] %>
           <%= hidden_field_tag "show_ria", params[:show_ria], :id => "ria-with-date" if params[:show_ria] %>
-          <%= text_field_tag "date", "Pick a date to jump to", :onchange => "this.form.submit();",:class=>"hasDatepicker" %>
+          <%= text_field_tag "date", "Pick a date to jump to", :onchange => "this.form.submit();" %>
           <% end %>
       </div>
   </div>

@@ -8,7 +8,7 @@
   <h3>Participating (<%= @event.child_count %>)</h3>
 
   <table>
-    <%= render @event.children %>
+    <%= render @event.children if @event.children%>
   </table>
 </div>
 

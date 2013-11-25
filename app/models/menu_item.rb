@@ -49,7 +49,7 @@ default_url_options[:host] = DEFAULT_HOST
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :photo_file_name
 
-  validates_presence_of :name, :description, :restaurant
+  validates_presence_of :name, :description, :restaurant,:photo
   validates_format_of :price, :with => RestaurantFactSheet::MONEY_FORMAT
 
   scope :from_premium_restaurants, lambda {
