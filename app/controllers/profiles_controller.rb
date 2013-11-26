@@ -12,6 +12,13 @@ class ProfilesController < ApplicationController
       redirect_to profile_path(@user.username)
     else
       flash[:error] = "Please fix the errors in the form below"
+      begin
+        @cusines = @profile.profile_cuisines.map(&:cuisine).map(&:name)
+        @profile_cuisine = @profile.profile_cuisines.build
+        @fb_user = current_facebook_user.fetch if @profile.user.facebook_authorized? && current_facebook_user
+      rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException,Exception => e
+        Rails.logger.error("Unable to fetch Facebook user for restaurant editing due to #{e.message} on #{Time.now}")
+      end
       render :edit
     end
   end

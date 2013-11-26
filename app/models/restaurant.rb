@@ -232,9 +232,9 @@ class Restaurant < ActiveRecord::Base
   # the Model.destroy(id), we don't need to specify those methods
   # separately.
   def destroy
-    return false if callback(:before_destroy) == false
+    return false if run_callbacks(:destroy){ true } == false
     result = destroy_without_callbacks
-    callback(:after_destroy)
+    run_callbacks(:destroy){ true }
     result
   end
 
