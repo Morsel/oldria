@@ -70,7 +70,7 @@
 				<h4>Highlights</h4>
 				<ul id="tags">
 					<% for tag in @restaurant.top_tags %>
-					<li><%= link_to h(tag.value), feature_path(tag) %></li>
+					<li><%= link_to h(remove_special_char(tag.value)), feature_path(tag) %></li>
 					<% end %>
 				</ul>
 			</div>
