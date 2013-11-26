@@ -16,7 +16,7 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
       redirect_to confirm_mediafeed_media_user_path(@user)
     else
       get_newsletter_data
-      render :new
+      render :new,:layout => 'application'
     end
   end
 

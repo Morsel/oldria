@@ -13,7 +13,7 @@
 <div id="btl_answers">
   <h3><%= @question.chapter.title %></h3>
 
-  <h4><%= @question.title %></h4>
+  <h4><%= remove_special_char(@question.title) %></h4>
 
   <%=div_for(@primary_answer) do %>
   <div class="user_answer">

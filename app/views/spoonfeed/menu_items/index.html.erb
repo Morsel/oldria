@@ -3,8 +3,10 @@
 <% if current_user.media? %>
   <div class="color-box-restaurant">
     <%= form_tag menu_items_path  do %>
+        <li class="string optional span-3">
         <label for="otm_keyword_editor">Keyword Search</label>
         <%= text_field_tag "otm_keyword_search", "", :name => "keyword" %>
+        </li>
         <p class="inline-hints">Enter the name of the On The Menu Keyword to search</p>
         <%= hidden_field_tag "Search", "true" %>
         <p><%= button_tag "Search", :class => 'positive' %></p>
@@ -35,7 +37,7 @@
         </p>
 
         <p><%= "Pairing: #{menu_item.pairing}" if menu_item.pairing.present? %></p>
-        <p class="keywords"><%= menu_item.otm_keywords.map { |k| link_to k.name, menu_items_path(:keyword => k.name,:id=>k.id) }.to_sentence %></p>
+        <p class="keywords"><%= menu_item.otm_keywords.map { |k| link_to k.name, menu_items_path(:keyword => k.name,:id=>k.id) }.to_sentence.html_safe %></p>
 
         <%- if current_user.media? -%>
         <p class="request">

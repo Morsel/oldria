@@ -1,6 +1,7 @@
 class Admin::QotdsController < Admin::AdminController
   def new
     @qotd = Admin::Qotd.new
+    @qotd.scheduled_at = Time.now
     search_setup
   end
 
