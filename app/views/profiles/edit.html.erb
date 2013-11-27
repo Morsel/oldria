@@ -24,13 +24,12 @@
           <div id="payment_blurb">
               Basic accounts allow you to participate in Spoonfeed. If you would like to be included in Soapbox, please upgrade to a Premium Account. A personal <%= link_to "premium account", "/account_types", :class => 'button' %> is $50/month. <%= link_to "More Information...", "/account_types", :class => 'button' %>
           </div>
-
           <div class="current">
               Your current account status is
               <%= @user.public_account_type %> <%= @user.account_payer_type %>.
               <% if @user.premium_account? %>
                 <div id="start_date">
-                    You have been a premium member since <%= @user.subscription.start_date.to_s(:long) %>
+                    You have been a premium member since <%= @user.subscription.start_date %>
                 </div>
                 <% if @user.subscription && @user.subscription.in_overtime? %>
                   <div id="end_date">
