@@ -2,7 +2,7 @@ class Soapbox::MenuItemsController < ApplicationController
   
   before_filter :verify_restaurant_activation, :only =>[:show]
   include MenuItemsHelper
-require 'will_paginate/array'
+
   def index    
     @cloud_keywords  = Hash.new
     @cloud_keywords.reverse_merge!(cloud_keywords(MenuItem.todays_cloud_keywords, 26))

@@ -1,7 +1,7 @@
 class Soapbox::SiteSearchController < ApplicationController
 
   layout 'soapbox_site_search'
-  require 'will_paginate/array'
+
   def show
     @key = params[:query].try(:strip)
     @no_key = params[:query].nil?

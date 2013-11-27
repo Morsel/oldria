@@ -1,7 +1,6 @@
 class TrendQuestionsController < ApplicationController
 
   before_filter :require_user
-  require 'will_paginate/array'
   
   def show
     @trend_question = TrendQuestion.find(params[:id])

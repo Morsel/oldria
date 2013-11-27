@@ -21,5 +21,6 @@ class Page < ActiveRecord::Base
   before_destroy :deletable? # Prevents accidental deletion of SPECIAL pages
     # has_friendly_id :slug #old code
 	friendly_id :slug #new code
-  attr_protected	
+  attr_accessible :title, :slug, :content
+	
 end

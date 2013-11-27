@@ -242,14 +242,13 @@
 
   <section id="profile-account">
 
-  
     <div id="restaurant_profile_view" class="edit clear clearfix"> 
       <div id="editing_restaurant">
         <div id="restaurant_pages" class="clearfix">                         
           <%= semantic_form_for @user do |f| %>
               <%= f.inputs :name => "Editing" do %>
                 <label for="user_editor">Allow another user to edit your account?</label>
-                <%= text_field_tag "user_editor", "", :name => "user[editor]" %>
+                <li class="string optional span-3"><%= text_field_tag "user_editor", "", :name => "user[editor]" %></li>
                   <p class="inline-hints">Enter the name of the user to add</p>
                   <% if @user.editors.present? -%>
                     <h3>Current Editors:</h3>

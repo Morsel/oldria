@@ -15,7 +15,7 @@
 #
 
 class Admin::Announcement < Admin::Message
-  attr_protected
+  attr_accessible :type,:scheduled_at,:status,:message,:display_message,:slug
   def self.title
     "Announcement"
   end

@@ -1,5 +1,5 @@
 class Admin::PageViewsController < Admin::AdminController
-	require 'will_paginate/array'
+
   def index
     @page_views = PageView.all(:order => "created_at DESC").paginate(:page => params[:page])
   end
