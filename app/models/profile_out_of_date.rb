@@ -1,3 +1,3 @@
 class ProfileOutOfDate < ActiveRecord::Base
-	attr_protected 
+	attr_accessible :user_id, :restaurant_id, :count
 end

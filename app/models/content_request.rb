@@ -14,7 +14,6 @@
 
 class ContentRequest < ActiveRecord::Base
   acts_as_readable
-  attr_protected
   belongs_to :employment_search
   has_many :admin_discussions, :as => :discussionable, :dependent => :destroy
   has_many :restaurants, :through => :admin_discussions
@@ -22,7 +21,7 @@ class ContentRequest < ActiveRecord::Base
   scope :by_scheduled_date, :order => "#{table_name}.scheduled_at ASC"
 
   before_save :update_restaurants_from_search_criteria
-  attr_accessible :subject, :body, :scheduled_at
+  attr_accessible :subject, :body, :scheduled_at, :expired_at, :employment_search_id   
 
   def self.title
     "Question from RIA"

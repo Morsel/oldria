@@ -19,7 +19,7 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, :polymorphic => true, :counter_cache => true
   belongs_to :user
   default_scope :order => "#{table_name}.created_at ASC"
-  attr_protected
+
 
   accepts_nested_attributes_for :attachments
 
@@ -33,7 +33,7 @@ class Comment < ActiveRecord::Base
       Date.today]
   }
 
-  attr_accessible :user_id, :comment,:user,:attachments_attributes
+  attr_accessible :user_id, :comment,:user,:attachments_attributes,:title,:commentable_id,:commentable_type
   #validates_presence_of :comment
 
   attr_accessor :post_to_facebook

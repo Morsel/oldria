@@ -4,5 +4,6 @@ class RestaurantEmployeeRequest < ActiveRecord::Base
 	validates_presence_of :employee_id
 	validates_presence_of :restaurant_id
 	validates_uniqueness_of :employee_id, :scope => :restaurant_id ,:message=>"Request already been sent."
-	attr_protected
+	attr_accessible :employee_id, :restaurant_id
+
 end
