@@ -18,7 +18,7 @@
                               <% for tag in @features[category] %>
                                 <p>
                                   <%= check_box_tag "restaurant_features[]", tag.id, tag.top_tag?(@restaurant), :id => "restaurant_features_#{tag.id}" %> 
-                                  <%= label_tag "restaurant_features_#{tag.id}", tag.name %>
+                                  <%= label_tag "restaurant_features_#{tag.id}", remove_special_char(tag.name) %>
                               </p>
                               <% end %>
                           </div>

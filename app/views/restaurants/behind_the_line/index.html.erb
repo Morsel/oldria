@@ -15,6 +15,6 @@
         </tr>
         <% end if @chapters_by_topic[topic] %>
     </table>
-    <%= link_to "View all \"#{topic.title}\" chapters &raquo;", link_for_restaurant_chapters(:restaurant_id => @restaurant.id, :id => topic.id, :page_id => @page.try(:id)), :class => 'view_all_chapters' %>
+    <%= link_to "View all \"#{topic.title}\" chapters &raquo;".html_safe, link_for_restaurant_chapters(:restaurant_id => @restaurant.id, :id => topic.id, :page_id => @page.try(:id)), :class => 'view_all_chapters' %>
 </div>
 <%- end -%>
