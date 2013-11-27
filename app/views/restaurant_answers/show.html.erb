@@ -10,7 +10,7 @@
 
   <div class="comment">
       <%= render :partial => "restaurants/identity", :locals => { :restaurant => @answer.restaurant } %>
-      <div class="user_comment"><p><%= @answer.answer %></p></div>
+      <div class="user_comment"><p><%= remove_special_char(@answer.answer) %></p></div>
   </div>
   <p><span class="timestamp">Last updated: <%= @answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
 

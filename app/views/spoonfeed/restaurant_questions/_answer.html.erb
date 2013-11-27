@@ -1,7 +1,7 @@
 <div class="restaurant_answer">
     <%= render :partial => "restaurants/identity", :locals => { :restaurant => answer.restaurant } if answer.restaurant %>
     <div class="comment">
-        <%= truncate(answer.answer, :length => 200) %>
+        <%= remove_special_char(truncate(answer.answer, :length => 200)) %>
         <% if answer.answer.size > 200 -%>
         <%= link_to "more &raquo;".html_safe, restaurant_question_path(answer.restaurant_question) %>
         <% end -%>
