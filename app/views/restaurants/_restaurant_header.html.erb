@@ -7,7 +7,7 @@
         <div class="headingDetails clearfix">
             <hgroup class="left">
                 <h2 id="font-fix">
-                  <span class="left"><%= link_to @restaurant.name,restaurant_path(@restaurant),:id=>"restaurant_profile" %></span><br/>
+                  <span class="left"><%= link_to @restaurant.name,restaurant_path(@restaurant),:id=>"restaurant_profile" %></span>
                   <% if(current_user.media? ) %>
                     <div id="subscribe-div">   
                       <%= render :partial => 'restaurants/subscribe', :locals => { :restaurant => @restaurant } %> 
