@@ -1,4 +1,4 @@
-<%= form_for @search do |f| %>
+<%= form_for @search, :url => admin_users_path, :html => {:method => :get} do |f| %>
 <p class="first_name">
   <%= f.label :first_name_starts_with, "First Name" %>
   <%= f.text_field :first_name_starts_with, :size => 10, :class => 'text' %>
@@ -9,8 +9,8 @@
 </p>
 
 <p class="clear">
-  <%#= f.label :email %>
-  <%#= f.text_field :email, :class => 'text' %>
+  <%= f.label :email_starts_with,"Email" %>
+  <%= f.text_field :email_starts_with, :class => 'text' %>
 </p>
   <p>
     <%= f.label :username_like, "Username" %>
