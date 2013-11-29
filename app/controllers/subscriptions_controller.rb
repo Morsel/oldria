@@ -51,8 +51,8 @@
         check_restaurant_counter 
       elsif  params[:user_id].present?
         check_user_counter
-      end   
-      UserMailer.deliver_send_payment_error(@braintree_customer,bt_result.message,@value)
+      end  
+      check_error_count(bt_result)
       Rails.logger.info "[Braintree Error Message] #{bt_result.message}"
       flash[:error] = "Whoops. We couldn't process your credit card with the information you provided due to the following reason: <br /> #{bt_result.message} <br /> If you continue to experience issues, <a href='mailto:billing@restaurantintelligenceagency.com?subject=Payment issue!'>Please contact us.</a>"
       if request_kind == 'update_customer'
@@ -131,5 +131,13 @@
     @user.increment!(:error_count)   
     @value =get_counter_msg(@user.error_count)
   end 
+
+  def check_error_count(bt_result)
+    if @braintree_customer.error_count.present? && @braintree_customer.error_count > 2  
+      @braintree_customer.admin_cancel
+    elsif @braintree_customer.error_count.present? && @braintree_customer.error_count < 3  
+      UserMailer.deliver_send_payment_error(@braintree_customer,bt_result.message,@value)
+    end
+  end   
 
 end
