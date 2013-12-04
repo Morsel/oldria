@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::Message do
   should_have_many :admin_conversations

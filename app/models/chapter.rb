@@ -24,7 +24,7 @@ class Chapter < ActiveRecord::Base
   validates_length_of :description, :maximum => 100
 
   default_scope :include => :topic, :order => "chapters.position ASC"
-  attr_accessible :title,:description,:topic_id
+  attr_accessible :title,:description,:topic_id,:topic
 
 
   scope :for_user, lambda { |user|

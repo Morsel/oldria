@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require_relative '../spec_helper'
 
 describe CommentsController do
   integrate_views

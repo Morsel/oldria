@@ -1,29 +1,29 @@
-require 'spec/spec_helper'
+require_relative '../spec_helper'
 
 describe Restaurant do
-  should_belong_to :manager, :class_name => "User"
-  should_belong_to :metropolitan_area
-  should_belong_to :james_beard_region
-  should_belong_to :cuisine
-  should_have_many :employments
-  should_have_many :employees, :through => :employments
-  should_have_many :admin_discussions
-  should_have_many :media_request_discussions
-  should_have_many :media_requests, :through => :media_request_discussions
-  should_have_many :trend_questions, :through => :admin_discussions
-  should_have_many :content_requests, :through => :admin_discussions
+  it { should belong_to(:manager).class_name("User") }
+  it { should belong_to(:metropolitan_area) }
+  it { should belong_to(:james_beard_region) }
+  it { should belong_to(:cuisine) }
+  it { should have_many(:employments) }
+  it { should have_many(:employees).through(:employments) }
+  it { should have_many(:admin_discussions) }
+  it { should have_many(:media_request_discussions) }
+  it { should have_many(:media_requests).through(:media_request_discussions) }
+  it { should have_many(:trend_questions).through(:admin_discussions) }
+  it { should have_many(:content_requests).through(:admin_discussions) }
 
   describe "manager and employees" do
     it "should belong to a manager (user)" do
-      user = Factory(:user)
-      restaurant = Factory(:restaurant, :name => "Moon Lodge", :manager => user)
+      user = FactoryGirl.create(:user)
+      restaurant = FactoryGirl.create(:restaurant, :name => "Moon Lodge", :manager => user)
       restaurant.save
       restaurant2 = Restaurant.find(restaurant.id)
       restaurant2.manager.should == user
     end
 
     it "should add the manager as an omniscient employee on create" do
-      manager = Factory(:user, :name => "Jim John")
+      manager = FactoryGirl.create(:user, :name => "Jim John")
       restaurant = Factory.build(:restaurant, :manager => manager)
       restaurant.employees.should be_empty
       restaurant.save
@@ -39,12 +39,12 @@ describe Restaurant do
   # describe "missing_subject_matters" do
   #   it "should know which subject matters are missing" do
   #     %w(Beer Other Beverage Food Business Wine Pastry).each do |sm|
-  #       Factory(:subject_matter, :name => sm)
+  #       FactoryGirl.create(:subject_matter, :name => sm)
   #     end
   # 
   #     handled_subject = SubjectMatter.find_by_name("Pastry")
   # 
-  #     employment = Factory(:employment, :subject_matters => [handled_subject])
+  #     employment = FactoryGirl.create(:employment, :subject_matters => [handled_subject])
   #     restaurant = employment.restaurant
   # 
   #     %w(Beer Other Beverage Food Business Wine).each do |sm|
@@ -56,7 +56,7 @@ describe Restaurant do
 
   describe "safe deletion" do
     it "should not actually delete Restaurants" do
-      restaurant = Factory(:restaurant)
+      restaurant = FactoryGirl.create(:restaurant)
       Restaurant.all.should == [restaurant]
       restaurant.destroy
       Restaurant.count.should == 0
@@ -64,8 +64,8 @@ describe Restaurant do
     end
 
     it "should delete an associated admin_discussion when restaurant is deleted" do
-      restaurant = Factory(:restaurant)
-      content_request = Factory(:content_request)
+      restaurant = FactoryGirl.create(:restaurant)
+      content_request = FactoryGirl.create(:content_request)
       content_request.restaurant_ids = [restaurant.id]
       content_request.admin_discussions.count.should == 1
       restaurant.destroy
@@ -73,10 +73,10 @@ describe Restaurant do
     end
 
     it "should delete an associated admin_discussion when restaurant is deleted" do
-      restaurant = Factory(:restaurant)
-      holiday = Factory(:holiday)
+      restaurant = FactoryGirl.create(:restaurant)
+      holiday = FactoryGirl.create(:holiday)
       holiday.restaurants = [restaurant]
-      holiday_reminder = Factory(:holiday_reminder, :holiday => holiday)
+      holiday_reminder = FactoryGirl.create(:holiday_reminder, :holiday => holiday)
       holiday_reminder.holiday_discussions.count.should == 1
       restaurant.destroy
       holiday_reminder.holiday_discussions.count.should == 0
@@ -85,8 +85,8 @@ describe Restaurant do
 
   describe "media_contact" do
     it "can be assigned a media contact" do
-      restaurant = Factory(:restaurant)
-      media_contact = Factory(:user)
+      restaurant = FactoryGirl.create(:restaurant)
+      media_contact = FactoryGirl.create(:user)
       restaurant.media_contact = media_contact
       restaurant.save!
       restaurant = Restaurant.find(restaurant.id)
@@ -96,7 +96,7 @@ describe Restaurant do
 
   describe "update features" do
 
-    let(:restaurant) { Factory(:restaurant) }
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
     let(:features) do
       %w(ugly pretty open closed).map do |value|
         RestaurantFeature.create!(:value => value)
@@ -118,7 +118,7 @@ describe Restaurant do
 
   describe "feature pages and categories" do
 
-    let(:restaurant) { Factory(:restaurant) }
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
     let(:decor) { RestaurantFeaturePage.create!(:name => "Decor") }
     let(:cuisine) { RestaurantFeaturePage.create!(:name => "Cuisine") }
     let(:style) { RestaurantFeatureCategory.create!(:name => "Style", :restaurant_feature_page => decor) }
@@ -150,7 +150,7 @@ describe Restaurant do
 
     it "finds all restaurants with a tag" do
       restaurant.restaurant_features = [ugly, pretty, dinner]
-      r2 = Factory(:restaurant)
+      r2 = FactoryGirl.create(:restaurant)
       r2.restaurant_features = [pretty, dinner]
       Restaurant.with_feature(ugly).should == [restaurant]
       Restaurant.with_feature(pretty).should =~ [restaurant, r2]
@@ -159,7 +159,7 @@ describe Restaurant do
 
   describe "validate facebook URL" do
 
-    subject { Factory(:restaurant) }
+    subject { FactoryGirl.create(:restaurant) }
     it { should accept_values_for(:facebook_page_url, nil, "", "http://www.facebook.com/fred",
         "http://www.facebook.com/profile.php?id=23423",
         "http://www.facebook.com/pages/Random-Restaurant/11746961621") }
@@ -173,7 +173,7 @@ describe Restaurant do
     let(:photo_attributes) {{:attachment_content_type => "image/png", :attachment_file_name => "somefile.jpg", :credit => "Joe Pesci"}}
 
     it "selects the first photo added as the primary photo" do
-      restaurant = Factory(:restaurant)
+      restaurant = FactoryGirl.create(:restaurant)
       restaurant.photos.create!(photo_attributes)
 
       restaurant = Restaurant.find(restaurant.id)
@@ -181,7 +181,7 @@ describe Restaurant do
     end
 
     it "maintains the same primary photo when adding additional photos after the first one" do
-      restaurant = Factory(:restaurant)
+      restaurant = FactoryGirl.create(:restaurant)
       restaurant.photos.create!(photo_attributes)
       primary_photo = restaurant.photos.create!(photo_attributes)
       restaurant.photos.create!(photo_attributes)
@@ -193,7 +193,7 @@ describe Restaurant do
     end
 
     it "unselects primary photo of restaurant when deleted and it is the only photo for the restaurant" do
-      restaurant = Factory(:restaurant)
+      restaurant = FactoryGirl.create(:restaurant)
       primary_photo = restaurant.photos.create!(photo_attributes)
       restaurant.update_attributes!(:primary_photo => primary_photo)
       restaurant = Restaurant.find(restaurant.id)
@@ -205,7 +205,7 @@ describe Restaurant do
     end
 
     it "reselects primary photo of restaurant when current primary photo is deleted and other photos exist" do
-      restaurant = Factory(:restaurant)
+      restaurant = FactoryGirl.create(:restaurant)
       restaurant.photos.create!(photo_attributes)
       restaurant.photos.create!(photo_attributes)
       restaurant.photos.create!(photo_attributes)
@@ -219,7 +219,7 @@ describe Restaurant do
     end
 
     it "maintains the same primary photo when removing a non-primary photo" do
-      restaurant = Factory(:restaurant)
+      restaurant = FactoryGirl.create(:restaurant)
       restaurant.photos.create!(photo_attributes)
       primary_photo = restaurant.photos.create!(photo_attributes)
       restaurant.photos.create!(photo_attributes)
@@ -235,11 +235,11 @@ describe Restaurant do
 
   describe "public employment" do
     it "should get only public employments" do
-      restaurant = Factory(:restaurant)
+      restaurant = FactoryGirl.create(:restaurant)
       # Set the manager to invisible for this test
       restaurant.employments.first.update_attribute(:public_profile, false)
-      public_employment = Factory(:employment, :public_profile => true, :restaurant => restaurant)
-      private_employment = Factory(:employment, :public_profile => false, :restaurant => restaurant)
+      public_employment = FactoryGirl.create(:employment, :public_profile => true, :restaurant => restaurant)
+      private_employment = FactoryGirl.create(:employment, :public_profile => false, :restaurant => restaurant)
       restaurant.public_employments.should == [public_employment]
     end
   end
@@ -247,14 +247,14 @@ describe Restaurant do
   describe "premium account" do
 
     it "finds a premium account" do
-      restaurant = Factory(:restaurant)
-      restaurant.subscription = Factory(:subscription)
+      restaurant = FactoryGirl.create(:restaurant)
+      restaurant.subscription = FactoryGirl.create(:subscription)
       restaurant.account_type.should == "Complimentary Premium"
       Restaurant.find_premium(restaurant.id).should == restaurant
     end
 
     it "doesn't find a basic account" do
-      restaurant = Factory(:restaurant)
+      restaurant = FactoryGirl.create(:restaurant)
       restaurant.account_type.should == "Basic"
       Restaurant.find_premium(restaurant.id).should be_nil
     end
@@ -262,7 +262,7 @@ describe Restaurant do
   end
 
   describe "braintree_contact" do
-    let(:restaurant) { Factory(:restaurant) }
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
 
     it "should return manager" do
       restaurant.braintree_contact == restaurant.manager
@@ -271,8 +271,8 @@ describe Restaurant do
 
   describe "extended_find" do
     it "find a restaurant by name" do
-      restaurant = Factory(:restaurant, :name => "Vodka pub")
-      restaurant.subscription = Factory(:subscription)
+      restaurant = FactoryGirl.create(:restaurant, :name => "Vodka pub")
+      restaurant.subscription = FactoryGirl.create(:subscription)
       found = Restaurant.extended_find("odka")
       found.should == [restaurant]
     end
@@ -281,8 +281,8 @@ describe Restaurant do
   describe "newsletter preview reminders" do
 
     it "should generate reminders for all premium restaurants" do
-      restaurant = Factory(:restaurant)
-      restaurant.subscription = Factory(:subscription)
+      restaurant = FactoryGirl.create(:restaurant)
+      restaurant.subscription = FactoryGirl.create(:subscription)
       Restaurant.any_instance.expects(:send_later).with(:send_newsletter_preview_reminder)
       Restaurant.send_newsletter_preview_reminder
     end
@@ -292,8 +292,8 @@ describe Restaurant do
   describe "Mailchimp newsletters" do
 
     it "should send newsletters for premium restaurants when due" do
-      restaurant = Factory(:restaurant, :next_newsletter_at => 1.day.ago)
-      restaurant.subscription = Factory(:subscription)
+      restaurant = FactoryGirl.create(:restaurant, :next_newsletter_at => 1.day.ago)
+      restaurant.subscription = FactoryGirl.create(:subscription)
       Restaurant.stubs(:find).returns([restaurant])
       restaurant.expects(:send_later).with(:send_newsletter_to_subscribers)
       restaurant.expects(:update_attribute).with(:next_newsletter_at, (Chronic.parse("next week Thursday 12:00am") + 1.week))

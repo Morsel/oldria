@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require_relative '../spec_helper'
 
 describe MessagesController do
   integrate_views

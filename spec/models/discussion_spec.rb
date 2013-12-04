@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require_relative '../spec_helper'
 
 describe Discussion do
   should_have_many :discussion_seats, :dependent => :destroy

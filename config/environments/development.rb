@@ -1,3 +1,6 @@
+require 'braintree'
+require "facebooker2"
+require 'factory_girl'
 Ria::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 config.consider_all_requests_local = true
@@ -36,7 +39,7 @@ config.consider_all_requests_local = true
   config.assets.debug = true
 
   # Settings specified here will take precedence over those in config/environment.rb
-DEFAULT_HOST = 'localhost.elevatedrails.com:3000'
+
 # In the development environment your application's code is reloaded on
 # every request.  This slows down response time but is perfect for development
 # since you don't have to restart the webserver when you make code changes.
@@ -69,3 +72,4 @@ CLOUDMAIL_DOMAIN = 'dev-mailbot.restaurantintelligenceagency.com'
 ENV['MAILCHIMP_API_KEY'] = "e741c48b31e7dc460d7b7fa522741d6a-us5"#'1eb9e1ef0870c8caf6651ee2cf1232c0-us5'
 DOMAIN_NAME = "hq.smack.st"
 end
+DEFAULT_HOST = 'localhost.elevatedrails.com:3000'

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe RestaurantFactSheet do
   let(:fact_sheet) { RestaurantFactSheet.new }

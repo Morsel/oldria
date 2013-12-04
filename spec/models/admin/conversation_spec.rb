@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::Conversation do
   should_belong_to :admin_message

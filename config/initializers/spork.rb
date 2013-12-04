@@ -1,4 +1,3 @@
-
 if defined?(Spork)
-  Spork.trap_class_method(Factory, :find_definitions)
+  Spork.trap_class_method(FactoryGirl, :find_definitions)
 end

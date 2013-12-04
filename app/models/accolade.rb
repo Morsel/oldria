@@ -28,7 +28,7 @@ class Accolade < ActiveRecord::Base
     :message => "needs to begin with 'http'. You can copy a URL from the Address bar in your browser"
 
   scope :by_run_date, :order => "run_date DESC"
-  attr_accessible :name, :run_date, :media_type, :link
+  attr_accessible :name, :run_date, :media_type, :link,:accoladable
 
   def restaurant?
     accoladable.is_a?(Restaurant)

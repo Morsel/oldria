@@ -27,7 +27,9 @@ class ALaMinuteAnswer < ActiveRecord::Base
   include ActionDispatch::Routing::UrlFor
 include Rails.application.routes.url_helpers
 default_url_options[:host] = DEFAULT_HOST
-  attr_accessible :a_la_minute_question_id, :answer, :attachment, :photo, :twitter_posts_attributes, :facebook_posts_attributes
+  attr_accessible :a_la_minute_question_id, :answer, :attachment, :photo, :twitter_posts_attributes, :facebook_posts_attributes,:a_la_minute_question, :responder,
+  :created_at,:post_to_twitter_at,:post_to_facebook_at
+  attr_accessor :no_twitter_crosspost,:no_fb_crosspost
   has_many :trace_keywords, :as => :keywordable
   has_many :soapbox_trace_keywords, :as => :keywordable
   
@@ -112,10 +114,12 @@ default_url_options[:host] = DEFAULT_HOST
   def self.newest_for(obj)
     ids = []
     if obj.is_a?(Restaurant) || obj.is_a?(User)
-      ids = obj.a_la_minute_answers.map(&:id) #obj.a_la_minute_answers.maximum(:created_at, :group => :a_la_minute_question_id, :select => :id).collect{|k,v|v}
-      # obj.a_la_minute_answers.find(ids)
+      # ids = obj.a_la_minute_answers.map(&:id) 
+      ids = obj.a_la_minute_answers.maximum(:id, :group => :a_la_minute_question_id, :select => :id).collect{|k,v|v}
+      obj.a_la_minute_answers.find(ids)
     else
-      ids = obj.a_la_minute_answers.map(&:id) #obj.a_la_minute_answers.maximum(:created_at, :group => 'responder_type, responder_id', :select => :id).collect{|k,v|k}
+      ids = obj.a_la_minute_answers.maximum(:id, :group => 'responder_type, responder_id', :select => :id).collect{|k,v|v}
+      #obj.a_la_minute_answers.maximum(:created_at, :group => 'responder_type, responder_id', :select => :id).collect{|k,v|k}
     end
     obj.a_la_minute_answers.find(ids)
   end

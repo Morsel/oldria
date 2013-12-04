@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require_relative '../spec_helper'
 
 # This controller is mapped as resource, not resources
 # Thus, no id is needed in paths

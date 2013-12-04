@@ -70,17 +70,17 @@ end
   gem "awesome_print"
 
 
-  gem 'cucumber',           '1.1.0'
-  gem 'cucumber-rails',    '0.3.2'
+  # gem 'cucumber',           '1.1.0'
+  # gem 'cucumber-rails',    '0.3.2'
   gem 'gherkin',            '2.5.4'
-  gem 'database_cleaner',   '0.7.2'
+  # gem 'database_cleaner',   '0.7.2'
   gem 'capybara',         '1.1.2'
 
-  gem 'rspec',            '1.3.2'
-  gem 'rspec-rails',      '1.3.4'
-  gem "factory_girl"
-  gem "fakeweb",  "1.3.0"
-  gem "mocha"
+  # gem 'rspec',            '1.3.2'
+  # gem 'rspec-rails',      '1.3.4'
+  # # gem "factory_girl"
+  # gem "fakeweb",  "1.3.0"
+  # gem "mocha","0.9.8"
   gem "delorean"
 
  gem "ckeditor"
@@ -101,3 +101,29 @@ gem 'carrierwave'
 gem "mini_magick"
 gem 'bartt-ssl_requirement', '~>1.4.0', :require => 'ssl_requirement'
 gem "koala", "1.7.0rc1"
+
+# test gem
+group :development, :test do
+  gem 'rspec'#,    '1.3.2'
+  gem 'rspec-rails'#,      '1.3.4'
+  # gem "factory_girl"
+  gem "fakeweb",  "1.3.0"
+  gem "mocha","0.9.8", :require => false
+gem 'database_cleaner'
+  gem "remarkable_rails"
+
+  gem "factory_girl"#,      '1.2.3'
+  # gem 'bmabey-email_spec',:git=>"git://github.com/bmabey/email-spec.git"
+  gem "spork",             "0.7.5"
+  gem "delorean"
+  gem "accept_values_for",  "0.3.1"
+  gem "rails_best_practices",  "0.3.16"
+  gem "webrat"
+  gem "email_spec"#
+  gem 'cucumber'#
+  gem 'cucumber-rails'#
+  gem 'shoulda-matchers'
+  gem "rspec-core"
+  gem 'tweetstream'
+  #end test gem
+end

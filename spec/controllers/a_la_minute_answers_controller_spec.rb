@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe ALaMinuteAnswersController do
   include ActionView::Helpers::RecordIdentificationHelper

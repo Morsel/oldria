@@ -1,4 +1,5 @@
 # require "mocha"
+require 'mocha/api'
 require 'mocha/setup'
 require "delorean"
 

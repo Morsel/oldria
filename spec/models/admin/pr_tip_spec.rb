@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::PrTip do
   it "should set a class-based title of 'PR Tip'" do

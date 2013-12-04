@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe NonculinaryJob do
   should_belong_to :profile

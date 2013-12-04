@@ -1,5 +1,5 @@
-require 'spec/spec_helper'
-
+require_relative '../spec_helper'
+# encoding: utf-8  
 describe Attachment do
   before(:each) do
     @valid_attributes = {
@@ -12,7 +12,7 @@ describe Attachment do
   end
 
   it "should fail to create an attachment with special characters in the name" do
-    a = Attachment.new(:attachment_file_name => "©+Huber++King_Crab_with_Ossetra_Caviar_and_Fennel+closer.jpg")
+    a = Attachment.new(:attachment_file_name => "+#Huber+@+King_Crab&_with_Ossetra_Caviar_and_Fennel+closer.jpg")
     a.should_not be_valid
   end
 end

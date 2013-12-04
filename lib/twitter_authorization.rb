@@ -1,5 +1,6 @@
 module TwitterAuthorization
   ### Twitter Methods ###
+require 'tweetstream'
 
     def twitter_username
       return @twitter_username if defined?(@twitter_username)
@@ -25,14 +26,26 @@ module TwitterAuthorization
 
     def twitter_client
       @twitter_client ||= begin
-        Twitter.configure do |config|
-          config.consumer_key = TWITTER_CONFIG['token']
-          config.consumer_secret = TWITTER_CONFIG['secret']
-          config.oauth_token = atoken
+        TweetStream.configure do |config|
+          config.consumer_key       = TWITTER_CONFIG['token']
+          config.consumer_secret    = TWITTER_CONFIG['secret']
+          config.oauth_token        = atoken
           config.oauth_token_secret = asecret
+          config.auth_method        = :oauth
         end
+
+
+        # Twitter.configure do |config|
+        #   config.consumer_key = TWITTER_CONFIG['token']
+        #   config.consumer_secret = TWITTER_CONFIG['secret']
+        #   config.oauth_token = atoken
+        #   config.oauth_token_secret = asecret
+        # end
         Twitter::Client.new
       end
     end
+  
+
+  
 
 end

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 describe School do
   should_validate_presence_of :city, :state, :country, :name

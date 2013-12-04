@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require_relative '../spec_helper'
 
 describe DirectMessage do
   should_validate_presence_of :receiver
