@@ -7,7 +7,6 @@ class MenuItemsController < ApplicationController
   before_filter :verify_restaurant_activation, :only => [:show]
   
   include MenuItemsHelper
-  require 'will_paginate/array'
   
   def index
     find_restaurant

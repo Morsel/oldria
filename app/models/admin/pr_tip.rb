@@ -15,7 +15,7 @@
 #
 
 class Admin::PrTip < Admin::Message
-  attr_protected
+  attr_accessible :type,:scheduled_at,:status,:message,:display_message,:slug
   def self.title
     "PR Tip"
   end

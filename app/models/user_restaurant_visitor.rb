@@ -2,9 +2,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   include ActionDispatch::Routing::UrlFor
   
-  attr_accessible :visitor_count
-  attr_protected
-
+  attr_accessible :visitor_count, :user_id, :restaurant_id   
   default_url_options[:host] = DEFAULT_HOST
 
    belongs_to :user, :dependent => :destroy

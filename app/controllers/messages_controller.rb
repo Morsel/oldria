@@ -2,7 +2,6 @@ class MessagesController < ApplicationController
   before_filter :require_user
   before_filter :get_message_counts
   before_filter :archived_view?
-  require 'will_paginate/array'
   ##
   # GET /messages
   def index

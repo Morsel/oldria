@@ -21,7 +21,8 @@ class Admin::Qotd < Admin::Message
 
   scope :current, :conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]
   
-  attr_protected
+  attr_accessible :type,:scheduled_at,:status,:message,:display_message,:slug
+
   
   def self.title
     "Question of the Day"
