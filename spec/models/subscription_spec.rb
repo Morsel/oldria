@@ -16,7 +16,7 @@ describe Subscription do
     end
 
     it "marks a subscription with a payer as not complimentary" do
-      subscription = Factory(:subscription, :payer => Factory(:user))
+      subscription = FactoryGirl.create(:subscription, :payer => FactoryGirl.create(:user))
       subscription.should_not be_complimentary
     end
 
@@ -31,13 +31,13 @@ describe Subscription do
     end
 
     it "marks a subscription with a past end date as inactive" do
-      subscription = Factory(:subscription, :end_date => 1.year.ago)
+      subscription = FactoryGirl.create(:subscription, :end_date => 1.year.ago)
       subscription.should_not be_active
       subscription.should_not be_in_overtime
     end
 
     it "marks a subscription with a future end date as active" do
-      subscription = Factory(:subscription, :end_date => 1.year.from_now)
+      subscription = FactoryGirl.create(:subscription, :end_date => 1.year.from_now)
       subscription.should be_active
       subscription.should be_in_overtime
     end
@@ -64,7 +64,7 @@ describe Subscription do
 
   describe "#past_due!" do
 
-    let(:subscription) { Factory(:subscription) }
+    let(:subscription) { FactoryGirl.create(:subscription) }
 
     before(:each) do
       subscription.past_due!
@@ -80,10 +80,10 @@ describe Subscription do
 
   describe "#purge_expired!" do
     before(:each) do
-      @expired_subscription = Factory(:subscription,
+      @expired_subscription = FactoryGirl.create(:subscription,
           :end_date => Date.today - 1,
           :status => Subscription::Status::PAST_DUE)
-      @past_due_subscription = Factory(:subscription,
+      @past_due_subscription = FactoryGirl.create(:subscription,
           :end_date => 1.day.from_now,
           :status => Subscription::Status::PAST_DUE)
     end
@@ -99,7 +99,7 @@ describe Subscription do
     let(:subscription) { Subscription.new(@valid_attribtes) }
 
     it "a regular subscription needs a braintree cancel" do
-      subscription.payer = Factory(:user)
+      subscription.payer = FactoryGirl.create(:user)
       subscription.skip_braintree_cancel?.should be_false
     end
 
@@ -109,7 +109,7 @@ describe Subscription do
     end
 
     it "an overtime account does not need a braintree cancel" do
-      subscription.payer = Factory(:user)
+      subscription.payer = FactoryGirl.create(:user)
       subscription.end_date = 1.month.from_now
       subscription.skip_braintree_cancel?.should be_true
     end
@@ -118,10 +118,10 @@ describe Subscription do
   
   describe "add ons" do
     
-    let(:restaurant) { Factory(:restaurant) }
-    let(:subscription) { Factory(:subscription, :subscriber => restaurant, 
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
+    let(:subscription) { FactoryGirl.create(:subscription, :subscriber => restaurant, 
         :payer => restaurant) }
-    let(:user) { Factory(:user) }
+    let(:user) { FactoryGirl.create(:user) }
     
     describe "create an add on" do
       
@@ -149,13 +149,13 @@ describe Subscription do
       
       it "adds the second payee correctly" do
         BraintreeConnector.expects(:set_add_ons_for_subscription).with(subscription, 2)
-        user_sub = Factory(:subscription, :subscriber => Factory(:user), :payer => restaurant)
+        user_sub = FactoryGirl.create(:subscription, :subscriber => FactoryGirl.create(:user), :payer => restaurant)
         subscription.user_subscriptions_for_payer.size.should == 1
         subscription.add_staff_account(user)
       end
       
       it "does not add a payee if the subscription is a user" do
-        subscription.update_attributes(:subscriber => Factory(:user))
+        subscription.update_attributes(:subscriber => FactoryGirl.create(:user))
         BraintreeConnector.expects(:set_add_ons_for_subscription).never
         subscription.add_staff_account(user)
       end
@@ -172,13 +172,13 @@ describe Subscription do
 
       it "drops from three to two correctly" do
         subscription.update_attributes(:end_date => 2.weeks.from_now)
-        user.update_attributes(:subscription => Factory(:subscription,
+        user.update_attributes(:subscription => FactoryGirl.create(:subscription,
             :payer => restaurant, :start_date => 1.month.ago))
-        user2 = Factory(:user)
-        user2.update_attributes(:subscription => Factory(:subscription,
+        user2 = FactoryGirl.create(:user)
+        user2.update_attributes(:subscription => FactoryGirl.create(:subscription,
             :payer => restaurant))
-        user3 = Factory(:user)
-        user3.update_attributes(:subscription => Factory(:subscription,
+        user3 = FactoryGirl.create(:user)
+        user3.update_attributes(:subscription => FactoryGirl.create(:subscription,
             :payer => restaurant))
         Subscription.all.size.should == 4
         subscription.should have(3).user_subscriptions_for_payer
@@ -194,10 +194,10 @@ describe Subscription do
       
       it "drops from two to one correctly" do
         subscription.update_attributes(:end_date => 2.weeks.from_now)
-        user.update_attributes(:subscription => Factory(:subscription,
+        user.update_attributes(:subscription => FactoryGirl.create(:subscription,
             :payer => restaurant, :start_date => 1.month.ago))
-        user2 = Factory(:user)
-        user2.update_attributes(:subscription => Factory(:subscription,
+        user2 = FactoryGirl.create(:user)
+        user2.update_attributes(:subscription => FactoryGirl.create(:subscription,
             :payer => restaurant))
         Subscription.all.size.should == 3
         subscription.should have(2).user_subscriptions_for_payer
@@ -213,7 +213,7 @@ describe Subscription do
 
       it "drops from one to zero correctly" do
         subscription.update_attributes(:end_date => 2.weeks.from_now)
-        user.update_attributes(:subscription => Factory(:subscription,
+        user.update_attributes(:subscription => FactoryGirl.create(:subscription,
             :payer => restaurant, :start_date => 1.month.ago))
         Subscription.all.size.should == 2
         subscription.should have(1).user_subscriptions_for_payer
@@ -231,13 +231,13 @@ describe Subscription do
   
   describe "payer count " do
     
-    let(:restaurant) { Factory(:restaurant) }
-    let(:subscription) { Factory(:subscription, 
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
+    let(:subscription) { FactoryGirl.create(:subscription, 
         :payer => restaurant, :subscriber => restaurant) }
         
     it "calculates the pay load count" do
-      s1 = Factory(:subscription, :payer => restaurant, :subscriber => Factory(:user))
-      s2 = Factory(:subscription, :payer => restaurant, :subscriber => Factory(:user))
+      s1 = FactoryGirl.create(:subscription, :payer => restaurant, :subscriber => FactoryGirl.create(:user))
+      s2 = FactoryGirl.create(:subscription, :payer => restaurant, :subscriber => FactoryGirl.create(:user))
       s1.user_subscriptions_for_payer.should have(2).items
       subscription.user_subscriptions_for_payer.should have(2).items
       s1.update_attributes(:payer => nil)

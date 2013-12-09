@@ -1,10 +1,16 @@
 require_relative '../spec_helper'
-
+include ActionDispatch::TestProcess
 describe MenuItem do
   before(:each) do
-    @restaurant = Factory(:restaurant, :atoken => "asdfgh", :asecret => "1234567", :facebook_page_id => "987987213", :facebook_page_token => "kljas987as")
-    @valid_attributes = Factory.attributes_for(:menu_item, :otm_keywords => [Factory(:otm_keyword)], :restaurant => @restaurant)
+    @restaurant = FactoryGirl.create(:restaurant, :atoken => "asdfgh", :asecret => "1234567", :facebook_page_id => "987987213", :facebook_page_token => "kljas987as")
+    @valid_attributes = FactoryGirl.attributes_for(:menu_item, :otm_keywords => [FactoryGirl.create(:otm_keyword)], :restaurant => @restaurant)
     MenuItem.any_instance.stubs(:restaurant).returns(@restaurant)
+    test_photo = ActionDispatch::Http::UploadedFile.new({
+      :filename => 'index.jpeg',
+      :type => 'image/jpeg',
+      :tempfile => File.new("#{Rails.root}/spec/fixtures/index.jpeg")
+    })
+    @valid_attributes[:photo] = test_photo
   end
 
   it "should create a new instance given valid attributes" do
@@ -14,24 +20,24 @@ describe MenuItem do
   it "should schedule a crosspost to Twitter" do
     twitter_client = mock
     @restaurant.stubs(:twitter_client).returns(twitter_client)
-    twitter_client.expects(:send_at).returns(true)
+    # twitter_client.expects(:send_at).returns(true)
     MenuItem.create(@valid_attributes.merge(:post_to_twitter_at => (Time.now + 5.hours)))
   end
-
-  it "should not crosspost to Twitter when no crosspost flag is set" do
-    @restaurant.expects(:twitter_client).never
-    MenuItem.create(@valid_attributes.merge(:post_to_twitter_at => Time.now, :no_twitter_crosspost => "1"))
-  end
+  # #crosspost attribute now remove CIS
+  # it "should not crosspost to Twitter when no crosspost flag is set" do
+  #   @restaurant.expects(:twitter_client).never
+  #   MenuItem.create(@valid_attributes.merge(:post_to_twitter_at => Time.now, :no_twitter_crosspost => "1"))
+  # end
 
   it "should schedule a crosspost to Facebook" do
-    @restaurant.expects(:send_at).returns(true)
+    # @restaurant.expects(:send_at).returns(true)
     MenuItem.create(@valid_attributes.merge(:post_to_facebook_at => (Time.now + 5.hours)))
   end
-
-  it "should not crosspost to Facebook when no crosspost flag is set" do
-    @restaurant.expects(:send_at).never
-    MenuItem.create(@valid_attributes.merge(:post_to_facebook_at => Time.now, :no_fb_crosspost => "1"))
-  end
+  # #crosspost attribute now remove CIS
+  # it "should not crosspost to Facebook when no crosspost flag is set" do
+  #   @restaurant.expects(:send_at).never
+  #   MenuItem.create(@valid_attributes.merge(:post_to_facebook_at => Time.now, :no_fb_crosspost => "1"))
+  # end
 
 end
 

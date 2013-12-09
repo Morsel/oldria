@@ -12,4 +12,5 @@
 class DiscussionSeat < ActiveRecord::Base
   belongs_to :user
   belongs_to :discussion
+  attr_accessible :user_id, :discussion_id
 end

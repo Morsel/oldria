@@ -14,8 +14,9 @@ describe NewsletterSubscriber do
   end
 
   it "should send a confirmation email after creation" do
-    UserMailer.expects(:send_later).with(:deliver_newsletter_subscription_confirmation, kind_of(NewsletterSubscriber))
-    NewsletterSubscriber.create(@valid_attributes)
+    # UserMailer.expects(:send_later).with(:newsletter_subscription_confirmation, kind_of(NewsletterSubscriber))
+    # NewsletterSubscriber.create(@valid_attributes)
+    UserMailer.expects(:newsletter_subscription_confirmation).with(NewsletterSubscriber.create(@valid_attributes))
   end
 
 end

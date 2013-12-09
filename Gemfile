@@ -104,9 +104,9 @@ gem "koala", "1.7.0rc1"
 
 # test gem
 group :development, :test do
-  gem 'rspec'#,    '1.3.2'
-  gem 'rspec-rails'#,      '1.3.4'
-  # gem "factory_girl"
+  # gem 'rspec'#,    '1.3.2'
+  # gem 'rspec-rails'#,      '1.3.4'
+   gem "rspec-rails", "~> 2.4"
   gem "fakeweb",  "1.3.0"
   gem "mocha","0.9.8", :require => false
 gem 'database_cleaner'
@@ -116,7 +116,7 @@ gem 'database_cleaner'
   # gem 'bmabey-email_spec',:git=>"git://github.com/bmabey/email-spec.git"
   gem "spork",             "0.7.5"
   gem "delorean"
-  gem "accept_values_for",  "0.3.1"
+  gem "accept_values_for"#,  "0.3.1"
   gem "rails_best_practices",  "0.3.16"
   gem "webrat"
   gem "email_spec"#
@@ -124,6 +124,6 @@ gem 'database_cleaner'
   gem 'cucumber-rails'#
   gem 'shoulda-matchers'
   gem "rspec-core"
-  gem 'tweetstream'
+  gem 'tweetstream',:git=>"https://github.com/tweetstream/tweetstream.git"
   #end test gem
 end

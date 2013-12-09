@@ -1,8 +1,11 @@
 require_relative '../spec_helper'
 
 describe NonculinarySchool do
-  should_validate_presence_of :city, :state, :country, :name
-  should_have_many :nonculinary_enrollments
-  should_have_many :profiles, :through => :nonculinary_enrollments
+  it { should validate_presence_of :city }
+  it { should validate_presence_of :state }
+  it { should validate_presence_of :country }
+  it { should validate_presence_of :name }
+  it { should have_many :nonculinary_enrollments }
+  it { should have_many(:profiles).through(:nonculinary_enrollments) }
 end
 

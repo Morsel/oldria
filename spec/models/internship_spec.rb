@@ -2,7 +2,8 @@ require_relative '../spec_helper'
 
 describe Internship do
   before(:each) do
-    @valid_attributes = Factory.attributes_for(:internship, :profile => Factory(:profile))
+    @valid_attributes = FactoryGirl.attributes_for(:internship)
+    @valid_attributes[:profile] = FactoryGirl.create(:profile)
   end
 
   it "should create a new instance given valid attributes" do

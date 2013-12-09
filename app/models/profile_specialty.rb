@@ -14,5 +14,5 @@ class ProfileSpecialty < ActiveRecord::Base
 
   belongs_to :profile
   belongs_to :specialty
-  
+  attr_accessible :profile_id, :specialty_id
 end

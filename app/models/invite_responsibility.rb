@@ -14,5 +14,5 @@ class InviteResponsibility < ActiveRecord::Base
   
   belongs_to :invitation
   belongs_to :subject_matter
-
+  attr_accessible :invitation_id, :subject_matter_id
 end

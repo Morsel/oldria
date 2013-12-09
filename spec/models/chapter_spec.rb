@@ -2,7 +2,8 @@ require_relative '../spec_helper'
 
 describe Chapter do
   before(:each) do
-    @valid_attributes = FactoryGirl.attributes_for(:chapter, :topic => FactoryGirl.create(:topic))
+    @valid_attributes = FactoryGirl.attributes_for(:chapter)
+    @valid_attributes[:topic] = FactoryGirl.create(:topic)
   end
 
   it "should create a new instance given valid attributes" do

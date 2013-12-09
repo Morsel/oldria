@@ -31,7 +31,7 @@ class Menu < ActiveRecord::Base
       :conditions => ["(r.is_activated = ?)",true]
     }
   }
-  attr_accessible :restaurant,:name,:change_frequency, :pdf_remote_attachment_attributes,:attachment
+  attr_accessible :restaurant,:name,:change_frequency, :pdf_remote_attachment_attributes,:attachment,:pdf_remote_attachment, :restaurant_id,:position
   def self.change_frequencies
     @change_frequencies ||= begin
       File.read(File.join(Rails.root, 'db/seedlings/restaurant_features/menu change tags.txt')).split("\r\n")

@@ -23,7 +23,7 @@ class SoloMediaDiscussion < ActiveRecord::Base
 
   scope :approved, :joins => :media_request, :conditions => ['media_requests.status = ?', 'approved']
   scope :with_comments, :conditions => "#{table_name}.comments_count > 0"
-
+  attr_accessible :media_request_id, :employment_id, :comments_count
   def viewable_by?(_employment)
     _employment == employment
   end

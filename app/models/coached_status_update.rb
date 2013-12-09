@@ -14,7 +14,7 @@ class CoachedStatusUpdate < ActiveRecord::Base
 
   scope :current, lambda { |*args| {:joins => :date_range, :conditions => ["date_ranges.start_date < ? AND date_ranges.end_date > ?", Date.today, Date.today]} }
   scope :random, :order => RANDOM_SQL_STRING
-  attr_accessible :message,:date_range_id
+  attr_accessible :message,:date_range_id,:date_range
 
 
   def self.seasons

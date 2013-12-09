@@ -1,8 +1,8 @@
 require_relative '../spec_helper'
 
 describe Page do
-  should_validate_presence_of :title
-  should_validate_presence_of :slug
+  it { should validate_presence_of :title }
+  it { should validate_presence_of :slug }
 
   describe "slug" do
     it "should auto-generate from title when blank" do
@@ -17,7 +17,9 @@ describe Page do
       page.slug.should == 'where-am-i'
     end
 
-    it { should allow_values_for :slug, "blogging_101", "welcome-to-spoonfeed"  }
-    it { should_not allow_values_for :slug, "weather_man?", "why&how"  }
+    it { should allow_value('blogging_101').for(:slug) }
+    it { should allow_value('welcome-to-spoonfeed').for(:slug) }
+    it { should_not allow_value('weather_man?').for(:slug) }
+    it { should_not allow_value('why&how').for(:slug) }
   end
 end

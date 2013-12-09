@@ -1,13 +1,16 @@
 require_relative '../spec_helper'
 
 describe Feed do
-  should_have_default_scope :order => :position
-  should_have_scope :featured, :conditions => ['featured=?', true]
-  should_have_scope :uncategorized, :conditions => {:feed_category_id => nil}
-  should_belong_to :feed_category
-  should_have_many :feed_entries
-  should_have_many :feed_subscriptions
-  should_have_many :users, :through => :feed_subscriptions
+  it { Feed.scoped.to_sql.should == Feed.order(:position).to_sql }
+  # it { should have_default_scope :order => :position }
+  it { Feed.featured.to_sql.should == "SELECT `feeds`.* FROM `feeds`  WHERE (featured=1) ORDER BY position" }
+  # it { should have_scope :featured, :conditions => ['featured=?', true] }
+  it { Feed.uncategorized.to_sql.should == "SELECT `feeds`.* FROM `feeds`  WHERE `feeds`.`feed_category_id` IS NULL ORDER BY position" }
+  # it { should have_scope :uncategorized, :conditions => {:feed_category_id => nil} }
+  it { should belong_to :feed_category }
+  it { should have_many :feed_entries }
+  it { should have_many :feed_subscriptions }
+  it { should have_many(:users).through(:feed_subscriptions) }
 
 
   it "should fetch and parse the feed url before saving" do
@@ -15,7 +18,7 @@ describe Feed do
     feed.no_entries = true
     feed.title.should be_blank
     feed.save
-    feed.title.should == "Neoteric Design: Blog"
+    feed.title.should == "Neoteric Design, Inc."
   end
 
   it "should not fetch and parse if the given fields are passed in when new" do
@@ -31,15 +34,15 @@ describe Feed do
   end
 
   it "should be sortable" do
-    feed2 = Factory(:feed, :title => 'First feed entered')
-    feed1 = Factory(:feed, :title => 'Second')
+    feed2 = FactoryGirl.create(:feed, :title => 'First feed entered')
+    feed1 = FactoryGirl.create(:feed, :title => 'Second')
     Feed.last.move_to_top
     Feed.all.should == [feed1,feed2]
   end
 
   context "entries" do
     it "should update" do
-      feed = Factory( :feed,
+      feed = FactoryGirl.create( :feed,
                       :title => 'Neoteric',
                       :feed_url => 'http://feeds.feedburner.com/neoteric-blog')
       feed.update_entries!

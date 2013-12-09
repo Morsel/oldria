@@ -38,7 +38,7 @@ class Testimonial < ActiveRecord::Base
     { :conditions => { :page => page } }
   }
   
-  attr_accessible :photo,:quote,:person,:page
+  attr_accessible :photo,:quote,:person,:page,:photo_file_name, :photo_content_type, :photo_file_size, :photo_updated_at
 
   def self.page_options
     ["RIA HQ", "Spoonfeed"]

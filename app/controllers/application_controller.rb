@@ -259,7 +259,7 @@ class ApplicationController < ActionController::Base
 
   def save_search
     if params[:search] && defined?(@employment_search)
-      @employment_search.conditions = normalized_search_params
+      @employment_search.search_attributes = normalized_search_params
       return @employment_search.save
     end
     false

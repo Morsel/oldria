@@ -2,12 +2,13 @@ require_relative '../spec_helper'
 
 describe FeedSubscription do
   before do
-    Factory(:feed_subscription)
+    FactoryGirl.create(:feed_subscription)
   end
 
-  should_belong_to :user
-  should_belong_to :feed
+  it { should belong_to :user }
+  it { should belong_to :feed }
 
-  should_validate_presence_of :user_id, :feed_id
-  should_validate_uniqueness_of :user_id, :scope => :feed_id
+  it { should validate_presence_of :user_id }
+  it { should validate_presence_of :feed_id }
+  it { should validate_uniqueness_of(:user_id).scoped_to(:feed_id) }
 end

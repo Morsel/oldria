@@ -20,6 +20,7 @@ class NewsletterSubscription < ActiveRecord::Base
   
   after_create :add_subscription_to_mailchimp  
   after_destroy :remove_subscription_from_mailchimp
+  attr_accessible :restaurant_id, :newsletter_subscriber_id
 
   private
 

@@ -3,7 +3,9 @@ require_relative '../spec_helper'
 describe RestaurantFeatureItem do
   before(:each) do
     @valid_attributes = {
-      
+      :restaurant_feature_id => 1,
+      :top_tag => 1,
+      :restaurant_id => 1
     }
   end
 

@@ -18,7 +18,7 @@ class Following < ActiveRecord::Base
                           :message => "You already follow that person"
 
   validate :you_cant_follow_yourself
-    
+	attr_accessible :friend, :follower,:follower_id,:friend_id   
   def you_cant_follow_yourself
     errors.add(:base, "You can't follow yourself") if follower == friend
   end

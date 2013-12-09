@@ -1,22 +1,22 @@
 require_relative '../spec_helper'
 
 describe Enrollment do
-  should_belong_to :profile
-  should_belong_to :school
+  it { should belong_to :profile }
+  it { should belong_to :school }
 
   before(:each) do
-    @valid_attributes = Factory.attributes_for(:enrollment)
+    @valid_attributes = FactoryGirl.attributes_for(:enrollment)
     @blank_school_attributes = {:name => '', :city => '', :state => '', :country => ''}
   end
 
-  let (:profile) { Factory(:profile) }
+  let (:profile) { FactoryGirl.create(:profile) }
 
   it "should create a new instance given valid attributes" do
-    Factory.create(:enrollment)
+    FactoryGirl.create(:enrollment)
   end
 
   it "should allow schools to be passed in directly" do
-    school_attrs = Factory.attributes_for(:school, :name => "Custom School")
+    school_attrs = FactoryGirl.attributes_for(:school, :name => "Custom School")
     attrs = @valid_attributes.merge(:school_attributes => school_attrs)
     enrollment = profile.enrollments.build(attrs)
     enrollment.save
@@ -24,7 +24,7 @@ describe Enrollment do
   end
 
   it "should ignore blank school attributes, favoring the school_id" do
-    school = Factory(:school)
+    school = FactoryGirl.create(:school)
     attrs = @valid_attributes.merge(:school_id => school.id,
                                     :school_attributes => @blank_school_attributes)
     enrollment = profile.enrollments.create(attrs)
@@ -32,7 +32,7 @@ describe Enrollment do
   end
 
   it "should ignore blank school attributes and strip out country field" do
-    school = Factory(:school)
+    school = FactoryGirl.create(:school)
     attrs = @valid_attributes.merge(:school_id => school.id,
                                     :school_attributes => @blank_school_attributes.merge(:country => 'United States'))
     enrollment = profile.enrollments.create(attrs)
@@ -45,8 +45,8 @@ describe Enrollment do
   end
 
   xit "should ignore school attributes when the school already exists" do
-    school = Factory(:school)
-    school_attrs = Factory.attributes_for(:school, :name => "Custom School")
+    school = FactoryGirl.create(:school)
+    school_attrs = FactoryGirl.attributes_for(:school, :name => "Custom School")
     attrs = @valid_attributes.merge(:school_id => school.id, :school_attributes => school_attrs)
     enrollment = profile.enrollments.build(attrs)
     enrollment.save

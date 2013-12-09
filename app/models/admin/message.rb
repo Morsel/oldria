@@ -22,7 +22,7 @@ class Admin::Message < ActiveRecord::Base
   has_many :recipients, :through => :admin_conversations
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   accepts_nested_attributes_for :attachments
-
+  attr_accessible :message, :scheduled_at
   validates_presence_of :message
   validates_length_of :slug, :maximum => 30, :allow_nil => true
 

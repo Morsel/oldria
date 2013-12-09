@@ -14,5 +14,5 @@ class UserEditor < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :editor, :class_name => "User"
-
+  attr_accessible :user_id, :editor_id
 end

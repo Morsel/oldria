@@ -2,7 +2,7 @@ require_relative '../../spec_helper'
 
 describe Admin::Qotd do
   before(:each) do
-    @valid_attributes = Factory.attributes_for(:admin_message, :type => 'Admin::Qotd')
+    @valid_attributes = FactoryGirl.attributes_for(:admin_message, :type => 'Admin::Qotd')
   end
 
   it "should set a class-based title of 'Question of the Day'" do

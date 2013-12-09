@@ -18,8 +18,7 @@ class RestaurantFeature < ActiveRecord::Base
 
   validates_presence_of :value
   validates_uniqueness_of :value, :scope => :restaurant_feature_category_id
-  attr_accessible :value,:restaurant_feature_category_id
-
+  attr_accessible :value,:restaurant_feature_category_id, :restaurant_feature_category
 
   def restaurant_feature_page
     restaurant_feature_category.restaurant_feature_page

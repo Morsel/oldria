@@ -5,6 +5,6 @@ describe DiscussionSeat do
     DiscussionSeat.create(:user_id => 1, :discussion_id => 1)
   end
 
-  should_belong_to :user
-  should_belong_to :discussion
+  it { should belong_to :user }
+  it { should belong_to :discussion }
 end

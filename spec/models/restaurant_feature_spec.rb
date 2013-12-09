@@ -18,7 +18,7 @@ describe RestaurantFeature do
     specify { feature.should be_deletable }
 
     it "should not be deletable if it has tags" do
-      feature.restaurants << Factory(:restaurant)
+      feature.restaurants << FactoryGirl.create(:restaurant)
       feature.should_not be_deletable
     end
 

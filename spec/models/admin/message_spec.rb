@@ -1,12 +1,12 @@
 require_relative '../../spec_helper'
 
 describe Admin::Message do
-  should_have_many :admin_conversations
-  should_have_many :recipients, :through => :admin_conversations
-  should_validate_presence_of :message
+  it { should have_many :admin_conversations }
+  it { should have_many(:recipients).through(:admin_conversations) }
+  it { should validate_presence_of :message }
 
   before(:each) do
-    @valid_attributes = Factory.attributes_for(:admin_message)
+    @valid_attributes = FactoryGirl.attributes_for(:admin_message)
   end
 
   it "should create a new instance given valid attributes" do
@@ -23,9 +23,9 @@ describe Admin::Message do
 
   it "should know how many replies it has received (through conversations)" do
     Admin::Message.new.reply_count.should == 0
-    qotd = Factory(:qotd)
-    conversation = Factory(:admin_conversation, :admin_message => qotd)
-    conversation.comments.create(Factory.attributes_for(:comment))
+    qotd = FactoryGirl.create(:qotd)
+    conversation = FactoryGirl.create(:admin_conversation, :admin_message => qotd)
+    conversation.comments.create(FactoryGirl.attributes_for(:comment))
     qotd.reply_count.should == 1
   end
   

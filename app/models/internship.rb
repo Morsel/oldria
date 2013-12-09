@@ -20,7 +20,7 @@ class Internship < ActiveRecord::Base
   
   validates_presence_of :establishment, :supervisor, :start_date, :profile_id
   validate :end_date_after_start_date
-  attr_accessible :establishment, :supervisor, :start_date, :end_date, :comments
+  attr_accessible :establishment, :supervisor, :start_date, :end_date, :comments,:profile
 
   def end_date_after_start_date
     if end_date.present? && end_date.to_date < start_date.to_date
