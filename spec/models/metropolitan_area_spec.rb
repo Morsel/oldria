@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 
 describe MetropolitanArea do
-  should_have_many :restaurants
+  it { should have_many :restaurants }
 
   before(:each) do
     @valid_attributes = {

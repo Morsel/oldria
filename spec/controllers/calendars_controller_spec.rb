@@ -4,11 +4,11 @@ describe CalendarsController do
 
   it "should have an index with events" do
     fake_normal_user
-    restaurant = Factory(:restaurant)
+    restaurant = FactoryGirl.create(:restaurant)
     restaurant.employees << @user
-    Factory(:event, :restaurant => restaurant)
+    FactoryGirl.create(:event, :restaurant => restaurant)
     get :index, :restaurant_id => restaurant.id
-    assigns[:events].should == restaurant.events
+    assigns[:events].to_a.should == restaurant.events
   end
 
 end

@@ -14,5 +14,5 @@ class MenuItemKeyword < ActiveRecord::Base
 
   belongs_to :menu_item
   belongs_to :otm_keyword
-
+  attr_accessible :menu_item_id, :otm_keyword_id
 end

@@ -1,8 +1,11 @@
 require_relative '../spec_helper'
 
 describe School do
-  should_validate_presence_of :city, :state, :country, :name
-  should_have_many :enrollments
-  should_have_many :profiles, :through => :enrollments
+  it { should validate_presence_of :city }
+  it { should validate_presence_of :state }
+  it { should validate_presence_of :country }
+  it { should validate_presence_of :name }
+  it { should have_many :enrollments }
+  it { should have_many(:profiles).through(:enrollments) }
 end
 

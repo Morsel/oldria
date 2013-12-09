@@ -1,11 +1,11 @@
 require_relative '../spec_helper'
 
 describe SubjectMatter do
-  should_have_many :responsibilities
-  should_have_many :employments, :through => :responsibilities
-  should_have_many :media_requests
-  should_validate_presence_of :name
-  should_have_default_scope :order => "subject_matters.name ASC"
+  it { should have_many :responsibilities }
+  it { should have_many(:employments).through(:responsibilities) }
+  it { should have_many :media_requests }
+  it { should validate_presence_of :name }
+  it { SubjectMatter.scoped.to_sql.should == SubjectMatter.order("subject_matters.name ASC").to_sql }
 
   context "#admin_only?" do
     it "should be false by default" do
@@ -35,8 +35,8 @@ describe SubjectMatter do
       end
       after(:all) { SubjectMatter.destroy_all }
 
-      it { SubjectMatter.should include(@general) }
-      it { SubjectMatter.should_not include(@notgeneral1) }
+      it { SubjectMatter.general.should include(@general) }
+      it { SubjectMatter.general.should_not include(@notgeneral1) }
       it { SubjectMatter.nongeneral.should include(@notgeneral1) }
       it { SubjectMatter.nongeneral.should include(@notgeneral2) }
       it { SubjectMatter.nongeneral.should_not include(@general) }

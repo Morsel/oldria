@@ -1,20 +1,21 @@
 require_relative '../spec_helper'
 
 describe EmploymentSearch do
-  should_have_one :content_request
-  should_have_one :trend_question
-  should_have_one :holiday
+  it { should have_one :content_request }
+  it { should have_one :trend_question }
+  it { should have_one :holiday }
+  it { should allow_mass_assignment_of(:conditions) }
 
   before(:each) do
-    @r1 = Factory(:restaurant, :name => "Megan's Place")
+    @r1 = FactoryGirl.create(:restaurant, :name => "Megan's Place")
     @e1 = @r1.employments.first
-    @r2 = Factory(:restaurant, :name => "Joe's Diner")
+    @r2 = FactoryGirl.create(:restaurant, :name => "Joe's Diner")
     @e2 = @r2.employments.first
   end
 
   it "should search employments" do
     search = Employment.search({:restaurant_name_like => "megan"})
-    employment_search = EmploymentSearch.new(:conditions => search.conditions)
+    employment_search = EmploymentSearch.new(:conditions => search.search_attributes)
     employment_search.save
     employment_search.reload
     employment_search.employments.count.should == 1
@@ -23,7 +24,7 @@ describe EmploymentSearch do
   describe "conditions" do
     before do
       @search = Employment.search({:restaurant_id_eq => @r1.id.to_s })
-      @employment_search = EmploymentSearch.new(:conditions => @search.conditions)
+      @employment_search = EmploymentSearch.new(:conditions => @search.search_attributes)
     end
 
     describe "for readability" do
@@ -36,15 +37,15 @@ describe EmploymentSearch do
       end
 
       it "should work for restaurant role" do
-        restaurant_role = Factory(:restaurant_role, :name => "Waiter")
+        restaurant_role = FactoryGirl.create(:restaurant_role, :name => "Waiter")
         search = EmploymentSearch.new(:conditions => {:restaurant_role_id_eq => restaurant_role.id })
         search.readable_conditions.should include("Role: Waiter")
       end
     end
 
     it "should clean up empty arrays" do
-      Factory(:restaurant); Factory(:restaurant)
-      sm1 = Factory(:subject_matter, :name => "Beverages"); sm2 = Factory(:subject_matter, :name => "Food")
+      FactoryGirl.create(:restaurant); FactoryGirl.create(:restaurant)
+      sm1 = FactoryGirl.create(:subject_matter, :name => "Beverages"); sm2 = FactoryGirl.create(:subject_matter, :name => "Food")
       conditions = {"restaurant_id_equals_any"=>["", "1", "", "", "", "", "", "", "", "", "", "2", ""],
                     "subject_matters_id_equals_any"=>["", "", "", "", sm1.id.to_s, "", "", sm2.id.to_s],
                     "restaurant_metropolitan_area_id_equals_any"=>["", "", "", "", "", "", "", "", ""],

@@ -2,35 +2,37 @@ require_relative '../spec_helper'
 
 describe MediaRequest do
   include DelayedJobSpecHelper
-  should_belong_to :sender, :class_name => 'User'
-  should_validate_presence_of :sender_id, :employment_search, :message
+  it { should belong_to(:sender).class_name('User') }
+  it { should validate_presence_of :sender_id }
+  it { should validate_presence_of :employment_search }
+  it { should validate_presence_of :message }
 
-  should_belong_to :subject_matter
-  should_belong_to :employment_search
-  should_have_many :media_request_discussions
-  should_have_many :restaurants, :through => :media_request_discussions
-  should_have_many :solo_media_discussions
-  should_have_many :employments, :through => :solo_media_discussions
-  should_have_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
+  it { should belong_to :subject_matter }
+  it { should belong_to :employment_search }
+  it { should have_many :media_request_discussions }
+  it { should have_many(:restaurants).through(:media_request_discussions) }
+  it { should have_many :solo_media_discussions }
+  it { should have_many(:employments).through(:solo_media_discussions) }
+  # it { should have_many(:attachments).class_name('::Attachment').dependent(:destroy) }
 
   before(:each) do
-    @employee = Factory(:user, :username => "employee", :email => "employee@example.com")
-    @restaurant = Factory(:restaurant, :name => "Joe's Crab Shack")
-    @employment = Factory(:employment, :restaurant => @restaurant, :employee => @employee)
-    @employment_search = Factory(:employment_search, :conditions => {:employee_id_eq => @employee.id.to_s})
+    @employee = FactoryGirl.create(:user, :username => "employee", :email => "employee@example.com")
+    @restaurant = FactoryGirl.create(:restaurant, :name => "Joe's Crab Shack")
+    @employment = FactoryGirl.create(:employment, :restaurant => @restaurant, :employee => @employee)
+    @employment_search = FactoryGirl.create(:employment_search, :conditions => {:employee_id_eq => @employee.id.to_s})
   end
 
   describe "senders and receivers" do
 
     it "should build discussions with other folks" do
-      mr = Factory(:media_request, :employment_search => @employment_search)
+      mr = FactoryGirl.create(:media_request, :employment_search => @employment_search)
       mr.media_request_discussions.first.restaurant.should == @restaurant
       @restaurant.media_request_discussions.first.media_request.should == mr
     end
 
     describe "finding" do
       before do
-        @media_request = Factory(:media_request, :employment_search => @employment_search)
+        @media_request = FactoryGirl.create(:media_request, :employment_search => @employment_search)
       end
 
       it "conversation by way of restaurant should include the first conversation" do
@@ -45,13 +47,13 @@ describe MediaRequest do
 
   describe "with search criteria" do
     before do
-      @restaurant2 = Factory(:restaurant, :name => "IHOP")
+      @restaurant2 = FactoryGirl.create(:restaurant, :name => "IHOP")
     end
     it "should update based on the search criteria" do
-      employment_search = Factory(:employment_search, :conditions => {
+      employment_search = FactoryGirl.create(:employment_search, :conditions => {
         :restaurant_name_like => @restaurant.name
       })
-      media_request = Factory.build(:media_request, :employment_search => employment_search)
+      media_request = FactoryGirl.build(:media_request, :employment_search => employment_search)
       media_request.save
       media_request.restaurant_ids.should == [@restaurant.id]
 
@@ -63,7 +65,7 @@ describe MediaRequest do
 
   describe "fields" do
     before(:each) do
-      @request = Factory.build(:media_request, :employment_search => @employment_search)
+      @request = FactoryGirl.build(:media_request, :employment_search => @employment_search)
       @request.stubs(:restaurant_ids).returns([1])
     end
 
@@ -86,7 +88,7 @@ describe MediaRequest do
 
   describe "message_with_fields" do
     before(:each) do
-      @request = Factory.build(:media_request, :employment_search => @employment_search)
+      @request = FactoryGirl.build(:media_request, :employment_search => @employment_search)
     end
 
     it "should join a field and the message" do
@@ -110,7 +112,7 @@ describe MediaRequest do
 
   describe "status" do
     before(:each) do
-      @request = Factory.build(:media_request, :employment_search => @employment_search)
+      @request = FactoryGirl.build(:media_request, :employment_search => @employment_search)
     end
 
     it "should start out pending" do
@@ -119,7 +121,7 @@ describe MediaRequest do
 
     it "should be approvable" do
       UserMailer.stubs(:deliver_media_request_notification).returns(true)
-      @media_request = Factory(:pending_media_request, :employment_search => @employment_search)
+      @media_request = FactoryGirl.create(:pending_media_request, :employment_search => @employment_search)
       @media_request.approve
       @media_request.save
       @media_request.should_not be_pending
@@ -127,14 +129,14 @@ describe MediaRequest do
     end
 
     it "should be sent to each restaurant on approval" do
-      @request = Factory.build(:pending_media_request, :status => 'pending')
+      @request = FactoryGirl.build(:pending_media_request, :status => 'pending')
       @request.employment_search.stubs(:restaurant_ids).returns([@restaurant.id])
       @request.stubs(:restaurant_ids).returns([@restaurant.id])
       @request.save
       @request.media_request_discussions.each do |discussion|
         discussion.stubs(:employments).returns([@employment])
       end
-      UserMailer.expects(:deliver_media_request_notification)
+      UserMailer.expects(:media_request_notification)
       @request.deliver_notifications
       perform_delayed_jobs
     end

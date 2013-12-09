@@ -1,0 +1,232 @@
+# Logfile created on 2013-11-28 14:19:48 +0530 by logger.rb/31641
+[11/28/13 14:19:48 +0530 CISM467 (6398)] INFO : Starting the New Relic agent in "development" environment.
+[11/28/13 14:19:48 +0530 CISM467 (6398)] INFO : To prevent agent startup add a NEWRELIC_ENABLE=false environment variable or modify the "development" section of your newrelic.yml.
+[11/28/13 14:19:48 +0530 CISM467 (6398)] INFO : Reading configuration from 
+[11/28/13 14:19:48 +0530 CISM467 (6398)] ERROR : Unable to read configuration file : Is a directory - /home/cis/Desktop/ria_rails3/spec/models
+[11/28/13 14:19:48 +0530 CISM467 (6398)] INFO : Enabling the Request Sampler.
+[11/28/13 14:19:48 +0530 CISM467 (6398)] INFO : Enabling the Request Sampler.
+[11/28/13 14:19:48 +0530 CISM467 (6398)] INFO : Environment: development
+[11/28/13 14:19:48 +0530 CISM467 (6398)] INFO : No known dispatcher detected.
+[11/28/13 14:19:48 +0530 CISM467 (6398)] INFO : Application: development
+[11/28/13 14:19:48 +0530 CISM467 (6398)] WARN : No license key found in newrelic.yml config. This often means your newrelic.yml is missing a section for the running environment 'development'
+[11/28/13 14:19:49 +0530 CISM467 (6398)] INFO : Installing Authlogic instrumentation
+[11/28/13 14:19:49 +0530 CISM467 (6398)] INFO : Installing deferred Rack instrumentation
+[11/28/13 14:19:49 +0530 CISM467 (6398)] INFO : Installing Net instrumentation
+[11/28/13 14:19:49 +0530 CISM467 (6398)] INFO : Installing ActiveRecord instrumentation
+[11/28/13 14:19:49 +0530 CISM467 (6398)] INFO : Installing Curb instrumentation
+[11/28/13 14:19:49 +0530 CISM467 (6398)] INFO : Installing DelayedJob instrumentation [part 1/2]
+[11/28/13 14:19:49 +0530 CISM467 (6398)] INFO : Installing Rails3 Error instrumentation
+[11/28/13 14:19:49 +0530 CISM467 (6398)] INFO : Installing Rails 3 Controller instrumentation
+[11/28/13 14:19:49 +0530 CISM467 (6398)] INFO : Installing Rails 3.1/3.2 view instrumentation
+[11/28/13 14:19:49 +0530 CISM467 (6398)] INFO : Finished instrumentation
+[11/28/13 14:19:49 +0530 CISM467 (6398)] INFO : NewRelic::Agent::Samplers::DelayedJobSampler not available: No DJ worker present
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Starting the New Relic agent in "development" environment.
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : To prevent agent startup add a NEWRELIC_ENABLE=false environment variable or modify the "development" section of your newrelic.yml.
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Reading configuration from 
+[11/28/13 14:27:47 +0530 CISM467 (6769)] ERROR : Unable to read configuration file : Is a directory - /home/cis/Desktop/ria_rails3/spec/models
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Enabling the Request Sampler.
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Enabling the Request Sampler.
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Environment: development
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : No known dispatcher detected.
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Application: development
+[11/28/13 14:27:47 +0530 CISM467 (6769)] WARN : No license key found in newrelic.yml config. This often means your newrelic.yml is missing a section for the running environment 'development'
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Installing Authlogic instrumentation
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Installing deferred Rack instrumentation
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Installing Net instrumentation
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Installing ActiveRecord instrumentation
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Installing Curb instrumentation
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Installing DelayedJob instrumentation [part 1/2]
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Installing Rails3 Error instrumentation
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Installing Rails 3 Controller instrumentation
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Installing Rails 3.1/3.2 view instrumentation
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : Finished instrumentation
+[11/28/13 14:27:47 +0530 CISM467 (6769)] INFO : NewRelic::Agent::Samplers::DelayedJobSampler not available: No DJ worker present
+[11/28/13 14:28:15 +0530 CISM467 (6790)] INFO : Starting the New Relic agent in "development" environment.
+[11/28/13 14:28:15 +0530 CISM467 (6790)] INFO : To prevent agent startup add a NEWRELIC_ENABLE=false environment variable or modify the "development" section of your newrelic.yml.
+[11/28/13 14:28:15 +0530 CISM467 (6790)] INFO : Reading configuration from 
+[11/28/13 14:28:15 +0530 CISM467 (6790)] ERROR : Unable to read configuration file : Is a directory - /home/cis/Desktop/ria_rails3/spec/models
+[11/28/13 14:28:15 +0530 CISM467 (6790)] INFO : Enabling the Request Sampler.
+[11/28/13 14:28:15 +0530 CISM467 (6790)] INFO : Enabling the Request Sampler.
+[11/28/13 14:28:15 +0530 CISM467 (6790)] INFO : Environment: development
+[11/28/13 14:28:15 +0530 CISM467 (6790)] INFO : No known dispatcher detected.
+[11/28/13 14:28:15 +0530 CISM467 (6790)] INFO : Application: development
+[11/28/13 14:28:15 +0530 CISM467 (6790)] WARN : No license key found in newrelic.yml config. This often means your newrelic.yml is missing a section for the running environment 'development'
+[11/28/13 14:28:15 +0530 CISM467 (6790)] INFO : Installing Authlogic instrumentation
+[11/28/13 14:28:15 +0530 CISM467 (6790)] INFO : Installing deferred Rack instrumentation
+[11/28/13 14:28:15 +0530 CISM467 (6790)] INFO : Installing Net instrumentation
+[11/28/13 14:28:16 +0530 CISM467 (6790)] INFO : Installing ActiveRecord instrumentation
+[11/28/13 14:28:16 +0530 CISM467 (6790)] INFO : Installing Curb instrumentation
+[11/28/13 14:28:16 +0530 CISM467 (6790)] INFO : Installing DelayedJob instrumentation [part 1/2]
+[11/28/13 14:28:16 +0530 CISM467 (6790)] INFO : Installing Rails3 Error instrumentation
+[11/28/13 14:28:16 +0530 CISM467 (6790)] INFO : Installing Rails 3 Controller instrumentation
+[11/28/13 14:28:16 +0530 CISM467 (6790)] INFO : Installing Rails 3.1/3.2 view instrumentation
+[11/28/13 14:28:16 +0530 CISM467 (6790)] INFO : Finished instrumentation
+[11/28/13 14:28:16 +0530 CISM467 (6790)] INFO : NewRelic::Agent::Samplers::DelayedJobSampler not available: No DJ worker present
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Starting the New Relic agent in "development" environment.
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : To prevent agent startup add a NEWRELIC_ENABLE=false environment variable or modify the "development" section of your newrelic.yml.
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Reading configuration from 
+[11/28/13 14:30:01 +0530 CISM467 (6846)] ERROR : Unable to read configuration file : Is a directory - /home/cis/Desktop/ria_rails3/spec/models
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Enabling the Request Sampler.
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Enabling the Request Sampler.
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Environment: development
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : No known dispatcher detected.
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Application: development
+[11/28/13 14:30:01 +0530 CISM467 (6846)] WARN : No license key found in newrelic.yml config. This often means your newrelic.yml is missing a section for the running environment 'development'
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Installing Authlogic instrumentation
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Installing deferred Rack instrumentation
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Installing Net instrumentation
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Installing ActiveRecord instrumentation
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Installing Curb instrumentation
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Installing DelayedJob instrumentation [part 1/2]
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Installing Rails3 Error instrumentation
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Installing Rails 3 Controller instrumentation
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Installing Rails 3.1/3.2 view instrumentation
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : Finished instrumentation
+[11/28/13 14:30:01 +0530 CISM467 (6846)] INFO : NewRelic::Agent::Samplers::DelayedJobSampler not available: No DJ worker present
+[11/28/13 14:31:01 +0530 CISM467 (6873)] INFO : Starting the New Relic agent in "development" environment.
+[11/28/13 14:31:01 +0530 CISM467 (6873)] INFO : To prevent agent startup add a NEWRELIC_ENABLE=false environment variable or modify the "development" section of your newrelic.yml.
+[11/28/13 14:31:01 +0530 CISM467 (6873)] INFO : Reading configuration from 
+[11/28/13 14:31:01 +0530 CISM467 (6873)] ERROR : Unable to read configuration file : Is a directory - /home/cis/Desktop/ria_rails3/spec/models
+[11/28/13 14:31:01 +0530 CISM467 (6873)] INFO : Enabling the Request Sampler.
+[11/28/13 14:31:01 +0530 CISM467 (6873)] INFO : Enabling the Request Sampler.
+[11/28/13 14:31:01 +0530 CISM467 (6873)] INFO : Environment: development
+[11/28/13 14:31:01 +0530 CISM467 (6873)] INFO : No known dispatcher detected.
+[11/28/13 14:31:01 +0530 CISM467 (6873)] INFO : Application: development
+[11/28/13 14:31:01 +0530 CISM467 (6873)] WARN : No license key found in newrelic.yml config. This often means your newrelic.yml is missing a section for the running environment 'development'
+[11/28/13 14:31:02 +0530 CISM467 (6873)] INFO : Installing Authlogic instrumentation
+[11/28/13 14:31:02 +0530 CISM467 (6873)] INFO : Installing deferred Rack instrumentation
+[11/28/13 14:31:02 +0530 CISM467 (6873)] INFO : Installing Net instrumentation
+[11/28/13 14:31:02 +0530 CISM467 (6873)] INFO : Installing ActiveRecord instrumentation
+[11/28/13 14:31:02 +0530 CISM467 (6873)] INFO : Installing Curb instrumentation
+[11/28/13 14:31:02 +0530 CISM467 (6873)] INFO : Installing DelayedJob instrumentation [part 1/2]
+[11/28/13 14:31:02 +0530 CISM467 (6873)] INFO : Installing Rails3 Error instrumentation
+[11/28/13 14:31:02 +0530 CISM467 (6873)] INFO : Installing Rails 3 Controller instrumentation
+[11/28/13 14:31:02 +0530 CISM467 (6873)] INFO : Installing Rails 3.1/3.2 view instrumentation
+[11/28/13 14:31:02 +0530 CISM467 (6873)] INFO : Finished instrumentation
+[11/28/13 14:31:02 +0530 CISM467 (6873)] INFO : NewRelic::Agent::Samplers::DelayedJobSampler not available: No DJ worker present
+[11/28/13 14:32:22 +0530 CISM467 (6904)] INFO : Starting the New Relic agent in "development" environment.
+[11/28/13 14:32:22 +0530 CISM467 (6904)] INFO : To prevent agent startup add a NEWRELIC_ENABLE=false environment variable or modify the "development" section of your newrelic.yml.
+[11/28/13 14:32:22 +0530 CISM467 (6904)] INFO : Reading configuration from 
+[11/28/13 14:32:22 +0530 CISM467 (6904)] ERROR : Unable to read configuration file : Is a directory - /home/cis/Desktop/ria_rails3/spec/models
+[11/28/13 14:32:22 +0530 CISM467 (6904)] INFO : Enabling the Request Sampler.
+[11/28/13 14:32:22 +0530 CISM467 (6904)] INFO : Enabling the Request Sampler.
+[11/28/13 14:32:22 +0530 CISM467 (6904)] INFO : Environment: development
+[11/28/13 14:32:22 +0530 CISM467 (6904)] INFO : No known dispatcher detected.
+[11/28/13 14:32:22 +0530 CISM467 (6904)] INFO : Application: development
+[11/28/13 14:32:22 +0530 CISM467 (6904)] WARN : No license key found in newrelic.yml config. This often means your newrelic.yml is missing a section for the running environment 'development'
+[11/28/13 14:32:23 +0530 CISM467 (6904)] INFO : Installing Authlogic instrumentation
+[11/28/13 14:32:23 +0530 CISM467 (6904)] INFO : Installing deferred Rack instrumentation
+[11/28/13 14:32:23 +0530 CISM467 (6904)] INFO : Installing Net instrumentation
+[11/28/13 14:32:23 +0530 CISM467 (6904)] INFO : Installing ActiveRecord instrumentation
+[11/28/13 14:32:23 +0530 CISM467 (6904)] INFO : Installing Curb instrumentation
+[11/28/13 14:32:23 +0530 CISM467 (6904)] INFO : Installing DelayedJob instrumentation [part 1/2]
+[11/28/13 14:32:23 +0530 CISM467 (6904)] INFO : Installing Rails3 Error instrumentation
+[11/28/13 14:32:23 +0530 CISM467 (6904)] INFO : Installing Rails 3 Controller instrumentation
+[11/28/13 14:32:23 +0530 CISM467 (6904)] INFO : Installing Rails 3.1/3.2 view instrumentation
+[11/28/13 14:32:23 +0530 CISM467 (6904)] INFO : Finished instrumentation
+[11/28/13 14:32:23 +0530 CISM467 (6904)] INFO : NewRelic::Agent::Samplers::DelayedJobSampler not available: No DJ worker present
+[11/28/13 14:33:08 +0530 CISM467 (6933)] INFO : Starting the New Relic agent in "development" environment.
+[11/28/13 14:33:08 +0530 CISM467 (6933)] INFO : To prevent agent startup add a NEWRELIC_ENABLE=false environment variable or modify the "development" section of your newrelic.yml.
+[11/28/13 14:33:08 +0530 CISM467 (6933)] INFO : Reading configuration from 
+[11/28/13 14:33:08 +0530 CISM467 (6933)] ERROR : Unable to read configuration file : Is a directory - /home/cis/Desktop/ria_rails3/spec/models
+[11/28/13 14:33:08 +0530 CISM467 (6933)] INFO : Enabling the Request Sampler.
+[11/28/13 14:33:08 +0530 CISM467 (6933)] INFO : Enabling the Request Sampler.
+[11/28/13 14:33:08 +0530 CISM467 (6933)] INFO : Environment: development
+[11/28/13 14:33:08 +0530 CISM467 (6933)] INFO : No known dispatcher detected.
+[11/28/13 14:33:08 +0530 CISM467 (6933)] INFO : Application: development
+[11/28/13 14:33:08 +0530 CISM467 (6933)] WARN : No license key found in newrelic.yml config. This often means your newrelic.yml is missing a section for the running environment 'development'
+[11/28/13 14:33:09 +0530 CISM467 (6933)] INFO : Installing Authlogic instrumentation
+[11/28/13 14:33:09 +0530 CISM467 (6933)] INFO : Installing deferred Rack instrumentation
+[11/28/13 14:33:09 +0530 CISM467 (6933)] INFO : Installing Net instrumentation
+[11/28/13 14:33:09 +0530 CISM467 (6933)] INFO : Installing ActiveRecord instrumentation
+[11/28/13 14:33:09 +0530 CISM467 (6933)] INFO : Installing Curb instrumentation
+[11/28/13 14:33:09 +0530 CISM467 (6933)] INFO : Installing DelayedJob instrumentation [part 1/2]
+[11/28/13 14:33:09 +0530 CISM467 (6933)] INFO : Installing Rails3 Error instrumentation
+[11/28/13 14:33:09 +0530 CISM467 (6933)] INFO : Installing Rails 3 Controller instrumentation
+[11/28/13 14:33:09 +0530 CISM467 (6933)] INFO : Installing Rails 3.1/3.2 view instrumentation
+[11/28/13 14:33:09 +0530 CISM467 (6933)] INFO : Finished instrumentation
+[11/28/13 14:33:09 +0530 CISM467 (6933)] INFO : NewRelic::Agent::Samplers::DelayedJobSampler not available: No DJ worker present
+[11/28/13 14:34:35 +0530 CISM467 (6967)] INFO : Starting the New Relic agent in "development" environment.
+[11/28/13 14:34:35 +0530 CISM467 (6967)] INFO : To prevent agent startup add a NEWRELIC_ENABLE=false environment variable or modify the "development" section of your newrelic.yml.
+[11/28/13 14:34:35 +0530 CISM467 (6967)] INFO : Reading configuration from 
+[11/28/13 14:34:35 +0530 CISM467 (6967)] ERROR : Unable to read configuration file : Is a directory - /home/cis/Desktop/ria_rails3/spec/models
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Enabling the Request Sampler.
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Enabling the Request Sampler.
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Environment: development
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : No known dispatcher detected.
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Application: development
+[11/28/13 14:34:36 +0530 CISM467 (6967)] WARN : No license key found in newrelic.yml config. This often means your newrelic.yml is missing a section for the running environment 'development'
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Installing Authlogic instrumentation
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Installing deferred Rack instrumentation
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Installing Net instrumentation
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Installing ActiveRecord instrumentation
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Installing Curb instrumentation
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Installing DelayedJob instrumentation [part 1/2]
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Installing Rails3 Error instrumentation
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Installing Rails 3 Controller instrumentation
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Installing Rails 3.1/3.2 view instrumentation
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : Finished instrumentation
+[11/28/13 14:34:36 +0530 CISM467 (6967)] INFO : NewRelic::Agent::Samplers::DelayedJobSampler not available: No DJ worker present
+[11/28/13 17:59:55 +0530 CISM467 (9287)] INFO : Starting the New Relic agent in "development" environment.
+[11/28/13 17:59:55 +0530 CISM467 (9287)] INFO : To prevent agent startup add a NEWRELIC_ENABLE=false environment variable or modify the "development" section of your newrelic.yml.
+[11/28/13 17:59:55 +0530 CISM467 (9287)] INFO : Reading configuration from 
+[11/28/13 17:59:55 +0530 CISM467 (9287)] ERROR : Unable to read configuration file : Is a directory - /home/cis/Desktop/ria_rails3/spec/models
+[11/28/13 17:59:55 +0530 CISM467 (9287)] INFO : Enabling the Request Sampler.
+[11/28/13 17:59:55 +0530 CISM467 (9287)] INFO : Enabling the Request Sampler.
+[11/28/13 17:59:55 +0530 CISM467 (9287)] INFO : Environment: development
+[11/28/13 17:59:55 +0530 CISM467 (9287)] INFO : No known dispatcher detected.
+[11/28/13 17:59:55 +0530 CISM467 (9287)] INFO : Application: development
+[11/28/13 17:59:55 +0530 CISM467 (9287)] WARN : No license key found in newrelic.yml config. This often means your newrelic.yml is missing a section for the running environment 'development'
+[11/28/13 17:59:56 +0530 CISM467 (9287)] INFO : Installing Authlogic instrumentation
+[11/28/13 17:59:56 +0530 CISM467 (9287)] INFO : Installing deferred Rack instrumentation
+[11/28/13 17:59:56 +0530 CISM467 (9287)] INFO : Installing Net instrumentation
+[11/28/13 17:59:56 +0530 CISM467 (9287)] INFO : Installing ActiveRecord instrumentation
+[11/28/13 17:59:56 +0530 CISM467 (9287)] INFO : Installing Curb instrumentation
+[11/28/13 17:59:56 +0530 CISM467 (9287)] INFO : Installing DelayedJob instrumentation [part 1/2]
+[11/28/13 17:59:56 +0530 CISM467 (9287)] INFO : Installing Rails3 Error instrumentation
+[11/28/13 17:59:56 +0530 CISM467 (9287)] INFO : Installing Rails 3 Controller instrumentation
+[11/28/13 17:59:56 +0530 CISM467 (9287)] INFO : Installing Rails 3.1/3.2 view instrumentation
+[11/28/13 17:59:56 +0530 CISM467 (9287)] INFO : Finished instrumentation
+[11/28/13 17:59:56 +0530 CISM467 (9287)] INFO : NewRelic::Agent::Samplers::DelayedJobSampler not available: No DJ worker present
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Starting the New Relic agent in "development" environment.
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : To prevent agent startup add a NEWRELIC_ENABLE=false environment variable or modify the "development" section of your newrelic.yml.
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Reading configuration from 
+[11/30/13 11:56:24 +0530 CISM467 (4914)] ERROR : Unable to read configuration file : Is a directory - /home/cis/Desktop/ria_rails3/spec/models
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Enabling the Request Sampler.
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Enabling the Request Sampler.
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Environment: development
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : No known dispatcher detected.
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Application: development
+[11/30/13 11:56:24 +0530 CISM467 (4914)] WARN : No license key found in newrelic.yml config. This often means your newrelic.yml is missing a section for the running environment 'development'
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Installing Authlogic instrumentation
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Installing deferred Rack instrumentation
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Installing Net instrumentation
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Installing ActiveRecord instrumentation
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Installing Curb instrumentation
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Installing DelayedJob instrumentation [part 1/2]
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Installing Rails3 Error instrumentation
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Installing Rails 3 Controller instrumentation
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Installing Rails 3.1/3.2 view instrumentation
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : Finished instrumentation
+[11/30/13 11:56:24 +0530 CISM467 (4914)] INFO : NewRelic::Agent::Samplers::DelayedJobSampler not available: No DJ worker present
+[11/30/13 12:00:16 +0530 CISM467 (5004)] INFO : Starting the New Relic agent in "development" environment.
+[11/30/13 12:00:16 +0530 CISM467 (5004)] INFO : To prevent agent startup add a NEWRELIC_ENABLE=false environment variable or modify the "development" section of your newrelic.yml.
+[11/30/13 12:00:16 +0530 CISM467 (5004)] INFO : Reading configuration from 
+[11/30/13 12:00:16 +0530 CISM467 (5004)] ERROR : Unable to read configuration file : Is a directory - /home/cis/Desktop/ria_rails3/spec/models
+[11/30/13 12:00:16 +0530 CISM467 (5004)] INFO : Enabling the Request Sampler.
+[11/30/13 12:00:16 +0530 CISM467 (5004)] INFO : Enabling the Request Sampler.
+[11/30/13 12:00:16 +0530 CISM467 (5004)] INFO : Environment: development
+[11/30/13 12:00:16 +0530 CISM467 (5004)] INFO : No known dispatcher detected.
+[11/30/13 12:00:16 +0530 CISM467 (5004)] INFO : Application: development
+[11/30/13 12:00:16 +0530 CISM467 (5004)] WARN : No license key found in newrelic.yml config. This often means your newrelic.yml is missing a section for the running environment 'development'
+[11/30/13 12:00:17 +0530 CISM467 (5004)] INFO : Installing Authlogic instrumentation
+[11/30/13 12:00:17 +0530 CISM467 (5004)] INFO : Installing deferred Rack instrumentation
+[11/30/13 12:00:17 +0530 CISM467 (5004)] INFO : Installing Net instrumentation
+[11/30/13 12:00:17 +0530 CISM467 (5004)] INFO : Installing ActiveRecord instrumentation
+[11/30/13 12:00:17 +0530 CISM467 (5004)] INFO : Installing Curb instrumentation
+[11/30/13 12:00:17 +0530 CISM467 (5004)] INFO : Installing DelayedJob instrumentation [part 1/2]
+[11/30/13 12:00:17 +0530 CISM467 (5004)] INFO : Installing Rails3 Error instrumentation
+[11/30/13 12:00:17 +0530 CISM467 (5004)] INFO : Installing Rails 3 Controller instrumentation
+[11/30/13 12:00:17 +0530 CISM467 (5004)] INFO : Installing Rails 3.1/3.2 view instrumentation
+[11/30/13 12:00:17 +0530 CISM467 (5004)] INFO : Finished instrumentation
+[11/30/13 12:00:17 +0530 CISM467 (5004)] INFO : NewRelic::Agent::Samplers::DelayedJobSampler not available: No DJ worker present

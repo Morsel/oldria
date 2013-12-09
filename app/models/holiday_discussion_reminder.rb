@@ -27,7 +27,7 @@ class HolidayDiscussionReminder < ActiveRecord::Base
   }
 
   scope :with_replies, :joins => :holiday_discussion, :conditions => 'holiday_discussions.comments_count > 0'
-
+  attr_accessible :holiday_discussion_id, :holiday_reminder_id, :holiday_discussion, :holiday_reminder 
   def inbox_title
     holiday_reminder.inbox_title
   end

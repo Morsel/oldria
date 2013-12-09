@@ -21,7 +21,7 @@ class Photo < Image
   validates_attachment_presence :attachment
 
   acts_as_list :scope => :attachable
-  attr_accessible :attachment, :photos_attributes
+  attr_accessible :attachment, :photos_attributes,:attachment_content_type
 
   def activity_name
     "photo"

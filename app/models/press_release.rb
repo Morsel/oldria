@@ -19,5 +19,5 @@ class PressRelease < ActiveRecord::Base
 
   accepts_nested_attributes_for :pdf_remote_attachment
 
-  attr_accessible  :title, :pdf_remote_attachment_attributes
+  attr_accessible  :title, :pdf_remote_attachment_attributes,:pdf_remote_attachment, :restaurant_id
 end

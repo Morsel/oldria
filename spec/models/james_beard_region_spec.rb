@@ -1,8 +1,8 @@
 require_relative '../spec_helper'
 
 describe JamesBeardRegion do
-  should_have_many :restaurants
-  should_have_many :users
-  should_validate_presence_of :name
-  should_validate_presence_of :description
+  it { should have_many :restaurants }
+  it { should have_many :users }
+  it { should validate_presence_of :name }
+  it { should validate_presence_of :description }
 end

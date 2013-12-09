@@ -147,9 +147,9 @@ Given /^trend question "([^\"]*)" has a reply "([^\"]*)" by "([^\"]*)"$/ do |que
 end
 
 Given /^"([^\"]*)" has a holiday reminder for holiday "([^\"]*)" with:$/ do |restaurant, holidayname, table|
-  holiday = Factory(:holiday, :name => holidayname, 
-      :employment_search => Factory(:employment_search, :conditions => "--- \n:restaurant_name_like: #{restaurant}\n"))
-  Factory(:holiday_reminder, table.rows_hash)
+  holiday = FactoryGirl.create(:holiday, :name => holidayname, 
+      :employment_search => FactoryGirl.create(:employment_search, :conditions => "--- \n:restaurant_name_like: #{restaurant}\n"))
+  FactoryGirl.create(:holiday_reminder, table.rows_hash)
 end
 
 Given /^holiday "([^\"]*)" has a reply "([^\"]*)"$/ do |holidayname, reply|

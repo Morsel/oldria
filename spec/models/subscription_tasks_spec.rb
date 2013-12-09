@@ -12,7 +12,7 @@ describe "Subscription Rake Tasks" do
   end
 
   describe "#mark_past_due" do
-    let(:subscription) { Factory(:subscription) }
+    let(:subscription) { FactoryGirl.create(:subscription) }
     it "should invoke past_due! on all subscriptions that are past due" do
       subscription.expects(:past_due!)
       subscription_ids = [subscription.id]
@@ -23,13 +23,13 @@ describe "Subscription Rake Tasks" do
   end
 
   describe "#purge_expired" do
-    let(:subscriber) { Factory(:user) }
+    let(:subscriber) { FactoryGirl.create(:user) }
     it "should invoke past_due! on all subscriptions that are past due" do
       Delorean.time_travel_to("1 month ago") do
-        subscriber.subscription = @expired = Factory(:subscription, :braintree_id => "expired", :status => Subscription::Status::PAST_DUE, :subscriber_id => subscriber.id, :subscriber_type => subscriber.class.name)
+        subscriber.subscription = @expired = FactoryGirl.create(:subscription, :braintree_id => "expired", :status => Subscription::Status::PAST_DUE, :subscriber_id => subscriber.id, :subscriber_type => subscriber.class.name)
         subscriber.save
-        @grace_period = Factory(:subscription, :braintree_id => "grace", :status => Subscription::Status::PAST_DUE)
-        @active = Factory(:subscription, :braintree_id => "active", :end_date => nil)
+        @grace_period = FactoryGirl.create(:subscription, :braintree_id => "grace", :status => Subscription::Status::PAST_DUE)
+        @active = FactoryGirl.create(:subscription, :braintree_id => "active", :end_date => nil)
       end
       @expired.update_attribute(:end_date, 1.day.ago.to_date)
       @grace_period.update_attribute(:end_date, 1.day.from_now.to_date)

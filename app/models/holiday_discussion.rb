@@ -34,6 +34,8 @@ class HolidayDiscussion < ActiveRecord::Base
   scope :open, { :conditions => { :accepted => false } }
   scope :closed, { :conditions => { :accepted => true } }
 
+  attr_accessible :restaurant_id,:holiday_id,:comments_count,:accepted
+
   def inbox_title
     holiday.try(:name)
   end

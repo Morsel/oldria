@@ -9,26 +9,26 @@ end
 describe CoachedStatusUpdate, "date ranges" do
 
   before(:each) do
-    @christmas = Factory(:date_range, :start_date => Date.parse('2009-12-01'), :end_date => Date.parse('2009-12-26'))
-    @summer = Factory(:date_range, :start_date => Date.parse('2009-06-20'), :end_date => Date.parse('2009-09-20'))
+    @christmas = FactoryGirl.create(:date_range, :start_date => Date.parse('2009-12-01'), :end_date => Date.parse('2009-12-26'))
+    @summer = FactoryGirl.create(:date_range, :start_date => Date.parse('2009-06-20'), :end_date => Date.parse('2009-09-20'))
     Date.stubs(:today).returns(Date.parse('2009-08-01'))
   end
 
   context "without randomization" do
     it "should return current messages" do
-      summer_message = Factory(:coached_status_update, :date_range => @summer)
+      summer_message = FactoryGirl.create(:coached_status_update, :date_range => @summer)
       CoachedStatusUpdate.current.should include(summer_message)
     end
 
     it "should not return message out of the date range" do
-      christmas_message = Factory(:coached_status_update, :date_range => @christmas)
+      christmas_message = FactoryGirl.create(:coached_status_update, :date_range => @christmas)
       CoachedStatusUpdate.current.should_not include(christmas_message)
     end
   end
 
   context "with randomization" do
     it "should return one status update" do
-      message1 = Factory(:coached_status_update, :date_range => @summer)
+      message1 = FactoryGirl.create(:coached_status_update, :date_range => @summer)
       CoachedStatusUpdate.current.random.length.should == 1
     end
 

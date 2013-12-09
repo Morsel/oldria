@@ -20,7 +20,7 @@ Spork.prefork do
   require 'email_spec' # add this line if you use spork
   # require 'email_spec/cucumber'
   require 'mocha'
-  require "mocha/setup"
+  # require "mocha/setup"
   require "email_spec/helpers"
   require "email_spec/matchers"
   require "braintree"
@@ -29,7 +29,8 @@ Spork.prefork do
   require "authlogic/test_case"
 
   require "#{Rails.root}/spec/factories"
-
+  require 'rspec/rails/mocks'               if defined?(Rspec::Mocks)
+  
   Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
   Webrat.configure do |config|
@@ -42,14 +43,14 @@ Spork.prefork do
   FakeWeb.register_uri(:put, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")
 
   def fake_admin_user
-    @user = FactoryGirl.stub(:admin)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
     controller.stubs(:require_admin).returns(true)
   end
 
   def fake_normal_user
-    @user = FactoryGirl.stub(:user)
+    @user = FactoryGirl.create(:user)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
     controller.stubs(:require_admin).returns(false)

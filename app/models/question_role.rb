@@ -14,5 +14,5 @@ class QuestionRole < ActiveRecord::Base
 
   belongs_to :profile_question
   belongs_to :restaurant_role
-
+  attr_accessible :profile_question_id, :restaurant_role_id
 end

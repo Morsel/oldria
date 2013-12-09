@@ -26,7 +26,7 @@ class AdminDiscussion < ActiveRecord::Base
   
   scope :for_trends, :conditions => { :discussionable_type => "TrendQuestion" }
   scope :for_content_requests, :conditions => { :discussionable_type => "ContentRequest" }
-  
+  attr_accessible :restaurant, :discussionable
   def message
     [discussionable.subject, discussionable.body].reject(&:blank?).join(": ")
   end

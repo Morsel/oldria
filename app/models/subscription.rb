@@ -30,7 +30,7 @@ class Subscription < ActiveRecord::Base
   scope :is_active, lambda {
     { :conditions => ['end_date is NULL OR end_date >= ?', Time.now] }
   }
-  attr_accessible :kind, :payer, :start_date, :braintree_id, :end_date
+  attr_accessible :kind, :payer, :start_date, :braintree_id, :end_date,:subscriber,:status
   def premium?
     true
   end

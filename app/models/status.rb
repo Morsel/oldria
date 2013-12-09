@@ -24,6 +24,7 @@ class Status < ActiveRecord::Base
 
   before_validation :strip_html
   after_create      :send_to_social_media!
+  attr_accessible :facebook_id, :queue_for_facebook,:twitter_id, :queue_for_social_media
 
   def strip_html
     self.message = strip_tags(message)

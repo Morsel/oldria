@@ -21,7 +21,7 @@ class RestaurantQuestion < ActiveRecord::Base
 
   validates_presence_of :title, :chapter_id
   validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
-  attr_accessible :title,:chapter_id,:restaurant_feature_page_ids
+  attr_accessible :title,:chapter_id,:restaurant_feature_page_ids,:position, :pages_description
 
 
   scope :for_page, lambda { |page|

@@ -14,5 +14,5 @@ class QuestionPage < ActiveRecord::Base
 
   belongs_to :restaurant_question
   belongs_to :restaurant_feature_page
-
+  attr_accessible :restaurant_question_id, :restaurant_feature_page_id
 end

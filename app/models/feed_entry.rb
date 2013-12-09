@@ -16,7 +16,7 @@
 #
 
 class FeedEntry < ActiveRecord::Base
-  attr_accessible :title, :author, :content, :summary, :url, :published_at, :guid
+  attr_accessible :title, :author, :content, :summary, :url, :published_at, :guid,:feed
   belongs_to :feed
   default_scope :order => 'published_at DESC'
   acts_as_readable

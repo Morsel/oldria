@@ -12,6 +12,6 @@ class RestaurantFeatureItem < ActiveRecord::Base
   
   belongs_to :restaurant
   belongs_to :restaurant_feature
-
+  attr_accessible :restaurant_feature_id, :top_tag, :restaurant_id
 end
 

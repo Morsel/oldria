@@ -502,7 +502,7 @@ FactoryGirl.define do
   end
 
  
- factory :holiday_reminder, :class => Admin::HolidayReminder do |f|
+ factory :holiday_reminder, class: Admin::HolidayReminder do |f|
   f.message "This is a holiday reminder"
   f.association :holiday
   end
@@ -562,10 +562,18 @@ FactoryGirl.define do
   f.association :employment_search
   end
 
- 
- factory :employment_search do |f|
-  f.conditions "--- \n:restaurant_name_like: neo\n"
-  end
+ #CIS
+ #http://stackoverflow.com/questions/12959036/how-to-use-factorygirl-with-a-model-that-takes-a-hash-in-initialize-method
+ #http://stackoverflow.com/questions/10032760/how-to-define-an-array-hash-in-factory-girl
+ # Factory.define :employment_search do |f|
+ #  f.conditions "--- \n:restaurant_name_like: neo\n"
+ # end
+ factory :employment_search do
+  conditions {{
+      "restaurant_name_like" => "neo"
+    }}
+  initialize_with  { new(attributes) }
+ end
 
  
  factory :content_request do |f|

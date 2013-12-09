@@ -68,7 +68,7 @@ class Promotion < ActiveRecord::Base
   validate :content_type, :if => Proc.new { |promo| promo.attachment_file_name.present? }
 
   attr_accessible :post_to_twitter_at, :post_to_facebook_at,:promotion_type_id, :headline, :details, :link, :attachment,
-   :start_date, :date_description,:end_date,:twitter_posts_attributes
+   :start_date, :date_description,:end_date,:twitter_posts_attributes,:restaurant_id
    
   def content_type
     errors.add(:attachment, "needs to be converted to PDF") unless VALID_CONTENT_TYPES.include?(self.attachment_content_type)

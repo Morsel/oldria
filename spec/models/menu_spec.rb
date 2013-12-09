@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 
 describe Menu do
   before(:each) do
-    @restaurant = Factory(:restaurant)
+    @restaurant = FactoryGirl.create(:restaurant)
     pdf_remote_attachment = PdfRemoteAttachment.create!(:attachment_content_type => "application/pdf", :attachment_file_name => "my_file.pdf")
     @valid_attributes = {
       :name => "value for name",

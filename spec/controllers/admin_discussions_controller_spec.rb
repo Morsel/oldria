@@ -4,8 +4,8 @@ describe AdminDiscussionsController do
   integrate_views
   before do
     fake_normal_user
-    @restaurant = Factory(:restaurant, :manager => @user)
-    @trend_question = Factory(:trend_question)
+    @restaurant = FactoryGirl.create(:restaurant, :manager => @user)
+    @trend_question = FactoryGirl.create(:trend_question)
     @admin_discussion = AdminDiscussion.create!(:restaurant => @restaurant, :discussionable => @trend_question)
   end
 

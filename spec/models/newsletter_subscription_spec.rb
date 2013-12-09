@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 
 describe NewsletterSubscription do
   before(:each) do
-    @restaurant = Factory(:restaurant)
+    @restaurant = FactoryGirl.create(:restaurant)
     @valid_attributes = {
       :restaurant_id => @restaurant.id,
       :newsletter_subscriber_id => 1

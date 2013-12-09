@@ -19,7 +19,7 @@
 class PdfRemoteAttachment < RemoteAttachment
 
   VALID_CONTENT_TYPES = ["application/zip", "application/x-zip", "application/x-zip-compressed", "application/pdf", "application/x-pdf"]
-  attr_accessible :attachment
+  attr_accessible :attachment,:attachment_content_type
 
   before_validation(:on => :save) do |file|
     if file.attachment_file_name.present? && (file.attachment_content_type == 'binary/octet-stream')
