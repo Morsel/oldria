@@ -1,6 +1,6 @@
 # require "mocha"
 require 'mocha/api'
-require 'mocha/setup'
+#require 'mocha/setup'
 require "delorean"
 
 World(Delorean)
@@ -19,6 +19,6 @@ After do
   end
 end
 
-Spec::Matchers.define :have_avatar do
-  match { |user| user.avatar? }
-end
+# Spec::Matchers.define :have_avatar do
+#   match { |user| user.avatar? }
+# end
