@@ -4,25 +4,25 @@ end
 
 Given /^the following confirmed users?:?$/ do |table|
   table.hashes.each do |row|
-    user = Factory(:user, row)
+    user = FactoryGirl.create(:user, row)
   end
 end
 
 Given /^the following published users?:?$/ do |table|
   table.hashes.each do |row|
-    user = Factory(:published_user, row)
+    user = FactoryGirl.create(:published_user, row)
   end
 end
 
 Given /^the following unconfirmed users?:?$/ do |table|
   table.hashes.each do |row|
-    user = Factory(:user, row.merge(:confirmed_at => nil))
+    user = FactoryGirl.create(:user, row.merge(:confirmed_at => nil))
   end
 end
 
 Given /^the following media users?:?$/ do |table|
   table.hashes.each do |row|
-    user = Factory(:media_user, row)
+    user = FactoryGirl.create(:media_user, row)
   end
 end
 
@@ -43,36 +43,36 @@ Given /^a media user named "([^\"]*)" has just signed up$/ do |username|
 end
 
 Given /^I am logged in as an admin$/ do
-  Factory(:admin, :username => 'admin', :password => 'admin')
+  FactoryGirl.create(:admin, :username => 'admin', :password => 'admin')
   Given 'I am logged in as "admin" with password "admin"'
 end
 
 Given /^I am logged in as a normal user$/ do
-  Factory(:user, :username => 'normal', :password => 'normal')
+  FactoryGirl.create(:user, :username => 'normal', :password => 'normal')
   Given 'I am logged in as "normal" with password "normal"'
 end
 
 Given /^there is a searchable user with a communicative profile$/ do
-  user = Factory(:published_user, :username => 'searchable', :password => 'searchable',
-                 :name => "Bob Ichvinstone", :subscription => Factory(:subscription))
-  Factory(:profile, :user => user, :summary => "I like ketchup!")
+  user = FactoryGirl.create(:published_user, :username => 'searchable', :password => 'searchable',
+                 :name => "Bob Ichvinstone", :subscription => FactoryGirl.create(:subscription))
+  FactoryGirl.create(:profile, :user => user, :summary => "I like ketchup!")
 end
 
 Given /^I am logged in as a normal user with a profile$/ do
-  user = Factory(:user, :username => 'normal', :password => 'normal')
-  Factory(:profile, :user => user)
-  Factory(:employment, :employee => user)
+  user = FactoryGirl.create(:user, :username => 'normal', :password => 'normal')
+  FactoryGirl.create(:profile, :user => user)
+  FactoryGirl.create(:employment, :employee => user)
   Given 'I am logged in as "normal" with password "normal"'
 end
 
 Given /^I am logged in as user with btl enabled$/ do
-  user = Factory(:user, :username => 'valera', :password => 'secret')
-  role = Factory(:restaurant_role)
-  Factory(:employment, :employee => user, :restaurant_role => role)
+  user = FactoryGirl.create(:user, :username => 'valera', :password => 'secret')
+  role = FactoryGirl.create(:restaurant_role)
+  FactoryGirl.create(:employment, :employee => user, :restaurant_role => role)
 
-  chapter = Factory(:chapter, :title => "title1")
-  qr = Factory(:question_role, :restaurant_role => role)
-  Factory(:profile_question, :chapter => chapter, :question_roles => [qr])
+  chapter = FactoryGirl.create(:chapter, :title => "title1")
+  qr = FactoryGirl.create(:question_role, :restaurant_role => role)
+  FactoryGirl.create(:profile_question, :chapter => chapter, :question_roles => [qr])
 
   Given 'I am logged in as "valera" with password "secret"'
 end
@@ -83,7 +83,7 @@ end
 
 Given /^I am logged in as a media member$/ do
   user = User.find_by_username("media")
-  user ||= Factory(:media_user, :username => 'media', :password => 'normal')
+  user ||= FactoryGirl.create(:media_user, :username => 'media', :password => 'normal')
   user.has_role! :media
   Given 'I am logged in as "media" with password "normal"'
 end
@@ -92,9 +92,9 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, pa
   visit logout_path if @current_user
   unless username.blank?
     visit login_path
-    fill_in "Username", :with => username
-    fill_in "Password", :with => password
-    click_button "Login"
+    # fill_in "Username", :with => username
+    # fill_in "Password", :with => password
+    # click_button "Login"
   end
   @current_user = User.find_by_username(username)
 end
@@ -119,8 +119,8 @@ end
 
 Given /^"([^\"]*)" has a default employment with the role "([^\"]*)"$/ do |username, role_name|
   user = User.find_by_username(username)
-  role = Factory(:restaurant_role, :name => role_name)
-  Factory(:default_employment, :employee => user, :restaurant_role => role)
+  role = FactoryGirl.create(:restaurant_role, :name => role_name)
+  FactoryGirl.create(:default_employment, :employee => user, :restaurant_role => role)
 end
 
 Given /^"([^\"]*)" has a published profile$/ do |username|
@@ -137,15 +137,15 @@ end
 
 Given /^"([^\"]*)" has a default employment with role "([^\"]*)" and restaurant name "([^\"]*)"$/ do |username, rolename, restoname|
   user = User.find_by_username(username)
-  role = Factory(:restaurant_role, :name => rolename)
-  Factory(:default_employment, :employee => user, :restaurant_role => role, :solo_restaurant_name => restoname)
+  role = FactoryGirl.create(:restaurant_role, :name => rolename)
+  FactoryGirl.create(:default_employment, :employee => user, :restaurant_role => role, :solo_restaurant_name => restoname)
 end
 
 Given /^"([^\"]*)" has a default employment with the role "([^\"]*)" and subject matter "([^\"]*)"$/ do |username, rolename, subject|
   user = User.find_by_username(username)
-  role = Factory(:restaurant_role, :name => rolename)
-  subjectmatter = Factory(:subject_matter, :name => subject)
-  Factory(:default_employment, :employee => user, :restaurant_role => role, :subject_matters => [subjectmatter])
+  role = FactoryGirl.create(:restaurant_role, :name => rolename)
+  subjectmatter = FactoryGirl.create(:subject_matter, :name => subject)
+  FactoryGirl.create(:default_employment, :employee => user, :restaurant_role => role, :subject_matters => [subjectmatter])
 end
 
 Given /^"([^\"]*)" has set a notification email address "([^\"]*)"$/ do |username, email|
@@ -204,7 +204,7 @@ end
 When /^the user "([^\"]*)" (has|does not have) a premium account$/ do |username, toggle|
   user = User.find_by_username(username)
   if toggle == "has"
-    user.subscription = Factory(:subscription, :payer => user)
+    user.subscription = FactoryGirl.create(:subscription, :payer => user)
     BraintreeConnector.stubs(:cancel_subscription).with(
         user.subscription).returns(stub(:success? => true))
   else
@@ -215,7 +215,7 @@ end
 
 Given /^"([^\"]*)" has a complimentary premium account$/ do |username|
   user = User.find_by_username(username)
-  user.subscription = Factory(:subscription, :payer => nil)
+  user.subscription = FactoryGirl.create(:subscription, :payer => nil)
   user.save!
 end
 

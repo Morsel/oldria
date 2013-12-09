@@ -1,22 +1,24 @@
+include Capybara::DSL
+
 Given /^a restaurant named "([^\"]*)"$/ do |name|
-  @restaurant = Factory(:restaurant, :name => name)
-  employment = Factory(:employment, :restaurant => @restaurant)
-  profile = Factory(:profile, :user => employment.employee)
+  @restaurant = FactoryGirl.create(:restaurant, :name => name)
+  employment = FactoryGirl.create(:employment, :restaurant => @restaurant)
+  profile = FactoryGirl.create(:profile, :user => employment.employee)
   @restaurant.update_attributes!(:media_contact => employment.employee)
 end
 
 Given /^a premium restaurant named "([^\"]*)"$/ do |name|
-  @restaurant = Factory(:restaurant, :name => name)
-  @restaurant.subscription = Factory(:subscription)
-  employment = Factory(:employment, :restaurant => @restaurant)
-  profile = Factory(:profile, :user => employment.employee)
+  @restaurant = FactoryGirl.create(:restaurant, :name => name)
+  @restaurant.subscription = FactoryGirl.create(:subscription)
+  employment = FactoryGirl.create(:employment, :restaurant => @restaurant)
+  profile = FactoryGirl.create(:profile, :user => employment.employee)
   @restaurant.update_attributes!(:media_contact => employment.employee)
 end
 
 Given /^that "([^\"]*)" has an employee "([^\"]*)"$/ do |restaurant_name, employee_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
-  employment = Factory(:employment, :restaurant => restaurant,
-                       :employee => Factory(:user, :username => employee_name, :password => 'secret') )
+  employment = FactoryGirl.create(:employment, :restaurant => restaurant,
+                       :employee => FactoryGirl.create(:user, :username => employee_name, :password => 'secret') )
 end
 
 Then /^I see the restaurant's name linked as "([^\"]*)"$/ do |name|
@@ -422,12 +424,12 @@ end
 
 Given /^an accolade for "([^\"]*)" named "([^\"]*)"$/ do |restaurant_name, accolade_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
-  Factory(:accolade, :accoladable => restaurant, :name => accolade_name)
+  FactoryGirl.create(:accolade, :accoladable => restaurant, :name => accolade_name)
 end
 
 Given /^an accolade for "([^\"]*)" named "([^\"]*)" dated "([^\"]*)"$/ do |restaurant_name, accolade_name, date|
   restaurant = Restaurant.find_by_name(restaurant_name)
-  Factory(:accolade, :accoladable => restaurant, :name => accolade_name,
+  FactoryGirl.create(:accolade, :accoladable => restaurant, :name => accolade_name,
       :run_date => Date.parse(date))
 end
 
@@ -471,18 +473,18 @@ end
 
 Then "I should have home data" do 
        (1..5).each do|index| 
-            restaurant = Factory(:restaurant, :is_activated=> true)
-            Factory(:menu_item, :restaurant => restaurant)
-            @menu_a = Factory(:menu, :position => "1", :restaurant => restaurant)
-            @menu_b = Factory(:menu, :position => "2", :restaurant => restaurant)
-            @menu_c = Factory(:menu, :position => "3", :restaurant => restaurant)
-            restaurant.subscription = Factory(:subscription)
-            employment = Factory(:employment, :restaurant => restaurant)
-            profile = Factory(:profile, :user => employment.employee)
+            restaurant = FactoryGirl.create(:restaurant, :is_activated=> true)
+            FactoryGirl.create(:menu_item, :restaurant => restaurant)
+            @menu_a = FactoryGirl.create(:menu, :position => "1", :restaurant => restaurant)
+            @menu_b = FactoryGirl.create(:menu, :position => "2", :restaurant => restaurant)
+            @menu_c = FactoryGirl.create(:menu, :position => "3", :restaurant => restaurant)
+            restaurant.subscription = FactoryGirl.create(:subscription)
+            employment = FactoryGirl.create(:employment, :restaurant => restaurant)
+            profile = FactoryGirl.create(:profile, :user => employment.employee)
         end
 
           
       [11,13,23].each do |index|        
-        Factory(:a_la_minute_question,:id=>index,:kind=>"restaurant",:question=>"Our current inspiration is")       
+        FactoryGirl.create(:a_la_minute_question,:id=>index,:kind=>"restaurant",:question=>"Our current inspiration is")       
      end
 end

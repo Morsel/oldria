@@ -192,7 +192,8 @@ class Restaurant < ActiveRecord::Base
 
 
   def self.find_premium(id)
-    possibility = find_by_id(id)
+    #possibility = find_by_id(id)
+    possibility = find(id)
     possibility.try(:premium_account) ? possibility : nil
   end
 
@@ -202,7 +203,8 @@ class Restaurant < ActiveRecord::Base
   end
 
   def top_tags
-    restaurant_feature_items.all(:limit => 15, :conditions => { :top_tag => true }).map(&:restaurant_feature)
+    #restaurant_feature_items.all(:limit => 15, :conditions => { :top_tag => true }).map(&:restaurant_feature)
+    restaurant_feature_items.find(:all,:conditions => { :top_tag => true },:limit => 3).map(&:restaurant_feature) 
   end
 
   def top_limited_tags(no)

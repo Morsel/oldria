@@ -111,7 +111,6 @@ group :development, :test do
   gem "mocha","0.9.8", :require => false
 gem 'database_cleaner'
   gem "remarkable_rails"
-
   gem "factory_girl"#,      '1.2.3'
   # gem 'bmabey-email_spec',:git=>"git://github.com/bmabey/email-spec.git"
   gem "spork",             "0.7.5"
@@ -125,5 +124,8 @@ gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem "rspec-core"
   gem 'tweetstream'
+  group :development, :test do
+  gem 'test-unit', '1.2.3', :platform => :ruby_19
+end
   #end test gem
 end

@@ -8,10 +8,9 @@ module Soapbox
         redirect_to(soapbox_root_path)
         return
       end
-
       @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
-      @promotions = @restaurant.promotions.all(:order => "created_at DESC", :limit => 3)
-      @menu_items = @restaurant.menu_items.all(:order => "created_at DESC", :limit => 3)
+      @promotions = @restaurant.promotions.find(:all, :order => "created_at desc", :limit => 3)  
+      @menu_items = @restaurant.menu_items.find(:all, :order => "created_at desc", :limit => 3)  
       @subscriber = current_subscriber
     end
 
