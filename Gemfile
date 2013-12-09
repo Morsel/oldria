@@ -110,7 +110,7 @@ group :development, :test do
   gem "fakeweb",  "1.3.0"
   gem "mocha","0.9.8", :require => false
   gem 'database_cleaner'
-  #gem "remarkable_rails"
+  gem "remarkable_rails"
   gem "factory_girl"#,      '1.2.3'
   # gem 'bmabey-email_spec',:git=>"git://github.com/bmabey/email-spec.git"
   gem "spork",             "0.7.5"
