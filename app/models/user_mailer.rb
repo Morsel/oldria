@@ -210,7 +210,6 @@ class UserMailer < ActionMailer::Base
     else
       recipients  braintree_customer.try(:manager).try(:email)
     end
-    bcc         ['nishant.n@cisinlabs.com']
     sent_on     Time.now
     subject     "Problem with your Spoonfeed Account"
   end  
@@ -225,7 +224,6 @@ class UserMailer < ActionMailer::Base
     else
       recipients  subscriber.try(:manager).try(:email)
     end   
-    bcc         ['nishant.n@cisinlabs.com']
     sent_on     Time.now
     subject     "Problem with your Spoonfeed Account"
   end  
@@ -233,8 +231,7 @@ class UserMailer < ActionMailer::Base
   def send_braintree_subscription_canceled(subscriber)
     @subscriber = subscriber
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  "admin@restaurantintelligenceagency.com"
-    bcc         ['ellen@restaurantintelligenceagency.com','nishant.n@cisinlabs.com']
+    recipients  ["nishant.n@cisinlabs.com"]
     sent_on     Time.now
     subject     "Spoonfeed: We are sorry!"
   end   
@@ -256,7 +253,6 @@ class UserMailer < ActionMailer::Base
     body        :user => user,:restaurant=> restaurant
   end  
 
- 
 
   def send_employee_claim_notification_mail(user,employee,restaurant)
     from        'notifications@restaurantintelligenceagency.com'

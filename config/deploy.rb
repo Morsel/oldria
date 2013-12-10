@@ -1,7 +1,7 @@
 set :application, "ria"
 
 set :scm, :git
-set :repository,  "git@github.com:RestaurantIntelligenceAgency/ria.git"
+set :repository,  "git@github.com:Morsel/ria.git"
 set :branch, (ENV["DEPLOY_BRANCH"] || 'master')
 set :git_enable_submodules, 1
 set :use_sudo, false
