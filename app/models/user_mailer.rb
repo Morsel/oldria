@@ -205,10 +205,14 @@ class UserMailer < ActionMailer::Base
     @braintree_customer = braintree_customer
     @value = value 
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  "carla@restaurantintelligenceagency.com"
-    bcc         'nishant.n@cisinlabs.com'
+    if  braintree_customer.class == User
+      recipients  braintree_customer.try(:email)
+    else
+      recipients  braintree_customer.try(:manager).try(:email)
+    end
+    bcc         ['nishant.n@cisinlabs.com']
     sent_on     Time.now
-    subject     "We're having trouble processing your credit card"
+    subject     "Problem with your Spoonfeed Account"
   end  
 
 
@@ -216,10 +220,14 @@ class UserMailer < ActionMailer::Base
     @value = value
     @subscriber = subscriber
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  "admin@restaurantintelligenceagency.com"
-    bcc         ['ellen@restaurantintelligenceagency.com','nishant.n@cisinlabs.com']
+    if subscriber.class == User
+      recipients  subscriber.try(:email)
+    else
+      recipients  subscriber.try(:manager).try(:email)
+    end   
+    bcc         ['nishant.n@cisinlabs.com']
     sent_on     Time.now
-    subject     "Spoonfeed: We are sorry!"
+    subject     "Problem with your Spoonfeed Account"
   end  
 
   def send_braintree_subscription_canceled(subscriber)
