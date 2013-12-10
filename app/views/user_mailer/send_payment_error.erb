@@ -4,16 +4,21 @@
 <% if @braintree_customer.class == Restaurant %>
 	<% if @value == "first" %>
 		<p> There seems to be a problem processing your credit card for <%= @braintree_customer.name %>'s Spoonfeed membership. If you have recently received a new credit card, please <%= link_to "go here",new_restaurant_subscription_url(@braintree_customer) %> and update your card. Thank you! </p>
-	<% else %>
-		<p> We've tried a <%= @value %>  to process your credit card for <%= @braintree_customer.name %>'s Spoonfeed membership and were unable to do so. If you have recently received a new credit card, please <%= link_to "go here",new_restaurant_subscription_url(@braintree_customer) %> and update your card. Thank you!</p>
+	<% elsif @value == "second time" %>
+		<p> We've tried a <%= @value %>  to process your credit card for <%= @braintree_customer.name %>'s Spoonfeed membership and were unable to do so. We're going to attempt to run your card again in a day or so, if it needs updating, <%= link_to "you can do that here",new_restaurant_subscription_url(@braintree_customer) %> Thank you!</p>
+	<% else %>	
+		<p> We've tried a <%= @value %>  to process your credit card for <%= @braintree_customer.name %>'s Spoonfeed membership and were unable to do so. We're going to downgrade your account. If you need to update it, <%= link_to "you can do that here",new_restaurant_subscription_url(@braintree_customer) %> Thank you!</p>
 	<% end %>
 <% end  %>
+
 
 <% if @braintree_customer.class == User %>
 	<% if @value == "first" %>
 		<p> There seems to be a problem processing your credit card for <%= @braintree_customer.name %>'s Spoonfeed membership. If you have recently received a new credit card, please <%= link_to "go here",new_user_subscription_url(@braintree_customer) %> and update your card. Thank you! </p>
-	<% else %>
-		<p> We've tried a <%= @value %>  to process your credit card for <%= @braintree_customer.name %>'s Spoonfeed membership and were unable to do so. If you have recently received a new credit card, please <%= link_to "go here",new_user_subscription_url(@braintree_customer) %> and update your card. Thank you!</p>
+ <% elsif @value == "second time" %>
+		<p> We've tried a <%= @value %>  to process your credit card for <%= @braintree_customer.name %>'s Spoonfeed membership and were unable to do so. We're going to attempt to run your card again in a day or so, if it needs updating, <%= link_to "you can do that here",new_user_subscription_url(@braintree_customer) %>  Thank you!</p>
+	<% else %>	
+		<p> We've tried a <%= @value %>  to process your credit card for <%= @braintree_customer.name %>'s Spoonfeed membership and were unable to do so. We're going to downgrade your account. If you need to update it, <%= link_to "you can do that here",new_user_subscription_url(@braintree_customer) %> Thank you!</p>
 	<% end %>
 <% end  %>
 

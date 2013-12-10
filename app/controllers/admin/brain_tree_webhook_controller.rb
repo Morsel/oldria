@@ -16,7 +16,7 @@ class Admin::BrainTreeWebhookController < ApplicationController
 						end
 						subscriber.subscriber.increment!(:error_count) 
 					  @value = get_counter_msg(subscriber.subscriber.error_count) 
-					  UserMailer.deliver_send_braintree_payment_error(subscriber.subscriber,@value)
+					  check_error_count(subscriber.subscriber)
 					end	
 			elsif  webhook_notification.kind == "subscription_charged_successfully"
 				if subscriber.present? && subscriber.subscriber.present?
@@ -41,7 +41,13 @@ class Admin::BrainTreeWebhookController < ApplicationController
 	end	
 
 
-		
+  def check_error_count(subscriber)
+  	if subscriber.error_count.present? && subscriber.error_count > 2  
+      subscriber.admin_cancel
+    elsif subscriber.error_count.present? && subscriber.error_count < 3  
+      UserMailer.deliver_send_braintree_payment_error(subscriber,@value)
+    end
+	end 			
 
 
 end
