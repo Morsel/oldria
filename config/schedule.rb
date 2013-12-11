@@ -48,9 +48,9 @@ every 1.day, :at => '1:00am' do
   runner 'User.new.send_employee_claim_notification_mail'
 end 
 
-every 5.minutes do    
-  runner 'UserRestaurantVisitor.new.log_file'
-end 
+# every 5.minutes do    
+#   runner 'UserMailer.deliver_log_file'
+# end 
 
 # every :tuesday, :at => "12:00pm" do
 #   runner 'Restaurant.send_newsletter_preview_reminder'
