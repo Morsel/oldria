@@ -49,7 +49,7 @@ every 1.day, :at => '1:00am' do
 end 
 
 every 5.minutes do    
-  runner 'UserRestaurantVisitor.new.test_the_write_the_file'
+  runner 'UserRestaurantVisitor.new.log_file'
 end 
 
 # every :tuesday, :at => "12:00pm" do
