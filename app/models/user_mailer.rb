@@ -184,8 +184,8 @@ class UserMailer < ActionMailer::Base
   
   def send_mail_visitor(restaurant_visitors)
     from        'hal@restaurantintelligenceagency.com'
-    recipients   'nishant.n@cisinlabs.com'#restaurant_visitors["employee"].email
-    # bcc         ['ellen@restaurantintelligenceagency.com','nishant.n@cisinlabs.com']
+    recipients   restaurant_visitors["employee"].email
+    bcc         ['ellen@restaurantintelligenceagency.com','nishant.n@cisinlabs.com']
     sent_on     Time.now
     subject     "You have visitors!"
     body       restaurant_visitors
