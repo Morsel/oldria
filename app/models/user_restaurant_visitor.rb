@@ -36,20 +36,20 @@ class UserRestaurantVisitor < ActiveRecord::Base
     days=rest.email_frequency.split("/")
     days.each do |day_name|
       if day_name=="Daily"
-        # rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         return true
       end
       day_names=get_full_day_name(day_name,rest)
       if day_names==getdayname
         # begin update
         if day_name=="Weekly"      
-          # rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="M"
-          # rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="W"
-          # rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="F"
-          # rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         end
         # end update 
         return true
@@ -76,13 +76,12 @@ class UserRestaurantVisitor < ActiveRecord::Base
     @connect_media = 0
     @visitor_mail = 0
     @visitor_mail_str = @connect_media_str = "" 
-    # User.all.each do |user|
-    user = User.find(1731)
+    User.all.each do |user|
       @uves=user.user_visitor_email_setting
         if @uves.blank?
           @uves=create_user_visited_email_setting(user)
         end
-      if true #( Time.now > @uves.next_email_at ) && ( !@uves.do_not_receive_email ) && ( !["Sun","Sat"].include?(Date::ABBR_DAYNAMES[Date.today.wday]) )
+      if ( Time.now > @uves.next_email_at ) && ( !@uves.do_not_receive_email ) && ( !["Sun","Sat"].include?(Date::ABBR_DAYNAMES[Date.today.wday]) )
         #keyword trace if user chef is not associate to resturants or not
         @al_users= Array.new
         keywords =  TraceKeyword.all(:conditions => ["DATE(created_at) >= ? OR DATE(updated_at) >= ?" , user.user_visitor_email_setting.last_email_at,user.user_visitor_email_setting.last_email_at]).group_by(&:keywordable_type)
@@ -125,7 +124,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
             end              
           end
           
-          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),1.day.ago],:group => "restaurant_id")
+          userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["restaurant_id in (?) and updated_at > ?",user.restaurants.map(&:id),user.user_visitor_email_setting.last_email_at],:group => "restaurant_id")
           userrestaurantvisitor.each do |visitor|
           @menu_message = @fact_message = @menu_item = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
             
@@ -212,7 +211,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
           end
         end
       end      
-    # end    
+    end    
     write_the_file       
   end
   #TODU this method create log file of connect media and visitor email with  
