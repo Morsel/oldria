@@ -1,3 +1,4 @@
+require 'chronic'
 class UpdateNextEmailAtColumnToUserVisitorEmailSetting < ActiveRecord::Migration
   def self.up
     UserVisitorEmailSetting.all.each do |uves|
