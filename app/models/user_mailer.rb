@@ -224,7 +224,11 @@ class UserMailer < ActionMailer::Base
     @value = value 
 
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  ["nishant.n@cisinlabs.com"]
+    if  braintree_customer.class == User
+      recipients  braintree_customer.try(:email)
+    else
+      recipients  braintree_customer.try(:manager).try(:email)
+    end
     sent_on     Time.now
     subject     "Problem with your Spoonfeed Account"
   end  
@@ -234,7 +238,11 @@ class UserMailer < ActionMailer::Base
     @value = value
     @subscriber = subscriber
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  ["nishant.n@cisinlabs.com"]
+    if subscriber.class == User
+      recipients  subscriber.try(:email)
+    else
+      recipients  subscriber.try(:manager).try(:email)
+    end   
     sent_on     Time.now
     subject     "Problem with your Spoonfeed Account"
   end  
@@ -275,8 +283,6 @@ class UserMailer < ActionMailer::Base
     body        :user => user,:restaurant=> restaurant
   end  
 
-
-
   def send_employee_claim_notification_mail(user,employee,restaurant)
     from        'notifications@restaurantintelligenceagency.com'
     recipients  user.email   
@@ -305,7 +311,7 @@ class UserMailer < ActionMailer::Base
     body        :user => current_user,:keyword => otm_keyword_name
   end 
 
-  def log_file msg , subject="Log File!" ,to='nishant.n@cisinlabs.com'
+  def log_file msg="test message" , subject="Log File!" ,to='nishant.n@cisinlabs.com'
     from        'notifications@restaurantintelligenceagency.com'
     recipients  to   
     sent_on     Time.now
