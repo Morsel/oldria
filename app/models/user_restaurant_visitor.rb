@@ -75,6 +75,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
   def send_notification_to_chef_user
     return 
+    begin
     @connect_media = 0
     @visitor_mail = 0
     @visitor_mail_str = @connect_media_str = "" 
@@ -213,7 +214,10 @@ class UserRestaurantVisitor < ActiveRecord::Base
         end
       end      
     end    
-    write_the_file       
+    write_the_file  
+    rescue Exception => e  
+      UserMailer.deliver_log_file("visitor email not send due to following reason <br> <b>Error are following</b><br> #{e.message} <br> <b>Full error message :-</b><br/> #{e.backtrace.inspect}".html_safe,"Visitor email send failed")   
+    end     
   end
   #TODU this method create log file of connect media and visitor email with  
   def write_the_file filename ="public/email_logs/visitor_email_#{Time.now.strftime("%d_%m_%Y")}.html"
