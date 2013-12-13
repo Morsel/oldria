@@ -6,7 +6,6 @@ class UserVisitorEmailSetting < ActiveRecord::Base
   after_save :update_email_at_column
 
   validates_presence_of :email_frequency 
-end
 
 
   def update_email_at_column
