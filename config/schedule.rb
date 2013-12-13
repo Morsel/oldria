@@ -36,9 +36,14 @@
 #   rake "subscriptions:purge_expired"
 # end
 
+
 # # every 1.day, :at => '2:30am' do
 # #   runner 'UserRestaurantVisitor.new.send_notification'
 # # end
+
+# every 1.day, :at => '2:30am' do
+#   runner 'UserRestaurantVisitor.new.send_notification_to_chef_user' 
+# end
 
 # every 1.day, :at => '2:30am' do
 #   runner 'UserRestaurantVisitor.new.send_notification_to_chef_user' 

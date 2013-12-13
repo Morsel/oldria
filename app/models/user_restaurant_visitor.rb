@@ -31,20 +31,21 @@ class UserRestaurantVisitor < ActiveRecord::Base
       return "Friday"
     end
   end
-
+  
   def check_email_frequency(rest)
     days=rest.email_frequency.split("/")
     days.each do |day_name|
       if day_name=="Daily"
         rest.update_attributes(:next_email_at=>Chronic.parse("next day 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         return true
+      elsif day_name=="Weekly"
+        rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
+        return true
       end
       day_names=get_full_day_name(day_name,rest)
       if day_names==getdayname
         # begin update
-        if day_name=="Weekly"      
-          rest.update_attributes(:next_email_at=>Chronic.parse("next week Monday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
-        elsif day_name=="M"
+        if day_name=="M"
           rest.update_attributes(:next_email_at=>Chronic.parse("this week Wednesday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
         elsif day_name=="W"
           rest.update_attributes(:next_email_at=>Chronic.parse("this week Friday 12:00am"),:last_email_at=>Chronic.parse("this day 12:00am"))
@@ -57,6 +58,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
     end
     return false
   end
+
 
   def getdayname
     return Date::DAYNAMES[Time.now.wday] # get the current day name
@@ -72,6 +74,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
   end
 
   def send_notification_to_chef_user
+    return 
     @connect_media = 0
     @visitor_mail = 0
     @visitor_mail_str = @connect_media_str = "" 
