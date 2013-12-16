@@ -15,7 +15,7 @@ describe Soapbox::SoapboxEntriesController do
 
   describe "showing a single soapbox entry" do
     it "should find the entry" do
-      entry = Factory(:soapbox_entry)
+      entry = FactoryGirl.create(:soapbox_entry)
       get :show, :id => entry.id
       assigns[:feature].should_not be_nil
     end
@@ -23,13 +23,13 @@ describe Soapbox::SoapboxEntriesController do
 
   describe "showing all questions" do
     it "should show questions of the day" do
-      entry = Factory(:soapbox_entry, :featured_item => question = Factory(:qotd))
+      entry = FactoryGirl.create(:soapbox_entry, :featured_item => question = FactoryGirl.create(:qotd))
       get :qotd, :view_all => true
       assigns[:featured_items].should == [entry.featured_item]
     end
 
     it "should show trend questions" do
-      entry = Factory(:soapbox_entry, :featured_item => Factory(:trend_question))
+      entry = FactoryGirl.create(:soapbox_entry, :featured_item => FactoryGirl.create(:trend_question))
       get :trend
       assigns[:featured_items].should == [entry.featured_item]
     end

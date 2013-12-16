@@ -1,9 +1,9 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::DirectMessagesController do
   before(:each) do
-    @direct_message = Factory(:direct_message)
-    @user = Factory.stub(:admin)
+    @direct_message = FactoryGirl.create(:direct_message)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end
@@ -47,8 +47,8 @@ describe Admin::DirectMessagesController do
 
     describe "with valid params" do
       it "assigns a newly created direct_message as @direct_message" do
-        DirectMessage.stubs(:new).with({'these' => 'params'}).returns(@direct_message)
-        post :create, :direct_message => {:these => 'params'}
+        DirectMessage.stubs(:new).returns(@direct_message)
+        post :create, :direct_message => {:body => 'This is a message'}
         assigns[:direct_message].should equal(@direct_message)
         assigns[:direct_message].should be_from_admin
       end
@@ -62,9 +62,9 @@ describe Admin::DirectMessagesController do
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved direct_message as @direct_message" do
-        DirectMessage.stubs(:new).with({'these' => 'params'}).returns(@direct_message)
+        DirectMessage.stubs(:new).returns(@direct_message)
         @direct_message.stubs(:valid?).returns(false)
-        post :create, :direct_message => {:these => 'params'}
+        post :create, :direct_message => {:body => 'This is a message'}
         assigns[:direct_message].should equal(@direct_message)
       end
 
@@ -83,8 +83,8 @@ describe Admin::DirectMessagesController do
     describe "with valid params" do
       it "updates the requested direct_message" do
         DirectMessage.expects(:find).with("37").returns(@direct_message)
-        @direct_message.expects(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :direct_message => {:these => 'params'}
+        @direct_message.expects(:update_attributes).with({'body' => 'params'})
+        put :update, :id => "37", :direct_message => {:body => 'params'}
       end
 
       it "assigns the requested direct_message as @direct_message" do
@@ -107,8 +107,8 @@ describe Admin::DirectMessagesController do
 
       it "updates the requested direct_message" do
         DirectMessage.expects(:find).with("37").returns(@direct_message)
-        @direct_message.expects(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :direct_message => {:these => 'params'}
+        @direct_message.expects(:update_attributes).with({'body' => 'params'})
+        put :update, :id => "37", :direct_message => {:body => 'params'}
       end
 
       it "assigns the direct_message as @direct_message" do

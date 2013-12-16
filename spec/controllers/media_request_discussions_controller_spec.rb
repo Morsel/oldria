@@ -3,9 +3,9 @@ require_relative '../spec_helper'
 describe MediaRequestDiscussionsController do
 
   before(:each) do
-    @employee = Factory(:user)
-    @recipient = Factory(:employment, :employee => @employee)
-    @mrc = Factory(:media_request_discussion, :restaurant => @recipient.restaurant)
+    @employee = FactoryGirl.create(:user)
+    @recipient = FactoryGirl.create(:employment, :employee => @employee)
+    @mrc = FactoryGirl.create(:media_request_discussion, :restaurant => @recipient.restaurant)
     MediaRequestDiscussion.stubs(:find).returns(@mrc)
     @mrc.stubs(:viewable_by?).with(@recipient).returns(true)
     controller.stubs(:current_user).returns(@employee)

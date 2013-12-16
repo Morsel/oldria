@@ -1,16 +1,16 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::RestaurantsController do
   integrate_views
   before do
-    @user = Factory.stub(:admin)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end
 
   describe "GET index" do
     before do
-      @restaurants = [Factory.stub(:restaurant, :name => "Jims")]
+      @restaurants = [FactoryGirl.create(:restaurant, :name => "Jims")]
       Restaurant.stubs(:find).returns(@restaurants)
       get :index
     end
@@ -34,7 +34,7 @@ describe Admin::RestaurantsController do
 
   describe "GET edit" do
     before do
-      @restaurant = Factory.stub(:restaurant, :name => "HiLo")
+      @restaurant = FactoryGirl.create(:restaurant, :name => "HiLo")
       Restaurant.stubs(:find).returns(@restaurant)
       get :edit, :id => @restaurant.id
     end
@@ -49,7 +49,7 @@ describe Admin::RestaurantsController do
 
   describe "PUT update" do
     before do
-      @restaurant = Factory.stub(:restaurant, :name => "HiLo")
+      @restaurant = FactoryGirl.create(:restaurant, :name => "HiLo")
       Restaurant.stubs(:find).returns(@restaurant)
     end
 
@@ -62,7 +62,7 @@ describe Admin::RestaurantsController do
       it { response.should redirect_to(admin_restaurants_path) }
 
       it "should flash a notice message" do
-        response.flash[:notice].should_not be_nil
+        request.flash[:notice].should_not be_nil
       end
     end
 
@@ -75,14 +75,14 @@ describe Admin::RestaurantsController do
       it { response.should render_template(:edit) }
 
       it "should flash an error message" do
-        response.flash[:error].should_not be_nil
+        request.flash[:error].should_not be_nil
       end
     end
   end
 
   describe "DELETE destroy" do
     before do
-      @restaurant = Factory.stub(:restaurant, :name => "What!")
+      @restaurant = FactoryGirl.create(:restaurant, :name => "What!")
       @restaurant.expects(:destroy).returns(@restaurant)
       Restaurant.stubs(:find).returns(@restaurant)
       delete :destroy, :id => @restaurant.id

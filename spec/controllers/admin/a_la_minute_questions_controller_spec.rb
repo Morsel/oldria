@@ -1,17 +1,17 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::ALaMinuteQuestionsController do
-  include ActionView::Helpers::RecordIdentificationHelper
+  include ActionController::RecordIdentifier
 
   before(:each) do
-    @user = Factory.stub(:admin)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end
 
   describe "POST edit_in_place" do
 
-    let(:question) { Factory(:a_la_minute_question, :id => 1) }
+    let(:question) { FactoryGirl.create(:a_la_minute_question, :id => 1) }
 
     describe "successful update" do
       before(:each) do

@@ -65,7 +65,7 @@ default_url_options[:host] = DEFAULT_HOST
 
   attr_accessor :search_keywords
   attr_accessible :post_to_twitter_at, :post_to_facebook_at,:name, :description, :price, :pairing, :search_keywords, :otm_keyword_ids,
-  :photo, :twitter_posts_attributes, :facebook_posts_attributes, :otm_keywords
+  :photo, :twitter_posts_attributes, :facebook_posts_attributes, :otm_keywords,:restaurant_id
   def keywords
     otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence
   end

@@ -623,7 +623,7 @@ class User < ActiveRecord::Base
   end  
 
   def get_employee_requests
-    RestaurantEmployeeRequest.find(:all,:conditions=>["restaurant_id in (?) and deleted_at is null ",self.restaurants.all(:select=>"restaurants.id")])
+    RestaurantEmployeeRequest.find(:all,:conditions=>["restaurant_id in (?) and deleted_at is null ",self.restaurants.map(&:id)])#all(:select=>"restaurants.id")])
   end  
 
   def create_newsletter_subscriber

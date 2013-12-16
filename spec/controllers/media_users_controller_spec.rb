@@ -4,7 +4,7 @@ describe Mediafeed::MediaUsersController do
   integrate_views
 
   before(:each) do
-    @user = Factory(:media_user)
+    @user = FactoryGirl.create(:media_user)
   end
 
   describe "GET new" do
@@ -33,7 +33,7 @@ describe Mediafeed::MediaUsersController do
     end
 
     it "create action should redirect when model is valid" do
-      UserMailer.expects(:deliver_signup).returns true
+      UserMailer.signup.deliver.returns true
       User.any_instance.stubs(:valid?).returns(true)
       post :create, :user => { :first_name => "Media", :last_name => "User", :username => "media2", :email => "notme@newsy.com", :password => "secret", :password_confirmation => "secret" }
       response.should be_redirect

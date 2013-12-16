@@ -1,10 +1,10 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::RestaurantFeaturePagesController do
-  include ActionView::Helpers::RecordIdentificationHelper
+  include ActionController::RecordIdentifier
 
   before(:each) do
-    @user = Factory.stub(:admin)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end

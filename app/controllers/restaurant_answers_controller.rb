@@ -33,7 +33,7 @@ class RestaurantAnswersController < ApplicationController
     @answer = RestaurantAnswer.find(params[:id])
     @question = @answer.restaurant_question
 
-    if @answer.destroy
+    if @answer.delete
       flash[:notice] = "Your answer has been deleted"
       redirect_to restaurant_questions_path(:restaurant_id => @restaurant.id, 
                                       :chapter_id => @question.chapter.id, 

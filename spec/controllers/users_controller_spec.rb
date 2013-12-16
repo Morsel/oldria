@@ -5,11 +5,11 @@ describe UsersController do
   describe "GET index" do
     context "responding with js" do
       before(:each) do
-        current_user = Factory(:user)
+        current_user = FactoryGirl.create(:user)
         controller.stubs(:current_user).returns(current_user)
 
-        @john1 = Factory.stub(:user, :first_name => "John", :last_name => "Hamm")
-        @john2 = Factory.stub(:user, :first_name => "John", :last_name => "Manner")
+        @john1 = FactoryGirl.stub(:user, :first_name => "John", :last_name => "Hamm")
+        @john2 = FactoryGirl.stub(:user, :first_name => "John", :last_name => "Manner")
       end
 
       it "should return a list of found users, joined by newlines" do
@@ -24,13 +24,13 @@ describe UsersController do
 
   describe "GET show" do
     before(:each) do
-      @user = Factory(:user, :id => 3)
+      @user = FactoryGirl.create(:user, :id => 3)
       User.stubs(:find).returns(@user)
     end
 
     context "as a logged in user" do
       before(:each) do
-        current_user = Factory(:user)
+        current_user = FactoryGirl.create(:user)
         controller.stubs(:current_user).returns current_user
       end
 
@@ -51,7 +51,7 @@ describe UsersController do
       end
 
       it "should process a request to send a new email" do
-        user = Factory(:user, :email => "foo@bar.com")
+        user = FactoryGirl.create(:user, :email => "foo@bar.com")
         UserMailer.expects(:deliver_signup).with(user)
         post :resend_confirmation, :email => "foo@bar.com"
         response.should be_redirect
@@ -70,7 +70,7 @@ describe UsersController do
   describe "editing" do
 
     it "should render the edit page" do
-      user = Factory(:user)
+      user = FactoryGirl.create(:user)
       controller.stubs(:current_user).returns(user)
       get :edit, :id => user.id
       response.should redirect_to(edit_user_profile_path(:user_id => user.id))
@@ -81,7 +81,7 @@ describe UsersController do
   describe "updating user attributes" do
 
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
       controller.stubs(:current_user).returns(@user)
       User.expects(:find).at_least_once.returns(@user)
     end
@@ -97,7 +97,7 @@ describe UsersController do
     end
 
     it "should set a new alternate editor" do
-      editor = Factory(:published_user, :name => "Editor User")
+      editor = FactoryGirl.create(:published_user, :name => "Editor User")
       User.expects(:find_by_name).with(editor.name).returns(editor)
       put :update, :id => @user.id, :user => { :editor => editor.name }
       @user.user_editors.first.editor_id.should == editor.id
@@ -108,11 +108,11 @@ describe UsersController do
   describe "updating editors" do
 
     it "should remove an editor" do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
       controller.stubs(:current_user).returns(@user)
       User.expects(:find).with(@user.id.to_s).returns(@user)
 
-      editor = Factory.stub(:published_user)
+      editor = FactoryGirl.stub(:published_user)
       @user.editors << editor
       @user.user_editors.size.should == 1
 

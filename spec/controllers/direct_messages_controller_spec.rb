@@ -7,10 +7,10 @@ describe DirectMessagesController do
   end
 
   before(:each) do
-    @sender = Factory(:user)
+    @sender = FactoryGirl.create(:user)
     @sender.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@sender)
-    @receiver = Factory(:user, :username => 'getterboy')
+    @receiver = FactoryGirl.create(:user, :username => 'getterboy')
   end
 
   describe "GET new" do
@@ -28,7 +28,7 @@ describe DirectMessagesController do
     end
 
     it "should redirect when model is saved successfully" do
-      @sender.sent_direct_messages.stubs(:build).returns(message = Factory(:direct_message))
+      @sender.sent_direct_messages.stubs(:build).returns(message = FactoryGirl.create(:direct_message))
       DirectMessage.any_instance.stubs(:save).returns(true)
       post :create, :direct_message => {}, :user_id => @receiver.id
       response.should redirect_to(direct_message_path(message))
@@ -46,9 +46,9 @@ describe DirectMessagesController do
 
     describe "when the direct message is a reply" do
       before(:each) do
-        @dm = Factory.stub(:direct_message, :receiver => @sender, :sender => @receiver)
+        @dm = FactoryGirl.create(:direct_message, :receiver => @sender, :sender => @receiver)
         DirectMessage.stubs(:find).returns(@dm)
-        @dm_params = Factory.attributes_for(:direct_message, :receiver => @receiver, :sender => @sender, :in_reply_to_message_id => '2')
+        @dm_params = FactoryGirl.attributes_for(:direct_message, :receiver => @receiver, :sender => @sender, :in_reply_to_message_id => '2')
       end
 
       it "should handle in_reply_to_message_id" do

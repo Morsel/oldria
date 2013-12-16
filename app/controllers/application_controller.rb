@@ -259,7 +259,7 @@ class ApplicationController < ActionController::Base
 
   def save_search
     if params[:search] && defined?(@employment_search)
-      @employment_search.search_attributes = normalized_search_params
+      @employment_search.conditions = normalized_search_params
       return @employment_search.save
     end
     false
@@ -273,14 +273,14 @@ class ApplicationController < ActionController::Base
   # For use when building the search on a Trend Question or other message
   def build_search(resource = nil)
     return false unless resource
-    @search = Employment.search(normalized_search_params)
+    @search = normalized_search_params.has_key?(:id) ? Employment : Employment.search(normalized_search_params)
 
     @employment_search = if resource.employment_search
-      resource.employment_search.search_attributes = @search.search_attributes
+      resource.employment_search.conditions = @search.search.search_attributes
       resource.employment_search
     else
-      #instead of @search.conditions use @search.search_attributes
-      resource.build_employment_search(:conditions => @search.search_attributes)
+      #instead of @search.conditions use @search.search_attributes for meta_search
+      resource.build_employment_search(:conditions => @search.search.search_attributes)
     end
   end
 

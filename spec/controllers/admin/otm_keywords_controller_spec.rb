@@ -1,9 +1,9 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::OtmKeywordsController do
 
   before(:each) do
-    @user = Factory.stub(:admin)
+    @user = FactoryGirl.create(:admin)
     controller.stubs(:current_user).returns(@user)
   end
 
@@ -22,7 +22,7 @@ describe Admin::OtmKeywordsController do
   end
 
   it "should create a new keyword" do
-    keyword = Factory.build(:otm_keyword)
+    keyword = FactoryGirl.build(:otm_keyword)
     OtmKeyword.expects(:new).returns(keyword)
     keyword.expects(:save).returns(true)
     post :create, :otm_keyword => { :name => "Foo", :category => "Bar" }
@@ -31,7 +31,7 @@ describe Admin::OtmKeywordsController do
 
   describe "GET 'edit'" do
     it "should be successful" do
-      keyword = Factory(:otm_keyword)
+      keyword = FactoryGirl.create(:otm_keyword)
       get 'edit', :id => keyword.id
       response.should be_success
     end

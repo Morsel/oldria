@@ -3,14 +3,14 @@ require_relative '../spec_helper'
 describe UserSessionsController do
 
   it "should create a new session with valid login and password given" do
-    user = Factory(:user)
+    user = FactoryGirl.create(:user)
     params = { :username => user.username, :password => "secret" }
     post :create, :user_session => params
     response.should be_redirect
   end
   
   it "should display an error when an invalid password is given" do
-    user = Factory(:user)
+    user = FactoryGirl.create(:user)
     params = { :username => user.username, :password => "foo" }
     post :create, :user_session => params
     assigns[:user_session].errors.count.should == 1
@@ -18,7 +18,7 @@ describe UserSessionsController do
   end
   
   it "should display an error when the user's account has not been confirmed" do
-    user = Factory(:user, :confirmed_at => nil)
+    user = FactoryGirl.create(:user, :confirmed_at => nil)
     params = { :username => user.username, :password => "secret" }
     post :create, :user_session => params
     assigns[:user_session].errors.count.should == 1

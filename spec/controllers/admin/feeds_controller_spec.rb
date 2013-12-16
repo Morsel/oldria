@@ -1,10 +1,10 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::FeedsController do
   integrate_views
   before(:each) do
-    Factory(:feed, :no_entries => true)
-    @user = Factory(:admin)
+    FactoryGirl.create(:feed, :no_entries => true)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end

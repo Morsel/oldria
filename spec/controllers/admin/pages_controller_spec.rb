@@ -1,10 +1,10 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::PagesController do
   integrate_views
   before(:each) do
-    Factory(:page)
-    @user = Factory.stub(:admin)
+    FactoryGirl.create(:page)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end

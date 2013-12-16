@@ -1,11 +1,11 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::CuisinesController do
   integrate_views
 
   before(:each) do
-    @cuisine = Factory.stub(:cuisine)
-    @user = Factory.stub(:admin)
+    @cuisine = FactoryGirl.create(:cuisine)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
     controller.stubs(:require_admin).returns(true)

@@ -12,7 +12,6 @@ describe ApprenticeshipsController do
   it "should create a new apprenticeship" do
     post :create, :user_id => @user.id, 
         :apprenticeship => { :establishment => "House of Interns", :supervisor => "Captain Crunch", :year => 1980,:start_date =>Time.now }
-    # debugger
     Apprenticeship.count.should == 1
   end
   

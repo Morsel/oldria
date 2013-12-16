@@ -3,10 +3,10 @@ require_relative '../spec_helper'
 describe DirectoryController do
 
   before(:each) do
-    current_user = Factory(:user)
+    current_user = FactoryGirl.create(:user)
     controller.stubs(:current_user).returns(current_user)
-    Factory(:published_user); Factory(:published_user)
-    Factory(:restaurant); Factory(:restaurant)
+    FactoryGirl.create(:published_user); FactoryGirl.create(:published_user)
+    FactoryGirl.create(:restaurant); FactoryGirl.create(:restaurant)
   end
 
   it "should show a list of all visible users" do
@@ -15,7 +15,7 @@ describe DirectoryController do
   end
 
   it "should show a list of all activated restaurants" do
-    Factory(:restaurant, :is_activated=> false);Factory(:restaurant, :is_activated=> true)
+    FactoryGirl.create(:restaurant, :is_activated=> false);FactoryGirl.create(:restaurant, :is_activated=> true)
     get :restaurants
     assigns[:restaurants].count.should == Restaurant.activated_restaurant.count
   end

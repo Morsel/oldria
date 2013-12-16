@@ -4,7 +4,7 @@ describe CompleteRegistrationsController do
   integrate_views
   before do
     fake_normal_user
-    User.stubs(:find).returns(@user = Factory(:user))
+    User.stubs(:find).returns(@user = FactoryGirl.create(:user))
   end
 
   describe "GET show" do
@@ -30,7 +30,7 @@ describe CompleteRegistrationsController do
 
     it "should redirect to the dashboard when data is valid and the user has a default employment" do
       @user.stubs(:valid?).returns(true)
-      @user.stubs(:primary_employment).returns(Factory(:default_employment, :employee => @user))
+      @user.stubs(:primary_employment).returns(FactoryGirl.create(:default_employment, :employee => @user))
       put :update, :user => { :id => 1 }
       response.should redirect_to(root_url)
     end
@@ -42,7 +42,7 @@ describe CompleteRegistrationsController do
   #   it "should allow a user to search for their restaurant" do
   #     User.any_instance.stubs(:restaurants).returns([])
   #     
-  #     restaurant = Factory(:restaurant, :name => "Some Pig")
+  #     restaurant = FactoryGirl.create(:restaurant, :name => "Some Pig")
   #     Restaurant.expects(:find).returns([restaurant])
   #     
   #     post :find_restaurant, :restaurant_name => restaurant.name
@@ -50,7 +50,7 @@ describe CompleteRegistrationsController do
   #   end
   # 
   #   it "should allow a user to contact their restaurant to be added" do
-  #     restaurant = Factory(:restaurant, :name => "Some Pig")
+  #     restaurant = FactoryGirl.create(:restaurant, :name => "Some Pig")
   #     UserMailer.expects(:deliver_employee_request).with(restaurant, controller.current_user).returns(true)
   #     post :contact_restaurant, :restaurant_id => restaurant.id
   #     response.should be_redirect

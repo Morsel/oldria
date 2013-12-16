@@ -1,11 +1,11 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::MessagesController do
   integrate_views
 
   before(:each) do
     fake_admin_user
-    @message = Factory(:admin_message, :type => 'Admin::Qotd')
+    @message = FactoryGirl.create(:admin_message, :type => 'Admin::Qotd')
   end
 
   describe "GET index" do

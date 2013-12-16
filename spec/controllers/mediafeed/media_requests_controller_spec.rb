@@ -1,10 +1,10 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Mediafeed::MediaRequestsController do
   integrate_views
 
   before(:each) do
-    @user = Factory(:user, :publication => 'New York Times')
+    @user = FactoryGirl.create(:user, :publication => 'New York Times')
     @user.has_role! :media
     controller.stubs(:current_user).returns(@user)
   end
@@ -25,7 +25,7 @@ describe Mediafeed::MediaRequestsController do
 
   describe "POST create" do
     before do
-      @media_request = Factory.build(:media_request, :sender_id => @user.id)
+      @media_request = FactoryGirl.build(:media_request, :sender_id => @user.id)
       @user.media_requests.expects(:build).returns(@media_request)
     end
 
@@ -45,20 +45,20 @@ describe Mediafeed::MediaRequestsController do
       end
 
       it { response.should render_template(:new) }
-      it { response.flash[:error].should_not be_nil }
+      it { request.flash[:error].should_not be_nil }
     end
     
     it "should require the user to submit a search with subject matter" do
       post :create, :search => { :subject_matters_id_equals_any => [] }, :media_request => {}
       response.should render_template(:new)
-      response.flash[:error].should_not be_nil
+      request.flash[:error].should_not be_nil
     end
 
   end
 
   describe "GET edit" do
     before do
-      @media_request = Factory.stub(:media_request, :sender => @user)
+      @media_request = FactoryGirl.create(:media_request, :sender => @user)
       MediaRequest.stubs(:find).returns(@media_request)
     end
 

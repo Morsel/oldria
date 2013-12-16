@@ -3,10 +3,10 @@ require_relative '../spec_helper'
 describe PhotosController do
   describe "GET reorder" do
     let :restaurant do
-      restaurant = Factory(:restaurant)
-      3.times {restaurant.photos << Factory(:photo)}
+      restaurant = FactoryGirl.create(:restaurant)
+      3.times {restaurant.photos << FactoryGirl.create(:photo)}
 
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
       controller.stubs(:current_user).returns(@user)
       controller.stubs(:require_admin).returns(false)
 

@@ -1,10 +1,10 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::ContentRequestsController do
   integrate_views
   before(:each) do
     fake_admin_user
-    Factory(:content_request)
+    FactoryGirl.create(:content_request)
   end
 
   it "index action should render index template" do

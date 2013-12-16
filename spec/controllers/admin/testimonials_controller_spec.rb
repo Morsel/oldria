@@ -1,9 +1,9 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::TestimonialsController do
 
   before(:each) do
-    @user = Factory(:admin)
+    @user = FactoryGirl.create(:admin)
     controller.stubs(:current_user).returns(@user)    
   end
 
@@ -13,7 +13,7 @@ describe Admin::TestimonialsController do
   end
   
   it "should let an admin create a new testimonials" do
-    testimonial = Factory.build(:testimonial)
+    testimonial = FactoryGirl.build(:testimonial)
     Testimonial.expects(:new).returns(testimonial)
     testimonial.expects(:save).returns(true)
     post :create, :testimonial => { }
@@ -21,7 +21,7 @@ describe Admin::TestimonialsController do
   end
   
   it "should let an admin update a testimonial" do
-    testimonial = Factory(:testimonial)
+    testimonial = FactoryGirl.create(:testimonial)
     Testimonial.expects(:find).returns(testimonial)
     testimonial.expects(:update_attributes).returns(true)
     put :update, :id => testimonial.id, :soapbox_slide => { }

@@ -4,13 +4,13 @@ describe DiscussionsController do
   integrate_views
 
   before do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     controller.stubs(:current_user).returns(@user)
   end
 
   describe "GET 'show'" do
     before do
-      @discussion = Factory(:discussion, :poster => @user)
+      @discussion = FactoryGirl.create(:discussion, :poster => @user)
       get :show, :id => @discussion.id
     end
 
@@ -21,7 +21,7 @@ describe DiscussionsController do
 
   describe "GET new" do
     before do
-      @employment = Factory(:employment, :employee => @user)
+      @employment = FactoryGirl.create(:employment, :employee => @user)
       @user.stubs(:messages_from_ria).returns([])
       get :new
     end
@@ -41,7 +41,7 @@ describe DiscussionsController do
 
     context "when discussion is valid" do
       before do
-        @discussion = Factory(:discussion)
+        @discussion = FactoryGirl.create(:discussion)
         Discussion.expects(:new).returns(@discussion)
         @discussion.stubs(:save).returns(@discussion)
         post :create, :discussion => {}

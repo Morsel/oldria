@@ -34,7 +34,7 @@ include ActionDispatch::Routing::UrlFor
               :offset => 1
 
   scope :daily_feature, :conditions => { :daily_feature => true }, :order => "updated_at DESC"
-  attr_accessible :featured_item_id, :featured_item_type, :description, :published_at, :daily_feature
+  attr_accessible :featured_item_id, :featured_item_type, :description, :published_at, :daily_feature,:featured_item
 
 
   def title

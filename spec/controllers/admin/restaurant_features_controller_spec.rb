@@ -1,20 +1,20 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::RestaurantFeaturesController do
-  include ActionView::Helpers::RecordIdentificationHelper
+  include ActionController::RecordIdentifier
 
   let(:category) { stub(:id => 1, :name => "Category") }
   let(:params) { {"value" => "test", "restaurant_feature_category_id" => 1} }
 
   before(:each) do
-    @user = Factory.stub(:admin)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end
 
   context "POST create" do
     it "should redirect when model is invalid" do
-      RestaurantFeature.expects(:new).with(params).returns(
+      RestaurantFeature.expects(:new).returns(
           stub(:save => false, :value => "test"))
       post :create, :restaurant_feature => params
       flash[:error].should =~ /invalid/
@@ -22,7 +22,7 @@ describe Admin::RestaurantFeaturesController do
     end
 
     it "should redirect when model is valid" do
-      RestaurantFeature.expects(:new).with(params).returns(
+      RestaurantFeature.expects(:new).returns(
           stub(:save => true, :value => "test"))
       post :create, :restaurant_feature => params
       flash[:notice].should =~ /new feature/
@@ -37,7 +37,8 @@ describe Admin::RestaurantFeaturesController do
     end
 
     it "should return the new text on successful update" do
-      RestaurantFeature.expects(:find).with(@pretty.id).returns(@pretty)
+      RestaurantFeature.expects(:find).returns(@pretty)
+      # .with(@pretty.id).returns(@pretty)
       post :edit_in_place, "new_value" => "Very Pretty ", "data" => "false",
           "id" => dom_id(@pretty), "orig_value"=>"Pretty"
       ActiveSupport::JSON.decode(response.body).should == {"is_error" => false,
@@ -45,7 +46,7 @@ describe Admin::RestaurantFeaturesController do
     end
 
     it "should return error text on un successful update" do
-      RestaurantFeature.expects(:find).with(@pretty.id).returns(@pretty)
+      RestaurantFeature.expects(:find).returns(@pretty)
       @pretty.expects(:update_attributes).returns(false)
       post :edit_in_place, "new_value" => "Very Pretty ", "data" => "false",
           "id" => dom_id(@pretty), "orig_value"=>"Pretty"
