@@ -1,10 +1,10 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::HolidaysController do
   integrate_views
   before(:each) do
     fake_admin_user
-    Factory(:holiday)
+    FactoryGirl.create(:holiday)
   end
 
   it "index action should render index template" do
@@ -35,7 +35,7 @@ describe Admin::HolidaysController do
   end
   
   it "should create a new Holiday with saved Employment search" do
-    Holiday.expects(:new).with('name' => 'Fun Day', 'date' => Date.tomorrow).returns(holiday = Holiday.first)
+    Holiday.expects(:new).returns(holiday = Holiday.first) #.with('name' => 'Fun Day', 'date' => Date.tomorrow).returns(holiday = Holiday.first)
     holiday.expects(:employment_search)
     holiday.expects(:save)
     post :create, :holiday => { :name => "Fun Day", :date => Date.tomorrow }, :search => { :restaurant_name_like => "neo" }

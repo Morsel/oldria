@@ -1,14 +1,14 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::MediaRequestsController do
   integrate_views
 
   before(:each) do
-    @sender = Factory(:media_user)
-    @user = Factory.stub(:admin)
+    @sender = FactoryGirl.create(:media_user)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
-    @media_request = Factory.stub(:media_request, :id => 29, :sender => @sender)
+    @media_request = FactoryGirl.create(:media_request, :id => 29, :sender => @sender)
   end
 
   describe "GET index" do
@@ -19,7 +19,7 @@ describe Admin::MediaRequestsController do
     end
 
     it "should assign @media_requests" do
-      sender = Factory(:media_user, :id => 49)
+      sender = FactoryGirl.create(:media_user, :id => 49)
       media_requests = [@media_request]
       MediaRequest.expects(:find).returns(media_requests)
       get :index

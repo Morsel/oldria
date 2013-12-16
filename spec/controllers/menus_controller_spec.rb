@@ -4,13 +4,13 @@ describe MenusController do
 
   describe "POST reorder" do
 
-    let(:restaurant) { Factory(:restaurant) }
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
 
     before(:each) do
       fake_admin_user
-      @menu_a = Factory(:menu, :position => "1", :restaurant => restaurant)
-      @menu_b = Factory(:menu, :position => "2", :restaurant => restaurant)
-      @menu_c = Factory(:menu, :position => "3", :restaurant => restaurant)
+      @menu_a = FactoryGirl.create(:menu, :position => "1", :restaurant => restaurant)
+      @menu_b = FactoryGirl.create(:menu, :position => "2", :restaurant => restaurant)
+      @menu_c = FactoryGirl.create(:menu, :position => "3", :restaurant => restaurant)
     end
 
     it "should reorder based on ids" do

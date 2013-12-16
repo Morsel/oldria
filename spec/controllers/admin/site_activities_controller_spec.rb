@@ -1,9 +1,9 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::SiteActivitiesController do
 
   before(:each) do
-    @user = Factory.stub(:admin)
+    @user = FactoryGirl.create(:admin)
     controller.stubs(:current_user).returns(@user)
   end
 

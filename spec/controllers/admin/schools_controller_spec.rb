@@ -1,9 +1,9 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
  
 describe Admin::SchoolsController do
   integrate_views
   before(:each) do
-    Factory(:school)
+    FactoryGirl.create(:school)
     fake_admin_user
   end
 

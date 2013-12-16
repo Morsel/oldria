@@ -1,14 +1,14 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Soapbox::RestaurantsController do
   describe "GET show" do
 
-    let(:restaurant) { Factory(:restaurant) }
+    let(:restaurant) { FactoryGirl.create(:restaurant) }
 
     describe "premium" do
 
       it "should work fine" do
-        restaurant.subscription = Factory(:subscription)
+        restaurant.subscription = FactoryGirl.create(:subscription)
         get :show, :id => restaurant.id
         response.should be_success
       end
@@ -29,15 +29,15 @@ describe Soapbox::RestaurantsController do
   describe "subscribing to a restaurant's newsletter" do
 
     before(:each) do
-      @restaurant = Factory(:restaurant)
-      @subscriber = Factory(:newsletter_subscriber)
+      @restaurant = FactoryGirl.create(:restaurant)
+      @subscriber = FactoryGirl.create(:newsletter_subscriber)
       
-      MailchimpConnector.stubs(:new).returns(mc = mock)
-      mc.stubs(:client).returns(client = mock)
-      mc.stubs(:mailing_list_id).returns(1234)
+      # MailchimpConnector.stubs(:new).returns(mc = mock)
+      # mc.stubs(:client).returns(client = mock)
+      # mc.stubs(:mailing_list_id).returns(1234)
 
-      client.stubs(:list_interest_groupings).returns("#{@restaurant.name} in #{@restaurant.city} #{@restaurant.state}")
-      client.stubs(:list_update_member).returns(true)
+      # client.stubs(:list_interest_groupings).returns("#{@restaurant.name} in #{@restaurant.city} #{@restaurant.state}")
+      # client.stubs(:list_update_member).returns(true)
     end
 
     it "should allow a newsletter subscriber to add a restaurant subscription" do

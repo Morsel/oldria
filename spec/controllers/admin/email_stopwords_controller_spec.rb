@@ -1,9 +1,9 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::EmailStopwordsController do
 
   before(:each) do
-    @user = Factory(:admin)
+    @user = FactoryGirl.create(:admin)
     controller.stubs(:current_user).returns(@user)    
   end
 

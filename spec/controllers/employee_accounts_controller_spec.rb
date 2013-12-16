@@ -4,12 +4,12 @@ describe EmployeeAccountsController do
   
   describe "POST create" do
     
-    let(:user) { Factory(:user) }
-    let(:restaurant) { Factory(:restaurant, :manager => user) }
-    let(:employee) { Factory(:user) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:restaurant) { FactoryGirl.create(:restaurant, :manager => user) }
+    let(:employee) { FactoryGirl.create(:user) }
     
     before(:each) do
-      restaurant.subscription = Factory(:subscription, :payer => restaurant)
+      restaurant.subscription = FactoryGirl.create(:subscription, :payer => restaurant)
       controller.stubs(:current_user).returns(user)
       restaurant.employees << employee
       restaurant.save!
@@ -96,7 +96,7 @@ describe EmployeeAccountsController do
       
       before(:each) do
         BraintreeConnector.expects(:set_add_ons_for_subscription).never
-        post :create, :restaurant_id => restaurant.id, :id => Factory(:user).id
+        post :create, :restaurant_id => restaurant.id, :id => FactoryGirl.create(:user).id
       end
       
       it "does not create a user account" do
@@ -136,12 +136,12 @@ describe EmployeeAccountsController do
   
   describe "DELETE destroy" do
     
-    let(:user) { Factory(:user) }
-    let(:restaurant) { Factory(:restaurant, :manager => user) }
-    let(:employee) { Factory(:user) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:restaurant) { FactoryGirl.create(:restaurant, :manager => user) }
+    let(:employee) { FactoryGirl.create(:user) }
     
     before(:each) do
-      restaurant.subscription = Factory(:subscription, :payer => restaurant)
+      restaurant.subscription = FactoryGirl.create(:subscription, :payer => restaurant)
       controller.stubs(:current_user).returns(user)
       restaurant.employees << employee
       restaurant.save!
@@ -150,10 +150,10 @@ describe EmployeeAccountsController do
     describe "cancel an user account for a restaurant with more than two accounts" do
       
       before(:each) do
-        user.update_attributes(:subscription => Factory(:subscription,
+        user.update_attributes(:subscription => FactoryGirl.create(:subscription,
             :payer => restaurant))
-        user2 = Factory(:user)
-        user2.update_attributes(:subscription => Factory(:subscription,
+        user2 = FactoryGirl.create(:user)
+        user2.update_attributes(:subscription => FactoryGirl.create(:subscription,
             :payer => restaurant))
         BraintreeConnector.expects(:set_add_ons_for_subscription).with(
             restaurant.subscription, 1).returns(stub(:success? => true))
@@ -175,7 +175,7 @@ describe EmployeeAccountsController do
     describe "with a braintree failure" do
       
       before(:each) do
-        user.update_attributes(:subscription => Factory(:subscription,
+        user.update_attributes(:subscription => FactoryGirl.create(:subscription,
             :payer => restaurant))
         BraintreeConnector.expects(:set_add_ons_for_subscription).with(
             restaurant.subscription, 0).returns(stub(:success? => false))
@@ -194,10 +194,10 @@ describe EmployeeAccountsController do
     describe "with a security failure" do
       
       before(:each) do
-        user.update_attributes(:subscription => Factory(:subscription,
+        user.update_attributes(:subscription => FactoryGirl.create(:subscription,
             :payer => restaurant))
         BraintreeConnector.expects(:set_add_ons_for_subscription).never
-        delete :destroy, :restaurant_id => restaurant.id, :id => Factory(:user).id
+        delete :destroy, :restaurant_id => restaurant.id, :id => FactoryGirl.create(:user).id
       end
       
       it "does not create a user account" do

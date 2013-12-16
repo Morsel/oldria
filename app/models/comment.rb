@@ -33,7 +33,7 @@ class Comment < ActiveRecord::Base
       Date.today]
   }
 
-  attr_accessible :user_id, :comment,:user,:attachments_attributes,:title,:commentable_id,:commentable_type
+  attr_accessible :user_id, :comment,:user,:attachments_attributes,:title,:commentable_id,:commentable_type,:commentable
   #validates_presence_of :comment
 
   attr_accessor :post_to_facebook

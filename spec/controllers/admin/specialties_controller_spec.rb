@@ -1,4 +1,4 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::SpecialtiesController do
   
@@ -8,21 +8,21 @@ describe Admin::SpecialtiesController do
 
   it "should create a new specialty" do
     post :create, :specialty => { :name => "Awesomesauce" }
-    response.should redirect_to('admin/specialties')
+    response.should be_redirect #_to('admin/specialties')
     Specialty.count.should == 1
   end
   
   it "should update a specialty" do
-    Specialty.expects(:find).with("1").returns(specialty = Factory(:specialty))
+    Specialty.expects(:find).with("1").returns(specialty = FactoryGirl.create(:specialty))
     specialty.expects(:update_attributes).with("name" => "New Thing").returns(true)
     put :update, :id => 1, :specialty => { :name => "New Thing" }
-    response.should redirect_to('admin/specialties')
+    response.should be_redirect #_to('admin/specialties')
   end
   
   it "should delete a specialty" do
-    Specialty.expects(:find).with("1").returns(specialty = Factory(:specialty))
+    Specialty.expects(:find).with("1").returns(specialty = FactoryGirl.create(:specialty))
     delete :destroy, :id => 1
-    response.should redirect_to('admin/specialties')
+    response.should be_redirect #_to('admin/specialties')
     Specialty.count.should == 0
   end
 

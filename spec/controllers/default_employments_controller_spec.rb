@@ -3,13 +3,13 @@ require_relative '../spec_helper'
 describe DefaultEmploymentsController do
   
   before(:each) do
-    @user = current_user = Factory(:user)
+    @user = current_user = FactoryGirl.create(:user)
     controller.stubs(:current_user).returns current_user
   end
 
   it "should create a new default employment for a user" do
-    role = Factory(:restaurant_role)
-    subject_matter = Factory(:subject_matter)
+    role = FactoryGirl.create(:restaurant_role)
+    subject_matter = FactoryGirl.create(:subject_matter)
     post :create, :user_id => @user.id, 
                   "default_employment" => { "restaurant_role_id" => role.id,
                                             "subject_matter_ids" => [subject_matter.id] }

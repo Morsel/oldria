@@ -7,7 +7,7 @@ describe SubscriptionsController do
     context "with a user" do
 
       before(:each) do
-        @user = Factory(:user, :email => "fred@flintstone.com", :username => "fred")
+        @user = FactoryGirl.create(:user, :email => "fred@flintstone.com", :username => "fred")
         @controller.stubs(:current_user).returns(@user)
       end
 
@@ -23,8 +23,8 @@ describe SubscriptionsController do
     context "with a restaurant" do
 
       before(:each) do
-        @user = Factory(:user, :email => "fred@flintstone.com", :username => "fred")
-        @restaurant = Factory(:restaurant, :manager => @user)
+        @user = FactoryGirl.create(:user, :email => "fred@flintstone.com", :username => "fred")
+        @restaurant = FactoryGirl.create(:restaurant, :manager => @user)
         @controller.stubs(:current_user).returns(@user)
       end
 
@@ -41,8 +41,8 @@ describe SubscriptionsController do
 
   describe "find user behavior" do
 
-    let(:user) { Factory(:user) }
-    let(:admin) { Factory(:admin) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:admin) { FactoryGirl.create(:admin) }
 
     before(:each) do
       BraintreeConnector.any_instance.stubs(:braintree_data => "data")
@@ -71,7 +71,7 @@ describe SubscriptionsController do
 
     describe "with a user" do
       before(:each) do
-        @user = Factory(:user, :email => "fred@flintstone.com", :username => "fred")
+        @user = FactoryGirl.create(:user, :email => "fred@flintstone.com", :username => "fred")
         @controller.stubs(:current_user).returns(@user)
       end
 
@@ -109,8 +109,8 @@ describe SubscriptionsController do
     describe "with a restaurant" do
 
       before(:each) do
-        @user = Factory(:user, :email => "fred@flintstone.com", :username => "fred")
-        @restaurant = Factory(:restaurant, :manager => @user)
+        @user = FactoryGirl.create(:user, :email => "fred@flintstone.com", :username => "fred")
+        @restaurant = FactoryGirl.create(:restaurant, :manager => @user)
         @controller.stubs(:current_user).returns(@user)
         @controller.expects(:find_restaurant).returns(@restaurant)
       end
@@ -153,10 +153,10 @@ describe SubscriptionsController do
     describe "with a complimentary restaurant" do
 
       before(:each) do
-        @user = Factory(:user, :email => "fred@flintstone.com", :username => "fred")
-        @restaurant = Factory(:restaurant, :manager => @user)
+        @user = FactoryGirl.create(:user, :email => "fred@flintstone.com", :username => "fred")
+        @restaurant = FactoryGirl.create(:restaurant, :manager => @user)
         @restaurant.update_attributes(:subscription =>
-            Factory(:subscription, :payer => nil, :braintree_id => nil))
+            FactoryGirl.create(:subscription, :payer => nil, :braintree_id => nil))
         @controller.stubs(:current_user).returns(@user)
         @controller.expects(:find_restaurant).returns(@restaurant)
       end
@@ -179,9 +179,9 @@ describe SubscriptionsController do
 
     describe "with a user" do
       before(:each) do
-        @user = Factory(:user, :email => "fred@flintstone.com",
+        @user = FactoryGirl.create(:user, :email => "fred@flintstone.com",
             :username => "fred")
-        @user.subscription = Factory(:subscription, :payer => @user)
+        @user.subscription = FactoryGirl.create(:subscription, :payer => @user)
         @controller.stubs(:current_user).returns(@user)
       end
 
@@ -199,7 +199,7 @@ describe SubscriptionsController do
       end
 
       it "does not call braintree if the subscription is complimentary" do
-        @user.subscription = Factory(:subscription, :payer => nil, :braintree_id => nil)
+        @user.subscription = FactoryGirl.create(:subscription, :payer => nil, :braintree_id => nil)
         BraintreeConnector.any_instance.expects(:cancel_subscription).never
         delete :destroy, :user_id => @user.id
         @user.subscription.should be_in_overtime
@@ -210,10 +210,10 @@ describe SubscriptionsController do
     describe "with a restaurant" do
 
       before(:each) do
-        @user = Factory(:user, :email => "fred@flintstone.com",
+        @user = FactoryGirl.create(:user, :email => "fred@flintstone.com",
             :username => "fred")
-        @restaurant = Factory(:restaurant, :manager => @user)
-        @restaurant.subscription = Factory(:subscription, :payer => @restaurant)
+        @restaurant = FactoryGirl.create(:restaurant, :manager => @user)
+        @restaurant.subscription = FactoryGirl.create(:subscription, :payer => @restaurant)
         @controller.stubs(:current_user).returns(@user)
         @controller.expects(:find_restaurant).returns(@restaurant)
       end
@@ -232,7 +232,7 @@ describe SubscriptionsController do
       end
 
       it "puts staff subscriptions in overtime on successful delete" do
-        @user.update_attributes(:subscription => Factory(:subscription,
+        @user.update_attributes(:subscription => FactoryGirl.create(:subscription,
             :payer => @restaurant))
         BraintreeConnector.expects(:find_subscription).with(
             @restaurant.subscription).returns(

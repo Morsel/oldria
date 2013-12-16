@@ -4,7 +4,7 @@ describe FriendsStatusesController do
   integrate_views
 
   before do
-    @current_user = Factory.stub(:user)
+    @current_user = FactoryGirl.create(:user)
     @current_user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@current_user)
   end
@@ -16,7 +16,7 @@ describe FriendsStatusesController do
     end
 
     it "should assign statuses" do
-      statuses = [Factory.stub(:status)]
+      statuses = [FactoryGirl.create(:status)]
       statuses.stubs(:all => statuses, :paginate => statuses)
       Status.expects(:friends_of_user).returns(statuses)
       get :show

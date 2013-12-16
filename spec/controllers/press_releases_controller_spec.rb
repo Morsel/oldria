@@ -5,8 +5,8 @@ describe PressReleasesController do
 
   describe "GET 'index'" do
     it "should be successful" do
-      user = Factory(:user)
-      restaurant = Factory(:restaurant, :manager => user)
+      user = FactoryGirl.create(:user)
+      restaurant = FactoryGirl.create(:restaurant, :manager => user)
       controller.stubs(:current_user).returns(user)
 
       get 'index', :restaurant_id => restaurant.id

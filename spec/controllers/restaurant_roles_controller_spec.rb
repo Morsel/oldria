@@ -3,10 +3,10 @@ require_relative '../spec_helper'
 describe Admin::RestaurantRolesController do
   integrate_views
   before(:each) do
-    @user = Factory.stub(:admin)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
-    @restaurant_role = Factory.stub(:restaurant_role)
+    @restaurant_role = FactoryGirl.create(:restaurant_role)
     RestaurantRole.stubs(:find).returns(@restaurant_role)
   end
 
@@ -48,7 +48,7 @@ describe Admin::RestaurantRolesController do
 
   context "PUT update" do
     before(:each) do
-      @restaurant_role = Factory(:restaurant_role)
+      @restaurant_role = FactoryGirl.create(:restaurant_role)
       RestaurantRole.stubs(:find).returns(@restaurant_role)
     end
 
@@ -67,7 +67,7 @@ describe Admin::RestaurantRolesController do
 
   context "DELETE destroy" do
     before(:each) do
-      @restaurant_role = Factory(:restaurant_role)
+      @restaurant_role = FactoryGirl.create(:restaurant_role)
       RestaurantRole.stubs(:find).returns(@restaurant_role)
     end
 
@@ -82,7 +82,7 @@ describe Admin::RestaurantRolesController do
   describe "categories" do
 
     it "should update a role's category" do
-      role = Factory(:restaurant_role)
+      role = FactoryGirl.create(:restaurant_role)
       RestaurantRole.stubs(:find).returns(role)
       role.expects(:update_attributes).with("category" => "New category")
       put :update_category, :role_id => role.id, :restaurant_role => { :category => "New category" }

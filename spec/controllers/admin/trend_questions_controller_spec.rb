@@ -1,10 +1,10 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::TrendQuestionsController do
   integrate_views
   before(:each) do
     fake_admin_user
-    Factory(:trend_question)
+    FactoryGirl.create(:trend_question)
   end
 
   it "index action should render index template" do

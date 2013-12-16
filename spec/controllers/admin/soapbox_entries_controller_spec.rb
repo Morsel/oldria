@@ -1,4 +1,4 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::SoapboxEntriesController do
   integrate_views
@@ -17,7 +17,7 @@ describe Admin::SoapboxEntriesController do
   describe "GET new" do
     context "with a QOTD" do
       before do
-        @qotd = Factory.stub(:qotd)
+        @qotd = FactoryGirl.create(:qotd)
         Admin::Qotd.expects(:find).with('3').returns(@qotd)
         get :new, :qotd_id => 3
       end
@@ -29,7 +29,7 @@ describe Admin::SoapboxEntriesController do
 
     context "with a Trend Question" do
       before do
-        @trend_question = Factory.stub(:trend_question)
+        @trend_question = FactoryGirl.create(:trend_question)
         TrendQuestion.expects(:find).with('45').returns(@trend_question)
         get :new, :trend_question_id => 45
       end
@@ -70,8 +70,8 @@ describe Admin::SoapboxEntriesController do
   describe "GET edit" do
     context "with a QOTD" do
       before do
-        @qotd = Factory.stub(:qotd)
-        @soapbox_entry = Factory.stub(:soapbox_entry, :featured_item => @qotd)
+        @qotd = FactoryGirl.create(:qotd)
+        @soapbox_entry = FactoryGirl.create(:soapbox_entry, :featured_item => @qotd)
         SoapboxEntry.expects(:find).returns(@soapbox_entry)
         get :edit, :id => 1
       end
@@ -84,7 +84,7 @@ describe Admin::SoapboxEntriesController do
 
   describe "PUT update" do
     before do
-      @soapbox_entry = Factory(:soapbox_entry)
+      @soapbox_entry = FactoryGirl.create(:soapbox_entry)
       SoapboxEntry.stubs(:find).returns(@soapbox_entry)
     end
 
@@ -110,7 +110,7 @@ describe Admin::SoapboxEntriesController do
   describe "status changes" do
     
     it "should unpublish an entry" do
-      entry = Factory(:soapbox_entry)
+      entry = FactoryGirl.create(:soapbox_entry)
       SoapboxEntry.stubs(:find).returns(entry)
       entry.expects(:update_attribute).with(:published, false)
       
@@ -118,7 +118,7 @@ describe Admin::SoapboxEntriesController do
     end
 
     it "should publish an entry" do
-      entry = Factory(:soapbox_entry, :published => false)
+      entry = FactoryGirl.create(:soapbox_entry, :published => false)
       SoapboxEntry.stubs(:find).returns(entry)
       entry.expects(:update_attribute).with(:published, true)
       

@@ -1,6 +1,7 @@
 <%= semantic_form_for [:admin, @soapbox_entry] do |f| %>
 	<% if @soapbox_entry.featured_item %>
-		<%= render @soapbox_entry.featured_item %>
+	  <%= render :partial =>"admin/admin/qotds/qotd", :locals =>{:qotd=>@soapbox_entry.featured_item}%>
+		<%#= render @soapbox_entry.featured_item %>
 		<%= f.hidden_field :featured_item_id %>
 		<%= f.hidden_field :featured_item_type, :value => @soapbox_entry.featured_item.class %>
 	<% end %>

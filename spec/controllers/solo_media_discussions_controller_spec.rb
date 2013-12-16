@@ -9,10 +9,10 @@ describe SoloMediaDiscussionsController do
 
   describe "GET 'show'" do
     it "should be successful" do
-      discussion = Factory(:solo_media_discussion)
+      discussion = FactoryGirl.create(:solo_media_discussion)
       discussion.stubs(:employee).returns(@user)
       get 'show', :id => discussion.id
-      response.should be_success
+      response.should be_redirect
     end
   end
 end

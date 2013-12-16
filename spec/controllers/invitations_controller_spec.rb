@@ -7,7 +7,7 @@ describe InvitationsController do
     
     it "should log out the current user" do
       activate_authlogic
-      UserSession.create(Factory(:user))
+      UserSession.create(FactoryGirl.create(:user))
       UserSession.any_instance.expects(:destroy)
       get :new
       response.should render_template('invitations/new')
@@ -17,7 +17,7 @@ describe InvitationsController do
   describe "creating a new invite" do
     
     it "should create an invite from a valid form submit" do
-      invite = Factory.build(:invitation)
+      invite = FactoryGirl.build(:invitation)
       Invitation.expects(:new).with("email" => "foo@bar.com").returns(invite)
       invite.expects(:save).returns(true)
       post :create, :invitation => { :email => "foo@bar.com" }
@@ -29,7 +29,7 @@ describe InvitationsController do
   describe "GET show" do
     
     before(:each) do
-      @invitee = Factory(:user, :perishable_token =>"abc789", :username => "johnjohn", :confirmed_at => nil)
+      @invitee = FactoryGirl.create(:user, :perishable_token =>"abc789", :username => "johnjohn", :confirmed_at => nil)
     end
 
     context "when no one is logged in" do
@@ -87,7 +87,7 @@ describe InvitationsController do
     context "when someone is already logged in" do
       before(:each) do
         activate_authlogic
-        UserSession.create(Factory(:user))
+        UserSession.create(FactoryGirl.create(:user))
         UserSession.find.should_not be_nil
       end
 

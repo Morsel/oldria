@@ -1,9 +1,9 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::SfSlidesController do
 
   before(:each) do
-    @user = Factory(:admin)
+    @user = FactoryGirl.create(:admin)
     controller.stubs(:current_user).returns(@user)    
   end
 
@@ -13,7 +13,7 @@ describe Admin::SfSlidesController do
   end
   
   it "should let an admin create a new slide" do
-    slide = Factory.build(:sf_slide)
+    slide = FactoryGirl.build(:sf_slide)
     SfSlide.expects(:new).returns(slide)
     slide.expects(:save).returns(true)
     post :create, :sf_slide => { :title => "New title", :excerpt => "Four-score and something something", 
@@ -22,7 +22,7 @@ describe Admin::SfSlidesController do
   end
   
   it "should let an admin update a slide" do
-    slide = Factory(:sf_slide)
+    slide = FactoryGirl.create(:sf_slide)
     SfSlide.expects(:find).returns(slide)
     slide.expects(:update_attributes).returns(true)
     put :update, :id => slide.id, :sf_slide => { :link => "http://bettertest.com" }

@@ -6,7 +6,7 @@ describe ProfilesController do
 
     before(:each) do
       fake_normal_user
-      profile = Factory(:profile, :user => @user)
+      profile = FactoryGirl.create(:profile, :user => @user)
       @user.stubs(:profile).returns(profile)
       User.stubs(:find).returns(@user)
     end
@@ -29,15 +29,15 @@ describe ProfilesController do
     end
 
     it "should set the primary employment" do
-      employment = Factory(:employment, :employee => @user)
-      employment2 = Factory(:employment, :employee => @user)
+      employment = FactoryGirl.create(:employment, :employee => @user)
+      employment2 = FactoryGirl.create(:employment, :employee => @user)
       put :update, :user_id => @user.id, :profile => { :primary_employment => [employment2.id.to_s] }
       @user.primary_employment.should == employment2
     end
 
     it "should clear an old primary employment" do
-      employment = Factory(:employment, :employee => @user)
-      employment2 = Factory(:employment, :employee => @user, :primary => true)
+      employment = FactoryGirl.create(:employment, :employee => @user)
+      employment2 = FactoryGirl.create(:employment, :employee => @user, :primary => true)
       put :update, :user_id => @user.id, :profile => { :primary_employment => [employment.id.to_s] }
       @user.primary_employment.should == employment
       Employment.find(employment2.id).primary.should == false
@@ -53,8 +53,8 @@ describe ProfilesController do
     end
 
     it "should set the primary employment when creating a new profile" do
-      employment = Factory(:employment, :employee => @user)
-      employment2 = Factory(:employment, :employee => @user)
+      employment = FactoryGirl.create(:employment, :employee => @user)
+      employment2 = FactoryGirl.create(:employment, :employee => @user)
       post :create, :user_id => @user.id, :profile => { :primary_employment => [employment.id.to_s] }
       @user.primary_employment.should == employment
     end

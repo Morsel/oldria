@@ -16,7 +16,7 @@
 
 class SocialUpdate < ActiveRecord::Base
   belongs_to :restaurant
-
+  attr_accessible :post_data, :post_id, :restaurant, :post_created_at, :link, :title, :source
   def self.fetch_updates
     alm_answers = ALaMinuteAnswer.social_results({})
 

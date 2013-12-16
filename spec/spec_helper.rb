@@ -27,7 +27,7 @@ Spork.prefork do
   # require "support/braintree_spec_helper"
   require 'fakeweb'
   require "authlogic/test_case"
-
+  include Authlogic::TestCase
   require "#{Rails.root}/spec/factories"
   require 'rspec/rails/mocks'               if defined?(Rspec::Mocks)
   

@@ -680,6 +680,7 @@ FactoryGirl.define do
   f.name "BBQ Tofu"
   f.description "Yum yum"
   f.association :restaurant
+  f.association :photo
   f.otm_keywords { [FactoryGirl.build(:otm_keyword)] }
   end
 

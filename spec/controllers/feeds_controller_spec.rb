@@ -6,7 +6,7 @@ describe FeedsController do
   integrate_views
 
   before do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end

@@ -1,5 +1,5 @@
-require_relative '../spec_helper'
-
+require_relative '../../spec_helper'
+require 'gibbon'
 describe Soapbox::NewsletterSubscribersController do
 
   describe "POST 'create'" do
@@ -12,14 +12,14 @@ describe Soapbox::NewsletterSubscribersController do
     it "should not create a subscriber when no email address is present" do
       post 'create'
       response.should render_template('new')
-      assigns[:subscriber].should have(1).error_on(:email)
+      assigns[:subscriber].should have(2).error_on(:email)
     end
 
   end
 
   describe "GET 'confirm'" do
     it "should confirm a user when valid id and token are given" do
-      subscriber = Factory(:newsletter_subscriber)
+      subscriber = FactoryGirl.create(:newsletter_subscriber)
       NewsletterSubscriber.stubs(:find).returns(subscriber)
 
       client = mock
@@ -32,7 +32,7 @@ describe Soapbox::NewsletterSubscribersController do
     end
 
     it "should not confirm the user if no valid token is given" do
-      subscriber = Factory(:newsletter_subscriber)
+      subscriber = FactoryGirl.create(:newsletter_subscriber)
       NewsletterSubscriber.stubs(:find).returns(subscriber)
       get 'confirm', :id => 1
       response.should be_success

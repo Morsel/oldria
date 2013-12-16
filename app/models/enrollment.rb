@@ -20,7 +20,7 @@ class Enrollment < ActiveRecord::Base
   accepts_nested_attributes_for :school, :reject_if => :reject_school_attributes?
 
   validates_presence_of :school, :profile_id
-  attr_accessible :school_id, :school_attributes, :graduation_date, :degree, :focus, :scholarships
+  attr_accessible :school_id, :school_attributes, :graduation_date, :degree, :focus, :scholarships,:confirmed_at
 
   private
 

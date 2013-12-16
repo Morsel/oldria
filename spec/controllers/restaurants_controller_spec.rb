@@ -4,7 +4,7 @@ describe RestaurantsController do
   integrate_views
 
   before(:each) do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end
@@ -35,7 +35,7 @@ describe RestaurantsController do
     it "should render new template when model is invalid" do
       Restaurant.any_instance.stubs(:valid?).returns(false)
       post :create
-      response.should render_template(:new)
+      response.should render_template(:add_restaurant)
     end
 
     it "should redirect when model is valid" do

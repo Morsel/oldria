@@ -18,7 +18,7 @@
 class NewsletterSubscriber < ActiveRecord::Base
   acts_as_authentic
   include ActionView::Helpers::TextHelper  
-include ActionDispatch::Routing::UrlFor
+  include ActionDispatch::Routing::UrlFor
   default_url_options[:host] = DEFAULT_HOST
 
   has_many :newsletter_subscriptions, :dependent => :destroy
@@ -37,7 +37,7 @@ include ActionDispatch::Routing::UrlFor
 
   before_save :encrypt_password
   after_create :send_confirmation
-  # after_update :update_mailchimp
+  after_update :update_mailchimp
 
   scope :confirmed, {
     :conditions => "confirmed_at IS NOT NULL"

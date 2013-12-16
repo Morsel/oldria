@@ -3,9 +3,9 @@ require_relative '../spec_helper'
 describe CompetitionsController do
   
   before(:each) do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     controller.stubs(:current_user).returns @user
-    @profile = Factory(:profile, :user => @user)
+    @profile = FactoryGirl.create(:profile, :user => @user)
     User.stubs(:find).returns(@user)
   end
   
@@ -15,14 +15,14 @@ describe CompetitionsController do
   end
   
   it "should update a competition" do
-    competition = Factory(:competition)
+    competition = FactoryGirl.create(:competition)
     Competition.stubs(:find).returns(competition)
     competition.expects(:update_attributes).with("name" => "new name").returns(true)
     put :update, :id => competition.id, :profile_id => competition.profile, :competition => { :name => "new name" }
   end
   
   it "should destroy a competition" do
-    competition = Factory(:competition)
+    competition = FactoryGirl.create(:competition)
     Competition.stubs(:find).returns(competition)
     competition.expects(:destroy).returns(true)
     delete :destroy, :id => competition.id, :profile_id => competition.profile

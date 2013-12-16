@@ -22,7 +22,7 @@ describe WelcomeController do
 
     context "for logged in spoonfeed users" do
       before(:each) do
-        @user = Factory.stub(:user)
+        @user = FactoryGirl.create(:user)
         @user.stubs(:update).returns(true)
         controller.stubs(:current_user).returns(@user)
 
@@ -37,7 +37,7 @@ describe WelcomeController do
       
       it "should see link see more" do
         11.times do |i|
-          Factory(:profile_answer)
+          FactoryGirl.create(:profile_answer)
         end
         get :index
         assigns[:has_more].should == true
@@ -53,7 +53,7 @@ describe WelcomeController do
       end
 
       it "should not cache action if unread announcement exists" do
-        @user.stubs(:unread_announcements).returns([Factory(:announcement)])
+        @user.stubs(:unread_announcements).returns([FactoryGirl.create(:announcement)])
         get :index
         response.should render_template(:dashboard)
         Rails.cache.exist?(@key).should be_false
@@ -68,7 +68,7 @@ describe WelcomeController do
 
     context "for logged in media users" do
       before do
-        @user = Factory(:media_user)
+        @user = FactoryGirl.create(:media_user)
         @user.stubs(:update).returns(true)
         controller.stubs(:current_user).returns(@user)
       end
@@ -85,7 +85,7 @@ describe WelcomeController do
 
     context "for logged in spoonfeed users" do
       before(:each) do
-        @user = Factory.stub(:user)
+        @user = FactoryGirl.create(:user)
         @user.stubs(:update).returns(true)
         controller.stubs(:current_user).returns(@user)
 

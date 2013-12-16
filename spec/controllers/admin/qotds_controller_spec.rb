@@ -1,4 +1,4 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::QotdsController do
   integrate_views
@@ -6,7 +6,7 @@ describe Admin::QotdsController do
   before(:each) do
     @search_params = {:restaurant_name_like => 'neo'}
     fake_admin_user
-    Factory(:admin_message, :type => "Admin::Qotd")
+    FactoryGirl.create(:admin_message, :type => "Admin::Qotd")
   end
 
   it "new action should render new template" do

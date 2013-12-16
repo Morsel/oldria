@@ -1,10 +1,10 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::FeedCategoriesController do
   integrate_views
   before(:each) do
-    @feed_category = Factory(:feed_category)
-    @user = Factory.stub(:admin)
+    @feed_category = FactoryGirl.create(:feed_category)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end

@@ -9,9 +9,9 @@ describe CommentsController do
   end
 
   before(:each) do
-    @parent = Factory(:admin_discussion)
+    @parent = FactoryGirl.create(:admin_discussion)
     AdminDiscussion.stubs(:find).returns(@parent)
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end
@@ -33,7 +33,7 @@ describe CommentsController do
   describe "destroy" do
     
     it "should delete the comment" do
-      comment = Factory(:comment)
+      comment = FactoryGirl.create(:comment)
       Comment.expects(:find).returns(comment)
       comment.expects(:destroy).returns(true)
       delete :destroy, :id => comment.id

@@ -1,9 +1,9 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::ComplimentaryAccountsController do
   
   before(:each) do
-    @admin = Factory.stub(:admin)
+    @admin = FactoryGirl.create(:admin)
     controller.stubs(:current_user).returns(@admin)
     controller.stubs(:require_admin).returns(true)
   end
@@ -11,8 +11,8 @@ describe Admin::ComplimentaryAccountsController do
   describe "POST create" do
     
     describe "with a user" do
-      let(:user) { Factory(:user) }
-      let(:restaurant) { Factory(:restaurant) }
+      let(:user) { FactoryGirl.create(:user) }
+      let(:restaurant) { FactoryGirl.create(:restaurant) }
 
       it "gives a basic user a complimentary account" do
         user.cancel_subscription!(:terminate_immediately => true)
@@ -24,7 +24,7 @@ describe Admin::ComplimentaryAccountsController do
       end
 
       it "cancels the braintree subscription if it exists" do
-        user.subscription = Factory(:subscription, :payer => user)
+        user.subscription = FactoryGirl.create(:subscription, :payer => user)
         user.save!
         User.stubs(:find).returns(user)
         BraintreeConnector.expects(:update_subscription_with_discount).never
@@ -35,9 +35,9 @@ describe Admin::ComplimentaryAccountsController do
       end
       
       it "updates the restaurant account if the user is a staff account" do
-        restaurant.subscription = Factory(:subscription, :payer => restaurant)
+        restaurant.subscription = FactoryGirl.create(:subscription, :payer => restaurant)
         restaurant.save!
-        user.subscription = Factory(:subscription, :payer => restaurant, 
+        user.subscription = FactoryGirl.create(:subscription, :payer => restaurant, 
             :braintree_id => nil)
         user.save!
         User.stubs(:find).returns(user)
@@ -51,7 +51,7 @@ describe Admin::ComplimentaryAccountsController do
     end
     
     describe "with a restaurant" do
-      let(:restaurant) { Factory(:restaurant) }
+      let(:restaurant) { FactoryGirl.create(:restaurant) }
       
       it "gives a basic restaurant a complimentary account" do
         restaurant.cancel_subscription!(:terminate_immediately => true)
@@ -63,9 +63,9 @@ describe Admin::ComplimentaryAccountsController do
       end
 
       it "adds a discount to the braintree subscription if it exists" do
-        restaurant.subscription = Factory(:subscription, :payer => restaurant)
+        restaurant.subscription = FactoryGirl.create(:subscription, :payer => restaurant)
         restaurant.save!
-        user = Factory(:user)
+        user = FactoryGirl.create(:user)
         user.make_staff_account!(restaurant)
         Restaurant.stubs(:find).returns(restaurant)
         BraintreeConnector.expects(:cancel_subscription).never
@@ -76,7 +76,7 @@ describe Admin::ComplimentaryAccountsController do
       end
       
       it "cancels the account if the restaurant has no staff accounts" do
-        restaurant.subscription = Factory(:subscription, :payer => restaurant)
+        restaurant.subscription = FactoryGirl.create(:subscription, :payer => restaurant)
         restaurant.save!
         BraintreeConnector.expects(:cancel_subscription).returns(stub(:success? => true))
         BraintreeConnector.expects(:update_subscription_with_discount).never
@@ -91,7 +91,7 @@ describe Admin::ComplimentaryAccountsController do
   describe "DELETE destroy" do
     
     describe "with a user" do
-      let(:user) { Factory(:user) }
+      let(:user) { FactoryGirl.create(:user) }
 
       it "removes a complimentary account" do
         user.make_complimentary!
@@ -103,7 +103,7 @@ describe Admin::ComplimentaryAccountsController do
       end
 
       it "cancels the braintree account when canceling a regular account" do
-        user.subscription = Factory(:subscription, :payer => user)
+        user.subscription = FactoryGirl.create(:subscription, :payer => user)
         user.save!
         User.stubs(:find).returns(user)
         BraintreeConnector.expects(:cancel_subscription).returns(stub(:success? => true))
@@ -112,7 +112,7 @@ describe Admin::ComplimentaryAccountsController do
     end
     
     describe "with a restaurant" do
-      let(:restaurant) { Factory(:restaurant) }
+      let(:restaurant) { FactoryGirl.create(:restaurant) }
 
       it "removes a complimentary account" do
         restaurant.make_complimentary!
@@ -124,7 +124,7 @@ describe Admin::ComplimentaryAccountsController do
       end
 
       it "cancels the braintree account when canceling a regular account" do
-        restaurant.subscription = Factory(:subscription, :payer => restaurant)
+        restaurant.subscription = FactoryGirl.create(:subscription, :payer => restaurant)
         restaurant.save!
         Restaurant.stubs(:find).returns(restaurant)
         BraintreeConnector.expects(

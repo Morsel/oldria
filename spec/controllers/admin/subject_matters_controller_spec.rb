@@ -1,12 +1,12 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::SubjectMattersController do
   integrate_views
   before(:each) do
-    @user = Factory.stub(:admin)
+    @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
-    Factory(:subject_matter)
+    FactoryGirl.create(:subject_matter)
   end
 
   it "index action should render index template" do

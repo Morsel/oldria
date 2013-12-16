@@ -1,10 +1,10 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 
 describe Admin::PrTipsController do
   integrate_views
   before(:each) do
     fake_admin_user
-    Factory(:admin_message, :type => 'Admin::PrTip')
+    FactoryGirl.create(:admin_message, :type => 'Admin::PrTip')
   end
 
   it "new action should render new template" do
