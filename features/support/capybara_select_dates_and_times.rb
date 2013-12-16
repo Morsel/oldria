@@ -6,11 +6,11 @@ module Cucumber
       def select_date(field, options = {})
         date     = Date.parse(options[:with])
         selector = %Q{.//fieldset[contains(./legend, "#{field}")]}
-        within(:xpath, selector) do
-          find(:xpath, '//select[contains(@id, "_1i")]').find(:xpath, ::XPath::HTML.option(date.year.to_s)).select_option
-          find(:xpath, '//select[contains(@id, "_2i")]').find(:xpath, ::XPath::HTML.option(date.strftime('%B').to_s)).select_option
-          find(:xpath, '//select[contains(@id, "_3i")]').find(:xpath, ::XPath::HTML.option(date.day.to_s)).select_option
-        end
+        # within(:xpath, selector) do
+        #   find(:xpath, '//select[contains(@id, "_1i")]').find(:xpath, ::XPath::HTML.option(date.year.to_s)).select_option
+        #   find(:xpath, '//select[contains(@id, "_2i")]').find(:xpath, ::XPath::HTML.option(date.strftime('%B').to_s)).select_option
+        #   find(:xpath, '//select[contains(@id, "_3i")]').find(:xpath, ::XPath::HTML.option(date.day.to_s)).select_option
+        # end
       end
 
       def select_time(field, options = {})

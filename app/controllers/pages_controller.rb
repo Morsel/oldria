@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   
   def show
-    @page = Page.find(params[:id])
+    @page =  Page.where(:slug => params[:id] ).first
   end
   
 end

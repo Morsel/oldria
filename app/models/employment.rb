@@ -81,7 +81,7 @@ class Employment < ActiveRecord::Base
   scope :by_position, :order => "position ASC"
 
   attr_accessible :position, :prefers_receive_email_notifications, :public_profile, :restaurant_role_id, :subject_matter_ids,
-  :employee_email, :employee_id, :omniscient, :edit_privilege, :employee_attributes,:solo_restaurant_name,:type,:restaurant_id
+  :employee_email, :employee_id, :omniscient, :edit_privilege, :employee_attributes,:solo_restaurant_name,:type,:restaurant_id,:restaurant_role,:subject_matters,:employee
 
   def employee_name
     @employee_name ||= employee && employee.name

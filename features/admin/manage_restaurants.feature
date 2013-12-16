@@ -108,27 +108,6 @@ Feature: Manage restaurants
     When I am on the admin restaurants page
     And the listing for "Piece" should be complimentary
   
-  #Scenario: Cancel an overtime restaurant account
 
-@javascript
-  Scenario: Deleting the restaurant's primary manager (and selecting a new one)
-    Given "fred" is a manager for "Piece"
-    And "betty" is a manager for "Piece"
-    When I go to the admin edit restaurant page for Piece
-    And I follow "Edit Restaurant employees"
-    And I delete the account manager for "Piece"
-    Then I should see "Select a new account manager"
-    
-    When I select "Betty Cobalt" from "manager"
-    And I press "Update"
-    Then I should see "Updated account manager to Betty Cobalt. Fred Mercury is no longer an employee."
 
-@javascript
-  Scenario: Deleting a restaurant
-    When I go to the admin restaurants page
-    And I follow "Destroy"
 
-    Then I should not see "Piece"
-    # Ensure users are converted to default (solo) employments
-    And "fred" should have a primary employment with role "Chef"
-    And "betty" should have a primary employment with role "Sous chef"
