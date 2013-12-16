@@ -61,7 +61,8 @@ class AdminDiscussion < ActiveRecord::Base
 
   def employments
     # Only include the employments that match the employment search criteria
-    restaurant.employments.all(:include => :employee) & discussionable.employment_search.try(:employments).try(:all, :include => :employee)
+    #restaurant.employments.all(:include => :employee) & discussionable.employment_search.try(:employments).try(:all, :include => :employee)
+    restaurant.employments.find(:all, include: :employee) & discussionable.employment_search.try(:employments).try(:all, :include => :employee)
   end
 
   def employees

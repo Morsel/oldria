@@ -21,7 +21,7 @@ Given /^subject matter "([^\"]*)" is general$/ do |name|
 end
 
 Given /^a non\-general subject matter "([^\"]*)"$/ do |name|
-  Factory(:subject_matter, :name => name, :general => false)
+  FactoryGirl.create(:subject_matter, :name => name, :general => false)
 end
 
 Given /^"([^\"]*)" handles the subject matter "([^"]*)" for "([^"]*)"$/ do |username, subject, restname|
@@ -45,16 +45,16 @@ Given /^there are no media requests$/ do
 end
 
 Given /^"([^\"]*)" has a media request$/ do |username|
-  subject_matter = Factory(:subject_matter)
+  subject_matter = FactoryGirl.create(:subject_matter)
   user = User.find_by_username(username)
-  Factory(:employment, :employee => user) if user.restaurants.blank?
+  FactoryGirl.create(:employment, :employee => user) if user.restaurants.blank?
   Given %Q["#{username}" handles the subject matter "#{subject_matter.name}" for "#{user.restaurants.first.name}"]
-  @media_request = Factory(:media_request, :subject_matter => subject_matter)
+  @media_request = FactoryGirl.create(:media_request, :subject_matter => subject_matter)
   @media_request.approve!
 end
 
 Given /^"([^\"]*)" has a media request from a media member with:$/ do |username, table|
-  Factory(:media_user, :username => "media")
+  FactoryGirl.create(:media_user, :username => "media")
   Given %Q{"#{username}" has a media request from "media" with:}, table
 end
 
@@ -63,14 +63,14 @@ Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, med
   status = table.rows_hash['Status'] || 'pending'
 
   user = User.find_by_username(username)
-  Factory(:employment, :employee => user) if user.restaurants.blank?
+  FactoryGirl.create(:employment, :employee => user) if user.restaurants.blank?
 
   sender = User.find_by_username(mediauser)
   publication = table.rows_hash['Publication'] || sender.publication
 
   search = EmploymentSearch.new(:conditions => { :id_eq => user.primary_employment.id })
 
-  @media_request = Factory(:media_request, :employment_search => search, :sender => sender,
+  @media_request = FactoryGirl.create(:media_request, :employment_search => search, :sender => sender,
                            :message => message, :status => status, :publication => publication)
 end
 
