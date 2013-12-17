@@ -5,7 +5,7 @@ Feature: Press Releases
 	restaurant profile.
 	
   Background:
-	Given a restaurant named "Meager Lamb" with the following employees:
+	Given a restaurant named "Meagerff Lamb" with the following employees:
       | username | password | email            | name      | role      | subject matters |
       | jane     | secret   | jane@example.com | Jane Doe  | Publicist | Business        |
     And I am logged in as "jane"

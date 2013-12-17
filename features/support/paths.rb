@@ -94,9 +94,9 @@ module NavigationHelpers
     when /the restaurant show page for "(.+)"$/
       #restaurant_path(Restaurant.find_by_name($1))
     when /the restaurant feature page for "(.+)" and "(.+)"/
-      restaurant_feature_page_path(Restaurant.find_by_name($1), RestaurantFeaturePage.find_by_name($2))
+      #restaurant_feature_page_path(Restaurant.find_by_name($1), RestaurantFeaturePage.find_by_name($2))
     when /the restaurant feature page for "(.+)"/
-      restaurant_features_path(Restaurant.find_by_name($1))
+      #restaurant_features_path(Restaurant.find_by_name($1))
     when /^the restaurant menu upload page for (.+)$/
       bulk_edit_restaurant_menus_path(Restaurant.find_by_name($1))
     when /^the employee edit page for "(.+)" and "(.+)"$/

@@ -15,6 +15,8 @@ class Admin::Conversation < ActiveRecord::Base
   set_table_name "admin_conversations"
   acts_as_commentable
   acts_as_readable
+
+  attr_accessible :recipient_id, :admin_message_id, :comments_count
   attr_accessor :user,:user_id
 
 
