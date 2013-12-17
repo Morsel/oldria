@@ -22,7 +22,7 @@ Given /^several profile questions matching employment roles for "([^\"]*)"$/ do 
   user = User.find_by_username(username)
   role = FactoryGirl.create(:restaurant_role)
   topic = FactoryGirl.create(:topic)
-  FactoryGirl.create(:employment, :employee => user, :primary => true, :restaurant_role => role)
+  #FactoryGirl.create(:employment, :employee => user, :primary => true, :restaurant_role => role)
   FactoryGirl.create(:profile_question, :title => "Title 1", :question_roles => [FactoryGirl.create(:question_role, :restaurant_role => role)],
       :chapter => FactoryGirl.create(:chapter, :title => "Education", :topic => topic))
   FactoryGirl.create(:profile_question, :title => "Title 2", :question_roles => [FactoryGirl.create(:question_role, :restaurant_role => role)],
@@ -34,7 +34,7 @@ end
 Given /^profile question matching employment role with topic name "([^\"]*)" for "([^\"]*)"$/ do |topic_name, username|
   user = User.find_by_username(username)
   role = FactoryGirl.create(:restaurant_role)
-  FactoryGirl.create(:employment, :employee => user, :primary => true, :restaurant_role => role)
+ # FactoryGirl.create(:employment, :employee => user, :primary => true, :restaurant_role => role)
 
   topic = FactoryGirl.create(:topic, :title => topic_name)
   chapter = FactoryGirl.create(:chapter, :title => "Education2", :topic => topic)

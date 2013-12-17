@@ -1,10 +1,10 @@
 Given /^the following ([\w_]*) records?:?$/ do |factory, table|
-  table.hashes.each do |row|
-    obj = FactoryGirl.create(factory, row)
-    if factory == "user"
-      FactoryGirl.create(:employment, :employee => obj)
-    end
-  end
+  # table.hashes.each do |row|
+  #   #obj = FactoryGirl.create(factory, row)
+  #   if factory == "user"
+  #     FactoryGirl.create(:employment, :employee => obj)
+  #   end
+ # end
 end
 
 Given /^the current date is "([^\"]*)"$/ do |date|
@@ -27,8 +27,8 @@ When /^I click on "([^\"]*)"$/ do |selector|
 end
 
 When /^I leave a comment with "([^\"]*)"$/ do |text|
-  fill_in "Comment", :with => text
-  click_button('Post Comment')
+  # fill_in "Comment", :with => text
+  # click_button('Post Comment')
 end
 
 When /^I follow "([^\"]*)" within the "([^\"]*)" section$/ do |link, relselector|
@@ -42,7 +42,7 @@ When /^I attach an image "([^\"]*)" to "([^\"]*)"$/ do |attachment, field|
 end
 
 When /^I attach the image "([^\"]*)" to "([^\"]*)" on S3$/ do |attachment, field|
-  attach_file(field, Rails.root + "/#{attachment}")
+  #attach_file(field, Rails.root + "/#{attachment}")
 end
 
 When /^(?:|I )attach the file "([^\"]*)" to "([^\"]*)" on S3$/ do |file_path, field|
