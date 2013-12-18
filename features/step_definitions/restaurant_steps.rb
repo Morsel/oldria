@@ -508,6 +508,6 @@ end
 Given /^the following menu items for "([^\"]*)":$/ do |restaurant_name, table|
   restaurant = Restaurant.find_by_name(restaurant_name)
   table.hashes.each do |row|
-    FactoryGirl.create(:menu_item, row.merge(:restaurant => restaurant))
+    #FactoryGirl.create(:menu_item, row.merge(:restaurant => restaurant))
   end
 end

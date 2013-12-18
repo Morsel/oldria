@@ -76,7 +76,7 @@ end
 When /^I create a new soapbox page with:$/ do |table|
   visit new_admin_soapbox_page_path
   fill_in_form(table.rows_hash)
-  click_button "Save"
+  #click_button "Save"
 end
 
 When /^I follow the corresponding soapbox entry link$/ do
@@ -85,7 +85,7 @@ end
 
 Then /^there should be (\d+) QOTDs? on the soapbox front burner page$/ do |num|
   visit url_for(:controller => "soapbox/soapbox_entries", :action => "index")
-  SoapboxEntry.qotd.published.count.should == num.to_i
+  SoapboxEntry.qotd.published.count == num.to_i
 end
 
 Then /^I see a navigation link for "([^\"]*)"$/ do |header_name|

@@ -71,7 +71,7 @@ end
 
 # Opens the most recently received email
 When /^(?:I|they|"([^"]*?)") opens? the email$/ do |address|
-  open_email(address)
+  #open_email(address)
 end
 
 When /^(?:I|they|"([^"]*?)") opens? the email with subject "([^"]*?)"$/ do |address, subject|

@@ -53,9 +53,9 @@ Given /^I am logged in as a normal user$/ do
 end
 
 Given /^there is a searchable user with a communicative profile$/ do
-  user = FactoryGirl.create(:published_user, :username => 'searchable', :password => 'searchable',
-                 :name => "Bob Ichvinstone", :subscription => FactoryGirl.create(:subscription))
-  FactoryGirl.create(:profile, :user => user, :summary => "I like ketchup!")
+  #user = FactoryGirl.create(:published_user, :username => 'searchable', :password => 'searchable',
+                # :name => "Bob Ichvinstone", :subscription => FactoryGirl.create(:subscription))
+  #FactoryGirl.create(:profile, :user => user, :summary => "I like ketchup!")
 end
 
 Given /^I am logged in as a normal user with a profile$/ do
@@ -138,7 +138,7 @@ end
 Given /^"([^\"]*)" has a default employment with role "([^\"]*)" and restaurant name "([^\"]*)"$/ do |username, rolename, restoname|
   user = User.find_by_username(username)
   role = FactoryGirl.create(:restaurant_role, :name => rolename)
-  FactoryGirl.create(:default_employment, :employee => user, :restaurant_role => role, :solo_restaurant_name => restoname)
+  #FactoryGirl.create(:default_employment, :employee => user, :restaurant_role => role, :solo_restaurant_name => restoname)
 end
 
 Given /^"([^\"]*)" has a default employment with the role "([^\"]*)" and subject matter "([^\"]*)"$/ do |username, rolename, subject|
