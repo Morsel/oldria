@@ -105,9 +105,9 @@ class RiaProductionWebservicesController < ApplicationController
         render :json => {:status=>status,:restaurants=>@restaurants}
 
     else
-       if @user_session.errors.on_base == "Your account is not confirmed"
+      if @user_session.errors.get(:base) == ["Your account is not confirmed"]
           status = false
-      elsif @user_session.errors.on(:username) || @user_session.errors.on(:password)
+      elsif @user_session.errors.to_hash[:username] || @user_session.errors.to_hash[:password]
           status = false
       else
         status = false

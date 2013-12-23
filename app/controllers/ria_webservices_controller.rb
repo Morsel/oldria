@@ -1,3 +1,4 @@
+# encoding: utf-8
 class RiaWebservicesController < ApplicationController
 
   around_filter :select_shard
@@ -112,9 +113,9 @@ class RiaWebservicesController < ApplicationController
         render :json => {:status=>status,:restaurants=>@restaurants}
 
     else
-       if @user_session.errors.on_base == "Your account is not confirmed"
+      if @user_session.errors.get(:base) == ["Your account is not confirmed"]
           status = false
-      elsif @user_session.errors.on(:username) || @user_session.errors.on(:password)
+      elsif @user_session.errors.to_hash[:username] || @user_session.errors.to_hash[:password]
           status = false
       else
         status = false
@@ -159,7 +160,7 @@ end
 
     status = false
     message = "Your changes was not saved"      
-   
+
     params[:a_la_minute_questions].each do |id, attributes|
       no_twitter_crosspost = attributes[:no_twitter_crosspost]
       if(no_twitter_crosspost.to_i < 1)
@@ -219,7 +220,6 @@ end
     end
 
  def create_promotions     
-       
     no_twitter_crosspost = params[:promotion][:no_twitter_crosspost]
     params[:promotion].delete("no_twitter_crosspost") 
     
@@ -364,8 +364,8 @@ end
           promotion_clumn.map {|c| c.name }.each{|x| promotion_keys[x] = nil}
           promotion_clumn.map {|c| promotion_keys[c.name] = promotion[c.name] } 
           promotion_keys[:promotion_name] = promotion.promotion_type.name.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
-          promotion_keys["details"] = promotion.details.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
-      promotion_array.push(promotion_keys)
+          promotion_keys["details"] = promotion.details.gsub(/[^0-9A-Za-z]/, ' ').gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
+          promotion_array.push(promotion_keys)
       end
     render :json => {:all_promotions=>promotion_array }
   end
