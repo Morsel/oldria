@@ -1,6 +1,59 @@
 Ria::Application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
+  resources :ria_webservices do
+    collection do
+      post :register
+      post :create
+      post :create_psw_rst
+      get :get_join_us_value
+      get :soap_box_index
+      get :a_la_minute_answers
+      get :menu_items
+      post :bulk_update
+      post :create_menu
+      post :create_promotions
+      get :get_promotion_type
+      get :new_menu_item
+      get :bulk_edit_photo
+      post :create_photo
+      post :create_comments
+      get :show_comments
+      get :get_qotds
+      get :get_newsfeed
+      post :push_notification_user
+      get :get_admin_conversation_discussions
+      get :get_media_request
+    end  
+  end
+
+  resources :ria_production_webservices do
+    collection do
+      post :register
+      post :create
+      post :create_psw_rst
+      get :get_join_us_value
+      get :soap_box_index
+      get :a_la_minute_answers
+      get :menu_items
+      post :bulk_update
+      post :create_menu
+      post :create_promotions
+      get :get_promotion_type
+      get :new_menu_item
+      get :bulk_edit_photo
+      post :create_photo
+      post :create_comments
+      get :show_comments
+      get :get_qotds
+      get :get_newsfeed
+      post :push_notification_user
+      get :get_admin_conversation_discussions
+      get :get_media_request
+      post :api_register
+    end  
+  end
+
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
   match 'facebook_login' => 'user_sessions#create_from_facebook', :as => :fb_login
@@ -665,59 +718,6 @@ Ria::Application.routes.draw do
   match 'hq/:id' => 'hq_pages#show', :as => :hq_page
   match 'mediafeed/:id' => 'mediafeed_pages#show', :as => :mediafeed_page
   match '/:controller(/:action(/:id))', :as => :connect
-
-  resources :ria_webservices do
-    collection do
-      post :register
-      post :create
-      post :create_psw_rst
-      get :get_join_us_value
-      get :soap_box_index
-      get :a_la_minute_answers
-      get :menu_items
-      post :bulk_update
-      post :create_menu
-      post :create_promotions
-      get :get_promotion_type
-      get :new_menu_item
-      get :bulk_edit_photo
-      post :create_photo
-      post :create_comments
-      get :show_comments
-      get :get_qotds
-      get :get_newsfeed
-      post :push_notification_user
-      get :get_admin_conversation_discussions
-      get :get_media_request
-    end  
-  end
-
-  resources :ria_production_webservices do
-    collection do
-      post :register
-      post :create
-      post :create_psw_rst
-      get :get_join_us_value
-      get :soap_box_index
-      get :a_la_minute_answers
-      get :menu_items
-      post :bulk_update
-      post :create_menu
-      post :create_promotions
-      get :get_promotion_type
-      get :new_menu_item
-      get :bulk_edit_photo
-      post :create_photo
-      post :create_comments
-      get :show_comments
-      get :get_qotds
-      get :get_newsfeed
-      post :push_notification_user
-      get :get_admin_conversation_discussions
-      get :get_media_request
-      post :api_register
-    end  
-  end
 
   match '/restaurants/:restaurant_id/employees/options' => 'employees#options', :as => :no_choice
   match 'restaurants/:restaurant_id/employees/new_employee' => 'employees#new_employee', :as => :new_employee
