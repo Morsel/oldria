@@ -12,4 +12,5 @@
 #
 
 class SeatingArea < ActiveRecord::Base
+	attr_accessible :name, :occupancy, :restaurant_fact_sheet_id
 end

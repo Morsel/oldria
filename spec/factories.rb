@@ -699,4 +699,127 @@ FactoryGirl.define do
   f.password "secret"
   f.password_confirmation "secret"
   end
+
+ factory :visitor_email_setting do |f|
+  f.restaurant_id 182   
+  f.is_approved 0
+  f.email_frequency "Daily"
+  f.email_frequency_day "2013-05-02 06"
+  f.last_email_at Time.now
+  end
+
+ factory :user_visitor_email_setting do |f|
+  f.email_frequency "Daily"
+  f.next_email_at "2013-05-02 06"
+  f.last_email_at Time.now
+  f.association :user
+  end
+
+ factory :user_profile_subscriber do |f|
+  f.profile_subscriber_id 178   
+  f.user_id   178
+  f.association :user_profile_subscriber
+ end  
+
+ factory :social_post do |f|
+  f.source_type "MenuItem"   
+  f.source_id   "377"
+  f. job_id   "36248"
+  f.type   "FacebookPost"
+  f.content   "test"
+  f.post_at "2012-12-10 19:36:00"
+ end  
+
+ factory :trace_search do |f|
+  f.searchable_id "685"   
+  f.searchable_type   "User"
+  f.count      "1"
+  f.  term_name   "Adam Altnether"
+  f.association :user
+ end  
+
+ factory :spoonfeed_trace_searche do |f|  
+  f.searchable_id "685"   
+  f.searchable_type   "User"
+  f. user_id   "178"
+  f.  term_name   "Adam Altnether"
+  f.association :user
+ end 
+
+  factory :trace_keyword do |f|  
+   f.keywordable_id   "25"   
+   f.keywordable_type   "RestaurantFeature"
+   f.count   "1"
+   f.association :keywordable
+   f.association :user
+  end   
+
+  factory :invalid_trace_keyword, parent: :trace_keyword do |f|
+    f.keywordable_id nil
+    f.keywordable_type nil
+    f.user_id nil
+    f.count   nil
+
+  end
+
+  factory :soapbox_trace_keyword do |f|  
+   f.keywordable_id   "25"   
+   f.keywordable_type   "RestaurantFeature"
+   f.title   "Big Jones"
+   f.association :keywordable
+   f.association :restaurant
+  end   
+
+  factory :invalid_soapbox_trace_keyword, parent: :soapbox_trace_keyword do |f|  
+   f.keywordable_id   nil 
+   f.keywordable_type   nil
+   f.restaurant_id   nil
+   f.title   nil
+  end   
+
+  factory :spoonfeed_trace_Searche do |f|  
+   f.searchable_id   "451"   
+   f.searchable_type   "User"
+   f.term_name "Jerald Armstrong"
+   f.count   "1"
+   f.association :user
+  end   
+
+  factory :tasting_menu do |f|  
+   f.name   "Seven course degustation"   
+   f.price   "75"
+   f.wine_supplement_price   "30"
+   f.restaurant_fact_sheet_id "5"
+  end   
+
+  factory :social_update do |f|  
+   f.post_data   "Squash blossom | chorizo and corn http://t.co/FQ6K..."   
+   f.link   "http://twitter.com/EllenMalloy/status/236252974706..."
+   f.post_created_at   "2012-08-17 00:07:53 "
+   f.source   "Twitter"
+   f.title   "test"
+   f.post_id   "236252974706458624"
+   f.association :restaurant
+  end 
+
+  factory :seating_area do |f|  
+   f.name   "Bar "   
+   f.occupancy "50"
+   f.restaurant_fact_sheet_id "14"
+  end 
+
+  factory :restaurant_employee_request do |f|  
+   f.restaurant_id   "241"   
+   f. employee_id    "1261"
+   f.association :employee , factory: :user
+   f.association :restaurant
+  end 
+
+  factory :regional_writer do |f|  
+   f.user_id   "2626"   
+   f. james_beard_region_id  "1"
+   f.association :user
+   f.association :james_beard_region
+  end 
+
 end

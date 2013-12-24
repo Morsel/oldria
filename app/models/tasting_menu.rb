@@ -14,4 +14,6 @@
 
 class TastingMenu < ActiveRecord::Base
   belongs_to :restaurant_tasting_menu
+  attr_accessible :name, :price,:wine_supplement_price, :restaurant_fact_sheet_id
 end
+
