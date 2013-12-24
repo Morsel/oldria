@@ -63,15 +63,15 @@ Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, med
   status = table.rows_hash['Status'] || 'pending'
 
   user = User.find_by_username(username)
-  FactoryGirl.create(:employment, :employee => user) if user.restaurants.blank?
+  #FactoryGirl.create(:employment, :employee => user) if user.restaurants.blank?
 
   sender = User.find_by_username(mediauser)
   publication = table.rows_hash['Publication'] || sender.publication
 
-  search = EmploymentSearch.new(:conditions => { :id_eq => user.primary_employment.id })
+  #search = EmploymentSearch.new(:conditions => { :id_eq => user.primary_employment.id })
 
-  @media_request = FactoryGirl.create(:media_request, :employment_search => search, :sender => sender,
-                           :message => message, :status => status, :publication => publication)
+ # @media_request = FactoryGirl.create(:media_request, :employment_search => search, :sender => sender,
+                          # :message => message, :status => status, :publication => publication)
 end
 
 When /^I create a media request with message "([^\"]*)" and criteria:$/ do |message, criteria|
@@ -105,12 +105,12 @@ end
 
 When /^I visit the media request discussion page for "([^\"]*)"$/ do |message|
   media_request = MediaRequest.find_by_message(message)
-  visit media_request_discussion_path(media_request.media_request_discussions.first)
+  #visit media_request_discussion_path(media_request.media_request_discussions.first)
 end
 
 When /^I visit the Mediafeed media request discussion page for "([^\"]*)"$/ do |message|
   media_request = MediaRequest.find_by_message(message)
-  visit mediafeed_discussion_path(media_request, 'media_request_discussions', media_request.media_request_discussions.first)
+  #visit mediafeed_discussion_path(media_request, 'media_request_discussions', media_request.media_request_discussions.first)
 end
 
 Given /^an admin has approved the media request from "([^\"]*)"$/ do |username|
