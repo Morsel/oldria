@@ -1,9 +1,10 @@
 class SocialPost < ActiveRecord::Base  
   POST_LIMIT = 3
   REJECT_PROC = lambda { |params| params["post_at"].blank? }
-  attr_accessible :payload_object, :priority, :run_at
+  attr_accessible :payload_object, :priority, :run_at,:source_type,:source_id,:job_id,:type,:content,:post_at
   belongs_to :source, :polymorphic => true
   has_one :delayed_job, :class_name => "Delayed::Job", :foreign_key => 'id', :primary_key => 'job_id', :dependent => :destroy
+
 
   after_save :schedule_post
 
@@ -18,6 +19,7 @@ class SocialPost < ActiveRecord::Base
   def schedule_post
     if post_at_changed?
       delayed_job.destroy if delayed_job.present?
+      debugger
       job = self.send_at(post_at, :post)
       self.class.update_all("job_id = #{job.id}", ["id = ?", self.id])
     end

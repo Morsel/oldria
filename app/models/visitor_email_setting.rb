@@ -4,6 +4,7 @@ class VisitorEmailSetting < ActiveRecord::Base
 	validates_inclusion_of :email_frequency, :in => ["Daily","Weekly", "Biweekly", "Monthly"] ,:unless => "email_frequency.blank?"
 
 	validates_presence_of :email_frequency_day,:if=>"!email_frequency.blank? && email_frequency !='Daily'"
+  attr_accessible :restaurant_id, :is_approved,:email_frequency, :email_frequency_day, :last_email_at
 
 	def next_email_frequency
    case email_frequency.downcase
@@ -21,3 +22,5 @@ class VisitorEmailSetting < ActiveRecord::Base
   end
 
 end
+
+
