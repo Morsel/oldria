@@ -52,18 +52,8 @@ Feature: Media requests
     And that media request is approved
     Then "sam" should have 1 media request
     And "john" should have 1 media request
-    
-  Scenario: Solo users can receive requests
-    Given the following confirmed user:
-      | username | first_name | last_name | email         |
-      | neue     | Neue       | User      | neue@mail.com |
-    And "neue" has a default employment with the role "Baker" and subject matter "Food"
-    Given I am logged in as "mediaman" with password "secret"
-    When I create a media request with message "What can I make with this stuff?" and criteria:
-       | Subject Matter | Food |
-    And that media request is approved
-    Then "neue" should have 1 media requests
 
+  
 @emails
   Scenario: Approved media requests notifications are emailed to recipients
     Given "sam" handles the subject matter "Beer" for "Eight Ball"
@@ -76,29 +66,4 @@ Feature: Media requests
     Then "sam@example.com" should have 1 email
     And "john@example.com" should have 0 emails
 
-  Scenario: Hidden users should not receive media requests
-    Given the following confirmed user:
-      | username | first_name | last_name | email         | mediafeed_visible |
-      | keue     | Keue       | User      | keue@mail.com | true              |
-      | leue     | Leue       | User      | leue@mail.com | false             |
-    And "keue" has a default employment with the role "Baker" and subject matter "Food"
-    And "leue" has a default employment with the role "Baker" and subject matter "Food"
-
-    Given I am logged in as "mediaman" with password "secret"
-    When I create a media request with message "What can I make with this stuff?" and criteria:
-       | Subject Matter | Food |
-    And that media request is approved
-
-    Then "keue" should have 1 media requests
-    Then "leue" should have 0 media requests
-
-@emails
-  Scenario: Users who set a notification email address will have media requests redirected
-    Given "sam" handles the subject matter "Beer" for "Eight Ball"
-    And "sam" has set a notification email address "assistant@myrestaurant.com"
-    And subject matter "Beer" is general
-    Given I am logged in as "mediaman" with password "secret"
-    When I create a media request with message "Are cucumbers good in salad?" and criteria:
-      | Subject Matter | Beer |
-    And that media request is approved
-    Then "assistant@myrestaurant.com" should have 1 email
+ 
