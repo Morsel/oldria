@@ -1,5 +1,5 @@
 # == Users ==
-require 'faker'
+
 FactoryGirl.define do
   factory :user do |f|
     f.sequence(:username) { |n| "foo#{n}" }
@@ -919,10 +919,9 @@ FactoryGirl.define do
    f.type "SfSlide"
   end 
 
-  factory :hq_page do |f|  
-   f.title "About"
-   f.slug "about"
-   f.content   "<h2>Restaurant Intelligence Agency (RIA)</h2>"  
+  factory :featured_profile do |f|  
+   f. spotlight_on "1"
+   f.association :feature
   end 
 
 end
