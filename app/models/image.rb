@@ -44,7 +44,7 @@ class Image < Attachment
     :whiny => false,
     :default_url => '/images/avatar_restaurant.gif'
 
-  attr_accessible :attachment, :photos_attributes, :name, :credit
+  attr_accessible :attachment, :photos_attributes, :name, :credit, :position
   
   def restaurant
     attachable if attachable_type == "Restaurant"

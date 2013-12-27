@@ -1,5 +1,4 @@
 class Admin::FeaturedProfilesController < Admin::AdminController
-	before_filter :get_feature_profile
 	before_filter :preimum_user_and_restaurant ,:only=>[:create,:new,:edit,:update]	
 
 
@@ -40,9 +39,7 @@ class Admin::FeaturedProfilesController < Admin::AdminController
   end
 
   private
-  def get_feature_profile
-  	#@features = FeaturedProfile.all
-  end
+
   def preimum_user_and_restaurant 
   		if params[:type].present? &&  ['user','restaurant'].include?(params[:type].downcase) 
         # @records = eval(params[:type].capitalize).premium_account

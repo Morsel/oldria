@@ -1,4 +1,5 @@
 # == Users ==
+require 'faker'
 FactoryGirl.define do
   factory :user do |f|
     f.sequence(:username) { |n| "foo#{n}" }
@@ -810,16 +811,118 @@ FactoryGirl.define do
 
   factory :restaurant_employee_request do |f|  
    f.restaurant_id   "241"   
-   f. employee_id    "1261"
+   #f. employee_id    {Faker::Number.number(2)}
    f.association :employee , factory: :user
    f.association :restaurant
   end 
 
   factory :regional_writer do |f|  
    f.user_id   "2626"   
-   f. james_beard_region_id  "1"
+   f.james_beard_region_id  "1"
    f.association :user
    f.association :james_beard_region
+  end 
+
+  factory :push_notification_user do |f|  
+   f.device_tocken   "2626"   
+   f.uniq_device_key  "1"
+   f.association :user
+  end 
+
+  factory :profile_out_of_date do |f|  
+   f.user_id   "178"   
+   f.restaurant_id  "22"
+   f.count :"1"
+  end 
+
+  factory :otm_keyword_notification do |f|  
+   f.name   "test"   
+  end 
+
+  factory :newsletter_setting do |f|  
+   f.introduction   "Indrto dunc"   
+   f.subject   "This is my subject"   
+  end 
+
+  factory :newsfeed_writer do |f|  
+   f.name   "National Writer"   
+   f.association :user
+   f.association :metropolitan_areas_writers
+   f.association :regional_writers
+  end 
+
+  factory :newsfeed_promotion_type do |f|  
+   f.association :user
+   f.association :metropolitan_areas_writers
+   f.association :regional_writers
+  end 
+
+  factory :media_newsletter_setting do |f|  
+   f.association :user
+   f.opt_out   "1"   
+  end 
+
+  factory :mediafeed_slide do |f|  
+   f.image_file_name "SpoonfeedHQ_placeholder_Kessler_35449.jpg"
+   f.image_content_type   "image/jpeg"  
+   f.image_file_size "112611"
+   f.image_updated_at   "2010-11-11 00:39:35" 
+   f.title "Speak for Yourself"
+   f.excerpt   "We've built a platform so you can rise up above th..."  
+   f.link "http://spoonfeed.restaurantintelligenceagency.com/.."
+   f.position "1"
+   f.photo_credit "Photo Credit: Grant Kessler"
+   f.type "SfSlide"
+  end 
+
+  factory :mediafeed_page do |f|  
+   f.title "Contact"
+   f.slug   "contact"  
+   f.content "<h3><strong>Wouldn&#39;t it be nice if every websi..."
+  end 
+
+  factory :meal do |f|  
+   f.name "Brunch"
+   f.day   "sunday"  
+   f.open_at_hours "9"
+   f.open_at_minutes "00"
+   f.open_at_am_pm   "am"  
+   f.closed_at_hours "3"
+   f.closed_at_minutes "00"
+   f.closed_at_am_pm   "pm"  
+   f.restaurant_fact_sheet_id "5"
+  end 
+
+  factory :invited_employee do |f|  
+   f.first_name "shrivatstav"
+   f.last_name   "shrivatstav"  
+   f.email "anand.shrivastava@cisinlabs.com"
+  end 
+
+  factory :image do |f|  
+   f.association :attachable
+   f.credit "   Masa Azul"
+   f.position   "16"  
+   f.name "Sopa de Fideo"
+  end 
+
+  factory :hq_slide do |f|  
+   f.image_file_name "SpoonfeedHQ_placeholder_Kessler_35449.jpg"
+   f.image_content_type "image/jpeg"
+   f.image_file_size   "112611"  
+   f.image_updated_at "2010-11-11 00:39:35"
+   f.title "Speak for Yourself"
+   f.excerpt " We've built a platform so you can rise up above th..."
+   f.link   "http://spoonfeed.restaurantintelligenceagency.com/..."  
+   f.position "1"
+   f.photo_credit "Photo Credit: Grant Kessler"
+   f.type "SfSlide"
+  end 
+
+  factory :hq_page do |f|  
+   f.title "About"
+   f.slug "about"
+   f.content   "<h2>Restaurant Intelligence Agency (RIA)</h2>"  
   end 
 
 end
