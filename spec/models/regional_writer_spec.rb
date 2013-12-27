@@ -16,8 +16,6 @@ describe RegionalWriter do
 	 	FactoryGirl.build(:regional_writer, james_beard_region_id: nil).should_not be_valid 
 	end 
 
-  it "should remove old entries" do
-	 	
-	end 
+
 
 end 

@@ -19,4 +19,6 @@
 #
 
 class HqSlide < Slide
+	attr_accessible :image_file_name, :image_content_type, :image_file_size, :image_updated_at , :position, :type
 end
+

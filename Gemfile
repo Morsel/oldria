@@ -125,6 +125,10 @@ group :development, :test do
   gem "rspec-core"
   gem 'tweetstream',:git=>"https://github.com/tweetstream/tweetstream.git"
   gem 'test-unit', '1.2.3', :platform => :ruby_19
+  gem "shoulda-callback-matchers", "=0.2.0"
+
   #end test gem
 end
+
+
 
