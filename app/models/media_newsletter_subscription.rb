@@ -1,7 +1,7 @@
 class MediaNewsletterSubscription < ActiveRecord::Base
   belongs_to :restaurant 
   belongs_to :media_newsletter_subscriber, :class_name => "User"  ,:foreign_key => "media_newsletter_subscriber_id"
-  after_create :add_subscription_to_mailchimp
+  #after_create :add_subscription_to_mailchimp
   attr_accessible :media_newsletter_subscriber, :restaurant
 
   def send_newsletters_to_media
@@ -20,7 +20,6 @@ class MediaNewsletterSubscription < ActiveRecord::Base
        end
     end
   end
-
 
   def self.menu_items(restaurants)
     #menu_items = MenuItem.find_by_sql("SELECT GROUP_CONCAT(result_view.item SEPARATOR ',') as menu_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3) as item FROM `menu_items` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) result_view").first.menu_ids

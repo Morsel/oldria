@@ -15,5 +15,20 @@ describe NewsfeedWriter do
     NewsfeedWriter.create!(@valid_attributes)
   end
 
+  describe "#find_metropolitan_areas_writers" do
+    newsfeed_writer = FactoryGirl.create(:newsfeed_writer)
+    user = FactoryGirl.build(:user, :username => 'sender',:email=>"rewr.23@gmail.com")
+    user.save(:validate => false)
+    newsfeed_writer.find_metropolitan_areas_writers(user).should ==  newsfeed_writer.metropolitan_areas_writers.find(:all,:conditions=>["user_id=?",user])
+  end
+ 
+  describe "#find_regional_writers" do
+    newsfeed_writer = FactoryGirl.create(:newsfeed_writer)
+    user = FactoryGirl.build(:user, :username => 'sender',:email=>"rewr.23@gmail.com")
+    user.save(:validate => false)
+    newsfeed_writer.find_regional_writers(user).should ==  newsfeed_writer.regional_writers.find(:all,:conditions=>["user_id=?",user])
+  end
+ 
+
 end	
 

@@ -1,4 +1,5 @@
 # == Users ==
+#require 'faker'
 
 FactoryGirl.define do
   factory :user do |f|
@@ -748,8 +749,8 @@ FactoryGirl.define do
  end 
 
   factory :trace_keyword do |f|  
-   f.keywordable_id   "25"   
-   f.keywordable_type   "RestaurantFeature"
+   # f.keywordable_id   "25"   
+   # f.keywordable_type   "RestaurantFeature"
    f.count   "1"
    f.association :keywordable
    f.association :user
@@ -846,9 +847,9 @@ FactoryGirl.define do
 
   factory :newsfeed_writer do |f|  
    f.name   "National Writer"   
-   f.association :user
-   f.association :metropolitan_areas_writers
-   f.association :regional_writers
+  # f.association :user
+   # f.association :metropolitan_areas_writers
+   # f.association :regional_writers
   end 
 
   factory :newsfeed_promotion_type do |f|  
@@ -920,8 +921,45 @@ FactoryGirl.define do
   end 
 
   factory :featured_profile do |f|  
+   f. feature_id  "209"
+   f. feature_type   "User"
+   f. start_date  "2013-01-01 12:02:00"
    f. spotlight_on "1"
-   f.association :feature
+   #f.association :feature
+  end 
+
+
+  factory :facebook_post do |f|  
+   f. job_id  "45605"
+   f. type "TwitterPost"
+   f. content "Thisis nishsnt"
+   f.post_at "  2013-09-18 11:54:00  "
+   f.association :source
+  end 
+
+
+  factory :digest_writer do |f|  
+   f. name  "National Writer"
+  end 
+
+  factory :metropolitan_areas_writer do |f|  
+   f.metropolitan_area_id "2"
+   f. newsletter_subscriber_id  "1"
+   f.association :area_writer
+   f.association :user
+   f.association :metropolitan_area
+  end
+
+
+  factory :media_newsletter_subscription do |f|  
+   f.association :restaurant
+   f.association :media_newsletter_subscriber
+  end 
+
+  factory :user_restaurant_visitor do |f|  
+   f.association :restaurant
+   f.association :user
   end 
 
 end
+
