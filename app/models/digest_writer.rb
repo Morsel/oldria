@@ -5,7 +5,7 @@ class DigestWriter < ActiveRecord::Base
 	has_many :regional_writers, :as => :regional_writer
 	
 
-	attr_accessible :metropolitan_areas_writers_attributes,:regional_writers_attributes
+	attr_accessible :metropolitan_areas_writers_attributes,:regional_writers_attributes,:name
 	accepts_nested_attributes_for :metropolitan_areas_writers ,:regional_writers
 
 	def find_metropolitan_areas_writers user
