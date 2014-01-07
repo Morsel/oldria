@@ -961,5 +961,13 @@ FactoryGirl.define do
    f.association :user
   end 
 
+  factory :cookbook do |f|  
+   f.title  "The Art of Aureole"
+   f.publisher "10 Speed Press"
+   f.published_on "2005-10-01 05:00:00"
+  end 
+
+
+
 end
 
