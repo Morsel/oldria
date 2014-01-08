@@ -4,7 +4,7 @@ class StatusesController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @statuses = @user.statuses.paginate(:page => params[:page], :per_page => 10)
+    @statuses = @user.first.statuses.paginate(:page => params[:page], :per_page => 10)
     @editable = (@user == current_user)
   end
 
