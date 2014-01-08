@@ -730,6 +730,7 @@ FactoryGirl.define do
   f.type   "FacebookPost"
   f.content   "test"
   f.post_at "2012-12-10 19:36:00"
+  
  end  
 
  factory :trace_search do |f|
@@ -965,6 +966,16 @@ FactoryGirl.define do
    f.title  "The Art of Aureole"
    f.publisher "10 Speed Press"
    f.published_on "2005-10-01 05:00:00"
+  end 
+
+  factory :restaurant_fact_sheet do |f|  
+   f.   venue  "615 W. Randolph St."
+   f.intersection "Randolph between Jefferson and DesPlaines"
+   f.neighborhood "West Loop"
+   f.parking    "valet"
+   f.public_transit "1 block south and 1 block west of Pink Line Clinto..."
+   f.dinner_average_price "20"
+   f.association :restaurant
   end 
 
 

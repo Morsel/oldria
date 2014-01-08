@@ -33,5 +33,11 @@ describe Accolade do
     Accolade.by_run_date.all.should == [accolade2, accolade1]
   end
 
+  describe "#restaurant?" do
+    accolade = FactoryGirl.create(:accolade)
+    accolade.restaurant?.should == accolade.accoladable.is_a?(Restaurant)
+  end
+
+
 end
 
