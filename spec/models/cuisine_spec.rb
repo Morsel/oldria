@@ -2,6 +2,9 @@ require_relative '../spec_helper'
 
 describe Cuisine do
   it { should have_many :restaurants }
+  it { should have_many :profile_cuisines }
+  it { should have_many :profiles }
+
   #CIS http://stackoverflow.com/questions/6853744/how-can-i-have-rspec-test-for-my-default-scope
   it { Cuisine.scoped.to_sql.should == Cuisine.order("cuisines.name ASC").to_sql }
 #    it { should have_default_scope :order => "cuisines.name ASC" } 

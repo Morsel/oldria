@@ -45,4 +45,20 @@ describe CoachedStatusUpdate, "date ranges" do
       @count.should be_between(20,45)
     end
   end
+
+  describe "#seasons" do
+    it "should return the all seasons" do
+      coached_status_updates = FactoryGirl.create(:coached_status_update)
+      CoachedStatusUpdate.seasons.should ==  @@seasons ||= %w{Winter Spring Summer Fall}
+    end   
+  end
+
+  describe "#holidays" do
+    it "should return the all holidays" do
+      coached_status_updates = FactoryGirl.create(:coached_status_update)
+      CoachedStatusUpdate.holidays.should ==  @@holidays ||= %w{Christmas Hannukah Thanksgiving Labor_Day}.map {|s| s.gsub(/_/, ' ')}
+    end   
+  end
+
+
 end

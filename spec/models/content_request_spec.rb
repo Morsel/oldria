@@ -23,5 +23,48 @@ describe ContentRequest do
       content_request.restaurants.should_not include(@restaurant2)
     end
   end
+
+  describe ".ContentRequest.title" do
+    it "should return the title" do
+      content_request = FactoryGirl.create(:content_request)
+      ContentRequest.title.should == "Question from RIA"
+    end   
+  end
   
+  describe "#inbox_title" do
+    it "should return the inbox title" do
+      content_request = FactoryGirl.create(:content_request)
+      content_request.inbox_title.should == content_request.class.title
+    end   
+  end
+
+  describe "#mailer_method" do
+    it "should return the mailer method" do
+      content_request = FactoryGirl.create(:content_request)
+      content_request.mailer_method.should == content_request.mailer_method
+    end   
+  end
+
+  describe "#message" do
+    it "should return the message" do
+      content_request = FactoryGirl.create(:content_request)
+      content_request.message.should == [content_request.subject, content_request.body].compact.join(': ')
+    end   
+  end
+
+  describe "#update_restaurants_from_search_criteria" do
+    it "should update restaurants from search criteria" do
+      content_request = FactoryGirl.create(:content_request)
+      content_request.update_restaurants_from_search_criteria.should == content_request.employment_search.restaurant_ids
+    end   
+  end
+
+
+  describe "#recipients_can_reply?" do
+    it "should return true" do
+      content_request = FactoryGirl.create(:content_request)
+      content_request.recipients_can_reply?.should == true
+    end   
+  end
+
 end

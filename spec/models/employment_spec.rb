@@ -21,16 +21,14 @@ describe Employment do
   it { should belong_to :restaurant_role }
   it { should have_many :responsibilities }
   it { should have_many(:subject_matters).through(:responsibilities) }
-
-  it { should have_many :admin_conversations }
-  it { should have_many(:admin_messages).through(:admin_conversations) }
-
-  it { should have_many :holiday_conversations }
+  it { should have_many(:admin_conversations).class_name('Admin::Conversation').with_foreign_key('recipient_id') }
+  it { should have_many(:admin_messages).through(:admin_conversations).class_name('Admin::Message') }
+  it { should have_many(:admin_discussions).through(:restaurant) }
+  it { should have_many(:holiday_conversations).with_foreign_key('recipient_id').dependent(:destroy) }
   it { should have_many(:holidays).through(:holiday_conversations) }
-
+  it { should accept_nested_attributes_for :employee }
   it { should validate_presence_of :employee_id }
   it { should validate_presence_of :restaurant_id }
-  it { should accept_nested_attributes_for :employee }
 
   describe "with employees" do
     before do
@@ -102,7 +100,98 @@ describe Employment do
     end
 
   end
-end
 
+  describe "#employee_last_name" do
+    it "should return the employee last name" do
+      employment = FactoryGirl.build(:employment)
+      employment.employee_last_name.should == employment.employee.last_name
+    end 
+  end
+
+  describe "#restaurant_name" do
+    it "should return the employee last name" do
+      employment = FactoryGirl.build(:employment)
+      employment.restaurant_name.should == employment.restaurant_name
+    end 
+  end
+
+  describe "#name_and_restaurant" do
+    it "should return the name and restaurant name" do
+      employment = FactoryGirl.build(:employment)
+      employment.name_and_restaurant.should ==  "#{employment.employee_name} (#{employment.restaurant_name})"
+    end 
+  end
+
+  describe "#viewable_unread_media_request_discussions" do
+    it "should return the viewable unread media request discussions" do
+      employment = FactoryGirl.build(:employment)
+      employment.viewable_unread_media_request_discussions.should ==  employment.restaurant.media_request_discussions.approved.select { |d| d.viewable_by?(employment) && !d.read_by?(employment.employee) }
+    end 
+  end
+
+  describe "#current_viewable_admin_discussions" do
+    it "should return the current viewable admin discussions" do
+      employment = FactoryGirl.build(:employment)
+      employment.current_viewable_admin_discussions.should == employment.viewable_admin_discussions.select { |discussion| Time.now >= discussion.scheduled_at }
+    end 
+  end
+
+  describe "#current_viewable_trend_discussions" do
+    it "should return the current viewable trend discussions" do
+      employment = FactoryGirl.build(:employment)
+      employment.current_viewable_trend_discussions.should == employment.viewable_trend_discussions.select { |discussion| Time.now >= discussion.scheduled_at  }
+    end 
+  end
+
+  describe "#current_viewable_request_discussions" do
+    it "should return the current viewable trend discussions" do
+      employment = FactoryGirl.build(:employment)
+      employment.current_viewable_request_discussions.should == employment.viewable_request_discussions.select { |discussion| Time.now >= discussion.scheduled_at }
+    end 
+  end
+
+  describe "#viewable_admin_discussions" do
+    it "should return the current viewable admin discussions" do
+      employment = FactoryGirl.build(:employment)
+      @all_discussions = employment.restaurant.admin_discussions.all({:include => :discussionable}.merge({})).select(&:discussionable)
+      if employment.omniscient?
+      all_discussions =  employment.restaurant.admin_discussions.all({:include => :discussionable}.merge({})).select(&:discussionable)
+      else 
+      all_discussions =  @all_discussions.select {|element| element.viewable_by? self }
+      end   
+      employment.viewable_admin_discussions.should == all_discussions
+    end 
+  end
+
+
+  describe "#viewable_request_discussions" do
+    it "should return the current viewable request discussions" do
+      employment = FactoryGirl.build(:employment)
+      @all_discussions = employment.admin_discussions.for_content_requests.select {|element| element.viewable_by? self }
+      if employment.omniscient?
+      all_discussions =  employment.admin_discussions.for_content_requests
+      else 
+      all_discussions =  @all_discussions
+      end   
+      employment.viewable_admin_discussions.should == all_discussions
+    end 
+  end
+
+
+  describe "#viewable_trend_discussions" do
+    it "should return the current viewable request discussions" do
+      employment = FactoryGirl.build(:employment)
+      @all_discussions = employment.admin_discussions.for_trends.select {|element| element.viewable_by? self }
+      if employment.omniscient?
+      all_discussions =  employment.admin_discussions.for_trends
+      else 
+      all_discussions =  @all_discussions
+      end   
+      employment.viewable_admin_discussions.should == all_discussions
+    end 
+  end
+
+
+end
 
 

@@ -34,4 +34,34 @@ describe Discussion do
     discussion.save
   end
 
+  describe "#inbox_title" do
+    it "should return the inbox title" do
+      discussion = FactoryGirl.create(:discussion)
+      discussion.inbox_title.should == "Discussion"
+    end   
+  end
+
+  describe "#email_title" do
+    it "should return the email title" do
+      discussion = FactoryGirl.create(:discussion)
+      discussion.email_title.should == discussion.inbox_title
+    end   
+  end
+
+  describe "#message" do
+    it "should return the message" do
+      discussion = FactoryGirl.create(:discussion)
+      discussion.message.should == discussion.title
+    end   
+  end
+
+  describe "#action_required?" do
+    it "should return the action_required?" do
+      discussion = FactoryGirl.create(:discussion)
+      user = FactoryGirl.build(:user)
+      user.save(:validate => false)
+      discussion.action_required?(user).should == discussion.comments_count > 0 && discussion.comments.last.user != user && !discussion.comments.last.read_by?(user)
+    end   
+  end
+
 end
