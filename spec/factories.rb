@@ -978,6 +978,16 @@ FactoryGirl.define do
    f.association :restaurant
   end 
 
+  factory :asset do |f|  
+   f.data_file_name  "Soapbox-Logo-Color-Web.jpg"
+   f.data_content_type "application/octet-stream"
+   f.data_file_size "52459"
+   f.assetable_id    "6"
+   f.assetable_type "User"
+   f.type "Picture"
+   f.association :user
+  end 
+
 
 
 end
