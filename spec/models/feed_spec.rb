@@ -60,4 +60,27 @@ describe Feed do
       feed.feed_url.should == 'http://feeds.feedburner.com/blogspot/MKuf'
     end
   end
+
+  describe "#feed" do
+    it "should return the fetch_feed" do
+      feed = FactoryGirl.create(:feed, :title => 'First feed entered')
+      feed.feed.should == feed.fetch_feed
+    end 
+  end
+
+  describe "#fetch_feed" do
+    it "should return the fetch_feed" do
+      feed = FactoryGirl.create(:feed, :title => 'First feed entered')
+      feed.fetch_feed.should == Feedzirra::Feed.fetch_and_parse(feed.feed_url)
+    end 
+  end
+ 
+  describe "#update_all_entries" do
+    it "should update_all entries" do
+      feed = FactoryGirl.create(:feed, :title => 'First feed entered')
+      Feed.update_all_entries.should == Feed.all.each {|f| f.update_entries }
+    end 
+  end
+ 
+
 end

@@ -56,4 +56,35 @@ describe EmploymentSearch do
       search.readable_conditions.should_not include("Role: [not found]")
     end
   end
+
+  describe "#employment_ids" do
+    it "should return the employment ids" do
+      @employment_search.employment_ids.should == employments.map(&:id).uniq
+    end 
+  end
+
+  describe "#restaurant_ids" do
+    it "should return the restaurant ids" do
+      @employment_search.restaurant_ids.should == employments.all(:group => :restaurant_id).map(&:restaurant_id).uniq
+    end 
+  end
+
+  describe "#restaurants" do
+    it "should return the restaurants" do
+      @employment_search.restaurants.should == Restaurant.find(restaurant_ids)
+    end 
+  end
+
+  describe "#solo_employments" do
+    it "should return the solo employments" do
+      @employment_search.solo_employments.should == employments.select { |e| e.restaurant.nil? }.uniq
+    end 
+  end
+
+  describe "#solo_employment_ids" do
+    it "should return the solo employment ids" do
+      @employment_search.solo_employment_ids.should ==  solo_employments.map(&:id)
+    end 
+  end
+
 end

@@ -935,7 +935,7 @@ FactoryGirl.define do
    f. type "TwitterPost"
    f. content "Thisis nishsnt"
    f.post_at "  2013-09-18 11:54:00  "
-   f.association :source
+   #f.association :source
   end 
 
 
@@ -955,6 +955,8 @@ FactoryGirl.define do
   factory :media_newsletter_subscription do |f|  
    f.association :restaurant
    f.association :media_newsletter_subscriber
+
+
   end 
 
   factory :user_restaurant_visitor do |f|  
@@ -988,6 +990,12 @@ FactoryGirl.define do
    f.association :user
   end 
 
+  factory :media_request_type do |f|  
+   f.name  "Photo Request"
+   f.shortname   "photo"
+   f.fields "Photo needed, Photo requirements, Other important ..."
+   #f.association :media_requests
+  end 
 
 
 end
