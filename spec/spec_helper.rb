@@ -23,6 +23,7 @@ Spork.prefork do
   # require "mocha/setup"
   require "email_spec/helpers"
   require "email_spec/matchers"
+  require "paperclip/matchers"
   require "braintree"
   # require "support/braintree_spec_helper"
   require 'fakeweb'
@@ -32,6 +33,10 @@ Spork.prefork do
   require 'rspec/rails/mocks'               if defined?(Rspec::Mocks)
   
   Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+
+  Spec::Runner.configure do |config|
+     config.include Paperclip::Shoulda::Matchers
+   end
 
   Webrat.configure do |config|
     config.mode = :rails

@@ -28,7 +28,8 @@ class Holiday < ActiveRecord::Base
   end
 
   def accepted_holiday_discussions
-    holiday_discussions.accepted
+    #holiday_discussions.accepted
+    holiday_discussions.map(&:accepted)
   end
 
   def accepted_holiday_discussion_restaurant_ids

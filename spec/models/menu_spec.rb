@@ -1,6 +1,18 @@
 require_relative '../spec_helper'
 
 describe Menu do
+  it { should belong_to(:pdf_remote_attachment) }
+  it { should belong_to(:restaurant) }
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:pdf_remote_attachment) }
+  it { should accept_nested_attributes_for(:pdf_remote_attachment) }
+
+  it do
+    should ensure_inclusion_of(:change_frequency).
+      in_array(Menu.change_frequencies).
+      with_message('must be selected')
+  end
+
   before(:each) do
     @restaurant = FactoryGirl.create(:restaurant)
     pdf_remote_attachment = PdfRemoteAttachment.create!(:attachment_content_type => "application/pdf", :attachment_file_name => "my_file.pdf")

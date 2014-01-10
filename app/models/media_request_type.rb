@@ -13,8 +13,8 @@
 
 class MediaRequestType < ActiveRecord::Base
   has_many :media_requests
-  
-  
+  attr_accessible :name, :shortname, :fields   
+
   # Returns a parameterized array of strings 
   # from the comma separated list of field names
   # For example, if fields is "Jimmy Dean, Little girl"
