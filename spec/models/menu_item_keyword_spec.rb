@@ -1,6 +1,9 @@
 require_relative '../spec_helper'
 
 describe MenuItemKeyword do
+  it { should belong_to(:menu_item) }
+  it { should belong_to(:otm_keyword) }
+
   before(:each) do
     @valid_attributes = {
       :menu_item_id => 1,
