@@ -1,6 +1,10 @@
 require_relative '../spec_helper'
 
 describe RestaurantFeatureCategory do
+ it { should have_many(:restaurant_features).order('value asc') }
+ it { should belong_to(:restaurant_feature_page) }
+ it { should validate_presence_of(:name) }
+ it { should validate_uniqueness_of(:name) }
 
   describe "categories" do
 
@@ -30,5 +34,7 @@ describe RestaurantFeatureCategory do
     end
 
   end
+
+
 
 end

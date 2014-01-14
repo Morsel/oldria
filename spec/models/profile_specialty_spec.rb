@@ -1,6 +1,9 @@
 require_relative '../spec_helper'
 
 describe ProfileSpecialty do
+	it { should belong_to(:profile) }
+	it { should belong_to(:specialty) }
+
   before(:each) do
     @valid_attributes = {
       :profile_id => 1,

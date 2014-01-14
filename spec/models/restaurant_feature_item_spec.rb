@@ -1,6 +1,9 @@
 require_relative '../spec_helper'
 
 describe RestaurantFeatureItem do
+  it { should belong_to(:restaurant) }
+  it { should belong_to(:restaurant_feature) }  
+  
   before(:each) do
     @valid_attributes = {
       :restaurant_feature_id => 1,

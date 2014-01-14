@@ -997,6 +997,17 @@ FactoryGirl.define do
    #f.association :media_requests
   end 
 
+  factory :restaurant_newsletter do |f|  
+   f.restaurant_id  "146"
+   f.menu_item_ids   []
+   f.restaurant_answer_ids []
+   f. menu_ids   []
+   f.promotion_ids []
+   f. a_la_minute_answer_ids   []
+   f.subject "West Town Tavern Soapbox Newsletter for   "
+  end 
+
+
 
 end
 
