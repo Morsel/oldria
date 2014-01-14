@@ -1,6 +1,14 @@
 require_relative '../spec_helper'
 
 describe QuickReply do
+  it { should validate_presence_of(:reply_text) }
+  it { should validate_presence_of(:message_id) }
+  it { should validate_presence_of(:message_type) }    
+  it { should validate_presence_of(:user_id) }    
+  it { should ensure_length_of(:reply_text).is_at_most(2000) }
+  it { should belong_to(:message) }
+  it { should belong_to(:user) }
+  
   it "should not be valid only without a message" do
     quick_reply = QuickReply.new
     quick_reply.should_not be_valid

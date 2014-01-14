@@ -1,6 +1,9 @@
 require_relative '../spec_helper'
 
 describe Promo do
+  it { should validate_presence_of(:title) }
+  it { should validate_presence_of(:body) }
+
   before(:each) do
     @valid_attributes = {
       :title => "value for title",
