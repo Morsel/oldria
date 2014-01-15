@@ -14,5 +14,8 @@ describe Internship do
   it "should create a new instance given valid attributes" do
     Internship.create!(@valid_attributes)
   end
+
+
+
 end
 

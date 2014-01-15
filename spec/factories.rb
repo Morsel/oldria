@@ -1007,6 +1007,16 @@ FactoryGirl.define do
    f.subject "West Town Tavern Soapbox Newsletter for   "
   end 
 
+  factory :slide do |f|  
+   f.image_file_name  "SpoonfeedHQ_placeholder_Kessler_35449.jpg"
+   f.image_content_type     "image/jpeg"
+   f.image_file_size "112611"
+   f.image_updated_at  "2010-11-11 00:39:35"
+   f.title     "Speak for Yourself"
+   f.excerpt "We've built a platform so you can rise up above th..."
+   f.position  "1"
+  end 
+
 
 
 end
