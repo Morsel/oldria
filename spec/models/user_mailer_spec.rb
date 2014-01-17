@@ -20,7 +20,6 @@ describe UserMailer do
       @request_discussion.stubs(:employments).returns([@employment])
       @email = UserMailer.media_request_notification(@request_discussion, @receiver)
     end
-
     it "should be set to be delivered to the email passed in" do
       @email.should deliver_to("hammy@spammy.com")
     end
@@ -50,7 +49,6 @@ describe UserMailer do
       @request_discussion.stubs(:employments).returns([@employment])
       @email = UserMailer.media_request_notification(@request_discussion, @receiver)
     end
-
     it "should contain a link to the solo media conversation" do
       # @email.should have_text(/#{solo_media_discussion_url(@request_discussion)}/)
       @email.body.should include("#{solo_media_discussion_url(@request_discussion)}")
@@ -74,4 +72,216 @@ describe UserMailer do
       @email.body.should include("#{invitation_url(@receiver.perishable_token)}")
     end
   end
+
+  describe "signup" do
+    before(:each) do
+      @user = FactoryGirl.create(:user,:perishable_token =>'Ht5bg3pW8pD6WZLZpxT')
+      @email = UserMailer.signup(@user, Time.now)
+    end
+    it "should be set to be delivered to the email passed in" do
+      @email.should deliver_to(@user.email)
+    end
+    it "renders the sender email" do
+      @email[:from].to_s.should == 'accounts@restaurantintelligenceagency.com'
+    end
+    it "should have subject" do
+      @email.should have_subject(/Welcome to Spoonfeed! Please confirm your account/)
+    end
+  end
+
+ describe "signup_for_soapbox" do
+    before(:each) do
+      @user = FactoryGirl.create(:user,:perishable_token =>'Ht5bg3pW8pD6WZLZpxT')
+      @email = UserMailer.signup_for_soapbox(@user, Time.now)
+    end
+    it "should be set to be delivered to the email passed in" do
+      @email.should deliver_to(@user.email)
+    end
+    it "renders the sender email" do
+      @email[:from].to_s.should == 'accounts@restaurantintelligenceagency.com'
+    end
+    it "should have subject" do
+      @email.should have_subject(/Welcome to Soapbox! Please confirm your account/)
+    end
+  end
+
+  describe "password_reset_instructions" do
+    before(:each) do
+      @user = FactoryGirl.create(:user,:perishable_token =>'Ht5bg3pW8pD6WZLZpxT')
+      @email = UserMailer.password_reset_instructions(@user)
+    end
+    it "should be set to be delivered to the email passed in" do
+      @email.should deliver_to(@user.email)
+    end
+    it "renders the sender email" do
+      @email[:from].to_s.should == 'accounts@restaurantintelligenceagency.com'
+    end
+    it "should have subject" do
+      @email.should have_subject(/Spoonfeed: Password Reset Instructions/)
+    end
+    it "should have password_reset_url" do
+      @email.body.encoded.should match(edit_password_reset_url(@user.perishable_token))
+    end
+  end
+
+  describe "password_reset_instructions_for_soapbox" do
+    before(:each) do
+      @user = FactoryGirl.create(:user,:perishable_token =>'Ht5bg3pW8pD6WZLZpxT')
+      @email = UserMailer.password_reset_instructions_for_soapbox(@user)
+    end
+    it "should be set to be delivered to the email passed in" do
+      @email.should deliver_to(@user.email)
+    end
+    it "renders the sender email" do
+      @email[:from].to_s.should == 'accounts@restaurantintelligenceagency.com'
+    end
+    it "should have subject" do
+      @email.should have_subject(/Soapbox: Password Reset Instructions/)
+    end
+    it "should have password_reset_url" do
+      @email.body.encoded.should match(edit_soapbox_soapbox_password_reset_url(@user.perishable_token))
+    end
+  end
+
+  describe "password_reset_instructions_for_soapbox" do
+    before(:each) do
+      @user = FactoryGirl.create(:user,:perishable_token =>'Ht5bg3pW8pD6WZLZpxT')
+      @email = UserMailer.password_reset_instructions_for_soapbox(@user)
+    end
+    it "should be set to be delivered to the email passed in" do
+      @email.should deliver_to(@user.email)
+    end
+    it "renders the sender email" do
+      @email[:from].to_s.should == 'accounts@restaurantintelligenceagency.com'
+    end
+    it "should have subject" do
+      @email.should have_subject(/Soapbox: Password Reset Instructions/)
+    end
+    it "should have password_reset_url" do
+      @email.body.encoded.should match(edit_soapbox_soapbox_password_reset_url(@user.perishable_token))
+    end
+  end  
+
+  describe "discussion_notification" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @discussion = FactoryGirl.create(:discussion)
+      @email = UserMailer.discussion_notification(@discussion,@user)
+    end
+    it "should be set to be delivered to the email passed in" do
+      @email.should deliver_to(@user.email)
+    end
+    it "renders the sender email" do
+      @email[:from].to_s.should == 'notifications@restaurantintelligenceagency.com'
+    end
+    it "should have subject" do
+      @email.should have_subject(/Spoonfeed: #{@discussion.poster.try :name} has invited you to a discussion/)
+    end
+  end    
+
+  describe "signup_recommendation" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @user_email = @user.email
+      @email = UserMailer.signup_recommendation(@user_email,@user)
+    end
+    it "should be set to be delivered to the email passed in" do
+      @email.should deliver_to(@user_email)
+    end
+    it "renders the sender email" do
+      @email[:from].to_s.should == 'notifications@restaurantintelligenceagency.com'
+    end
+    it "should have subject" do
+      @email.should have_subject(/Spoonfeed referral from #{@user.name}/)
+    end
+  end    
+
+  describe "invitation_welcome" do
+    before(:each) do
+      @invite = FactoryGirl.create(:invitation)
+      @email = UserMailer.invitation_welcome(@invite)
+    end
+    it "should be set to be delivered to the email passed in" do
+      @email.should deliver_to(@invite.email)
+    end
+    it "renders the sender email" do
+      @email[:from].to_s.should == 'notifications@restaurantintelligenceagency.com'
+    end
+    it "should have subject" do
+      @email.should have_subject(/Spoonfeed Invitation Request Received/)
+    end
+  end  
+
+
+  describe "admin_invitation_notice" do
+    before(:each) do
+      @invite = FactoryGirl.create(:invitation)
+      @email = UserMailer.admin_invitation_notice(@invite)
+    end
+    it "should be set to be delivered to the email passed in" do
+      @email.should deliver_to('info@restaurantintelligenceagency.com')
+    end
+    it "renders the sender email" do
+      @email[:from].to_s.should == 'notifications@restaurantintelligenceagency.com'
+    end
+    it "should have subject" do
+      @email.should have_subject(/A new invitation has been requested/)
+    end
+  end  
+
+  describe "new_user_invitation!" do
+    before(:each) do
+      @invite = FactoryGirl.create(:invitation)
+      @user = FactoryGirl.create(:user,:perishable_token =>'Ht5bg3pW8pD6WZLZpxT')
+      @email = UserMailer.new_user_invitation!(@user,@invite)
+    end
+    it "should be set to be delivered to the email passed in" do
+      @email.should deliver_to(@user.email)
+    end
+    it "renders the sender email" do
+      @email[:from].to_s.should == 'accounts@restaurantintelligenceagency.com'
+    end
+    it "should have subject" do
+      @email.should have_subject(/Your invitation to Spoonfeed has arrived!/)
+    end
+  end 
+
+  describe "employee_request" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @restaurant = FactoryGirl.create(:restaurant)
+      @email = UserMailer.employee_request(@restaurant,@user)
+    end
+    it "should be set to be delivered to the email passed in" do
+      @email.should deliver_to(@restaurant.manager.email)
+    end
+    it "renders the sender email" do
+      @email[:from].to_s.should == 'accounts@restaurantintelligenceagency.com'
+    end
+    it "should have subject" do
+      @email.should have_subject(/Spoonfeed: a new employee has joined/)
+    end
+  end   
+
+  # describe "message_notification" do
+  #   before(:each) do
+  #     @user = FactoryGirl.create(:user)
+  #     @restaurant = FactoryGirl.create(:restaurant)
+  #     @message = "test"
+  #     @recipient = @restaurant.manager
+  #     @sender = @user.email
+  #     @email = UserMailer.message_notification(@message,@recipient,@sender)
+  #   end
+  #   it "should be set to be delivered to the email passed in" do
+  #     @email.should deliver_to(@recipient.email)
+  #   end
+  #   it "renders the sender email" do
+  #     @email[:from].to_s.should == 'notifications@restaurantintelligenceagency.com'
+  #   end
+  #   it "should have subject" do
+  #     @email.should have_subject(/Spoonfeed: #{@message.try(:email_title)} notification/)
+  #   end
+  # end   
+
+
 end
