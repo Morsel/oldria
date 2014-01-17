@@ -33,7 +33,7 @@ Spork.prefork do
   require 'rspec/rails/mocks'               if defined?(Rspec::Mocks)
   
   Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
-
+  include Mail::Matchers
   Spec::Runner.configure do |config|
      config.include Paperclip::Shoulda::Matchers
    end
