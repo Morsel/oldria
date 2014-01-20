@@ -315,7 +315,7 @@ class UserMailer < ActionMailer::Base
       :to   =>  user.email   ,
       :cc => email ,
       :sent_on => Time.now,
-      :subject => "#{subject} Employee Claim Notification Mail via RIA" 
+      :subject => "Employee Claim Notification Mail via RIA" 
       )
   end
 

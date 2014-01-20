@@ -1,6 +1,8 @@
 require_relative '../../spec_helper'
 
 describe Admin::EmailStopword do
+	it { should validate_presence_of(:phrase) }
+
   before(:each) do
     @valid_attributes = {
       :phrase => "value for phrase"

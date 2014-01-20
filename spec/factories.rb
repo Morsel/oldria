@@ -954,7 +954,8 @@ FactoryGirl.define do
 
   factory :media_newsletter_subscription do |f|  
    f.association :restaurant
-   f.association :media_newsletter_subscriber
+   f.media_newsletter_subscriber_id  "1"
+   #f.association :media_newsletter_subscriber
 
 
   end 
