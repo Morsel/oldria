@@ -12,6 +12,21 @@ describe Admin::PrTip do
     message.save
   end
 
+  describe "#broadcast?" do
+    it "should return broadcast?" do
+      pr_tip = FactoryGirl.create(:pr_tip)
+      pr_tip.broadcast?.should == true
+    end
+  end 
+
+  describe "#recipients_can_reply?" do
+    it "should return recipients_can_reply?" do
+      pr_tip = FactoryGirl.create(:pr_tip)
+      pr_tip.recipients_can_reply?.should == false
+    end
+  end 
+
+
 end
 
 
