@@ -1,5 +1,18 @@
 require_relative '../spec_helper'
 describe ALaMinuteAnswer do
+  it { should have_many(:trace_keywords) }
+  it { should have_many(:soapbox_trace_keywords) }  
+  it { should belong_to(:a_la_minute_question) }
+  it { should belong_to(:responder) }
+  it { should have_many(:twitter_posts).dependent(:destroy) }
+  it { should have_many(:facebook_posts).dependent(:destroy) }
+  it { should accept_nested_attributes_for(:twitter_posts).limit(3).allow_destroy(true) }
+  it { should accept_nested_attributes_for(:facebook_posts).limit(3).allow_destroy(true) }
+  it { should validate_presence_of(:a_la_minute_question_id) }
+  it { should have_attached_file(:photo) }
+  it { should validate_attachment_content_type(:attachment).allowing("application/pdf", "application/x-pdf") }
+  it { should validate_attachment_content_type(:photo).allowing("image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png") }
+
   before(:each) do
     @question = FactoryGirl.create(:a_la_minute_question)
     @responder = FactoryGirl.create(:restaurant)
@@ -94,7 +107,57 @@ describe ALaMinuteAnswer do
       @responder.expects(:send_at).never
       ALaMinuteAnswer.create(@valid_attributes.merge(:post_to_facebook_at => Time.now))
     end
-
   end
+
+  describe "#content_type" do
+    it "should return valid content_type" do
+      a_la_minute_answer = FactoryGirl.create(:a_la_minute_answer)
+      if (!(["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"].include?(a_la_minute_answer.photo_content_type)) && a_la_minute_answer.photo_file_name.present?)      
+        value = errors.add(:photo, "Please upload a image type: jpeg, gif, or png") 
+      end
+      if !(["application/pdf", "application/x-pdf"].include?(a_la_minute_answer.attachment_content_type)) && a_la_minute_answer.attachment_file_name.present?
+        value = errors.add(:attachment, "Please upload a valid pdf ") 
+      end
+      a_la_minute_answer.content_type.should ==  value
+    end
+  end
+
+  describe "#question" do
+    it "should return valid question" do
+      a_la_minute_answer = FactoryGirl.create(:a_la_minute_answer)
+      a_la_minute_answer.question.should ==  a_la_minute_answer.a_la_minute_question.question
+    end
+  end
+
+  describe "#activity_name" do
+    it "should return valid activity_name" do
+      a_la_minute_answer = FactoryGirl.create(:a_la_minute_answer)
+      a_la_minute_answer.activity_name.should ==  "A la Minute answer to #{a_la_minute_answer.question}"
+    end
+  end
+
+  describe "#restaurant" do
+    it "should return valid restaurant" do
+      a_la_minute_answer = FactoryGirl.create(:a_la_minute_answer)
+      a_la_minute_answer.restaurant.should ==  a_la_minute_answer.responder
+    end
+  end
+
+  describe "#facebook_message" do
+    it "should return valid facebook_message" do
+      a_la_minute_answer = FactoryGirl.create(:a_la_minute_answer)
+      a_la_minute_answer.facebook_message.should ==  a_la_minute_answer.answer
+    end
+  end
+
+  describe "#post_to_twitter" do
+    it "should return valid post_to_twitter" do
+      a_la_minute_answer = FactoryGirl.create(:a_la_minute_answer)
+      message = "this is testing this is testing this is testing this is testing this is testing this is testing this is testing"
+      message = message.blank? ? a_la_minute_answer.answer : message
+      message = "#{message[0..(135-a_la_minute_answer.bitly_link.length)]} #{a_la_minute_answer.bitly_link}"
+    end
+  end
+ 
 
 end

@@ -24,7 +24,7 @@
 
 class ALaMinuteAnswer < ActiveRecord::Base
 
-  include ActionDispatch::Routing::UrlFor
+include ActionDispatch::Routing::UrlFor
 include Rails.application.routes.url_helpers
 default_url_options[:host] = DEFAULT_HOST
   attr_accessible :a_la_minute_question_id, :answer, :attachment, :photo, :twitter_posts_attributes, :facebook_posts_attributes,:a_la_minute_question, :responder,

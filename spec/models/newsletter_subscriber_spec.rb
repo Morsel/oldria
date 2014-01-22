@@ -69,11 +69,36 @@ describe NewsletterSubscriber do
     end   
   end
 
-  # it "should send a confirmation email after creation" do
-  #   #UserMailer.expects(:send_later).with(:newsletter_subscription_confirmation, kind_of(NewsletterSubscriber))
-  #   # NewsletterSubscriber.create(@valid_attributes)
-  #   UserMailer.expects(:newsletter_subscription_confirmation).with(NewsletterSubscriber.create(@valid_attributes))
-  # end
+  describe "#not_a_user" do
+    it "should return not_a_user" do
+      newsletter_subscriber = NewsletterSubscriber.create!(@valid_attributes)
+      user = FactoryGirl.build(:user)
+      if !user.present? && User.find_by_email(email).present?
+        errors.add(:email, "is already signed up for Spoonfeed. Log in to manage your settings there.")
+        value = false
+      end
+    end   
+  end
+
+  describe "#update_mailchimp" do
+    it "should return update_mailchimp" do
+      newsletter_subscriber = NewsletterSubscriber.create!(@valid_attributes)
+      if newsletter_subscriber.confirmed?
+        mc = MailchimpConnector.new
+          if newsletter_subscriber.opt_out?
+            mc.client.list_unsubscribe(:id => "xxxx22", :email_address => "email.230@gmail.com")
+          else
+          groupings = if newsletter_subscriber.receive_soapbox_news? 
+           { :name => "Your Interests", :groups => "National Newsletter" }
+          else  
+         { :name => "Your Interests", :groups => "" }
+         end   
+       mc.client.list_subscribe(:id => "dddd", :email_address => "eddmail.230@gmail.com", :update_existing => true, :double_optin => false,
+                                 :merge_vars => { :fname => "first_name", :lname => "last_name", :groupings => ["dd"] })
+      end    
+    end   
+  end
+end 
 
 end
 

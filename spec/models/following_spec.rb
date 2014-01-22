@@ -1,6 +1,9 @@
 require_relative '../spec_helper'
 
 describe Following do
+  it { should belong_to(:follower).class_name('User') }
+  it { should belong_to(:friend).class_name('User') }
+  
   before(:each) do
     @friend = FactoryGirl.create(:user, :username => "friend")
     @follower = FactoryGirl.create(:user,:username => "follower")

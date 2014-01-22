@@ -4,6 +4,10 @@ describe DirectMessage do
   it { should validate_presence_of :receiver }
   it { should validate_presence_of :sender }
   it { should validate_presence_of :body }
+  it { should belong_to(:receiver).class_name('User').with_foreign_key('receiver_id') }
+  it { should belong_to(:sender).class_name('User') }
+  it { should have_many(:responses).with_foreign_key('in_reply_to_message_id').class_name('DirectMessage') }
+  it { should belong_to(:parent).class_name('DirectMessage').with_foreign_key('in_reply_to_message_id') }
   it { DirectMessage.scoped.to_sql.should == DirectMessage.order("direct_messages.created_at DESC").to_sql }
   # it { should have_default_scope :order => 'direct_messages.created_at DESC' }
   it { should have_many :attachments }
@@ -91,5 +95,43 @@ describe DirectMessage do
       DirectMessage.all_from_admin.should == [@message]
     end
   end
+
+  describe "#title" do
+    it "should return title" do
+      direct_message = FactoryGirl.create(:direct_message)
+      DirectMessage.title.should == "Private Message"
+    end
+  end
+
+
+  describe "#email_title" do
+    it "should return email_title" do
+      direct_message = FactoryGirl.create(:direct_message)
+      direct_message.email_title.should ==  direct_message.class.title
+    end
+  end
+
+  describe "#descendants" do
+    it "should return descendants" do
+      direct_message = FactoryGirl.create(:direct_message)
+      direct_message.descendants.should ==  direct_message.responses.map {|child| child.descendants}.flatten + [direct_message]
+    end
+  end
+
+  describe "#descendants_size" do
+    it "should return descendants_size" do
+      direct_message = FactoryGirl.create(:direct_message)
+      direct_message.descendants_size.should ==  direct_message.descendants.size - 1
+    end
+  end
+
+  describe "#from?" do
+    it "should return from?" do
+      direct_message = FactoryGirl.create(:direct_message)
+      user = FactoryGirl.create(:user)
+      direct_message.from?(user).should == false
+    end
+  end
+
 end
 

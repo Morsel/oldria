@@ -15,6 +15,16 @@ describe Internship do
     Internship.create!(@valid_attributes)
   end
 
+  it "should always have a date started before date ended" do
+    internship = FactoryGirl.create(:internship)
+    profile = FactoryGirl.create(:profile)
+    internship.establishment = "Po"
+    internship.supervisor = "Mario Batali"
+    internship.start_date = "1997-04-26"
+    internship.profile_id = profile.id
+    internship.end_date = Date.today
+    internship.should be_valid
+  end
 
 
 end

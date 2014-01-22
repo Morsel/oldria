@@ -23,4 +23,6 @@ describe NewsletterSubscription do
 
    # NewsletterSubscription.create!(@valid_attributes)
   end
+
+
 end

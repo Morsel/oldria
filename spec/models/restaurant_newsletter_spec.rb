@@ -53,4 +53,18 @@ describe RestaurantNewsletter do
     end
   end
 
+  describe ".create_with_content" do
+    it "should return create_with_content" do
+      restaurant_newsletter = FactoryGirl.create(:restaurant_newsletter)
+      restaurant = FactoryGirl.create(:restaurant)
+      if restaurant.restaurant_newsletters.blank?
+        filter_date = 7.day.ago
+      else
+        filter_date = restaurant.restaurant_newsletters.find(:all,:order => "created_at desc").first.created_at
+      end   
+      RestaurantNewsletter.create_with_content(restaurant_id).should ==  filter_date
+    end
+  end
+
+
 end
