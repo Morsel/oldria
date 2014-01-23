@@ -17,7 +17,7 @@ class Restaurants::NewslettersController < ApplicationController
   end
 
   def show
-    @newsletter = RestaurantNewsletter.find(params[:id])
+    @newsletter = RestaurantNewsletter.find(params[:id]).first
     @restaurant = @newsletter.restaurant
     @menu_items = @newsletter.menu_items
     @restaurant_answers = @newsletter.restaurant_answers
