@@ -52,6 +52,56 @@ describe Mediafeed::MediafeedController do
     end
   end
 
+  describe "GET request_information" do
+    it "assigns all index as @request_information for menu item" do
+      @restaurant = FactoryGirl.create(:restaurant, :atoken => "asdfgh", :asecret => "1234567", :facebook_page_id => "987987213", :facebook_page_token => "kljas987as")
+      @valid_attributes = FactoryGirl.attributes_for(:menu_item, :otm_keywords => [FactoryGirl.create(:otm_keyword)], :restaurant => @restaurant)
+      MenuItem.any_instance.stubs(:restaurant).returns(@restaurant)
+      test_photo = ActionDispatch::Http::UploadedFile.new({
+	      :filename => 'index.jpeg',
+	      :type => 'image/jpeg',
+	      :tempfile => File.new("#{Rails.root}/spec/fixtures/index.jpeg")
+      })
+    @valid_attributes[:photo] = test_photo
+    @menu_item = MenuItem.create!(@valid_attributes)
+    @promotion = FactoryGirl.create(:promotion)
+      get :request_information,:user_id=>@user.id,:menu_item_id=>@menu_item.id,:promotion_id=>@promotion.id 
+      expect { get :request_information }.to_not render_template(layout: "application") if request.xhr?
+    end
+
+    it "assigns all index as @request_information for promotion" do
+      @promotion = FactoryGirl.create(:promotion)
+        get :request_information,:user_id=>@user.id,:promotion_id=>@promotion.id 
+        expect { get :request_information }.to_not render_template(layout: "application") if request.xhr?
+    end
+  end   
+
+  describe "GET media_subscription" do
+    it "get media_subscription" do
+      @subscriptions = @user.media_newsletter_subscriptions.map{|e| e unless e.restaurant.blank?}.compact.paginate({:page => 5, :per_page => @per_page})
+      @digest_subsriptions = @user.get_digest_subscription.paginate({:page => 5, :per_page => @per_page})
+      @user.media_newsletter_setting || @user.build_media_newsletter_setting.save  
+      get :media_subscription,:user_id=>@user.id
+      assigns[:user].should == @user
+      response.should render_template("layouts/application", "media_subscription")
+    end
+  end
+
+  describe "GET media_all_unsubscribe" do
+    it "get media_all_unsubscribe" do
+      @user = FactoryGirl.create(:user,:role=>"media")
+      get :media_all_unsubscribe,:user_id=>@user.id
+      response.should redirect_to :action => :media_subscription
+    end
+  end
+
+  describe "GET media_opt_update" do
+    it "get media_opt_update" do
+      get :media_opt_update,:user_id=>@user.id
+      response.should redirect_to :action => :media_subscription
+      response.should redirect_to(mediafeed_media_subscription_path)
+    end
+  end
 
 end
 
