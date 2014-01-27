@@ -1,10 +1,8 @@
 require_relative '../../spec_helper'
-
-describe Soapbox::RestaurantQuestionsController do
-
-  #Delete this example and add some real ones
-  it "should use Soapbox::RestaurantQuestionsController" do
-    controller.should be_an_instance_of(Soapbox::RestaurantQuestionsController)
-  end
-
-end
+	describe Soapbox::RestaurantQuestionsController do
+	  it "index action should render show template" do
+	  	@restaurant_question = FactoryGirl.create(:restaurant_question)
+	    get :show,:id=>@restaurant_question.id
+	    response.should render_template('restaurant_questions/show')
+	  end
+	end

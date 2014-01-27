@@ -2,6 +2,7 @@ require_relative '../../spec_helper'
 require 'gibbon'
 describe Soapbox::NewsletterSubscribersController do
 
+
   describe "POST 'create'" do
     it "should create a new subscriber when an email address and password with confirmation is given" do
       post 'create', :newsletter_subscriber => { :email => "testemail@testdomain.com", :password => "secret", :password_confirmation => "secret" }
@@ -39,5 +40,23 @@ describe Soapbox::NewsletterSubscribersController do
       subscriber.reload.confirmed_at.should be_nil
     end
   end
+
+  describe "GET welcome" do
+    it "Get welcome" do
+      @newsletter_subscriber = FactoryGirl.create(:newsletter_subscriber)
+      get :welcome ,:id=>@newsletter_subscriber.id
+      response.should render_template(:welcome)
+    end
+  end
+
+  describe "GET find_subscriber" do
+    it "Get find_subscriber" do
+      @restaurant = FactoryGirl.create(:restaurant)
+      get :find_subscriber ,:id=>@restaurant.id
+      response.should render_template(:find_subscriber)
+    end
+  end  
+
+
 
 end
