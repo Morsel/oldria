@@ -28,4 +28,17 @@ describe Admin::EventsController do
     event.expects(:destroy)
     delete :destroy, :id => event.id
   end
+
+  it "new action should render new template" do
+    get :new
+    response.should render_template(:new)
+  end
+
+  it "show action should render show template" do
+    event = FactoryGirl.create(:admin_event)
+    get :show ,:id=>event.id
+    response.should render_template('events/show')
+  end
+  
+
 end
