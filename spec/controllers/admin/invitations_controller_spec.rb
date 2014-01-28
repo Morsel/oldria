@@ -34,4 +34,29 @@ describe Admin::InvitationsController do
     post :archive, :id => invite.id
   end
     
+  it "should resend work for if condition" do
+    user = FactoryGirl.create(:user,:perishable_token=>'ddfff')
+    invite = FactoryGirl.create(:invitation,:invitee_id=>user.id)
+    get :resend,:id=>invite.id
+    flash.should_not be_nil
+    response.should redirect_to :action => :index,:archived => true
+  end
+  it "should resend work for else  condition" do
+    invite = FactoryGirl.create(:invitation,:invitee_id=>@user.id)
+    get :resend,:id=>invite.id
+    flash.should_not be_nil
+    response.should redirect_to :action => :index,:archived => true
+  end
+
+  describe "GET accept" do
+    it "work for accept if invitee present" do
+      user = FactoryGirl.create(:user,:perishable_token=>'ddfff')
+      invite = FactoryGirl.create(:invitation,:invitee_id=>user.id)
+      get :accept,:id=>invite.id
+      get :accept
+      flash.should_not be_nil
+      response.should redirect_to :action => :index,:archived => "true"
+    end
+  end
+
 end

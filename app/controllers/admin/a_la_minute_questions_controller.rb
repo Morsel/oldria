@@ -5,7 +5,7 @@ class Admin::ALaMinuteQuestionsController < Admin::AdminController
   end
 
   def create
-    question = ALaMinuteQuestion.create(params[:a_la_minute_question])
+    @question = ALaMinuteQuestion.create(params[:a_la_minute_question])
 
     redirect_to :action => :index
   end
