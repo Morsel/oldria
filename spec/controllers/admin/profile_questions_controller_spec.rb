@@ -35,15 +35,6 @@ describe Admin::ProfileQuestionsController do
 
   end
 
-  describe "destruction!" do
-
-    it "should destroy the question" do
-      question = FactoryGirl.create(:profile_question)
-      delete :destroy, :id => question.id
-      ProfileQuestion.count.should == 0
-    end
-
-  end
 
   describe "sending notifications" do
 
@@ -55,5 +46,20 @@ describe Admin::ProfileQuestionsController do
       post :send_notifications, :id => question.id
     end
   end
+
+  describe "GET index" do
+    it "get the index page" do
+      get :index
+      response.should render_template(:index)
+    end
+  end
+
+  describe "GET sort" do
+    it "sort" do
+      get :sort
+      response.body.should be_blank 
+    end
+  end
+
 
 end
