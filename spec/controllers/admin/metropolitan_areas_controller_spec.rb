@@ -19,4 +19,19 @@ describe Admin::MetropolitanAreasController do
     end
   end
 
+  describe "GET new" do
+    it "assigns a new metropolitan_area as @metropolitan_area" do
+      MetropolitanArea.stubs(:new).returns(@metropolitan_area)
+      get :new
+     response.should render_template(:new)
+    end
+  end  
+
+  describe "GET create" do
+    it "create action should render new template " do
+      post :create
+      response.should redirect_to(admin_metropolitan_areas_url)
+    end
+  end 
+  
 end

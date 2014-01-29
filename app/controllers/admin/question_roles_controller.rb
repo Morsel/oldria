@@ -8,10 +8,11 @@ class Admin::QuestionRolesController < Admin::AdminController
     @role = QuestionRole.new(params[:question_role])
     if @role.save
       flash[:notice] = "Created role #{@role.name}"
+      redirect_to :action => "new"
     else
       render :action => "new"
     end
-    redirect_to :action => "new"
+
   end
   
   def edit
