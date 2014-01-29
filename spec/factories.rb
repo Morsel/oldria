@@ -180,6 +180,7 @@ FactoryGirl.define do
   f.sequence(:email) { |n| "foo#{n}@example.com" }
   f.restaurant_name "Name"
   f.association :restaurant_role
+  
   f.subject_matters { [FactoryGirl.build(:subject_matter)] }
   end
 
@@ -304,6 +305,7 @@ FactoryGirl.define do
  
  factory :question_role do |f|
   f.association :restaurant_role
+  
   end
 
  
@@ -700,6 +702,7 @@ FactoryGirl.define do
   f.email "myemail@maily.com"
   f.password "secret"
   f.password_confirmation "secret"
+  f.confirmed_at "  2012-03-05 21:35:18"
   end
 
  factory :visitor_email_setting do |f|
@@ -769,7 +772,7 @@ FactoryGirl.define do
    f.keywordable_id   "25"   
    f.keywordable_type   "RestaurantFeature"
    f.title   "Big Jones"
-   f.association :keywordable
+   #f.association :keywordable
    f.association :restaurant
   end   
 
@@ -1018,7 +1021,24 @@ FactoryGirl.define do
    f.position  "1"
   end 
 
+  factory :promo do |f|  
+   f. title  "Soapbox Spotlight: Specialties"
+   f. body     "Click on the on any profile to gathe..."
+   f. link "http://soapbox.restaurantintelligenceagency.com/so..."
+   f. position  "32"
+   f. type     "SoapboxPromo"
+   f. link_text "dd"
+  end 
 
+  factory :page_view do |f|  
+   f.association :user
+   f. title     "Premise"
+   f. url "http://soapbox.restaurantintelligenceagency.com/so..."
+   f. page_owner_id  "247"
+   f. page_owner_type  "Restaurant"
+   f. page_id    "2993"
+   f. page_type  "ProfileQuestion"
+  end 
 
 end
 
