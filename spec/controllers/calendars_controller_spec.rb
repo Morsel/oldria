@@ -11,4 +11,9 @@ describe CalendarsController do
     assigns[:events].to_a.should == restaurant.events
   end
 
+  it "should have ria" do
+  	get :ria
+  	response.should render_template(:action=> "index")
+  end
+ 
 end
