@@ -23,7 +23,7 @@ describe NonculinaryEnrollmentsController do
   describe "GET edit" do
     it "edit nonculinary_enrollment as @nonculinary_enrollment" do
     	@profile = FactoryGirl.create(:profile,:user=>@user)
-      get :new,:user_id=>@user.id,:id=>@profile.id
+      get :edit,:user_id=>@user.id,:id=>@profile.id
       if request.xhr?
         expect { get :edit }.to_not render_template(layout: "application")
       end   

@@ -1,16 +1,27 @@
 <% title "Find your restaurant" %>
 
 <% if @restaurants %>
-<h2>Is this your restaurant?</h2>
-<%= table_for @restaurants do |t| %>
-    <% t.data do
-        t.cell(:name_and_location)
-        t.cell(:contact) { |c| link_to "Request to be added", 
-                               contact_restaurant_complete_registration_path(:restaurant_id => c.id), :method => :post }
-    end %>
-<% end %>
-<% end %>
+	<h2>Is this your restaurant?</h2>
 
-<p>
+	<%= table_for @restaurants do |t| %>
+	  <%= t.head do %>
+	    <%= t.r do %>
+	      <%= t.h('Name and location') %>
+	      <%= t.h('Contact') %>
+	    <% end %>
+	  <% end %>
+	  <%= t.body do |restaurant| %>
+	    <%= t.r do %>
+	      <%= t.d(h(restaurant.name)) %>
+	      <%= t.d(h(link_to "Request to be added",contact_restaurant_complete_registration_path(:restaurant_id => restaurant.id), :method => :post )) %>
+	    <% end %>
+	  <% end %>
+	<% end -%>
+<% end -%>
+ <p>
     <%= link_to "I don't see my restaurant listed", finish_without_contact_complete_registration_path %>
 </p>
+
+
+
+
