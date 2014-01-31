@@ -17,6 +17,12 @@ describe MediaRequestDiscussionsController do
     end
     it { response.should be_success }
     it { assigns[:media_request_discussion].should == @mrc }
-      
   end
+
+  it "Read" do
+    post :read
+    response.should be_success
+  end
+
+
 end

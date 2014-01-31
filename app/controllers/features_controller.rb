@@ -11,7 +11,7 @@ class FeaturesController < ApplicationController
 
   def index
   	respond_to do |format|
-      format.html
+      #format.html
       format.js { auto_complete_featureskeywords }
     end
   end

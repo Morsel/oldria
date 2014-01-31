@@ -52,4 +52,21 @@ describe MenuItemsController do
     end
   end
 
+  describe "facebook_post" do
+    it "should get facebook_post" do
+      item = FactoryGirl.create(:menu_item, :restaurant => @restaurant,:photo=>@test_photo)
+      delete :destroy, :id => item.id, :restaurant_id => @restaurant.id
+      response.should render_template(:action=> "index")
+    end
+  end
+
+  describe "get_keywords" do
+    it "should get get_keywords" do
+      item = FactoryGirl.create(:menu_item, :restaurant => @restaurant,:photo=>@test_photo)
+      delete :destroy, :id => item.id, :restaurant_id => @restaurant.id
+      response.header['Content-Type'].should include 'text/html'
+    end
+  end
+
+
 end

@@ -8,6 +8,11 @@ describe EmploymentSearchesController do
     controller.stubs(:require_admin).returns(true)
   end
 
+  it "show action should render show template" do
+    get :show
+    response.should render_template(:partial => 'shared/_employment_list')
+  end
+
 end       
 
  
