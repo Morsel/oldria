@@ -38,4 +38,5 @@ describe EventsController do
     post :transfer, :id => event.id, :restaurant_id => @restaurant
   end
 
+ 
 end

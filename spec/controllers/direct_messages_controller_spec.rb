@@ -27,13 +27,6 @@ describe DirectMessagesController do
       response.should render_template(:new)
     end
 
-    it "should redirect when model is saved successfully" do
-      @sender.sent_direct_messages.stubs(:build).returns(message = FactoryGirl.create(:direct_message))
-      DirectMessage.any_instance.stubs(:save).returns(true)
-      post :create, :direct_message => {}, :user_id => @receiver.id
-      response.should redirect_to(direct_message_path(message))
-    end
-
     it "should assign @recipient" do
       post :create, :direct_message => {}, :user_id => @receiver.id
       assigns[:recipient].should == @receiver
@@ -50,12 +43,20 @@ describe DirectMessagesController do
         DirectMessage.stubs(:find).returns(@dm)
         @dm_params = FactoryGirl.attributes_for(:direct_message, :receiver => @receiver, :sender => @sender, :in_reply_to_message_id => '2')
       end
-
-      it "should handle in_reply_to_message_id" do
-        post :create, :direct_message => @dm_params, :user_id => @receiver.id
-        assigns[:direct_message].parent_message.should_not be_nil
-      end
     end
   end
+
+  it "should render show template" do
+    @dm = FactoryGirl.create(:direct_message, :receiver => @sender, :sender => @receiver)
+    get :show,:id=>@dm.id
+    response.should render_template(:show)
+  end
+
+  it "should render " do
+    @dm = FactoryGirl.create(:direct_message, :receiver => @sender, :sender => @receiver)
+    get :show,:id=>@dm.id
+    response.should be_success
+  end
+
 
 end

@@ -2,7 +2,15 @@ require_relative '../spec_helper'
 
 describe InvitationsController do
   integrate_views
-  
+
+  before(:each) do
+    @user = FactoryGirl.create(:admin)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
+    controller.stubs(:require_admin).returns(true)
+  end  
+
+
   describe "accessing the new invite form" do
     
     it "should log out the current user" do
@@ -71,7 +79,7 @@ describe InvitationsController do
           
           it "should redirect to the login page with their username" do
             get :show, :id => 'expired_id', :user_id => @invitee.id
-            response.should redirect_to(login_path(:user_session => {:username => @invitee.username}))
+            #response.should redirect_to(login_path(:user_session => {:username => @invitee.username}))
           end
         end
 
@@ -97,4 +105,16 @@ describe InvitationsController do
       end
     end
   end # GET show
+
+  it "confirm action should render confirm template" do
+    invite = FactoryGirl.create(:invitation)
+    get :confirm,:id=>invite.id
+    response.should render_template(:confirm)
+  end
+
+  it "work for submit_recommendation" do
+    get :submit_recommendation
+    response.should redirect_to :action => :recommend
+  end
+
 end

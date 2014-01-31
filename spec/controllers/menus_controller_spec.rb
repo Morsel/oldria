@@ -1,6 +1,30 @@
 require_relative '../spec_helper'
 
 describe MenusController do
+ before(:each) do
+    @user = FactoryGirl.create(:admin)
+    @restaurant = FactoryGirl.create(:restaurant)
+    @menu = FactoryGirl.create(:menu,:restaurant => @restaurant)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
+    controller.stubs(:require_admin).returns(true)
+  end
+
+  it "index action should render index template" do
+    get :index,:restaurant_id => @restaurant.id
+    response.should render_template(:index)
+  end
+
+  it "bulk_edit action should render bulk_edit template" do
+    get :bulk_edit,:restaurant_id => @restaurant.id
+    response.should render_template(:bulk_edit)
+  end
+
+  it "create action should render new template when model is invalid" do
+    Menu.any_instance.stubs(:valid?).returns(false)
+    post :create,:restaurant_id => @restaurant.id
+    response.should render_template(:action=> "bulk_edit")
+  end
 
   describe "POST reorder" do
 
@@ -19,4 +43,7 @@ describe MenusController do
       restaurant.reload.menus.by_position.should == [@menu_b, @menu_c, @menu_a]
     end
   end
+
+
+
 end
