@@ -7,15 +7,6 @@ describe TraceKeywordsController do
     controller.stubs(:current_user).returns current_user
   end
 
-  # it "should create a new keyword" do
-  # 	if @user.media?
-  #     trace_keyword = FactoryGirl.create(:trace_keyword)
-  #     expect(trace_keyword.keywordable_id).to be_true
-  #     expect(trace_keyword.keywordable_type).to be_true
-  #     expect(trace_keyword.user_id).to be_true
-  #     trace_keyword.increment!(:count)  
-  #   end 
-
   describe "POST create" do
     context "with valid attributes" do
       it "creates a new tracekeyword" do

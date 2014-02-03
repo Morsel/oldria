@@ -34,4 +34,6 @@ describe StagesController do
     delete :destroy, :id => stage.id, :profile_id => stage.profile.id
   end
 
+
+
 end

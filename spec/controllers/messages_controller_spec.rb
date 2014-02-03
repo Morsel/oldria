@@ -34,4 +34,18 @@ describe MessagesController do
     end
   end
   
+  describe "GET staff_discussions" do
+    it "should be successful" do
+      get :staff_discussions
+      response.should be_success
+    end
+  end
+
+  describe "GET restaurant_requests" do
+    it "should be successful" do
+      get :restaurant_requests
+      response.should be_success
+    end
+  end
+
 end

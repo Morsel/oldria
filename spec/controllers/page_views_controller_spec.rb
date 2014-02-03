@@ -2,9 +2,10 @@ require_relative '../spec_helper'
 
 describe PageViewsController do
 
-  #Delete this example and add some real ones
-  it "should use PageViewsController" do
-    controller.should be_an_instance_of(PageViewsController)
+  it "create action should render create template" do
+  	page_view = FactoryGirl.create(:page_view)
+    post :create, :page_view => {}
+    @request.env['HTTP_ACCEPT'] = 'text/javascript'
   end
 
 end
