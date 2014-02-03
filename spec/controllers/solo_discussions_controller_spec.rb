@@ -13,4 +13,13 @@ describe SoloDiscussionsController do
       response.should be_success
     end
   end
+
+  describe "GET 'read'" do
+    it "should be successful" do
+      discussion = FactoryGirl.create(:solo_discussion)
+      get 'read', :id => discussion.id
+      response.should be_success
+    end
+  end
+  
 end

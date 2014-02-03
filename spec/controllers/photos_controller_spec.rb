@@ -1,8 +1,15 @@
 require_relative '../spec_helper'
 
 describe PhotosController do
+  integrate_views
+
+  before(:each) do
+   # @photo = FactoryGirl.create(:photo)
+  end
+
   describe "GET reorder" do
     let :restaurant do
+
       restaurant = FactoryGirl.create(:restaurant)
       3.times {restaurant.photos << FactoryGirl.create(:photo)}
 
@@ -47,5 +54,25 @@ describe PhotosController do
       restaurant_with_reordered_photos = Restaurant.find(restaurant.id)
       restaurant_with_reordered_photos.photos.map(&:id).map(&:to_s).should == photo_order
     end
+
+
+    it "index action should render index template" do
+      get :index,:restaurant_id=>restaurant.id
+      response.should render_template(:index)
+    end
+
+    it "edit action should render edit template" do
+      photo = FactoryGirl.create(:photo)
+      get :edit, :id => Photo.first
+      response.should render_template(:action=> "edit")
+    end
+
+    it "update action should render edit template when model is invalid" do
+      photo = FactoryGirl.create(:photo)
+      Photo.any_instance.stubs(:valid?).returns(false)
+      put :update, :id => Photo.first
+      response.should render_template(:action=> "edit")
+    end
+
   end
 end

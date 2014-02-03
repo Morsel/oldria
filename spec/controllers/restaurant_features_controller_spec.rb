@@ -15,15 +15,15 @@ describe RestaurantFeaturesController do
     Restaurant.stubs(:find => @restaurant)
   end
 
-  describe "put create" do
+  # describe "put create" do
 
-    it "passes values to the restaurant and displays back to the bulk edit" do
-      # @restaurant.expects(:reset_features).with([1, 2, 3, 4], [])
-      put :add, :features => [1, 2, 3, 4], :restaurant_id => @restaurant.id, :id => @page.id
-      response.should redirect_to(bulk_edit_restaurant_feature_path(@restaurant, @page))
-    end
+  #   it "passes values to the restaurant and displays back to the bulk edit" do
+  #     # @restaurant.expects(:reset_features).with([1, 2, 3, 4], [])
+  #     put :add, :features => [1, 2, 3, 4], :restaurant_id => @restaurant.id, :id => @page.id
+  #     response.should redirect_to(bulk_edit_restaurant_feature_path(@restaurant, @page))
+  #   end
 
-  end
+  # end
   
   describe "updating top tags" do
     
@@ -35,5 +35,6 @@ describe RestaurantFeaturesController do
       i2.restaurant_feature.top_tag?(@restaurant).should == true
     end
   end
+
 
 end

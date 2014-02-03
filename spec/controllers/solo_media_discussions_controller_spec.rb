@@ -15,4 +15,15 @@ describe SoloMediaDiscussionsController do
       response.should be_redirect
     end
   end
+
+  describe "GET 'read'" do
+    it "should be successful" do
+      discussion = FactoryGirl.create(:solo_media_discussion)
+      discussion.stubs(:employee).returns(@user)
+      get 'read', :id => discussion.id
+      response.should be_success
+    end
+  end
+
+
 end
