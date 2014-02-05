@@ -15,7 +15,7 @@
 			<p>Are these users an employee at your restaurant?</p>
 
 			<% @employees.each do |user| %>
-				<% div_for user, :class => 'box clearfix' do %>
+				<% div_for user, :class => 'employee-box' do %>
 					<%=radio_button_tag(:employee_radio , user.id) %>
 					<%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) %>
 					<h3><%= user.name %></h3>
