@@ -1,12 +1,22 @@
 <% title "HQ Promos" %>
 
-<%= link_to "New Promo", new_admin_hq_promo_path, :class => "button positive" %>
-
-<%= table_for(@promos) do |t| %>
-    <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
-	    t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
-        t.cell(:title)
-        t.cell(:body)
-        t.cell(:link)
-	end %>
-<% end %>
+<%= table_for(@promos, :html => {:id=>"promos"}) do |t| %>
+  <%= t.head do %>
+    <%= t.r do %>
+      <%= t.h('')%>
+      <%= t.h('Title') %>
+      <%= t.h('Body') %>
+      <%= t.h('Link') %>
+      <th></th>
+    <% end %>
+  <% end %>
+  <%= t.body(:html=>{:class=>"ui-sortable"}) do |promo| %>
+    <tr id="promo_<%=promo.id%>" class="promo <%=cycle('odd','even', :name => 'promo')%>">
+      <%= t.d(:class => 'small handle') do %>
+        [drag]
+      <% end %>
+      <%= t.d(h(promo.title)) %>
+      <%= t.d(h(promo.body)) %>
+      <%= t.d(h(promo.link)) %>
+  <% end %>
+<% end %> 

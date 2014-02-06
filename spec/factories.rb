@@ -1040,5 +1040,51 @@ FactoryGirl.define do
    f. page_type  "ProfileQuestion"
   end 
 
+  factory :press_release do |f|  
+   f.title     "Premise"
+   f.pdf_remote_attachment_id "2203  "
+   f.association  :restaurant
+  end 
+
+  factory :profile_cuisine do |f|  
+   f.association  :profile
+   f.association  :cuisine
+  end 
+
+  factory :user_editor do |f|  
+   f.association  :user
+   f.association  :editor
+  end 
+
+  factory :email_stopword , :class => Admin::EmailStopword do |f|  
+   f.phrase  "Matt Steigerwald Lincoln Cafe / Lincoln Winebar Fo..."
+  end 
+
+  factory :hq_promo  do |f|  
+   f.position  "1"
+   f.title  "Soapbox Spotlight: Specialties"
+   f.body  "Click on the on any profile to gathe..."
+  end 
+
+  factory :promos  do |f|  
+   f.title  "Soapbox Spotlight: Specialties"
+   f.body  "Click on the on any profile to gathe..."
+   f.link  "http://soapbox.restaurantintelligenceagency.com/so..."
+   f.position  "32"
+   f.type  "HqPromo"
+   f.link_text  "Check out Spoonfeed"
+  end 
+
+  factory :mediafeed_promo  do |f|  
+   f.title  "Soapbox Spotlight: Specialties"
+   f.body  "Click on the on any profile to gathe..."
+   f.link  "http://soapbox.restaurantintelligenceagency.com/so..."
+   f.position  "32"
+   f.type  "HqPromo"
+   f.link_text  "Check out Spoonfeed"
+  end 
+
+
+
 end
 
