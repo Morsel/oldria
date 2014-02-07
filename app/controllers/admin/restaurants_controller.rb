@@ -44,9 +44,10 @@ class Admin::RestaurantsController < Admin::AdminController
       redirect_to bulk_edit_restaurant_photos_path(@restaurant)
     else
       flash[:error] = "We were unable to update the restaurant"
-      render :edit_photos
+      #render :edit_photos
+      redirect_to bulk_edit_restaurant_photos_path(@restaurant)
     end
-    redirect_to bulk_edit_restaurant_photos_path(@restaurant)
+    
   end
 
   def edit_photos
