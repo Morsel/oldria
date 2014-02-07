@@ -1,93 +1,97 @@
 require_relative '../../spec_helper'
 
 describe Admin::RestaurantsController do
+
   integrate_views
-  before do
+
+  before(:each) do
+    @restaurant = FactoryGirl.create(:restaurant)
     @user = FactoryGirl.create(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
+    controller.stubs(:require_admin).returns(true)
   end
 
   describe "GET index" do
-    before do
-      @restaurants = [FactoryGirl.create(:restaurant, :name => "Jims")]
-      Restaurant.stubs(:find).returns(@restaurants)
+    it "assigns all restaurant as @restaurant" do
+      Restaurant.stubs(:find).returns([@restaurant])
       get :index
-    end
-
-    it "should be successful" do
-      response.should be_success
-    end
-
-    it "should assign @restaurants" do
-      assigns[:restaurants].should == @restaurants
-    end
-
-    it "should render index" do
-      response.should render_template(:index)
-    end
-
-    it "should list @restaurants" do
-      response.should contain("Jims")
-    end
-  end
-
-  describe "GET edit" do
-    before do
-      @restaurant = FactoryGirl.create(:restaurant, :name => "HiLo")
-      Restaurant.stubs(:find).returns(@restaurant)
-      get :edit, :id => @restaurant.id
-    end
-
-    it { response.should be_success }
-    it { response.should render_template(:edit) }
-
-    it "should assign @restaurant" do
-      assigns[:restaurant].should == @restaurant
+      assigns[:restaurants].should == [@restaurant]
     end
   end
 
   describe "PUT update" do
-    before do
-      @restaurant = FactoryGirl.create(:restaurant, :name => "HiLo")
-      Restaurant.stubs(:find).returns(@restaurant)
+
+    describe "with valid params" do
+      before(:each) do
+        Restaurant.stubs(:find).returns(@restaurant)
+        Restaurant.any_instance.stubs(:update_attributes).returns(true)
+      end
+
+      it "updates the requested restaurant" do
+        Restaurant.expects(:find).with("37").returns(@restaurant)
+        put :update, :id => "37", :restaurant => {:these => 'params'}
+      end
+
+      it "assigns the requested restaurant as @restaurant" do
+        Restaurant.stubs(:find).returns(@restaurant)
+        put :update, :id => "1"
+        assigns[:restaurant].should equal(@restaurant)
+      end
+
+      it "redirects to all restaurant" do
+        Restaurant.stubs(:find).returns(@restaurant)
+        put :update, :id => "1"
+        response.should redirect_to admin_restaurants_path
+      end
     end
 
-    context "when restaurant is valid" do
-      before do
-        @restaurant.stubs(:save).returns(true)
-        put :update, :id => @restaurant.id, :restaurant => {}
+    describe "with invalid params" do
+      before(:each) do
+        Restaurant.stubs(:find).returns(@restaurant)
+        Restaurant.any_instance.stubs(:update_attributes).returns(false)
       end
 
-      it { response.should redirect_to(admin_restaurants_path) }
-
-      it "should flash a notice message" do
-        request.flash[:notice].should_not be_nil
-      end
-    end
-
-    context "when restaurant is not valid" do
-      before do
-        @restaurant.stubs(:save).returns(false)
-        put :update, :id => @restaurant.id, :restaurant => {}
+      it "updates the requested restaurant" do
+        Restaurant.expects(:find).with("37").returns(@restaurant)
+        put :update, :id => "37", :restaurant => {:these => 'params'}
       end
 
-      it { response.should render_template(:edit) }
+      it "assigns the restaurant as @restaurant" do
+        put :update, :id => "1"
+        assigns[:restaurant].should equal(@restaurant)
+      end
 
-      it "should flash an error message" do
-        request.flash[:error].should_not be_nil
+      it "re-renders the 'edit' template" do
+        Restaurant.stubs(:find).returns(@restaurant)
+        put :update, :id => "1"
+        response.should render_template(:action=> "edit")
       end
     end
   end
 
   describe "DELETE destroy" do
-    before do
-      @restaurant = FactoryGirl.create(:restaurant, :name => "What!")
-      @restaurant.expects(:destroy).returns(@restaurant)
-      Restaurant.stubs(:find).returns(@restaurant)
-      delete :destroy, :id => @restaurant.id
+    it "destroys the requested restaurant" do
+      Restaurant.expects(:find).with("37").returns(@restaurant)
+      @restaurant.expects(:destroy)
+      delete :destroy, :id => "37"
+      response.should redirect_to(admin_restaurants_path)
     end
-
-    it { response.should redirect_to(admin_restaurants_path)}
   end
+
+  describe "invalid_employments" do
+    it "invalid_employments" do
+      get :invalid_employments, :id => @restaurant.id
+      response.should render_template(:invalid_employments)
+    end
+  end
+
+  describe "select_primary_photo" do
+    it "select_primary_photo" do
+      get :select_primary_photo, :id => @restaurant.id
+      response.should be_success
+    end
+  end
+
+ 
 end

@@ -1084,6 +1084,14 @@ FactoryGirl.define do
    f.link_text  "Check out Spoonfeed"
   end 
 
+  factory :sf_promo  do |f|  
+   f.title  "Soapbox Spotlight: Specialties"
+   f.body  "Click on the on any profile to gathe..."
+   f.link  "http://soapbox.restaurantintelligenceagency.com/so..."
+   f.position  "32"
+   f.type  "HqPromo"
+   f.link_text  "Check out Spoonfeed"
+  end 
 
 
 end
