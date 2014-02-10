@@ -1,6 +1,21 @@
 require_relative '../../spec_helper'
+module Soapbox
+  describe Soapbox::RestaurantsController do
+  integrate_views
 
-describe Soapbox::RestaurantsController do
+  before(:each) do
+    @restaurant = FactoryGirl.create(:restaurant)
+    @user = FactoryGirl.create(:admin)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
+    controller.stubs(:require_admin).returns(true)
+  end
+  
+  it "Work for show condition" do
+    get  :show,:id => @restaurant.id 
+    response.should be_redirect
+  end
+
   describe "GET show" do
 
     let(:restaurant) { FactoryGirl.create(:restaurant) }
@@ -40,14 +55,6 @@ describe Soapbox::RestaurantsController do
       # client.stubs(:list_update_member).returns(true)
     end
 
-    it "should allow a newsletter subscriber to add a restaurant subscription" do
-      cookies['newsletter_subscriber_id'] = @subscriber.id
-      NewsletterSubscription.count.should == 0
-
-      post :subscribe, :id => @restaurant.id
-      NewsletterSubscription.count.should == 1
-    end
-
     it "should allow a newsletter subscriber to remove a restaurant subscription" do
       cookies['newsletter_subscriber_id'] = @subscriber.id
       NewsletterSubscription.create(:restaurant => @restaurant, :newsletter_subscriber => @subscriber)
@@ -59,4 +66,5 @@ describe Soapbox::RestaurantsController do
 
   end
 
-end
+  end
+end 
