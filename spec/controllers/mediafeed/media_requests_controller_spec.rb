@@ -72,4 +72,43 @@ describe Mediafeed::MediaRequestsController do
       assigns[:media_request].publication.should == @user.publication
     end
   end
+
+  describe "GET index" do
+    it "assigns all media_request as @media_request" do
+    @media_request = FactoryGirl.create(:media_request, :sender => @user)
+      MediaRequest.stubs(:find).returns([@media_request])
+      get :index
+      assigns[:media_requests].should == [@media_request]
+    end
+  end
+
+  describe "GET show" do
+    it "Render the show template" do
+    @media_request = FactoryGirl.create(:media_request, :sender => @user)
+      MediaRequest.stubs(:find).returns([@media_request])
+      get :show
+      response.should render_template("layouts/application", "show")
+    end
+  end
+
+  describe "DELETE destroy" do
+    it "destroys the requested media_request" do
+      @media_request = FactoryGirl.create(:media_request, :sender => @user)
+      MediaRequest.expects(:find).with("37").returns(@media_request)
+      @media_request.expects(:destroy)
+      delete :destroy, :id => "37"
+      response.should redirect_to(media_requests_url) 
+    end
+  end
+
+  describe "GET discussion" do
+    it "Render the discussion template" do
+    @media_request = FactoryGirl.create(:media_request, :sender => @user)
+      MediaRequest.stubs(:find).returns([@media_request])
+      get :discussion,:discussion_type => "test"
+      response.should render_template("layouts/application", "discussion")
+    end
+  end
+
+
 end
