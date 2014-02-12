@@ -7,13 +7,14 @@ describe AdminMessagesController do
     @admin_message = FactoryGirl.create(:admin_message)
   end
 
-  describe "GET read" do
-    it "assigns all admin_message as @admin_message" do
-      get :read,:id=>@admin_message.id
-      response.body.should == " "
-    end
+  it "show action should render show template" do
+    get :show, :id => Admin::Message.first
+    response.should be_success
   end
 
-
+  it "show action should render show template" do
+    get :read, :id => Admin::Message.first
+    response.should be_success
+  end
 
 end   

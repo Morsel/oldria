@@ -28,4 +28,14 @@ describe CompetitionsController do
     delete :destroy, :id => competition.id, :profile_id => competition.profile
   end
 
+  it "edit action should render edit template" do
+    get :edit, :id => Competition.first
+    response.should be_success
+  end
+
+  it "create action should render new template when model is invalid" do
+    Competition.any_instance.stubs(:valid?).returns(false)
+    post :create
+    response.should be_success
+  end
 end

@@ -49,14 +49,11 @@ describe DiscussionsController do
 
       it { response.should redirect_to(discussion_path(@discussion)) }
     end
-
-    context "when discussion is valid" do
-      before do
-        Discussion.any_instance.expects(:valid?).returns(false)
-        post :create, :discussion => {}
-      end
-
-      it { response.should render_template(:new) }
-    end
   end
+
+  it "index action should render index template" do
+    get :index
+    response.should render_template(:index)
+  end
+
 end

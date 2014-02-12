@@ -36,4 +36,18 @@ describe Users::BehindTheLineController do
 
   end
 
+  it "Work for chapter" do
+    profile_user = FactoryGirl.create(:user)
+    role = FactoryGirl.create(:restaurant_role)
+    employment = FactoryGirl.create(:employment, :restaurant_role => role, :employee => profile_user)
+    profile_user.stubs(:primary_employment).returns(employment)
+    question_role = FactoryGirl.create(:question_role, :restaurant_role => role)
+    question = FactoryGirl.create(:profile_question, :question_roles => [question_role])
+    FactoryGirl.create(:profile_answer, :profile_question => question, :user => profile_user)
+    get :chapter,:id=>chapter.id, :user_id => profile_user.id
+    response.should render_template(:new)
+  end
+
+
+
 end
