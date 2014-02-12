@@ -39,4 +39,5 @@ describe CommentsController do
       delete :destroy, :id => comment.id
     end
   end
+
 end

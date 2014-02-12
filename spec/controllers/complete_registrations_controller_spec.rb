@@ -48,4 +48,10 @@ describe CompleteRegistrationsController do
     end
   end
 
+  it "should update a competition" do
+    restaurant = FactoryGirl.create(:restaurant)
+    Competition.stubs(:find).returns(restaurant)
+    restaurant.expects(:update_attributes).with("name" => "new name").returns(true)
+    put :update, :id => restaurant.id,:user=>@user.id, :user => { :user => @user }
+  end
 end   

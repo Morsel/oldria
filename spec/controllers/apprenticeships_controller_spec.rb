@@ -29,4 +29,17 @@ describe ApprenticeshipsController do
     delete :destroy, :id => apprenticeship.id, :profile_id => apprenticeship.profile
   end
 
+  it "edit action should render edit template" do
+    get :edit
+    response.should render_template(:edit)
+  end
+
+  it "create action should render new template when model is invalid" do
+    apprenticeship = FactoryGirl.create(:apprenticeship)
+    Apprenticeship.any_instance.stubs(:valid?).returns(false)
+    post :create
+    response.should be_success
+  end
+
+
 end
