@@ -20,4 +20,9 @@ describe FrontBurnerController do
     response.should render_template(:user_qotds)
   end
 
+  it "qotd" do
+    get :qotd,:id=>@user.id
+    response.should be_success
+  end  
+
 end
