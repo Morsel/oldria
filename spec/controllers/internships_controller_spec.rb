@@ -32,4 +32,15 @@ describe InternshipsController do
     delete :destroy, :id => internship.id, :profile_id => internship.profile
   end
 
+  it "new action should render new template" do
+    get :new
+    response.should render_template(:new)
+  end
+
+  it "edit action should render edit template" do
+    get :edit
+    response.should render_template(:edit)
+  end
+
+
 end

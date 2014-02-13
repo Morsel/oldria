@@ -20,6 +20,14 @@ describe EmploymentsController do
       restaurant.reload.employments.by_position.should == [@employment_b, @employment_c, @employment_a]
     end
 
+    it "should update" do
+      put :update,:id=> @employment_a.id, :restaurant_id => restaurant.id
+      response.should redirect_to(bulk_edit_restaurant_employees_path(restaurant))
+    end
+
+
+
+
   end
 
 end

@@ -22,5 +22,10 @@ describe HolidayDiscussionsController do
     response.should redirect_to (admin_holiday_path(@holiday_discussion.holiday))
   end
 
+  it "Read" do
+    put :read, :id => HolidayDiscussion.first
+    response.should be_success
+  end
+
 
 end
