@@ -1,5 +1,6 @@
 require_relative '../spec_helper'
-
+require 'openssl'
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 describe PhotosController do
   integrate_views
 
@@ -74,5 +75,10 @@ describe PhotosController do
       response.should render_template(:action=> "edit")
     end
 
+    it "show_sizes" do
+      photo = FactoryGirl.create(:photo)
+      put :show_sizes, :id => Photo.first
+      response.should be_success
+    end
   end
 end

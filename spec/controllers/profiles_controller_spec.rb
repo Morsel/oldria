@@ -1,63 +1,75 @@
 require_relative '../spec_helper'
 
 describe ProfilesController do
+  integrate_views
 
-  describe "editing and updating profiles" do
-
-    before(:each) do
-      fake_normal_user
-      profile = FactoryGirl.create(:profile, :user => @user)
-      @user.stubs(:profile).returns(profile)
-      User.stubs(:find).returns(@user)
-    end
-
-    it "edit action should render edit template" do
-      get :edit, :user_id => @user.id
-      response.should render_template(:edit)
-    end
-
-    it "update action should render edit template when model is invalid" do
-      Profile.any_instance.stubs(:valid?).returns(false)
-      put :update, :user_id => @user.id
-      response.should render_template(:edit)
-    end
-
-    it "update action should redirect when model is valid" do
-      Profile.any_instance.stubs(:valid?).returns(true)
-      put :update, :user_id => @user.id
-      response.should redirect_to( edit_user_profile_path(:user_id => @user.id, :anchor => "profile-summary") )
-    end
-
-    it "should set the primary employment" do
-      employment = FactoryGirl.create(:employment, :employee => @user)
-      employment2 = FactoryGirl.create(:employment, :employee => @user)
-      put :update, :user_id => @user.id, :profile => { :primary_employment => [employment2.id.to_s] }
-      @user.primary_employment.should == employment2
-    end
-
-    it "should clear an old primary employment" do
-      employment = FactoryGirl.create(:employment, :employee => @user)
-      employment2 = FactoryGirl.create(:employment, :employee => @user, :primary => true)
-      put :update, :user_id => @user.id, :profile => { :primary_employment => [employment.id.to_s] }
-      @user.primary_employment.should == employment
-      Employment.find(employment2.id).primary.should == false
-    end
-
+  before(:each) do
+    @user = FactoryGirl.create(:admin)
+    @profile = FactoryGirl.create(:profile,:user_id=>@user.id)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
+    controller.stubs(:require_admin).returns(true)
   end
 
-  describe "creating a new profile" do
+  describe "POST create" do
 
-    before(:each) do
-      fake_normal_user
-      User.stubs(:find).returns(@user)
+    describe "with valid params" do
+      before(:each) do
+        Profile.stubs(:new).returns(@profile)
+        Profile.any_instance.stubs(:save).returns(true)
+      end
+
+      it "assigns a newly created profile as @profile" do
+        post :create, :profile => {}, :user_id => @user.id
+        assigns[:profile].should equal(@profile)
+      end
+
+      it "redirects to the created profile" do
+        post :create, :profile => {}, :user_id => @user.id
+        response.should be_redirect
+      end
     end
 
-    it "should set the primary employment when creating a new profile" do
-      employment = FactoryGirl.create(:employment, :employee => @user)
-      employment2 = FactoryGirl.create(:employment, :employee => @user)
-      post :create, :user_id => @user.id, :profile => { :primary_employment => [employment.id.to_s] }
-      @user.primary_employment.should == employment
-    end
+    describe "with invalid params" do
+      before(:each) do
+        Profile.any_instance.stubs(:save).returns(false)
+        Profile.stubs(:new).returns(@profile)
+      end
 
+      it "assigns a newly created but unsaved profile as @profile" do
+        post :create, :profile => {:these => 'params'}, :user_id => @user.id
+        assigns[:profile].should equal(@profile)
+      end
+    end
+  end
+
+  it "edit action should render edit template" do
+    get :edit, :id => Profile.first, :user_id => @user.id
+    response.should render_template(:edit)
+  end
+
+  it "edit_btl" do
+    get :edit_btl, :id => Profile.first, :user_id => @user.id
+    response.should be_success
+  end
+
+  it "edit_front_burner" do
+    get :edit_front_burner, :id => Profile.first, :user_id => @user.id
+    response.should be_success
+  end
+  
+  it "toggle_publish_profile" do
+    get :toggle_publish_profile, :user_id => @user.id
+    response.should be_success
+  end
+
+  it "add_role_form" do
+    get :add_role_form, :user_id => @user.id
+    response.should be_success
+  end
+
+  it "save_cusines" do
+    get :save_cusines, :user_id => @user.id
+    response.should be_success
   end
 end
