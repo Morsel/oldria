@@ -21,4 +21,13 @@ describe ProfileCuisinesController do
     response.should render_template(:new)
   end
 
+  describe "DELETE destroy" do
+    it "destroys the requested profile_cuisine" do
+      delete :destroy, :id => "37"
+      response.should be_success
+    end
+  end
+  
+
+
 end
